@@ -334,6 +334,7 @@ export default function DesignSystemPage() {
 
           
           
+          
           <div className="organic-glass-panel p-8 md:p-12 flex flex-col gap-12">
             {[
               { token: ".text-display-xl", name: "Display XL", text: "Artisanal Coffee", details: `Size: clamp(3.5rem, 6vw, 6rem)
@@ -378,11 +379,17 @@ Line-height: 1.5`} />
             <TypeRow token=".text-body-2xl" name="Body 2XL" font={previewSecondaryFont} text="This is the largest body text, used for premium reading experiences." overrideFont={previewSecondaryFont} details={`Size: 1.5rem
 Weight: 400
 Line-height: 1.5`} />
+            <TypeRow token=".text-body-2xl-light" name="Body 2XL Light" font={previewSecondaryFont} text="This is the largest body text, with a lighter weight." overrideFont={previewSecondaryFont} details={`Size: 1.5rem
+Weight: 300
+Line-height: 1.5`} />
             <TypeRow token=".text-body-xl" name="Body XL" font={previewSecondaryFont} text="Extra large body text, providing excellent legibility." overrideFont={previewSecondaryFont} details={`Size: 1.25rem
 Weight: 400
 Line-height: 1.5`} />
             <TypeRow token=".text-body-lg" name="Body LG" font={previewSecondaryFont} text="Large body text, offering a comfortable reading rhythm." overrideFont={previewSecondaryFont} details={`Size: 1.125rem
 Weight: 400
+Line-height: 1.6`} />
+            <TypeRow token=".text-body-lg-light" name="Body LG Light" font={previewSecondaryFont} text="Large body text, with a lighter, elegant weight." overrideFont={previewSecondaryFont} details={`Size: 1.125rem
+Weight: 300
 Line-height: 1.6`} />
             <TypeRow token=".text-body-md" name="Body MD" font={previewSecondaryFont} text="Medium body text, the standard for article paragraphs." overrideFont={previewSecondaryFont} details={`Size: 1rem
 Weight: 400
@@ -390,8 +397,14 @@ Line-height: 1.6`} />
             <TypeRow token=".text-body" name="Body" font={previewSecondaryFont} text="Our beans are carefully hand-picked by local farmers who have dedicated generations." overrideFont={previewSecondaryFont} details={`Size: 1rem
 Weight: 400
 Line-height: 1.6`} />
+            <TypeRow token=".text-body-light" name="Body Light" font={previewSecondaryFont} text="Our beans are carefully hand-picked, shown in light weight." overrideFont={previewSecondaryFont} details={`Size: 1rem
+Weight: 300
+Line-height: 1.6`} />
             <TypeRow token=".text-body-sm" name="Body SM" font={previewSecondaryFont} text="Small body text, used for secondary descriptions and minor details." overrideFont={previewSecondaryFont} details={`Size: 0.875rem
 Weight: 400
+Line-height: 1.6`} />
+            <TypeRow token=".text-body-sm-light" name="Body SM Light" font={previewSecondaryFont} text="Small body text in a delicate light weight." overrideFont={previewSecondaryFont} details={`Size: 0.875rem
+Weight: 300
 Line-height: 1.6`} />
             <TypeRow token=".text-body-xs" name="Body XS" font={previewSecondaryFont} text="Extra small body text, for dense information areas." overrideFont={previewSecondaryFont} details={`Size: 0.75rem
 Weight: 400
@@ -405,6 +418,7 @@ Font: Monospace`} />
 Weight: 400
 Line-height: 1.5`} />
           </div>
+
 
 
         </section>
