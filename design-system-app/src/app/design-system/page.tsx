@@ -8,8 +8,8 @@ export default function DesignSystemPage() {
   const [isDark, setIsDark] = useState(false);
   const [sandboxBg, setSandboxBg] = useState("bg-[var(--color-surface-BG-base)]");
   const [sandboxTextColor, setSandboxTextColor] = useState("text-[var(--color-text-primary)]");
-  const [previewFont, setPreviewFont] = useState("bebas");
-  const [previewSecondaryFont, setPreviewSecondaryFont] = useState("inter");
+  const [previewFont, setPreviewFont] = useState("dmsans");
+  const [previewSecondaryFont, setPreviewSecondaryFont] = useState("dmsans");
   
   // Spacing States
   const [activeInternalGap, setActiveInternalGap] = useState("gap-2");
@@ -329,24 +329,6 @@ export default function DesignSystemPage() {
             </div>
             
             <div className="flex flex-wrap gap-4 shrink-0">
-
-
-              <div className="flex flex-col gap-2">
-                <span className="text-ui-label text-[var(--color-text-muted)]">Secondary Body Font</span>
-                <div className="flex bg-[var(--color-surface-BG-1)] p-1 rounded-xl w-fit shadow-sm">
-                  <select 
-                    className="bg-transparent text-[var(--color-text-primary)] text-body-sm font-medium px-4 py-2 outline-none cursor-pointer"
-                    value={previewSecondaryFont}
-                    onChange={(e) => setPreviewSecondaryFont(e.target.value)}
-                  >
-                    <option value="dmsans">DM Sans</option>
-                    <option value="montserrat">Montserrat</option>
-                    <option value="lato">Lato</option>
-                    <option value="tenor-sans">Tenor Sans</option>
-                    <option value="syne">Syne</option>
-                  </select>
-                </div>
-              </div>
             </div>
           </div>
 

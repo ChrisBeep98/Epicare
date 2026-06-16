@@ -345,8 +345,14 @@
   
   .text-overline { font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
   .text-subtitle { font-size: clamp(1.125rem, 2vw, 1.5rem); line-height: 1.5; font-weight: 400; opacity: 0.9; }
+  .text-body-2xl { font-size: 1.5rem; line-height: 1.5; font-weight: 400; }
+  .text-body-xl { font-size: 1.25rem; line-height: 1.5; font-weight: 400; }
+  .text-body-lg { font-size: 1.125rem; line-height: 1.6; font-weight: 400; }
+  .text-body-md { font-size: 1rem; line-height: 1.6; font-weight: 400; }
   .text-body { font-size: 1rem; line-height: 1.6; font-weight: 400; }
   .text-body-sm { font-size: 0.875rem; line-height: 1.6; font-weight: 400; }
+  .text-body-xs { font-size: 0.75rem; line-height: 1.6; font-weight: 400; }
+  .text-data { font-size: 1rem; font-family: monospace; }
   .text-caption { font-size: 0.75rem; line-height: 1.5; font-weight: 400; opacity: 0.8; }
   .text-ui-label { font-size: 0.875rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; }
 
