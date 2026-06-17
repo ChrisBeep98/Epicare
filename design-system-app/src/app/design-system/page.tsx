@@ -657,7 +657,7 @@ Line-height: 1.5`} />
         </section>
       </div>
 
-                {/* --- SECTION 6: LAYOUT MAX WIDTHS --- */}
+                        {/* --- SECTION 6: LAYOUT MAX WIDTHS --- */}
         <section className="mb-32">
           <div className="mb-12 text-center">
             <h2 className="text-h1">6. Desktop Layout Max-Width</h2>
@@ -686,9 +686,12 @@ Line-height: 1.5`} />
             </div>
 
             {/* Interactive Demo at Real Scale */}
-            <div className="w-full bg-[var(--color-surface-BG-1)] border border-[var(--color-border-Strokes-default)] rounded-3xl py-16 overflow-x-auto relative flex flex-col">
-               {/* Resizing Container (Real Scale) */}
-               <div className={`${activeMaxWidth} bg-[var(--color-surface-BG-base)] border border-[var(--color-border-Strokes-default)] rounded-2xl p-6 shadow-2xl transition-all duration-500 mx-auto min-w-[768px]`}>
+            <div className="w-full bg-[var(--color-surface-BG-1)] border border-[var(--color-border-Strokes-default)] rounded-3xl py-16 overflow-x-auto relative">
+               {/* Resizing Container (Forced Real Scale) */}
+               <div 
+                  className="bg-[var(--color-surface-BG-base)] border border-[var(--color-border-Strokes-default)] rounded-2xl p-6 shadow-2xl transition-all duration-500 mx-auto flex flex-col"
+                  style={{ width: `var(--${activeMaxWidth})` }}
+               >
                  {/* Fake UI Header */}
                  <div className="flex justify-between items-center border-b border-[var(--color-border-Strokes-default)]/50 pb-4 mb-6">
                    <div className="flex flex-col">
@@ -704,13 +707,13 @@ Line-height: 1.5`} />
                  {/* Fake Data Grid */}
                  <div className="flex gap-4 mb-4">
                    <div className="flex-1 h-24 bg-[var(--color-surface-BG-1)] rounded-xl"></div>
-                   <div className="flex-1 h-24 bg-[var(--color-surface-BG-1)] rounded-xl hidden sm:block"></div>
-                   <div className="flex-1 h-24 bg-[var(--color-surface-BG-1)] rounded-xl hidden md:block"></div>
-                   <div className="flex-1 h-24 bg-[var(--color-surface-BG-1)] rounded-xl hidden lg:block"></div>
+                   <div className="flex-1 h-24 bg-[var(--color-surface-BG-1)] rounded-xl"></div>
+                   <div className="flex-1 h-24 bg-[var(--color-surface-BG-1)] rounded-xl"></div>
+                   <div className="flex-1 h-24 bg-[var(--color-surface-BG-1)] rounded-xl"></div>
                  </div>
                  <div className="flex-1 bg-[var(--color-surface-BG-1)] rounded-xl flex items-center justify-center min-h-[200px]">
                     <p className="text-body-sm text-[var(--color-text-hint)] text-center">
-                       Contenido restringido a<br/>
+                       Contenido a tamaño real: <br/>
                        <strong>{activeMaxWidth}</strong>
                     </p>
                  </div>
