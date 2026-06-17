@@ -31,7 +31,7 @@ export default function SpacingCard({
                 <button
                   key={opt}
                   onClick={() => onOptionChange(opt)}
-                  className={`px-2 py-0.5 rounded-md text-[0.625rem] font-bold uppercase transition-all ${activeOption === opt ? 'bg-[var(--color-surface-BG-base)] text-[var(--color-text-primary)] shadow-sm' : 'text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]'}`}
+                  className={`px-2 py-0.5 rounded-md text-[0.625rem] font-bold uppercase transition-all ${activeOption === opt ? 'bg-[var(--color-surface-BG-base)] text-[var(--color-text-primary)] shadow-elevation-1' : 'text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]'}`}
                 >
                   {opt.replace('py-section-', '').replace('gap-', '').replace('px-gutter-', '')}
                 </button>

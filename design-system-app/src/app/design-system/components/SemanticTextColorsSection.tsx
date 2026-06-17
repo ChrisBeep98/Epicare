@@ -50,7 +50,7 @@ export default function SemanticTextColorsSection({ isDark }: { isDark: boolean 
                       <button 
                         key={tc.id}
                         onClick={() => setSandboxTextColor(tc.id)}
-                        className={`px-3 py-1 rounded-full text-caption font-medium transition-all border ${sandboxTextColor === tc.id ? 'bg-[var(--color-text-primary)] text-[var(--color-text-primary-Reverted)] border-foreground shadow-md' : 'bg-transparent text-[var(--color-text-primary)] border-[var(--color-border-Strokes-default)] hover:bg-[var(--color-surface-BG-1)]'}`}
+                        className={`px-3 py-1 rounded-full text-caption font-medium transition-all border ${sandboxTextColor === tc.id ? 'bg-[var(--color-text-primary)] text-[var(--color-text-primary-Reverted)] border-foreground shadow-elevation-2' : 'bg-transparent text-[var(--color-text-primary)] border-[var(--color-border-Strokes-default)] hover:bg-[var(--color-surface-BG-1)]'}`}
                       >
                         {tc.label}
                       </button>
@@ -73,7 +73,7 @@ export default function SemanticTextColorsSection({ isDark }: { isDark: boolean 
               </div>
             </div>
 
-            <div className={`p-10 md:p-16 rounded-3xl transition-colors duration-500 ${sandboxBg} ${['bg-[var(--color-surface-BG-2)]', 'bg-[var(--color-surface-BG-3)]'].includes(sandboxBg) ? 'dark shadow-2xl' : 'shadow-sm border border-[var(--color-border-Strokes-default)]/50'}`}>
+            <div className={`p-10 md:p-16 rounded-3xl transition-colors duration-500 ${sandboxBg} ${['bg-[var(--color-surface-BG-2)]', 'bg-[var(--color-surface-BG-3)]'].includes(sandboxBg) ? 'dark shadow-elevation-5' : 'shadow-elevation-1 border border-[var(--color-border-Strokes-default)]/50'}`}>
               <div className="max-w-3xl mx-auto flex flex-col gap-8 items-start">
                 <div className="inline-block px-3 py-1 bg-black/5 dark:bg-white/10 rounded-full mb-2">
                   <span className="text-caption font-mono opacity-60">Applied class: {sandboxTextColor}</span>

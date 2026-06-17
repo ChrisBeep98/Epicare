@@ -90,15 +90,15 @@ export default function SpacingSection() {
                       <span className="w-6 h-6 bg-[var(--color-text-primary)] text-[var(--color-text-primary-Reverted)] rounded-full flex items-center justify-center text-[0.625rem]">01</span>
                       Page Frame Strategy
                     </h5>
-                    <div className="flex gap-1 bg-[var(--color-surface-BG-1)] p-1 rounded-xl w-fit shadow-sm">
+                    <div className="flex gap-1 bg-[var(--color-surface-BG-1)] p-1 rounded-xl w-fit shadow-elevation-1">
                       {['px-gutter-sm', 'px-gutter-md', 'px-gutter-lg', 'px-gutter-xl'].map(opt => (
-                        <button key={opt} onClick={() => setActivePageGutter(opt)} className={`px-3 py-1 rounded-lg text-[0.625rem] font-bold uppercase transition-all ${activePageGutter === opt ? 'bg-[var(--color-surface-BG-base)] text-[var(--color-text-primary)] shadow-md' : 'text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]'}`}>
+                        <button key={opt} onClick={() => setActivePageGutter(opt)} className={`px-3 py-1 rounded-lg text-[0.625rem] font-bold uppercase transition-all ${activePageGutter === opt ? 'bg-[var(--color-surface-BG-base)] text-[var(--color-text-primary)] shadow-elevation-2' : 'text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]'}`}>
                           {opt.replace('px-gutter-', '')}
                         </button>
                       ))}
                     </div>
                   </div>
-                  <div className="w-full bg-[var(--color-surface-BG-base)] border border-[var(--color-border-Strokes-default)] rounded-2xl relative h-48 overflow-hidden flex items-center justify-center shadow-xl transition-all duration-500">
+                  <div className="w-full bg-[var(--color-surface-BG-base)] border border-[var(--color-border-Strokes-default)] rounded-2xl relative h-48 overflow-hidden flex items-center justify-center shadow-elevation-4 transition-all duration-500">
                     <div className="absolute inset-y-0 left-0 bg-salento-terracotta/10 border-r border-dashed border-salento-terracotta/30 flex items-center justify-center transition-all duration-500" style={{ width: `var(--space-gutter-${activePageGutter.replace('px-gutter-', '')})` }}>
                       <span className="text-[0.625rem] font-mono text-[var(--color-brand-orange)] rotate-90 whitespace-nowrap">{activePageGutter}</span>
                     </div>
@@ -116,15 +116,15 @@ export default function SpacingSection() {
                       <span className="w-6 h-6 bg-[var(--color-text-primary)] text-[var(--color-text-primary-Reverted)] rounded-full flex items-center justify-center text-[0.625rem]">02</span>
                       Vertical Section Rhythm
                     </h5>
-                    <div className="flex gap-1 bg-[var(--color-surface-BG-1)] p-1 rounded-xl w-fit shadow-sm">
+                    <div className="flex gap-1 bg-[var(--color-surface-BG-1)] p-1 rounded-xl w-fit shadow-elevation-1">
                       {['py-section-xs', 'py-section-sm', 'py-section-md', 'py-section-lg'].map(opt => (
-                        <button key={opt} onClick={() => setActiveSectionPadding(opt)} className={`px-3 py-1 rounded-lg text-[0.625rem] font-bold uppercase transition-all ${activeSectionPadding === opt ? 'bg-[var(--color-surface-BG-base)] text-[var(--color-text-primary)] shadow-md' : 'text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]'}`}>
+                        <button key={opt} onClick={() => setActiveSectionPadding(opt)} className={`px-3 py-1 rounded-lg text-[0.625rem] font-bold uppercase transition-all ${activeSectionPadding === opt ? 'bg-[var(--color-surface-BG-base)] text-[var(--color-text-primary)] shadow-elevation-2' : 'text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]'}`}>
                           {opt.replace('py-section-', '')}
                         </button>
                       ))}
                     </div>
                   </div>
-                  <div className="bg-[var(--color-surface-BG-base)] border border-[var(--color-border-Strokes-default)] rounded-2xl overflow-hidden shadow-xl transition-all duration-500">
+                  <div className="bg-[var(--color-surface-BG-base)] border border-[var(--color-border-Strokes-default)] rounded-2xl overflow-hidden shadow-elevation-4 transition-all duration-500">
                     <div className="bg-[var(--color-surface-BG-2)]/10 border-b border-dashed border-salento-mocha/30 flex items-center justify-center transition-all duration-500" style={{ height: `var(--space-section-${activeSectionPadding.replace('py-section-', '')})` }}>
                       <span className="text-[0.625rem] font-mono text-salento-mocha uppercase font-bold">{activeSectionPadding}</span>
                     </div>
@@ -142,21 +142,21 @@ export default function SpacingSection() {
                       <span className="w-6 h-6 bg-[var(--color-text-primary)] text-[var(--color-text-primary-Reverted)] rounded-full flex items-center justify-center text-[0.625rem]">03</span>
                       Column Separation
                     </h5>
-                    <div className="flex gap-1 bg-[var(--color-surface-BG-1)] p-1 rounded-xl w-fit shadow-sm">
+                    <div className="flex gap-1 bg-[var(--color-surface-BG-1)] p-1 rounded-xl w-fit shadow-elevation-1">
                       {['gap-fluid-xs', 'gap-fluid-sm', 'gap-fluid-md', 'gap-fluid-lg'].map(opt => (
-                        <button key={opt} onClick={() => setActiveFluidGap(opt)} className={`px-3 py-1 rounded-lg text-[0.625rem] font-bold uppercase transition-all ${activeFluidGap === opt ? 'bg-[var(--color-surface-BG-base)] text-[var(--color-text-primary)] shadow-md' : 'text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]'}`}>
+                        <button key={opt} onClick={() => setActiveFluidGap(opt)} className={`px-3 py-1 rounded-lg text-[0.625rem] font-bold uppercase transition-all ${activeFluidGap === opt ? 'bg-[var(--color-surface-BG-base)] text-[var(--color-text-primary)] shadow-elevation-2' : 'text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]'}`}>
                           {opt.replace('gap-fluid-', '')}
                         </button>
                       ))}
                     </div>
                   </div>
                   <div className={`flex ${activeFluidGap} p-8 border border-dashed border-salento-moss/30 bg-[var(--color-surface-BG-3)]/5 rounded-2xl relative min-h-[18rem] transition-all duration-500 items-stretch`}>
-                    <div className="flex-1 bg-[var(--color-surface-BG-base)] border border-[var(--color-border-Strokes-default)] shadow-md rounded-xl flex items-center justify-center">
+                    <div className="flex-1 bg-[var(--color-surface-BG-base)] border border-[var(--color-border-Strokes-default)] shadow-elevation-2 rounded-xl flex items-center justify-center">
                       <span className="text-caption text-[var(--color-text-muted)] font-mono uppercase">Column A</span>
                     </div>
-                    <div className="flex-1 bg-[var(--color-surface-BG-base)] border border-[var(--color-border-Strokes-default)] shadow-md rounded-xl flex items-center justify-center relative">
+                    <div className="flex-1 bg-[var(--color-surface-BG-base)] border border-[var(--color-border-Strokes-default)] shadow-elevation-2 rounded-xl flex items-center justify-center relative">
                       <span className="text-caption text-[var(--color-text-muted)] font-mono uppercase">Column B</span>
-                      <div className="absolute -left-[calc(var(--space-fluid-md)/2)] top-1/2 -translate-x-1/2 -translate-y-1/2 bg-[var(--color-surface-BG-3)] text-[var(--color-text-primary-Reverted)] px-4 py-1.5 rounded-full text-[0.625rem] font-mono z-20 whitespace-nowrap shadow-lg font-bold">
+                      <div className="absolute -left-[calc(var(--space-fluid-md)/2)] top-1/2 -translate-x-1/2 -translate-y-1/2 bg-[var(--color-surface-BG-3)] text-[var(--color-text-primary-Reverted)] px-4 py-1.5 rounded-full text-[0.625rem] font-mono z-20 whitespace-nowrap shadow-elevation-3 font-bold">
                         {activeFluidGap}
                       </div>
                     </div>
@@ -170,15 +170,15 @@ export default function SpacingSection() {
                       <span className="w-6 h-6 bg-[var(--color-text-primary)] text-[var(--color-text-primary-Reverted)] rounded-full flex items-center justify-center text-[0.625rem]">04</span>
                       Micro-Spacing
                     </h5>
-                    <div className="flex gap-1 bg-[var(--color-surface-BG-1)] p-1 rounded-xl w-fit shadow-sm">
+                    <div className="flex gap-1 bg-[var(--color-surface-BG-1)] p-1 rounded-xl w-fit shadow-elevation-1">
                       {['gap-1', 'gap-2', 'gap-4', 'gap-6'].map(opt => (
-                        <button key={opt} onClick={() => setActiveInternalGap(opt)} className={`px-3 py-1 rounded-lg text-[0.625rem] font-bold uppercase transition-all ${activeInternalGap === opt ? 'bg-[var(--color-surface-BG-base)] text-[var(--color-text-primary)] shadow-md' : 'text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]'}`}>
+                        <button key={opt} onClick={() => setActiveInternalGap(opt)} className={`px-3 py-1 rounded-lg text-[0.625rem] font-bold uppercase transition-all ${activeInternalGap === opt ? 'bg-[var(--color-surface-BG-base)] text-[var(--color-text-primary)] shadow-elevation-2' : 'text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]'}`}>
                           {opt.replace('gap-', '')}
                         </button>
                       ))}
                     </div>
                   </div>
-                  <div className={`organic-glass-panel p-8 flex flex-col ${activeInternalGap} transition-all duration-300 shadow-xl max-w-md`}>
+                  <div className={`organic-glass-panel p-8 flex flex-col ${activeInternalGap} transition-all duration-300 shadow-elevation-4 max-w-md`}>
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-full bg-salento-terracotta/20 flex items-center justify-center text-[var(--color-brand-orange)] font-bold italic">S</div>
                       <div className="flex flex-col gap-1">

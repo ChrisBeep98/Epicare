@@ -19,7 +19,7 @@ export default function MaxWidthSection() {
           <div className="flex flex-col gap-12 items-center w-full">
             {/* Dashboard Demo - Contenedor con Escala Real */}
             <div 
-               className="w-full mx-auto bg-[var(--color-surface-BG-base)] border border-[var(--color-border-Strokes-default)] rounded-2xl p-6 shadow-2xl transition-all duration-700 flex flex-col"
+               className="w-full mx-auto bg-[var(--color-surface-BG-base)] border border-[var(--color-border-Strokes-default)] rounded-2xl p-6 shadow-elevation-5 transition-all duration-700 flex flex-col"
                style={{ 
                  maxWidth: activeMaxWidth === 'max-w-section-sm' ? '768px' : activeMaxWidth === 'max-w-section-md' ? '1024px' : activeMaxWidth === 'max-w-section-lg' ? '1280px' : '1536px'
                }}
@@ -67,7 +67,7 @@ export default function MaxWidthSection() {
                   onClick={() => setActiveMaxWidth(opt.id)}
                   className={`flex flex-col items-start p-4 rounded-xl border text-left transition-all w-60 ${
                     activeMaxWidth === opt.id 
-                      ? 'bg-[var(--color-surface-BG-base)] border-[var(--color-text-primary)] shadow-md scale-105' 
+                      ? 'bg-[var(--color-surface-BG-base)] border-[var(--color-text-primary)] shadow-elevation-2 scale-105' 
                       : 'bg-[var(--color-surface-BG-1)] border-[var(--color-border-Strokes-default)]/50 hover:border-[var(--color-text-muted)]'
                   }`}
                 >
