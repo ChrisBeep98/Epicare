@@ -36,24 +36,20 @@ Before writing any `className`, verify you are NOT using these forbidden pattern
 
 | Forbidden (Raw Classes) ❌ | Mandatory Replacement (Tokens) ✅ | Context |
 | :--- | :--- | :--- |
-| `text-5xl font-bold`, `text-7xl`, `text-8xl` | `.text-display`, `.text-display-sm` | Hero headline |
-| `text-3xl font-semibold`, `text-4xl`, `text-5xl` | `.text-h1` + size classes | Section titles |
-| `text-xl font-semibold`, `text-2xl font-bold` | `.text-h3` + size classes | Card/feature titles |
-| `text-xs uppercase tracking-widest` | `.text-overline` + size classes | Category labels |
-| `text-lg font-medium`, `text-xl font-medium` | `.text-subtitle` + size classes | Descriptions under titles |
-| `text-base leading-relaxed` (isolated) | `.text-body` | Paragraphs |
-| `text-sm leading-relaxed` (isolated) | `.text-body-sm` | Secondary text |
-| `text-xs`, `text-caption` | `.text-caption` | Footnotes, timestamps |
-| `font-medium text-[13px] uppercase` (isolated) | `.text-ui-label` | Buttons, badges, labels |
-| `font-mono font-bold` (isolated) | `.text-data` | KPIs, stats, metrics |
-| `text-xs` (for disclaimers/footnotes) | `.text-caption` | Footnotes, timestamps |
-| `font-bold`, `font-semibold` (isolated) | *(Included in semantic tokens)* | Typography |
-| `bg-slate-900`, `bg-black` | `.bg-background`, `.bg-secondary` | Backgrounds |
-| `text-black` | `.text-foreground` | Primary dark text |
-| `text-black/40`, `text-black/50`, `text-black/60` | `.text-muted` | Secondary/muted text |
-| `text-gray-400`, `text-slate-500` | `.text-muted`, `.text-muted-foreground` | Secondary Text |
-| `px-4`, `px-8`, `px-[20px]`, `px-[]` | `.px-gutter-[sm|md|lg|xl]` | Page Containers / Horizontal Rhythm |
-| `py-20`, `py-32`, `py-[]` | `.py-section-[xs|sm|md|lg]` | Section Vertical Rhythm |
+| `text-[100px]`, `text-[120px]`, `text-9xl` | `.text-display-3xl`, `.text-display-2xl` | Titulares masivos e inmensos (Hero) |
+| `text-5xl font-bold`, `text-7xl`, `text-8xl` | `.text-display-xl`, `.text-display-lg` | Portadas y Headers principales |
+| `text-3xl font-semibold`, `text-4xl`, `text-5xl` | `.text-display`, `.text-h1` | Section titles y headers secundarios |
+| `text-xl font-semibold`, `text-2xl font-bold` | `.text-h3`, `.text-h4` | Card/feature titles |
+| `text-xs uppercase tracking-widest` | `.text-overline`, `.text-ui-label` | Category labels, botones |
+| `text-base leading-relaxed` (isolated) | `.text-body`, `.text-body-lg` | Paragraphs |
+| `text-sm leading-relaxed` (isolated) | `.text-body-sm`, `.text-body-xs` | Secondary text |
+| `bg-slate-900`, `bg-black`, `bg-white` | `bg-[var(--color-surface-BG-*)]` | Backgrounds de superficies y tarjetas |
+| `text-black` | `text-[var(--color-text-primary)]` | Primary text |
+| `text-gray-400`, `text-slate-500` | `text-[var(--color-text-muted)]` | Secondary/muted text |
+| `px-4`, `px-8`, `px-[20px]`, `p-8` | `.px-gutter-[sm\|md\|lg\|xl]` | Page Containers / Horizontal Rhythm |
+| `py-20`, `py-32`, `py-[]`, `p-16` | `.py-section-[xs\|sm\|md\|lg]` | Section Vertical Rhythm |
+| `gap-4`, `gap-8`, `gap-12`, `gap-[20px]` | `.gap-fluid-[xs\|sm\|md\|lg]` | Espaciado de flex y grid |
+| `max-w-7xl`, `max-w-screen-xl`, `max-w-[1200px]`| `style={{ maxWidth: 'var(--max-w-section-*)' }}` | Contenedores maestros y wrappers de página |
 
 ---
 
