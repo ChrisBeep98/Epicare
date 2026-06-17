@@ -55,7 +55,7 @@ Familia Principal: `DM Sans` (La única tipografía permitida).
 - `--max-w-section-xl`: 1536px
 
 **Elevación / Sombras (Shadow System):**
-_Sombras difusas, sutiles y multicapa._
+_Sombras "Butter Smooth": Sistema de composición exponencial de 3 capas. Tintadas en tono Slate `rgba(15, 23, 42)` con opacidades ínfimas (1%-6%) para eliminar manchas negras y dar máxima difusión óptica._
 - `.shadow-elevation-1`: Elevación mínima (xs)
 - `.shadow-elevation-2`: Elevación sutil (sm)
 - `.shadow-elevation-3`: Elevación estándar (md)

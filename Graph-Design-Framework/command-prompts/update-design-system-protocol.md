@@ -22,6 +22,5 @@ Usa este protocolo cuando necesitemos agregar nuevos colores, nuevas tipografía
 > ### FASE 3: Actualización Documental (El Inventario y Tokenizer)
 > 1. Modifica `Graph-Design-Framework/project-context/sections/design-system/Design-System.md`. Añade el nuevo token a la tabla correspondiente.
 > 2. Modifica `Graph-Design-Framework/WorkFlow-Docs/Design-Agent-Skills/Tokenizer.md`. Añade el nuevo token a la tabla de The Blacklist para que el agente empiece a forzar su uso.
-> 3. Haz el commit final de estos cambios con el mensaje: `feat(design-system): add [nombre_del_token] to css, interactive ui and docs`.
 > 
-> Confírmame una vez hayas completado las 3 Fases."
+> Confírmame una vez hayas completado las 3 Fases y ESPERA mi autorización para hacer commit."
