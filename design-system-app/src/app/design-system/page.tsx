@@ -13,6 +13,7 @@ export default function DesignSystemPage() {
   
   // Spacing States
   const [activeInternalGap, setActiveInternalGap] = useState("gap-2");
+  const [activeMaxWidth, setActiveMaxWidth] = useState("max-w-section-md");
   const [activeSectionPadding, setActiveSectionPadding] = useState("py-section-md");
   const [activeFluidGap, setActiveFluidGap] = useState("gap-fluid-md");
   const [activePageGutter, setActivePageGutter] = useState("px-gutter-md");
