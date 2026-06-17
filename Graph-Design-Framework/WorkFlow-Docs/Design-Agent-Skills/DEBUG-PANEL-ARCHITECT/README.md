@@ -42,3 +42,4 @@ Este framework se divide en módulos especializados para dominar cada aspecto de
 14. **[`14-TYPOGRAPHY-RHYTHM.md`](./14-TYPOGRAPHY-RHYTHM.md)**: Cuadrícula milimetrada interactiva para alinear el ritmo vertical.
 15. **[`15-THE-PURGE-PROTOCOL.md`](./15-THE-PURGE-PROTOCOL.md)**: Guía quirúrgica exhaustiva para la Fase 3 (Eliminación total sin rastros).
 16. **[`16-RESPONSIVE-STATE-SYNC.md`](./16-RESPONSIVE-STATE-SYNC.md)**: Sincronización de estado dual (Mobile/Desktop) con LocalStorage y Reset.
+17. **[`17-DESIGN-SYSTEM-INJECTOR.md`](./17-DESIGN-SYSTEM-INJECTOR.md)**: **MANDATORIO**. Controles UI (Selects/Sliders) para alternar TODO el inventario del Design System.
