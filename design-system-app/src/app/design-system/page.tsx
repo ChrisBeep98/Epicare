@@ -657,18 +657,18 @@ Line-height: 1.5`} />
         </section>
       </div>
 
-        {/* --- SECTION 6: LAYOUT MAX WIDTHS --- */}
+                {/* --- SECTION 6: LAYOUT MAX WIDTHS --- */}
         <section className="mb-32">
-          <div className="mb-12">
+          <div className="mb-12 text-center">
             <h2 className="text-h1">6. Desktop Layout Max-Width</h2>
-            <p className="text-body-lg text-[var(--color-text-muted)] mt-4">
-              Restricciones de ancho máximo para mantener la legibilidad y estructura del contenido en pantallas grandes.
+            <p className="text-body-lg text-[var(--color-text-muted)] mt-4 max-w-2xl mx-auto">
+              Restricciones de ancho máximo para mantener la legibilidad y estructura del contenido en pantallas grandes. (Escala Real)
             </p>
           </div>
 
-          <div className="flex flex-col xl:flex-row gap-12 items-start">
+          <div className="flex flex-col gap-12 items-center w-full">
             {/* Control Panel */}
-            <div className="w-full xl:w-1/3 flex flex-col gap-8 shrink-0">
+            <div className="w-full max-w-3xl flex flex-col gap-8">
               <SpacingCard 
                 label="Max Widths"
                 token={activeMaxWidth}
@@ -679,17 +679,16 @@ Line-height: 1.5`} />
                 onOptionChange={setActiveMaxWidth}
                 visual={
                   <div className="w-full bg-[var(--color-surface-BG-1)] h-24 rounded-lg flex items-center justify-center p-4">
-                     {/* Mini map representation */}
                      <div className={`h-full bg-[var(--color-surface-BG-base)] border border-[var(--color-border-Strokes-default)] rounded transition-all duration-500`} style={{ width: activeMaxWidth === 'max-w-section-sm' ? '40%' : activeMaxWidth === 'max-w-section-md' ? '60%' : activeMaxWidth === 'max-w-section-lg' ? '80%' : '100%' }}></div>
                   </div>
                 }
               />
             </div>
 
-            {/* Interactive Demo */}
-            <div className="flex-1 w-full bg-[var(--color-surface-BG-1)] border border-[var(--color-border-Strokes-default)] rounded-3xl p-8 overflow-hidden relative min-h-[500px] flex flex-col">
-               {/* Resizing Container */}
-               <div className={`${activeMaxWidth} bg-[var(--color-surface-BG-base)] border border-[var(--color-border-Strokes-default)] rounded-2xl p-6 shadow-2xl transition-all duration-500 flex-1 flex flex-col mx-auto w-full`}>
+            {/* Interactive Demo at Real Scale */}
+            <div className="w-full bg-[var(--color-surface-BG-1)] border border-[var(--color-border-Strokes-default)] rounded-3xl py-16 overflow-x-auto relative flex flex-col">
+               {/* Resizing Container (Real Scale) */}
+               <div className={`${activeMaxWidth} bg-[var(--color-surface-BG-base)] border border-[var(--color-border-Strokes-default)] rounded-2xl p-6 shadow-2xl transition-all duration-500 mx-auto min-w-[768px]`}>
                  {/* Fake UI Header */}
                  <div className="flex justify-between items-center border-b border-[var(--color-border-Strokes-default)]/50 pb-4 mb-6">
                    <div className="flex flex-col">
@@ -707,9 +706,13 @@ Line-height: 1.5`} />
                    <div className="flex-1 h-24 bg-[var(--color-surface-BG-1)] rounded-xl"></div>
                    <div className="flex-1 h-24 bg-[var(--color-surface-BG-1)] rounded-xl hidden sm:block"></div>
                    <div className="flex-1 h-24 bg-[var(--color-surface-BG-1)] rounded-xl hidden md:block"></div>
+                   <div className="flex-1 h-24 bg-[var(--color-surface-BG-1)] rounded-xl hidden lg:block"></div>
                  </div>
                  <div className="flex-1 bg-[var(--color-surface-BG-1)] rounded-xl flex items-center justify-center min-h-[200px]">
-                    <p className="text-body-sm text-[var(--color-text-hint)]">Content Area Restricted by {activeMaxWidth}</p>
+                    <p className="text-body-sm text-[var(--color-text-hint)] text-center">
+                       Contenido restringido a<br/>
+                       <strong>{activeMaxWidth}</strong>
+                    </p>
                  </div>
                </div>
             </div>
