@@ -338,6 +338,8 @@
   /* SPACING TOKENS */
       
   /* TYPOGRAPHY TOKENS */
+  .text-display-3xl { font-size: clamp(6rem, 12vw, 12rem); line-height: 0.95; font-weight: 800; letter-spacing: -0.02em; }
+  .text-display-2xl { font-size: clamp(4.5rem, 8vw, 8rem); line-height: 1; font-weight: 800; letter-spacing: -0.01em; }
   .text-display-xl { font-size: clamp(3.5rem, 6vw, 6rem); line-height: 1.1; font-weight: 700; }
   .text-display-lg { font-size: clamp(3rem, 5vw, 4.5rem); line-height: 1.1; font-weight: 700; }
   .text-display { font-size: clamp(2.5rem, 4vw, 3.5rem); line-height: 1.15; font-weight: 700; }

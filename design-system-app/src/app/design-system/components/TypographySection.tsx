@@ -28,6 +28,14 @@ export default function TypographySection() {
           
           <div className="organic-glass-panel p-8 md:p-12 flex flex-col gap-12">
             {[
+              { token: ".text-display-3xl", name: "Display 3XL", text: "IMMENSE", details: `Size: clamp(6rem, 12vw, 12rem)
+Weight: 800
+Line-height: 0.95
+Letter-spacing: -0.02em` },
+              { token: ".text-display-2xl", name: "Display 2XL", text: "GIANT", details: `Size: clamp(4.5rem, 8vw, 8rem)
+Weight: 800
+Line-height: 1
+Letter-spacing: -0.01em` },
               { token: ".text-display-xl", name: "Display XL", text: "GO AMS Portal", details: `Size: clamp(3.5rem, 6vw, 6rem)
 Weight: 700
 Line-height: 1.1` },
