@@ -657,65 +657,64 @@ Line-height: 1.5`} />
         </section>
       </div>
 
-                        {/* --- SECTION 6: LAYOUT MAX WIDTHS --- */}
+                                {/* --- SECTION 6: LAYOUT MAX WIDTHS (REAL SCALE) --- */}
         <section className="mb-32">
-          <div className="mb-12 text-center">
+          <div className="mb-12">
             <h2 className="text-h1">6. Desktop Layout Max-Width</h2>
-            <p className="text-body-lg text-[var(--color-text-muted)] mt-4 max-w-2xl mx-auto">
-              Restricciones de ancho máximo para mantener la legibilidad y estructura del contenido en pantallas grandes. (Escala Real)
+            <p className="text-body-lg text-[var(--color-text-muted)] mt-4">
+              Visualizador a <strong>escala real</strong> de las restricciones de ancho. Usa la barra de desplazamiento horizontal en pantallas pequeñas para ver el tamaño completo de los contenedores más grandes.
             </p>
           </div>
 
-          <div className="flex flex-col gap-12 items-center w-full">
-            {/* Control Panel */}
-            <div className="w-full max-w-3xl flex flex-col gap-8">
-              <SpacingCard 
-                label="Max Widths"
-                token={activeMaxWidth}
-                value={activeMaxWidth === 'max-w-section-sm' ? '48rem (768px)' : activeMaxWidth === 'max-w-section-md' ? '64rem (1024px)' : activeMaxWidth === 'max-w-section-lg' ? '80rem (1280px)' : '96rem (1536px)'}
-                usage={activeMaxWidth === 'max-w-section-sm' ? 'Formularios, login, y settings enfocados.' : activeMaxWidth === 'max-w-section-md' ? 'Artículos y vistas de detalle estándar.' : activeMaxWidth === 'max-w-section-lg' ? 'Dashboards principales de GO AMS.' : 'Tablas de datos extensas y gráficas complejas.'}
-                options={['max-w-section-sm', 'max-w-section-md', 'max-w-section-lg', 'max-w-section-xl']}
-                activeOption={activeMaxWidth}
-                onOptionChange={setActiveMaxWidth}
-                visual={
-                  <div className="w-full bg-[var(--color-surface-BG-1)] h-24 rounded-lg flex items-center justify-center p-4">
-                     <div className={`h-full bg-[var(--color-surface-BG-base)] border border-[var(--color-border-Strokes-default)] rounded transition-all duration-500`} style={{ width: activeMaxWidth === 'max-w-section-sm' ? '40%' : activeMaxWidth === 'max-w-section-md' ? '60%' : activeMaxWidth === 'max-w-section-lg' ? '80%' : '100%' }}></div>
-                  </div>
-                }
-              />
+          <div className="flex flex-col gap-6">
+            {/* Controles Interactivos */}
+            <div className="flex flex-wrap gap-4">
+              {[
+                { id: 'max-w-section-sm', px: '768px', rem: '48rem', desc: 'Formularios / Settings' },
+                { id: 'max-w-section-md', px: '1024px', rem: '64rem', desc: 'Artículos / Detalle' },
+                { id: 'max-w-section-lg', px: '1280px', rem: '80rem', desc: 'Dashboards GO AMS' },
+                { id: 'max-w-section-xl', px: '1536px', rem: '96rem', desc: 'Tablas Extensas' }
+              ].map((opt) => (
+                <button
+                  key={opt.id}
+                  onClick={() => setActiveMaxWidth(opt.id)}
+                  className={`flex flex-col items-start p-4 rounded-xl border text-left transition-all w-64 ${
+                    activeMaxWidth === opt.id 
+                      ? 'bg-[var(--color-surface-BG-base)] border-[var(--color-text-primary)] shadow-md scale-105' 
+                      : 'bg-[var(--color-surface-BG-1)] border-[var(--color-border-Strokes-default)]/50 hover:border-[var(--color-text-muted)]'
+                  }`}
+                >
+                  <span className="text-ui-label font-bold mb-1">{opt.id}</span>
+                  <span className="text-data text-[var(--color-text-primary)]">{opt.px} / {opt.rem}</span>
+                  <span className="text-caption text-[var(--color-text-muted)] mt-2">{opt.desc}</span>
+                </button>
+              ))}
             </div>
 
-            {/* Interactive Demo at Real Scale */}
-            <div className="w-full bg-[var(--color-surface-BG-1)] border border-[var(--color-border-Strokes-default)] rounded-3xl py-16 overflow-x-auto relative">
-               {/* Resizing Container (Forced Real Scale) */}
-               <div 
-                  className="bg-[var(--color-surface-BG-base)] border border-[var(--color-border-Strokes-default)] rounded-2xl p-6 shadow-2xl transition-all duration-500 mx-auto flex flex-col"
-                  style={{ width: `var(--${activeMaxWidth})` }}
-               >
-                 {/* Fake UI Header */}
-                 <div className="flex justify-between items-center border-b border-[var(--color-border-Strokes-default)]/50 pb-4 mb-6">
-                   <div className="flex flex-col">
-                     <span className="text-h4">GO AMS Dashboard</span>
-                     <span className="text-caption text-[var(--color-text-muted)]">Active Policies Overview</span>
-                   </div>
-                   <div className="flex gap-2">
-                     <div className="w-8 h-8 rounded-full bg-[var(--color-surface-BG-2)]"></div>
-                     <div className="w-8 h-8 rounded-full bg-[var(--color-surface-BG-2)]"></div>
-                   </div>
-                 </div>
+            {/* Lienzo Escala Real */}
+            <div className="w-full bg-[var(--color-surface-BG-1)] border border-[var(--color-border-Strokes-default)] rounded-3xl overflow-x-auto relative">
+               <div className="py-24 min-w-[1600px] flex justify-center items-center relative">
+                 {/* Línea central guía */}
+                 <div className="absolute top-0 bottom-0 left-1/2 border-l border-dashed border-[var(--color-border-Strokes-default)] pointer-events-none"></div>
                  
-                 {/* Fake Data Grid */}
-                 <div className="flex gap-4 mb-4">
-                   <div className="flex-1 h-24 bg-[var(--color-surface-BG-1)] rounded-xl"></div>
-                   <div className="flex-1 h-24 bg-[var(--color-surface-BG-1)] rounded-xl"></div>
-                   <div className="flex-1 h-24 bg-[var(--color-surface-BG-1)] rounded-xl"></div>
-                   <div className="flex-1 h-24 bg-[var(--color-surface-BG-1)] rounded-xl"></div>
-                 </div>
-                 <div className="flex-1 bg-[var(--color-surface-BG-1)] rounded-xl flex items-center justify-center min-h-[200px]">
-                    <p className="text-body-sm text-[var(--color-text-hint)] text-center">
-                       Contenido a tamaño real: <br/>
-                       <strong>{activeMaxWidth}</strong>
-                    </p>
+                 {/* Contenedor Interactivo con Escala Real Absoluta */}
+                 <div 
+                    className="bg-[var(--color-surface-BG-base)] border-2 border-[var(--color-text-primary)] rounded-2xl shadow-2xl flex flex-col items-center justify-center transition-all duration-500 h-[400px] relative"
+                    style={{ width: `var(--${activeMaxWidth})`, minWidth: `var(--${activeMaxWidth})` }}
+                 >
+                    {/* Regla Superior */}
+                    <div className="absolute top-0 left-0 right-0 h-8 border-b border-[var(--color-border-Strokes-default)] flex justify-between items-center px-4">
+                       <div className="w-px h-4 bg-[var(--color-border-Strokes-default)]"></div>
+                       <div className="w-px h-4 bg-[var(--color-border-Strokes-default)]"></div>
+                    </div>
+
+                    <span className="text-h3 text-[var(--color-text-primary)] mb-2">Escala 1:1</span>
+                    <span className="text-body-xl text-[var(--color-text-muted)]">{activeMaxWidth}</span>
+                    <div className="mt-8 px-6 py-2 bg-[var(--color-surface-BG-1)] rounded-full border border-[var(--color-border-Strokes-default)]">
+                      <span className="text-data text-[var(--color-text-primary)] font-bold">
+                        {activeMaxWidth === 'max-w-section-sm' ? '768px' : activeMaxWidth === 'max-w-section-md' ? '1024px' : activeMaxWidth === 'max-w-section-lg' ? '1280px' : '1536px'}
+                      </span>
+                    </div>
                  </div>
                </div>
             </div>
