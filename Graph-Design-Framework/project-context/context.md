@@ -101,9 +101,16 @@ Los componentes del nuevo diseño están consolidados en:
 102. **[NUEVO] Evolución Documental de Micro-Espaciados (5 Abr 2026):**
     - Se agregaron las variables `py-section-xs`, `gap-fluid-xs` y `gap-1` directo al kernel (`globals.css`) e UI Kit interactivo para dar soporte de mayor densidad en layouts (e-commerce y sub-tarjetas).
     - Se actualizaron las **Skills del Agente IA** (`Tokenizer.md` y `Design-System.md`) para purgar definitivamente referencias muertas a las antiguas clases `px-frame` y `section-v-spacing`, evitando así desviaciones en próximas sesiones de build.
-103. **[NUEVO] Consolidación de Typograhy Tokens (Cognitive Typography) (5 Abr 2026):**
+107. **[NUEVO] Consolidación de Typograhy Tokens (Cognitive Typography) (5 Abr 2026):**
     - Se detectó y resolvió una desalineación crítica del `Tokenizer.md` donde la tabla principal aún aconsejaba "Tailwind Sizes" genéricos (`text-sm`, `text-lg`) en vez de nuestra escala expandida `text-body-*`.
     - Se inyectó la familia completa de "Body Sizes" (desde `2xl` hasta `xs`) y el token `caption`, dentro del visualizador interactivo `/design-system`, garantizando visibilidad integral de los 12 niveles de tipografía corporativa.
+
+### Fase 11 — GO AMS Redesign (16 Jun 2026)
+
+108. **[NUEVO] Design System Modularization & Typographic Expansion:**
+    - Refactorización de la página interactiva del Design System (`/design-system`) separando secciones en módulos independientes.
+    - Resolución de bug crítico de "escala real" en MaxWidthSection, permitiendo simulación precisa a 1536px.
+    - Creación e inyección de tokens tipográficos masivos (`text-display-3xl` de 192px y `text-display-2xl` de 128px) en `globals.css` para la estética corporativa.
 
 ## 6. Próximos Pasos (To-Do)
 - Empezar la construcción de la **Página de Inicio (Home)** integrando el motor de `HeroSequence` con los nuevos tokens de espaciado.
