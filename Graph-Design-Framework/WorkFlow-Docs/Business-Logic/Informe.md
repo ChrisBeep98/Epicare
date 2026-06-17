@@ -1,10 +1,10 @@
-Informe Estratégico Integral: El Ecosistema SalentoCoffee AI
+Informe Estratégico Integral: El Ecosistema GO AMS AI
 
 1. Fundamentos y Propósito de Marca
 
-SalentoCoffee AI se sitúa en la vanguardia de la transformación digital, operando en la intersección donde la sofisticación tecnológica se encuentra con la calidez de la interacción humana. Nuestra propuesta no es simplemente una solución de software; es un cambio de paradigma para el mercado latino en los Estados Unidos (especialmente en estados clave como New York, New Jersey, Florida, Texas y California). Entendemos que el 80% de la comunicación de nuestros clientes ocurre en español y el 20% en inglés; por ello, nuestra tecnología está diseñada para ser bilingüe y culturalmente relevante, eliminando la fricción y construyendo una confianza inquebrantable desde el primer contacto.
+GO AMS AI se sitúa en la vanguardia de la transformación digital, operando en la intersección donde la sofisticación tecnológica se encuentra con la calidez de la interacción humana. Nuestra propuesta no es simplemente una solución de software; es un cambio de paradigma para el mercado latino en los Estados Unidos (especialmente en estados clave como New York, New Jersey, Florida, Texas y California). Entendemos que el 80% de la comunicación de nuestros clientes ocurre en español y el 20% en inglés; por ello, nuestra tecnología está diseñada para ser bilingüe y culturalmente relevante, eliminando la fricción y construyendo una confianza inquebrantable desde el primer contacto.
 
-La "Gran Idea" de SalentoCoffee AI se sustenta en una distinción crítica: SalentoCoffee es la agencia estratégica y arquitecta de sistemas, mientras que Flow es el Empleado Digital. Bajo una filosofía "Apple-style", buscamos que la tecnología sea invisible: un sistema tan elegante y simple que "simplemente funciona". Flow no es una herramienta externa, es un miembro del equipo que trabaja 24/7 sin descansos ni sueldos, permitiendo que el dueño del negocio recupere su libertad operativa.
+La "Gran Idea" de GO AMS AI se sustenta en una distinción crítica: GO AMS es la agencia estratégica y arquitecta de sistemas, mientras que Flow es el Empleado Digital. Bajo una filosofía "Apple-style", buscamos que la tecnología sea invisible: un sistema tan elegante y simple que "simplemente funciona". Flow no es una herramienta externa, es un miembro del equipo que trabaja 24/7 sin descansos ni sueldos, permitiendo que el dueño del negocio recupere su libertad operativa.
 
 Capa de Valor: Al transicionar de la percepción de "herramientas automáticas" a la figura de un "Empleado Digital", elevamos el valor percibido del servicio. Un sistema de alta confianza permite a los negocios premium delegar su comunicación sin temor a perder el toque humano, justificando una inversión basada en la profesionalización y no solo en el ahorro de costos.
 
@@ -12,9 +12,9 @@ Capa de Valor: Al transicionar de la percepción de "herramientas automáticas" 
 --------------------------------------------------------------------------------
 
 
-2. El Framework Operativo: SalentoCoffee OS™
+2. El Framework Operativo: GO AMS OS™
 
-Inspirado en los principios del Scientific Advertising, el SalentoCoffee Operating System™ es un framework medible y repetible diseñado para convertir el caos de mensajes en un flujo predecible de ingresos. Este sistema no se basa en suposiciones, sino en una arquitectura de cuatro pilares optimizados constantemente:
+Inspirado en los principios del Scientific Advertising, el GO AMS Operating System™ es un framework medible y repetible diseñado para convertir el caos de mensajes en un flujo predecible de ingresos. Este sistema no se basa en suposiciones, sino en una arquitectura de cuatro pilares optimizados constantemente:
 
 * Captura: Asegura que ningún lead se pierda. Flow activa conversaciones instantáneas ante comentarios específicos, respuestas a historias o mensajes directos en canales de Instagram, Facebook y WhatsApp Business.
 * Califica: Flow actúa como un vendedor experto, separando el "oro" de la "piedra". Clasifica a los prospectos mediante preguntas estratégicas de presupuesto, urgencia y necesidad.
@@ -49,7 +49,7 @@ El ROI de la Eficiencia: Análisis de Costo de Oportunidad
 
 Para un consultor senior, la métrica real no es el precio, sino el ahorro. Un asistente humano en EE. UU. representa una inversión de $24,000 a 36,000 anuales** por solo 8 horas de cobertura. En contraste, **FlowDesk Growth** tiene un costo total anual de solo **5,361 USD, ofreciendo una disponibilidad de 24/7. Estamos hablando de un ROI de entre 4x y 10x respecto a la contratación tradicional.
 
-* FlowDesk Starter: $6.50/día (Menos que un café en Starbucks).
+* FlowDesk Starter: $6.50/día (Menos que un seguros en Starbucks).
 * FlowSell Growth: $9.90/día (El costo de un almuerzo promedio).
 
 Capa de Valor: La incorporación de la IA de intención en FlowSell es lo que justifica su posicionamiento premium. Este sistema no solo responde; detecta el deseo de compra del cliente y lo guía activamente hacia el checkout, minimizando la deserción y recuperando ventas que antes se perdían por falta de atención inmediata.
@@ -79,7 +79,7 @@ Capa de Valor: Cobrar por el Discovery no es solo un filtro de compromiso; es un
 
 5. Autoridad Tecnológica y Alianzas Estratégicas
 
-La seguridad es el cimiento de nuestra operación. Como ManyChat Official Partner, SalentoCoffee AI utiliza tecnología 100% aprobada por Meta. Esto garantiza que las cuentas de Instagram, Facebook y WhatsApp de nuestros clientes nunca corran riesgos de suspensión por el uso de herramientas no oficiales.
+La seguridad es el cimiento de nuestra operación. Como ManyChat Official Partner, GO AMS AI utiliza tecnología 100% aprobada por Meta. Esto garantiza que las cuentas de Instagram, Facebook y WhatsApp de nuestros clientes nunca corran riesgos de suspensión por el uso de herramientas no oficiales.
 
 Nuestra autoridad se valida con resultados tangibles del ecosistema que implementamos:
 
@@ -87,7 +87,7 @@ Nuestra autoridad se valida con resultados tangibles del ecosistema que implemen
 * Michelle Hansen: Logró un crecimiento de +34,000 seguidores genuinos.
 * Katie Plunkett: Cuadruplicó (4x) sus ingresos mensuales.
 
-Capa de Valor: SalentoCoffee no solo vende acceso a una plataforma; vendemos el "brazo ejecutor" experto. Eliminamos la curva de aprendizaje y el riesgo técnico, permitiendo que el dueño del negocio se beneficie de la tecnología que utilizan las marcas líderes a nivel global sin tener que configurarla él mismo.
+Capa de Valor: GO AMS no solo vende acceso a una plataforma; vendemos el "brazo ejecutor" experto. Eliminamos la curva de aprendizaje y el riesgo técnico, permitiendo que el dueño del negocio se beneficie de la tecnología que utilizan las marcas líderes a nivel global sin tener que configurarla él mismo.
 
 
 --------------------------------------------------------------------------------
@@ -95,7 +95,7 @@ Capa de Valor: SalentoCoffee no solo vende acceso a una plataforma; vendemos el 
 
 6. Identidad Visual y Experiencia de Usuario (UX/UI)
 
-La estética de SalentoCoffee AI refuerza su posicionamiento premium a través de una identidad visual moderna basada en el Glassmorphism (efectos de cristal translúcido) y el uso de interfaces flotantes que tangibilizan el valor de nuestros Dashboards.
+La estética de GO AMS AI refuerza su posicionamiento premium a través de una identidad visual moderna basada en el Glassmorphism (efectos de cristal translúcido) y el uso de interfaces flotantes que tangibilizan el valor de nuestros Dashboards.
 
 Los 4 Pilares del Gradiente
 
@@ -128,6 +128,6 @@ North Star Metrics
 
 Como garantía final de nuestra metodología, ofrecemos una Garantía de 30 días: si en el primer mes el sistema no cumple con la función de responder y agendar automáticamente, devolvemos el 100% de la inversión del setup.
 
-Capa de Valor: El éxito para SalentoCoffee no es solo la implementación técnica, sino el retorno de la Libertad del Dueño. Cuando un empresario deja de ser el cuello de botella de su comunicación, el negocio finalmente puede escalar.
+Capa de Valor: El éxito para GO AMS no es solo la implementación técnica, sino el retorno de la Libertad del Dueño. Cuando un empresario deja de ser el cuello de botella de su comunicación, el negocio finalmente puede escalar.
 
 "No vendemos chatbots. Vendemos tiempo, profesionalismo y crecimiento."

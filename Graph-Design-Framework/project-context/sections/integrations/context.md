@@ -1,7 +1,7 @@
 # Integrations Ecosystem
 > Última actualización: 19 de Marzo, 2026
 
-> **TL;DR:** Showcase de integraciones de SalentoCoffee (ManyChat, Shopify, Meta, etc.) con logos orbitales animados. GSAP ScrollTrigger.
+> **TL;DR:** Showcase de integraciones de GO AMS (ManyChat, Shopify, Meta, etc.) con logos orbitales animados. GSAP ScrollTrigger.
 
 ## Componentes
 - `src/components/landing-v2/IntegrationsEcosystem.tsx` — Ecosistema de integraciones

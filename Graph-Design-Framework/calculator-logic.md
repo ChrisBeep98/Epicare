@@ -1,10 +1,10 @@
 ---
-description: Lógica matemática y variables detrás de la Calculadora de ROI de SalentoCoffee.
+description: Lógica matemática y variables detrás de la Calculadora de ROI de GO AMS.
 ---
 
-# Lógica de la Calculadora Home (SalentoCoffee)
+# Lógica de la Calculadora Home (GO AMS)
 
-Este documento detalla el modelo matemático exacto implementado en `src/components/landing-v2/calculator/HomeCalculator.tsx`. La calculadora utiliza principios de **economía del comportamiento** para demostrar de forma tangible cuánto dinero pierde un negocio por deficiencias en su atención al cliente, y cómo SalentoCoffee genera un Retorno de Inversión (ROI) positivo.
+Este documento detalla el modelo matemático exacto implementado en `src/components/landing-v2/calculator/HomeCalculator.tsx`. La calculadora utiliza principios de **economía del comportamiento** para demostrar de forma tangible cuánto dinero pierde un negocio por deficiencias en su atención al cliente, y cómo GO AMS genera un Retorno de Inversión (ROI) positivo.
 
 ---
 
@@ -33,7 +33,7 @@ El modelo depende de variables internas fijas para estimar tasas de conversión 
 - **`hourlyValue` (Valor de la Hora) = `$50`**
   Se estima el tiempo administrativo del dueño / equipo en $50 USD por hora.
 - **`flowCost` (Costo del SaaS) = `$297` / mes**
-  Precio fijo de la suscripción base de SalentoCoffee para el cálculo del ROI.
+  Precio fijo de la suscripción base de GO AMS para el cálculo del ROI.
 
 ---
 
@@ -68,9 +68,9 @@ El costo literal del tiempo humano desperdiciado siendo "secretari@".
 
 ---
 
-## 4. Fórmulas de Recuperación con SalentoCoffee (Paso 3)
+## 4. Fórmulas de Recuperación con GO AMS (Paso 3)
 
-El escenario positivo calcula cuánto salva o genera SalentoCoffee. No repara el 100% mágico de las pérdidas (para no sonar irrealista y falso), sino que aplica márgenes lógicos de éxito.
+El escenario positivo calcula cuánto salva o genera GO AMS. No repara el 100% mágico de las pérdidas (para no sonar irrealista y falso), sino que aplica márgenes lógicos de éxito.
 
 - **`recoveredRevenue`:** Recupera el **65%** de los clientes perdidos por mensajes ignorados.
 - **`afterHoursRecovered`:** "Despierto a las 3 am" salva el **85%** de la pérdida nocturna.

@@ -7,7 +7,7 @@ description: Performance gatekeeper ensuring 60fps on all devices. Smart Shutdow
 
 **Level:** Systems Architect / Master-Class
 **Stack:** React, GSAP, CSS, Next.js, IntersectionObserver
-**Objective:** Ensure SalentoCoffee AI's Awwwards-level animations run at a flawless 60fps on both an M3 Max MacBook and a 4-year-old Android phone.
+**Objective:** Ensure GO AMS AI's Awwwards-level animations run at a flawless 60fps on both an M3 Max MacBook and a 4-year-old Android phone.
 
 ---
 
@@ -22,7 +22,7 @@ Never run math or animations on elements the user cannot see.
 
 *   **The Rule:** If an element enters the viewport, animate it. If it leaves the viewport by 1px, **PAUSE** its animation and ticker.
 *   **Implementation (React):** Use Intersection Observers (or `framer-motion`'s `useInView`, or GSAP's native ScrollTrigger toggles) to suspend heavy loops, Canvas repaints, or continuous CSS animations.
-*   **Glassmorphism Quarantine:** `backdrop-filter: blur()` is a GPU killer. If a glass element (like SalentoCoffee's *Aurora Glass*) is out of view, its blur must mathematically cease rendering.
+*   **Glassmorphism Quarantine:** `backdrop-filter: blur()` is a GPU killer. If a glass element (like GO AMS's *Aurora Glass*) is out of view, its blur must mathematically cease rendering.
 
 ## 2. ELEGANT DEGRADATION (Mobile vs. Desktop)
 Do not force a mobile phone to run a desktop's WebGL or heavy DOM manipulation.
@@ -48,7 +48,7 @@ To maintain 60fps, we strictly control what the browser calculates.
 *   **Images:** Must use modern formats (WebP/AVIF), strict `sizes` attributes for `next/image`, and `priority={true}` ONLY for the LCP (Largest Contentful Paint) hero image.
 
 ## 🤖 AI PROMPT DIRECTIVES
-When writing front-end code for SalentoCoffee:
+When writing front-end code for GO AMS:
 1. *"Did I just animate a `box-shadow` or `width`? If yes, rewrite it to animate a pseudo-element's `opacity` or `transform: scale`."*
 2. *"Is this infinite CSS keyframe animation running off-screen? If yes, wrap it in an Intersection Observer."*
 3. *"Did I wrap my GSAP ScrollTriggers in a `gsap.matchMedia()` block? If not, do it now."*

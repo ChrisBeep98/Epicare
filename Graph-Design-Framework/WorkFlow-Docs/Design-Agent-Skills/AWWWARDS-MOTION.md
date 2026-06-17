@@ -1,21 +1,21 @@
 ---
 name: Awwwards Motion Dynamics
-description: Behavioral physics of SalentoCoffee. Three pillars - Layered Unveiling, Liquid Organic Unveiling, and Breathing Canvas for Artisanal Glassmorphism interfaces.
+description: Behavioral physics of GO AMS. Three pillars - Layered Unveiling, Liquid Organic Unveiling, and Breathing Canvas for Artisanal Glassmorphism interfaces.
 ---
 
-# 🏆 Agent Skill: AWWWARDS MOTION DYNAMICS (The SalentoCoffee Core)
+# 🏆 Agent Skill: AWWWARDS MOTION DYNAMICS (The GO AMS Core)
 
 **Level:** Master-Class (Awwwards/FWA Standard)
 **Stack:** GSAP 3.x + Lenis + CSS Variables + IntersectionObserver
-**Objective:** Elevate "Creative Motion" to "Experiential Art" for SalentoCoffee AI.
+**Objective:** Elevate "Creative Motion" to "Experiential Art" for GO AMS AI.
 
 ---
 
 > *"The scroll is not a mechanical action; it is an act of revelation. The screen is not a document; it is a liquid stage."*
 
-This skill defines the behavioral physics of SalentoCoffee AI. Based on the "Alche Studio" reference, we must abandon rigid, static web structures and adopt an **Organic Liquid Glass & Theatrical** approach, keeping the organic feeling of the coffee process while using liquid metaphors like pouring coffee and liquid gold. 
+This skill defines the behavioral physics of GO AMS AI. Based on the "Alche Studio" reference, we must abandon rigid, static web structures and adopt an **Organic Liquid Glass & Theatrical** approach, keeping the organic feeling of the coffee process while using liquid metaphors like pouring coffee and liquid gold. 
 
-Whenever you are asked to animate a section, component, or transition in SalentoCoffee, you MUST prioritize these three behavioral pillars:
+Whenever you are asked to animate a section, component, or transition in GO AMS, you MUST prioritize these three behavioral pillars:
 
 ## 1. LAYERED UNVEILING (The "Wait and Rise" Effect)
 Content must never appear all at once. It must be choreographed in waves.
@@ -48,14 +48,14 @@ The interface must never be completely still, even when the user stops scrolling
 ---
 
 ## 🎭 SECTION TRANSITIONS: "The Theater Curtain"
-Forget standard scrolling. To move from the "Hero" to "SalentoCoffee Shop", we must use the Theater Curtain approach:
+Forget standard scrolling. To move from the "Hero" to "GO AMS Shop", we must use the Theater Curtain approach:
 
 1.  **Pinning:** The current section (A) gets pinned (`position: sticky` or GSAP pin).
 2.  **Overlap:** The next section (B) slides *over* section A, as if section B has a higher `z-index`.
 3.  **The Fade:** As section B covers A, section A scales down slightly (`scale: 0.95`) and darkens/fades, giving the illusion that it is sinking into the background Z-space.
 
-## 🤖 AI PROMPT DIRECTIVES for SalentoCoffee
-When generating code for SalentoCoffee UI, you must internally evaluate:
+## 🤖 AI PROMPT DIRECTIVES for GO AMS
+When generating code for GO AMS UI, you must internally evaluate:
 1. *"Did I just make this fade in? If yes, REWRITE it to use the 'Text Birth' mask technique."*
 2. *"Are the visual elements static when the user stops? If yes, ADD a passive 'Breathing' animation."*
 3. *"Does the scroll feel like a PDF? If yes, IMPLEMENT 'Layered Unveiling' with overlapped z-indexing."*

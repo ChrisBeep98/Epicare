@@ -4,13 +4,13 @@
 Chris trabaja con dos roles simultáneos en Git:
 
 ### 🧑‍💻 Rol 1: Empleado (Repo del equipo)
-- **Remote**: `origin` → `github.com/flowtifyai/salento-coffee-experience`
+- **Remote**: `origin` → `github.com/flowtifyai/go-ams-landing`
 - **Branch**: `feature/redesign-landing`
 - Los pushes pasan por **review del jefe** antes de merge a `main`
 - Comando: `git push origin feature/redesign-landing`
 
 ### 👑 Rol 2: Jefe de su Fork (Preview en Vercel)
-- **Remote**: `myfork` → `github.com/ChrisBeep98/salento-coffee-experience-fork`
+- **Remote**: `myfork` → `github.com/ChrisBeep98/go-ams-landing-fork`
 - **Branch**: Se pushea directo a `main` (sin PR, sin review)
 - Vercel despliega automáticamente desde `main` del fork
 - Comando: `git push myfork feature/redesign-landing:main --force`

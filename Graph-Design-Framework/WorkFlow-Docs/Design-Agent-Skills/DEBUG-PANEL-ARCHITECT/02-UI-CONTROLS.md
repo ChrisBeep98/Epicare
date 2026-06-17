@@ -9,13 +9,13 @@ Con feedback visual numérico y barra custom.
 <div className="space-y-2">
   <div className="flex justify-between text-[11px]">
     <span className="text-white/60 uppercase tracking-wider">Image Scale</span>
-    <span className="text-salento-cyan font-mono bg-salento-cyan/10 px-1.5 rounded">{__dbgScale.toFixed(2)}x</span>
+    <span className="text-cyan font-mono bg-cyan/10 px-1.5 rounded">{__dbgScale.toFixed(2)}x</span>
   </div>
   <input type="range" min={0.5} max={2} step={0.05} value={__dbgScale}
     onChange={(e) => __setDbgScale(parseFloat(e.target.value))}
     className="w-full h-1.5 bg-white/10 rounded-full appearance-none cursor-pointer
                [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4
-               [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:bg-salento-cyan
+               [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:bg-cyan
                [&::-webkit-slider-thumb]:rounded-full" />
 </div>
 ```
@@ -47,7 +47,7 @@ Ideal para activar/desactivar bordes de debug o capas visuales.
   <span className="text-white/60 text-[11px] uppercase tracking-wider group-hover:text-white transition-colors">
     Show Overlay
   </span>
-  <div className={`relative w-10 h-5 rounded-full transition-colors ${__dbgOverlay ? 'bg-salento-cyan' : 'bg-white/20'}`}>
+  <div className={`relative w-10 h-5 rounded-full transition-colors ${__dbgOverlay ? 'bg-cyan' : 'bg-white/20'}`}>
     <div className={`absolute top-1/2 -translate-y-1/2 w-3.5 h-3.5 bg-white rounded-full transition-transform ${__dbgOverlay ? 'translate-x-5' : 'translate-x-1'}`} />
   </div>
   {/* Estado Oculto (Click Handler) */}

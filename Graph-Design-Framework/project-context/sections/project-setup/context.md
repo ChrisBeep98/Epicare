@@ -3,7 +3,7 @@
 > **Última Actualización:** 5 de Abril, 2026
 
 ## 📌 TL;DR
-Configuración inicial de la arquitectura base para la plataforma de venta de café (e-commerce) en Next.js App Router. Integración de herramientas esenciales: pnpm, Tailwind CSS, GSAP y la creación de una estructura de directorios escalable para soportar animaciones complejas, tienda y pasarela de pago.
+Configuración inicial de la arquitectura base para la plataforma de venta de seguros (e-commerce) en Next.js App Router. Integración de herramientas esenciales: pnpm, Tailwind CSS, GSAP y la creación de una estructura de directorios escalable para soportar animaciones complejas, tienda y pasarela de pago.
 
 ## 🧱 Componentes Involucrados
 - `src/app/` (App Router structure: `(shop)/cart`, `(shop)/checkout`, `(shop)/product/[slug]`)

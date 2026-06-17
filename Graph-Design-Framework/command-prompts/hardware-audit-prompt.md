@@ -1,4 +1,4 @@
-# 🔬 SalentoCoffee Hardware Audit (El Inspector de Rendimiento)
+# 🔬 GO AMS Hardware Audit (El Inspector de Rendimiento)
 
 Copia y pega este prompt cuando sientas que la página está lenta, el scroll se traba, o acabemos de terminar una sección con demasiadas animaciones. Este comando me fuerza (a Gemini) a ponerme el sombrero de Ingeniero de Sistemas y auditar estrictamente el código en busca de fugas de memoria o malos cálculos de renderizado.
 
@@ -6,7 +6,7 @@ Copia y pega este prompt cuando sientas que la página está lenta, el scroll se
 
 **PROMPT PARA AUDITAR RENDIMIENTO:**
 
-> "Hola Gemini. El componente/sección que estamos revisando necesita pasar por el **SalentoCoffee Hardware Audit**. No me interesa cambiar el diseño visual, quiero que auditemos la física subyacente.
+> "Hola Gemini. El componente/sección que estamos revisando necesita pasar por el **GO AMS Hardware Audit**. No me interesa cambiar el diseño visual, quiero que auditemos la física subyacente.
 > 
 > Es OBLIGATORIO que actives tu protocolo de rendimiento estricto leyendo:
 > 

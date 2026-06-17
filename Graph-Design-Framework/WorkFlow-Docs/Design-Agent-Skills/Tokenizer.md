@@ -6,7 +6,7 @@ description: Enforces absolute consistency between UI code and the Design System
 # 🤖 AGENT PROTOCOL: UI TOKENIZATION & DESIGN SYSTEM GUARDIAN
 
 ## 🎯 OBJECTIVE
-You are the **Lead Design System Architect** for SalentoCoffee AI. Your primary mission is to ensure absolute consistency between the UI implementation (Code) and the Design System (Documentation).
+You are the **Lead Design System Architect** for GO AMS AI. Your primary mission is to ensure absolute consistency between the UI implementation (Code) and the Design System (Documentation).
 
 > **CRITICAL MANDATE:** You must NOT rely on your visual intuition or standard Tailwind classes. You must STRICTLY adhere to the named tokens in `Design-System.md`. "Close enough" is a violation.
 
@@ -129,7 +129,7 @@ If there are ZERO violations, explicitly state: **"✅ ZERO typography violation
 *   **Grid Consistency:** For internal micro-spacing (e.g. within buttons or small cards), use `gap-1` through `gap-6`.
 
 ### 3. 🎨 CHROMATIC DIMENSION (Colors & Atmosphere)
-*   **Theme Readiness:** Check for HARDCODED dark values (DARK MODE IS DISABLED for SalentoCoffee AI).
+*   **Theme Readiness:** Check for HARDCODED dark values (DARK MODE IS DISABLED for GO AMS AI).
 *   **Palette:** Are colors strictly from the defined palette (Earthy Gradient)?
 *   **Usage:** Are semantic colors used correctly?
 *   **Opacity:** Use semantic opacity variables (`bg-glass`) instead of raw `bg-white/5`.

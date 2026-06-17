@@ -50,16 +50,16 @@ useGSAP(() => {
 ## 3. UI Controls para el Scrubber (En el Panel)
 
 ```tsx
-<div className="space-y-4 border border-salento-cyan/20 p-4 rounded-xl bg-salento-cyan/5">
+<div className="space-y-4 border border-cyan/20 p-4 rounded-xl bg-cyan/5">
   
-  <div className="flex justify-between items-center pb-2 border-b border-salento-cyan/10">
-    <span className="text-salento-cyan font-bold text-[12px] uppercase">GSAP Master Control</span>
+  <div className="flex justify-between items-center pb-2 border-b border-cyan/10">
+    <span className="text-cyan font-bold text-[12px] uppercase">GSAP Master Control</span>
     
     {/* Controles de Reproducción */}
     <div className="flex gap-1">
       <button onClick={() => __tlRef.current?.restart()} className="w-8 h-6 bg-white/10 hover:bg-white/20 rounded flex items-center justify-center text-[10px]">⏮</button>
       <button onClick={() => __tlRef.current?.pause()} className="w-8 h-6 bg-white/10 hover:bg-white/20 rounded flex items-center justify-center text-[10px]">⏸</button>
-      <button onClick={() => __tlRef.current?.play()} className="w-8 h-6 bg-salento-cyan/20 text-salento-cyan hover:bg-salento-cyan/40 rounded flex items-center justify-center text-[10px] font-bold">▶</button>
+      <button onClick={() => __tlRef.current?.play()} className="w-8 h-6 bg-cyan/20 text-cyan hover:bg-cyan/40 rounded flex items-center justify-center text-[10px] font-bold">▶</button>
     </div>
   </div>
 
@@ -83,7 +83,7 @@ useGSAP(() => {
       }}
       className="w-full h-2 bg-white/10 rounded-full appearance-none cursor-pointer
                  [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-2.5
-                 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:bg-salento-cyan
+                 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:bg-cyan
                  [&::-webkit-slider-thumb]:rounded-sm"
     />
   </div>

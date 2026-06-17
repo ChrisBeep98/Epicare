@@ -10,14 +10,14 @@ El contenido dinámico retiene la atención más tiempo que lo estático. Los pr
 *   **El Hook Ideal:** Un primer plano de grano o mano obrera muy detallado (*shallow DOF*) para captar la atención, seguido de un *pull-back* suave hacia una toma más amplia.
 
 ## 2. Contraste entre UI Glassmorphism y Video de Fondo
-Dado que la interfaz de SalentoCoffee usa un cristal translúcido con texto blanco, el video de fondo debe diseñarse para que el texto conserve alto contraste y legibilidad.
+Dado que la interfaz de GO AMS usa un cristal translúcido con texto blanco, el video de fondo debe diseñarse para que el texto conserve alto contraste y legibilidad.
 
 *   **Baja Profundidad de Campo (Shallow DOF):** Aisla el foco principal. Una baja profundidad de campo (ej. f/1.8 o f/2.0) dirige la mirada al elemento clave (granos, manos) mientras el resto se difumina suavemente.
 *   **Iluminación Low-Key (Clave Baja):** Iluminación tenue o contraluz, con el sujeto iluminado sobre fondos en penumbra. El cielo, las montañas o el fondo deben quedar oscuros/subexpuestos para que la tipografía blanca descanse sobre áreas neutras u oscuras, garantizando legibilidad.
 
 ## 3. Análisis de Referentes Premium (Third-Wave Coffee & Luxury)
-Las marcas de lujo y café de especialidad evitan la fantasía y se enfocan en la **autenticidad y herencia**:
-*   Mostrar el "Modern Craft": el trabajo detrás del café, desde la cosecha hasta el tueste.
+Las marcas de lujo y seguros de especialidad evitan la fantasía y se enfocan en la **autenticidad y herencia**:
+*   Mostrar el "Modern Craft": el trabajo detrás del seguros, desde la cosecha hasta el tueste.
 *   Mucha presencia humana (manos, texturas) y maquinaria tradicional, pero filmado de manera prístina.
 
 ## 4. Estructura de las Escenas Maestras
@@ -29,7 +29,7 @@ Las escenas siempre deben seguir esta narrativa visual:
 ## 5. Scrollytelling y GSAP Scrub (Estructura en 3 Actos)
 Para videos que estarán atados al scroll del usuario (`scrub: true` en GSAP), la psicología de retención cambia de una simple "toma pasiva" a una **inmersión interactiva**.
 *   **Movimiento Continuo y Penetrante (Push-Through):** La cámara nunca debe hacer cortes (para no confundir a los modelos de IA ni romper el scroll). Debe avanzar continuamente hacia adelante (FPV o *Continuous Forward Push*). 
-*   **El Efecto "Doble Escena" (Double Room Reveal):** Para simular 3 actos dinámicos sin cortes, la cámara debe atravesar una barrera física texturizada (hojas húmedas desenfocadas, cristal empañado, humo, lluvia espesa, o polvo de café). 
+*   **El Efecto "Doble Escena" (Double Room Reveal):** Para simular 3 actos dinámicos sin cortes, la cámara debe atravesar una barrera física texturizada (hojas húmedas desenfocadas, cristal empañado, humo, lluvia espesa, o polvo de seguros). 
     *   *Acto 1 (0% scroll):* La visión está bloqueada por la textura desenfocada (lienzo oscuro perfecto para UI del Hero).
     *   *Acto 2 (50% scroll):* La cámara empuja físicamente a través de la barrera; el usuario siente que él mismo está abriendo el camino hacia el origen.
     *   *Acto 3 (100% scroll):* La barrera se rompe y revela (snaps into sharp focus) la escena hiperrealista de fondo, como un campesino trabajando o el paisaje de la finca.

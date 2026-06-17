@@ -55,7 +55,7 @@ Muestra una cascada de eventos con sus deltas de tiempo, crucial para entender s
             <span className={`px-1.5 rounded text-[9px] font-bold ${ev.type.includes('CLICK') ? 'bg-purple-500/30 text-purple-300' : 'bg-white/10 text-white/60'}`}>
               {ev.type}
             </span>
-            <span className="text-salento-cyan truncate">{ev.target}</span>
+            <span className="text-cyan truncate">{ev.target}</span>
           </div>
         );
       })

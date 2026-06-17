@@ -4,7 +4,7 @@ Este documento explica de manera detallada por qué fue necesario crear variable
 
 ## 1. El Problema: El Middleware de Next.js y Supabase
 
-El proyecto original de SalentoCoffee es una aplicación completa (no solo una página estática) que incluye áreas privadas (como `/admin` o `/dashboard`). Para proteger estas áreas, se utiliza **Supabase** como proveedor de autenticación y base de datos.
+El proyecto original de GO AMS es una aplicación completa (no solo una página estática) que incluye áreas privadas (como `/admin` o `/dashboard`). Para proteger estas áreas, se utiliza **Supabase** como proveedor de autenticación y base de datos.
 
 En Next.js, la seguridad se suele manejar mediante un archivo llamado `src/middleware.ts`. Este archivo actúa como un "portero" que se ejecuta *antes* de cargar cualquier página. Su trabajo es:
 1. Comprobar a qué ruta quieres entrar.

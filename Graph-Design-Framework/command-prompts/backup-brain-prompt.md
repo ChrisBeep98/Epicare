@@ -11,7 +11,7 @@ Copia y pega este prompt cada vez que quieras guardar una "Instantánea" del fra
 > 1. Determina el siguiente número de versión mirando qué archivos ya existen en `context-Docs/_archive/`.
 > 2. Ejecuta en PowerShell:
 >    ```powershell
->    Compress-Archive -Path "d:/Proyectos-Importantes/SalentoCoffee/Production-Web/context-Docs/*" -DestinationPath "d:/Proyectos-Importantes/SalentoCoffee/Production-Web/context-Docs/_archive/brain-vN_MonDD.zip" -Force
+>    Compress-Archive -Path "d:/Proyectos-Importantes/GO AMS/Production-Web/context-Docs/*" -DestinationPath "d:/Proyectos-Importantes/GO AMS/Production-Web/context-Docs/_archive/brain-vN_MonDD.zip" -Force
 >    ```
 >    Reemplaza `vN` por el número de versión y `MonDD` por la fecha (ej: `brain-v3_Mar19.zip`).
 >    **Nota:** Excluir la carpeta `_archive` del ZIP no es posible nativamente con `Compress-Archive`. Si el ZIP incluye `_archive`, está bien — los backups anteriores se preservan como nested history.

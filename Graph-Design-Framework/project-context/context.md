@@ -1,10 +1,10 @@
-# Contexto del Proyecto: SalentoCoffee Landing Page Redesign
+# Contexto del Proyecto: GO AMS Landing Page
 > **Última Actualización:** 5 de Abril, 2026
 > **Estado:** Fase 10 (E-Commerce & Platform Redesign)
 > **Navegación:** Ver [`README.md`](./README.md) para el índice completo de archivos de contexto.
 
 ## 1. Visión General
-El objetivo de este esfuerzo es realizar un **rediseño completo de la página de inicio (Landing Page)** del proyecto `salento-coffee-experience`. El proyecto original es una aplicación web robusta construida con Next.js (App Router), React 19, Supabase y Prisma, incluyendo paneles de administración protegidos.
+El objetivo de este esfuerzo es realizar un **rediseño completo de la página de inicio (Landing Page)** del proyecto `go-ams-landing`. El proyecto original es una aplicación web robusta construida con Next.js (App Router), React 19, Supabase y Prisma, incluyendo paneles de administración protegidos.
 
 El rediseño fue completado y **entregado** exitosamente. La rama `feature/redesign-landing` fue mergeada y el landing está en producción. El lead del equipo realizó ajustes post-entrega que fueron integrados vía `git pull origin main`.
 
@@ -12,7 +12,7 @@ El rediseño fue completado y **entregado** exitosamente. La rama `feature/redes
 - **Framework Principal:** Next.js 16.1.4 (Turbopack)
 - **Gestión de Estilos:** Tailwind CSS v4 (vía PostCSS) integrado orgánicamente. Globales centralizados en `landing.css`.
 - **Librerías de UI:** `framer-motion` (v12.x), `gsap` (v3.14.x) y `lenis` (smooth scrolling).
-- **Control de Versiones:** Git (Rama actual: `feature/redesign-landing`). Remotes: `origin` (flowtifyai/salento-coffee-experience), `myfork` (ChrisBeep98/salento-coffee-experience-fork).
+- **Control de Versiones:** Git (Rama actual: `feature/redesign-landing`). Remotes: `origin` (flowtifyai/go-ams-landing), `myfork` (ChrisBeep98/go-ams-landing-fork).
 - **Gestor de Paquetes:** `pnpm` (Estrictamente configurado).
 - **Deploy:** Vercel (conectado al fork). Git user para commits: `ChrisBeep98` / `christiansandovaldesign@gmail.com`.
 
@@ -32,7 +32,7 @@ Todo código entregado debe cumplir con los siguientes estándares de producció
 ### Design System
 - **Tipografía:** Usar EXCLUSIVAMENTE tokens del sistema tipográfico (`text-display-xl`, `text-display-lg`, `text-display`, `text-display-sm`, `text-h1`, `text-h2`, `text-h3`, `text-h4`, `text-h5`, `text-h6`, `text-overline`, `text-subtitle`, `text-body-2xl`, `text-body-xl`, `text-body-lg`, `text-body-md`, `text-body`, `text-body-sm`, `text-body-xs`, `text-ui-label`, `text-data`, `text-caption`). **PROHIBIDO** usar `text-[Xpx]` o `text-[Xrem]` arbitrarios.
 - **Colores:** Usar variables semánticas de Tailwind registradas en globals (`text-foreground`, `text-foreground-secondary`, `text-foreground-tertiary`, `text-muted`, `text-accent`, `bg-background`, `bg-secondary`, `border-border`). Minimizar uso de colores genéricos de Tailwind (`slate-*`, `gray-*`).
-- **Modo:** Bimodal completo. Debe soportar "Amanecer Cafetero" (Light Mode) y "Midnight Roast" (Dark Mode) fluidamente gracias al semantic mapping.
+- **Modo:** Bimodal completo. Debe soportar "Light Mode" (Light Mode) y "Dark Mode" (Dark Mode) fluidamente gracias al semantic mapping.
 
 ### Tooling
 - **Gestor de paquetes:** `pnpm` — NUNCA usar `npm` ni `yarn`.
@@ -62,7 +62,7 @@ Los componentes del nuevo diseño están consolidados en:
     - Se descubrió un defecto crítico de consistencia visual en monitores ultrawide (1920px+): `LiquidHero` usaba un contenedor de 1800px, mientras que `Header` y `FlowSellHero` orbitaban en lógicas sin definir o separadas.
     - **Estandarización al framework de 1400px:** Se inyectó estrictamente el límite `w-full max-w-[1400px]` en las tres entidades (Header, Flowsell, Landing) para garantizar paralelismo de columnas invisibles en toda la App.
     - **Padding Fluido Exterior (Resolución Quirúrgica):** Se reemplazó el token fantasma `.px-frame` por el cálculo nativo `md:px-[clamp(1.5rem,4vw,3.5rem)]`. Este token fue migrado forzosamente a la capa exterior de los 3 envoltorios globales (`<section>` y `<motion.header>`) eliminando rellenos duplicados y aplastamientos de layout.
-    - El widget `LanguageToggle` de escritorio se migró de la sección Izquierda (al lado del logotipo IsotipoSalentoCoffee) a la sección Derecha (junto al botón CTA de Log In).
+    - El widget `LanguageToggle` de escritorio se migró de la sección Izquierda (al lado del logotipo IsotipoGO AMS) a la sección Derecha (junto al botón CTA de Log In).
     - Se optimizaron los contenedores flex desactivando clases obsoletas para establecer una simetría absoluta (`gap-[12px]`) entre los controles de acción y sus barras separadoras verticales.
 42. **[NUEVO] FlowSell Hero — Refactor de Nomenclatura & Disambiguación (19 Mar 2026):**
     - El archivo `Hero.tsx` fue renombrado seguramente vía Git a `FlowSellHero.tsx` para evitar fricción semántica en producción.

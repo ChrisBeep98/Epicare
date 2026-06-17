@@ -6,7 +6,7 @@ Copia y pega este prompt al iniciar un nuevo chat o sesión con un asistente de 
 
 **PROMPT PARA ENTRAR EN CONTEXTO:**
 
-> "Hola IA. Vamos a trabajar en el proyecto 'salento-coffee-experience' (actualmente en la Fase 2 del Rediseño de la Landing Page). Antes de sugerir, planificar o escribir cualquier código, necesito que te empapes del contexto actual y de nuestras reglas de diseño.
+> "Hola IA. Vamos a trabajar en el proyecto 'go-ams-landing' (actualmente en la Fase 2 del Rediseño de la Landing Page). Antes de sugerir, planificar o escribir cualquier código, necesito que te empapes del contexto actual y de nuestras reglas de diseño.
 >
 > Por favor, realiza estrictamente estas acciones empleando tus herramientas de lectura de archivos:
 > 

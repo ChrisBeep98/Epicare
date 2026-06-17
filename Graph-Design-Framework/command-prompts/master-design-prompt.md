@@ -1,4 +1,4 @@
-# 🌌 SalentoCoffee Master Override (El Comando Dios)
+# 🌌 GO AMS Master Override (El Comando Dios)
 
 Copia y pega este prompt cada vez que me pidas (a Gemini o cualquier otra IA) crear una **nueva sección, componente visual o refactorizar código de UI**. Este comando me fuerza a inyectarme todas las reglas de nuestra agencia interna antes de escribir una sola línea de código.
 
@@ -6,9 +6,9 @@ Copia y pega este prompt cada vez que me pidas (a Gemini o cualquier otra IA) cr
 
 **PROMPT PARA CREAR O MODIFICAR UI:**
 
-> "A partir de este momento, estás bajo el protocolo **SalentoCoffee Master Override**. Antes de escribir código para el componente o sección que te voy a pedir, es OBLIGATORIO que leas en silencio los siguientes 6 documentos de nuestra carpeta privada para calibrar tu cerebro:
+> "A partir de este momento, estás bajo el protocolo **GO AMS Master Override**. Antes de escribir código para el componente o sección que te voy a pedir, es OBLIGATORIO que leas en silencio los siguientes 6 documentos de nuestra carpeta privada para calibrar tu cerebro:
 > 
-> 1. `context-Docs/WorkFlow-Docs/Design-System/Design-System.md` (Obligatorio para colores Hex EXACTOS The SalentoCoffee Way y reglas de tipografía Playfair Display/Inter).
+> 1. `context-Docs/WorkFlow-Docs/Design-System/Design-System.md` (Obligatorio para colores Hex EXACTOS The GO AMS Way y reglas de tipografía Playfair Display/Inter).
 > 2. `context-Docs/WorkFlow-Docs/Design-Agent-Skills/Tokenizer.md` (Para las reglas estrictas de Tailwind, CSS modules y paddings).
 > 3. `context-Docs/WorkFlow-Docs/Design-Agent-Skills/HARDWARE-SYMPHONY.md` (Para saber qué animar y qué NO animar por rendimiento).
 > 4. `context-Docs/WorkFlow-Docs/Design-Agent-Skills/COGNITIVE-TYPOGRAPHER.md` (Para aplicar tracking dinámico y text-balance).

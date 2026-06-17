@@ -1,7 +1,7 @@
 # Contexto: Design System (UI Kit)
 
 ## 📌 TL;DR
-Página de Debug y visualización del ecosistema tipográfico y cromático (`/design-system`). Implementa la estética "Organic Liquid Glass" bimodal (Light: Amanecer Cafetero / Dark: Midnight Roast). Cuenta con un selector interactivo de tipografías premium Serif y un "Typography Sandbox".
+Página de Debug y visualización del ecosistema tipográfico y cromático (`/design-system`). Implementa la estética "Organic Liquid Glass" bimodal (Light: Light Mode / Dark: Dark Mode). Cuenta con un selector interactivo de tipografías premium Serif y un "Typography Sandbox".
 
 ## 📁 Componentes y Archivos Involucrados
 - `src/app/design-system/page.tsx` (UI Kit Interactivo y estado local)
@@ -20,7 +20,7 @@ Página de Debug y visualización del ecosistema tipográfico y cromático (`/de
 
 - **2026-04-05:** Evolución y Refinamiento Maestro del Design System.
   - *Acción:* Se estructuró `globals.css` con **6 niveles de color de texto** (Primary a Muted + Inverse) con contrastes calibrados para lujo.
-  - *Acción:* Se implementó la **Bimodalidad Perfecta** (Amanecer Cafetero / Midnight Roast) con fondo Obsidian Black (#111111).
+  - *Acción:* Se implementó la **Bimodalidad Perfecta** (Light Mode / Dark Mode) con fondo Obsidian Black (#111111).
   - *Acción:* Se inyectaron **9 fuentes Serif de lujo** y **5 fuentes Sans-Serif Humanistas** seleccionables interactivamente.
   - *Acción:* Se expandió la escala tipográfica a **18 niveles cognitivos** (Display XL a Body XS).
   - *Acción:* Se creó el **Salento Spacing System**: Un sistema de espaciado fluido basado en `clamp()` con 4 categorías (Internal, Fluid Gaps, Section Paddings, 4 niveles de Page Gutters).

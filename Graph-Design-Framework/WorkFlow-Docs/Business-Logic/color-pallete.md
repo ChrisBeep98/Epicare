@@ -1,4 +1,4 @@
-Manual de Marca SalentoCoffee V 2.0" y el "SalentoCoffee Framework (versión 2.0)", hay algunos detalles adicionales y variaciones técnicas que son importantes para la precisión total de la marca.
+Manual de Marca GO AMS V 2.0" y el "GO AMS Framework (versión 2.0)", hay algunos detalles adicionales y variaciones técnicas que son importantes para la precisión total de la marca.
 Aquí tienes el desglose completo y verificado según las fuentes:
 1. El Gradiente Principal (Los 4 Pilares)
 El manual especifica que los colores primarios del gradiente deben usarse en este orden exacto:
@@ -25,7 +25,7 @@ Cyran
 #41A8D9
 #E0F4FF
 3. Colores de Sistema (System Feedback)
-Estos colores tienen una "personalidad SalentoCoffee" y también cuentan con sus variantes de intensidad:
+Estos colores tienen una "personalidad GO AMS" y también cuentan con sus variantes de intensidad:
 • Success (Éxito): Vivid #00D9A3, Deep #00A67E, Soft #D1FAE5.
 • Warning (Aviso): Vivid #FB923C, Deep #EA580C, Soft #FFEDD5.
 • Error: Vivid #FF2D55, Deep #E0264A, Soft #FEE2E2.

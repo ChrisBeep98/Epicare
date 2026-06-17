@@ -13,8 +13,8 @@
 ### 📝 VARIABLES DE MIGRACIÓN
 Por favor, utiliza la siguiente información para guiar la transformación:
 
-*   **Nombre del Proyecto:** De `[NOMBRE_ACTUAL_EJ_SalentoCoffee]` a `[NUEVO_NOMBRE]`
-*   **Prefijo CSS/Tokens:** De `[PREFIJO_ACTUAL_EJ_salento-]` a `[NUEVO_PREFIJO-]`
+*   **Nombre del Proyecto:** De `[NOMBRE_ACTUAL_EJ_GO AMS]` a `[NUEVO_NOMBRE]`
+*   **Prefijo CSS/Tokens:** De `[PREFIJO_ACTUAL_EJ_]` a `[NUEVO_PREFIJO-]`
 *   **Nueva Estética/Mood:** `[DESCRIBE_LA_NUEVA_ESTÉTICA. Ej: Cyberpunk Industrial, minimalismo brutalista en blanco y negro, bordes afilados, etc.]`
 *   **Tipografías:** Reemplazar `[FUENTE_ACTUAL_TÍTULOS]` por `[NUEVA_FUENTE_TÍTULOS]`. Reemplazar `[FUENTE_ACTUAL_CUERPO]` por `[NUEVA_FUENTE_CUERPO]`.
 *   **Paleta de Colores (Core):** `[LISTA_DE_NUEVOS_COLORES. Ej: Fondo negro puro #000000, Acentos Naranja Neón #FF5500...]`
@@ -34,11 +34,11 @@ Por favor, utiliza la siguiente información para guiar la transformación:
 **FASE 3: Reemplazo Global (Batch String Replacement)**
 Ejecuta un script o herramienta de reemplazo global (`glob` + `replace`) recursivo en TODOS los archivos `.md` de la carpeta `Graph-Design-Framework` para:
 1. Reemplazar el Nombre del Proyecto antiguo por el nuevo (respetando mayúsculas/minúsculas).
-2. Reemplazar el Prefijo CSS antiguo por el nuevo (ej. `salento-` -> `nuevo-`).
+2. Reemplazar el Prefijo CSS antiguo por el nuevo (ej. `` -> `nuevo-`).
 
 **FASE 4: Refactorización Semántica y Narrativa (El "Alma")**
 Utiliza un sub-agente (como `generalist`) para reescribir el contenido semántico de la carpeta `WorkFlow-Docs/Design-Agent-Skills/` (especialmente archivos de Motion y Creative Direction). 
 *   **MANDATO:** No basta con cambiar nombres de variables. Debes reescribir las descripciones de las animaciones, las metáforas (ej. cambiar "Cristal Líquido" por "Acero Forjado"), la descripción del "Parallax" y los nombres de los componentes lógicos (ej. `SoftOrganicCard` -> `GlitchPanel`). La narrativa debe sumergir al lector en la nueva estética.
 
 **FASE 5: Validación**
-Busca mediante `grep_search` si quedó algún rastro del `[PREFIJO_ACTUAL]` o `[NOMBRE_ACTUAL_EJ_SalentoCoffee]` en el framework. Si todo está limpio, avísame que la migración ha finalizado con éxito.
+Busca mediante `grep_search` si quedó algún rastro del `[PREFIJO_ACTUAL]` o `[NOMBRE_ACTUAL_EJ_GO AMS]` en el framework. Si todo está limpio, avísame que la migración ha finalizado con éxito.

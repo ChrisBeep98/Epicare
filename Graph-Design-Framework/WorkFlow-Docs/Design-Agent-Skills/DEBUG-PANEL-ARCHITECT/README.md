@@ -3,9 +3,9 @@
 ## Contexto & Filosofía
 A veces, adivinar valores de CSS (como `mix-blend-mode`), ritmos de animación, o **decidir entre arquitecturas de layout completas** requiere construir y recompilar docenas de veces. Esto es lento y frustrante.
 
-La solución de SalentoCoffee es la inyección de **Paneles Laterales de Debug en Vivo**. Esta skill instruye sobre cómo construir un panel lateral temporal (drawer/sidebar) sobre cualquier componente React para manipular configuraciones estructurales, espaciados y animaciones al instante.
+La solución de GO AMS es la inyección de **Paneles Laterales de Debug en Vivo**. Esta skill instruye sobre cómo construir un panel lateral temporal (drawer/sidebar) sobre cualquier componente React para manipular configuraciones estructurales, espaciados y animaciones al instante.
 
-**CRÍTICO:** Estos paneles son estrictamente para desarrollo. **NUNCA** deben llegar a producción. Respetan el ciclo de vida de **3 Fases SalentoCoffee**, permitiendo su eliminación quirúrgica total (*zero-trace*).
+**CRÍTICO:** Estos paneles son estrictamente para desarrollo. **NUNCA** deben llegar a producción. Respetan el ciclo de vida de **3 Fases GO AMS**, permitiendo su eliminación quirúrgica total (*zero-trace*).
 
 ---
 
@@ -15,7 +15,7 @@ La solución de SalentoCoffee es la inyección de **Paneles Laterales de Debug e
 Inyección del panel lateral UI con estados temporales (prefijo `__dbg`) para alternar valores CSS, tiempos de animación o estructuras JSX completas. El código se asume "sucio" pero altamente interactivo.
 
 ### Fase 2: Tokenización y Consolidación (The Refactor)
-El usuario (o el Agente) elige un ganador usando el panel. El Agente transfiere "en piedra" el código ganador aplicando los estándares SalentoCoffee (Tailwind, variables semánticas, tokens tipográficos).
+El usuario (o el Agente) elige un ganador usando el panel. El Agente transfiere "en piedra" el código ganador aplicando los estándares GO AMS (Tailwind, variables semánticas, tokens tipográficos).
 
 ### Fase 3: The Purge (Zero-Trace Cleanup)
 Eliminación quirúrgica total del panel y todos sus estados. Ver la **Purge Checklist** en `01-CORE-INJECTION.md`.

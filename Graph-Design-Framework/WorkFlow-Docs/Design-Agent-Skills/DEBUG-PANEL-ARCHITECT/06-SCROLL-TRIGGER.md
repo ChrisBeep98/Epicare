@@ -1,6 +1,6 @@
 # 🎢 06. GSAP ScrollTrigger Visualizer (Custom Markers)
 
-Para animaciones complejas basadas en el scroll (como el `Wave Reveal` o el `Dashboard Reveal` de SalentoCoffee), los sliders estáticos no sirven. Necesitamos visualizar y alterar los puntos de activación (`start`, `end`) de GSAP en tiempo real sin recompilar.
+Para animaciones complejas basadas en el scroll (como el `Wave Reveal` o el `Dashboard Reveal` de GO AMS), los sliders estáticos no sirven. Necesitamos visualizar y alterar los puntos de activación (`start`, `end`) de GSAP en tiempo real sin recompilar.
 
 ## 1. Setup del Estado (Start/End Points)
 Inyectamos controles de porcentaje que definirán dónde arranca y termina la animación respecto a la pantalla.
@@ -42,8 +42,8 @@ useGSAP(() => {
 Interfaz intuitiva para mover las líneas rojas/verdes de GSAP directamente desde el Drawer.
 
 ```tsx
-<div className="space-y-4 border border-salento-green/20 p-4 rounded-xl bg-salento-green/5">
-  <span className="text-salento-green font-bold text-[12px] uppercase flex items-center gap-2">
+<div className="space-y-4 border border-green/20 p-4 rounded-xl bg-green/5">
+  <span className="text-green font-bold text-[12px] uppercase flex items-center gap-2">
     🎢 ScrollTrigger Matrix
   </span>
 
@@ -56,7 +56,7 @@ Interfaz intuitiva para mover las líneas rojas/verdes de GSAP directamente desd
       onChange={(e) => __setDbgTriggerStart(Number(e.target.value))}
       className="w-full h-1.5 bg-white/10 rounded-full appearance-none cursor-pointer
                  [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3
-                 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:bg-salento-green
+                 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:bg-green
                  [&::-webkit-slider-thumb]:rounded-full" />
   </div>
 
@@ -76,11 +76,11 @@ Interfaz intuitiva para mover las líneas rojas/verdes de GSAP directamente desd
   {/* Toggles Arquitectónicos */}
   <div className="flex gap-2 pt-2">
     <button onClick={() => __setDbgPin(!__dbgPin)}
-      className={`flex-1 py-1.5 text-[10px] font-bold rounded transition-colors ${__dbgPin ? 'bg-salento-green text-black' : 'bg-white/10 text-white/50'}`}>
+      className={`flex-1 py-1.5 text-[10px] font-bold rounded transition-colors ${__dbgPin ? 'bg-green text-black' : 'bg-white/10 text-white/50'}`}>
       📍 PIN: {__dbgPin ? 'ON' : 'OFF'}
     </button>
     <button onClick={() => __setDbgScrub(!__dbgScrub)}
-      className={`flex-1 py-1.5 text-[10px] font-bold rounded transition-colors ${__dbgScrub ? 'bg-salento-blue text-black' : 'bg-white/10 text-white/50'}`}>
+      className={`flex-1 py-1.5 text-[10px] font-bold rounded transition-colors ${__dbgScrub ? 'bg-blue text-black' : 'bg-white/10 text-white/50'}`}>
       ⏱️ SCRUB: {__dbgScrub ? 'ON' : 'OFF'}
     </button>
   </div>

@@ -1,4 +1,4 @@
-# Changelog — SalentoCoffee context-Docs Framework
+# Changelog — GO AMS context-Docs Framework
 
 All notable changes to this framework are documented here.
 Format follows [Keep a Changelog](https://keepachangelog.com/) and [Semantic Versioning](https://semver.org/).

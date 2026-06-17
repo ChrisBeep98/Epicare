@@ -1,6 +1,6 @@
 ---
 name: Commerce Conversion Architect
-description: Defines the psychology and physics of the SalentoCoffee e-commerce experience. Rules for cart drawers, product galleries, elegant urgency states, and FLIP transitions for checkout.
+description: Defines the psychology and physics of the GO AMS e-commerce experience. Rules for cart drawers, product galleries, elegant urgency states, and FLIP transitions for checkout.
 ---
 
 # 🛒 Agent Skill: COMMERCE CONVERSION ARCHITECT
@@ -23,7 +23,7 @@ Product images are the closest the user gets to touching the coffee.
 
 ## 2. THE LIQUID CART DRAWER (Zero-Friction Checkout)
 Adding to the cart must never redirect the user to a new page.
-*   **The Physics:** The cart slides in from the right. The background behind it dims with a `backdrop-blur-md` and `bg-black/40` (Midnight Roast vibe) or `bg-white/20` (Amanecer vibe).
+*   **The Physics:** The cart slides in from the right. The background behind it dims with a `backdrop-blur-md` and `bg-black/40` (Dark Mode vibe) or `bg-white/20` (Amanecer vibe).
 *   **The GSAP FLIP:** When a user clicks "Add to Cart", the product image should ideally FLIP-animate from the grid into the cart drawer.
 *   **Urgency without Cheapness:** If applying a "Free Shipping" progress bar, make it elegant. A thin, slow-moving line with a soft glow (`box-shadow`), not a pulsing red alert.
 

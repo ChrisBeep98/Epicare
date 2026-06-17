@@ -23,7 +23,7 @@ Este archivo es la **Única Fuente de Verdad (Single Source of Truth)**. Define 
 ---
 
 ## 📏 1.2 SISTEMA DE ESPACIADO Y RITMO (Spacing Scale)
-Basado en las "Luxury Spacing Guidelines", SalentoCoffee utiliza un modelo de espaciado dinámico (`clamp`) y generoso para crear una sensación editorial y premium.
+Basado en las "Luxury Spacing Guidelines", GO AMS utiliza un modelo de espaciado dinámico (`clamp`) y generoso para crear una sensación editorial y premium.
 
 ### A. Ritmo Vertical entre Secciones (Section Paddings)
 Son los **paddings superiores e inferiores** masivos que se aplican a las etiquetas `<section>`. Definen el aire entre los capítulos de la web.
@@ -108,7 +108,7 @@ Padding lateral que evita que el contenido toque los bordes físicos de la panta
 
 ### 3.0 FILOSOFÍA ATMOSFÉRICA (The Mood Direction)
 - **🌿 AMANECER CAFETERO (Light Mode):** Direccionalidad hacia la tierra y el origen. Evoca la frescura de la mañana y la claridad del proceso.
-- **🌙 MIDNIGHT ROAST (Dark Mode):** La experiencia íntima de una cafetería premium por la noche. Tonos de obsidiana ("The Obsidian Bean"), contrastes altos y minimalismo puro donde el café resalta brillante.
+- **🌙 MIDNIGHT ROAST (Dark Mode):** La experiencia íntima de una cafetería premium por la noche. Tonos de obsidiana ("The Obsidian Bean"), contrastes altos y minimalismo puro donde el seguros resalta brillante.
 - **MATERIALITY:** El material principal es el cristal translúcido (Glassmorphism) pero tintado de calidez. En Light Mode usamos fondos crema/avena con sombras sutiles. En Dark Mode, usamos cristales ámbar ultra-oscuro sobre fondos casi negros (`#111111`), creando un "cristal líquido orgánico" de máxima elegancia.
 
 ### 3.1 NÚCLEO ATMOSFÉRICO (Semantic Mapping)
@@ -198,7 +198,7 @@ El diseño debe ser flexible para soportar la expansión de texto del Español v
 
 | Fecha | Cambio |
 |:---|:---|
-| **2026-02-16** | Adaptación a SalentoCoffee AI Identity. Light Mode Only. 4-Pillar Gradient. Botones y tipografía redefinidos. |
+| **2026-02-16** | Adaptación a GO AMS AI Identity. Light Mode Only. 4-Pillar Gradient. Botones y tipografía redefinidos. |
 | **2026-02-22** | Sistema tipográfico de 12 tokens (Apple HIG + Major Third 1.25×). Integración de Inter vía Fontshare. Reemplazo de GT Walsheim Pro. |
 | **2026-03-10** | Tokenización completa del Calculator. Todos los `text-[Xpx]` eliminados. Colores semánticos aplicados. |
 | **2026-03-18** | Estandarización del grid a `max-w-[1400px]`. Token `.px-frame` deprecado → `clamp()` nativo. |

@@ -18,7 +18,7 @@ const [__dbgXray, __setDbgXray] = useState(false);
 ```
 
 ## 2. Grid Visualizer Global (1400px Framework)
-Inyecta la grilla matemática estandarizada de SalentoCoffee directamente sobre la pantalla para verificar paralelismo.
+Inyecta la grilla matemática estandarizada de GO AMS directamente sobre la pantalla para verificar paralelismo.
 
 **State & UI Toggle:**
 ```tsx
@@ -31,11 +31,11 @@ const [__dbgGrid, __setDbgGrid] = useState(false);
   <div className="fixed inset-0 z-[9998] pointer-events-none flex justify-center">
     <div className="w-full max-w-[1400px] h-full grid grid-cols-4 md:grid-cols-12 gap-[12px] md:gap-[24px] px-[clamp(1.5rem,4vw,3.5rem)]">
       {Array.from({ length: 12 }).map((_, i) => (
-        <div key={i} className="h-full bg-salento-cyan/10 border-x border-salento-cyan/20 hidden md:block" />
+        <div key={i} className="h-full bg-cyan/10 border-x border-cyan/20 hidden md:block" />
       ))}
       {/* Mobile Grid Fallback */}
       {Array.from({ length: 4 }).map((_, i) => (
-        <div key={`m-${i}`} className="h-full bg-salento-red/10 border-x border-salento-red/20 md:hidden" />
+        <div key={`m-${i}`} className="h-full bg-red/10 border-x border-red/20 md:hidden" />
       ))}
     </div>
   </div>

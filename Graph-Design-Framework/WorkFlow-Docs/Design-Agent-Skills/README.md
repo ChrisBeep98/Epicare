@@ -1,11 +1,11 @@
 ---
 name: Agent Skills Index
-description: Navigation index and recommended reading order for all SalentoCoffee Design Agent Skills.
+description: Navigation index and recommended reading order for all GO AMS Design Agent Skills.
 ---
 
-# 🧠 SalentoCoffee Design Agent Skills — Índice
+# 🧠 GO AMS Design Agent Skills — Índice
 
-> **Propósito:** Este directorio contiene los protocolos de comportamiento modulares para agentes de IA que trabajan en SalentoCoffee. Cada skill es un "plugin" que inyecta conocimiento especializado.
+> **Propósito:** Este directorio contiene los protocolos de comportamiento modulares para agentes de IA que trabajan en GO AMS. Cada skill es un "plugin" que inyecta conocimiento especializado.
 
 ## 📖 Orden de Lectura Recomendado
 
@@ -17,7 +17,7 @@ Lee en este orden para construir conocimiento de forma incremental:
 | 2 | **Cognitive Typographer** | [`COGNITIVE-TYPOGRAPHER.md`](./COGNITIVE-TYPOGRAPHER.md) | `tipografía` | Ritmo tipográfico: tracking, text-wrap, medida óptima de línea, unidades rem. |
 | 3 | **Hardware Symphony** | [`HARDWARE-SYMPHONY.md`](./HARDWARE-SYMPHONY.md) | `performance` | 60fps protocol. Smart Shutdown, elegant degradation, legal animated properties. |
 | 4 | **Debug Panel Architect** | [`DEBUG-PANEL-ARCHITECT.md`](./DEBUG-PANEL-ARCHITECT.md) | `workflow` | **v2.0 Pro.** Collapsible pill UI, tabbed controls, 8 control types, context-aware detection, Tailwind-ready copy, 9-step purge checklist. |
-| 5 | **Creative Direction** | [`CREATIVE-DIRECTION.md`](./CREATIVE-DIRECTION.md) | `diseño` | Anti-"AI Slop". Dirección de arte premium para SalentoCoffee. |
+| 5 | **Creative Direction** | [`CREATIVE-DIRECTION.md`](./CREATIVE-DIRECTION.md) | `diseño` | Anti-"AI Slop". Dirección de arte premium para GO AMS. |
 | 6 | **Creative Motion** | [`CREATIVE-MOTION.md`](./CREATIVE-MOTION.md) | `animación` | Filosofía Awwwards: scroll pin, liquid cursor, scrollytelling, parallax. |
 | 7 | **Awwwards Motion** | [`AWWWARDS-MOTION.md`](./AWWWARDS-MOTION.md) | `animación` | Físicas de scroll: Layered Unveiling, Water Mask, Breathing Canvas. |
 | 8 | **Cinematic Architect** | [`CINEMATIC-ARCHITECT.md`](./CINEMATIC-ARCHITECT.md) | `narrativa` | Narrativa visual DOM-3D: Diegetic UI, Sandwich Technique, Tunnel Transition. |

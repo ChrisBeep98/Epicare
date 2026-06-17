@@ -6,7 +6,7 @@ description: Defines rhythm, tracking, text wrapping, fluid scaling, and accessi
 # 🧠 Agent Skill: THE COGNITIVE TYPOGRAPHER (Rhythm & Adaptive Reading)
 
 **Level:** Editorial / Master-Class
-**Objective:** Elevate typography from "looking good" to "breathing with the user." In SalentoCoffee AI, reading must be an effortless, immersive experience.
+**Objective:** Elevate typography from "looking good" to "breathing with the user." In GO AMS AI, reading must be an effortless, immersive experience.
 
 ---
 
@@ -74,7 +74,7 @@ The human eye gets fatigued if lines are too long or too short.
 | 20px | `1.25rem` | `text-xl` |
 
 ## 🤖 AI PROMPT DIRECTIVES
-When generating text structures for SalentoCoffee:
+When generating text structures for GO AMS:
 1. *"Did I use any `text-[Xpx]` class? If yes, STOP and convert to `rem` immediately."*
 2. *"Did I leave the H1 with default tracking? If yes, tighten it to make it lock together."*
 3. *"Is the paragraph allowed to stretch infinitely? If yes, apply `max-w-prose`."*

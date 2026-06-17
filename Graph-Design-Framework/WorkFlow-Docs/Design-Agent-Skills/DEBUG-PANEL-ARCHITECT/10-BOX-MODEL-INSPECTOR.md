@@ -46,7 +46,7 @@ Renderiza un gráfico visual concéntrico exacto al de Chrome/Figma en el panel 
     <p className="text-[10px] text-white/40 mt-2">Hover sobre un elemento para inspeccionar...</p>
   ) : (
     <div className="mt-4 text-[9px] font-mono text-center">
-      <div className="mb-2 text-salento-cyan font-bold text-[11px]">&lt;{__dbgHoveredNode.tag}&gt;</div>
+      <div className="mb-2 text-cyan font-bold text-[11px]">&lt;{__dbgHoveredNode.tag}&gt;</div>
       
       {/* Margin Box */}
       <div className="bg-orange-500/20 border border-orange-500/50 p-1 relative group">

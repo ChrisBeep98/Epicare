@@ -7,7 +7,7 @@ description: Generates high-fidelity, complex prompts for AI video/image generat
 
 **Level:** Art Director / AI Prompter / UX Researcher
 **Tools:** Google Flow, Veo, NanoBanana, Midjourney, Stable Diffusion
-**Objective:** Generate hyper-specific, production-ready prompts to create visual assets that perfectly match the SalentoCoffee "Organic Liquid Glass" aesthetics, while strictly adhering to conversion psychology and UI contrast rules.
+**Objective:** Generate hyper-specific, production-ready prompts to create visual assets that perfectly match the GO AMS "Organic Liquid Glass" aesthetics, while strictly adhering to conversion psychology and UI contrast rules.
 
 ---
 

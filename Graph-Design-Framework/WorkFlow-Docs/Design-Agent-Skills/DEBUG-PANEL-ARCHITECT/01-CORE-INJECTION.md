@@ -38,7 +38,7 @@ El panel v3.0 ya no es una simple caja flotante. Es un **Drawer Lateral de altur
   <button onClick={() => __setDbgOpen(true)}
     className="fixed top-1/2 right-0 -translate-y-1/2 z-[9999] px-2 py-6
                bg-black/90 backdrop-blur-xl rounded-l-xl border-y border-l border-white/20
-               text-salento-cyan text-[10px] font-bold shadow-[-5px_0_20px_rgba(0,180,255,0.2)]
+               text-cyan text-[10px] font-bold shadow-[-5px_0_20px_rgba(0,180,255,0.2)]
                hover:bg-black transition-all hover:-translate-x-1 uppercase"
     style={{ writingMode: 'vertical-rl' }}>
     🧪 Inspect
@@ -56,13 +56,13 @@ El panel v3.0 ya no es una simple caja flotante. Es un **Drawer Lateral de altur
     {/* Header & Acciones Globales */}
     <div className="px-5 py-4 border-b border-white/10 flex justify-between items-center bg-white/5 shrink-0">
       <div className="flex flex-col">
-        <span className="font-bold text-[14px] text-salento-cyan flex items-center gap-2">
+        <span className="font-bold text-[14px] text-cyan flex items-center gap-2">
           🧪 Dev Inspector
         </span>
         <span className="text-[10px] text-white/40 font-mono">v3.0 Ecosystem</span>
       </div>
       <div className="flex items-center gap-2">
-        <button onClick={() => {/* Copy Logic */}} className="px-3 py-1 bg-salento-cyan/20 text-salento-cyan rounded text-[11px] font-bold hover:bg-salento-cyan/30">📋 COPY</button>
+        <button onClick={() => {/* Copy Logic */}} className="px-3 py-1 bg-cyan/20 text-cyan rounded text-[11px] font-bold hover:bg-cyan/30">📋 COPY</button>
         <button onClick={() => __setDbgOpen(false)} className="w-7 h-7 flex items-center justify-center bg-white/10 rounded-full hover:bg-red-500/40 text-white/60 hover:text-white">✕</button>
       </div>
     </div>

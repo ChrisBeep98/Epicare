@@ -77,14 +77,14 @@ Inyectamos un selector global en el Header del Panel Lateral que cambia el conte
     <button 
       onClick={() => __setDbgBreakpoint('mobile')}
       className={`flex-1 py-1.5 flex justify-center items-center gap-2 text-[11px] font-bold rounded-md transition-all ${
-        __dbgBreakpoint === 'mobile' ? 'bg-salento-cyan text-black shadow-md' : 'text-white/40 hover:text-white/80'
+        __dbgBreakpoint === 'mobile' ? 'bg-cyan text-black shadow-md' : 'text-white/40 hover:text-white/80'
       }`}>
       📱 Mobile
     </button>
     <button 
       onClick={() => __setDbgBreakpoint('desktop')}
       className={`flex-1 py-1.5 flex justify-center items-center gap-2 text-[11px] font-bold rounded-md transition-all ${
-        __dbgBreakpoint === 'desktop' ? 'bg-salento-cyan text-black shadow-md' : 'text-white/40 hover:text-white/80'
+        __dbgBreakpoint === 'desktop' ? 'bg-cyan text-black shadow-md' : 'text-white/40 hover:text-white/80'
       }`}>
       🖥️ Desktop
     </button>
@@ -96,12 +96,12 @@ Inyectamos un selector global en el Header del Panel Lateral que cambia el conte
   <div className="space-y-1">
     <div className="flex justify-between text-[10px] text-white/60">
       <span>Padding Top ({__dbgBreakpoint})</span>
-      <span className="font-mono text-salento-cyan">{__dbgValues[__dbgBreakpoint].pt}px</span>
+      <span className="font-mono text-cyan">{__dbgValues[__dbgBreakpoint].pt}px</span>
     </div>
     <input type="range" min={0} max={200} step={4} 
       value={__dbgValues[__dbgBreakpoint].pt}
       onChange={(e) => __updateDbgVal('pt', Number(e.target.value))}
-      className="w-full h-1.5 bg-white/10 rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:bg-salento-cyan [&::-webkit-slider-thumb]:rounded-full" />
+      className="w-full h-1.5 bg-white/10 rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:bg-cyan [&::-webkit-slider-thumb]:rounded-full" />
   </div>
 </div>
 ```

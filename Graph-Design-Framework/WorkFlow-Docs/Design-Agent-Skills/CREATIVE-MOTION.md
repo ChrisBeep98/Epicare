@@ -7,7 +7,7 @@ description: Awwwards-level motion philosophy. Scroll Pin, Liquid Cursor, Scroll
 
 > "Don't just build the design. Direct the experience."
 
-This skill outlines the philosophy of creating "Awwwards-level" web experiences for SalentoCoffee AI. It encourages breaking away from standard grids and safe choices to implement surprising, cinematic, and technically impressive motion.
+This skill outlines the philosophy of creating "Awwwards-level" web experiences for GO AMS AI. It encourages breaking away from standard grids and safe choices to implement surprising, cinematic, and technically impressive motion.
 
 ## 1. The Core Philosophy: Surprise & Delight
 Static websites are functional; moving websites are emotional. To truly impress:
@@ -16,7 +16,7 @@ Static websites are functional; moving websites are emotional. To truly impress:
 - **Fearless Scale:** Use typography that is "too big". Crop images aggressively. Make bold choices that feel editorial, not utilitarian.
 - **Micro-Choreography:** Every interaction (hover, scroll, click) must return energy. A dead interface is a failed interface.
 
-## 2. Key Techniques for SalentoCoffee AI
+## 2. Key Techniques for GO AMS AI
 
 ### The "Scroll Pin" (Horizontal Scroll)
 *Technique:* Use GSAP `ScrollTrigger` with `pin: true` and `xPercent`.
@@ -38,9 +38,9 @@ Static websites are functional; moving websites are emotional. To truly impress:
 *Technique:* Use Lenis or GSAP ScrollSmoother (if available).
 *Why:* Browser scrolling is jagged. Adding inertia/damping (smoothing) makes everything feel heavier and more premium. It turns a "webpage" into a "software experience".
 
-### Parallax & Depth (The "SalentoCoffee" Signature)
+### Parallax & Depth (The "GO AMS" Signature)
 *Technique:* Move background elements at different speeds (`scrub: true`, `y: "30%"`).
-*Theme Detail:* Strictly use the **Artisanal Premium (Light Mode)** atmosphere. Use crisp shadows (`shadow-primary/5`), warm negative space, soft earthy shadows (`shadow-xl shadow-salento-brown/10`), and Earthy Glassmorphism (warm tinted `backdrop-blur-xl`).
+*Theme Detail:* Strictly use the **Artisanal Premium (Light Mode)** atmosphere. Use crisp shadows (`shadow-primary/5`), warm negative space, soft earthy shadows (`shadow-xl shadow-brown/10`), and Earthy Glassmorphism (warm tinted `backdrop-blur-xl`).
 *Why:* Screens are flat. Parallax creates an illusion of depth that makes the screen feel like a window into a 3D space, mimicking physical depth.
 
 ### Image Reveals (The "Curtain")

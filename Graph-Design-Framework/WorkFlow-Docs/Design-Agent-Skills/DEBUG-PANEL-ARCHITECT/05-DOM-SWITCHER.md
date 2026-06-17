@@ -64,13 +64,13 @@ El DOM central queda extremadamente limpio.
   <div className="flex p-1 bg-black/50 rounded-lg border border-white/10 shadow-inner mt-2">
     <button onClick={() => __setDbgLayoutMode('A')}
       className={`flex-1 py-2 text-[11px] font-bold rounded-md transition-all ${
-        __dbgLayoutMode === 'A' ? 'bg-salento-cyan text-black shadow-md' : 'text-white/50 hover:text-white'
+        __dbgLayoutMode === 'A' ? 'bg-cyan text-black shadow-md' : 'text-white/50 hover:text-white'
       }`}>
       A: Split View 50/50
     </button>
     <button onClick={() => __setDbgLayoutMode('B')}
       className={`flex-1 py-2 text-[11px] font-bold rounded-md transition-all ${
-        __dbgLayoutMode === 'B' ? 'bg-salento-cyan text-black shadow-md' : 'text-white/50 hover:text-white'
+        __dbgLayoutMode === 'B' ? 'bg-cyan text-black shadow-md' : 'text-white/50 hover:text-white'
       }`}>
       B: Central Bento Grid
     </button>

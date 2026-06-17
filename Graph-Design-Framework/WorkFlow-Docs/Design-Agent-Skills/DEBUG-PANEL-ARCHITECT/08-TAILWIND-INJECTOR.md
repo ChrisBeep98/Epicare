@@ -6,7 +6,7 @@ Para flujos de trabajo donde los *Sliders* no son suficientes (ej: probar combin
 ```tsx
 // 🧪 INICIALIZA: TEMPORARY DEBUG TESTER STATE
 // Estado con algunas clases por defecto o vacío
-const [__dbgCustomClasses, __setDbgCustomClasses] = useState('hover:scale-105 shadow-2xl shadow-salento-cyan/20');
+const [__dbgCustomClasses, __setDbgCustomClasses] = useState('hover:scale-105 shadow-2xl shadow-cyan/20');
 ```
 
 ## 2. Inyección en el Componente Objetivo
@@ -43,8 +43,8 @@ Un input de texto grande, con estilo de terminal, que actualiza el estado en cad
       onChange={(e) => __setDbgCustomClasses(e.target.value)}
       placeholder="ej: mix-blend-overlay backdrop-blur-md..."
       className="w-full h-24 bg-neutral-900 border border-white/20 rounded-lg p-3 
-                 text-[11px] text-salento-cyan font-mono leading-relaxed
-                 focus:outline-none focus:border-salento-cyan/50 focus:ring-1 focus:ring-salento-cyan/50
+                 text-[11px] text-cyan font-mono leading-relaxed
+                 focus:outline-none focus:border-cyan/50 focus:ring-1 focus:ring-cyan/50
                  resize-none custom-scrollbar"
       spellCheck={false}
     />
@@ -64,7 +64,7 @@ Un input de texto grande, con estilo de terminal, que actualiza el estado en cad
   <div className="flex flex-wrap gap-1.5 pt-2">
     <span className="text-[9px] text-white/30 uppercase w-full mb-1">Snippets:</span>
     <button onClick={() => __setDbgCustomClasses(prev => prev + ' backdrop-blur-xl bg-white/5')} className="px-2 py-1 bg-white/5 rounded hover:bg-white/10 text-[9px] text-white/60 font-mono">+ Glassmorphism</button>
-    <button onClick={() => __setDbgCustomClasses(prev => prev + ' bg-gradient-to-br from-salento-cyan/20 to-transparent')} className="px-2 py-1 bg-white/5 rounded hover:bg-white/10 text-[9px] text-white/60 font-mono">+ Cyan Glow</button>
+    <button onClick={() => __setDbgCustomClasses(prev => prev + ' bg-gradient-to-br from-cyan/20 to-transparent')} className="px-2 py-1 bg-white/5 rounded hover:bg-white/10 text-[9px] text-white/60 font-mono">+ Cyan Glow</button>
   </div>
 </div>
 ```
