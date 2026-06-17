@@ -54,6 +54,14 @@ Familia Principal: `DM Sans` (La única tipografía permitida).
 - `--max-w-section-lg`: 1280px
 - `--max-w-section-xl`: 1536px
 
+**Elevación / Sombras (Shadow System):**
+_Sombras difusas, sutiles y multicapa._
+- `.shadow-elevation-1`: Elevación mínima (xs)
+- `.shadow-elevation-2`: Elevación sutil (sm)
+- `.shadow-elevation-3`: Elevación estándar (md)
+- `.shadow-elevation-4`: Elevación pronunciada (lg)
+- `.shadow-elevation-5`: Elevación flotante (xl)
+
 ---
 
 ## 3. COLORES BÁSICOS (Tokens Completos)

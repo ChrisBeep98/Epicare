@@ -50,6 +50,7 @@ Before writing any `className`, verify you are NOT using these forbidden pattern
 | `py-20`, `py-32`, `py-[]`, `p-16` | `.py-section-[xs\|sm\|md\|lg]` | Section Vertical Rhythm |
 | `gap-4`, `gap-8`, `gap-12`, `gap-[20px]` | `.gap-fluid-[xs\|sm\|md\|lg]` | Espaciado de flex y grid |
 | `max-w-7xl`, `max-w-screen-xl`, `max-w-[1200px]`| `style={{ maxWidth: 'var(--max-w-section-*)' }}` | Contenedores maestros y wrappers de página |
+| `shadow`, `shadow-md`, `shadow-xl`, `shadow-2xl`| `.shadow-elevation-[1\|2\|3\|4\|5]` | Elevación de tarjetas, modales y botones |
 
 ---
 

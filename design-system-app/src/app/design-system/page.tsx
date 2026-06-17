@@ -8,6 +8,7 @@ import TypographySection from "./components/TypographySection";
 import SpacingSection from "./components/SpacingSection";
 import InteractiveSection from "./components/InteractiveSection";
 import MaxWidthSection from "./components/MaxWidthSection";
+import { ElevationSection } from "./components/ElevationSection";
 
 
 export default function DesignSystemPage() {
@@ -99,6 +100,7 @@ export default function DesignSystemPage() {
         <SemanticTextColorsSection isDark={isDark} />
         <TypographySection />
         <SpacingSection />
+        <ElevationSection />
         <InteractiveSection />
 
       </div>
