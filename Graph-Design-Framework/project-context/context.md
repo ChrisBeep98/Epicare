@@ -55,17 +55,17 @@ Los componentes del nuevo diseño están consolidados en:
 
 ### Fase 8 — Acciones Activas (18-19 Mar 2026)
 
-39. **[NUEVO] FlowSell Hero — Implementación V2 & Cinematic Sync (18 Mar 2026):**
+39. **[NUEVO] GO AMS Portal Hero — Implementación V2 & Cinematic Sync (18 Mar 2026):**
     - Creación funcional del esqueleto `src/components/flowsell/Hero.tsx` implementando textos localizados (`next-intl`) y la animación maestro-secuencial vía `gsap.timeline`.
     - **Solución al Salto de Fotogramas de Video:** Se modificó la invocación `.play()` del background video al evento `onStart` de su propia transición de opacidad (con `currentTime = 0`), sincronizando el milisegundo exacto de aparición para evitar fotogramas congelados en el *fade-in*.
 40. **[NUEVO] Unificación Matemática del Grid Arquitectónico (18 Mar 2026):**
-    - Se descubrió un defecto crítico de consistencia visual en monitores ultrawide (1920px+): `LiquidHero` usaba un contenedor de 1800px, mientras que `Header` y `FlowSellHero` orbitaban en lógicas sin definir o separadas.
+    - Se descubrió un defecto crítico de consistencia visual en monitores ultrawide (1920px+): `LiquidHero` usaba un contenedor de 1800px, mientras que `Header` y `GO AMS PortalHero` orbitaban en lógicas sin definir o separadas.
     - **Estandarización al framework de 1400px:** Se inyectó estrictamente el límite `w-full max-w-[1400px]` en las tres entidades (Header, Flowsell, Landing) para garantizar paralelismo de columnas invisibles en toda la App.
     - **Padding Fluido Exterior (Resolución Quirúrgica):** Se reemplazó el token fantasma `.px-frame` por el cálculo nativo `md:px-[clamp(1.5rem,4vw,3.5rem)]`. Este token fue migrado forzosamente a la capa exterior de los 3 envoltorios globales (`<section>` y `<motion.header>`) eliminando rellenos duplicados y aplastamientos de layout.
     - El widget `LanguageToggle` de escritorio se migró de la sección Izquierda (al lado del logotipo IsotipoGO AMS) a la sección Derecha (junto al botón CTA de Log In).
     - Se optimizaron los contenedores flex desactivando clases obsoletas para establecer una simetría absoluta (`gap-[12px]`) entre los controles de acción y sus barras separadoras verticales.
-42. **[NUEVO] FlowSell Hero — Refactor de Nomenclatura & Disambiguación (19 Mar 2026):**
-    - El archivo `Hero.tsx` fue renombrado seguramente vía Git a `FlowSellHero.tsx` para evitar fricción semántica en producción.
+42. **[NUEVO] GO AMS Portal Hero — Refactor de Nomenclatura & Disambiguación (19 Mar 2026):**
+    - El archivo `Hero.tsx` fue renombrado seguramente vía Git a `GO AMS PortalHero.tsx` para evitar fricción semántica en producción.
     - Las clases CSS y hooks de GSAP fueron reclasificadas estrictamente (`flowsell-hero-eyebrow`, `flowsell-water-mask-text`, etc.) para garantizar aislamiento total contra el `LiquidHero` de la Landing.
     - **Tipografía Responsiva:** Se forzó una reducción de `~16px` en el H1 de móvil usando el utilitario `text-[24px]` sobreescribiendo temporalmente el token `text-display-sm` para evitar overflows.
 43. **[NUEVO] Debug Panel Architect — Fase 3: Zero-Trace Purge (19 Mar 2026):**

@@ -46,6 +46,6 @@ Copia y pega este prompt cada vez que terminemos un hito importante en una secci
 | Dashboard Reveal | `sections/dashboard-reveal/` |
 | Calculator | `sections/calculator/` |
 | Footer | `sections/footer/` |
-| FlowSell Hero | `sections/flowsell-hero/` |
+| GO AMS Portal Hero | `sections/flowsell-hero/` |
 
 > **Nota:** Si creas una nueva sección o página, también crea su carpeta en `sections/` con un `context.md` inicial.

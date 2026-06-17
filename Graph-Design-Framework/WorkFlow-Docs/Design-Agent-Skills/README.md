@@ -23,7 +23,7 @@ Lee en este orden para construir conocimiento de forma incremental:
 | 8 | **Cinematic Architect** | [`CINEMATIC-ARCHITECT.md`](./CINEMATIC-ARCHITECT.md) | `narrativa` | Narrativa visual DOM-3D: Diegetic UI, Sandwich Technique, Tunnel Transition. |
 | 9 | **Scroll Effects Architect** | [`SCROLL-EFFECTS-ARCHITECT.md`](./SCROLL-EFFECTS-ARCHITECT.md) | `referencia` | 7 técnicas GSAP avanzadas con código completo (815 líneas). |
 | 10 | **Commerce Architect** | [`COMMERCE-CONVERSION-ARCHITECT.md`](./COMMERCE-CONVERSION-ARCHITECT.md) | `workflow` | Psicología e-commerce. Reglas para cart drawers, galerías magnéticas y GSAP FLIP. |
-| 11 | **Visual Prompter** | [`visual-prompt-engineer/SKILL.md`](./visual-prompt-engineer/SKILL.md) | `diseño` | Director de arte AI. Creación de prompts complejos para Veo, NanoBanana y Google Flow. |
+| 11 | **Visual Prompter** | [`visual-prompt-engineer/SKILL.md`](./visual-prompt-engineer/SKILL.md) | `diseño` | Director de arte AI. Creación de prompts complejos para Veo, NanoBanana y Google AI. |
 
 ## 🏷️ Categorías
 

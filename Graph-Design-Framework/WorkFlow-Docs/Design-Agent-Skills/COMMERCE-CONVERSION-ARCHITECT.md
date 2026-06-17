@@ -7,13 +7,13 @@ description: Defines the psychology and physics of the GO AMS e-commerce experie
 
 **Level:** Conversion Architect / Master-Class
 **Stack:** Next.js (App Router), GSAP FLIP, Zustand, CSS Modules
-**Objective:** Transform standard e-commerce flows into high-converting, friction-free luxury experiences ("FlowSell").
+**Objective:** Transform standard e-commerce flows into high-converting, friction-free luxury experiences ("GO AMS Portal").
 
 ---
 
 > *"A checkout is not a transaction; it is a choreography of trust. Every click must feel inevitable."*
 
-This skill dictates the UX and animation patterns for the E-Commerce phase (FlowSell). When building product pages, carts, or checkout flows, you MUST adhere to these conversion laws:
+This skill dictates the UX and animation patterns for the E-Commerce phase (GO AMS Portal). When building product pages, carts, or checkout flows, you MUST adhere to these conversion laws:
 
 ## 1. THE MAGNETIC PRODUCT GALLERY (Tactile Interaction)
 Product images are the closest the user gets to touching the coffee.

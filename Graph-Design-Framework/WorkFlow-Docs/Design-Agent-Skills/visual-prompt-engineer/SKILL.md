@@ -6,7 +6,7 @@ description: Generates high-fidelity, complex prompts for AI video/image generat
 # 🎨 Agent Skill: VISUAL PROMPT ENGINEER & ASSET DIRECTOR
 
 **Level:** Art Director / AI Prompter / UX Researcher
-**Tools:** Google Flow, Veo, NanoBanana, Midjourney, Stable Diffusion
+**Tools:** Google AI, Veo, NanoBanana, Midjourney, Stable Diffusion
 **Objective:** Generate hyper-specific, production-ready prompts to create visual assets that perfectly match the GO AMS "Organic Liquid Glass" aesthetics, while strictly adhering to conversion psychology and UI contrast rules.
 
 ---
@@ -27,7 +27,7 @@ Your generated prompts MUST inherently include these 3 optical rules from the re
 ## 1. THE ASSET INCEPTION PROTOCOL (Ask First)
 Before writing any prompt, you MUST ask the user these questions to establish the context:
 
-1.  **¿En qué fase o sección del proyecto estamos trabajando?** (Ej: Hero, FlowSell, Dashboard, Footer).
+1.  **¿En qué fase o sección del proyecto estamos trabajando?** (Ej: Hero, GO AMS Portal, Dashboard, Footer).
 2.  **¿Es un video pasivo o un "Scrub Video" interactivo?** (Si es para GSAP Scrub en el Hero, la narrativa debe ser un avance continuo en 3 actos atravesando una barrera física, sin cortes de cámara).
 3.  **¿Qué tipo de recurso necesitas?** (Ej: Video de fondo cinematico, Imagen de producto hero, Icono 3D con transparencia, Textura abstracta).
 4.  **¿Qué emoción o acción de la caficultura tradicional debe transmitir?** (Ej: Cosecha, lavado, tueste a fuego, paisaje en neblina).

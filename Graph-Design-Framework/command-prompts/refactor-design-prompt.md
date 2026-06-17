@@ -17,7 +17,7 @@ Copia y pega este prompt cada vez que tengamos una sección, botón o componente
 > 
 > **Tu directiva:** No apliques simples "parches CSS" a lo que ya tenemos. Quiero que me propongas un **enfoque estructural y narrativo completamente diferente**. Rompe la caja. Usa asimetrías, piensa en máscaras de cristal diferentes o plantea una micro-interacción que te haga decir 'Wow'.
 > 
-> Tu tarea específica es refactorizar: **[INSERTAR AQUÍ EL COMPONENTE. EJ: "La tarjeta de precios de FlowDesk" o "El botón secundario del navbar"]**.
+> Tu tarea específica es refactorizar: **[INSERTAR AQUÍ EL COMPONENTE. EJ: "La tarjeta de precios de GO AMS Admin" o "El botón secundario del navbar"]**.
 > 
 > Piénsalo bien. Respóndeme primero con: 1) Cuál fue el error del diseño actual. 2) Cuál es tu nueva **Metáfora Visual** para resolverlo. 3) El nuevo código refactorizado."
 
