@@ -56,30 +56,81 @@ Familia Principal: `DM Sans` (La única tipografía permitida).
 
 ---
 
-## 3. COLORES BÁSICOS (Tokens)
-_El sistema es Bimodal (Light/Dark). El uso de colores genéricos de Tailwind (`bg-gray-100`, `text-blue-500`) está estrictamente prohibido._
+## 3. COLORES BÁSICOS (Tokens Completos)
+_El sistema es Bimodal (Light/Dark). El uso de colores genéricos de Tailwind (`bg-gray-100`, `text-blue-500`) está estrictamente prohibido. Usa `bg-[var(--color-nombre)]`, `text-[var(--color-nombre)]` o `border-[var(--color-nombre)]`._
 
 **Brand & Identidad:**
-- `--color-brand-blue`: `bg-[var(--color-brand-blue)]` o `text-[var(--color-brand-blue)]`
-- `--color-brand-orange`: Naranja principal de GO AMS.
-- `--color-brand-dark`: Oscuro corporativo.
+- `--color-brand-blue`
+- `--color-brand-dark`
+- `--color-brand-orange`
+- `--color-brand-Logo-Main-color`
+- `--color-brand-Logo-Secondary-color`
 
 **Superficies (Backgrounds):**
-- `--color-surface-BG-1` hasta `BG-4` (Jerarquía de tarjetas)
-- `--color-surface-BG-base` (Fondo de la aplicación)
+- `--color-surface-BG-1`
+- `--color-surface-BG-2`
+- `--color-surface-BG-3`
+- `--color-surface-BG-4`
+- `--color-surface-BG-base`
+- `--color-surface-BG-base-Opacity`
 
 **Textos:**
-- `--color-text-primary`: Texto principal
-- `--color-text-secondary`: Texto secundario
-- `--color-text-muted`: Texto tenue
+- `--color-text-primary`
+- `--color-text-secondary`
+- `--color-text-muted`
+- `--color-text-disabled`
+- `--color-text-hint`
+- `--color-text-primary-Reverted`
+- `--color-text-Blue-Vivid`
+- `--color-text-White-100`
+- `--color-text-Black-100`
 
 **Bordes:**
-- `--color-border-Strokes-default`: Bordes base
-- `--color-border-Strokes-strong`: Bordes activos
+- `--color-border-Strokes-default`
+- `--color-border-Strokes-Hover`
+- `--color-border-Strokes-focus`
+- `--color-border-Strokes-input`
+- `--color-border-Strokes-input---Hover`
+- `--color-border-Strokes-strong`
 
-**Acciones:**
-- `--color-action-primary-bg` y hover states
+**Acciones (Primarias, Secundarias y Destructivas):**
+- `--color-action-primary-bg`
+- `--color-action-primary-hover`
+- `--color-action-primary-subtle-hover`
+- `--color-action-Primary-Medium-hover`
+- `--color-action-Primary-Strong-hover`
+- `--color-action-primary-subtle-active`
+- `--color-action-primary-text`
+- `--color-action-secondary-bg`
+- `--color-action-secondary-Strong`
+- `--color-action-secondary-hover`
+- `--color-action-secondary-text`
 - `--color-action-destructive`
+- `--color-action-destructive-hover`
+- `--color-action-destructive-text`
+- `--color-action-focus-ring`
+- `--color-action-link`
+- `--color-action-link-hover`
+
+**Acentos (Accent):**
+- `--color-accent-border`
+- `--color-accent-main`
+- `--color-accent-surface-muted`
+- `--color-accent-surface-strong`
+- `--color-accent-surface-subtle`
+- `--color-accent-text-muted`
+- `--color-accent-text-strong`
+
+**Estados (Amber / Blue / Green / Purple / Red):**
+- Status Amber (Warning): `--color-status-amber-border`, `-main`, `-surface-muted`, `-surface-strong`, `-surface-subtle`, `-text-Medium`, `-text-strong`
+- Status Blue (Info): `--color-status-blue-border`, `-main`, `-surface-muted`, `-surface-strong`, `-surface-subtle`, `-text-Medium`, `-text-strong`
+- Status Green (Success): `--color-status-green-border`, `-main`, `-surface-muted`, `-surface-strong`, `-surface-subtle`, `-text-Medium`, `-text-strong`
+- Status Purple: `--color-status-purple-border`, `-main`, `-surface-muted`, `-surface-strong`, `-surface-subtle`, `-text-Medium`, `-text-strong`
+- Status Red (Error): `--color-status-red-border`, `-main`, `-surface-muted`, `-surface-strong`, `-surface-subtle`, `-text-Medium`, `-text-strong`
+
+**Overlays:**
+- `--color-overlay-backdrop`
+- `--color-overlay-tooltip-bg`
 
 ---
 
