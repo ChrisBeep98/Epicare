@@ -4,7 +4,7 @@
 Chris trabaja con dos roles simultáneos en Git:
 
 ### 🧑‍💻 Rol 1: Empleado (Repo del equipo)
-- **Remote**: `origin` → `github.com/flowtifyai/go-ams-landing`
+- **Remote**: `origin` → `goams/go-ams-landing`
 - **Branch**: `feature/redesign-landing`
 - Los pushes pasan por **review del jefe** antes de merge a `main`
 - Comando: `git push origin feature/redesign-landing`

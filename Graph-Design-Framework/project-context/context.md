@@ -12,9 +12,9 @@ El rediseño fue completado y **entregado** exitosamente. La rama `feature/redes
 - **Framework Principal:** Next.js 16.1.4 (Turbopack)
 - **Gestión de Estilos:** Tailwind CSS v4 (vía PostCSS) integrado orgánicamente. Globales centralizados en `landing.css`.
 - **Librerías de UI:** `framer-motion` (v12.x), `gsap` (v3.14.x) y `lenis` (smooth scrolling).
-- **Control de Versiones:** Git (Rama actual: `feature/redesign-landing`). Remotes: `origin` (flowtifyai/go-ams-landing), `myfork` (ChrisBeep98/go-ams-landing-fork).
+- **Control de Versiones:** Git.
 - **Gestor de Paquetes:** `pnpm` (Estrictamente configurado).
-- **Deploy:** Vercel (conectado al fork). Git user para commits: `ChrisBeep98` / `christiansandovaldesign@gmail.com`.
+- **Deploy:** Vercel. Git user para commits: `ChrisBeep98` / `christiansandovaldesign@gmail.com`.
 
 ## 3. Estándares de Desarrollo (OBLIGATORIO)
 Todo código entregado debe cumplir con los siguientes estándares de producción:

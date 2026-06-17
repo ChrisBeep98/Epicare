@@ -1,4 +1,4 @@
-# FLOWTIFY AI // DESIGN SYSTEM & TOKENS
+# GO AMS // DESIGN SYSTEM & TOKENS
 
 Este archivo es la **Única Fuente de Verdad (Single Source of Truth)**. Define la jerarquía visual que debe estar sincronizada con `app-v1/app/globals.css`.
 
