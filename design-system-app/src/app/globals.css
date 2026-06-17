@@ -16,6 +16,13 @@
   --space-fluid-sm: clamp(1rem, 2vw, 2.5rem);
   --space-fluid-md: clamp(2rem, 4vw, 5rem);
   --space-fluid-lg: clamp(3rem, 6vw, 8rem);
+
+  /* Layout Max Widths */
+  --max-w-section-sm: 48rem; /* 768px */
+  --max-w-section-md: 64rem; /* 1024px */
+  --max-w-section-lg: 80rem; /* 1280px */
+  --max-w-section-xl: 96rem; /* 1536px */
+
 }
 
 
@@ -382,4 +389,12 @@ body {
   background: var(--bg-primary);
   color: var(--text-primary);
   font-family: var(--font-dm-sans), sans-serif;
+}
+
+
+@layer utilities {
+  .max-w-section-sm { max-width: var(--max-w-section-sm); width: 100%; margin-inline: auto; }
+  .max-w-section-md { max-width: var(--max-w-section-md); width: 100%; margin-inline: auto; }
+  .max-w-section-lg { max-width: var(--max-w-section-lg); width: 100%; margin-inline: auto; }
+  .max-w-section-xl { max-width: var(--max-w-section-xl); width: 100%; margin-inline: auto; }
 }
