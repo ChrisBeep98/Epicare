@@ -80,7 +80,7 @@ export default function DesignSystemPage() {
         </button>
       </div>
 
-      <div className="max-w-[87.5rem] mx-auto px-gutter-md py-24 relative z-10">
+      <div className="max-w-section-xl mx-auto px-gutter-md py-24 relative z-10">
         
         {/* --- HEADER --- */}
         <header className="mb-24 text-center max-w-3xl mx-auto animate-fade-up">

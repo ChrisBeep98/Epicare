@@ -54,6 +54,23 @@ Familia Principal: `DM Sans` (La única tipografía permitida).
 - `--max-w-section-lg`: 1280px
 - `--max-w-section-xl`: 1536px
 
+**Márgenes y Paddings (Static Spacing Scale):**
+_Tallas estándar para uso de márgenes y paddings donde los fluidos no aplican._
+- `--space-static-xs`: 0.25rem (4px)
+- `--space-static-sm`: 0.5rem (8px)
+- `--space-static-md`: 1rem (16px)
+- `--space-static-lg`: 1.5rem (24px)
+- `--space-static-xl`: 2rem (32px)
+- `--space-static-2xl`: 3rem (48px)
+*(Nota: En Tailwind se llaman usando el prefijo `static`, ej: `p-static-md` o `m-static-lg`)*
+
+**Universal Grid System (`.grid-layout`):**
+_Estructura principal para maquetado de secciones._
+- **Desktop (1024px+):** 12 columnas.
+- **Tablet (768px+):** 8 columnas.
+- **Mobile (Base):** 6 columnas.
+- **Gap:** Usa automáticamente `--space-fluid-xs` (gap apretado para columnas anchas).
+
 **Elevación / Sombras (Shadow System):**
 _Sombras "Butter Smooth": Sistema de composición exponencial de 3 capas. Tintadas en tono Slate `rgba(15, 23, 42)` con opacidades ínfimas (1%-6%) para eliminar manchas negras y dar máxima difusión óptica._
 - `.shadow-elevation-1`: Elevación mínima (xs)

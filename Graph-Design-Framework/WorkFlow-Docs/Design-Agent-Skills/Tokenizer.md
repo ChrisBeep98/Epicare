@@ -46,9 +46,11 @@ Before writing any `className`, verify you are NOT using these forbidden pattern
 | `bg-slate-900`, `bg-black`, `bg-white` | `bg-[var(--color-surface-BG-*)]` | Backgrounds de superficies y tarjetas |
 | `text-black` | `text-[var(--color-text-primary)]` | Primary text |
 | `text-gray-400`, `text-slate-500` | `text-[var(--color-text-muted)]` | Secondary/muted text |
-| `px-4`, `px-8`, `px-[20px]`, `p-8` | `.px-gutter-[sm\|md\|lg\|xl]` | Page Containers / Horizontal Rhythm |
-| `py-20`, `py-32`, `py-[]`, `p-16` | `.py-section-[xs\|sm\|md\|lg]` | Section Vertical Rhythm |
+| `px-4`, `px-8`, `px-[20px]` | `.px-gutter-[sm\|md\|lg\|xl]` | Page Containers / Horizontal Rhythm |
+| `py-20`, `py-32`, `py-[]` | `.py-section-[xs\|sm\|md\|lg]` | Section Vertical Rhythm |
+| `p-2`, `m-4`, `p-8` (raw sizes) | `.p-static-*`, `.m-static-*` | Static component margins and paddings |
 | `gap-4`, `gap-8`, `gap-12`, `gap-[20px]` | `.gap-fluid-[xs\|sm\|md\|lg]` | Espaciado de flex y grid |
+| `grid-cols-3`, `md:grid-cols-4` | `.grid-layout` | Layouts principales. Automático: 12/8/6 cols |
 | `max-w-7xl`, `max-w-screen-xl`, `max-w-[1200px]`| `style={{ maxWidth: 'var(--max-w-section-*)' }}` | Contenedores maestros y wrappers de página |
 | `shadow`, `shadow-md`, `shadow-xl`, `shadow-2xl`| `.shadow-elevation-[1\|2\|3\|4\|5]` | Elevación de tarjetas, modales y botones |
 

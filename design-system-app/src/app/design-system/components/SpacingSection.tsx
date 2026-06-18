@@ -9,6 +9,8 @@ export default function SpacingSection() {
   const [activeSectionPadding, setActiveSectionPadding] = useState("py-section-md");
   const [activeFluidGap, setActiveFluidGap] = useState("gap-fluid-md");
   const [activePageGutter, setActivePageGutter] = useState("px-gutter-md");
+  const [activeStaticSpacing, setActiveStaticSpacing] = useState("p-static-md");
+  const [gridMode, setGridMode] = useState("desktop");
 
   return (
     <>
@@ -19,7 +21,7 @@ export default function SpacingSection() {
           </div>
 
           {/* Spacing Overview (Restored 3 cards) */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
             <SpacingCard 
               label="1. Component Internal" 
               token={activeInternalGap}
@@ -66,6 +68,20 @@ export default function SpacingSection() {
                   <div className={`${activeSectionPadding === 'py-section-xs' ? 'h-2' : activeSectionPadding === 'py-section-sm' ? 'h-4' : activeSectionPadding === 'py-section-md' ? 'h-8' : 'h-12'} bg-[var(--color-surface-BG-2)]/10 border-b border-dashed border-salento-mocha/20 transition-all`}></div>
                   <div className="h-12 flex items-center justify-center text-[0.625rem] text-[var(--color-text-muted)] uppercase">Contenido</div>
                   <div className={`${activeSectionPadding === 'py-section-xs' ? 'h-2' : activeSectionPadding === 'py-section-sm' ? 'h-4' : activeSectionPadding === 'py-section-md' ? 'h-8' : 'h-12'} bg-[var(--color-surface-BG-2)]/10 border-t border-dashed border-salento-mocha/20 transition-all`}></div>
+                </div>
+              }
+            />
+            <SpacingCard 
+              label="4. Static Paddings & Margins" 
+              token={activeStaticSpacing} 
+              value={activeStaticSpacing === 'p-static-xs' ? '0.25rem (4px)' : activeStaticSpacing === 'p-static-sm' ? '0.5rem (8px)' : activeStaticSpacing === 'p-static-md' ? '1rem (16px)' : '1.5rem (24px)'}
+              usage="Márgenes y paddings fijos generales."
+              options={['p-static-xs', 'p-static-sm', 'p-static-md', 'p-static-lg']}
+              activeOption={activeStaticSpacing}
+              onOptionChange={setActiveStaticSpacing}
+              visual={
+                <div className={`bg-[var(--color-brand-blue)]/10 border border-[var(--color-brand-blue)]/30 rounded-xl transition-all duration-300 ${activeStaticSpacing}`}>
+                  <div className="w-full h-10 bg-[var(--color-surface-BG-base)] rounded-md border border-[var(--color-border-Strokes-default)] flex items-center justify-center text-[0.625rem] text-[var(--color-text-muted)] font-mono">Box</div>
                 </div>
               }
             />
@@ -188,6 +204,72 @@ export default function SpacingSection() {
                     </div>
                     <p className="text-body-sm text-[var(--color-text-muted)]">Demostración del token <strong>{activeInternalGap}</strong>.</p>
                     <button className="btn-secondary w-full py-2">Test</button>
+                  </div>
+                </div>
+
+                {/* 05: Grid System */}
+                <div className="flex flex-col gap-8">
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <h5 className="text-h5 text-[var(--color-text-primary)] flex items-center gap-3">
+                      <span className="w-6 h-6 bg-[var(--color-text-primary)] text-[var(--color-text-primary-Reverted)] rounded-full flex items-center justify-center text-[0.625rem]">05</span>
+                      Universal Grid System
+                    </h5>
+                    <div className="flex gap-1 bg-[var(--color-surface-BG-1)] p-1 rounded-xl w-fit shadow-elevation-1">
+                      {['mobile', 'tablet', 'desktop'].map(opt => (
+                        <button key={opt} onClick={() => setGridMode(opt)} className={`px-3 py-1 rounded-lg text-[0.625rem] font-bold uppercase transition-all ${gridMode === opt ? 'bg-[var(--color-surface-BG-base)] text-[var(--color-text-primary)] shadow-elevation-2' : 'text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]'}`}>
+                          {opt}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <p className="text-body-sm text-[var(--color-text-muted)] mb-2">
+                    Clase maestra <code className="bg-[var(--color-surface-BG-2)] px-2 py-1 rounded text-[var(--color-brand-orange)] font-mono text-xs">.grid-layout</code>. Automáticamente divide en <strong className="text-[var(--color-text-primary)]">12 columnas</strong> (Desktop), <strong className="text-[var(--color-text-primary)]">8 columnas</strong> (Tablet), y <strong className="text-[var(--color-text-primary)]">6 columnas</strong> (Mobile).
+                  </p>
+                  
+                  <div className={`w-full bg-[var(--color-surface-BG-1)]/50 border-[var(--color-border-Strokes-default)] flex flex-col items-center justify-center transition-all duration-500 overflow-hidden relative min-h-[30rem] ${gridMode === 'desktop' ? 'p-0 border-y rounded-none' : 'p-4 md:p-8 border rounded-2xl'}`}>
+                    
+                    {/* Device Frame */}
+                    <div 
+                      className={`relative bg-[var(--color-surface-BG-base)] shadow-elevation-4 overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] flex flex-col ${gridMode === 'mobile' ? 'w-[320px] h-[568px] border border-[var(--color-border-Strokes-strong)] rounded-2xl' : gridMode === 'tablet' ? 'w-[768px] h-[500px] border border-[var(--color-border-Strokes-strong)] rounded-2xl' : 'w-full h-[400px] rounded-none border-0'}`}
+                    >
+                      {/* Grid Overlay (Tall Red Columns) */}
+                      <div 
+                        className={`absolute inset-0 pointer-events-none z-10 ${gridMode === 'desktop' ? 'max-w-section-xl mx-auto px-0' : 'w-full px-gutter-sm'}`}
+                        style={{
+                          display: 'grid',
+                          gridTemplateColumns: `repeat(${gridMode === 'mobile' ? 6 : gridMode === 'tablet' ? 8 : 12}, minmax(0, 1fr))`,
+                          gap: 'var(--space-fluid-xs)'
+                        }}
+                      >
+                         {[...Array(gridMode === 'mobile' ? 6 : gridMode === 'tablet' ? 8 : 12)].map((_, i) => (
+                           <div key={i} className="h-full bg-[var(--color-brand-orange)]/[0.05] border-x border-[var(--color-brand-orange)]/20 flex justify-center">
+                             <div className="bg-[var(--color-brand-orange)] text-[var(--color-surface-BG-base)] font-bold text-[0.5rem] px-1 py-0.5 rounded-b-sm h-fit opacity-50">{i+1}</div>
+                           </div>
+                         ))}
+                      </div>
+
+                      {/* Wireframe UI using the grid */}
+                      <div className={`pt-8 relative z-0 flex-1 ${gridMode === 'desktop' ? 'max-w-section-xl mx-auto px-0 w-full' : 'w-full px-gutter-sm'}`}>
+                         <div 
+                           className="w-full"
+                           style={{
+                             display: 'grid',
+                             gridTemplateColumns: `repeat(${gridMode === 'mobile' ? 6 : gridMode === 'tablet' ? 8 : 12}, minmax(0, 1fr))`,
+                             gap: 'var(--space-fluid-xs)'
+                           }}
+                         >
+                           {/* Hero */}
+                           <div className={`h-32 bg-[var(--color-text-primary)]/5 border border-[var(--color-text-primary)]/10 animate-fade-up ${gridMode === 'desktop' ? 'rounded-none' : 'rounded-xl'}`} style={{ gridColumn: `span ${gridMode === 'mobile' ? 6 : gridMode === 'tablet' ? 8 : 12}` }} />
+                           
+                           {/* Cards */}
+                           <div className={`h-24 rounded-xl bg-[var(--color-brand-blue)]/10 border border-[var(--color-brand-blue)]/20 mt-4 animate-fade-up`} style={{ animationDelay: '100ms', gridColumn: `span ${gridMode === 'mobile' ? 6 : gridMode === 'tablet' ? 4 : 4}` }} />
+                           <div className={`h-24 rounded-xl bg-[var(--color-brand-blue)]/10 border border-[var(--color-brand-blue)]/20 mt-4 animate-fade-up`} style={{ animationDelay: '200ms', gridColumn: `span ${gridMode === 'mobile' ? 6 : gridMode === 'tablet' ? 4 : 4}` }} />
+                           {gridMode === 'desktop' && (
+                             <div className={`h-24 rounded-xl bg-[var(--color-brand-blue)]/10 border border-[var(--color-brand-blue)]/20 mt-4 animate-fade-up`} style={{ animationDelay: '300ms', gridColumn: 'span 4' }} />
+                           )}
+                         </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

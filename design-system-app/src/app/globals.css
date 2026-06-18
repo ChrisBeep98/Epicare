@@ -2,20 +2,24 @@
 
 :root {
   /* Spacing System */
-  --space-gutter-sm: clamp(1rem, 2vw, 1.5rem);
+  /* Main Layout Margin (Page Gutter) */
+  --space-gutter-sm: clamp(0.875rem, 2vw, 1.5rem); /* Mobile margin starts at 14px */
   --space-gutter-md: clamp(1.5rem, 4vw, 3.5rem);
   --space-gutter-lg: clamp(2rem, 6vw, 5rem);
   --space-gutter-xl: clamp(3rem, 8vw, 8rem);
   
+  /* Vertical Section Padding */
   --space-section-xs: clamp(2rem, 4vw, 4rem);
   --space-section-sm: clamp(4rem, 6vw, 6rem);
   --space-section-md: clamp(6rem, 8vw, 10rem);
   --space-section-lg: clamp(8rem, 12vw, 15rem);
   
+  /* Fluid Internal Gaps */
   --space-fluid-xs: clamp(0.5rem, 1vw, 1.5rem);
   --space-fluid-sm: clamp(1rem, 2vw, 2.5rem);
   --space-fluid-md: clamp(2rem, 4vw, 5rem);
   --space-fluid-lg: clamp(3rem, 6vw, 8rem);
+
 
   /* Layout Max Widths */
   --max-w-section-sm: 48rem; /* 768px */
@@ -34,6 +38,13 @@
 
 
 @theme {
+  --spacing-static-xs: 0.25rem;
+  --spacing-static-sm: 0.5rem;
+  --spacing-static-md: 1rem;
+  --spacing-static-lg: 1.5rem;
+  --spacing-static-xl: 2rem;
+  --spacing-static-2xl: 3rem;
+
   --font-dmsans: var(--font-dm-sans);
   --color-brand-blue: var(--color-brand-blue);
   --color-brand-dark: var(--color-brand-dark);
@@ -420,4 +431,18 @@ body {
   .max-w-section-md { max-width: var(--max-w-section-md); width: 100%; margin-inline: auto; }
   .max-w-section-lg { max-width: var(--max-w-section-lg); width: 100%; margin-inline: auto; }
   .max-w-section-xl { max-width: var(--max-w-section-xl); width: 100%; margin-inline: auto; }
+}
+
+@utility grid-layout {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: var(--space-fluid-xs);
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
 }
