@@ -19,12 +19,12 @@ const removeState = (id: string) => {
 // ==========================================
 // 1. SECTION LIVE EDITOR (Rhythm & Wrappers)
 // ==========================================
-export function SectionLiveEditor({ id, children, className = "", innerClassName = "" }: { id: string, children: React.ReactNode, className?: string, innerClassName?: string }) {
-  const [py, setPy] = useState('py-section-md');
-  const [px, setPx] = useState('px-gutter-md');
-  const [maxW, setMaxW] = useState('max-w-section-xl');
-  const [gap, setGap] = useState('');
-  const [align, setAlign] = useState('');
+export function SectionLiveEditor({ id, initialPy = 'py-section-md', initialPx = 'px-gutter-md', initialMaxW = 'max-w-section-xl', initialGap = '', initialAlign = '', children, className = "", innerClassName = "" }: { id: string, initialPy?: string, initialPx?: string, initialMaxW?: string, initialGap?: string, initialAlign?: string, children: React.ReactNode, className?: string, innerClassName?: string }) {
+  const [py, setPy] = useState(initialPy);
+  const [px, setPx] = useState(initialPx);
+  const [maxW, setMaxW] = useState(initialMaxW);
+  const [gap, setGap] = useState(initialGap);
+  const [align, setAlign] = useState(initialAlign);
 
   useEffect(() => {
     updateState(id, { type: 'Section', py, px, maxW, gap, align });
@@ -122,10 +122,10 @@ export function GridLiveEditor({ id, initialStart = 1, initialSpan = 12, initial
 // ==========================================
 // 3. CARD LIVE EDITOR (Surfaces & Shadows)
 // ==========================================
-export function CardLiveEditor({ id, children, className = "" }: { id: string, children: React.ReactNode, className?: string }) {
-  const [bg, setBg] = useState('bg-[var(--color-surface-BG-1)]');
-  const [shadow, setShadow] = useState('shadow-elevation-2');
-  const [pStatic, setPStatic] = useState('p-section-xs');
+export function CardLiveEditor({ id, initialBg = 'bg-[var(--color-surface-BG-1)]', initialShadow = 'shadow-elevation-2', initialPStatic = 'p-section-xs', children, className = "" }: { id: string, initialBg?: string, initialShadow?: string, initialPStatic?: string, children: React.ReactNode, className?: string }) {
+  const [bg, setBg] = useState(initialBg);
+  const [shadow, setShadow] = useState(initialShadow);
+  const [pStatic, setPStatic] = useState(initialPStatic);
 
   useEffect(() => {
     updateState(id, { type: 'Card', bg, shadow, pStatic });
@@ -155,12 +155,12 @@ export function CardLiveEditor({ id, children, className = "" }: { id: string, c
 // ==========================================
 // 4. MEDIA LIVE EDITOR (Manual Width/Height & Fit)
 // ==========================================
-export function MediaLiveEditor({ id, children, className = "" }: { id: string, children: React.ReactNode, className?: string }) {
-  const [cw, setCw] = useState('100%');
-  const [ch, setCh] = useState('100%');
-  const [vw, setVw] = useState('100%');
-  const [vh, setVh] = useState('100%');
-  const [fit, setFit] = useState('object-cover');
+export function MediaLiveEditor({ id, initialCw = '100%', initialCh = '100%', initialVw = '100%', initialVh = '100%', initialFit = 'object-cover', children, className = "" }: { id: string, initialCw?: string, initialCh?: string, initialVw?: string, initialVh?: string, initialFit?: string, children: React.ReactNode, className?: string }) {
+  const [cw, setCw] = useState(initialCw);
+  const [ch, setCh] = useState(initialCh);
+  const [vw, setVw] = useState(initialVw);
+  const [vh, setVh] = useState(initialVh);
+  const [fit, setFit] = useState(initialFit);
 
   useEffect(() => {
     updateState(id, { type: 'Media', cw, ch, vw, vh, fit });

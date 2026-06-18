@@ -74,7 +74,7 @@ export default function HeroSection() {
       </nav>
 
       {/* 2. Unified Hero Grid */}
-      <SectionLiveEditor id="hero-main-section" className="w-full bg-[var(--color-surface-BG-base)] flex-1" innerClassName="grid-layout min-h-[calc(100vh-64px)] grid-rows-[auto_auto_1fr] pb-0">
+      <SectionLiveEditor id="hero-main-section" initialPy="" initialPx="px-gutter-md" initialMaxW="max-w-section-xl" initialGap="" initialAlign="" className="w-full bg-[var(--color-surface-BG-base)] flex-1" innerClassName="grid-layout min-h-[calc(100vh-64px)] grid-rows-[auto_auto_1fr] pb-0">
           
         {/* Row 1: Eyebrow / Subtitle (R1, C1-6) */}
         <GridLiveEditor id="hero-eyebrow" initialStart={1} initialSpan={6} initialRowStart={1} initialRowSpan={1} className="flex items-end pb-4 pt-12">
@@ -83,15 +83,15 @@ export default function HeroSection() {
           </TextLiveEditor>
         </GridLiveEditor>
 
-        {/* Row 2-3: Heading (R2-3, C1-5) */}
-        <GridLiveEditor id="hero-heading" initialStart={1} initialSpan={5} initialRowStart={2} initialRowSpan={2} className="flex items-start pr-10">
-          <TextLiveEditor id="hero-title" initialToken="text-display-2xl" as="h1" className="italic font-bold text-[var(--color-text-primary)]" style={{ fontFamily: 'Georgia, serif' }}>
+        {/* Row 2-3: Heading (R2-3, C1-6) */}
+        <GridLiveEditor id="hero-heading" initialStart={1} initialSpan={6} initialRowStart={2} initialRowSpan={2} className="flex items-start pr-10">
+          <TextLiveEditor id="hero-title" initialToken="text-display-xl" as="h1" className="italic font-bold text-[var(--color-text-primary)]" style={{ fontFamily: 'Georgia, serif' }}>
             Tu negocio<br />de seguros,<br />entero.
           </TextLiveEditor>
         </GridLiveEditor>
 
-        {/* Row 2: CTA Block (R2, C7-10) */}
-        <GridLiveEditor id="hero-cta" initialStart={7} initialSpan={4} initialRowStart={2} initialRowSpan={1} className="flex flex-col items-start justify-start gap-5">
+        {/* Row 2: CTA Block (R2, C8-11) */}
+        <GridLiveEditor id="hero-cta" initialStart={8} initialSpan={4} initialRowStart={2} initialRowSpan={1} className="flex flex-col items-start justify-start gap-5">
           <TextLiveEditor id="cta-subtitle" initialToken="text-body-sm" className="text-[var(--color-text-secondary)] leading-relaxed">
             GO AMS es el portal operacional para agentes y agencias — donde gestionas contratos, clientes, producción y pagos, todo bajo una misma interfaz.
           </TextLiveEditor>
@@ -100,10 +100,10 @@ export default function HeroSection() {
           </button>
         </GridLiveEditor>
 
-        {/* Row 3: Dark Panel (R3, C5-12) */}
-        <GridLiveEditor id="visual-panel-wrapper" initialStart={5} initialSpan={8} initialRowStart={3} initialRowSpan={1} className="w-full h-full relative mt-12 min-h-[420px]">
+        {/* Row 3: Dark Panel (R3, C6-12) */}
+        <GridLiveEditor id="visual-panel-wrapper" initialStart={6} initialSpan={7} initialRowStart={3} initialRowSpan={1} className="w-full h-full relative mt-12 min-h-[420px]">
           <BleedRight className="absolute top-0 bottom-0 left-0">
-            <CardLiveEditor id="visual-panel" className="w-full h-full flex items-center justify-center rounded-tl-[20px] rounded-bl-none rounded-br-none rounded-tr-none overflow-hidden !p-0">
+            <CardLiveEditor id="visual-panel" initialBg="bg-[var(--color-surface-BG-1)]" initialShadow="shadow-elevation-2" initialPStatic="p-section-xs" className="w-full h-full flex items-center justify-center rounded-tl-[20px] rounded-bl-none rounded-br-none rounded-tr-none overflow-hidden !p-0">
               
               {/* Bullet 1 - Top Left */}
               <div className="absolute top-[36px] left-[44px] flex gap-3 items-start z-10 hidden sm:flex">
@@ -122,7 +122,7 @@ export default function HeroSection() {
               </div>
 
               {/* Media Editor (Video) */}
-              <MediaLiveEditor id="hero-video" className="relative w-full h-full z-0 flex items-center justify-center">
+              <MediaLiveEditor id="hero-video" initialCw="100%" initialCh="100%" initialVw="100%" initialVh="100%" initialFit="object-cover" className="relative w-full h-full z-0 flex items-center justify-center">
                 <video autoPlay loop muted playsInline>
                   <source src="/Files/Hero/Isometric_wireframe_illustration…_202606181624.mp4" type="video/mp4" />
                   Tu navegador no soporta el video.
