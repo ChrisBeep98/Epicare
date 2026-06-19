@@ -41,21 +41,38 @@ function BleedRight({ children, className = "" }: { children: React.ReactNode, c
 }
 
 export default function HeroSection() {
+  const [isDark, setIsDark] = useState(true);
+
+  useEffect(() => {
+    // Sync state with DOM on mount
+    setIsDark(document.documentElement.classList.contains('dark'));
+  }, []);
+
+  const toggleTheme = () => {
+    const nextDark = !isDark;
+    setIsDark(nextDark);
+    if (nextDark) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  };
+
   return (
     <div className="w-full flex flex-col bg-[var(--color-surface-BG-base)] min-h-screen text-[var(--color-text-primary)] relative overflow-x-hidden">
       
       {/* 1. Navbar */}
-      <nav className="h-16 w-full bg-[var(--color-surface-BG-base)] border-b border-[var(--color-border-Strokes-default)] px-gutter-md flex justify-between items-center z-50 relative">
+      <nav className="h-16 w-full bg-[var(--color-surface-BG-base)] border-b border-[var(--color-border-Strokes-default)] px-gutter-md flex justify-between items-center relative z-[9999]">
         <div className="flex items-center gap-1">
           <span className="font-bold text-subtitle tracking-tight bg-[var(--color-text-primary)] text-[var(--color-surface-BG-base)] px-1.5 py-0.5 rounded-md leading-none">GO</span>
           <span className="font-normal text-subtitle tracking-widest text-[var(--color-text-secondary)]">AMS</span>
         </div>
         <div className="flex items-center gap-4">
-          <div className="bg-[var(--color-surface-BG-2)] rounded-full p-1 flex items-center shadow-inner cursor-pointer border border-[var(--color-border-Strokes-default)]">
-            <div className="w-5 h-5 rounded-full bg-[var(--color-surface-BG-base)] shadow-sm"></div>
-            <div className="w-5 h-5 rounded-full bg-transparent"></div>
-          </div>
-          <button className="text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors">
+          <button type="button" onClick={toggleTheme} className="bg-[var(--color-surface-BG-2)] rounded-full p-1 flex items-center shadow-inner cursor-pointer border border-[var(--color-border-Strokes-default)] relative z-50 touch-manipulation">
+            <div className={`w-5 h-5 rounded-full shadow-sm transition-colors ${!isDark ? 'bg-[var(--color-text-primary)]' : 'bg-transparent'}`}></div>
+            <div className={`w-5 h-5 rounded-full shadow-sm transition-colors ${isDark ? 'bg-[var(--color-text-primary)]' : 'bg-transparent'}`}></div>
+          </button>
+          <button type="button" className="text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors relative z-50">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
               <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
@@ -101,9 +118,9 @@ export default function HeroSection() {
         </GridLiveEditor>
 
         {/* Row 3: Dark Panel */}
-        <GridLiveEditor id="visual-panel-wrapper" initialStart={6} initialSpan={7} initialRowStart={3} initialRowSpan={1} initialMStart={1} initialMSpan={6} initialMRowStart={4} initialMRowSpan={1} className="w-full h-full relative mt-8 lg:mt-12 max-lg:h-[280px] max-lg:min-h-[280px] lg:h-auto lg:min-h-[420px]">
-          <BleedRight className="absolute top-0 bottom-0 left-0 mobile-bleed">
-            <CardLiveEditor id="visual-panel" initialBg="bg-[var(--color-surface-BG-1)]" initialShadow="shadow-elevation-2" initialPStatic="p-section-xs" className="w-full h-full flex items-center justify-center rounded-tl-[20px] rounded-bl-none rounded-br-none rounded-tr-none overflow-hidden !p-0">
+        <GridLiveEditor id="visual-panel-wrapper" initialStart={6} initialSpan={7} initialRowStart={3} initialRowSpan={1} initialMStart={1} initialMSpan={6} initialMRowStart={4} initialMRowSpan={1} className="w-full h-full relative mt-8 lg:mt-12 max-lg:h-[360px] max-lg:min-h-[360px] lg:h-auto lg:min-h-[420px]">
+          <BleedRight className="absolute top-0 bottom-0 left-0 mobile-bleed overflow-hidden">
+            <CardLiveEditor id="visual-panel" initialBg="bg-[var(--color-surface-BG-1)]" initialShadow="shadow-elevation-2" initialPStatic="p-section-xs" className="w-full h-full flex items-center justify-center rounded-tl-[20px] rounded-bl-none rounded-br-none rounded-tr-none max-lg:!bg-transparent overflow-hidden !p-0">
               
               {/* Bullet 1 - Top Left (Desktop Only) */}
               <div className="absolute top-[36px] left-[44px] gap-3 items-start z-10 hidden lg:flex">
@@ -122,13 +139,13 @@ export default function HeroSection() {
               </div>
 
               {/* Media Editor (Video) */}
-              <MediaLiveEditor id="hero-video" initialCw="100%" initialCh="110%" initialVw="100%" initialVh="100%" initialFit="object-cover" className="relative w-full h-full z-0 flex items-center justify-center max-lg:!h-full max-lg:!w-full">
-                <video autoPlay loop muted playsInline className="w-full h-full object-cover">
+              <MediaLiveEditor id="hero-video" initialCw="100%" initialCh="110%" initialVw="100%" initialVh="100%" initialFit="object-cover" className="relative w-full h-full z-0 flex items-center justify-center max-lg:!h-full max-lg:!w-full max-lg:!rounded-[24px] overflow-hidden">
+                <video autoPlay loop muted playsInline className="w-full h-full object-cover max-lg:!rounded-[24px]">
                   <source src="/Files/Hero/Isometric_wireframe_illustration…_202606181624.mp4" type="video/mp4" />
                   Tu navegador no soporta el video.
                 </video>
                 {/* Textura de ruido optimizada sobre el video */}
-                <div className="absolute inset-0 bg-noise pointer-events-none z-10 mix-blend-overlay opacity-80" />
+                <div className="absolute inset-0 bg-noise pointer-events-none z-10 mix-blend-overlay opacity-80 max-lg:!rounded-[24px]" />
               </MediaLiveEditor>
 
             </CardLiveEditor>

@@ -116,6 +116,9 @@ Los componentes del nuevo diseño están consolidados en:
     - Refactorización de `HeroSection.tsx` hacia una grilla unificada asimétrica (12 columnas x 3 filas).
     - Implementación de la solución `BleedRight` para sangrado perfecto del panel oscuro hacia el viewport derecho sin provocar scrolls horizontales (`span: 7`).
     - Mejora del ecosistema `LiveEditor` permitiendo inyección de estado `initialProps` vía JSON y botones de copiado de estado ultra-granulares.
+110. **[NUEVO] GO AMS Portal Hero — Dark Mode Nativo & Mobile Polish (18 Jun 2026):**
+    - Implementación de Dark Mode Forzado por defecto utilizando manipulación de DOM nativa de React/Tailwind v4 (descartando `next-themes` para zero-dependency).
+    - Resolución de glitch WebKit en iOS Safari aplicando un enmascaramiento (`border-radius: 24px`) directo sobre las etiquetas `<video>` y ruido en móvil para lograr un Bleed Fullwidth sin huecos visuales.
 
 ## 6. Próximos Pasos (To-Do)
 - Empezar la construcción de la **Página de Inicio (Home)** integrando el motor de `HeroSequence` con los nuevos tokens de espaciado.

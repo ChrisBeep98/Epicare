@@ -18,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${dmSans.variable} font-dmsans antialiased`}>
+    <html lang="en" className={`dark ${dmSans.variable} font-dmsans antialiased`}>
       <body className="min-h-full flex flex-col bg-[#F2F2F2] dark:bg-[#191A1A] text-[#1A1E21] dark:text-[#E8ECEF]">{children}</body>
     </html>
   );
