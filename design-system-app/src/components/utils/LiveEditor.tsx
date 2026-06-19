@@ -90,51 +90,70 @@ export function SectionLiveEditor({ id, initialPy = 'py-section-md', initialPx =
 // ==========================================
 // 2. GRID LIVE EDITOR (Placement & Flex)
 // ==========================================
-export function GridLiveEditor({ id, initialStart = 1, initialSpan = 12, initialRowStart = 1, initialRowSpan = 1, children, className = "" }: { id: string, initialStart?: number, initialSpan?: number, initialRowStart?: number, initialRowSpan?: number, children: React.ReactNode, className?: string }) {
+export function GridLiveEditor({ 
+  id, 
+  initialStart = 1, initialSpan = 12, initialRowStart = 1, initialRowSpan = 1, 
+  initialMStart = 1, initialMSpan = 6, initialMRowStart = 1, initialMRowSpan = 1,
+  children, className = "", flexDir = "row", justify = "flex-start", align = "flex-start", gap = "" 
+}: { 
+  id: string, initialStart?: number, initialSpan?: number, initialRowStart?: number, initialRowSpan?: number, 
+  initialMStart?: number, initialMSpan?: number, initialMRowStart?: number, initialMRowSpan?: number,
+  children: React.ReactNode, className?: string, flexDir?: "row"|"column", justify?: string, align?: string, gap?: string 
+}) {
   const [start, setStart] = useState(initialStart);
   const [span, setSpan] = useState(initialSpan);
   const [rowStart, setRowStart] = useState(initialRowStart);
   const [rowSpan, setRowSpan] = useState(initialRowSpan);
-  const [flexDir, setFlexDir] = useState<'row' | 'column'>('column');
-  const [justify, setJustify] = useState('flex-start');
-  const [align, setAlign] = useState('flex-start');
-  const [gap, setGap] = useState('');
+
+  const [mStart, setMStart] = useState(initialMStart);
+  const [mSpan, setMSpan] = useState(initialMSpan);
+  const [mRowStart, setMRowStart] = useState(initialMRowStart);
+  const [mRowSpan, setMRowSpan] = useState(initialMRowSpan);
+
+  const [editMode, setEditMode] = useState<'desktop'|'mobile'>('desktop');
 
   useEffect(() => {
-    if (className.includes('flex-row')) setFlexDir('row');
-    if (className.includes('items-center')) setAlign('center');
-  }, [className]);
-
-  useEffect(() => {
-    updateState(id, { type: 'Grid', start, span, rowStart, rowSpan, flexDir, justify, align, gap });
+    updateState(id, { type: 'Grid', start, span, rowStart, rowSpan, mStart, mSpan, mRowStart, mRowSpan, flexDir, justify, align, gap });
     return () => removeState(id);
-  }, [id, start, span, rowStart, rowSpan, flexDir, justify, align, gap]);
+  }, [id, start, span, rowStart, rowSpan, mStart, mSpan, mRowStart, mRowSpan, flexDir, justify, align, gap]);
 
   return (
-    <div className={`relative group/grid ${className} ${gap}`} style={{ gridColumn: `${start} / span ${span}`, gridRow: `${rowStart} / span ${rowSpan}`, display: 'flex', flexDirection: flexDir, justifyContent: justify, alignItems: align }}>
+    <div className={`relative group/grid live-grid-responsive flex ${className} ${gap}`} style={{ 
+      '--tw-grid-col-start': start, 
+      '--tw-grid-col-span': span, 
+      '--tw-grid-row-start': rowStart, 
+      '--tw-grid-row-span': rowSpan,
+      '--tw-m-grid-col-start': mStart, 
+      '--tw-m-grid-col-span': mSpan, 
+      '--tw-m-grid-row-start': mRowStart, 
+      '--tw-m-grid-row-span': mRowSpan,
+      flexDirection: flexDir, justifyContent: justify, alignItems: align 
+    } as React.CSSProperties}>
       <div className="absolute -top-[50px] left-0 opacity-0 group-hover/grid:opacity-100 bg-[var(--color-surface-BG-1)] border border-[var(--color-border-Strokes-strong)] rounded flex flex-col gap-1 px-3 py-2 z-[9998] text-[10px] shadow-elevation-5 pointer-events-auto">
-        <div className="flex gap-3 mb-1">
-          <div className="flex items-center">
-            <span className="text-[var(--color-brand-orange)] font-bold uppercase tracking-wider">{id}</span>
-            <CopyStateButton id={id} />
+        <div className="flex justify-between items-center mb-1">
+          <div className="flex items-center gap-2">
+            <span className="text-[var(--color-brand-orange)] font-bold uppercase tracking-wider mr-2">{id}</span>
+            <button onClick={() => setEditMode('desktop')} className={`px-2 py-0.5 rounded ${editMode === 'desktop' ? 'bg-[var(--color-brand-blue)] text-white' : 'bg-[var(--color-surface-BG-2)] text-gray-400'}`}>💻</button>
+            <button onClick={() => setEditMode('mobile')} className={`px-2 py-0.5 rounded ${editMode === 'mobile' ? 'bg-[var(--color-brand-orange)] text-white' : 'bg-[var(--color-surface-BG-2)] text-gray-400'}`}>📱</button>
           </div>
-          <div className="flex items-center gap-1">CStart: <button className="bg-[var(--color-surface-BG-2)] w-4 h-4 rounded" onClick={() => setStart(s => Math.max(1, s-1))}>-</button><span className="w-3 text-center">{start}</span><button className="bg-[var(--color-surface-BG-2)] w-4 h-4 rounded" onClick={() => setStart(s => Math.min(12, s+1))}>+</button></div>
-          <div className="flex items-center gap-1">CSpan: <button className="bg-[var(--color-surface-BG-2)] w-4 h-4 rounded" onClick={() => setSpan(s => Math.max(1, s-1))}>-</button><span className="w-3 text-center">{span}</span><button className="bg-[var(--color-surface-BG-2)] w-4 h-4 rounded" onClick={() => setSpan(s => Math.min(12, s+1))}>+</button></div>
-          <div className="flex items-center gap-1 ml-2 border-l border-[var(--color-border-Strokes-strong)] pl-2">RStart: <button className="bg-[var(--color-surface-BG-2)] w-4 h-4 rounded" onClick={() => setRowStart(s => Math.max(1, s-1))}>-</button><span className="w-3 text-center">{rowStart}</span><button className="bg-[var(--color-surface-BG-2)] w-4 h-4 rounded" onClick={() => setRowStart(s => s+1)}>+</button></div>
-          <div className="flex items-center gap-1">RSpan: <button className="bg-[var(--color-surface-BG-2)] w-4 h-4 rounded" onClick={() => setRowSpan(s => Math.max(1, s-1))}>-</button><span className="w-3 text-center">{rowSpan}</span><button className="bg-[var(--color-surface-BG-2)] w-4 h-4 rounded" onClick={() => setRowSpan(s => s+1)}>+</button></div>
+          <CopyStateButton id={id} />
         </div>
-        <div className="flex gap-2">
-          <select value={flexDir} onChange={e => setFlexDir(e.target.value as any)} className="bg-[var(--color-surface-BG-2)] text-white outline-none rounded px-1"><option value="row">Row</option><option value="column">Col</option></select>
-          <select value={justify} onChange={e => setJustify(e.target.value)} className="bg-[var(--color-surface-BG-2)] text-white outline-none rounded px-1">
-            <option value="flex-start">J: Start</option><option value="center">J: Center</option><option value="flex-end">J: End</option><option value="space-between">J: Between</option><option value="space-around">J: Around</option>
-          </select>
-          <select value={align} onChange={e => setAlign(e.target.value)} className="bg-[var(--color-surface-BG-2)] text-white outline-none rounded px-1">
-            <option value="flex-start">A: Start</option><option value="center">A: Center</option><option value="flex-end">A: End</option><option value="stretch">A: Stretch</option>
-          </select>
-          <select value={gap} onChange={e => setGap(e.target.value)} className="bg-[var(--color-surface-BG-2)] text-white outline-none rounded px-1">
-            <option value="">Gap: Inherit</option><option value="gap-0">Gap: 0</option><option value="gap-fluid-sm">Gap: SM</option><option value="gap-fluid-md">Gap: MD</option><option value="gap-fluid-lg">Gap: LG</option>
-          </select>
-        </div>
+
+        {editMode === 'desktop' ? (
+          <div className="flex gap-3 mb-1">
+            <div className="flex items-center gap-1">CStart: <button className="bg-[var(--color-surface-BG-2)] w-4 h-4 rounded" onClick={() => setStart(s => Math.max(1, s-1))}>-</button><span className="w-3 text-center">{start}</span><button className="bg-[var(--color-surface-BG-2)] w-4 h-4 rounded" onClick={() => setStart(s => Math.min(12, s+1))}>+</button></div>
+            <div className="flex items-center gap-1">CSpan: <button className="bg-[var(--color-surface-BG-2)] w-4 h-4 rounded" onClick={() => setSpan(s => Math.max(1, s-1))}>-</button><span className="w-3 text-center">{span}</span><button className="bg-[var(--color-surface-BG-2)] w-4 h-4 rounded" onClick={() => setSpan(s => Math.min(12, s+1))}>+</button></div>
+            <div className="flex items-center gap-1 ml-2 border-l border-[var(--color-border-Strokes-strong)] pl-2">RStart: <button className="bg-[var(--color-surface-BG-2)] w-4 h-4 rounded" onClick={() => setRowStart(s => Math.max(1, s-1))}>-</button><span className="w-3 text-center">{rowStart}</span><button className="bg-[var(--color-surface-BG-2)] w-4 h-4 rounded" onClick={() => setRowStart(s => s+1)}>+</button></div>
+            <div className="flex items-center gap-1">RSpan: <button className="bg-[var(--color-surface-BG-2)] w-4 h-4 rounded" onClick={() => setRowSpan(s => Math.max(1, s-1))}>-</button><span className="w-3 text-center">{rowSpan}</span><button className="bg-[var(--color-surface-BG-2)] w-4 h-4 rounded" onClick={() => setRowSpan(s => s+1)}>+</button></div>
+          </div>
+        ) : (
+          <div className="flex gap-3 mb-1">
+            <div className="flex items-center gap-1">mStart: <button className="bg-[var(--color-surface-BG-2)] w-4 h-4 rounded" onClick={() => setMStart(s => Math.max(1, s-1))}>-</button><span className="w-3 text-center">{mStart}</span><button className="bg-[var(--color-surface-BG-2)] w-4 h-4 rounded" onClick={() => setMStart(s => Math.min(6, s+1))}>+</button></div>
+            <div className="flex items-center gap-1">mSpan: <button className="bg-[var(--color-surface-BG-2)] w-4 h-4 rounded" onClick={() => setMSpan(s => Math.max(1, s-1))}>-</button><span className="w-3 text-center">{mSpan}</span><button className="bg-[var(--color-surface-BG-2)] w-4 h-4 rounded" onClick={() => setMSpan(s => Math.min(6, s+1))}>+</button></div>
+            <div className="flex items-center gap-1 ml-2 border-l border-[var(--color-border-Strokes-strong)] pl-2">mRStart: <button className="bg-[var(--color-surface-BG-2)] w-4 h-4 rounded" onClick={() => setMRowStart(s => Math.max(1, s-1))}>-</button><span className="w-3 text-center">{mRowStart}</span><button className="bg-[var(--color-surface-BG-2)] w-4 h-4 rounded" onClick={() => setMRowStart(s => s+1)}>+</button></div>
+            <div className="flex items-center gap-1">mRSpan: <button className="bg-[var(--color-surface-BG-2)] w-4 h-4 rounded" onClick={() => setMRowSpan(s => Math.max(1, s-1))}>-</button><span className="w-3 text-center">{mRowSpan}</span><button className="bg-[var(--color-surface-BG-2)] w-4 h-4 rounded" onClick={() => setMRowSpan(s => s+1)}>+</button></div>
+          </div>
+        )}
       </div>
       <div className="absolute inset-0 border-2 border-dashed border-[var(--color-brand-orange)]/0 group-hover/grid:border-[var(--color-brand-orange)]/50 pointer-events-none transition-colors z-40"></div>
       {children}

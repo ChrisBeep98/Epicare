@@ -74,24 +74,24 @@ export default function HeroSection() {
       </nav>
 
       {/* 2. Unified Hero Grid */}
-      <SectionLiveEditor id="hero-main-section" initialPy="" initialPx="px-gutter-md" initialMaxW="max-w-section-xl" initialGap="" initialAlign="" className="w-full bg-[var(--color-surface-BG-base)] flex-1" innerClassName="grid-layout min-h-[calc(100vh-64px)] grid-rows-[auto_auto_1fr] pb-0">
+      <SectionLiveEditor id="hero-main-section" initialPy="" initialPx="" initialMaxW="max-w-section-xl" initialGap="" initialAlign="" className="w-full bg-[var(--color-surface-BG-base)] flex-1 px-[var(--space-gutter-sm)] lg:px-[var(--space-gutter-md)]" innerClassName="grid-layout min-h-[calc(100vh-64px)] grid-rows-[auto_auto_1fr] pb-0">
           
-        {/* Row 1: Eyebrow / Subtitle (R1, C1-6) */}
-        <GridLiveEditor id="hero-eyebrow" initialStart={1} initialSpan={6} initialRowStart={1} initialRowSpan={1} className="flex items-end pb-4 pt-12">
+        {/* Row 1: Eyebrow / Subtitle */}
+        <GridLiveEditor id="hero-eyebrow" initialStart={1} initialSpan={6} initialRowStart={1} initialRowSpan={1} initialMStart={1} initialMSpan={6} initialMRowStart={1} initialMRowSpan={1} className="flex items-end pb-0 lg:pb-4 pt-[var(--space-fluid-md)]">
           <TextLiveEditor id="eyebrow-text" initialToken="text-ui-label" className="text-[var(--color-text-secondary)] uppercase tracking-widest">
             El broker portal de Epicare Insurance Corp®
           </TextLiveEditor>
         </GridLiveEditor>
 
-        {/* Row 2-3: Heading (R2-3, C1-6) */}
-        <GridLiveEditor id="hero-heading" initialStart={1} initialSpan={6} initialRowStart={2} initialRowSpan={2} className="flex items-start pr-10">
-          <TextLiveEditor id="hero-title" initialToken="text-display-xl" as="h1" className="italic font-bold text-[var(--color-text-primary)]" style={{ fontFamily: 'Georgia, serif' }}>
+        {/* Row 2-3: Heading */}
+        <GridLiveEditor id="hero-heading" initialStart={1} initialSpan={6} initialRowStart={2} initialRowSpan={2} initialMStart={1} initialMSpan={6} initialMRowStart={2} initialMRowSpan={1} className="flex items-start max-lg:!py-section-sm lg:pr-10">
+          <TextLiveEditor id="hero-title" initialToken="text-display-xl" as="h1" className="text-[var(--color-text-primary)]">
             Una plataforma<br />para todo tu negocio<br />de seguros.
           </TextLiveEditor>
         </GridLiveEditor>
 
-        {/* Row 2: CTA Block (R2, C8-11) */}
-        <GridLiveEditor id="hero-cta" initialStart={8} initialSpan={4} initialRowStart={2} initialRowSpan={1} className="flex flex-col items-start justify-start gap-5">
+        {/* Row 2: CTA Block */}
+        <GridLiveEditor id="hero-cta" initialStart={8} initialSpan={4} initialRowStart={2} initialRowSpan={1} initialMStart={1} initialMSpan={6} initialMRowStart={3} initialMRowSpan={1} flexDir="column" className="flex flex-col items-start justify-start gap-5 mt-4 lg:mt-0">
           <TextLiveEditor id="cta-subtitle" initialToken="text-body-sm" className="text-[var(--color-text-secondary)] leading-relaxed">
             GO AMS es el portal operacional para agentes y agencias — donde gestionas contratos, clientes, producción y pagos, todo bajo una misma interfaz.
           </TextLiveEditor>
@@ -100,21 +100,21 @@ export default function HeroSection() {
           </button>
         </GridLiveEditor>
 
-        {/* Row 3: Dark Panel (R3, C6-12) */}
-        <GridLiveEditor id="visual-panel-wrapper" initialStart={6} initialSpan={7} initialRowStart={3} initialRowSpan={1} className="w-full h-full relative mt-12 min-h-[420px]">
-          <BleedRight className="absolute top-0 bottom-0 left-0">
+        {/* Row 3: Dark Panel */}
+        <GridLiveEditor id="visual-panel-wrapper" initialStart={6} initialSpan={7} initialRowStart={3} initialRowSpan={1} initialMStart={1} initialMSpan={6} initialMRowStart={4} initialMRowSpan={1} className="w-full h-full relative mt-8 lg:mt-12 max-lg:h-[280px] max-lg:min-h-[280px] lg:h-auto lg:min-h-[420px]">
+          <BleedRight className="absolute top-0 bottom-0 left-0 mobile-bleed">
             <CardLiveEditor id="visual-panel" initialBg="bg-[var(--color-surface-BG-1)]" initialShadow="shadow-elevation-2" initialPStatic="p-section-xs" className="w-full h-full flex items-center justify-center rounded-tl-[20px] rounded-bl-none rounded-br-none rounded-tr-none overflow-hidden !p-0">
               
-              {/* Bullet 1 - Top Left */}
-              <div className="absolute top-[36px] left-[44px] flex gap-3 items-start z-10 hidden sm:flex">
+              {/* Bullet 1 - Top Left (Desktop Only) */}
+              <div className="absolute top-[36px] left-[44px] gap-3 items-start z-10 hidden lg:flex">
                 <div className="w-2 h-2 rounded-full bg-[var(--color-brand-blue)] mt-1.5 flex-shrink-0"></div>
                 <p className="text-[13px] text-[var(--color-text-muted)] leading-relaxed max-w-[220px]">
                   Respaldado por 5 años de operación, 130+ carriers, 52 jurisdicciones
                 </p>
               </div>
 
-              {/* Bullet 2 - Bottom Left */}
-              <div className="absolute bottom-[36px] left-[44px] flex gap-3 items-start z-10 hidden sm:flex">
+              {/* Bullet 2 - Bottom Left (Desktop Only) */}
+              <div className="absolute bottom-[36px] left-[44px] gap-3 items-start z-10 hidden lg:flex">
                 <div className="w-2 h-2 rounded-full bg-[var(--color-brand-blue)] mt-1.5 flex-shrink-0"></div>
                 <p className="text-[13px] text-[var(--color-text-muted)] leading-relaxed max-w-[220px]">
                   Procesa millones en primas de manera automática
@@ -122,15 +122,33 @@ export default function HeroSection() {
               </div>
 
               {/* Media Editor (Video) */}
-              <MediaLiveEditor id="hero-video" initialCw="100%" initialCh="110%" initialVw="100%" initialVh="100%" initialFit="object-cover" className="relative w-full h-full z-0 flex items-center justify-center">
-                <video autoPlay loop muted playsInline>
+              <MediaLiveEditor id="hero-video" initialCw="100%" initialCh="110%" initialVw="100%" initialVh="100%" initialFit="object-cover" className="relative w-full h-full z-0 flex items-center justify-center max-lg:!h-full max-lg:!w-full">
+                <video autoPlay loop muted playsInline className="w-full h-full object-cover">
                   <source src="/Files/Hero/Isometric_wireframe_illustration…_202606181624.mp4" type="video/mp4" />
                   Tu navegador no soporta el video.
                 </video>
+                {/* Textura de ruido optimizada sobre el video */}
+                <div className="absolute inset-0 bg-noise pointer-events-none z-10 mix-blend-overlay opacity-80" />
               </MediaLiveEditor>
 
             </CardLiveEditor>
           </BleedRight>
+        </GridLiveEditor>
+
+        {/* Row 4: Mobile Bullets (Mobile Only) */}
+        <GridLiveEditor id="mobile-bullets" initialStart={1} initialSpan={12} initialRowStart={4} initialRowSpan={1} initialMStart={1} initialMSpan={6} initialMRowStart={5} initialMRowSpan={1} className="flex lg:hidden flex-row items-start justify-between gap-4 mt-6 pb-24">
+          <div className="flex gap-2 items-start w-1/2">
+            <div className="w-2 h-2 rounded-full bg-[var(--color-brand-blue)] mt-1.5 flex-shrink-0"></div>
+            <p className="text-[12px] text-[var(--color-text-muted)] leading-relaxed">
+              Respaldado por 5 años, 130+ carriers, 52 juris.
+            </p>
+          </div>
+          <div className="flex gap-2 items-start w-1/2">
+            <div className="w-2 h-2 rounded-full bg-[var(--color-brand-blue)] mt-1.5 flex-shrink-0"></div>
+            <p className="text-[12px] text-[var(--color-text-muted)] leading-relaxed">
+              Procesa millones en primas de manera automática
+            </p>
+          </div>
         </GridLiveEditor>
 
       </SectionLiveEditor>
