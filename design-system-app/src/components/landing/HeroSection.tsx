@@ -78,7 +78,7 @@ export default function HeroSection() {
           
         {/* Row 1: Eyebrow / Subtitle (R1, C1-6) */}
         <GridLiveEditor id="hero-eyebrow" initialStart={1} initialSpan={6} initialRowStart={1} initialRowSpan={1} className="flex items-end pb-4 pt-12">
-          <TextLiveEditor id="eyebrow-text" initialToken="text-overline" className="text-[var(--color-text-secondary)] uppercase tracking-widest">
+          <TextLiveEditor id="eyebrow-text" initialToken="text-ui-label" className="text-[var(--color-text-secondary)] uppercase tracking-widest">
             El broker portal de Epicare Insurance Corp®
           </TextLiveEditor>
         </GridLiveEditor>
@@ -86,7 +86,7 @@ export default function HeroSection() {
         {/* Row 2-3: Heading (R2-3, C1-6) */}
         <GridLiveEditor id="hero-heading" initialStart={1} initialSpan={6} initialRowStart={2} initialRowSpan={2} className="flex items-start pr-10">
           <TextLiveEditor id="hero-title" initialToken="text-display-xl" as="h1" className="italic font-bold text-[var(--color-text-primary)]" style={{ fontFamily: 'Georgia, serif' }}>
-            Tu negocio<br />de seguros,<br />entero.
+            Una plataforma<br />para todo tu negocio<br />de seguros.
           </TextLiveEditor>
         </GridLiveEditor>
 
@@ -122,7 +122,7 @@ export default function HeroSection() {
               </div>
 
               {/* Media Editor (Video) */}
-              <MediaLiveEditor id="hero-video" initialCw="100%" initialCh="100%" initialVw="100%" initialVh="100%" initialFit="object-cover" className="relative w-full h-full z-0 flex items-center justify-center">
+              <MediaLiveEditor id="hero-video" initialCw="100%" initialCh="110%" initialVw="100%" initialVh="100%" initialFit="object-cover" className="relative w-full h-full z-0 flex items-center justify-center">
                 <video autoPlay loop muted playsInline>
                   <source src="/Files/Hero/Isometric_wireframe_illustration…_202606181624.mp4" type="video/mp4" />
                   Tu navegador no soporta el video.

@@ -16,6 +16,23 @@ const removeState = (id: string) => {
   window.dispatchEvent(new Event('layoutStateUpdated'));
 };
 
+function CopyStateButton({ id }: { id: string }) {
+  const [copied, setCopied] = useState(false);
+  return (
+    <button 
+      onClick={() => {
+        navigator.clipboard.writeText(JSON.stringify({ [id]: layoutState[id] }, null, 2));
+        setCopied(true);
+        setTimeout(() => setCopied(false), 1500);
+      }}
+      className={`ml-2 text-[10px] ${copied ? 'text-green-400' : 'text-[var(--color-text-muted)] hover:text-white'} transition-colors cursor-pointer flex-shrink-0`}
+      title="Copiar solo este componente"
+    >
+      {copied ? '✓' : '📋'}
+    </button>
+  );
+}
+
 // ==========================================
 // 1. SECTION LIVE EDITOR (Rhythm & Wrappers)
 // ==========================================
@@ -36,7 +53,10 @@ export function SectionLiveEditor({ id, initialPy = 'py-section-md', initialPx =
       <div className={`mx-auto ${maxW} ${gap} ${align} ${innerClassName} w-full`}>
         {/* Float Control */}
         <div className="absolute top-2 left-2 opacity-0 group-hover/section:opacity-100 bg-[var(--color-surface-BG-1)] border border-[var(--color-border-Strokes-strong)] rounded flex flex-col gap-2 px-3 py-2 z-[9997] text-[10px] shadow-elevation-5 pointer-events-auto">
-          <span className="text-[var(--color-brand-blue)] font-bold uppercase tracking-widest border-b border-[var(--color-border-Strokes-default)] pb-1 mb-1">{id} (Section Layout)</span>
+          <div className="flex justify-between items-center border-b border-[var(--color-border-Strokes-default)] pb-1 mb-1">
+            <span className="text-[var(--color-brand-blue)] font-bold uppercase tracking-widest">{id} (Section)</span>
+            <CopyStateButton id={id} />
+          </div>
           
           <div className="flex gap-2">
             <select value={py} onChange={e => setPy(e.target.value)} className="bg-[var(--color-surface-BG-2)] text-white outline-none rounded px-1 py-1">
@@ -94,7 +114,10 @@ export function GridLiveEditor({ id, initialStart = 1, initialSpan = 12, initial
     <div className={`relative group/grid ${className} ${gap}`} style={{ gridColumn: `${start} / span ${span}`, gridRow: `${rowStart} / span ${rowSpan}`, display: 'flex', flexDirection: flexDir, justifyContent: justify, alignItems: align }}>
       <div className="absolute -top-[50px] left-0 opacity-0 group-hover/grid:opacity-100 bg-[var(--color-surface-BG-1)] border border-[var(--color-border-Strokes-strong)] rounded flex flex-col gap-1 px-3 py-2 z-[9998] text-[10px] shadow-elevation-5 pointer-events-auto">
         <div className="flex gap-3 mb-1">
-          <span className="text-[var(--color-brand-orange)] font-bold uppercase tracking-wider">{id}</span>
+          <div className="flex items-center">
+            <span className="text-[var(--color-brand-orange)] font-bold uppercase tracking-wider">{id}</span>
+            <CopyStateButton id={id} />
+          </div>
           <div className="flex items-center gap-1">CStart: <button className="bg-[var(--color-surface-BG-2)] w-4 h-4 rounded" onClick={() => setStart(s => Math.max(1, s-1))}>-</button><span className="w-3 text-center">{start}</span><button className="bg-[var(--color-surface-BG-2)] w-4 h-4 rounded" onClick={() => setStart(s => Math.min(12, s+1))}>+</button></div>
           <div className="flex items-center gap-1">CSpan: <button className="bg-[var(--color-surface-BG-2)] w-4 h-4 rounded" onClick={() => setSpan(s => Math.max(1, s-1))}>-</button><span className="w-3 text-center">{span}</span><button className="bg-[var(--color-surface-BG-2)] w-4 h-4 rounded" onClick={() => setSpan(s => Math.min(12, s+1))}>+</button></div>
           <div className="flex items-center gap-1 ml-2 border-l border-[var(--color-border-Strokes-strong)] pl-2">RStart: <button className="bg-[var(--color-surface-BG-2)] w-4 h-4 rounded" onClick={() => setRowStart(s => Math.max(1, s-1))}>-</button><span className="w-3 text-center">{rowStart}</span><button className="bg-[var(--color-surface-BG-2)] w-4 h-4 rounded" onClick={() => setRowStart(s => s+1)}>+</button></div>
@@ -135,7 +158,10 @@ export function CardLiveEditor({ id, initialBg = 'bg-[var(--color-surface-BG-1)]
   return (
     <div className={`relative group/card ${className} ${bg} ${shadow} ${pStatic} rounded-2xl`}>
       <div className="absolute -top-6 right-2 opacity-0 group-hover/card:opacity-100 bg-[var(--color-surface-BG-2)] border border-[var(--color-border-Strokes-strong)] rounded flex gap-2 px-2 py-1 z-[9999] text-[10px] shadow-elevation-3 pointer-events-auto">
-        <span className="text-green-400 font-bold">{id} (Card)</span>
+        <div className="flex items-center mr-1">
+          <span className="text-green-400 font-bold">{id}</span>
+          <CopyStateButton id={id} />
+        </div>
         <select value={bg} onChange={e => setBg(e.target.value)} className="bg-transparent text-white outline-none cursor-pointer">
           <option value="bg-transparent">BG: None</option><option value="bg-[var(--color-surface-BG-base)]">BG: Base</option><option value="bg-[var(--color-surface-BG-1)]">BG: Lvl1</option><option value="bg-[var(--color-surface-BG-2)]">BG: Lvl2</option>
         </select>
@@ -169,8 +195,11 @@ export function MediaLiveEditor({ id, initialCw = '100%', initialCh = '100%', in
 
   return (
     <div className={`relative group/media ${className} flex items-center justify-center`} style={{ width: cw, height: ch }}>
-      <div className="absolute top-4 left-4 opacity-0 group-hover/media:opacity-100 bg-[var(--color-surface-BG-1)] border border-[var(--color-border-Strokes-strong)] rounded flex flex-col gap-2 px-3 py-2 z-[10001] text-[10px] shadow-elevation-4 text-white pointer-events-auto">
-        <span className="font-bold text-purple-400 uppercase border-b border-[var(--color-border-Strokes-default)] pb-1 mb-1">{id} (Media)</span>
+      <div className="absolute top-4 right-4 opacity-0 group-hover/media:opacity-100 bg-[var(--color-surface-BG-1)] border border-[var(--color-border-Strokes-strong)] rounded flex flex-col gap-2 px-3 py-2 z-[10001] text-[10px] shadow-elevation-4 text-white pointer-events-auto">
+        <div className="flex justify-between items-center border-b border-[var(--color-border-Strokes-default)] pb-1 mb-1">
+          <span className="font-bold text-purple-400 uppercase">{id}</span>
+          <CopyStateButton id={id} />
+        </div>
         
         <div className="flex gap-2 items-center">
           <span className="text-[var(--color-text-muted)] w-8">Cont:</span>
@@ -220,7 +249,10 @@ export function TextLiveEditor({ id, initialToken = "text-body", children, as: T
   return (
     <Tag className={`relative group/text ${className} ${token} inline-block`}>
       <div className="absolute -top-7 left-0 opacity-0 group-hover/text:opacity-100 bg-[var(--color-brand-blue)] rounded flex items-center px-2 py-1 z-[10000] text-[11px] shadow-elevation-5 text-white whitespace-nowrap pointer-events-auto">
-        <span className="font-bold mr-2 uppercase">{id}</span>
+        <div className="flex items-center mr-2">
+          <span className="font-bold uppercase">{id}</span>
+          <CopyStateButton id={id} />
+        </div>
         <select value={token} onChange={e => setToken(e.target.value)} className="bg-[var(--color-surface-BG-2)] border border-[var(--color-border-Strokes-strong)] rounded text-white outline-none cursor-pointer px-1 py-0.5">
           <optgroup label="Displays">
             <option value="text-display-3xl">Display 3XL</option><option value="text-display-2xl">Display 2XL</option><option value="text-display-xl">Display XL</option><option value="text-display-lg">Display LG</option><option value="text-display">Display Base</option>

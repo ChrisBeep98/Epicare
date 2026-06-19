@@ -112,6 +112,11 @@ Los componentes del nuevo diseño están consolidados en:
     - Resolución de bug crítico de "escala real" en MaxWidthSection, permitiendo simulación precisa a 1536px.
     - Creación e inyección de tokens tipográficos masivos (`text-display-3xl` de 192px y `text-display-2xl` de 128px) en `globals.css` para la estética corporativa.
 
+109. **[NUEVO] GO AMS Portal Hero — Arquitectura Grid y Live Editing Avanzado (18 Jun 2026):**
+    - Refactorización de `HeroSection.tsx` hacia una grilla unificada asimétrica (12 columnas x 3 filas).
+    - Implementación de la solución `BleedRight` para sangrado perfecto del panel oscuro hacia el viewport derecho sin provocar scrolls horizontales (`span: 7`).
+    - Mejora del ecosistema `LiveEditor` permitiendo inyección de estado `initialProps` vía JSON y botones de copiado de estado ultra-granulares.
+
 ## 6. Próximos Pasos (To-Do)
 - Empezar la construcción de la **Página de Inicio (Home)** integrando el motor de `HeroSequence` con los nuevos tokens de espaciado.
 - Diseñar el **Header Adaptativo** usando el token `px-gutter-md` para el marco global.
