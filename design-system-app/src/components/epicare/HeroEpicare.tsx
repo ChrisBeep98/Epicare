@@ -150,10 +150,10 @@ export default function HeroEpicare() {
     const yPos = (clientY / innerHeight - 0.5) * 2;
     
     gsap.to(videoWrapperRef.current, {
-      rotationY: xPos * 4,
-      rotationX: -yPos * 4,
-      x: xPos * 10,
-      y: yPos * 10,
+      rotationY: xPos * 3,
+      rotationX: -yPos * 3,
+      x: xPos * 8,
+      y: yPos * 8,
       ease: 'power2.out',
       duration: 0.6
     });
@@ -186,7 +186,7 @@ export default function HeroEpicare() {
           {/* EL VIDEO (ACTO 1: Pequeño y sin viñeta -> ACTO 2: Fullscreen con viñeta) */}
           <div 
             ref={videoWrapperRef} 
-            className="relative w-[95vw] md:w-[90vw] h-[64dvh] md:h-[60dvh] rounded-[2rem] overflow-hidden shadow-[0_40px_80px_rgba(0,0,0,0.8)] border border-white/10 will-change-transform z-0"
+            className="relative w-[95vw] md:w-full h-[64dvh] md:h-[70dvh] rounded-[2rem] md:rounded-[4px] overflow-hidden shadow-[0_40px_80px_rgba(0,0,0,0.8)] border border-white/10 will-change-transform z-0"
             style={{ transformStyle: 'preserve-3d' }}
           >
             {/* EL ÚNICO LOGO: Vive permanentemente aquí adentro. 
