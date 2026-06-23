@@ -75,6 +75,14 @@ export default function HeroEpicare() {
         ease: "power2.inOut"
       }, 0);
 
+      // Acto 1 -> El logo ajusta su padding para alinearse perfectamente con el Navbar
+      tl.to("#epicare-logo-container", {
+        top: "10px",
+        left: "var(--space-gutter-md)", // En mobile será ligeramente distinto si usamos medias, pero esto asegura la posición final
+        duration: 1,
+        ease: "power2.inOut"
+      }, 0);
+
       // Acto 1 -> Aparece la viñeta oscura
       tl.to(vignetteRef.current, {
         opacity: 1,
@@ -158,10 +166,14 @@ export default function HeroEpicare() {
           style={{ transformStyle: 'preserve-3d' }}
         >
           {/* EL ÚNICO LOGO: Vive permanentemente aquí adentro. 
-              Al hacer scroll y expandirse el video a 100vw, 
-              su posición "top-4 left-4" se convierte naturalmente en la esquina de la pantalla. */}
-          <div className="absolute top-[10px] left-[var(--space-gutter-sm)] lg:left-[var(--space-gutter-md)] z-[60] pointer-events-auto">
-            <img src="/epicare_logo.svg" alt="Epicare Insurance Logo" className="h-[44px] w-auto object-contain drop-shadow-lg" />
+              Tiene padding simétrico en el Acto 1. 
+              Al expandirse el video, GSAP mueve este logo sutilmente 
+              para que quede perfectamente alineado con el Navbar en el Acto 2. */}
+          <div 
+            id="epicare-logo-container"
+            className="absolute top-6 left-6 md:top-8 md:left-8 z-[60] pointer-events-auto will-change-transform"
+          >
+            <img src="/epicare_logo.svg" alt="Epicare Insurance Logo" className="h-[36px] md:h-[44px] w-auto object-contain drop-shadow-lg" />
           </div>
 
           <video 
