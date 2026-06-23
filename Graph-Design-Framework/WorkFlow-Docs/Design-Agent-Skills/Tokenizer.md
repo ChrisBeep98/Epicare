@@ -20,7 +20,7 @@ When invoked, you must execute your work in strictly sequential phases. Do not w
 4. Espera confirmación del usuario para proceder.
 
 ### FASE 2: Ejecución y Tokenizado (Typography & Colors)
-1. Reemplaza todos los textos con la tipografía oficial (DM Sans) y la escala semántica (`text-display-*`, `text-h*`, `text-body-*`).
+1. Reemplaza todos los textos con la tipografía oficial (Inter) y la escala semántica (`text-display-*`, `text-h*`, `text-body-*`).
 2. Limpia los colores genéricos (`bg-gray-100`, `text-blue-500`) y aplica los tokens funcionales (`bg-[var(--color-surface-BG-1)]`, etc.).
 
 ### FASE 3: Acomodación Espacial (Spacing & Max Widths)

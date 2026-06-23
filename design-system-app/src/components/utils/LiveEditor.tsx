@@ -110,12 +110,16 @@ export function GridLiveEditor({
   const [mRowStart, setMRowStart] = useState(initialMRowStart);
   const [mRowSpan, setMRowSpan] = useState(initialMRowSpan);
 
+  const [flexD, setFlexD] = useState<"row"|"column">(flexDir);
+  const [just, setJust] = useState(justify);
+  const [alg, setAlg] = useState(align);
+
   const [editMode, setEditMode] = useState<'desktop'|'mobile'>('desktop');
 
   useEffect(() => {
-    updateState(id, { type: 'Grid', start, span, rowStart, rowSpan, mStart, mSpan, mRowStart, mRowSpan, flexDir, justify, align, gap });
+    updateState(id, { type: 'Grid', start, span, rowStart, rowSpan, mStart, mSpan, mRowStart, mRowSpan, flexDir: flexD, justify: just, align: alg, gap });
     return () => removeState(id);
-  }, [id, start, span, rowStart, rowSpan, mStart, mSpan, mRowStart, mRowSpan, flexDir, justify, align, gap]);
+  }, [id, start, span, rowStart, rowSpan, mStart, mSpan, mRowStart, mRowSpan, flexD, just, alg, gap]);
 
   return (
     <div className={`relative group/grid live-grid-responsive flex ${className} ${gap}`} style={{ 
@@ -127,10 +131,10 @@ export function GridLiveEditor({
       '--tw-m-grid-col-span': mSpan, 
       '--tw-m-grid-row-start': mRowStart, 
       '--tw-m-grid-row-span': mRowSpan,
-      flexDirection: flexDir, justifyContent: justify, alignItems: align 
+      flexDirection: flexD, justifyContent: just, alignItems: alg 
     } as React.CSSProperties}>
-      <div className="absolute -top-[50px] left-0 opacity-0 group-hover/grid:opacity-100 bg-[var(--color-surface-BG-1)] border border-[var(--color-border-Strokes-strong)] rounded flex flex-col gap-1 px-3 py-2 z-[9998] text-[10px] shadow-elevation-5 pointer-events-auto">
-        <div className="flex justify-between items-center mb-1">
+      <div className="absolute bottom-full right-0 mb-2 opacity-0 group-hover/grid:opacity-100 bg-[var(--color-surface-BG-1)] border border-[var(--color-border-Strokes-strong)] rounded flex flex-col gap-1 px-3 py-2 z-[9998] text-[10px] shadow-elevation-5 pointer-events-auto w-max">
+        <div className="flex justify-between items-center mb-1 gap-4">
           <div className="flex items-center gap-2">
             <span className="text-[var(--color-brand-orange)] font-bold uppercase tracking-wider mr-2">{id}</span>
             <button onClick={() => setEditMode('desktop')} className={`px-2 py-0.5 rounded ${editMode === 'desktop' ? 'bg-[var(--color-brand-blue)] text-white' : 'bg-[var(--color-surface-BG-2)] text-gray-400'}`}>💻</button>
@@ -154,6 +158,32 @@ export function GridLiveEditor({
             <div className="flex items-center gap-1">mRSpan: <button className="bg-[var(--color-surface-BG-2)] w-4 h-4 rounded" onClick={() => setMRowSpan(s => Math.max(1, s-1))}>-</button><span className="w-3 text-center">{mRowSpan}</span><button className="bg-[var(--color-surface-BG-2)] w-4 h-4 rounded" onClick={() => setMRowSpan(s => s+1)}>+</button></div>
           </div>
         )}
+
+        <div className="flex gap-3 pt-1 border-t border-[var(--color-border-Strokes-strong)] mt-1">
+          <div className="flex items-center gap-1">
+            Dir: 
+            <button className={`px-1.5 py-0.5 rounded ${flexD === 'row' ? 'bg-[var(--color-brand-blue)] text-white' : 'bg-[var(--color-surface-BG-2)]'}`} onClick={() => setFlexD('row')}>→</button>
+            <button className={`px-1.5 py-0.5 rounded ${flexD === 'column' ? 'bg-[var(--color-brand-blue)] text-white' : 'bg-[var(--color-surface-BG-2)]'}`} onClick={() => setFlexD('column')}>↓</button>
+          </div>
+          <div className="flex items-center gap-1 ml-2 border-l border-[var(--color-border-Strokes-strong)] pl-2">
+            Justify: 
+            <select className="bg-[var(--color-surface-BG-2)] rounded px-1 py-0.5" value={just} onChange={(e) => setJust(e.target.value)}>
+              <option value="flex-start">Start</option>
+              <option value="center">Center</option>
+              <option value="flex-end">End</option>
+              <option value="space-between">Between</option>
+            </select>
+          </div>
+          <div className="flex items-center gap-1 ml-2 border-l border-[var(--color-border-Strokes-strong)] pl-2">
+            Align: 
+            <select className="bg-[var(--color-surface-BG-2)] rounded px-1 py-0.5" value={alg} onChange={(e) => setAlg(e.target.value)}>
+              <option value="flex-start">Start</option>
+              <option value="center">Center</option>
+              <option value="flex-end">End</option>
+              <option value="stretch">Stretch</option>
+            </select>
+          </div>
+        </div>
       </div>
       <div className="absolute inset-0 border-2 border-dashed border-[var(--color-brand-orange)]/0 group-hover/grid:border-[var(--color-brand-orange)]/50 pointer-events-none transition-colors z-40"></div>
       {children}
@@ -267,7 +297,7 @@ export function TextLiveEditor({ id, initialToken = "text-body", children, as: T
 
   return (
     <Tag className={`relative group/text ${className} ${token} inline-block`}>
-      <div className="absolute -top-7 left-0 opacity-0 group-hover/text:opacity-100 bg-[var(--color-brand-blue)] rounded flex items-center px-2 py-1 z-[10000] text-[11px] shadow-elevation-5 text-white whitespace-nowrap pointer-events-auto">
+      <div className="absolute top-full left-0 mt-1 opacity-0 group-hover/text:opacity-100 bg-[var(--color-brand-blue)] rounded flex items-center px-2 py-1 z-[10000] text-[11px] shadow-elevation-5 text-white whitespace-nowrap pointer-events-auto">
         <div className="flex items-center mr-2">
           <span className="font-bold uppercase">{id}</span>
           <CopyStateButton id={id} />

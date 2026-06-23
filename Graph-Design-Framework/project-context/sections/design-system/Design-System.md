@@ -8,7 +8,7 @@ Este archivo es la **Única Fuente de Verdad (Single Source of Truth) Documental
 ---
 
 ## 1. TIPOGRAFÍA (Tokens de Escala)
-Familia Principal: `DM Sans` (La única tipografía permitida).
+Familia Principal: `Inter` (La única tipografía permitida).
 
 | Token | CSS Variable / Clamp | Uso |
 |:---|:---|:---|

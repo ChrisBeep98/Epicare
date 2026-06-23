@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import HeroSection from "@/components/landing/HeroSection";
+import HeroSection from "@/components/go-ams/HeroSection";
 
-export default function LandingPage() {
+export default function GoAmsPage() {
   const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {

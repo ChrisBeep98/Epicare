@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from 'react';
-import { GridLiveEditor, CardLiveEditor, TextLiveEditor, SectionLiveEditor, MediaLiveEditor, LiveEditorCopier } from '@/components/utils/LiveEditor';
 
 // Helper to make a container break out of the right side of the grid and touch the viewport edge
 function BleedRight({ children, className = "" }: { children: React.ReactNode, className?: string }) {
@@ -91,36 +90,37 @@ export default function HeroSection() {
       </nav>
 
       {/* 2. Unified Hero Grid */}
-      <SectionLiveEditor id="hero-main-section" initialPy="" initialPx="" initialMaxW="max-w-section-xl" initialGap="" initialAlign="" className="w-full bg-[var(--color-surface-BG-base)] flex-1 px-[var(--space-gutter-sm)] lg:px-[var(--space-gutter-md)]" innerClassName="grid-layout min-h-[calc(100vh-64px)] grid-rows-[auto_auto_1fr] pb-0">
+      <section id="hero-main-section" className="relative w-full bg-[var(--color-surface-BG-base)] flex-1 px-[var(--space-gutter-sm)] lg:px-[var(--space-gutter-md)]">
+        <div className="mx-auto max-w-section-xl w-full grid-layout min-h-[calc(100vh-64px)] grid-rows-[auto_auto_1fr] pb-0">
           
         {/* Row 1: Eyebrow / Subtitle */}
-        <GridLiveEditor id="hero-eyebrow" initialStart={1} initialSpan={6} initialRowStart={1} initialRowSpan={1} initialMStart={1} initialMSpan={6} initialMRowStart={1} initialMRowSpan={1} className="flex items-end pb-0 lg:pb-4 pt-[var(--space-fluid-md)]">
-          <TextLiveEditor id="eyebrow-text" initialToken="text-ui-label" className="text-[var(--color-text-secondary)] uppercase tracking-widest">
+        <div id="hero-eyebrow" className="max-lg:col-start-1 max-lg:col-span-6 max-lg:row-start-1 max-lg:row-span-1 lg:col-start-1 lg:col-span-6 lg:row-start-1 lg:row-span-1 flex items-end pb-0 lg:pb-4 pt-[var(--space-fluid-md)]">
+          <p id="eyebrow-text" className="text-ui-label text-[var(--color-text-secondary)] uppercase tracking-widest">
             El broker portal de Epicare Insurance Corp®
-          </TextLiveEditor>
-        </GridLiveEditor>
+          </p>
+        </div>
 
         {/* Row 2-3: Heading */}
-        <GridLiveEditor id="hero-heading" initialStart={1} initialSpan={6} initialRowStart={2} initialRowSpan={2} initialMStart={1} initialMSpan={6} initialMRowStart={2} initialMRowSpan={1} className="flex items-start max-lg:!py-section-sm lg:pr-10">
-          <TextLiveEditor id="hero-title" initialToken="text-display-xl" as="h1" className="text-[var(--color-text-primary)]">
+        <div id="hero-heading" className="max-lg:col-start-1 max-lg:col-span-6 max-lg:row-start-2 max-lg:row-span-1 lg:col-start-1 lg:col-span-6 lg:row-start-2 lg:row-span-2 flex items-start max-lg:!py-section-sm lg:pr-10">
+          <h1 id="hero-title" className="text-display-xl text-[var(--color-text-primary)]">
             Una plataforma<br />para todo tu negocio<br />de seguros.
-          </TextLiveEditor>
-        </GridLiveEditor>
+          </h1>
+        </div>
 
         {/* Row 2: CTA Block */}
-        <GridLiveEditor id="hero-cta" initialStart={8} initialSpan={4} initialRowStart={2} initialRowSpan={1} initialMStart={1} initialMSpan={6} initialMRowStart={3} initialMRowSpan={1} flexDir="column" className="flex flex-col items-start justify-start gap-5 mt-4 lg:mt-0">
-          <TextLiveEditor id="cta-subtitle" initialToken="text-body-sm" className="text-[var(--color-text-secondary)] leading-relaxed">
+        <div id="hero-cta" className="max-lg:col-start-1 max-lg:col-span-6 max-lg:row-start-3 max-lg:row-span-1 lg:col-start-8 lg:col-span-4 lg:row-start-2 lg:row-span-1 flex flex-col items-start justify-start gap-5 mt-4 lg:mt-0">
+          <p id="cta-subtitle" className="text-body-sm text-[var(--color-text-secondary)] leading-relaxed">
             GO AMS es el portal operacional para agentes y agencias — donde gestionas contratos, clientes, producción y pagos, todo bajo una misma interfaz.
-          </TextLiveEditor>
+          </p>
           <button className="bg-[var(--color-brand-blue)] text-[var(--color-surface-BG-base)] px-8 py-3 rounded-xl font-medium w-[150px] hover:bg-opacity-90 transition-all flex justify-center items-center">
             Opera Ya
           </button>
-        </GridLiveEditor>
+        </div>
 
         {/* Row 3: Dark Panel */}
-        <GridLiveEditor id="visual-panel-wrapper" initialStart={6} initialSpan={7} initialRowStart={3} initialRowSpan={1} initialMStart={1} initialMSpan={6} initialMRowStart={4} initialMRowSpan={1} className="w-full h-full relative mt-8 lg:mt-12 max-lg:h-[360px] max-lg:min-h-[360px] lg:h-auto lg:min-h-[420px]">
+        <div id="visual-panel-wrapper" className="max-lg:col-start-1 max-lg:col-span-6 max-lg:row-start-4 max-lg:row-span-1 lg:col-start-6 lg:col-span-7 lg:row-start-3 lg:row-span-1 w-full h-full relative mt-8 lg:mt-12 max-lg:h-[360px] max-lg:min-h-[360px] lg:h-auto lg:min-h-[420px]">
           <BleedRight className="absolute top-0 bottom-0 left-0 mobile-bleed overflow-hidden">
-            <CardLiveEditor id="visual-panel" initialBg="bg-[var(--color-surface-BG-1)]" initialShadow="shadow-elevation-2" initialPStatic="p-section-xs" className="w-full h-full flex items-center justify-center rounded-tl-[20px] rounded-bl-none rounded-br-none rounded-tr-none max-lg:!bg-transparent overflow-hidden !p-0">
+            <div id="visual-panel" className="relative bg-[var(--color-surface-BG-1)] shadow-elevation-2 w-full h-full flex items-center justify-center rounded-tl-[20px] rounded-bl-none rounded-br-none rounded-tr-none max-lg:!bg-transparent overflow-hidden !p-0">
               
               {/* Bullet 1 - Top Left (Desktop Only) */}
               <div className="absolute top-[36px] left-[44px] gap-3 items-start z-10 hidden lg:flex">
@@ -139,21 +139,21 @@ export default function HeroSection() {
               </div>
 
               {/* Media Editor (Video) */}
-              <MediaLiveEditor id="hero-video" initialCw="100%" initialCh="110%" initialVw="100%" initialVh="100%" initialFit="object-cover" className="relative w-full h-full z-0 flex items-center justify-center max-lg:!h-full max-lg:!w-full max-lg:!rounded-[24px] overflow-hidden">
-                <video autoPlay loop muted playsInline className="w-full h-full object-cover max-lg:!rounded-[24px]">
+              <div id="hero-video" className="relative z-0 flex items-center justify-center max-lg:!h-full max-lg:!w-full max-lg:!rounded-[24px] overflow-hidden w-full h-[110%]">
+                <video autoPlay loop muted playsInline className="absolute top-0 left-0 w-full h-full object-cover max-lg:!rounded-[24px]">
                   <source src="/Files/Hero/Isometric_wireframe_illustration…_202606181624.mp4" type="video/mp4" />
                   Tu navegador no soporta el video.
                 </video>
                 {/* Textura de ruido optimizada sobre el video */}
                 <div className="absolute inset-0 bg-noise pointer-events-none z-10 mix-blend-overlay opacity-80 max-lg:!rounded-[24px]" />
-              </MediaLiveEditor>
+              </div>
 
-            </CardLiveEditor>
+            </div>
           </BleedRight>
-        </GridLiveEditor>
+        </div>
 
         {/* Row 4: Mobile Bullets (Mobile Only) */}
-        <GridLiveEditor id="mobile-bullets" initialStart={1} initialSpan={12} initialRowStart={4} initialRowSpan={1} initialMStart={1} initialMSpan={6} initialMRowStart={5} initialMRowSpan={1} className="flex lg:hidden flex-row items-start justify-between gap-4 mt-6 pb-24">
+        <div id="mobile-bullets" className="max-lg:col-start-1 max-lg:col-span-6 max-lg:row-start-5 max-lg:row-span-1 lg:col-start-1 lg:col-span-12 lg:row-start-4 lg:row-span-1 flex lg:hidden flex-row items-start justify-between gap-4 mt-6 pb-24">
           <div className="flex gap-2 items-start w-1/2">
             <div className="w-2 h-2 rounded-full bg-[var(--color-brand-blue)] mt-1.5 flex-shrink-0"></div>
             <p className="text-[12px] text-[var(--color-text-muted)] leading-relaxed">
@@ -166,12 +166,10 @@ export default function HeroSection() {
               Procesa millones en primas de manera automática
             </p>
           </div>
-        </GridLiveEditor>
+        </div>
 
-      </SectionLiveEditor>
-
-      {/* Framework: Botón global para copiar estado */}
-      <LiveEditorCopier />
+        </div>
+      </section>
 
     </div>
   );
