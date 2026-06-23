@@ -122,6 +122,10 @@ Los componentes del nuevo diseño están consolidados en:
 111. **[NUEVO] Epicare Hero — Cinematic Scrollytelling & Refinamiento de Layout (23 Jun 2026):**
     - Se completó la orquestación GSAP de 2 Actos (`HeroEpicare.tsx`), corrigiendo desbordamientos horizontales (`100vw` -> `100%`) y saltos en móvil (`100dvh` + `ignoreMobileResize`).
     - Se introdujo un indicador SVG minimalista y un layout vertical estático ajustado (`pb-[60px]`) para proteger los CTAs del corte inferior sin perder proporciones heroicas.
+112. **[NUEVO] Epicare Hero — Mobile UI Polish & Header Integration (23 Jun 2026):**
+    - Se redujo la altura del video a `64dvh` en móvil y se centró verticalmente, eliminando anclajes al fondo para crear espacio de respiro inferior.
+    - El indicador de *Scroll Down* fue reposicionado a `bottom-4` y actualizado con token blanco puro (`text-White-100`).
+    - El *Header* (Theme Switch & Hamburger Menu) se hizo visible desde el Acto 1. Se rediseñó bajo un concepto puramente minimalista usando solo íconos vectoriales SVG sin fondos ni bordes, optimizado con animaciones de micro-interacción.
 
 ## 6. Próximos Pasos (To-Do)
 - Empezar la construcción de la **Página de Inicio (Home)** integrando el motor de `HeroSequence` con los nuevos tokens de espaciado.

@@ -9,6 +9,7 @@ Esta sección documenta el sistema de diseño central de GO AMS Landing Page. Si
 **Completado y Estable.** El sistema de diseño se encuentra modularizado con componentes extraídos y un contenedor de ancho máximo (1536px) funcional. Se incorporaron tokens tipográficos gigantes para la nueva estética "GO AMS".
 
 ## 3. Historial de Cambios
+- **23 Jun 2026 (Sesión):** [2026-06-23_landing-tokenization-and-i18n.md](file:///D:/Proyectos-Importantes/GOAMS%20Landing_Production/Graph-Design-Framework/project-context/session-notes/2026-06-23_landing-tokenization-and-i18n.md) - Incorporación oficial de `next-intl` (internacionalización), nuevos Surface Tokens (`--color-surface-BG-black` y `BG-white`), tokenización estricta de componentes para cumplimiento de *Zero Px Policy*, y exclusión de scripts en pnpm.
 - **16 Jun 2026 - Refactorización Modular y Corrección Visual:** 
   - Se extrajo el contenido de `page.tsx` en componentes independientes (`MaxWidthSection`, `TypographySection`, etc.) bajo `components/`.
   - Se corrigió el bug del clipping/scroll horizontal removiendo el contenedor `overflow-x-auto` en `MaxWidthSection`.

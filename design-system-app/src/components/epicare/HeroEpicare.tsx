@@ -46,12 +46,6 @@ export default function HeroEpicare() {
         scale: 0.98 
       });
 
-      // El navbar ahora solo contiene los botones de la derecha
-      gsap.set(navRef.current, { 
-        opacity: 0, 
-        pointerEvents: 'none' 
-      });
-
       // Asegurar que la viñeta oscura empiece invisible
       gsap.set(vignetteRef.current, { opacity: 0 });
 
@@ -111,8 +105,8 @@ export default function HeroEpicare() {
         ease: "power2.inOut"
       }, 0);
 
-      // Acto 2 -> Revelación del Hero y los botones del Navbar
-      tl.to([navRef.current, heroContentRef.current], {
+      // Acto 2 -> Revelación del Hero
+      tl.to(heroContentRef.current, {
         opacity: 1,
         y: 0,
         scale: 1,
@@ -189,7 +183,7 @@ export default function HeroEpicare() {
           {/* EL VIDEO (ACTO 1: Pequeño y sin viñeta -> ACTO 2: Fullscreen con viñeta) */}
           <div 
             ref={videoWrapperRef} 
-            className="relative w-[90vw] md:w-[60vw] h-[45dvh] md:h-[60dvh] rounded-[2rem] overflow-hidden shadow-[0_40px_80px_rgba(0,0,0,0.8)] border border-white/10 will-change-transform z-0"
+            className="relative w-[95vw] md:w-[60vw] h-[64dvh] md:h-[60dvh] rounded-[2rem] overflow-hidden shadow-[0_40px_80px_rgba(0,0,0,0.8)] border border-white/10 will-change-transform z-0"
             style={{ transformStyle: 'preserve-3d' }}
           >
             {/* EL ÚNICO LOGO: Vive permanentemente aquí adentro. 
@@ -219,9 +213,9 @@ export default function HeroEpicare() {
           {/* INDICADOR DE SCROLL MINIMALISTA (ACTO 1) */}
           <div 
             ref={scrollIndicatorRef}
-            className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-static-md z-[60] pointer-events-none"
+            className="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center gap-static-md z-[60] pointer-events-none"
           >
-            <span className="text-[0.5625rem] uppercase tracking-[0.4em] text-[var(--color-text-muted)] font-light">
+            <span className="text-[0.5625rem] uppercase tracking-[0.4em] text-[var(--color-text-White-100)] font-light">
               {t('scrollDown')}
             </span>
             <div className="w-[1px] h-10 bg-[var(--color-border-Strokes-default)] relative overflow-hidden">
@@ -232,12 +226,38 @@ export default function HeroEpicare() {
           {/* UI LAYER SUPERPUESTA */}
           <div className="absolute inset-0 w-full h-full z-10 flex flex-col pointer-events-none">
             
-            {/* Navbar Real (Aparece en el Acto 2, pero sin el Logo, solo los botones) */}
-            <nav ref={navRef} className="h-16 w-full flex-shrink-0 border-b border-[var(--color-border-Strokes-default)] border-opacity-30 px-gutter-md flex justify-end items-center bg-transparent z-[9999]">
+            {/* Navbar (Visible desde el Acto 1 con Theme Switch y Hamburger Menu) */}
+            <nav ref={navRef} className="pt-static-md h-16 w-full flex-shrink-0 px-gutter-md flex justify-end items-center bg-transparent z-[9999] pointer-events-none">
               <div className="flex items-center gap-fluid-xs pointer-events-auto">
-                <button type="button" onClick={toggleTheme} className="bg-[var(--color-surface-BG-3)] backdrop-blur-md rounded-full p-1 flex items-center shadow-inner cursor-pointer border border-[var(--color-border-Strokes-default)] relative z-50">
-                  <div className={`w-5 h-5 rounded-full shadow-sm transition-colors ${!isDark ? 'bg-[var(--color-text-primary)]' : 'bg-transparent'}`}></div>
-                  <div className={`w-5 h-5 rounded-full shadow-sm transition-colors ${isDark ? 'bg-[var(--color-text-primary)]' : 'bg-transparent'}`}></div>
+                <button 
+                  type="button" 
+                  onClick={toggleTheme} 
+                  className="text-[var(--color-text-primary)] w-10 h-10 flex items-center justify-center cursor-pointer relative z-50 transition-transform duration-300 hover:scale-110 active:scale-95"
+                >
+                  {isDark ? (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="transition-all duration-300">
+                      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                  ) : (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="transition-all duration-300">
+                      <circle cx="12" cy="12" r="5"></circle>
+                      <line x1="12" y1="1" x2="12" y2="3"></line>
+                      <line x1="12" y1="21" x2="12" y2="23"></line>
+                      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                      <line x1="1" y1="12" x2="3" y2="12"></line>
+                      <line x1="21" y1="12" x2="23" y2="12"></line>
+                      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                  )}
+                </button>
+                <button type="button" className="text-[var(--color-text-primary)] w-10 h-10 flex items-center justify-center cursor-pointer relative z-50 transition-opacity hover:opacity-70">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="4" x2="20" y1="12" y2="12"/>
+                    <line x1="4" x2="20" y1="6" y2="6"/>
+                    <line x1="4" x2="20" y1="18" y2="18"/>
+                  </svg>
                 </button>
               </div>
             </nav>
