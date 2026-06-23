@@ -186,7 +186,7 @@ export default function HeroEpicare() {
           {/* EL VIDEO (ACTO 1: Pequeño y sin viñeta -> ACTO 2: Fullscreen con viñeta) */}
           <div 
             ref={videoWrapperRef} 
-            className="relative w-[95vw] md:w-[75vw] h-[64dvh] md:h-[60dvh] rounded-[2rem] overflow-hidden shadow-[0_40px_80px_rgba(0,0,0,0.8)] border border-white/10 will-change-transform z-0"
+            className="relative w-[95vw] md:w-[90vw] h-[64dvh] md:h-[60dvh] rounded-[2rem] overflow-hidden shadow-[0_40px_80px_rgba(0,0,0,0.8)] border border-white/10 will-change-transform z-0"
             style={{ transformStyle: 'preserve-3d' }}
           >
             {/* EL ÚNICO LOGO: Vive permanentemente aquí adentro. 
