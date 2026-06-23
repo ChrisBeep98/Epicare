@@ -9,6 +9,7 @@ import SpacingSection from "./components/SpacingSection";
 import InteractiveSection from "./components/InteractiveSection";
 import MaxWidthSection from "./components/MaxWidthSection";
 import { ElevationSection } from "./components/ElevationSection";
+import AnimationsSection from "./components/AnimationsSection";
 
 
 export default function DesignSystemPage() {
@@ -102,6 +103,7 @@ export default function DesignSystemPage() {
         <SpacingSection />
         <ElevationSection />
         <InteractiveSection />
+        <AnimationsSection />
 
       </div>
 

@@ -27,6 +27,8 @@ export default function ColorsSection({ isDark }: { isDark: boolean }) {
           <div className="mb-16">
             <h3 className="text-h3 text-[var(--color-text-primary)] mb-6">Surface Tokens</h3>
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+              <ColorCard name="surface-BG-black" variable="--color-surface-BG-black" hex={isDark ? "#050505" : "#050505"} colorClass="bg-[var(--color-surface-BG-black)]" textWhite={true} />
+              <ColorCard name="surface-BG-white" variable="--color-surface-BG-white" hex={isDark ? "#FFFFFF" : "#FFFFFF"} colorClass="bg-[var(--color-surface-BG-white)]" textWhite={false} />
               <ColorCard name="surface-BG-1" variable="--color-surface-BG-1" hex={isDark ? "#202122" : "#F7F7F7"} colorClass="bg-[var(--color-surface-BG-1)]" textWhite={false} />
               <ColorCard name="surface-BG-2" variable="--color-surface-BG-2" hex={isDark ? "#28292A" : "#EBECEC"} colorClass="bg-[var(--color-surface-BG-2)]" textWhite={false} />
               <ColorCard name="surface-BG-3" variable="--color-surface-BG-3" hex={isDark ? "#3D3E3F" : "#E7E8E9"} colorClass="bg-[var(--color-surface-BG-3)]" textWhite={false} />

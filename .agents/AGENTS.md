@@ -19,3 +19,7 @@ El proyecto utiliza un stack moderno de alto rendimiento enfocado en la escalabi
 - **Refactorizaciones Premium:** Cuando el usuario pida refactorizar componentes o mejorar las visuales, asume inmediatamente el rol de un UX/UI Engineer Senior. 
 - **Estética Vanguardista:** No esperes a que el usuario te dicte el diseño milimétrico. Inyecta proactivamente animaciones (GSAP, Tailwind keyframes), micro-interacciones, efectos glassmorphism, y usa paletas de colores sofisticadas. El objetivo siempre es lograr un diseño que se sienta "premium" y de alta tecnología.
 - **Pensamiento Analítico:** Antes de romper código existente para agregar una "feature", analiza si la arquitectura actual soporta la expansión. Si la arquitectura es débil, propón el refactor antes de amontonar código malo.
+
+## 4. Troubleshooting & Testing (GSAP & Mobile)
+- **GSAP Testing en Localhost (Móvil):** Si GSAP falla al probar en un celular físico mediante hotspot/red local sobre `pnpm dev`, NO MODIFIQUES EL CÓDIGO asumiendo un bug. El modo `dev` empaqueta bundles masivos y WebSockets (HMR) que sobrecargan la conexión del hotspot y rompen la hidratación y los triggers de GSAP. **Solución obligatoria:** Compila y sirve en modo producción para probar en dispositivos físicos locales (`pnpm build && pnpm start -H 0.0.0.0`).
+- **GSAP Mobile 100vh Bug:** Para evitar saltos cuando la barra de direcciones del móvil desaparece, asegúrate de inicializar `ScrollTrigger.config({ ignoreMobileResize: true });` y utiliza las variables `h-dvh` en lugar de `h-screen`.

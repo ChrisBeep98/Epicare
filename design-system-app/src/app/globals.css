@@ -58,6 +58,8 @@
   --color-surface-BG-4: var(--color-surface-BG-4);
   --color-surface-BG-base: var(--color-surface-BG-base);
   --color-surface-BG-base-Opacity: var(--color-surface-BG-base-Opacity);
+  --color-surface-BG-black: var(--color-surface-BG-black);
+  --color-surface-BG-white: var(--color-surface-BG-white);
   --color-text-disabled: var(--color-text-disabled);
   --color-text-hint: var(--color-text-hint);
   --color-text-primary: var(--color-text-primary);
@@ -145,6 +147,8 @@
   --color-brand-Logo-Main-color: #626D72;
   --color-brand-Logo-Secondary-color: #626D72;
   /* Surface */
+  --color-surface-BG-black: #050505;
+  --color-surface-BG-white: #FFFFFF;
   --color-surface-BG-1: #F7F7F7;
   --color-surface-BG-2: #EBECEC;
   --color-surface-BG-3: #E7E8E9;
@@ -245,6 +249,8 @@
   --color-brand-Logo-Main-color: #FFFFFF;
   --color-brand-Logo-Secondary-color: #626D72;
   /* Surface */
+  --color-surface-BG-black: #050505;
+  --color-surface-BG-white: #FFFFFF;
   --color-surface-BG-1: #202122;
   --color-surface-BG-2: #28292A;
   --color-surface-BG-3: #3D3E3F;

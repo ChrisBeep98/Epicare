@@ -3,8 +3,10 @@
 import React, { useEffect, useState, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useTranslations } from 'next-intl';
 
 export default function HeroEpicare() {
+  const t = useTranslations('landingV2.hero');
   const [isDark, setIsDark] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   
@@ -57,7 +59,7 @@ export default function HeroEpicare() {
         scrollTrigger: {
           trigger: containerRef.current,
           start: "top top",
-          end: "+=150%", // Tarda 1.5 pantallas en hacer la expansión completa
+          end: "+=250%", // Tarda 1.5 pantallas en hacer la expansión completa + 1.0 pantalla anclada para que el Carousel pase por encima
           pin: true,
           scrub: 1, // Suavizado
           onUpdate: (self) => {
@@ -120,6 +122,11 @@ export default function HeroEpicare() {
         stagger: 0.1
       }, 0.6);
 
+      // Acto 3 (Invisible) -> Mantenemos el Hero pineado sin hacer nada durante 100vh adicionales 
+      // para que la siguiente sección con margin-top negativo se deslice por encima.
+      // (1.2s de animación previa equivale a 150vh. Para sumar 100vh, agregamos 0.8s de idle).
+      tl.to({}, { duration: 0.8 });
+
     }, containerRef);
 
     return () => ctx.revert();
@@ -168,12 +175,12 @@ export default function HeroEpicare() {
   };
 
   return (
-    <div className="w-full overflow-x-hidden bg-black">
-      <div ref={containerRef} className="w-full relative bg-black text-[var(--color-text-primary)]">
+    <div className="w-full overflow-x-hidden bg-[var(--color-surface-BG-black)]">
+      <div ref={containerRef} className="w-full relative bg-[var(--color-surface-BG-black)] text-[var(--color-text-primary)]">
         
         {/* Viewport Fijo para la experiencia cinemática */}
         <div 
-          className="sticky top-0 h-[100dvh] w-full overflow-hidden flex items-center justify-center bg-black"
+          className="sticky top-0 h-[100dvh] w-full overflow-hidden flex items-center justify-center bg-[var(--color-surface-BG-black)]"
           style={{ perspective: "1200px" }}
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
@@ -191,7 +198,7 @@ export default function HeroEpicare() {
                 para que quede perfectamente alineado con el Navbar en el Acto 2. */}
             <div 
               id="epicare-logo-container"
-              className="absolute top-6 left-6 md:top-8 md:left-8 z-[60] pointer-events-auto will-change-transform"
+              className="absolute top-static-lg left-static-lg md:top-static-xl md:left-static-xl z-[60] pointer-events-auto will-change-transform"
             >
               <img src="/epicare_logo.svg" alt="Epicare Insurance Logo" className="h-[36px] md:h-[44px] w-auto object-contain drop-shadow-lg" />
             </div>
@@ -212,11 +219,13 @@ export default function HeroEpicare() {
           {/* INDICADOR DE SCROLL MINIMALISTA (ACTO 1) */}
           <div 
             ref={scrollIndicatorRef}
-            className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 z-[60] pointer-events-none"
+            className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-static-md z-[60] pointer-events-none"
           >
-            <span className="text-[9px] uppercase tracking-[0.4em] text-white/50 font-light">Scroll Down</span>
-            <div className="w-[1px] h-10 bg-white/10 relative overflow-hidden">
-              <div ref={scrollLineRef} className="w-full h-full bg-white opacity-80" />
+            <span className="text-[0.5625rem] uppercase tracking-[0.4em] text-[var(--color-text-muted)] font-light">
+              {t('scrollDown')}
+            </span>
+            <div className="w-[1px] h-10 bg-[var(--color-border-Strokes-default)] relative overflow-hidden">
+              <div ref={scrollLineRef} className="w-full h-full bg-[var(--color-brand-blue)] opacity-80" />
             </div>
           </div>
 
@@ -224,38 +233,38 @@ export default function HeroEpicare() {
           <div className="absolute inset-0 w-full h-full z-10 flex flex-col pointer-events-none">
             
             {/* Navbar Real (Aparece en el Acto 2, pero sin el Logo, solo los botones) */}
-            <nav ref={navRef} className="h-16 w-full flex-shrink-0 border-b border-[var(--color-border-Strokes-default)] border-opacity-30 px-[var(--space-gutter-sm)] lg:px-[var(--space-gutter-md)] flex justify-end items-center bg-transparent z-[9999]">
-              <div className="flex items-center gap-4 pointer-events-auto">
-                <button type="button" onClick={toggleTheme} className="bg-black/50 backdrop-blur-md rounded-full p-1 flex items-center shadow-inner cursor-pointer border border-white/20 relative z-50">
-                  <div className={`w-5 h-5 rounded-full shadow-sm transition-colors ${!isDark ? 'bg-white' : 'bg-transparent'}`}></div>
-                  <div className={`w-5 h-5 rounded-full shadow-sm transition-colors ${isDark ? 'bg-white' : 'bg-transparent'}`}></div>
+            <nav ref={navRef} className="h-16 w-full flex-shrink-0 border-b border-[var(--color-border-Strokes-default)] border-opacity-30 px-gutter-md flex justify-end items-center bg-transparent z-[9999]">
+              <div className="flex items-center gap-fluid-xs pointer-events-auto">
+                <button type="button" onClick={toggleTheme} className="bg-[var(--color-surface-BG-3)] backdrop-blur-md rounded-full p-1 flex items-center shadow-inner cursor-pointer border border-[var(--color-border-Strokes-default)] relative z-50">
+                  <div className={`w-5 h-5 rounded-full shadow-sm transition-colors ${!isDark ? 'bg-[var(--color-text-primary)]' : 'bg-transparent'}`}></div>
+                  <div className={`w-5 h-5 rounded-full shadow-sm transition-colors ${isDark ? 'bg-[var(--color-text-primary)]' : 'bg-transparent'}`}></div>
                 </button>
               </div>
             </nav>
 
             {/* Hero Content Original */}
-            <section ref={heroContentRef} className="w-full flex-1 px-[var(--space-gutter-sm)] lg:px-[var(--space-gutter-md)] flex flex-col pt-[120px] pb-[40px] md:pb-[60px] relative">
+            <section ref={heroContentRef} className="w-full flex-1 px-gutter-md flex flex-col py-section-md relative">
               <div className="grid-layout flex-1 max-w-section-xl w-full mx-auto pointer-events-auto">
                 
                 {/* Fila 2: Titular Principal */}
                 <div className="col-start-1 col-span-12 md:col-start-1 md:col-span-7 row-start-2 md:row-start-5 row-span-1 flex flex-row justify-start items-end pb-8">
-                  <h1 className="text-display-xl text-white drop-shadow-lg leading-none mb-4">
-                    La Nueva Era<br/>De La Protección Inteligente.
+                  <h1 className="text-display-xl text-[var(--color-text-primary)] drop-shadow-lg leading-none mb-4">
+                    {t('title1')}<br/>{t('title2')}
                   </h1>
                 </div>
 
                 {/* Fila 3: Subtítulo y CTA */}
-                <div className="col-start-1 col-span-12 md:col-start-1 md:col-span-5 row-start-3 md:row-start-6 row-span-1 flex flex-col justify-start items-start gap-8">
-                  <p className="text-body-lg text-white/80 leading-relaxed font-light">
-                    Epicare Insurance Corp protege a más de 1 millón de familias a través de tecnología disruptiva, productos accesibles y una red nacional de agentes potenciados por inteligencia artificial.
+                <div className="col-start-1 col-span-12 md:col-start-1 md:col-span-5 row-start-3 md:row-start-6 row-span-1 flex flex-col justify-start items-start gap-fluid-sm">
+                  <p className="text-body-lg text-[var(--color-text-secondary)] leading-relaxed font-light">
+                    {t('description')}
                   </p>
                   
-                  <div className="flex gap-4">
-                    <button className="bg-[var(--color-brand-blue)] text-white px-8 py-4 rounded-full font-medium hover:bg-opacity-90 transition-all flex justify-center items-center backdrop-blur-md">
-                      Descubre Nuestros Planes
+                  <div className="flex gap-fluid-xs">
+                    <button className="bg-[var(--color-action-primary-bg)] text-[var(--color-action-primary-text)] px-static-xl py-static-md rounded-full text-ui-label hover:opacity-90 transition-all flex justify-center items-center backdrop-blur-md shadow-elevation-2">
+                      {t('ctaPlans')}
                     </button>
-                    <button className="bg-white/10 border border-white/20 text-white px-8 py-4 rounded-full font-medium hover:bg-white/20 transition-all flex justify-center items-center backdrop-blur-md">
-                      Para Agentes
+                    <button className="bg-[var(--color-action-secondary-bg)] border border-[var(--color-border-Strokes-default)] text-[var(--color-text-primary)] px-static-xl py-static-md rounded-full text-ui-label hover:bg-[var(--color-surface-BG-3)] transition-all flex justify-center items-center backdrop-blur-md shadow-elevation-1">
+                      {t('ctaAgents')}
                     </button>
                   </div>
                 </div>

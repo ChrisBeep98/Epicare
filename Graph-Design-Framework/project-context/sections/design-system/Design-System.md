@@ -92,6 +92,8 @@ _El sistema es Bimodal (Light/Dark). El uso de colores genéricos de Tailwind (`
 - `--color-brand-Logo-Secondary-color`
 
 **Superficies (Backgrounds):**
+- `--color-surface-BG-black`
+- `--color-surface-BG-white`
 - `--color-surface-BG-1`
 - `--color-surface-BG-2`
 - `--color-surface-BG-3`

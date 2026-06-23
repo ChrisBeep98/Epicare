@@ -43,7 +43,7 @@ Before writing any `className`, verify you are NOT using these forbidden pattern
 | `text-xs uppercase tracking-widest` | `.text-overline`, `.text-ui-label` | Category labels, botones |
 | `text-base leading-relaxed` (isolated) | `.text-body`, `.text-body-lg` | Paragraphs |
 | `text-sm leading-relaxed` (isolated) | `.text-body-sm`, `.text-body-xs` | Secondary text |
-| `bg-slate-900`, `bg-black`, `bg-white` | `bg-[var(--color-surface-BG-*)]` | Backgrounds de superficies y tarjetas |
+| `bg-slate-900`, `bg-black`, `bg-white` | `bg-[var(--color-surface-BG-*)]`, `bg-[var(--color-surface-BG-black)]` | Backgrounds de superficies y tarjetas |
 | `text-black` | `text-[var(--color-text-primary)]` | Primary text |
 | `text-gray-400`, `text-slate-500` | `text-[var(--color-text-muted)]` | Secondary/muted text |
 | `px-4`, `px-8`, `px-[20px]` | `.px-gutter-[sm\|md\|lg\|xl]` | Page Containers / Horizontal Rhythm |
