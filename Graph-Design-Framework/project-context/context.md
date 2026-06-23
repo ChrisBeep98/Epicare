@@ -119,6 +119,9 @@ Los componentes del nuevo diseño están consolidados en:
 110. **[NUEVO] GO AMS Portal Hero — Dark Mode Nativo & Mobile Polish (18 Jun 2026):**
     - Implementación de Dark Mode Forzado por defecto utilizando manipulación de DOM nativa de React/Tailwind v4 (descartando `next-themes` para zero-dependency).
     - Resolución de glitch WebKit en iOS Safari aplicando un enmascaramiento (`border-radius: 24px`) directo sobre las etiquetas `<video>` y ruido en móvil para lograr un Bleed Fullwidth sin huecos visuales.
+111. **[NUEVO] Epicare Hero — Cinematic Scrollytelling & Refinamiento de Layout (23 Jun 2026):**
+    - Se completó la orquestación GSAP de 2 Actos (`HeroEpicare.tsx`), corrigiendo desbordamientos horizontales (`100vw` -> `100%`) y saltos en móvil (`100dvh` + `ignoreMobileResize`).
+    - Se introdujo un indicador SVG minimalista y un layout vertical estático ajustado (`pb-[60px]`) para proteger los CTAs del corte inferior sin perder proporciones heroicas.
 
 ## 6. Próximos Pasos (To-Do)
 - Empezar la construcción de la **Página de Inicio (Home)** integrando el motor de `HeroSequence` con los nuevos tokens de espaciado.
