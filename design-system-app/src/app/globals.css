@@ -70,6 +70,7 @@
   --color-text-White-100: var(--color-text-White-100);
   --color-text-Black-100: var(--color-text-Black-100);
   --color-border-Strokes-default: var(--color-border-Strokes-default);
+  --color-border-Strokes-White-100: var(--color-border-Strokes-White-100);
   --color-border-Strokes-Hover: var(--color-border-Strokes-Hover);
   --color-border-Strokes-focus: var(--color-border-Strokes-focus);
   --color-border-Strokes-input: var(--color-border-Strokes-input);
@@ -167,6 +168,7 @@
   --color-text-Black-100: #1A1E21;
   /* Border */
   --color-border-Strokes-default: #E3E6E8;
+  --color-border-Strokes-White-100: #E3E6E8;
   --color-border-Strokes-Hover: #B5BDC5;
   --color-border-Strokes-focus: #35BBFD;
   --color-border-Strokes-input: #D1D5DB;
@@ -269,6 +271,7 @@
   --color-text-Black-100: #1A1E21;
   /* Border */
   --color-border-Strokes-default: #383B3D;
+  --color-border-Strokes-White-100: rgba(255, 255, 255, 0.20);
   --color-border-Strokes-Hover: #7D8C9B;
   --color-border-Strokes-focus: #35BBFD;
   --color-border-Strokes-input: #383B3D;

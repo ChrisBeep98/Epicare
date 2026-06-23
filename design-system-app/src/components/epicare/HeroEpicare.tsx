@@ -86,14 +86,17 @@ export default function HeroEpicare() {
         x: 0,
         y: 0,
         borderWidth: "0px",
+        boxShadow: "0 0px 0px rgba(0,0,0,0)",
+        force3D: true,
         duration: 1,
         ease: "power2.inOut"
       }, 0);
 
       // Acto 1 -> El logo ajusta su padding para alinearse perfectamente con el Navbar
+      const isMobile = window.innerWidth < 768;
       tl.to("#epicare-logo-container", {
         top: "10px",
-        left: "var(--space-gutter-md)", // En mobile será ligeramente distinto si usamos medias, pero esto asegura la posición final
+        left: isMobile ? "var(--space-gutter-sm)" : "var(--space-gutter-md)", // En mobile será ligeramente distinto si usamos medias, pero esto asegura la posición final
         duration: 1,
         ease: "power2.inOut"
       }, 0);
@@ -138,7 +141,7 @@ export default function HeroEpicare() {
 
   // Efecto 3D que sigue al mouse
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (isExpanded || !videoWrapperRef.current) return;
+    if (isExpanded || !videoWrapperRef.current || window.innerWidth < 768) return;
     
     const { clientX, clientY } = e;
     const { innerWidth, innerHeight } = window;
@@ -147,17 +150,17 @@ export default function HeroEpicare() {
     const yPos = (clientY / innerHeight - 0.5) * 2;
     
     gsap.to(videoWrapperRef.current, {
-      rotationY: xPos * 10,
-      rotationX: -yPos * 10,
-      x: xPos * 20,
-      y: yPos * 20,
+      rotationY: xPos * 4,
+      rotationX: -yPos * 4,
+      x: xPos * 10,
+      y: yPos * 10,
       ease: 'power2.out',
       duration: 0.6
     });
   };
 
   const handleMouseLeave = () => {
-    if (isExpanded || !videoWrapperRef.current) return;
+    if (isExpanded || !videoWrapperRef.current || window.innerWidth < 768) return;
     gsap.to(videoWrapperRef.current, {
       rotationY: 0,
       rotationX: 0,
@@ -183,7 +186,7 @@ export default function HeroEpicare() {
           {/* EL VIDEO (ACTO 1: Pequeño y sin viñeta -> ACTO 2: Fullscreen con viñeta) */}
           <div 
             ref={videoWrapperRef} 
-            className="relative w-[95vw] md:w-[60vw] h-[64dvh] md:h-[60dvh] rounded-[2rem] overflow-hidden shadow-[0_40px_80px_rgba(0,0,0,0.8)] border border-white/10 will-change-transform z-0"
+            className="relative w-[95vw] md:w-[75vw] h-[64dvh] md:h-[60dvh] rounded-[2rem] overflow-hidden shadow-[0_40px_80px_rgba(0,0,0,0.8)] border border-white/10 will-change-transform z-0"
             style={{ transformStyle: 'preserve-3d' }}
           >
             {/* EL ÚNICO LOGO: Vive permanentemente aquí adentro. 
@@ -227,7 +230,7 @@ export default function HeroEpicare() {
           <div className="absolute inset-0 w-full h-full z-10 flex flex-col pointer-events-none">
             
             {/* Navbar (Visible desde el Acto 1 con Theme Switch y Hamburger Menu) */}
-            <nav ref={navRef} className="pt-static-md h-16 w-full flex-shrink-0 px-gutter-md flex justify-end items-center bg-transparent z-[9999] pointer-events-none">
+            <nav ref={navRef} className="h-16 w-full flex-shrink-0 px-[var(--space-gutter-sm)] lg:px-[var(--space-gutter-md)] flex justify-end items-center bg-transparent z-[9999] pointer-events-none">
               <div className="flex items-center gap-fluid-xs pointer-events-auto">
                 <button 
                   type="button" 
@@ -263,7 +266,7 @@ export default function HeroEpicare() {
             </nav>
 
             {/* Hero Content Original */}
-            <section ref={heroContentRef} className="w-full flex-1 px-gutter-md flex flex-col py-section-md relative">
+            <section ref={heroContentRef} className="w-full flex-1 px-[var(--space-gutter-sm)] lg:px-[var(--space-gutter-md)] flex flex-col pt-[120px] pb-[40px] md:pb-[60px] relative">
               <div className="grid-layout flex-1 max-w-section-xl w-full mx-auto pointer-events-auto">
                 
                 {/* Fila 2: Titular Principal */}
@@ -275,15 +278,18 @@ export default function HeroEpicare() {
 
                 {/* Fila 3: Subtítulo y CTA */}
                 <div className="col-start-1 col-span-12 md:col-start-1 md:col-span-5 row-start-3 md:row-start-6 row-span-1 flex flex-col justify-start items-start gap-fluid-sm">
-                  <p className="text-body-lg text-[var(--color-text-secondary)] leading-relaxed font-light">
+                  <p className="hidden md:block text-body-lg text-[var(--color-text-White-100)] leading-relaxed font-light">
                     {t('description')}
                   </p>
+                  <p className="md:hidden text-body-md text-[var(--color-text-White-100)] leading-relaxed font-light">
+                    {t('descriptionMobile')}
+                  </p>
                   
-                  <div className="flex gap-fluid-xs">
-                    <button className="bg-[var(--color-action-primary-bg)] text-[var(--color-action-primary-text)] px-static-xl py-static-md rounded-full text-ui-label hover:opacity-90 transition-all flex justify-center items-center backdrop-blur-md shadow-elevation-2">
+                  <div className="flex flex-col md:flex-row gap-static-md md:gap-fluid-xs">
+                    <button className="w-fit bg-[var(--color-action-primary-bg)] text-[var(--color-action-primary-text)] px-static-xl py-static-md rounded-full text-ui-label hover:opacity-90 transition-all flex justify-center items-center shadow-elevation-2">
                       {t('ctaPlans')}
                     </button>
-                    <button className="bg-[var(--color-action-secondary-bg)] border border-[var(--color-border-Strokes-default)] text-[var(--color-text-primary)] px-static-xl py-static-md rounded-full text-ui-label hover:bg-[var(--color-surface-BG-3)] transition-all flex justify-center items-center backdrop-blur-md shadow-elevation-1">
+                    <button className="w-fit bg-white/10 border border-[var(--color-border-Strokes-White-100)] text-[var(--color-text-primary)] px-static-xl py-static-md rounded-full text-ui-label hover:bg-white/20 transition-all flex justify-center items-center shadow-elevation-1">
                       {t('ctaAgents')}
                     </button>
                   </div>
