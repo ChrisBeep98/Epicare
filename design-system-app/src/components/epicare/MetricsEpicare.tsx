@@ -122,14 +122,14 @@ export default function MetricsEpicare() {
           <div className="grid-layout w-full">
             <div className="col-start-1 col-span-6 md:col-start-1 md:col-span-10 flex flex-col justify-start items-start">
               {/* Desktop Version: Animación por línea estricta forzada */}
-              <h2 className="hidden md:block text-display-xl text-left w-full font-medium text-[var(--color-text-Black-100)] tracking-tighter leading-[1.05]">
+              <h2 className="hidden md:block text-display-xl text-left w-full font-medium text-[var(--color-text-Black-100)] dark:text-white tracking-tighter leading-[1.05] transition-colors duration-500">
                 <span className="block overflow-hidden pb-2"><span className="title-line block will-change-transform">{t('titleLine1')}</span></span>
                 <span className="block overflow-hidden pb-2"><span className="title-line block will-change-transform">{t('titleLine2')}</span></span>
                 <span className="block overflow-hidden pb-2"><span className="title-line block will-change-transform text-[var(--color-brand-blue)]">{t('titleLine3')}</span></span>
               </h2>
 
               {/* Mobile Version: Water Mask Palabra por Palabra (flujo natural) */}
-              <h2 className="block md:hidden text-display-xl text-left w-full font-medium text-[var(--color-text-Black-100)] tracking-tighter leading-[1.05] flex flex-wrap gap-y-1">
+              <h2 className="block md:hidden text-display-xl text-left w-full font-medium text-[var(--color-text-Black-100)] dark:text-white tracking-tighter leading-[1.05] flex flex-wrap gap-y-1 transition-colors duration-500">
                 {t('titleLine1').split(" ").map((word, i) => (
                   <span key={`w1-${i}`} className="inline-flex overflow-hidden align-bottom mr-[0.25em]">
                     <span className="title-word inline-block will-change-transform">{word}</span>
@@ -153,10 +153,10 @@ export default function MetricsEpicare() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-fluid-lg md:gap-fluid-md perspective-[1000px] mt-8 md:mt-0">
             {metrics.map((metric, idx) => (
               <div key={idx} className="metric-card flex flex-col gap-static-sm will-change-transform">
-                <div className="text-display-xl md:text-display-2xl font-light text-[var(--color-text-Black-100)] tracking-tighter tabular-nums">
+                <div className="text-display-xl md:text-display-2xl font-light text-[var(--color-text-Black-100)] dark:text-white tracking-tighter tabular-nums transition-colors duration-500">
                   <AnimatedNumber value={metric.value} />
                 </div>
-                <div className="text-ui-label text-[var(--color-text-muted)] uppercase tracking-widest border-t border-black/10 pt-static-sm w-fit pr-static-xl">
+                <div className="text-ui-label text-[var(--color-text-muted)] dark:text-white/60 uppercase tracking-widest border-t border-black/10 dark:border-white/10 pt-static-sm w-fit pr-static-xl transition-colors duration-500">
                   {metric.label}
                 </div>
               </div>

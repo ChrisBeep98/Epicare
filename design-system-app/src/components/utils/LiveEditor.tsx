@@ -329,8 +329,169 @@ export function TextLiveEditor({ id, initialToken = "text-body", initialAlign = 
   );
 }
 
+// Helper para RGBA
+const hexToRgba = (hex: string, alpha: number) => {
+  let r = 0, g = 0, b = 0;
+  if (hex.length === 7) {
+    r = parseInt(hex.slice(1, 3), 16);
+    g = parseInt(hex.slice(3, 5), 16);
+    b = parseInt(hex.slice(5, 7), 16);
+  }
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+};
+
 // ==========================================
-// 5. GLOBAL COPIER & GRID VISUALIZER
+// 6. GRADIENT LIVE EDITOR (Visual & Full)
+// ==========================================
+export function GradientLiveEditor({
+  id,
+  initialColor1 = '#0548EB', initialAlpha1 = 1, initialPos1 = 0,
+  initialColor2 = '#0548EB', initialAlpha2 = 0.6, initialPos2 = 40,
+  initialColor3 = '#0548EB', initialAlpha3 = 0, initialPos3 = 70,
+  initialShape = 'ellipse at top',
+  initialOpacity = 1,
+  initialBlur = 'blur-[120px]',
+  initialMixBlend = 'mix-blend-screen',
+  children,
+  className = ""
+}: {
+  id: string, 
+  initialColor1?: string, initialAlpha1?: number, initialPos1?: number,
+  initialColor2?: string, initialAlpha2?: number, initialPos2?: number,
+  initialColor3?: string, initialAlpha3?: number, initialPos3?: number,
+  initialShape?: string, initialOpacity?: number, initialBlur?: string, initialMixBlend?: string,
+  children?: React.ReactNode, className?: string
+}) {
+  const [c1, setC1] = useState(initialColor1); const [a1, setA1] = useState(initialAlpha1); const [p1, setP1] = useState(initialPos1);
+  const [c2, setC2] = useState(initialColor2); const [a2, setA2] = useState(initialAlpha2); const [p2, setP2] = useState(initialPos2);
+  const [c3, setC3] = useState(initialColor3); const [a3, setA3] = useState(initialAlpha3); const [p3, setP3] = useState(initialPos3);
+  
+  const [shape, setShape] = useState(initialShape);
+  const [opacity, setOpacity] = useState(initialOpacity);
+  const [blur, setBlur] = useState(initialBlur);
+  const [isOpen, setIsOpen] = useState(true); // Abierto por defecto para que lo vean
+
+  const stop1Str = `${hexToRgba(c1, a1)} ${p1}%`;
+  const stop2Str = `${hexToRgba(c2, a2)} ${p2}%`;
+  const stop3Str = `${hexToRgba(c3, a3)} ${p3}%`;
+
+  useEffect(() => {
+    updateState(id, { type: 'Gradient', c1, a1, p1, c2, a2, p2, c3, a3, p3, shape, opacity, blur });
+    return () => removeState(id);
+  }, [id, c1, a1, p1, c2, a2, p2, c3, a3, p3, shape, opacity, blur]);
+
+  const gradientString = `radial-gradient(${shape}, ${stop1Str}, ${stop2Str}, ${stop3Str})`;
+
+  return (
+    <>
+      {/* Panel Flotante Fijo y Seguro (Z-index altísimo, fuera de la máscara) */}
+      <div className={`fixed top-24 right-4 bg-[var(--color-surface-BG-1)] border border-[var(--color-brand-blue)] rounded-xl flex flex-col z-[99999] text-xs shadow-elevation-5 text-white transition-all duration-300 w-[280px] overflow-hidden ${isOpen ? 'translate-x-0' : 'translate-x-[110%]'}`}>
+        <div className="bg-[var(--color-brand-blue)]/20 px-3 py-2 flex justify-between items-center border-b border-[var(--color-brand-blue)]/50 cursor-pointer" onClick={() => setIsOpen(!isOpen)}>
+          <span className="font-bold text-[var(--color-brand-blue)] uppercase">🎨 Editor: {id}</span>
+          <CopyStateButton id={id} />
+        </div>
+        
+        {isOpen && (
+          <div className="p-3 flex flex-col gap-3">
+            {/* Control Stop 1 */}
+            <div className="flex flex-col gap-1 border-b border-[var(--color-border-Strokes-default)] pb-2">
+              <div className="flex justify-between font-bold">Stop 1 (Centro)</div>
+              <div className="flex items-center gap-2">
+                <input type="color" value={c1} onChange={e => setC1(e.target.value)} className="w-8 h-8 rounded cursor-pointer" />
+                <div className="flex-1 flex flex-col">
+                  <span className="text-[9px] text-gray-400">Opacidad ({Math.round(a1*100)}%)</span>
+                  <input type="range" min="0" max="1" step="0.05" value={a1} onChange={e => setA1(parseFloat(e.target.value))} className="w-full accent-[var(--color-brand-blue)]" />
+                </div>
+                <div className="flex-1 flex flex-col">
+                  <span className="text-[9px] text-gray-400">Posición ({p1}%)</span>
+                  <input type="range" min="0" max="100" step="1" value={p1} onChange={e => setP1(parseFloat(e.target.value))} className="w-full accent-[var(--color-brand-blue)]" />
+                </div>
+              </div>
+            </div>
+
+            {/* Control Stop 2 */}
+            <div className="flex flex-col gap-1 border-b border-[var(--color-border-Strokes-default)] pb-2">
+              <div className="flex justify-between font-bold">Stop 2 (Medio)</div>
+              <div className="flex items-center gap-2">
+                <input type="color" value={c2} onChange={e => setC2(e.target.value)} className="w-8 h-8 rounded cursor-pointer" />
+                <div className="flex-1 flex flex-col">
+                  <span className="text-[9px] text-gray-400">Opacidad ({Math.round(a2*100)}%)</span>
+                  <input type="range" min="0" max="1" step="0.05" value={a2} onChange={e => setA2(parseFloat(e.target.value))} className="w-full accent-[var(--color-brand-blue)]" />
+                </div>
+                <div className="flex-1 flex flex-col">
+                  <span className="text-[9px] text-gray-400">Posición ({p2}%)</span>
+                  <input type="range" min="0" max="100" step="1" value={p2} onChange={e => setP2(parseFloat(e.target.value))} className="w-full accent-[var(--color-brand-blue)]" />
+                </div>
+              </div>
+            </div>
+
+            {/* Control Stop 3 */}
+            <div className="flex flex-col gap-1 border-b border-[var(--color-border-Strokes-default)] pb-2">
+              <div className="flex justify-between font-bold">Stop 3 (Borde)</div>
+              <div className="flex items-center gap-2">
+                <input type="color" value={c3} onChange={e => setC3(e.target.value)} className="w-8 h-8 rounded cursor-pointer" />
+                <div className="flex-1 flex flex-col">
+                  <span className="text-[9px] text-gray-400">Opacidad ({Math.round(a3*100)}%)</span>
+                  <input type="range" min="0" max="1" step="0.05" value={a3} onChange={e => setA3(parseFloat(e.target.value))} className="w-full accent-[var(--color-brand-blue)]" />
+                </div>
+                <div className="flex-1 flex flex-col">
+                  <span className="text-[9px] text-gray-400">Posición ({p3}%)</span>
+                  <input type="range" min="0" max="100" step="1" value={p3} onChange={e => setP3(parseFloat(e.target.value))} className="w-full accent-[var(--color-brand-blue)]" />
+                </div>
+              </div>
+            </div>
+
+            {/* General Controls */}
+            <div className="flex flex-col gap-2">
+              <div className="flex justify-between items-center">
+                <span>Forma:</span>
+                <select value={shape} onChange={e => setShape(e.target.value)} className="bg-[var(--color-surface-BG-2)] rounded px-1 text-[10px] w-32 border border-[var(--color-border-Strokes-strong)] py-1">
+                  <option value="ellipse at top">Ellipse (Arriba)</option>
+                  <option value="ellipse at center">Ellipse (Centro)</option>
+                  <option value="circle at top">Circle (Arriba)</option>
+                  <option value="circle at center">Circle (Centro)</option>
+                </select>
+              </div>
+              <div className="flex justify-between items-center">
+                <span>Opacidad Global:</span>
+                <input type="range" min="0" max="1" step="0.05" value={opacity} onChange={e => setOpacity(parseFloat(e.target.value))} className="w-32 accent-[var(--color-brand-blue)]" />
+              </div>
+              <div className="flex justify-between items-center">
+                <span>Blur (GPU):</span>
+                <select value={blur} onChange={e => setBlur(e.target.value)} className="bg-[var(--color-surface-BG-2)] rounded px-1 text-[10px] w-24 border border-[var(--color-border-Strokes-strong)] py-1">
+                  <option value="blur-0">Sin Blur</option>
+                  <option value="blur-[60px]">60px</option>
+                  <option value="blur-[100px]">100px</option>
+                  <option value="blur-[140px]">140px</option>
+                  <option value="blur-[200px]">200px</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Botón Flotante si está colapsado */}
+      {!isOpen && (
+        <button onClick={() => setIsOpen(true)} className="fixed top-24 right-0 bg-[var(--color-brand-blue)] text-white px-2 py-4 rounded-l-lg z-[99999] shadow-elevation-4 font-bold vertical-text text-[10px]">
+          ◀ EDIT GLOW
+        </button>
+      )}
+
+      {/* Visual Gradient Block en el Layout Real */}
+      <div className={`relative ${className}`}>
+        <div 
+          className={`absolute inset-0 ${blur} ${initialMixBlend} pointer-events-none z-0 transform-gpu transition-all duration-300`}
+          style={{ background: gradientString, opacity: opacity }}
+        />
+        {children}
+      </div>
+    </>
+  );
+}
+
+// ==========================================
+// 7. GLOBAL COPIER & GRID VISUALIZER
 // ==========================================
 export function LiveEditorCopier() {
   const [copied, setCopied] = useState(false);

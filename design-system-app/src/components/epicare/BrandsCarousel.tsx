@@ -110,7 +110,7 @@ export default function BrandsCarousel() {
               key={`${keyPrefix}-set${setIndex}-${i}`} 
               src={`/Files/Epicare_Landing/Brand_icons/${b}`} 
               alt="Carrier Logo" 
-              className="h-[60px] md:h-[70px] w-auto object-contain grayscale opacity-[0.86] hover:grayscale-0 hover:opacity-100 transition-all duration-300" 
+              className="h-[60px] md:h-[70px] w-auto object-contain grayscale opacity-[0.86] hover:grayscale-0 hover:opacity-100 transition-all duration-300 dark:invert" 
             />
           ))}
         </React.Fragment>
@@ -119,7 +119,7 @@ export default function BrandsCarousel() {
   );
 
   return (
-    <section className="relative w-full h-[100vh] bg-[var(--color-surface-BG-white)] text-[var(--color-text-Black-100)] z-20 mt-[-100vh] flex flex-col justify-start pt-[8vh] md:pt-[15vh]">
+    <section className="relative w-full bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] text-[var(--color-text-Black-100)] dark:text-white z-20 mt-[-100vh] flex flex-col justify-start pt-[8vh] md:pt-[15vh] transition-colors duration-500">
       
       <div className="w-full flex flex-col items-center px-4">
         
@@ -150,7 +150,7 @@ export default function BrandsCarousel() {
         </div>
       </div>
 
-      <div className="w-full mt-fluid-xl px-4 pb-[5vh]">
+      <div className="w-full mt-fluid-xl px-4">
         <MetricsEpicare />
       </div>
 
