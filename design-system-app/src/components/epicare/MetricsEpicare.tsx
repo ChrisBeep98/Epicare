@@ -150,7 +150,7 @@ export default function MetricsEpicare() {
           </div>
 
           {/* Grid de Métricas */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-fluid-lg md:gap-fluid-md perspective-[1000px]">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-fluid-lg md:gap-fluid-md perspective-[1000px] mt-8 md:mt-0">
             {metrics.map((metric, idx) => (
               <div key={idx} className="metric-card flex flex-col gap-static-sm will-change-transform">
                 <div className="text-display-xl md:text-display-2xl font-light text-[var(--color-text-Black-100)] tracking-tighter tabular-nums">
