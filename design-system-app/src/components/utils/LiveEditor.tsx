@@ -287,21 +287,27 @@ export function MediaLiveEditor({ id, initialCw = '100%', initialCh = '100%', in
 // ==========================================
 // 5. TEXT LIVE EDITOR (Typography Tokens)
 // ==========================================
-export function TextLiveEditor({ id, initialToken = "text-body", children, as: Tag = "span", className = "" }: { id: string, initialToken?: string, children: React.ReactNode, as?: any, className?: string }) {
+export function TextLiveEditor({ id, initialToken = "text-body", initialAlign = "text-left", children, as: Tag = "span", className = "" }: { id: string, initialToken?: string, initialAlign?: string, children: React.ReactNode, as?: any, className?: string }) {
   const [token, setToken] = useState(initialToken);
+  const [align, setAlign] = useState(initialAlign);
 
   useEffect(() => {
-    updateState(id, { type: 'Text', token });
+    updateState(id, { type: 'Text', token, align });
     return () => removeState(id);
-  }, [id, token]);
+  }, [id, token, align]);
 
   return (
-    <Tag className={`relative group/text ${className} ${token} inline-block`}>
+    <Tag className={`relative group/text ${className} ${token} ${align}`}>
       <div className="absolute top-full left-0 mt-1 opacity-0 group-hover/text:opacity-100 bg-[var(--color-brand-blue)] rounded flex items-center px-2 py-1 z-[10000] text-[11px] shadow-elevation-5 text-white whitespace-nowrap pointer-events-auto">
-        <div className="flex items-center mr-2">
+        <div className="flex items-center mr-2 border-r border-white/20 pr-2">
           <span className="font-bold uppercase">{id}</span>
           <CopyStateButton id={id} />
         </div>
+        <select value={align} onChange={e => setAlign(e.target.value)} className="bg-[var(--color-surface-BG-2)] border border-[var(--color-border-Strokes-strong)] rounded text-white outline-none cursor-pointer px-1 py-0.5 mr-2">
+          <option value="text-left">Left</option>
+          <option value="text-center">Center</option>
+          <option value="text-right">Right</option>
+        </select>
         <select value={token} onChange={e => setToken(e.target.value)} className="bg-[var(--color-surface-BG-2)] border border-[var(--color-border-Strokes-strong)] rounded text-white outline-none cursor-pointer px-1 py-0.5">
           <optgroup label="Displays">
             <option value="text-display-3xl">Display 3XL</option><option value="text-display-2xl">Display 2XL</option><option value="text-display-xl">Display XL</option><option value="text-display-lg">Display LG</option><option value="text-display">Display Base</option>

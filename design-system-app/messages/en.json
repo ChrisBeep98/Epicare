@@ -8,6 +8,15 @@
       "descriptionMobile": "Manage your entire workflow, quote policies, and scale sales from a single place.",
       "ctaPlans": "Discover Our Plans",
       "ctaAgents": "For Agents"
+    },
+    "metrics": {
+      "carriers": "Carriers",
+      "years": "Years of Experience",
+      "agents": "Agents",
+      "platform": "Learning Platform",
+      "titleLine1": "Engineered to scale",
+      "titleLine2": "the most demanding",
+      "titleLine3": "insurance operations."
     }
   }
 }

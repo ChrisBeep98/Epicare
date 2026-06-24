@@ -8,6 +8,15 @@
       "descriptionMobile": "Gestiona todo tu flujo de trabajo, cotiza pólizas y escala tus ventas desde un solo lugar.",
       "ctaPlans": "Descubre Nuestros Planes",
       "ctaAgents": "Para Agentes"
+    },
+    "metrics": {
+      "carriers": "Aseguradoras",
+      "years": "Años de Experiencia",
+      "agents": "Agentes",
+      "platform": "Plataforma de Aprendizaje",
+      "titleLine1": "Diseñado para escalar",
+      "titleLine2": "las operaciones de",
+      "titleLine3": "seguros más exigentes."
     }
   }
 }

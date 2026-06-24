@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
+import MetricsEpicare from './MetricsEpicare';
 
 const brands = [
   "68b074e0f62ece962b5d26cb_12.avif",
@@ -147,6 +148,10 @@ export default function BrandsCarousel() {
 
           </div>
         </div>
+      </div>
+
+      <div className="w-full mt-fluid-xl px-4 pb-[5vh]">
+        <MetricsEpicare />
       </div>
 
       <style>{`
