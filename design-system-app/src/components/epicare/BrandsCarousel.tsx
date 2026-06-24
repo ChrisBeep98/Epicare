@@ -110,7 +110,7 @@ export default function BrandsCarousel() {
               key={`${keyPrefix}-set${setIndex}-${i}`} 
               src={`/Files/Epicare_Landing/Brand_icons/${b}`} 
               alt="Carrier Logo" 
-              className="h-10 md:h-[70px] w-auto object-contain grayscale opacity-[0.86] hover:grayscale-0 hover:opacity-100 transition-all duration-300" 
+              className="h-[60px] md:h-[70px] w-auto object-contain grayscale opacity-[0.86] hover:grayscale-0 hover:opacity-100 transition-all duration-300" 
             />
           ))}
         </React.Fragment>
@@ -119,7 +119,7 @@ export default function BrandsCarousel() {
   );
 
   return (
-    <section className="relative w-full h-[100vh] bg-[var(--color-surface-BG-white)] text-[var(--color-text-Black-100)] z-20 mt-[-100vh] flex flex-col justify-start pt-[15vh]">
+    <section className="relative w-full h-[100vh] bg-[var(--color-surface-BG-white)] text-[var(--color-text-Black-100)] z-20 mt-[-100vh] flex flex-col justify-start pt-[8vh] md:pt-[15vh]">
       
       <div className="w-full flex flex-col items-center px-4">
         
@@ -137,11 +137,11 @@ export default function BrandsCarousel() {
             {/* --- MOBILE TRACKS (2 ROWS) --- */}
             <div className="flex md:hidden flex-col gap-fluid-xs w-max py-4">
               {/* Row 1: Left */}
-              <div ref={mobileTrack1Ref} className="flex w-max items-center gap-fluid-sm px-4 will-change-transform">
+              <div ref={mobileTrack1Ref} className="flex w-max items-center gap-fluid-md px-4 will-change-transform">
                 {renderLogos(half1, 'mob1')}
               </div>
               {/* Row 2: Right */}
-              <div ref={mobileTrack2Ref} className="flex w-max items-center gap-fluid-sm px-4 will-change-transform ml-[-15vw]">
+              <div ref={mobileTrack2Ref} className="flex w-max items-center gap-fluid-md px-4 will-change-transform ml-[-15vw]">
                 {renderLogos(half2, 'mob2')}
               </div>
             </div>

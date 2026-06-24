@@ -53,21 +53,20 @@ export default function MetricsEpicare() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // 1. Nacimiento Tipográfico Premium (Water Mask + Inclinación) para el título
-      gsap.fromTo(".title-line", 
+      // 1. Título: Animación de líneas (desktop) y palabras (mobile)
+      gsap.fromTo([".title-line", ".title-word"], 
         { 
-          yPercent: 120, 
-          rotateZ: 3,
-          transformOrigin: "left top",
-          opacity: 0 
+          yPercent: 120,
+          rotateZ: 2,
+          opacity: 0
         },
         {
           yPercent: 0,
           rotateZ: 0,
           opacity: 1,
-          duration: 1.4,
-          stagger: 0.15,
-          ease: "expo.out",
+          duration: 1.5,
+          stagger: 0.08, // Stagger rápido para que fluya como agua
+          ease: "power4.out",
           scrollTrigger: {
             trigger: sectionRef.current,
             start: "top 85%"
@@ -75,19 +74,25 @@ export default function MetricsEpicare() {
         }
       );
 
-      // 2. Fade-up suave y elegante para las tarjetas (sin efectos complejos)
+      // 2. Métricas: Revelado Awwwards Premium (ClipPath + Y transform)
+      // Esto crea el efecto de que las tarjetas son "desenfundadas" del fondo de manera extremadamente suave
       gsap.fromTo(".metric-card", 
         { 
-          opacity: 0, 
-          y: 40 
+          y: 80,
+          clipPath: "inset(100% 0% 0% 0%)", // La máscara empieza cubriendo todo desde abajo
+          scale: 0.98
         },
         {
-          opacity: 1, 
           y: 0,
-          duration: 1.2,
-          stagger: 0.1,
-          ease: "power3.out",
-          delay: 0.3,
+          clipPath: "inset(0% 0% 0% 0%)", // Se abre revelando el contenido
+          scale: 1,
+          duration: 1.8,
+          stagger: {
+            amount: 0.4,
+            ease: "power2.out"
+          },
+          ease: "expo.out",
+          delay: 0.2, // Solapado con el título
           scrollTrigger: {
             trigger: sectionRef.current,
             start: "top 85%"
@@ -116,20 +121,30 @@ export default function MetricsEpicare() {
           {/* Título Display de 3 líneas con Water Mask en Grid de 12 columnas */}
           <div className="grid-layout w-full">
             <div className="col-start-1 col-span-6 md:col-start-1 md:col-span-10 flex flex-col justify-start items-start">
-              {/* Desktop Version: 3 forced staggered lines */}
+              {/* Desktop Version: Animación por línea estricta forzada */}
               <h2 className="hidden md:block text-display-xl text-left w-full font-medium text-[var(--color-text-Black-100)] tracking-tighter leading-[1.05]">
                 <span className="block overflow-hidden pb-2"><span className="title-line block will-change-transform">{t('titleLine1')}</span></span>
                 <span className="block overflow-hidden pb-2"><span className="title-line block will-change-transform">{t('titleLine2')}</span></span>
                 <span className="block overflow-hidden pb-2"><span className="title-line block will-change-transform text-[var(--color-brand-blue)]">{t('titleLine3')}</span></span>
               </h2>
-              
-              {/* Mobile Version: Natural wrapping text in a single mask block */}
-              <h2 className="block md:hidden text-display-xl text-left w-full font-medium text-[var(--color-text-Black-100)] tracking-tighter leading-[1.05]">
-                <span className="block overflow-hidden pb-2">
-                  <span className="title-line block will-change-transform">
-                    {t('titleLine1')} {t('titleLine2')} <span className="text-[var(--color-brand-blue)]">{t('titleLine3')}</span>
+
+              {/* Mobile Version: Water Mask Palabra por Palabra (flujo natural) */}
+              <h2 className="block md:hidden text-display-xl text-left w-full font-medium text-[var(--color-text-Black-100)] tracking-tighter leading-[1.05] flex flex-wrap gap-y-1">
+                {t('titleLine1').split(" ").map((word, i) => (
+                  <span key={`w1-${i}`} className="inline-flex overflow-hidden align-bottom mr-[0.25em]">
+                    <span className="title-word inline-block will-change-transform">{word}</span>
                   </span>
-                </span>
+                ))}
+                {t('titleLine2').split(" ").map((word, i) => (
+                  <span key={`w2-${i}`} className="inline-flex overflow-hidden align-bottom mr-[0.25em]">
+                    <span className="title-word inline-block will-change-transform">{word}</span>
+                  </span>
+                ))}
+                {t('titleLine3').split(" ").map((word, i) => (
+                  <span key={`w3-${i}`} className="inline-flex overflow-hidden align-bottom mr-[0.25em]">
+                    <span className="title-word inline-block will-change-transform text-[var(--color-brand-blue)]">{word}</span>
+                  </span>
+                ))}
               </h2>
             </div>
           </div>
