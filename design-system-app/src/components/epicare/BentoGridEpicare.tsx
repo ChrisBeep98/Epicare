@@ -16,14 +16,6 @@ export default function BentoGridEpicare() {
   const t = useTranslations('landingV2.bento');
   const sectionRef = useRef<HTMLDivElement>(null);
 
-  const imageOptions = [
-    "/Files/Features/CRM_product_tablet_client_cards_202606242208.jpeg",
-    "/Files/Features/CRM_product_tablet_client_cards_202606242225.jpeg",
-    "/Files/Features/Diagonal_pipeline_CRM_stages_202606242208.jpeg",
-    "/Files/Features/Wireframe_CRM_composition_floating.jpeg",
-    "/Files/Features/Wireframe_monitor_with_headset.jpeg"
-  ];
-
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
@@ -55,182 +47,133 @@ export default function BentoGridEpicare() {
 
   return (
     <>
-      <LiveEditorCopier />
-      <SectionLiveEditor 
+      <section 
         id="bento-section"
-        initialPy="pt-0 pb-section-md"
-        initialPx="px-gutter-md"
-        initialMaxW="max-w-section-lg"
-        className="relative w-full bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] z-20 transition-colors duration-500"
+        className="relative w-full bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] z-20 transition-colors duration-500 pt-0 pb-section-md px-gutter-md max-w-section-lg mx-auto"
       >
         {/* CSS Grid (Blueprint Map Style) */}
         <div ref={sectionRef} className="grid grid-cols-1 md:grid-cols-12 auto-rows-auto border-l border-t border-[var(--color-border-Strokes-default)] w-full">
           
           {/* Fila 1 */}
-          <GridLiveEditor 
+          <div
             id="bento-card-1" 
-            initialStart={1}
-            initialSpan={5} 
-            initialRowStart={1}
-            initialMSpan={12}
-            className="bento-card relative overflow-hidden border-r border-b border-[var(--color-border-Strokes-default)] bg-transparent hover:bg-black/[0.02] dark:hover:bg-[var(--color-surface-BG-base-Opacity)] transition-colors duration-500 h-[500px] group will-change-transform"
+            className="md:col-start-1 md:col-span-5 md:row-start-1 col-start-1 col-span-12 row-start-1 bento-card relative overflow-hidden border-r border-b border-[var(--color-border-Strokes-default)] bg-transparent hover:bg-black/[0.02] dark:hover:bg-[var(--color-surface-BG-base-Opacity)] transition-colors duration-500 h-[500px] group will-change-transform"
           >
             <CrmLogo className="absolute top-static-lg left-static-lg h-10 w-auto z-10 transition-colors duration-500" />
             <ArrowIcon className="absolute top-static-lg right-static-lg w-6 h-6 text-black/50 dark:text-[var(--color-text-muted)] group-hover:text-[var(--color-text-Black-100)] dark:group-hover:text-[var(--color-text-White-100)] transition-colors duration-500" />
             <div className="absolute bottom-static-lg left-static-lg flex flex-col gap-2">
-              <TextLiveEditor id="card-1-title" initialToken="text-h2" as="h3" className="font-medium text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)] tracking-tight">
+              <h3 id="card-1-title" className="text-h1 font-medium text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)] tracking-tight">
                 GO CRM
-                </TextLiveEditor>
-                <TextLiveEditor id="card-1-desc" initialToken="text-body-xs" as="p" className="text-black/60 dark:text-[var(--color-text-muted)] font-light max-w-[300px] leading-relaxed">
-                  Automate, track, and close more deals with real-time insights, custom workflows, and on-demand coaching.
-                </TextLiveEditor>
-              </div>
-          </GridLiveEditor>
+              </h3>
+              <p id="card-1-desc" className="text-body-xs text-black/60 dark:text-[var(--color-text-muted)] font-light max-w-[300px] leading-relaxed">
+                Automate, track, and close more deals with real-time insights, custom workflows, and on-demand coaching.
+              </p>
+            </div>
+          </div>
 
-          <GridLiveEditor 
+          <div
             id="bento-card-2" 
-            initialStart={6}
-            initialSpan={7} 
-            initialRowStart={1}
-            initialMSpan={12}
-            className="bento-card relative overflow-hidden border-r border-b border-[var(--color-border-Strokes-default)] bg-transparent hover:bg-black/[0.02] dark:hover:bg-[var(--color-surface-BG-base-Opacity)] transition-colors duration-500 h-[500px] will-change-transform group"
+            className="md:col-start-6 md:col-span-7 md:row-start-1 col-start-1 col-span-12 row-start-2 bento-card relative overflow-hidden border-r border-b border-[var(--color-border-Strokes-default)] bg-transparent hover:bg-black/[0.02] dark:hover:bg-[var(--color-surface-BG-base-Opacity)] transition-colors duration-500 h-[500px] will-change-transform group"
           >
             {/* Background Image */}
             <div className="absolute inset-[1px] z-0 overflow-hidden">
-              <ImageLiveEditor 
+              <img 
                 id="img-card-2"
-                initialSrc="/Files/Features/Diagonal_pipeline_CRM_stages_202606242208.jpeg" 
-                options={imageOptions}
+                src="/Files/Features/CRM_product_tablet_client_cards_202606242225.jpeg" 
                 alt="Feature Right" 
                 className="w-full h-full object-cover opacity-90 dark:opacity-100 transition-transform duration-1000 ease-out group-hover:scale-105"
               />
             </div>
-          </GridLiveEditor>
+          </div>
 
           {/* Fila 2 */}
-          <GridLiveEditor 
+          <div 
             id="bento-card-3" 
-            initialStart={1}
-            initialSpan={8} 
-            initialRowStart={2}
-            initialMSpan={12}
-            justify="center"
-            align="center"
-            className="bento-card relative overflow-hidden border-r border-b border-[var(--color-border-Strokes-default)] bg-transparent hover:bg-black/[0.02] dark:hover:bg-[var(--color-surface-BG-base-Opacity)] transition-colors duration-500 h-[500px] will-change-transform group"
+            className="md:col-start-1 md:col-span-8 md:row-start-2 col-start-1 col-span-12 row-start-3 flex flex-row justify-center items-center bento-card relative overflow-hidden border-r border-b border-[var(--color-border-Strokes-default)] bg-transparent hover:bg-black/[0.02] dark:hover:bg-[var(--color-surface-BG-base-Opacity)] transition-colors duration-500 h-[500px] will-change-transform group"
           >
             {/* Background Image */}
             <div className="absolute inset-[1px] z-0 overflow-hidden">
-              <ImageLiveEditor 
+              <img 
                 id="img-card-3"
-                initialSrc="/Files/Features/Wireframe_CRM_composition_floating.jpeg" 
-                options={imageOptions}
+                src="/Files/Features/Diagonal_pipeline_CRM_stages_202606242208.jpeg" 
                 alt="Core System" 
                 className="w-full h-full object-cover opacity-90 dark:opacity-100 transition-transform duration-1000 ease-out group-hover:scale-105"
               />
             </div>
-          </GridLiveEditor>
+          </div>
 
-          <GridLiveEditor 
+          <div 
             id="bento-card-4" 
-            initialStart={9}
-            initialSpan={4} 
-            initialRowStart={2}
-            initialMSpan={12}
-            className="bento-card relative overflow-hidden border-r border-b border-[var(--color-border-Strokes-default)] bg-transparent hover:bg-black/[0.02] dark:hover:bg-[var(--color-surface-BG-base-Opacity)] transition-colors duration-500 h-[500px] group will-change-transform"
+            className="md:col-start-9 md:col-span-4 md:row-start-2 col-start-1 col-span-12 row-start-4 bento-card relative overflow-hidden border-r border-b border-[var(--color-border-Strokes-default)] bg-transparent hover:bg-black/[0.02] dark:hover:bg-[var(--color-surface-BG-base-Opacity)] transition-colors duration-500 h-[500px] group will-change-transform"
           >
             <AmsLogo className="absolute top-static-lg left-static-lg h-10 w-auto z-10 transition-colors duration-500" />
             <ArrowIcon className="absolute top-static-lg right-static-lg w-6 h-6 text-black/50 dark:text-[var(--color-text-muted)] group-hover:text-[var(--color-text-Black-100)] dark:group-hover:text-[var(--color-text-White-100)] transition-colors duration-500" />
             <div className="absolute bottom-static-lg left-static-lg flex flex-col gap-2">
-              <TextLiveEditor id="card-4-title" initialToken="text-h2" as="h3" className="font-medium text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)] tracking-tight">
+              <h3 id="card-4-title" className="text-h1 font-medium text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)] tracking-tight">
                 GO AMS
-              </TextLiveEditor>
-              <TextLiveEditor id="card-4-desc" initialToken="text-body-xs" as="p" className="text-black/60 dark:text-[var(--color-text-muted)] font-light max-w-[220px] leading-relaxed">
+              </h3>
+              <p id="card-4-desc" className="text-body-xs text-black/60 dark:text-[var(--color-text-muted)] font-light max-w-[220px] leading-relaxed">
                 Seamless operation management with scalable tools and automated tracking.
-              </TextLiveEditor>
+              </p>
             </div>
-          </GridLiveEditor>
+          </div>
 
           {/* Fila 3 */}
-          <GridLiveEditor 
+          <div 
             id="bento-card-5" 
-            initialStart={1}
-            initialSpan={4} 
-            initialRowStart={3}
-            initialMSpan={12}
-            flexDir="column"
-            justify="flex-end"
-            align="center"
-            className="bento-card relative overflow-hidden border-r border-b border-[var(--color-border-Strokes-default)] bg-transparent hover:bg-black/[0.02] dark:hover:bg-[var(--color-surface-BG-base-Opacity)] transition-colors duration-500 h-[600px] group will-change-transform"
+            className="md:col-start-1 md:col-span-4 md:row-start-3 col-start-1 col-span-12 row-start-5 flex flex-col justify-end items-center bento-card relative overflow-hidden border-r border-b border-[var(--color-border-Strokes-default)] bg-transparent hover:bg-black/[0.02] dark:hover:bg-[var(--color-surface-BG-base-Opacity)] transition-colors duration-500 h-[600px] group will-change-transform"
           >
-            <ArrowIcon className="absolute top-static-lg right-static-lg w-6 h-6 text-white drop-shadow-md transition-colors duration-500 z-10" />
             <div className="absolute inset-[1px] z-0 overflow-hidden">
-              <ImageLiveEditor 
+              <img 
                 id="img-card-5"
-                initialSrc="/Files/Features/CRM_product_tablet_client_cards_202606242208.jpeg" 
-                options={imageOptions}
+                src="/Files/Features/card_5_image.jpg" 
                 alt="Feature 1" 
                 className="w-full h-full object-cover opacity-90 dark:opacity-100 transition-transform duration-1000 ease-out group-hover:scale-105"
               />
             </div>
-          </GridLiveEditor>
+          </div>
 
-          <GridLiveEditor 
+          <div 
             id="bento-card-6" 
-            initialStart={5}
-            initialSpan={4} 
-            initialRowStart={3}
-            initialMSpan={12}
-            flexDir="column"
-            justify="flex-end"
-            align="center"
-            className="bento-card relative overflow-hidden border-r border-b border-[var(--color-border-Strokes-default)] bg-transparent hover:bg-black/[0.02] dark:hover:bg-[var(--color-surface-BG-base-Opacity)] transition-colors duration-500 h-[600px] group will-change-transform"
+            className="md:col-start-5 md:col-span-4 md:row-start-3 col-start-1 col-span-12 row-start-6 flex flex-col justify-end items-center bento-card relative overflow-hidden border-r border-b border-[var(--color-border-Strokes-default)] bg-transparent hover:bg-black/[0.02] dark:hover:bg-[var(--color-surface-BG-base-Opacity)] transition-colors duration-500 h-[600px] group will-change-transform"
           >
             <CallsLogo className="absolute top-static-lg left-static-lg h-10 w-auto z-10 transition-colors duration-500 drop-shadow-md" />
             <ArrowIcon className="absolute top-static-lg right-static-lg w-6 h-6 text-white drop-shadow-md transition-colors duration-500 z-10" />
             <div className="absolute bottom-static-lg left-static-lg flex flex-col gap-2 z-10 pointer-events-none">
-              <TextLiveEditor id="card-6-title" initialToken="text-h2" as="h3" className="font-medium text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)] tracking-tight">
+              <h3 id="card-6-title" className="text-h2 font-medium text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)] tracking-tight">
                 GO CALLS
-              </TextLiveEditor>
-              <TextLiveEditor id="card-6-desc" initialToken="text-body-xs" as="p" className="text-black/60 dark:text-[var(--color-text-muted)] font-light max-w-[240px] leading-relaxed">
+              </h3>
+              <p id="card-6-desc" className="text-body-xs text-black/60 dark:text-[var(--color-text-muted)] font-light max-w-[240px] leading-relaxed">
                 Connect and communicate seamlessly with crystal clear voice integration and tracking.
-              </TextLiveEditor>
+              </p>
             </div>
             <div className="absolute top-[1px] left-[1px] right-[1px] bottom-[160px] z-0 overflow-hidden">
-              <ImageLiveEditor 
+              <img 
                 id="img-card-6"
-                initialSrc="/Files/Features/Wireframe_monitor_with_headset.jpeg" 
-                options={imageOptions}
+                src="/Files/Features/Wireframe_monitor_with_headset.jpeg" 
                 alt="Feature 2" 
                 className="w-full h-full object-cover opacity-90 dark:opacity-100 transition-transform duration-1000 ease-out group-hover:scale-105"
               />
             </div>
-          </GridLiveEditor>
+          </div>
 
-          <GridLiveEditor 
+          <div 
             id="bento-card-7" 
-            initialStart={9}
-            initialSpan={4} 
-            initialRowStart={3}
-            initialMSpan={12}
-            flexDir="column"
-            justify="flex-end"
-            align="center"
-            className="bento-card relative overflow-hidden border-r border-b border-[var(--color-border-Strokes-default)] bg-transparent hover:bg-black/[0.02] dark:hover:bg-[var(--color-surface-BG-base-Opacity)] transition-colors duration-500 h-[600px] group will-change-transform"
+            className="md:col-start-9 md:col-span-4 md:row-start-3 col-start-1 col-span-12 row-start-7 flex flex-col justify-center items-start px-static-xl bento-card relative overflow-hidden border-r border-b border-[var(--color-border-Strokes-default)] bg-transparent hover:bg-black/[0.02] dark:hover:bg-[var(--color-surface-BG-base-Opacity)] transition-colors duration-500 h-[600px] group will-change-transform"
           >
-            <ArrowIcon className="absolute top-static-lg right-static-lg w-6 h-6 text-white drop-shadow-md transition-colors duration-500 z-10" />
-            <div className="absolute inset-[1px] z-0 overflow-hidden">
-              <ImageLiveEditor 
-                id="img-card-7"
-                initialSrc="/Files/Features/CRM_product_tablet_client_cards_202606242225.jpeg" 
-                options={imageOptions}
-                alt="Feature 3" 
-                className="w-full h-full object-cover opacity-90 dark:opacity-100 transition-transform duration-1000 ease-out group-hover:scale-105"
-              />
+            <ArrowIcon className="absolute top-static-lg right-static-lg w-6 h-6 text-black/50 dark:text-[var(--color-text-muted)] group-hover:text-[var(--color-text-Black-100)] dark:group-hover:text-[var(--color-text-White-100)] transition-colors duration-500 z-10" />
+            <div className="flex flex-col gap-4">
+              <h3 id="card-7-title" className="text-h2 font-medium text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)] tracking-tight">
+                Smart Metrics
+              </h3>
+              <p id="card-7-desc" className="text-body-sm text-black/60 dark:text-[var(--color-text-muted)] font-light max-w-[240px] leading-relaxed">
+                Unlock actionable insights and real-time data to optimize your daily operations.
+              </p>
             </div>
-          </GridLiveEditor>
+          </div>
 
         </div>
-      </SectionLiveEditor>
+      </section>
 
       <style>{`
         .dot-pattern {
