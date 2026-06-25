@@ -491,7 +491,40 @@ export function GradientLiveEditor({
 }
 
 // ==========================================
-// 7. GLOBAL COPIER & GRID VISUALIZER
+// 7. IMAGE LIVE EDITOR (Swap Images)
+// ==========================================
+export function ImageLiveEditor({ id, initialSrc, options, alt = "", className = "" }: { id: string, initialSrc: string, options: string[], alt?: string, className?: string }) {
+  const [src, setSrc] = useState(initialSrc);
+
+  useEffect(() => {
+    updateState(id, { type: 'Image', src });
+    return () => removeState(id);
+  }, [id, src]);
+
+  return (
+    <div className="relative group/image w-full h-full">
+      <div className="absolute top-2 right-2 opacity-0 group-hover/image:opacity-100 bg-[var(--color-surface-BG-2)] border border-[var(--color-border-Strokes-strong)] rounded flex flex-col gap-2 px-2 py-1 z-[10002] text-[10px] shadow-elevation-4 pointer-events-auto w-max">
+        <div className="flex items-center justify-between border-b border-[var(--color-border-Strokes-default)] pb-1 mb-1">
+          <span className="text-pink-400 font-bold uppercase">{id}</span>
+          <CopyStateButton id={id} />
+        </div>
+        <select value={src} onChange={e => setSrc(e.target.value)} className="bg-[var(--color-surface-BG-1)] text-white outline-none rounded px-1 py-1 cursor-pointer w-full max-w-[200px]">
+          {options.map((opt, i) => {
+            const fileName = opt.split('/').pop()?.replace('.jpeg', '') || `Opción ${i+1}`;
+            return <option key={i} value={opt} title={fileName}>{fileName.substring(0, 25)}...</option>
+          })}
+        </select>
+      </div>
+      
+      <div className="absolute inset-0 border-2 border-dashed border-pink-400/0 group-hover/image:border-pink-400/50 pointer-events-none transition-colors z-40 rounded-[inherit]"></div>
+      
+      <img src={src} alt={alt} className={className} />
+    </div>
+  );
+}
+
+// ==========================================
+// 8. GLOBAL COPIER & GRID VISUALIZER
 // ==========================================
 export function LiveEditorCopier() {
   const [copied, setCopied] = useState(false);
