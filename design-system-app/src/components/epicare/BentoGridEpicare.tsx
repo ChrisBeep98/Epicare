@@ -49,10 +49,21 @@ export default function BentoGridEpicare() {
     <>
       <section 
         id="bento-section"
-        className="relative w-full bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] z-20 transition-colors duration-500 pt-0 pb-section-md px-gutter-md max-w-section-lg mx-auto"
+        className="relative w-full bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] z-20 transition-colors duration-500 pt-section-md pb-section-md"
       >
-        {/* CSS Grid (Blueprint Map Style) */}
-        <div ref={sectionRef} className="grid grid-cols-1 md:grid-cols-12 auto-rows-auto border-l border-t border-[var(--color-border-Strokes-default)] w-full">
+        <div className="max-w-[1440px] mx-auto px-gutter-md">
+          {/* Section Header */}
+          <div className="flex flex-col gap-4 mb-16 max-w-3xl">
+            <h2 className="text-display font-medium text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)] tracking-tight">
+              Todo el Ecosistema en un Solo Lugar
+            </h2>
+            <p className="text-body text-black/60 dark:text-[var(--color-text-muted)] font-light leading-relaxed">
+              Descubre las herramientas y módulos diseñados para escalar tus operaciones sin fricciones.
+            </p>
+          </div>
+
+          {/* CSS Grid (Blueprint Map Style) */}
+          <div ref={sectionRef} className="grid grid-cols-1 md:grid-cols-12 auto-rows-auto border-l border-t border-[var(--color-border-Strokes-default)] w-full">
           
           {/* Fila 1 */}
           <div
@@ -171,7 +182,7 @@ export default function BentoGridEpicare() {
               </p>
             </div>
           </div>
-
+        </div>
         </div>
       </section>
 
