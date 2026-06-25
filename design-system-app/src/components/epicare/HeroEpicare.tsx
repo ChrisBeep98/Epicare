@@ -117,10 +117,10 @@ export default function HeroEpicare() {
 
       // Acto 1 -> El logo viaja al Navbar flotante (Centrado dinámicamente)
       tl.to(logoARef.current, {
-        top: "18px",
+        top: () => window.innerWidth < 768 ? "14px" : "18px",
         left: () => {
-          const img = logoBRef.current?.querySelector('img');
-          const rect = img ? img.getBoundingClientRect() : logoBRef.current?.getBoundingClientRect();
+          const el = logoBRef.current?.firstElementChild;
+          const rect = el ? el.getBoundingClientRect() : logoBRef.current?.getBoundingClientRect();
           return rect ? rect.left : 24;
         },
         duration: 1,
@@ -216,13 +216,13 @@ export default function HeroEpicare() {
   };
 
   const navLayoutClass = isHeaderPill
-    ? "top-2 h-14 md:h-16"
+    ? "top-0 md:top-2 h-16"
     : "top-4 md:top-6 h-16";
 
   const navBgClass = isHeaderPill
     ? (isHeaderForcedDark 
-        ? "bg-black/20 border-white/10 dark:border-white/5 shadow-elevation-2 rounded-full border backdrop-blur-md" 
-        : "bg-white/50 dark:bg-black/20 border-black/10 dark:border-white/5 shadow-elevation-2 rounded-full border backdrop-blur-md")
+        ? "bg-black/20 border-white/10 dark:border-white/5 shadow-elevation-2 rounded-none md:rounded-lg border-b md:border backdrop-blur-md" 
+        : "bg-white/50 dark:bg-black/20 border-black/10 dark:border-white/5 shadow-elevation-2 rounded-none md:rounded-lg border-b md:border backdrop-blur-md")
     : "bg-transparent border-transparent shadow-none rounded-none";
 
   const iconColorClass = (isHeaderForcedDark || isDark)
@@ -230,8 +230,8 @@ export default function HeroEpicare() {
     : "text-[var(--color-text-Black-100)] hover:opacity-80";
 
   const logoColorClass = (isHeaderForcedDark || isDark)
-    ? "brightness-100"
-    : "brightness-0 dark:brightness-100";
+    ? "bg-white"
+    : "bg-[var(--color-brand-blue)] dark:bg-white";
 
   return (
     <div className="w-full overflow-x-hidden bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)]">
@@ -239,13 +239,13 @@ export default function HeroEpicare() {
       {/* Background Pill Layer (z-[10] inicialmente para quedar detrás del video/Logo A) */}
       <div 
         ref={navBgRef}
-        className={`fixed left-[var(--space-gutter-sm)] right-[var(--space-gutter-sm)] lg:left-[var(--space-gutter-md)] lg:right-[var(--space-gutter-md)] pointer-events-none transition-all duration-300 ${navLayoutClass} ${navBgClass}`}
+        className={`fixed left-0 right-0 md:left-[var(--space-gutter-sm)] md:right-[var(--space-gutter-sm)] lg:left-[var(--space-gutter-md)] lg:right-[var(--space-gutter-md)] pointer-events-none transition-all duration-300 ${navLayoutClass} ${navBgClass}`}
       />
 
       {/* Controls & Logo B Layer (z-[999999] siempre al frente) */}
       <nav 
         ref={navRef} 
-        className={`fixed left-[var(--space-gutter-sm)] right-[var(--space-gutter-sm)] lg:left-[var(--space-gutter-md)] lg:right-[var(--space-gutter-md)] flex justify-between items-center px-4 md:px-6 z-[999999] pointer-events-auto transition-all duration-300 ${navLayoutClass}`}
+        className={`fixed left-0 right-0 md:left-[var(--space-gutter-sm)] md:right-[var(--space-gutter-sm)] lg:left-[var(--space-gutter-md)] lg:right-[var(--space-gutter-md)] flex justify-between items-center px-4 md:px-6 z-[999999] pointer-events-auto transition-all duration-300 ${navLayoutClass}`}
       >
         {/* Logo B (Empieza invisible, se muestra mediante crossfade al final del Acto 1) */}
         <div 
@@ -253,10 +253,18 @@ export default function HeroEpicare() {
           id="fixed-navbar-logo" 
           className="w-[120px] md:w-[150px] flex-shrink-0 flex items-center opacity-0 pointer-events-none"
         >
-          <img 
-            src="/epicare_logo.svg" 
-            alt="Epicare Insurance Logo" 
-            className={`h-[36px] md:h-[44px] w-auto object-contain drop-shadow-lg transition-all duration-300 ${logoColorClass}`}
+          <div 
+            className={`h-[36px] md:h-[44px] aspect-[960/364] transition-colors duration-300 ${logoColorClass}`}
+            style={{
+              maskImage: "url('/epicare_logo.svg')",
+              WebkitMaskImage: "url('/epicare_logo.svg')",
+              maskSize: "contain",
+              WebkitMaskSize: "contain",
+              maskRepeat: "no-repeat",
+              WebkitMaskRepeat: "no-repeat",
+              maskPosition: "left center",
+              WebkitMaskPosition: "left center"
+            }}
           />
         </div>
         
@@ -320,7 +328,19 @@ export default function HeroEpicare() {
               id="epicare-logo-container"
               className="absolute top-static-lg left-static-lg md:top-static-xl md:left-static-xl z-[1000000] pointer-events-auto will-change-transform"
             >
-              <img src="/epicare_logo.svg" alt="Epicare Insurance Logo" className="h-[36px] md:h-[44px] w-auto object-contain drop-shadow-lg" />
+              <div 
+                className="h-[36px] md:h-[44px] aspect-[960/364] bg-white"
+                style={{
+                  maskImage: "url('/epicare_logo.svg')",
+                  WebkitMaskImage: "url('/epicare_logo.svg')",
+                  maskSize: "contain",
+                  WebkitMaskSize: "contain",
+                  maskRepeat: "no-repeat",
+                  WebkitMaskRepeat: "no-repeat",
+                  maskPosition: "left center",
+                  WebkitMaskPosition: "left center"
+                }}
+              />
             </div>
 
             <video 

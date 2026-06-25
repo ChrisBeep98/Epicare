@@ -49,12 +49,12 @@ export default function BentoGridEpicare() {
     <>
       <section 
         id="bento-section"
-        className="relative w-full bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] z-20 transition-colors duration-500 pt-section-md pb-section-md"
+        className="relative w-full bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] z-20 transition-colors duration-500 pt-0 pb-section-md"
       >
-        <div className="max-w-[1440px] mx-auto px-gutter-md">
+        <div className="max-w-[1440px] mx-auto px-[14px] md:px-gutter-md">
           {/* Section Header */}
           <div className="flex flex-col gap-4 mb-16 max-w-3xl">
-            <h2 className="text-display font-medium text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)] tracking-tight">
+            <h2 className="text-display-lg font-medium text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)] tracking-tight">
               Todo el Ecosistema en un Solo Lugar
             </h2>
             <p className="text-body text-black/60 dark:text-[var(--color-text-muted)] font-light leading-relaxed">
@@ -63,20 +63,20 @@ export default function BentoGridEpicare() {
           </div>
 
           {/* CSS Grid (Blueprint Map Style) */}
-          <div ref={sectionRef} className="grid grid-cols-1 md:grid-cols-12 auto-rows-auto border-l border-t border-[var(--color-border-Strokes-default)] w-full">
+          <div ref={sectionRef} className="grid grid-cols-2 md:grid-cols-12 auto-rows-auto border-l border-t border-[var(--color-border-Strokes-default)] w-full">
           
           {/* Fila 1 */}
           <div
             id="bento-card-1" 
-            className="md:col-start-1 md:col-span-5 md:row-start-1 col-start-1 col-span-12 row-start-1 bento-card relative overflow-hidden border-r border-b border-[var(--color-border-Strokes-default)] bg-transparent hover:bg-black/[0.02] dark:hover:bg-[var(--color-surface-BG-base-Opacity)] transition-colors duration-500 h-[500px] group will-change-transform"
+            className="md:col-start-1 md:col-span-5 md:row-start-1 col-span-1 bento-card relative overflow-hidden border-r border-b border-[var(--color-border-Strokes-default)] bg-transparent hover:bg-black/[0.02] dark:hover:bg-[var(--color-surface-BG-base-Opacity)] transition-colors duration-500 h-[320px] md:h-[500px] group will-change-transform"
           >
-            <CrmLogo className="absolute top-static-lg left-static-lg h-10 w-auto z-10 transition-colors duration-500" />
-            <ArrowIcon className="absolute top-static-lg right-static-lg w-6 h-6 text-black/50 dark:text-[var(--color-text-muted)] group-hover:text-[var(--color-text-Black-100)] dark:group-hover:text-[var(--color-text-White-100)] transition-colors duration-500" />
-            <div className="absolute bottom-static-lg left-static-lg flex flex-col gap-2">
+            <CrmLogo className="absolute top-[14px] md:top-static-lg left-[14px] md:left-static-lg h-10 w-auto z-10 transition-colors duration-500" />
+            <ArrowIcon className="absolute top-[14px] md:top-static-lg right-[14px] md:right-static-lg w-6 h-6 text-black/50 dark:text-[var(--color-text-muted)] group-hover:text-[var(--color-text-Black-100)] dark:group-hover:text-[var(--color-text-White-100)] transition-colors duration-500" />
+            <div className="absolute bottom-[14px] md:bottom-static-lg left-[14px] md:left-static-lg right-[14px] md:right-static-lg flex flex-col gap-2">
               <h3 id="card-1-title" className="text-h1 font-medium text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)] tracking-tight">
                 GO CRM
               </h3>
-              <p id="card-1-desc" className="text-body-xs text-black/60 dark:text-[var(--color-text-muted)] font-light max-w-[300px] leading-relaxed">
+              <p id="card-1-desc" className="text-body-xs text-black/60 dark:text-[var(--color-text-muted)] font-light md:max-w-[300px] leading-relaxed">
                 Automate, track, and close more deals with real-time insights, custom workflows, and on-demand coaching.
               </p>
             </div>
@@ -84,7 +84,7 @@ export default function BentoGridEpicare() {
 
           <div
             id="bento-card-2" 
-            className="md:col-start-6 md:col-span-7 md:row-start-1 col-start-1 col-span-12 row-start-2 bento-card relative overflow-hidden border-r border-b border-[var(--color-border-Strokes-default)] bg-transparent hover:bg-black/[0.02] dark:hover:bg-[var(--color-surface-BG-base-Opacity)] transition-colors duration-500 h-[500px] will-change-transform group"
+            className="md:col-start-6 md:col-span-7 md:row-start-1 col-span-1 bento-card relative overflow-hidden border-r border-b border-[var(--color-border-Strokes-default)] bg-transparent hover:bg-black/[0.02] dark:hover:bg-[var(--color-surface-BG-base-Opacity)] transition-colors duration-500 h-[320px] md:h-[500px] will-change-transform group"
           >
             {/* Background Image */}
             <div className="absolute inset-[1px] z-0 overflow-hidden">
@@ -100,7 +100,7 @@ export default function BentoGridEpicare() {
           {/* Fila 2 */}
           <div 
             id="bento-card-3" 
-            className="md:col-start-1 md:col-span-8 md:row-start-2 col-start-1 col-span-12 row-start-3 flex flex-row justify-center items-center bento-card relative overflow-hidden border-r border-b border-[var(--color-border-Strokes-default)] bg-transparent hover:bg-black/[0.02] dark:hover:bg-[var(--color-surface-BG-base-Opacity)] transition-colors duration-500 h-[500px] will-change-transform group"
+            className="md:col-start-1 md:col-span-8 md:row-start-2 col-span-1 flex flex-row justify-center items-center bento-card relative overflow-hidden border-r border-b border-[var(--color-border-Strokes-default)] bg-transparent hover:bg-black/[0.02] dark:hover:bg-[var(--color-surface-BG-base-Opacity)] transition-colors duration-500 h-[320px] md:h-[500px] will-change-transform group"
           >
             {/* Background Image */}
             <div className="absolute inset-[1px] z-0 overflow-hidden">
@@ -115,15 +115,15 @@ export default function BentoGridEpicare() {
 
           <div 
             id="bento-card-4" 
-            className="md:col-start-9 md:col-span-4 md:row-start-2 col-start-1 col-span-12 row-start-4 bento-card relative overflow-hidden border-r border-b border-[var(--color-border-Strokes-default)] bg-transparent hover:bg-black/[0.02] dark:hover:bg-[var(--color-surface-BG-base-Opacity)] transition-colors duration-500 h-[500px] group will-change-transform"
+            className="md:col-start-9 md:col-span-4 md:row-start-2 col-span-1 bento-card relative overflow-hidden border-r border-b border-[var(--color-border-Strokes-default)] bg-transparent hover:bg-black/[0.02] dark:hover:bg-[var(--color-surface-BG-base-Opacity)] transition-colors duration-500 h-[320px] md:h-[500px] group will-change-transform"
           >
-            <AmsLogo className="absolute top-static-lg left-static-lg h-10 w-auto z-10 transition-colors duration-500" />
-            <ArrowIcon className="absolute top-static-lg right-static-lg w-6 h-6 text-black/50 dark:text-[var(--color-text-muted)] group-hover:text-[var(--color-text-Black-100)] dark:group-hover:text-[var(--color-text-White-100)] transition-colors duration-500" />
-            <div className="absolute bottom-static-lg left-static-lg flex flex-col gap-2">
+            <AmsLogo className="absolute top-[14px] md:top-static-lg left-[14px] md:left-static-lg h-10 w-auto z-10 transition-colors duration-500" />
+            <ArrowIcon className="absolute top-[14px] md:top-static-lg right-[14px] md:right-static-lg w-6 h-6 text-black/50 dark:text-[var(--color-text-muted)] group-hover:text-[var(--color-text-Black-100)] dark:group-hover:text-[var(--color-text-White-100)] transition-colors duration-500" />
+            <div className="absolute bottom-[14px] md:bottom-static-lg left-[14px] md:left-static-lg right-[14px] md:right-static-lg flex flex-col gap-2">
               <h3 id="card-4-title" className="text-h1 font-medium text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)] tracking-tight">
                 GO AMS
               </h3>
-              <p id="card-4-desc" className="text-body-xs text-black/60 dark:text-[var(--color-text-muted)] font-light max-w-[220px] leading-relaxed">
+              <p id="card-4-desc" className="text-body-xs text-black/60 dark:text-[var(--color-text-muted)] font-light md:max-w-[220px] leading-relaxed">
                 Seamless operation management with scalable tools and automated tracking.
               </p>
             </div>
@@ -132,7 +132,7 @@ export default function BentoGridEpicare() {
           {/* Fila 3 */}
           <div 
             id="bento-card-5" 
-            className="md:col-start-1 md:col-span-4 md:row-start-3 col-start-1 col-span-12 row-start-5 flex flex-col justify-end items-center bento-card relative overflow-hidden border-r border-b border-[var(--color-border-Strokes-default)] bg-transparent hover:bg-black/[0.02] dark:hover:bg-[var(--color-surface-BG-base-Opacity)] transition-colors duration-500 h-[600px] group will-change-transform"
+            className="md:col-start-1 md:col-span-4 md:row-start-3 col-span-1 flex flex-col justify-end items-center bento-card relative overflow-hidden border-r border-b border-[var(--color-border-Strokes-default)] bg-transparent hover:bg-black/[0.02] dark:hover:bg-[var(--color-surface-BG-base-Opacity)] transition-colors duration-500 h-[400px] md:h-[600px] group will-change-transform"
           >
             <div className="absolute inset-[1px] z-0 overflow-hidden">
               <img 
@@ -146,15 +146,15 @@ export default function BentoGridEpicare() {
 
           <div 
             id="bento-card-6" 
-            className="md:col-start-5 md:col-span-4 md:row-start-3 col-start-1 col-span-12 row-start-6 flex flex-col justify-end items-center bento-card relative overflow-hidden border-r border-b border-[var(--color-border-Strokes-default)] bg-transparent hover:bg-black/[0.02] dark:hover:bg-[var(--color-surface-BG-base-Opacity)] transition-colors duration-500 h-[600px] group will-change-transform"
+            className="md:col-start-5 md:col-span-4 md:row-start-3 col-span-1 flex flex-col justify-end items-center bento-card relative overflow-hidden border-r border-b border-[var(--color-border-Strokes-default)] bg-transparent hover:bg-black/[0.02] dark:hover:bg-[var(--color-surface-BG-base-Opacity)] transition-colors duration-500 h-[400px] md:h-[600px] group will-change-transform"
           >
-            <CallsLogo className="absolute top-static-lg left-static-lg h-10 w-auto z-10 transition-colors duration-500 drop-shadow-md" />
-            <ArrowIcon className="absolute top-static-lg right-static-lg w-6 h-6 text-white drop-shadow-md transition-colors duration-500 z-10" />
-            <div className="absolute bottom-static-lg left-static-lg flex flex-col gap-2 z-10 pointer-events-none">
+            <CallsLogo className="absolute top-[14px] md:top-static-lg left-[14px] md:left-static-lg h-10 w-auto z-10 transition-colors duration-500 drop-shadow-md" />
+            <ArrowIcon className="absolute top-[14px] md:top-static-lg right-[14px] md:right-static-lg w-6 h-6 text-white drop-shadow-md transition-colors duration-500 z-10" />
+            <div className="absolute bottom-[14px] md:bottom-static-lg left-[14px] md:left-static-lg right-[14px] md:right-static-lg flex flex-col gap-2 z-10 pointer-events-none">
               <h3 id="card-6-title" className="text-h2 font-medium text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)] tracking-tight">
                 GO CALLS
               </h3>
-              <p id="card-6-desc" className="text-body-xs text-black/60 dark:text-[var(--color-text-muted)] font-light max-w-[240px] leading-relaxed">
+              <p id="card-6-desc" className="text-body-xs text-black/60 dark:text-[var(--color-text-muted)] font-light md:max-w-[240px] leading-relaxed">
                 Connect and communicate seamlessly with crystal clear voice integration and tracking.
               </p>
             </div>
@@ -170,9 +170,9 @@ export default function BentoGridEpicare() {
 
           <div 
             id="bento-card-7" 
-            className="md:col-start-9 md:col-span-4 md:row-start-3 col-start-1 col-span-12 row-start-7 flex flex-col justify-center items-start px-static-xl bento-card relative overflow-hidden border-r border-b border-[var(--color-border-Strokes-default)] bg-transparent hover:bg-black/[0.02] dark:hover:bg-[var(--color-surface-BG-base-Opacity)] transition-colors duration-500 h-[600px] group will-change-transform"
+            className="md:col-start-9 md:col-span-4 md:row-start-3 col-span-2 flex flex-col justify-center items-start px-[14px] md:px-static-xl bento-card relative overflow-hidden border-r border-b border-[var(--color-border-Strokes-default)] bg-transparent hover:bg-black/[0.02] dark:hover:bg-[var(--color-surface-BG-base-Opacity)] transition-colors duration-500 h-[280px] md:h-[600px] group will-change-transform"
           >
-            <ArrowIcon className="absolute top-static-lg right-static-lg w-6 h-6 text-black/50 dark:text-[var(--color-text-muted)] group-hover:text-[var(--color-text-Black-100)] dark:group-hover:text-[var(--color-text-White-100)] transition-colors duration-500 z-10" />
+            <ArrowIcon className="absolute top-[14px] md:top-static-lg right-[14px] md:right-static-lg w-6 h-6 text-black/50 dark:text-[var(--color-text-muted)] group-hover:text-[var(--color-text-Black-100)] dark:group-hover:text-[var(--color-text-White-100)] transition-colors duration-500 z-10" />
             <div className="flex flex-col gap-4">
               <h3 id="card-7-title" className="text-h2 font-medium text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)] tracking-tight">
                 Smart Metrics

@@ -38,7 +38,7 @@ Familia Principal: `Inter` (La única tipografía permitida).
 
 **Vertical Padding (Secciones):**
 - `.py-section-xs`: clamp(2rem, 4vw, 4rem)
-- `.py-section-sm`: clamp(4rem, 6vw, 6rem)
+- `.py-section-sm`: clamp(4.75rem, 6vw, 6rem)
 - `.py-section-md`: clamp(6rem, 8vw, 10rem)
 - `.py-section-lg`: clamp(8rem, 12vw, 15rem)
 

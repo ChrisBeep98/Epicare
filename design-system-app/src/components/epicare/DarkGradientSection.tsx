@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -8,6 +8,8 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function DarkGradientSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -62,15 +64,23 @@ export default function DarkGradientSection() {
     }
   ];
 
+  const handleScroll = () => {
+    if (!scrollContainerRef.current) return;
+    const container = scrollContainerRef.current;
+    const scrollLeft = container.scrollLeft;
+    const index = Math.round(scrollLeft / (container.scrollWidth / features.length));
+    setActiveIndex(index);
+  };
+
   return (
     <section 
       ref={sectionRef}
-      className="relative w-full bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] pt-20 pb-0 md:pt-32 md:pb-0 z-20 overflow-hidden transition-colors duration-500 px-0 md:px-[clamp(1.5rem,4vw,3.5rem)]"
+      className="relative w-full bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] py-section-sm md:py-section-lg z-20 overflow-hidden transition-colors duration-500 px-[14px] md:px-[clamp(1.5rem,4vw,3.5rem)]"
     >
       <div className="max-w-section-lg mx-auto w-full">
         
         {/* Contenedor Transparente (Toma el fondo dinámico de la sección) */}
-        <div className="relative w-full min-h-[60vh] md:min-h-[75vh] rounded-none md:rounded-[12px] border-y border-x-0 md:border border-black/5 dark:border-white/5 overflow-hidden flex flex-col justify-center items-center text-center px-[14px] py-12 md:p-12 lg:p-16 bg-transparent transition-colors duration-500">
+        <div className="relative w-full min-h-[60vh] md:min-h-[75vh] rounded-[12px] border border-black/5 dark:border-white/5 overflow-hidden flex flex-col justify-center items-start md:items-center text-left md:text-center px-[14px] py-12 md:p-12 lg:p-16 bg-transparent transition-colors duration-500">
           
           {/* Fondo Azul Completo (Light Mode - Expansión total sin transparencia final) */}
           <div 
@@ -89,24 +99,28 @@ export default function DarkGradientSection() {
           />
 
           {/* Contenido Central (Clases Congeladas - Purga Fase 2) */}
-          <div className="relative z-10 flex flex-col items-center gap-6 md:gap-8 max-w-4xl mx-auto pb-4 md:pb-8">
+          <div className="relative z-10 flex flex-col items-start md:items-center gap-6 md:gap-8 max-w-4xl w-full md:mx-auto pb-4 md:pb-8">
             
-            <h2 className="fade-up text-display-lg text-center text-[var(--color-text-Black-100)] dark:text-white tracking-tighter leading-[1.05] transition-colors duration-500">
+            <h2 className="fade-up text-display text-left md:text-center text-[var(--color-text-Black-100)] dark:text-white tracking-tighter leading-[1.05] transition-colors duration-500">
               Everything You Need to Succeed
             </h2>
 
-            <p className="fade-up text-body text-center text-[var(--color-text-Black-100)]/70 dark:text-white/70 max-w-2xl font-light transition-colors duration-500">
-              At Epicare, we don’t just open doors to the insurance industry — we walk with you every step of the way. Whether you’re just getting started or looking to grow, we provide the tools, support, and opportunities you need.
+            <p className="fade-up text-body text-left md:text-center text-[var(--color-text-Black-100)]/70 dark:text-white/70 max-w-2xl font-light transition-colors duration-500">
+              We don’t just open doors — we provide the tools, support, and opportunities you need to succeed at every step.
             </p>
 
           </div>
 
           {/* Grid de Cards: Liquid Glass Edge-to-Edge */}
-          <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[14px] md:gap-6 w-full mt-4 md:mt-12 perspective-[1000px]">
+          <div 
+            ref={scrollContainerRef}
+            onScroll={handleScroll}
+            className="relative z-10 flex md:grid md:grid-cols-4 overflow-x-auto overflow-y-hidden md:overflow-x-visible md:overflow-y-visible scrollbar-none gap-[14px] md:gap-6 w-full mt-4 md:mt-12 md:perspective-[1000px]"
+          >
             {features.map((card, idx) => (
               <div 
                 key={idx} 
-                className="fade-up flex flex-col rounded-[8px] bg-[#0A0A0A] dark:bg-transparent backdrop-blur-md border border-white/10 hover:border-white/20 transition-all duration-500 shadow-sm hover:shadow-[0_16px_48px_rgba(5,72,235,0.15)] hover:-translate-y-2 cursor-pointer group overflow-hidden"
+                className="fade-up flex flex-col shrink-0 w-[80vw] md:w-auto rounded-[8px] bg-[#0A0A0A] dark:bg-transparent backdrop-blur-md border border-white/10 hover:border-white/20 transition-all duration-500 shadow-sm hover:shadow-[0_16px_48px_rgba(5,72,235,0.15)] hover:md:-translate-y-2 cursor-pointer group overflow-hidden"
               >
                 {/* Bloque de Texto Superior (Step, Título y Cuerpo Largo) */}
                 <div className="flex flex-col p-[14px] md:p-6 w-full gap-3 text-left">
@@ -142,9 +156,48 @@ export default function DarkGradientSection() {
               </div>
             ))}
           </div>
+
+          {/* Dots Indicator (Mobile Only) */}
+          <div className="flex md:hidden justify-center gap-2 mt-6 z-10">
+            {features.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => {
+                  if (scrollContainerRef.current) {
+                    const container = scrollContainerRef.current;
+                    const targetCard = container.children[idx] as HTMLElement;
+                    if (targetCard) {
+                      // Usar GSAP para animar el scroll horizontal de manera ultra-suave
+                      gsap.to(container, {
+                        scrollLeft: targetCard.offsetLeft - 14,
+                        duration: 0.6,
+                        ease: "power2.out"
+                      });
+                    }
+                  }
+                }}
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  activeIndex === idx 
+                    ? 'bg-[var(--color-brand-blue)] w-4' 
+                    : 'bg-white/20'
+                }`}
+                aria-label={`Go to slide ${idx + 1}`}
+              />
+            ))}
+          </div>
           
         </div>
       </div>
+
+      <style>{`
+        .scrollbar-none::-webkit-scrollbar {
+          display: none;
+        }
+        .scrollbar-none {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+      `}</style>
     </section>
   );
 }

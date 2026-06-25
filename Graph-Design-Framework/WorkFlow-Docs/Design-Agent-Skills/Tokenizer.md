@@ -146,6 +146,23 @@ If there are ZERO violations, explicitly state: **"✅ ZERO typography violation
 *   **Fluid Layout Gaps:** For spacing structural columns, use `.gap-fluid-[xs|sm|md|lg]`.
 *   **Grid Consistency:** For internal micro-spacing (e.g. within buttons or small cards), use `gap-1` through `gap-6`.
 
+#### 2.1 🚨 PROTOCOLO DE REVISIÓN: Espaciado Vertical y Simetría (Secciones)
+Para asegurar que no existan saltos visuales desordenados, acumulaciones dobles de margen o asimetrías molestas en dispositivos móviles y de escritorio, el agente DEBE ejecutar esta lista de chequeo en cada auditoría y modificación:
+
+1. **Evitar la Acumulación de Margen/Padding:**
+   - Si la *Sección A* tiene un padding inferior (`pb-section-*` o `pb-0`), la *Sección B* adyacente no debe duplicar ese espacio con un margen superior (`mt-*`) o padding superior (`pt-*`) redundante.
+   - **Regla de Oro:** Solo una de las dos secciones adyacentes debe controlar el espacio divisor principal, preferiblemente a través de paddings utilitarios de sección (`pt-section-*` / `pb-section-*`), manteniendo la otra cara en `0` (ej: `pb-0` o `pt-0`).
+
+2. **Simetría Vertical y Consistencia en Mobile (76px):**
+   - En mobile, el espacio estándar entre secciones principales (ej. Carrusel de marcas, Métricas, Secciones de gradiente) debe resolverse estrictamente a **76px** (`4.75rem` / `var(--space-section-sm)`).
+   - Se debe auditar activamente que no existan clases responsivas desalineadas (ej. `mt-10 md:mt-24` que rompa la simetría con `mb-12`). El comportamiento debe ser balanceado en ambos extremos de un bloque visual.
+
+3. **Checklist de Auditoría de Espaciado Vertical:**
+   - [ ] ¿Hay valores arbitrarios de espaciado en píxeles (ej: `mt-[50px]`, `py-[80px]`)? *Violación de la Zero Px Policy.*
+   - [ ] ¿Hay secciones consecutivas sumando espaciado (ej. `pb-section-sm` en A y `pt-section-sm` en B creando un espacio gigante no intencional)?
+   - [ ] ¿Los márgenes y paddings verticales de las secciones en móviles guardan simetría proporcional?
+   - [ ] ¿Se utiliza adecuadamente el token `--space-section-sm` (`4.75rem` / 76px) en pantallas móviles?
+
 ### 3. 🎨 CHROMATIC DIMENSION (Colors & Atmosphere)
 *   **Theme Readiness:** Check for HARDCODED dark values (DARK MODE IS DISABLED for GO AMS AI).
 *   **Palette:** Are colors strictly from the defined palette (Earthy Gradient)?

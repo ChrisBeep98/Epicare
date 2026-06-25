@@ -306,7 +306,7 @@ export default function DesignSystemPage() {
             <SpacingCard 
               label="3. Section Padding" 
               token={activeSectionPadding}
-              value={activeSectionPadding === 'py-section-xs' ? '2rem — 4rem' : activeSectionPadding === 'py-section-sm' ? '4rem — 6rem' : activeSectionPadding === 'py-section-md' ? '6rem — 10rem' : '8rem — 15rem'}
+              value={activeSectionPadding === 'py-section-xs' ? '2rem — 4rem' : activeSectionPadding === 'py-section-sm' ? '4.75rem (76px) — 6rem' : activeSectionPadding === 'py-section-md' ? '6rem — 10rem' : '8rem — 15rem'}
               usage="El ritmo vertical entre grandes bloques."
               options={['py-section-xs', 'py-section-sm', 'py-section-md', 'py-section-lg']}
               activeOption={activeSectionPadding}
