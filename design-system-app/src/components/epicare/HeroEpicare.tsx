@@ -9,11 +9,16 @@ export default function HeroEpicare() {
   const t = useTranslations('landingV2.hero');
   const [isDark, setIsDark] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isHeaderForcedDark, setIsHeaderForcedDark] = useState(false);
+  const [isHeaderPill, setIsHeaderPill] = useState(false);
   
   const containerRef = useRef<HTMLDivElement>(null);
   const videoWrapperRef = useRef<HTMLDivElement>(null);
   const heroContentRef = useRef<HTMLDivElement>(null);
   const navRef = useRef<HTMLElement>(null);
+  const navBgRef = useRef<HTMLDivElement>(null);
+  const logoARef = useRef<HTMLDivElement>(null);
+  const logoBRef = useRef<HTMLDivElement>(null);
   const vignetteRef = useRef<HTMLDivElement>(null);
   const scrollIndicatorRef = useRef<HTMLDivElement>(null);
   const scrollLineRef = useRef<HTMLDivElement>(null);
@@ -24,12 +29,8 @@ export default function HeroEpicare() {
     // Fix para móvil: ignorar el resize de la barra de direcciones
     ScrollTrigger.config({ ignoreMobileResize: true });
     
-    if (!document.documentElement.classList.contains('dark')) {
-      document.documentElement.classList.add('dark');
-      setIsDark(true);
-    } else {
-      setIsDark(true);
-    }
+    const isDarkTheme = document.documentElement.classList.contains('dark');
+    setIsDark(isDarkTheme);
 
     const ctx = gsap.context(() => {
       // Animación infinita de la línea de scroll
@@ -49,6 +50,11 @@ export default function HeroEpicare() {
       // Asegurar que la viñeta oscura empiece invisible
       gsap.set(vignetteRef.current, { opacity: 0 });
 
+      // Configurar z-indexes iniciales y estado del logo handoff
+      gsap.set(navBgRef.current, { zIndex: 1 });
+      gsap.set(logoBRef.current, { opacity: 0, pointerEvents: 'none' });
+      gsap.set(logoARef.current, { opacity: 1, pointerEvents: 'auto' });
+
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
@@ -63,9 +69,26 @@ export default function HeroEpicare() {
             } else {
               setIsExpanded(false);
             }
+
+            // Force dark header style during Act 2 expansion (when background video is fullscreen behind header)
+            if (self.progress >= 0.35 && self.progress < 0.95) {
+              setIsHeaderForcedDark(true);
+            } else {
+              setIsHeaderForcedDark(false);
+            }
+
+            // Header becomes a pill from Act 2 onwards (progress >= 0.35)
+            if (self.progress >= 0.35) {
+              setIsHeaderPill(true);
+            } else {
+              setIsHeaderPill(false);
+            }
           }
         }
       });
+
+      // Acto 1 -> Asegurar z-indexes durante la animación de expansión
+      tl.set(navBgRef.current, { zIndex: 1 }, 0);
 
       // Acto 1 -> Desaparece el indicador de scroll apenas se mueve la rueda
       tl.to(scrollIndicatorRef.current, {
@@ -92,14 +115,35 @@ export default function HeroEpicare() {
         ease: "power2.inOut"
       }, 0);
 
-      // Acto 1 -> El logo ajusta su padding para alinearse perfectamente con el Navbar
-      const isMobile = window.innerWidth < 768;
-      tl.to("#epicare-logo-container", {
-        top: "10px",
-        left: isMobile ? "var(--space-gutter-sm)" : "var(--space-gutter-md)", // En mobile será ligeramente distinto si usamos medias, pero esto asegura la posición final
+      // Acto 1 -> El logo viaja al Navbar flotante (Centrado dinámicamente)
+      tl.to(logoARef.current, {
+        top: "18px",
+        left: () => {
+          const img = logoBRef.current?.querySelector('img');
+          const rect = img ? img.getBoundingClientRect() : logoBRef.current?.getBoundingClientRect();
+          return rect ? rect.left : 24;
+        },
         duration: 1,
         ease: "power2.inOut"
       }, 0);
+
+      // Acto 1 -> Logo handoff crossfade (de 0.9 a 1.0)
+      tl.to(logoARef.current, {
+        opacity: 0,
+        pointerEvents: "none",
+        duration: 0.1,
+        ease: "power2.inOut"
+      }, 0.9);
+
+      tl.to(logoBRef.current, {
+        opacity: 1,
+        pointerEvents: "auto",
+        duration: 0.1,
+        ease: "power2.inOut"
+      }, 0.9);
+
+      // Acto 1 -> Swap de z-indexes al completar la expansión (time 1.0)
+      tl.set(navBgRef.current, { zIndex: 999998 }, 1.0);
 
       // Acto 1 -> Aparece la viñeta oscura
       tl.to(vignetteRef.current, {
@@ -171,13 +215,91 @@ export default function HeroEpicare() {
     });
   };
 
+  const navLayoutClass = isHeaderPill
+    ? "top-2 h-14 md:h-16"
+    : "top-4 md:top-6 h-16";
+
+  const navBgClass = isHeaderPill
+    ? (isHeaderForcedDark 
+        ? "bg-black/20 border-white/10 dark:border-white/5 shadow-elevation-2 rounded-full border backdrop-blur-md" 
+        : "bg-white/50 dark:bg-black/20 border-black/10 dark:border-white/5 shadow-elevation-2 rounded-full border backdrop-blur-md")
+    : "bg-transparent border-transparent shadow-none rounded-none";
+
+  const iconColorClass = (isHeaderForcedDark || isDark)
+    ? "text-white hover:text-white/80"
+    : "text-[var(--color-text-Black-100)] hover:opacity-80";
+
+  const logoColorClass = (isHeaderForcedDark || isDark)
+    ? "brightness-100"
+    : "brightness-0 dark:brightness-100";
+
   return (
-    <div className="w-full overflow-x-hidden bg-[var(--color-surface-BG-black)]">
-      <div ref={containerRef} className="w-full relative bg-[var(--color-surface-BG-black)] text-[var(--color-text-primary)]">
+    <div className="w-full overflow-x-hidden bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)]">
+      
+      {/* Background Pill Layer (z-[10] inicialmente para quedar detrás del video/Logo A) */}
+      <div 
+        ref={navBgRef}
+        className={`fixed left-[var(--space-gutter-sm)] right-[var(--space-gutter-sm)] lg:left-[var(--space-gutter-md)] lg:right-[var(--space-gutter-md)] pointer-events-none transition-all duration-300 ${navLayoutClass} ${navBgClass}`}
+      />
+
+      {/* Controls & Logo B Layer (z-[999999] siempre al frente) */}
+      <nav 
+        ref={navRef} 
+        className={`fixed left-[var(--space-gutter-sm)] right-[var(--space-gutter-sm)] lg:left-[var(--space-gutter-md)] lg:right-[var(--space-gutter-md)] flex justify-between items-center px-4 md:px-6 z-[999999] pointer-events-auto transition-all duration-300 ${navLayoutClass}`}
+      >
+        {/* Logo B (Empieza invisible, se muestra mediante crossfade al final del Acto 1) */}
+        <div 
+          ref={logoBRef}
+          id="fixed-navbar-logo" 
+          className="w-[120px] md:w-[150px] flex-shrink-0 flex items-center opacity-0 pointer-events-none"
+        >
+          <img 
+            src="/epicare_logo.svg" 
+            alt="Epicare Insurance Logo" 
+            className={`h-[36px] md:h-[44px] w-auto object-contain drop-shadow-lg transition-all duration-300 ${logoColorClass}`}
+          />
+        </div>
+        
+        {/* Botones de acción */}
+        <div className={`flex items-center gap-fluid-xs transition-colors duration-300 ${iconColorClass}`}>
+          <button 
+            type="button" 
+            onClick={toggleTheme} 
+            className="w-10 h-10 flex items-center justify-center cursor-pointer relative z-50 transition-transform duration-300 hover:scale-110 active:scale-95"
+          >
+            {isDark ? (
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="transition-all duration-300">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+              </svg>
+            ) : (
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="transition-all duration-300">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+              </svg>
+            )}
+          </button>
+          <button type="button" className="w-10 h-10 flex items-center justify-center cursor-pointer relative z-50 transition-opacity hover:opacity-70">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="4" x2="20" y1="12" y2="12"/>
+              <line x1="4" x2="20" y1="6" y2="6"/>
+              <line x1="4" x2="20" y1="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
+      </nav>
+
+      <div ref={containerRef} className="w-full relative z-10 bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] text-[var(--color-text-primary)]">
         
         {/* Viewport Fijo para la experiencia cinemática */}
         <div 
-          className="sticky top-0 h-[100dvh] w-full overflow-hidden flex items-center justify-center bg-[var(--color-surface-BG-black)]"
+          className="sticky top-0 h-[100dvh] w-full overflow-hidden flex items-center justify-center bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)]"
           style={{ perspective: "1200px" }}
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
@@ -186,7 +308,7 @@ export default function HeroEpicare() {
           {/* EL VIDEO (ACTO 1: Pequeño y sin viñeta -> ACTO 2: Fullscreen con viñeta) */}
           <div 
             ref={videoWrapperRef} 
-            className="relative w-[95vw] md:w-full h-[64dvh] md:h-[70dvh] rounded-[2rem] md:rounded-[4px] overflow-hidden shadow-[0_40px_80px_rgba(0,0,0,0.8)] border border-white/10 will-change-transform z-0"
+            className="relative w-[95vw] md:w-full h-[64dvh] md:h-[70dvh] rounded-[2rem] md:rounded-[4px] overflow-hidden shadow-elevation-2 bg-[var(--color-surface-BG-black)] will-change-transform z-0"
             style={{ transformStyle: 'preserve-3d' }}
           >
             {/* EL ÚNICO LOGO: Vive permanentemente aquí adentro. 
@@ -194,8 +316,9 @@ export default function HeroEpicare() {
                 Al expandirse el video, GSAP mueve este logo sutilmente 
                 para que quede perfectamente alineado con el Navbar en el Acto 2. */}
             <div 
+              ref={logoARef}
               id="epicare-logo-container"
-              className="absolute top-static-lg left-static-lg md:top-static-xl md:left-static-xl z-[60] pointer-events-auto will-change-transform"
+              className="absolute top-static-lg left-static-lg md:top-static-xl md:left-static-xl z-[1000000] pointer-events-auto will-change-transform"
             >
               <img src="/epicare_logo.svg" alt="Epicare Insurance Logo" className="h-[36px] md:h-[44px] w-auto object-contain drop-shadow-lg" />
             </div>
@@ -218,7 +341,7 @@ export default function HeroEpicare() {
             ref={scrollIndicatorRef}
             className="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center gap-static-md z-[60] pointer-events-none"
           >
-            <span className="text-[0.5625rem] uppercase tracking-[0.4em] text-[var(--color-text-White-100)] font-light">
+            <span className="text-[0.5625rem] uppercase tracking-[0.4em] text-[var(--color-text-primary)] font-light">
               {t('scrollDown')}
             </span>
             <div className="w-[1px] h-10 bg-[var(--color-border-Strokes-default)] relative overflow-hidden">
@@ -227,44 +350,8 @@ export default function HeroEpicare() {
           </div>
 
           {/* UI LAYER SUPERPUESTA */}
-          <div className="absolute inset-0 w-full h-full z-10 flex flex-col pointer-events-none">
+          <div className="absolute inset-0 w-full h-full z-[200] flex flex-col pointer-events-none">
             
-            {/* Navbar (Visible desde el Acto 1 con Theme Switch y Hamburger Menu) */}
-            <nav ref={navRef} className="h-16 w-full flex-shrink-0 px-[var(--space-gutter-sm)] lg:px-[var(--space-gutter-md)] flex justify-end items-center bg-transparent z-[9999] pointer-events-none">
-              <div className="flex items-center gap-fluid-xs pointer-events-auto">
-                <button 
-                  type="button" 
-                  onClick={toggleTheme} 
-                  className="text-[var(--color-text-primary)] w-10 h-10 flex items-center justify-center cursor-pointer relative z-50 transition-transform duration-300 hover:scale-110 active:scale-95"
-                >
-                  {isDark ? (
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="transition-all duration-300">
-                      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                  ) : (
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="transition-all duration-300">
-                      <circle cx="12" cy="12" r="5"></circle>
-                      <line x1="12" y1="1" x2="12" y2="3"></line>
-                      <line x1="12" y1="21" x2="12" y2="23"></line>
-                      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                      <line x1="1" y1="12" x2="3" y2="12"></line>
-                      <line x1="21" y1="12" x2="23" y2="12"></line>
-                      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                  )}
-                </button>
-                <button type="button" className="text-[var(--color-text-primary)] w-10 h-10 flex items-center justify-center cursor-pointer relative z-50 transition-opacity hover:opacity-70">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                    <line x1="4" x2="20" y1="12" y2="12"/>
-                    <line x1="4" x2="20" y1="6" y2="6"/>
-                    <line x1="4" x2="20" y1="18" y2="18"/>
-                  </svg>
-                </button>
-              </div>
-            </nav>
-
             {/* Hero Content Original */}
             <section ref={heroContentRef} className="w-full flex-1 px-[var(--space-gutter-sm)] lg:px-[var(--space-gutter-md)] flex flex-col pt-[120px] pb-[40px] md:pb-[60px] relative">
               <div className="grid-layout flex-1 max-w-section-xl w-full mx-auto pointer-events-auto">
@@ -289,7 +376,7 @@ export default function HeroEpicare() {
                     <button className="w-fit bg-[var(--color-action-primary-bg)] text-[var(--color-action-primary-text)] px-static-xl py-static-md rounded-full text-ui-label hover:opacity-90 transition-all flex justify-center items-center shadow-elevation-2">
                       {t('ctaPlans')}
                     </button>
-                    <button className="w-fit bg-white/10 border border-[var(--color-border-Strokes-White-100)] text-[var(--color-text-primary)] px-static-xl py-static-md rounded-full text-ui-label hover:bg-white/20 transition-all flex justify-center items-center shadow-elevation-1">
+                    <button className="w-fit bg-white/10 border border-[var(--color-border-Strokes-White-100)] text-[var(--color-text-White-100)] px-static-xl py-static-md rounded-full text-ui-label hover:bg-white/20 transition-all flex justify-center items-center shadow-elevation-1">
                       {t('ctaAgents')}
                     </button>
                   </div>

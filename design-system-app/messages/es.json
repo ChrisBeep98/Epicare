@@ -17,6 +17,12 @@
       "titleLine1": "Diseñado para escalar",
       "titleLine2": "las operaciones de",
       "titleLine3": "seguros más exigentes."
+    },
+    "bento": {
+      "itemDiTitle": "Item DI",
+      "itemDiDesc": "Eleva tu flujo de trabajo de seguros con herramientas inteligentes.",
+      "itemOmsTitle": "Item OMS",
+      "itemOmsDesc": "El sistema operativo supremo para agencias de élite."
     }
   }
 }

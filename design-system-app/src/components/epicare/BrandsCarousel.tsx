@@ -2,7 +2,6 @@
 
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
-import MetricsEpicare from './MetricsEpicare';
 
 const brands = [
   "68b074e0f62ece962b5d26cb_12.avif",
@@ -119,7 +118,7 @@ export default function BrandsCarousel() {
   );
 
   return (
-    <section className="relative w-full bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] text-[var(--color-text-Black-100)] dark:text-white z-20 mt-[-100vh] flex flex-col justify-start pt-[8vh] md:pt-[15vh] transition-colors duration-500">
+    <section className="relative w-full bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] text-[var(--color-text-Black-100)] dark:text-white z-20 mt-[-100vh] flex flex-col justify-start pt-[8vh] md:pt-[15vh] pb-[8vh] md:pb-[10vh] transition-colors duration-500">
       
       <div className="w-full flex flex-col items-center px-4">
         
@@ -148,10 +147,6 @@ export default function BrandsCarousel() {
 
           </div>
         </div>
-      </div>
-
-      <div className="w-full mt-fluid-xl px-4">
-        <MetricsEpicare />
       </div>
 
       <style>{`

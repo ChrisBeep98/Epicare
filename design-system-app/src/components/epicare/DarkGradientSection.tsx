@@ -65,12 +65,12 @@ export default function DarkGradientSection() {
   return (
     <section 
       ref={sectionRef}
-      className="relative w-full bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] py-20 md:py-32 z-20 overflow-hidden transition-colors duration-500 px-[14px] md:px-[clamp(1.5rem,4vw,3.5rem)]"
+      className="relative w-full bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] pt-20 pb-0 md:pt-32 md:pb-0 z-20 overflow-hidden transition-colors duration-500 px-0 md:px-[clamp(1.5rem,4vw,3.5rem)]"
     >
       <div className="max-w-section-lg mx-auto w-full">
         
         {/* Contenedor Transparente (Toma el fondo dinámico de la sección) */}
-        <div className="relative w-full min-h-[60vh] md:min-h-[75vh] rounded-[12px] border border-black/5 dark:border-white/5 overflow-hidden flex flex-col justify-center items-center text-center px-[14px] py-12 md:p-12 lg:p-16 bg-transparent transition-colors duration-500">
+        <div className="relative w-full min-h-[60vh] md:min-h-[75vh] rounded-none md:rounded-[12px] border-y border-x-0 md:border border-black/5 dark:border-white/5 overflow-hidden flex flex-col justify-center items-center text-center px-[14px] py-12 md:p-12 lg:p-16 bg-transparent transition-colors duration-500">
           
           {/* Fondo Azul Completo (Light Mode - Expansión total sin transparencia final) */}
           <div 

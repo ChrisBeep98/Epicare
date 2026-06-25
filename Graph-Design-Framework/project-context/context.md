@@ -126,6 +126,8 @@ Los componentes del nuevo diseño están consolidados en:
     - Se redujo la altura del video a `64dvh` en móvil y se centró verticalmente, eliminando anclajes al fondo para crear espacio de respiro inferior.
     - El indicador de *Scroll Down* fue reposicionado a `bottom-4` y actualizado con token blanco puro (`text-White-100`).
     - El *Header* (Theme Switch & Hamburger Menu) se hizo visible desde el Acto 1. Se rediseñó bajo un concepto puramente minimalista usando solo íconos vectoriales SVG sin fondos ni bordes, optimizado con animaciones de micro-interacción.
+113. **[NUEVO] Epicare Services Bento — Iluminación Bimodal & Edge-to-Edge (23 Jun 2026):**
+    - Refactorización de `DarkGradientSection` con luz radial adaptativa (Foco nocturno vs. Wash expandido diurno), tarjetas "Dark" de alto contraste forzadas en Light Mode, integración de PNGs vectoriales transparentes, y ajuste Edge-to-Edge móvil con 14px de padding.
 
 ## 6. Próximos Pasos (To-Do)
 - Empezar la construcción de la **Página de Inicio (Home)** integrando el motor de `HeroSequence` con los nuevos tokens de espaciado.

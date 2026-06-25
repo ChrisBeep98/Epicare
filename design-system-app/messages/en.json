@@ -17,6 +17,12 @@
       "titleLine1": "Engineered to scale",
       "titleLine2": "the most demanding",
       "titleLine3": "insurance operations."
+    },
+    "bento": {
+      "itemDiTitle": "Item DI",
+      "itemDiDesc": "Elevate your insurance workflow with intelligent tools.",
+      "itemOmsTitle": "Item OMS",
+      "itemOmsDesc": "The supreme operating system for elite agencies."
     }
   }
 }

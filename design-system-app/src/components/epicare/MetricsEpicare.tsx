@@ -49,7 +49,7 @@ const AnimatedNumber = ({ value }: { value: string }) => {
 
 export default function MetricsEpicare() {
   const t = useTranslations('landingV2.metrics');
-  const sectionRef = useRef<HTMLElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -111,25 +111,25 @@ export default function MetricsEpicare() {
   ];
 
   return (
-    <>
+    <section className="relative w-full bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] text-[var(--color-text-Black-100)] dark:text-white transition-colors duration-500 z-20">
       <div 
         ref={sectionRef}
         id="metrics-layout"
-        className="w-full mt-auto py-section-md"
+        className="w-full mt-auto py-section-lg px-4"
       >
         <div className="max-w-section-lg mx-auto relative z-10 flex flex-col gap-fluid-lg w-full">
           {/* Título Display de 3 líneas con Water Mask en Grid de 12 columnas */}
-          <div className="grid-layout w-full">
+          <div className="grid-layout w-full hidden">
             <div className="col-start-1 col-span-6 md:col-start-1 md:col-span-10 flex flex-col justify-start items-start">
               {/* Desktop Version: Animación por línea estricta forzada */}
-              <h2 className="hidden md:block text-display-xl text-left w-full font-medium text-[var(--color-text-Black-100)] dark:text-white tracking-tighter leading-[1.05] transition-colors duration-500">
+              <h2 className="hidden md:block text-display-lg text-left w-full font-medium text-[var(--color-text-Black-100)] dark:text-white tracking-tighter leading-[1.05] transition-colors duration-500">
                 <span className="block overflow-hidden pb-2"><span className="title-line block will-change-transform">{t('titleLine1')}</span></span>
                 <span className="block overflow-hidden pb-2"><span className="title-line block will-change-transform">{t('titleLine2')}</span></span>
                 <span className="block overflow-hidden pb-2"><span className="title-line block will-change-transform text-[var(--color-brand-blue)]">{t('titleLine3')}</span></span>
               </h2>
 
               {/* Mobile Version: Water Mask Palabra por Palabra (flujo natural) */}
-              <h2 className="block md:hidden text-display-xl text-left w-full font-medium text-[var(--color-text-Black-100)] dark:text-white tracking-tighter leading-[1.05] flex flex-wrap gap-y-1 transition-colors duration-500">
+              <h2 className="block md:hidden text-display-lg text-left w-full font-medium text-[var(--color-text-Black-100)] dark:text-white tracking-tighter leading-[1.05] flex flex-wrap gap-y-1 transition-colors duration-500">
                 {t('titleLine1').split(" ").map((word, i) => (
                   <span key={`w1-${i}`} className="inline-flex overflow-hidden align-bottom mr-[0.25em]">
                     <span className="title-word inline-block will-change-transform">{word}</span>
@@ -164,6 +164,6 @@ export default function MetricsEpicare() {
           </div>
         </div>
       </div>
-    </>
+    </section>
   );
 }

@@ -1,13 +1,17 @@
 import HeroEpicare from "@/components/epicare/HeroEpicare";
 import BrandsCarousel from "@/components/epicare/BrandsCarousel";
 import DarkGradientSection from "@/components/epicare/DarkGradientSection";
+import MetricsEpicare from "@/components/epicare/MetricsEpicare";
+import BentoGridEpicare from "@/components/epicare/BentoGridEpicare";
 
 export default function EpicareLandingPage() {
   return (
-    <main className="min-h-screen bg-[var(--color-surface-BG-black)] transition-colors duration-500">
+    <main className="min-h-screen bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] transition-colors duration-500">
       <HeroEpicare />
       <BrandsCarousel />
       <DarkGradientSection />
+      <MetricsEpicare />
+      <BentoGridEpicare />
     </main>
   );
 }
