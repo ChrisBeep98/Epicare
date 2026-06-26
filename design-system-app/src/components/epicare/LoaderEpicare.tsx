@@ -29,9 +29,7 @@ export default function LoaderEpicare() {
         { opacity: 1, x: 0, filter: "blur(0px)", duration: 1.2, stagger: 0.045 },
         "-=1.35" // Overlap para que las letras empiecen a entrar casi con el ícono
       )
-      // 3. Pausa para apreciar el logo completo
-      .to({}, { duration: 0.5 })
-      // 4. Salida elegante (zoom out suave + fade con blur y mayor duración)
+      // 3. Salida elegante (zoom out suave + fade con blur)
       .to(".loader-inner", {
         scale: 0.95,
         opacity: 0,

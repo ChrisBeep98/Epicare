@@ -508,7 +508,7 @@ body {
 .loader {
   position: fixed;
   inset: 0;
-  z-index: 99999; /* Asegura que esté por encima de todo */
+  z-index: 9999999; /* Asegura que esté por encima de todo */
   display: flex;
   align-items: center;
   justify-content: center;
