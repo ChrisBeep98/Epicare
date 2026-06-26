@@ -19,6 +19,7 @@ export default function HeroEpicare() {
   const vignetteRef = useRef<HTMLDivElement>(null);
   const scrollIndicatorRef = useRef<HTMLDivElement>(null);
   const scrollLineRef = useRef<HTMLDivElement>(null);
+  const bigLogoRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -79,7 +80,7 @@ export default function HeroEpicare() {
         }
       });
 
-      // Acto 1 -> Desaparece el indicador de scroll apenas se mueve la rueda
+      // Acto 1 -> Desaparece el indicador de scroll y el gran logo apenas se mueve la rueda
       tl.to(scrollIndicatorRef.current, {
         opacity: 0,
         y: 20,
@@ -87,9 +88,17 @@ export default function HeroEpicare() {
         ease: "power2.out"
       }, 0);
 
+      tl.to(bigLogoRef.current, {
+        opacity: 0,
+        y: -30,
+        duration: 0.3,
+        ease: "power2.out"
+      }, 0);
+
       // Acto 1 -> Expansión del Video a Full Screen
       tl.to(videoWrapperRef.current, {
         width: "100%", // Se usa 100% en vez de 100vw para evitar scroll horizontal por culpa de la barra de desplazamiento
+        maxWidth: "100%",
         height: "100dvh", // Uso de dvh para evitar saltos en móvil
         borderRadius: "0px",
         rotationX: 0,
@@ -182,17 +191,17 @@ export default function HeroEpicare() {
         
         {/* Viewport Fijo para la experiencia cinemática */}
         <div 
-          className="sticky top-0 h-[100dvh] w-full overflow-hidden flex items-center justify-center bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)]"
+          className="sticky top-0 h-[100dvh] w-full overflow-hidden flex flex-col items-center justify-end bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)]"
           style={{ perspective: "1200px" }}
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
         >
-          
+
           {/* EL VIDEO (ACTO 1: Pequeño y sin viñeta -> ACTO 2: Fullscreen con viñeta) */}
           <div 
             ref={videoWrapperRef} 
-            className="relative w-[95vw] md:w-full h-[64dvh] md:h-[70dvh] rounded-[2rem] md:rounded-[4px] overflow-hidden shadow-elevation-2 bg-[var(--color-surface-BG-black)] will-change-transform z-0"
-            style={{ transformStyle: 'preserve-3d' }}
+            className="relative w-[95vw] md:w-[85vw] lg:w-[1100px] max-w-[100%] h-[64dvh] md:h-[70dvh] rounded-[2rem] md:rounded-t-[2rem] md:rounded-b-none overflow-hidden shadow-elevation-2 bg-[var(--color-surface-BG-black)] will-change-transform z-0"
+            style={{ transformStyle: 'preserve-3d', transformOrigin: 'bottom center' }}
           >
             <video 
               autoPlay 
@@ -203,6 +212,19 @@ export default function HeroEpicare() {
             >
               <source src="/Files/Epicare_Landing/Hero/epicare_landing_hero.mp4" type="video/mp4" />
             </video>
+
+            {/* GRAN LOGO CENTRAL (DENTRO DEL VIDEO, ACTO 1) */}
+            <div 
+              ref={bigLogoRef} 
+              className="absolute top-10 md:top-14 left-1/2 -translate-x-1/2 z-[60] flex flex-col items-center pointer-events-none"
+            >
+              <img 
+                src="/epicare_logo.svg" 
+                alt="Epicare" 
+                className="w-[180px] md:w-[240px] filter brightness-0 invert opacity-100 mix-blend-difference" 
+              />
+            </div>
+
             {/* Overlay gradient que empieza oculto y aparece en pantalla completa */}
             <div ref={vignetteRef} className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/60 pointer-events-none opacity-0 z-[50]" />
           </div>
@@ -210,13 +232,13 @@ export default function HeroEpicare() {
           {/* INDICADOR DE SCROLL MINIMALISTA (ACTO 1) */}
           <div 
             ref={scrollIndicatorRef}
-            className="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center gap-static-md z-[60] pointer-events-none"
+            className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-static-md z-[60] pointer-events-none drop-shadow-md"
           >
-            <span className="text-[0.5625rem] uppercase tracking-[0.4em] text-[var(--color-text-primary)] font-light">
+            <span className="text-[0.5625rem] uppercase tracking-[0.4em] text-white font-light">
               {t('scrollDown')}
             </span>
-            <div className="w-[1px] h-10 bg-[var(--color-border-Strokes-default)] relative overflow-hidden">
-              <div ref={scrollLineRef} className="w-full h-full bg-[var(--color-brand-blue)] opacity-80" />
+            <div className="w-[1px] h-10 bg-white/20 relative overflow-hidden">
+              <div ref={scrollLineRef} className="w-full h-full bg-white opacity-80" />
             </div>
           </div>
 
