@@ -15,7 +15,7 @@ Familia Principal: `Inter` (La única tipografía permitida).
 | `.text-display-3xl` | clamp(6rem, 12vw, 12rem) | Títulos masivos, hero principal |
 | `.text-display-2xl` | clamp(4.5rem, 8vw, 8rem) | Títulos gigantes |
 | `.text-display-xl` | clamp(3.5rem, 6vw, 6rem), tracking: -0.04em | Portadas de dashboard |
-| `.text-display-lg` | clamp(3rem, 5vw, 4.5rem) | Headers principales |
+| `.text-display-lg` | clamp(3rem, 5vw, 4.5rem), weight: 600 | Headers principales |
 | `.text-display` | clamp(2.5rem, 4vw, 3.5rem) | Headers secundarios |
 | `.text-display-sm` | clamp(2rem, 3vw, 2.5rem) | Headers tarjetas gigantes |
 | `.text-h1` | clamp(1.75rem, 2.5vw, 2.25rem) | Títulos de sección |

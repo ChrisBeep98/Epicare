@@ -51,7 +51,7 @@ export default function BentoGridEpicare() {
         id="bento-section"
         className="relative w-full bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] z-20 transition-colors duration-500 pt-0 pb-section-md"
       >
-        <div className="max-w-[1440px] mx-auto px-[14px] md:px-gutter-md">
+        <div className="max-w-section-lg mx-auto px-[14px] md:px-gutter-md">
           {/* Section Header */}
           <div className="flex flex-col gap-4 mb-16 max-w-3xl">
             <h2 className="text-display-lg font-medium text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)] tracking-tight">

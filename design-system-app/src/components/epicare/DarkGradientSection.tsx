@@ -79,8 +79,7 @@ export default function DarkGradientSection() {
     >
       <div className="max-w-section-lg mx-auto w-full">
         
-        {/* Contenedor Transparente (Toma el fondo dinámico de la sección) */}
-        <div className="relative w-full min-h-[60vh] md:min-h-[75vh] rounded-[12px] border border-black/5 dark:border-white/5 overflow-hidden flex flex-col justify-center items-start md:items-center text-left md:text-center px-[14px] py-12 md:p-12 lg:p-16 bg-transparent transition-colors duration-500">
+        <div className="relative w-full min-h-0 h-auto md:min-h-[75vh] rounded-[12px] border border-black/5 dark:border-white/5 overflow-hidden flex flex-col justify-center items-start md:items-center text-left md:text-center px-[14px] py-12 md:p-12 lg:p-16 bg-transparent transition-colors duration-500">
           
           {/* Fondo Azul Completo (Light Mode - Expansión total sin transparencia final) */}
           <div 

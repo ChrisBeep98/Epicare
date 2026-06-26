@@ -393,7 +393,7 @@
   .text-display-3xl { font-size: clamp(6rem, 12vw, 12rem); line-height: 0.95; font-weight: 500; letter-spacing: -0.02em; }
   .text-display-2xl { font-size: clamp(4.5rem, 8vw, 8rem); line-height: 1; font-weight: 500; letter-spacing: -0.01em; }
   .text-display-xl { font-size: clamp(3.5rem, 6vw, 6rem); line-height: 1.1; font-weight: 500; letter-spacing: -0.04em; }
-  .text-display-lg { font-size: clamp(3rem, 5vw, 4.5rem); line-height: 1.1; font-weight: 500; }
+  .text-display-lg { font-size: clamp(3rem, 5vw, 4.5rem); line-height: 1.1; font-weight: 600; }
   .text-display { font-size: clamp(2.5rem, 4vw, 3.5rem); line-height: 1.15; font-weight: 500; }
   .text-display-sm { font-size: clamp(2rem, 3vw, 2.5rem); line-height: 1.2; font-weight: 500; }
   
@@ -502,4 +502,41 @@ body {
   @media (min-width: 1024px) {
     grid-template-columns: repeat(12, minmax(0, 1fr));
   }
+}
+
+/* ── Overlay de Carga Epicare ── */
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 99999; /* Asegura que esté por encima de todo */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-surface-BG-white, #fff);
+  will-change: opacity;
+  transition: background-color 0.5s ease;
+}
+.dark .loader {
+  background: var(--color-surface-BG-black, #0a0a0a);
+}
+.loader-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  will-change: transform;
+}
+.loader-logo {
+  width: clamp(220px, 30vw, 420px);
+}
+.loader-logo svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+/* Prepara los elementos para que GSAP los tome (arrancan invisibles) */
+.logo-icon,
+.logo-letter {
+  opacity: 0;
+  will-change: transform, opacity, filter;
 }

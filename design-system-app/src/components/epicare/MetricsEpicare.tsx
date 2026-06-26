@@ -53,27 +53,6 @@ export default function MetricsEpicare() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // 1. Título: Animación de líneas (desktop) y palabras (mobile)
-      gsap.fromTo([".title-line", ".title-word"], 
-        { 
-          yPercent: 120,
-          rotateZ: 2,
-          opacity: 0
-        },
-        {
-          yPercent: 0,
-          rotateZ: 0,
-          opacity: 1,
-          duration: 1.5,
-          stagger: 0.08, // Stagger rápido para que fluya como agua
-          ease: "power4.out",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 85%"
-          }
-        }
-      );
-
       // 2. Métricas: Revelado Awwwards Premium (ClipPath + Y transform)
       // Esto crea el efecto de que las tarjetas son "desenfundadas" del fondo de manera extremadamente suave
       gsap.fromTo(".metric-card", 
@@ -115,39 +94,10 @@ export default function MetricsEpicare() {
       <div 
         ref={sectionRef}
         id="metrics-layout"
-        className="w-full mt-0 md:mt-auto pt-section-sm pb-0 md:py-section-lg px-4"
+        className="w-full mt-0 md:mt-auto py-section-lg md:py-section-xl px-4"
       >
         <div className="max-w-section-lg mx-auto relative z-10 flex flex-col gap-fluid-lg w-full">
-          {/* Título Display de 3 líneas con Water Mask en Grid de 12 columnas */}
-          <div className="grid-layout w-full">
-            <div className="col-start-1 col-span-6 md:col-start-1 md:col-span-10 flex flex-col justify-start items-start">
-              {/* Desktop Version: Animación por línea estricta forzada */}
-              <h2 className="hidden md:block text-display text-left w-full font-medium text-[var(--color-text-Black-100)] dark:text-white tracking-tighter leading-[1.05] transition-colors duration-500">
-                <span className="block overflow-hidden pb-2"><span className="title-line block will-change-transform">{t('titleLine1')}</span></span>
-                <span className="block overflow-hidden pb-2"><span className="title-line block will-change-transform">{t('titleLine2')}</span></span>
-                <span className="block overflow-hidden pb-2"><span className="title-line block will-change-transform text-[var(--color-brand-blue)]">{t('titleLine3')}</span></span>
-              </h2>
 
-              {/* Mobile Version: Water Mask Palabra por Palabra (flujo natural) */}
-              <h2 className="block md:hidden text-display text-left w-full font-medium text-[var(--color-text-Black-100)] dark:text-white tracking-tighter leading-[1.05] flex flex-wrap gap-y-1 transition-colors duration-500">
-                {t('titleLine1').split(" ").map((word, i) => (
-                  <span key={`w1-${i}`} className="inline-flex overflow-hidden align-bottom mr-[0.25em]">
-                    <span className="title-word inline-block will-change-transform">{word}</span>
-                  </span>
-                ))}
-                {t('titleLine2').split(" ").map((word, i) => (
-                  <span key={`w2-${i}`} className="inline-flex overflow-hidden align-bottom mr-[0.25em]">
-                    <span className="title-word inline-block will-change-transform">{word}</span>
-                  </span>
-                ))}
-                {t('titleLine3').split(" ").map((word, i) => (
-                  <span key={`w3-${i}`} className="inline-flex overflow-hidden align-bottom mr-[0.25em]">
-                    <span className="title-word inline-block will-change-transform text-[var(--color-brand-blue)]">{word}</span>
-                  </span>
-                ))}
-              </h2>
-            </div>
-          </div>
 
           {/* Grid de Métricas */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-fluid-lg md:gap-fluid-md perspective-[1000px] mt-8 md:mt-0">

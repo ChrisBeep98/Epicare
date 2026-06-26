@@ -40,7 +40,7 @@ Letter-spacing: -0.01em` },
 Weight: 500
 Line-height: 1.1` },
               { token: ".text-display-lg", name: "Display LG", text: "Agent Dashboard", details: `Size: clamp(3rem, 5vw, 4.5rem)
-Weight: 500
+Weight: 600
 Line-height: 1.1` },
               { token: ".text-display", name: "Display", text: "Sales Performance", details: `Size: clamp(2.5rem, 4vw, 3.5rem)
 Weight: 500
