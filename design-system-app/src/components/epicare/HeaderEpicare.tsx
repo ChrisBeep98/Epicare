@@ -83,15 +83,15 @@ export default function HeaderEpicare({
 
   const navPositionClass = "fixed left-0 right-0 mx-auto w-full md:w-[calc(100%-2*var(--space-gutter-sm))] lg:w-[calc(100%-2*var(--space-gutter-md))] max-w-section-xl";
 
-  const navBgClass = isHeaderPill
-    ? (isHeaderForcedDark 
-        ? "bg-black/20 border-white/10 dark:border-white/5 shadow-elevation-2 rounded-none md:rounded-lg border-b md:border backdrop-blur-md" 
-        : "bg-white/50 dark:bg-black/20 border-black/10 dark:border-white/5 shadow-elevation-2 rounded-none md:rounded-lg border-b md:border backdrop-blur-md")
+  const navBgClass = isHeaderPill 
+    ? (isHeaderForcedDark || isDark)
+      ? "bg-white/5 border-white/10 backdrop-blur-md shadow-elevation-2 rounded-none md:rounded-lg border-b md:border" 
+      : "bg-white/80 dark:bg-white/5 border-black/10 dark:border-white/10 backdrop-blur-md shadow-elevation-2 rounded-none md:rounded-lg border-b md:border"
     : "bg-transparent border-transparent shadow-none rounded-none";
 
-  const dropdownBgClass = isHeaderForcedDark 
-    ? "bg-black/20 border-white/10 dark:border-white/5 backdrop-blur-md" 
-    : "bg-white/50 dark:bg-black/20 border-black/10 dark:border-white/5 backdrop-blur-md";
+  const dropdownBgClass = isHeaderForcedDark || isDark 
+    ? "bg-white/5 border-white/10 backdrop-blur-md" 
+    : "bg-white/50 dark:bg-white/5 border-black/10 dark:border-white/10 backdrop-blur-md";
 
   const iconColorClass = (isHeaderForcedDark || isDark)
     ? "text-white hover:text-white/80"
@@ -149,10 +149,10 @@ export default function HeaderEpicare({
                 className={`absolute top-[100%] left-1/2 -translate-x-1/2 mt-1 z-[1000000] p-2 rounded-[8px] shadow-elevation-2 border flex flex-col w-[340px] transform-gpu transition-[opacity,transform,visibility] duration-200 ease-out ${dropdownBgClass} ${activeMenu === item.key ? 'opacity-100 visible translate-y-0 pointer-events-auto' : 'opacity-0 invisible translate-y-2 pointer-events-none'}`}
               >
                   {item.items.map((subItem, idx) => (
-                    <a href={subItem.href} key={idx} className={`flex flex-col gap-2 p-static-lg rounded-[6px] transition-colors duration-150 ${isHeaderForcedDark ? 'hover:bg-white/10' : 'hover:bg-black/5 dark:hover:bg-white/10'}`}>
+                    <a href={subItem.href} key={idx} className={`flex flex-col gap-2 p-static-lg rounded-[6px] transition-colors duration-150 ${isHeaderForcedDark ? 'hover:bg-white/[0.08]' : 'hover:bg-black/5 dark:hover:bg-white/[0.08]'}`}>
                       <div className="flex flex-col items-start gap-1">
                         {subItem.comingSoon && (
-                          <span className={`text-[0.625rem] uppercase tracking-wider px-2 py-0.5 rounded-full border mb-1 ${isHeaderForcedDark || isDark ? 'bg-white/10 text-white border-white/10' : 'bg-black/5 text-[var(--color-text-primary)] border-black/5'}`}>
+                          <span className={`text-[0.625rem] uppercase tracking-wider px-2 py-0.5 rounded-full border mb-1 ${isHeaderForcedDark || isDark ? 'bg-white/20 text-white border-white/20' : 'bg-black/5 text-[var(--color-text-primary)] border-black/5'}`}>
                             {t("comingSoon")}
                           </span>
                         )}
