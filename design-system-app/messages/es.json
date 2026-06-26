@@ -23,6 +23,30 @@
       "itemDiDesc": "Eleva tu flujo de trabajo de seguros con herramientas inteligentes.",
       "itemOmsTitle": "Item OMS",
       "itemOmsDesc": "El sistema operativo supremo para agencias de élite."
+    },
+    "nav": {
+      "about": "Nosotros",
+      "aboutCompany": "Compañía",
+      "aboutCompanyDesc": "Aprende sobre nuestra misión, visión y valores.",
+      "aboutTeam": "Equipo",
+      "aboutTeamDesc": "Conoce a los líderes impulsando la innovación en Epicare.",
+      "aboutLicensing": "Licencias",
+      "aboutLicensingDesc": "Información sobre nuestras licencias y certificaciones.",
+      "gohub": "Go Hub",
+      "gohubCrm": "GO CRM",
+      "gohubCrmDesc": "Gestiona relaciones y haz crecer tu red.",
+      "gohubAms": "Go AMS",
+      "gohubAmsDesc": "Automatiza y optimiza operaciones de membresía.",
+      "gohubCalls": "GO Calls",
+      "gohubCallsDesc": "Herramientas integradas de llamadas y comunicación.",
+      "gohubAcademy": "Epicare Academy",
+      "gohubAcademyDesc": "Entrenamiento, recursos y certificaciones.",
+      "solutions": "Soluciones",
+      "solMarketing": "Marketing",
+      "solMarketingDesc": "Atrae, involucra y convierte más miembros.",
+      "solTech": "Tecnología",
+      "solTechDesc": "Soluciones tecnológicas escalables y seguras.",
+      "comingSoon": "Próximamente"
     }
   }
 }

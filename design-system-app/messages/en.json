@@ -23,6 +23,30 @@
       "itemDiDesc": "Elevate your insurance workflow with intelligent tools.",
       "itemOmsTitle": "Item OMS",
       "itemOmsDesc": "The supreme operating system for elite agencies."
+    },
+    "nav": {
+      "about": "About",
+      "aboutCompany": "Company",
+      "aboutCompanyDesc": "Learn about our mission, vision and values.",
+      "aboutTeam": "Team",
+      "aboutTeamDesc": "Meet the leaders driving innovation at Epicare.",
+      "aboutLicensing": "Licensing",
+      "aboutLicensingDesc": "Information about our licenses and certifications.",
+      "gohub": "Go Hub",
+      "gohubCrm": "GO CRM",
+      "gohubCrmDesc": "Manage relationships and grow your network.",
+      "gohubAms": "Go AMS",
+      "gohubAmsDesc": "Automate and optimize membership operations.",
+      "gohubCalls": "GO Calls",
+      "gohubCallsDesc": "Integrated calling and communication tools.",
+      "gohubAcademy": "Epicare Academy",
+      "gohubAcademyDesc": "Training, resources and certifications.",
+      "solutions": "Solutions",
+      "solMarketing": "Marketing",
+      "solMarketingDesc": "Attract, engage and convert more members.",
+      "solTech": "Technology",
+      "solTechDesc": "Scalable and secure technology solutions.",
+      "comingSoon": "Coming Soon"
     }
   }
 }
