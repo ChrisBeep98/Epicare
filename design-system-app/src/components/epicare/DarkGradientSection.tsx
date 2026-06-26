@@ -52,7 +52,8 @@ export default function DarkGradientSection() {
       subtitle: "We walk with you every step.", 
       body: "Rely on our dedicated team of industry veterans to provide personalized coaching, operational support, and strategic advice whenever you need it.",
       img: "support_dark.png",
-      imgLight: "support_LLight.png"
+      imgLight: "support_LLight.png",
+      imgClass: "!p-0 md:!p-2 scale-[1.15] group-hover:scale-[1.20]"
     },
     { 
       step: "03 · Earnings", 
@@ -174,12 +175,12 @@ export default function DarkGradientSection() {
                       <img 
                         src={`/Files/Epicare_Landing/Features/${card.imgLight || card.img}`} 
                         alt={card.title} 
-                        className="absolute inset-0 w-full h-full object-contain p-6 opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out block dark:hidden" 
+                        className={`absolute inset-0 w-full h-full object-contain p-6 opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out block dark:hidden ${card.imgClass || ""}`} 
                       />
                       <img 
                         src={`/Files/Epicare_Landing/Features/${card.img}`} 
                         alt={card.title} 
-                        className="absolute inset-0 w-full h-full object-contain p-6 opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out hidden dark:block" 
+                        className={`absolute inset-0 w-full h-full object-contain p-6 opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out hidden dark:block ${card.imgClass || ""}`} 
                       />
                     </>
                   )}
