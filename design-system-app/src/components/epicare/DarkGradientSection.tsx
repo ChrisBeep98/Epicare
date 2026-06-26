@@ -48,7 +48,8 @@ export default function DarkGradientSection() {
       title: "Expert guidance and broker support", 
       subtitle: "We walk with you every step.", 
       body: "Rely on our dedicated team of industry veterans to provide personalized coaching, operational support, and strategic advice whenever you need it.",
-      img: "Dark_wireframe_3D_illustration_on_202606232159 (1) 1 [Vectorized].png" 
+      img: "support_dark.png",
+      imgLight: "support_LLight.png"
     },
     { 
       step: "03 · Earnings", 
