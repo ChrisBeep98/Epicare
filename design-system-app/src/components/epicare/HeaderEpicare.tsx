@@ -13,6 +13,7 @@ export default function HeaderEpicare({
   isHeaderForcedDark = false,
 }: HeaderEpicareProps) {
   const t = useTranslations("landingV2.nav");
+  const tHero = useTranslations("landingV2.hero");
   const [isDark, setIsDark] = useState(false);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -96,6 +97,10 @@ export default function HeaderEpicare({
     ? "text-white hover:text-white/80"
     : "text-[var(--color-text-Black-100)] hover:opacity-80";
 
+  const secondaryCtaClass = (isHeaderForcedDark || isDark)
+    ? "bg-white/10 border-white/40 text-white hover:bg-white/20"
+    : "bg-white/50 border-white text-[var(--color-text-primary)] hover:bg-white/80";
+
   return (
     <>
       {/* Background Pill Layer */}
@@ -144,7 +149,7 @@ export default function HeaderEpicare({
                 className={`absolute top-[100%] left-1/2 -translate-x-1/2 mt-1 z-[1000000] p-2 rounded-[8px] shadow-elevation-2 border flex flex-col w-[340px] transform-gpu transition-[opacity,transform,visibility] duration-200 ease-out ${dropdownBgClass} ${activeMenu === item.key ? 'opacity-100 visible translate-y-0 pointer-events-auto' : 'opacity-0 invisible translate-y-2 pointer-events-none'}`}
               >
                   {item.items.map((subItem, idx) => (
-                    <a href={subItem.href} key={idx} className={`flex flex-col gap-2 p-static-lg rounded-[6px] transition-all duration-300 ${isHeaderForcedDark ? 'hover:bg-white/10' : 'hover:bg-black/5 dark:hover:bg-white/10'}`}>
+                    <a href={subItem.href} key={idx} className={`flex flex-col gap-2 p-static-lg rounded-[6px] transition-colors duration-150 ${isHeaderForcedDark ? 'hover:bg-white/10' : 'hover:bg-black/5 dark:hover:bg-white/10'}`}>
                       <div className="flex flex-col items-start gap-1">
                         {subItem.comingSoon && (
                           <span className={`text-[0.625rem] uppercase tracking-wider px-2 py-0.5 rounded-full border mb-1 ${isHeaderForcedDark || isDark ? 'bg-white/10 text-white border-white/10' : 'bg-black/5 text-[var(--color-text-primary)] border-black/5'}`}>
@@ -194,13 +199,18 @@ export default function HeaderEpicare({
           <button 
             id="header-menu-button"
             type="button" 
-            className="w-10 h-10 flex items-center justify-center cursor-pointer relative z-50 transition-opacity hover:opacity-70"
+            className="md:hidden w-10 h-10 flex items-center justify-center cursor-pointer relative z-50 transition-opacity hover:opacity-70"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
               <line x1="4" x2="20" y1="12" y2="12"/>
               <line x1="4" x2="20" y1="6" y2="6"/>
               <line x1="4" x2="20" y1="18" y2="18"/>
             </svg>
+          </button>
+          
+          {/* CTA Desktop Secundario */}
+          <button className={`hidden md:flex h-[44px] px-6 rounded-full border text-body-sm font-medium normal-case transition-all items-center justify-center shadow-elevation-1 backdrop-blur-md ${secondaryCtaClass}`}>
+            {tHero('ctaAgents')}
           </button>
         </div>
       </nav>
