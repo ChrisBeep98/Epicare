@@ -140,7 +140,7 @@ export default function HeaderEpicare({
                     <polyline points="6 9 12 15 18 9"></polyline>
                   </svg>
                   {/* Animated Bottom Line - Anchored to text */}
-                  <span className={`absolute -bottom-1 left-1/2 -translate-x-1/2 h-[2px] bg-current transition-all duration-300 ease-out ${activeMenu === item.key ? 'w-full opacity-100' : 'w-0 opacity-0'}`}></span>
+                  <span className={`absolute -bottom-1 left-1/2 -translate-x-1/2 h-[1.2px] bg-current transition-all duration-300 ease-out ${activeMenu === item.key ? 'w-full opacity-100' : 'w-0 opacity-0'}`}></span>
                 </div>
               </button>
               
