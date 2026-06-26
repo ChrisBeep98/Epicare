@@ -86,14 +86,11 @@ export default function DarkGradientSection() {
     >
       <div className="max-w-section-lg mx-auto w-full">
         
-        <div className="relative w-full min-h-0 h-auto md:min-h-[75vh] rounded-[12px] border border-black/5 dark:border-white/5 overflow-hidden flex flex-col justify-center items-start md:items-center text-left md:text-center px-[14px] py-12 md:p-12 lg:p-16 bg-transparent transition-colors duration-500">
+        <div className="relative w-full min-h-0 h-auto md:min-h-[75vh] rounded-[12px] border border-[var(--color-border-Strokes-default)] overflow-hidden flex flex-col justify-center items-start md:items-center text-left md:text-center px-[14px] py-12 md:p-12 lg:p-16 bg-transparent shadow-[var(--shadow-elevation-2)] transition-colors duration-500">
           
-          {/* Fondo Azul Suave (Light Mode) */}
+          {/* Fondo Sólido (Light Mode - Super White Action Subtle) */}
           <div 
-            className="absolute inset-0 w-full h-full z-0 pointer-events-none transition-opacity duration-500 block dark:hidden"
-            style={{
-              background: "radial-gradient(ellipse at top, rgba(2,151,227, 0.10) 0%, rgba(2,151,227, 0.02) 60%, transparent 100%)"
-            }}
+            className="absolute inset-0 w-full h-full z-0 pointer-events-none transition-colors duration-500 bg-[var(--color-action-primary-subtle-hover)] block dark:hidden"
           />
 
           {/* Resplandor Azul (Dark Mode - Brand Blue Original) */}
