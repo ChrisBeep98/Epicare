@@ -13,18 +13,21 @@ export default function DarkGradientSection() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Fade-up sutil y profesional
+      // Premium 3D Blur Reveal
       gsap.fromTo(".fade-up", 
-        { opacity: 0, y: 40 },
+        { opacity: 0, y: 60, rotationX: 15, scale: 0.9, filter: "blur(8px)" },
         {
           opacity: 1, 
           y: 0,
-          duration: 1.6,
-          stagger: 0.15,
-          ease: "expo.out",
+          rotationX: 0,
+          scale: 1,
+          filter: "blur(0px)",
+          duration: 0.8,
+          stagger: 0.08,
+          ease: "power3.out",
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: "top 80%"
+            start: "top 98%"
           }
         }
       );
@@ -85,11 +88,11 @@ export default function DarkGradientSection() {
         
         <div className="relative w-full min-h-0 h-auto md:min-h-[75vh] rounded-[12px] border border-black/5 dark:border-white/5 overflow-hidden flex flex-col justify-center items-start md:items-center text-left md:text-center px-[14px] py-12 md:p-12 lg:p-16 bg-transparent transition-colors duration-500">
           
-          {/* Fondo Azul Completo (Light Mode - Expansión total sin transparencia final) */}
+          {/* Fondo Azul Suave (Light Mode) */}
           <div 
             className="absolute inset-0 w-full h-full z-0 pointer-events-none transition-opacity duration-500 block dark:hidden"
             style={{
-              background: "radial-gradient(ellipse at top, rgba(2,151,227, 0.15) 0%, rgba(2,151,227, 0.03) 100%)"
+              background: "radial-gradient(ellipse at top, rgba(2,151,227, 0.10) 0%, rgba(2,151,227, 0.02) 60%, transparent 100%)"
             }}
           />
 
@@ -104,11 +107,11 @@ export default function DarkGradientSection() {
           {/* Contenido Central (Clases Congeladas - Purga Fase 2) */}
           <div className="relative z-10 flex flex-col items-start md:items-center gap-6 md:gap-8 max-w-4xl w-full md:mx-auto pb-4 md:pb-8">
             
-            <h2 className="fade-up text-display text-left md:text-center text-[var(--color-text-Black-100)] dark:text-white tracking-tighter leading-[1.05] transition-colors duration-500">
+            <h2 className="fade-up opacity-0 text-display text-left md:text-center text-[var(--color-text-Black-100)] dark:text-white tracking-tighter leading-[1.05] transition-colors duration-500">
               Everything You Need to Succeed
             </h2>
 
-            <p className="fade-up text-body text-left md:text-center text-[var(--color-text-Black-100)]/70 dark:text-white/70 max-w-2xl font-light transition-colors duration-500">
+            <p className="fade-up opacity-0 text-body text-left md:text-center text-[var(--color-text-Black-100)]/70 dark:text-white/70 max-w-2xl font-light transition-colors duration-500">
               We don’t just open doors — we provide the tools, support, and opportunities you need to succeed at every step.
             </p>
 
@@ -123,7 +126,7 @@ export default function DarkGradientSection() {
             {features.map((card, idx) => (
               <div 
                 key={idx} 
-                className="fade-up flex flex-col shrink-0 w-[80vw] md:w-auto rounded-[8px] bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-base)] backdrop-blur-md border border-black/5 dark:border-white/10 hover:border-black/10 dark:hover:border-white/20 transition-all duration-500 shadow-sm hover:shadow-[0_16px_48px_rgba(5,72,235,0.15)] hover:md:-translate-y-2 cursor-pointer group overflow-hidden"
+                className="fade-up opacity-0 flex flex-col shrink-0 w-[80vw] md:w-auto rounded-[8px] bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-base)] backdrop-blur-md border border-black/5 dark:border-white/10 hover:border-black/10 dark:hover:border-white/20 transition-all duration-500 shadow-[var(--shadow-elevation-1)] hover:shadow-[var(--shadow-elevation-3)] hover:md:-translate-y-2 cursor-pointer group overflow-hidden"
               >
                 {/* Bloque de Texto Superior (Step, Título y Cuerpo Largo) */}
                 <div className="flex flex-col p-[14px] md:p-6 w-full gap-3 text-left">
