@@ -88,10 +88,18 @@ export default function DarkGradientSection() {
         
         <div className="relative w-full min-h-0 h-auto md:min-h-[75vh] rounded-[12px] border border-[var(--color-border-Strokes-default)] overflow-hidden flex flex-col justify-center items-start md:items-center text-left md:text-center px-[14px] py-12 md:p-12 lg:p-16 bg-transparent shadow-[var(--shadow-elevation-2)] transition-colors duration-500">
           
-          {/* Fondo Sólido (Light Mode - Super White Action Subtle) */}
+          {/* Fondo Sólido y Textura de Puntos (Light Mode) */}
           <div 
             className="absolute inset-0 w-full h-full z-0 pointer-events-none transition-colors duration-500 bg-[var(--color-action-primary-subtle-hover)] block dark:hidden"
-          />
+          >
+            <div 
+              className="absolute inset-0 w-full h-full opacity-[0.04]"
+              style={{
+                backgroundImage: "radial-gradient(#000 1px, transparent 1px)",
+                backgroundSize: "16px 16px"
+              }}
+            />
+          </div>
 
           {/* Resplandor Azul (Dark Mode - Brand Blue Original) */}
           <div 
@@ -123,7 +131,7 @@ export default function DarkGradientSection() {
             {features.map((card, idx) => (
               <div 
                 key={idx} 
-                className="fade-up opacity-0 flex flex-col shrink-0 w-[80vw] md:w-auto rounded-[8px] bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-base)] backdrop-blur-md border border-black/5 dark:border-white/10 hover:border-black/10 dark:hover:border-white/20 transition-all duration-500 shadow-[var(--shadow-elevation-1)] hover:shadow-[var(--shadow-elevation-3)] hover:md:-translate-y-2 cursor-pointer group overflow-hidden"
+                className="fade-up opacity-0 flex flex-col shrink-0 w-[80vw] md:w-auto rounded-[8px] bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-base)] backdrop-blur-md border border-[var(--color-border-Strokes-default)] hover:border-[var(--color-border-Strokes-Hover)] transition-all duration-500 shadow-[var(--shadow-elevation-1)] hover:shadow-[var(--shadow-elevation-3)] hover:md:-translate-y-2 cursor-pointer group overflow-hidden"
               >
                 {/* Bloque de Texto Superior (Step, Título y Cuerpo Largo) */}
                 <div className="flex flex-col p-[14px] md:p-6 w-full gap-3 text-left">
