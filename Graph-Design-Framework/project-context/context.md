@@ -1,5 +1,5 @@
 # Contexto del Proyecto: GO AMS Landing Page
-> **Última Actualización:** 5 de Abril, 2026
+> **Última Actualización:** 26 de Junio, 2026
 > **Estado:** Fase 10 (E-Commerce & Platform Redesign)
 > **Navegación:** Ver [`README.md`](./README.md) para el índice completo de archivos de contexto.
 
@@ -128,6 +128,10 @@ Los componentes del nuevo diseño están consolidados en:
     - El *Header* (Theme Switch & Hamburger Menu) se hizo visible desde el Acto 1. Se rediseñó bajo un concepto puramente minimalista usando solo íconos vectoriales SVG sin fondos ni bordes, optimizado con animaciones de micro-interacción.
 113. **[NUEVO] Epicare Services Bento — Iluminación Bimodal & Edge-to-Edge (23 Jun 2026):**
     - Refactorización de `DarkGradientSection` con luz radial adaptativa (Foco nocturno vs. Wash expandido diurno), tarjetas "Dark" de alto contraste forzadas en Light Mode, integración de PNGs vectoriales transparentes, y ajuste Edge-to-Edge móvil con 14px de padding.
+114. **[NUEVO] Epicare Header & Layout Refinement (26 Jun 2026):**
+    - Extracción de la barra de navegación del Hero para consolidar el componente global e independiente `<HeaderEpicare />` usando el nuevo isotipo `/short_logo.svg`.
+    - Solución definitiva al *scrollbar layout shift* (salto de la barra de scroll) forzando `overflow-y: scroll` en `html` con estilos transparentes durante la carga del Loader, revelándose suavemente con la clase `.show-scrollbar` al finalizar.
+    - Configuración por defecto de Light Mode al remover la clase `dark` del tag `html` en `layout.tsx`.
 
 ## 6. Próximos Pasos (To-Do)
 - Empezar la construcción de la **Página de Inicio (Home)** integrando el motor de `HeroSequence` con los nuevos tokens de espaciado.
