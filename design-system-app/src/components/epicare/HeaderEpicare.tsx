@@ -37,7 +37,7 @@ export default function HeaderEpicare({
       key: "about",
       label: t("about"),
       items: [
-        { title: t("aboutCompany"), desc: t("aboutCompanyDesc"), comingSoon: true, href: "#" },
+        { title: t("aboutCompany"), desc: t("aboutCompanyDesc"), href: "#" },
         { title: t("aboutTeam"), desc: t("aboutTeamDesc"), href: "#" },
         { title: t("aboutLicensing"), desc: t("aboutLicensingDesc"), href: "#" },
       ]
@@ -56,7 +56,7 @@ export default function HeaderEpicare({
       key: "solutions",
       label: t("solutions"),
       items: [
-        { title: t("solMarketing"), desc: t("solMarketingDesc"), comingSoon: true, href: "#" },
+        { title: t("solMarketing"), desc: t("solMarketingDesc"), href: "#" },
         { title: t("solTech"), desc: t("solTechDesc"), href: "#" },
       ]
     }
@@ -110,7 +110,7 @@ export default function HeaderEpicare({
 
       {/* Controls & Logo Layer */}
       <nav 
-        className={`${navPositionClass} flex justify-between items-center px-4 md:px-6 z-[999999] pointer-events-auto transition-[top,background-color,border-color,box-shadow,opacity] duration-300 ${navLayoutClass}`}
+        className={`${navPositionClass} flex justify-between items-center px-gutter-sm md:px-gutter-md z-[999999] pointer-events-auto transition-[top,background-color,border-color,box-shadow,opacity] duration-300 ${navLayoutClass}`}
       >
         {/* Logo en el header */}
         <div 
@@ -146,17 +146,12 @@ export default function HeaderEpicare({
               
               {/* Dropdown Panel - Single Node for Blur Performance */}
               <div 
-                className={`absolute top-[100%] left-1/2 -translate-x-1/2 mt-1 z-[1000000] p-2 rounded-[8px] shadow-elevation-2 border flex flex-col w-[340px] transform-gpu transition-[opacity,transform,visibility] duration-200 ease-out ${dropdownBgClass} ${activeMenu === item.key ? 'opacity-100 visible translate-y-0 pointer-events-auto' : 'opacity-0 invisible translate-y-2 pointer-events-none'}`}
+                className={`absolute top-[100%] left-1/2 -translate-x-1/2 mt-1 z-[1000000] p-static-xs rounded-lg shadow-elevation-2 border flex flex-col w-[340px] transform-gpu transition-[opacity,transform,visibility] duration-200 ease-out ${dropdownBgClass} ${activeMenu === item.key ? 'opacity-100 visible translate-y-0 pointer-events-auto' : 'opacity-0 invisible translate-y-2 pointer-events-none'}`}
               >
                   {item.items.map((subItem, idx) => (
-                    <a href={subItem.href} key={idx} className={`flex flex-col gap-2 p-static-lg rounded-[6px] transition-colors duration-150 ${isHeaderForcedDark ? 'hover:bg-white/[0.08]' : 'hover:bg-black/5 dark:hover:bg-white/[0.08]'}`}>
+                    <a href={subItem.href} key={idx} className={`flex flex-col gap-2 p-static-lg rounded-md transition-colors duration-150 ${isHeaderForcedDark ? 'hover:bg-white/[0.08]' : 'hover:bg-black/5 dark:hover:bg-white/[0.08]'}`}>
                       <div className="flex flex-col items-start gap-1">
-                        {subItem.comingSoon && (
-                          <span className={`text-[0.625rem] uppercase tracking-wider px-2 py-0.5 rounded-full border mb-1 ${isHeaderForcedDark || isDark ? 'bg-white/20 text-white border-white/20' : 'bg-black/5 text-[var(--color-text-primary)] border-black/5'}`}>
-                            {t("comingSoon")}
-                          </span>
-                        )}
-                        <span className={`text-body-sm font-medium transition-colors duration-200 ${isHeaderForcedDark || isDark ? 'text-white' : 'text-[var(--color-text-primary)]'}`}>
+                        <span className={`text-h7 transition-colors duration-200 ${isHeaderForcedDark || isDark ? 'text-white' : 'text-[var(--color-text-primary)]'}`}>
                           {subItem.title}
                         </span>
                       </div>
@@ -209,7 +204,7 @@ export default function HeaderEpicare({
           </button>
           
           {/* CTA Desktop Secundario */}
-          <button className={`hidden md:flex h-[44px] px-6 rounded-full border text-body-sm font-medium normal-case transition-all items-center justify-center shadow-elevation-1 backdrop-blur-md ${secondaryCtaClass}`}>
+          <button className={`hidden md:flex h-[44px] px-static-md rounded-full border text-body-sm font-medium normal-case transition-all items-center justify-center shadow-elevation-1 backdrop-blur-md ${secondaryCtaClass}`}>
             {tHero('ctaAgents')}
           </button>
         </div>

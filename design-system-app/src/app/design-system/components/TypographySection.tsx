@@ -65,7 +65,10 @@ Weight: 500
 Line-height: 1.5` },
               { token: ".text-h6", name: "H6 Micro", text: "Policy ID #4092", details: `Size: 1rem
 Weight: 500
-Line-height: 1.5` }
+Line-height: 1.5` },
+              { token: ".text-h7", name: "H7 Nano", text: "Dropdown Menu Option", details: `Size: 0.875rem
+Weight: 500
+Line-height: 1.6` }
             ].map(item => (
               <TypeRow key={item.token} {...item} font={previewFont} overrideFont={previewFont} />
             ))}

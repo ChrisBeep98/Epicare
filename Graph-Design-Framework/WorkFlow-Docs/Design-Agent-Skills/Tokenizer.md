@@ -40,6 +40,7 @@ Before writing any `className`, verify you are NOT using these forbidden pattern
 | `text-5xl font-bold`, `text-7xl`, `text-8xl` | `.text-display-xl`, `.text-display-lg` | Portadas y Headers principales |
 | `text-3xl font-semibold`, `text-4xl`, `text-5xl` | `.text-display`, `.text-h1` | Section titles y headers secundarios |
 | `text-xl font-semibold`, `text-2xl font-bold` | `.text-h3`, `.text-h4` | Card/feature titles |
+| `text-lg font-medium`, `text-base font-semibold`, `text-sm font-medium` | `.text-h5`, `.text-h6`, `.text-h7` | Small titles, nano titles, and menu options |
 | `text-xs uppercase tracking-widest` | `.text-overline`, `.text-ui-label` | Category labels, botones |
 | `text-base leading-relaxed` (isolated) | `.text-body`, `.text-body-lg` | Paragraphs |
 | `text-sm leading-relaxed` (isolated) | `.text-body-sm`, `.text-body-xs` | Secondary text |

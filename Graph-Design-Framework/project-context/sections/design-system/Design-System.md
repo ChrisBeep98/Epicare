@@ -23,6 +23,8 @@ Familia Principal: `Inter` (La única tipografía permitida).
 | `.text-h3` | clamp(1.25rem, 1.5vw, 1.5rem) | Títulos de tarjetas |
 | `.text-h4` | clamp(1.125rem, 1.25vw, 1.25rem) | Títulos de grupos pequeños |
 | `.text-h5` | 1.125rem | Etiquetas grandes |
+| `.text-h6` | 1rem | Títulos micro / Datos secundarios |
+| `.text-h7` | 0.875rem | Títulos nano / Opciones de menú |
 | `.text-body-2xl` - `xs` | Escala desde 1.5rem hasta 0.75rem | Cuerpos de texto y párrafos |
 | `.text-ui-label` | 0.8125rem (Uppercase, tracking-wider) | Botones y tags |
 
