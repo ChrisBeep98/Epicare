@@ -182,16 +182,16 @@ export default function HeroEpicare() {
   };
 
   return (
-    <div className="w-full overflow-x-hidden bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)]">
+    <div className="w-full overflow-x-hidden bg-[var(--color-surface-BG-base)]">
       
       {/* Header Reutilizable y Autogestionado */}
       <HeaderEpicare isHeaderPill={isHeaderPill} isHeaderForcedDark={isHeaderForcedDark} />
 
-      <div ref={containerRef} className="w-full relative z-10 bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] text-[var(--color-text-primary)]">
+      <div ref={containerRef} className="w-full relative z-10 bg-[var(--color-surface-BG-base)] text-[var(--color-text-primary)]">
         
         {/* Viewport Fijo para la experiencia cinemática */}
         <div 
-          className="sticky top-0 h-[100dvh] w-full overflow-hidden flex flex-col items-center justify-end bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)]"
+          className="sticky top-0 h-[100dvh] w-full overflow-hidden flex flex-col items-center justify-end bg-[var(--color-surface-BG-base)]"
           style={{ perspective: "1200px" }}
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
