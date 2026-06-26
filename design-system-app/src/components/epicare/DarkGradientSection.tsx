@@ -39,7 +39,9 @@ export default function DarkGradientSection() {
       title: "Top marketing and tech solutions", 
       subtitle: "Equip your business with modern tools.", 
       body: "Access state-of-the-art marketing platforms and tech stacks designed to accelerate your growth and streamline your operations seamlessly.",
-      img: "Dark_wireframe_3D_illustration_on_202606232157 1.png" 
+      img: "innovation.mp4",
+      imgLight: "innovation_Light.mp4",
+      isVideo: true
     },
     { 
       step: "02 · Support", 
@@ -60,7 +62,8 @@ export default function DarkGradientSection() {
       title: "Diverse portfolio of products", 
       subtitle: "Solutions for every single client.", 
       body: "Offer a comprehensive suite of insurance products from top-rated carriers, allowing you to tailor coverage perfectly to your clients' unique needs.",
-      img: "Dark_wireframe_3D_illustration_on_202606232200 1.png" 
+      img: "Dark_wireframe_3D_illustration_on_202606232200 1.png",
+      imgLight: "Dark_wireframe_3D_illustration_on_202606232200 1.png"
     }
   ];
 
@@ -119,7 +122,7 @@ export default function DarkGradientSection() {
             {features.map((card, idx) => (
               <div 
                 key={idx} 
-                className="fade-up flex flex-col shrink-0 w-[80vw] md:w-auto rounded-[8px] bg-[#0A0A0A] dark:bg-transparent backdrop-blur-md border border-white/10 hover:border-white/20 transition-all duration-500 shadow-sm hover:shadow-[0_16px_48px_rgba(5,72,235,0.15)] hover:md:-translate-y-2 cursor-pointer group overflow-hidden"
+                className="fade-up flex flex-col shrink-0 w-[80vw] md:w-auto rounded-[8px] bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-base)] backdrop-blur-md border border-black/5 dark:border-white/10 hover:border-black/10 dark:hover:border-white/20 transition-all duration-500 shadow-sm hover:shadow-[0_16px_48px_rgba(5,72,235,0.15)] hover:md:-translate-y-2 cursor-pointer group overflow-hidden"
               >
                 {/* Bloque de Texto Superior (Step, Título y Cuerpo Largo) */}
                 <div className="flex flex-col p-[14px] md:p-6 w-full gap-3 text-left">
@@ -127,29 +130,50 @@ export default function DarkGradientSection() {
                     {card.step}
                   </span>
                   <div className="flex flex-col gap-2">
-                    <h3 className="text-h5 md:text-h4 text-white font-medium leading-tight tracking-tight transition-colors duration-500">
+                    <h3 className="text-h5 md:text-h4 text-[var(--color-text-Black-100)] dark:text-white font-medium leading-tight tracking-tight transition-colors duration-500">
                       {card.title}
                     </h3>
-                    <p className="text-body-sm text-white/60 font-light leading-relaxed transition-colors duration-500">
+                    <p className="text-body-sm text-[var(--color-text-Black-100)]/70 dark:text-white/60 font-light leading-relaxed transition-colors duration-500">
                       {card.body}
                     </p>
                   </div>
                 </div>
 
                 {/* Contenedor Visual (Medio, flex-1, Transparente) */}
-                <div className="w-full flex-1 min-h-[200px] relative bg-transparent p-4 md:p-6 overflow-hidden transition-colors duration-500">
-                  <img 
-                    src={`/Files/Epicare_Landing/Features/${card.img}`} 
-                    alt={card.title} 
-                    className="absolute inset-0 w-full h-full object-contain p-6 opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out" 
-                  />
-                </div>
-
-                {/* Subtítulo Corto (Abajo) */}
-                <div className="flex flex-col p-[14px] md:p-6 w-full text-left bg-white/[0.02] transition-colors duration-500">
-                  <p className="text-ui-label md:text-body-sm text-white/90 font-medium tracking-wide transition-colors duration-500">
-                    {card.subtitle}
-                  </p>
+                <div className="w-full flex-1 min-h-[200px] relative bg-transparent overflow-hidden transition-colors duration-500">
+                  {card.isVideo ? (
+                    <>
+                      <video 
+                        autoPlay 
+                        loop 
+                        muted 
+                        playsInline 
+                        src={`/Files/Epicare_Landing/Features/${card.imgLight || card.img}`}
+                        className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out block dark:hidden"
+                      />
+                      <video 
+                        autoPlay 
+                        loop 
+                        muted 
+                        playsInline 
+                        src={`/Files/Epicare_Landing/Features/${card.img}`}
+                        className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out hidden dark:block"
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <img 
+                        src={`/Files/Epicare_Landing/Features/${card.imgLight || card.img}`} 
+                        alt={card.title} 
+                        className="absolute inset-0 w-full h-full object-contain p-6 opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out block dark:hidden" 
+                      />
+                      <img 
+                        src={`/Files/Epicare_Landing/Features/${card.img}`} 
+                        alt={card.title} 
+                        className="absolute inset-0 w-full h-full object-contain p-6 opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out hidden dark:block" 
+                      />
+                    </>
+                  )}
                 </div>
                 
               </div>
