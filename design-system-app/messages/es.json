@@ -1,52 +1,52 @@
 {
   "landingV2": {
     "hero": {
-      "scrollDown": "Desplázate hacia abajo",
-      "title1": "El Sistema Operativo",
-      "title2": "Para Agencias de Seguros.",
-      "description": "Epicare es la plataforma definitiva diseñada para que agentes y agencias gestionen todo su flujo de trabajo, coticen pólizas y escalen sus ventas desde un solo lugar.",
-      "descriptionMobile": "Gestiona todo tu flujo de trabajo, cotiza pólizas y escala tus ventas desde un solo lugar.",
-      "ctaPlans": "Descubre Nuestros Planes",
-      "ctaAgents": "Para Agentes"
+      "scrollDown": "Scroll Down",
+      "title1": "The Operating System",
+      "title2": "For Insurance Agencies.",
+      "description": "Epicare is the ultimate platform designed for agents and agencies to manage their entire workflow, quote policies, and scale sales from a single place.",
+      "descriptionMobile": "Manage your entire workflow, quote policies, and scale sales from a single place.",
+      "ctaPlans": "Discover Our Plans",
+      "ctaAgents": "For Agents"
     },
     "metrics": {
-      "carriers": "Aseguradoras",
-      "years": "Años de Experiencia",
-      "agents": "Agentes",
-      "platform": "Plataforma de Aprendizaje",
-      "titleLine1": "Diseñado para escalar",
-      "titleLine2": "las operaciones de",
-      "titleLine3": "seguros más exigentes."
+      "carriers": "Carriers",
+      "years": "Years of Experience",
+      "agents": "Agents",
+      "platform": "Learning Platform",
+      "titleLine1": "Engineered to scale",
+      "titleLine2": "the most demanding",
+      "titleLine3": "insurance operations."
     },
     "bento": {
       "itemDiTitle": "Item DI",
-      "itemDiDesc": "Eleva tu flujo de trabajo de seguros con herramientas inteligentes.",
+      "itemDiDesc": "Elevate your insurance workflow with intelligent tools.",
       "itemOmsTitle": "Item OMS",
-      "itemOmsDesc": "El sistema operativo supremo para agencias de élite."
+      "itemOmsDesc": "The supreme operating system for elite agencies."
     },
     "nav": {
-      "about": "Nosotros",
-      "aboutCompany": "Compañía",
-      "aboutCompanyDesc": "Aprende sobre nuestra misión, visión y valores.",
-      "aboutTeam": "Equipo",
-      "aboutTeamDesc": "Conoce a los líderes impulsando la innovación en Epicare.",
-      "aboutLicensing": "Licencias",
-      "aboutLicensingDesc": "Información sobre nuestras licencias y certificaciones.",
+      "about": "About",
+      "aboutCompany": "Company",
+      "aboutCompanyDesc": "Learn about our mission, vision and values.",
+      "aboutTeam": "Team",
+      "aboutTeamDesc": "Meet the leaders driving innovation at Epicare.",
+      "aboutLicensing": "Licensing",
+      "aboutLicensingDesc": "Information about our licenses and certifications.",
       "gohub": "Go Hub",
       "gohubCrm": "GO CRM",
-      "gohubCrmDesc": "Gestiona relaciones y haz crecer tu red.",
+      "gohubCrmDesc": "Manage relationships and grow your network.",
       "gohubAms": "Go AMS",
-      "gohubAmsDesc": "Automatiza y optimiza operaciones de membresía.",
+      "gohubAmsDesc": "Automate and optimize membership operations.",
       "gohubCalls": "GO Calls",
-      "gohubCallsDesc": "Herramientas integradas de llamadas y comunicación.",
+      "gohubCallsDesc": "Integrated calling and communication tools.",
       "gohubAcademy": "Epicare Academy",
-      "gohubAcademyDesc": "Entrenamiento, recursos y certificaciones.",
-      "solutions": "Soluciones",
+      "gohubAcademyDesc": "Training, resources and certifications.",
+      "solutions": "Solutions",
       "solMarketing": "Marketing",
-      "solMarketingDesc": "Atrae, involucra y convierte más miembros.",
-      "solTech": "Tecnología",
-      "solTechDesc": "Soluciones tecnológicas escalables y seguras.",
-      "comingSoon": "Próximamente"
+      "solMarketingDesc": "Attract, engage and convert more members.",
+      "solTech": "Technology",
+      "solTechDesc": "Scalable and secure technology solutions.",
+      "comingSoon": "Coming Soon"
     }
   }
 }

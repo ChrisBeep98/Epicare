@@ -200,7 +200,7 @@ export default function HeroEpicare() {
           {/* EL VIDEO (ACTO 1: Pequeño y sin viñeta -> ACTO 2: Fullscreen con viñeta) */}
           <div 
             ref={videoWrapperRef} 
-            className="relative w-[95vw] md:w-[85vw] lg:w-[1100px] max-w-[100%] h-[64dvh] md:h-[70dvh] rounded-[2rem] md:rounded-t-[2rem] md:rounded-b-none overflow-hidden shadow-elevation-2 bg-[var(--color-surface-BG-black)] will-change-transform z-0"
+            className="relative w-[calc(100vw-64px)] md:w-[85vw] lg:w-[1100px] max-w-[100%] h-[85dvh] md:h-[70dvh] rounded-t-[2rem] rounded-b-none overflow-hidden shadow-elevation-2 bg-[var(--color-surface-BG-black)] will-change-transform z-0"
             style={{ transformStyle: 'preserve-3d', transformOrigin: 'bottom center' }}
           >
             <video 
