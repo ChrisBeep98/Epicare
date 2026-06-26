@@ -22,7 +22,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className={`dark ${inter.variable} font-inter antialiased`}>
+    <html lang="es" className={`${inter.variable} font-inter antialiased`}>
       <body className="min-h-full flex flex-col bg-[var(--color-surface-BG-1)] text-[var(--color-text-primary)]">
         <NextIntlClientProvider locale="es" messages={messages}>
           {children}

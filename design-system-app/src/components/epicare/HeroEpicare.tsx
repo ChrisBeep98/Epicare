@@ -4,6 +4,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useTranslations } from 'next-intl';
+import HeaderEpicare from './HeaderEpicare';
 
 export default function HeroEpicare() {
   const t = useTranslations('landingV2.hero');
@@ -15,10 +16,6 @@ export default function HeroEpicare() {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoWrapperRef = useRef<HTMLDivElement>(null);
   const heroContentRef = useRef<HTMLDivElement>(null);
-  const navRef = useRef<HTMLElement>(null);
-  const navBgRef = useRef<HTMLDivElement>(null);
-  const logoARef = useRef<HTMLDivElement>(null);
-  const logoBRef = useRef<HTMLDivElement>(null);
   const vignetteRef = useRef<HTMLDivElement>(null);
   const scrollIndicatorRef = useRef<HTMLDivElement>(null);
   const scrollLineRef = useRef<HTMLDivElement>(null);
@@ -49,11 +46,6 @@ export default function HeroEpicare() {
 
       // Asegurar que la viñeta oscura empiece invisible
       gsap.set(vignetteRef.current, { opacity: 0 });
-
-      // Configurar z-indexes iniciales y estado del logo handoff
-      gsap.set(navBgRef.current, { zIndex: 1 });
-      gsap.set(logoBRef.current, { opacity: 0, pointerEvents: 'none' });
-      gsap.set(logoARef.current, { opacity: 1, pointerEvents: 'auto' });
 
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -87,9 +79,6 @@ export default function HeroEpicare() {
         }
       });
 
-      // Acto 1 -> Asegurar z-indexes durante la animación de expansión
-      tl.set(navBgRef.current, { zIndex: 1 }, 0);
-
       // Acto 1 -> Desaparece el indicador de scroll apenas se mueve la rueda
       tl.to(scrollIndicatorRef.current, {
         opacity: 0,
@@ -99,7 +88,6 @@ export default function HeroEpicare() {
       }, 0);
 
       // Acto 1 -> Expansión del Video a Full Screen
-      // Al expandirse, el logo (que está dentro del video) viaja orgánicamente hasta la esquina de la pantalla.
       tl.to(videoWrapperRef.current, {
         width: "100%", // Se usa 100% en vez de 100vw para evitar scroll horizontal por culpa de la barra de desplazamiento
         height: "100dvh", // Uso de dvh para evitar saltos en móvil
@@ -114,36 +102,6 @@ export default function HeroEpicare() {
         duration: 1,
         ease: "power2.inOut"
       }, 0);
-
-      // Acto 1 -> El logo viaja al Navbar flotante (Centrado dinámicamente)
-      tl.to(logoARef.current, {
-        top: () => window.innerWidth < 768 ? "14px" : "18px",
-        left: () => {
-          const el = logoBRef.current?.firstElementChild;
-          const rect = el ? el.getBoundingClientRect() : logoBRef.current?.getBoundingClientRect();
-          return rect ? rect.left : 24;
-        },
-        duration: 1,
-        ease: "power2.inOut"
-      }, 0);
-
-      // Acto 1 -> Logo handoff crossfade (de 0.9 a 1.0)
-      tl.to(logoARef.current, {
-        opacity: 0,
-        pointerEvents: "none",
-        duration: 0.1,
-        ease: "power2.inOut"
-      }, 0.9);
-
-      tl.to(logoBRef.current, {
-        opacity: 1,
-        pointerEvents: "auto",
-        duration: 0.1,
-        ease: "power2.inOut"
-      }, 0.9);
-
-      // Acto 1 -> Swap de z-indexes al completar la expansión (time 1.0)
-      tl.set(navBgRef.current, { zIndex: 999998 }, 1.0);
 
       // Acto 1 -> Aparece la viñeta oscura
       tl.to(vignetteRef.current, {
@@ -165,7 +123,6 @@ export default function HeroEpicare() {
 
       // Acto 3 (Invisible) -> Mantenemos el Hero pineado sin hacer nada durante 100vh adicionales 
       // para que la siguiente sección con margin-top negativo se deslice por encima.
-      // (1.2s de animación previa equivale a 150vh. Para sumar 100vh, agregamos 0.8s de idle).
       tl.to({}, { duration: 0.8 });
 
     }, containerRef);
@@ -215,93 +172,11 @@ export default function HeroEpicare() {
     });
   };
 
-  const navLayoutClass = isHeaderPill
-    ? "top-0 md:top-2 h-16"
-    : "top-4 md:top-6 h-16";
-
-  const navBgClass = isHeaderPill
-    ? (isHeaderForcedDark 
-        ? "bg-black/20 border-white/10 dark:border-white/5 shadow-elevation-2 rounded-none md:rounded-lg border-b md:border backdrop-blur-md" 
-        : "bg-white/50 dark:bg-black/20 border-black/10 dark:border-white/5 shadow-elevation-2 rounded-none md:rounded-lg border-b md:border backdrop-blur-md")
-    : "bg-transparent border-transparent shadow-none rounded-none";
-
-  const iconColorClass = (isHeaderForcedDark || isDark)
-    ? "text-white hover:text-white/80"
-    : "text-[var(--color-text-Black-100)] hover:opacity-80";
-
-  const logoColorClass = (isHeaderForcedDark || isDark)
-    ? "bg-white"
-    : "bg-[var(--color-brand-blue)] dark:bg-white";
-
   return (
     <div className="w-full overflow-x-hidden bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)]">
       
-      {/* Background Pill Layer (z-[10] inicialmente para quedar detrás del video/Logo A) */}
-      <div 
-        ref={navBgRef}
-        className={`fixed left-0 right-0 md:left-[var(--space-gutter-sm)] md:right-[var(--space-gutter-sm)] lg:left-[var(--space-gutter-md)] lg:right-[var(--space-gutter-md)] pointer-events-none transition-all duration-300 ${navLayoutClass} ${navBgClass}`}
-      />
-
-      {/* Controls & Logo B Layer (z-[999999] siempre al frente) */}
-      <nav 
-        ref={navRef} 
-        className={`fixed left-0 right-0 md:left-[var(--space-gutter-sm)] md:right-[var(--space-gutter-sm)] lg:left-[var(--space-gutter-md)] lg:right-[var(--space-gutter-md)] flex justify-between items-center px-4 md:px-6 z-[999999] pointer-events-auto transition-all duration-300 ${navLayoutClass}`}
-      >
-        {/* Logo B (Empieza invisible, se muestra mediante crossfade al final del Acto 1) */}
-        <div 
-          ref={logoBRef}
-          id="fixed-navbar-logo" 
-          className="w-[120px] md:w-[150px] flex-shrink-0 flex items-center opacity-0 pointer-events-none"
-        >
-          <div 
-            className={`h-[36px] md:h-[44px] aspect-[960/364] transition-colors duration-300 ${logoColorClass}`}
-            style={{
-              maskImage: "url('/epicare_logo.svg')",
-              WebkitMaskImage: "url('/epicare_logo.svg')",
-              maskSize: "contain",
-              WebkitMaskSize: "contain",
-              maskRepeat: "no-repeat",
-              WebkitMaskRepeat: "no-repeat",
-              maskPosition: "left center",
-              WebkitMaskPosition: "left center"
-            }}
-          />
-        </div>
-        
-        {/* Botones de acción */}
-        <div className={`flex items-center gap-fluid-xs transition-colors duration-300 ${iconColorClass}`}>
-          <button 
-            type="button" 
-            onClick={toggleTheme} 
-            className="w-10 h-10 flex items-center justify-center cursor-pointer relative z-50 transition-transform duration-300 hover:scale-110 active:scale-95"
-          >
-            {isDark ? (
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="transition-all duration-300">
-                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-              </svg>
-            ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="transition-all duration-300">
-                <circle cx="12" cy="12" r="5"></circle>
-                <line x1="12" y1="1" x2="12" y2="3"></line>
-                <line x1="12" y1="21" x2="12" y2="23"></line>
-                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                <line x1="1" y1="12" x2="3" y2="12"></line>
-                <line x1="21" y1="12" x2="23" y2="12"></line>
-                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-              </svg>
-            )}
-          </button>
-          <button type="button" className="w-10 h-10 flex items-center justify-center cursor-pointer relative z-50 transition-opacity hover:opacity-70">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-              <line x1="4" x2="20" y1="12" y2="12"/>
-              <line x1="4" x2="20" y1="6" y2="6"/>
-              <line x1="4" x2="20" y1="18" y2="18"/>
-            </svg>
-          </button>
-        </div>
-      </nav>
+      {/* Header Reutilizable y Autogestionado */}
+      <HeaderEpicare isHeaderPill={isHeaderPill} isHeaderForcedDark={isHeaderForcedDark} />
 
       <div ref={containerRef} className="w-full relative z-10 bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] text-[var(--color-text-primary)]">
         
@@ -319,30 +194,6 @@ export default function HeroEpicare() {
             className="relative w-[95vw] md:w-full h-[64dvh] md:h-[70dvh] rounded-[2rem] md:rounded-[4px] overflow-hidden shadow-elevation-2 bg-[var(--color-surface-BG-black)] will-change-transform z-0"
             style={{ transformStyle: 'preserve-3d' }}
           >
-            {/* EL ÚNICO LOGO: Vive permanentemente aquí adentro. 
-                Tiene padding simétrico en el Acto 1. 
-                Al expandirse el video, GSAP mueve este logo sutilmente 
-                para que quede perfectamente alineado con el Navbar en el Acto 2. */}
-            <div 
-              ref={logoARef}
-              id="epicare-logo-container"
-              className="absolute top-static-lg left-static-lg md:top-static-xl md:left-static-xl z-[1000000] pointer-events-auto will-change-transform"
-            >
-              <div 
-                className="h-[36px] md:h-[44px] aspect-[960/364] bg-white"
-                style={{
-                  maskImage: "url('/epicare_logo.svg')",
-                  WebkitMaskImage: "url('/epicare_logo.svg')",
-                  maskSize: "contain",
-                  WebkitMaskSize: "contain",
-                  maskRepeat: "no-repeat",
-                  WebkitMaskRepeat: "no-repeat",
-                  maskPosition: "left center",
-                  WebkitMaskPosition: "left center"
-                }}
-              />
-            </div>
-
             <video 
               autoPlay 
               loop 
@@ -407,7 +258,6 @@ export default function HeroEpicare() {
 
           </div>
         </div>
-        
       </div>
     </div>
   );

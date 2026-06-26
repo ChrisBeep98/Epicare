@@ -540,3 +540,64 @@ body {
   opacity: 0;
   will-change: transform, opacity, filter;
 }
+
+/* --- Control de Scrollbar Sin Layout Shift (Brincos) ni Gutter Vacío --- */
+html {
+  overflow-y: scroll;
+}
+
+/* Ocultar barra de scroll de forma transparente mientras carga */
+html:not(.show-scrollbar) {
+  scrollbar-color: transparent transparent; /* Firefox */
+}
+html:not(.show-scrollbar)::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+html:not(.show-scrollbar)::-webkit-scrollbar-track {
+  background: transparent;
+}
+html:not(.show-scrollbar)::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
+/* Mostrar barra de scroll con diseño premium al terminar la carga */
+html.show-scrollbar {
+  scrollbar-color: rgba(26, 30, 33, 0.2) transparent; /* Firefox */
+}
+html.dark.show-scrollbar {
+  scrollbar-color: rgba(232, 236, 239, 0.2) transparent; /* Firefox */
+}
+
+html.show-scrollbar::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+html.show-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+html.show-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(26, 30, 33, 0.2);
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  transition: background-color 0.2s ease;
+}
+html.dark.show-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(232, 236, 239, 0.2);
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  transition: background-color 0.2s ease;
+}
+
+html.show-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(26, 30, 33, 0.4);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+html.dark.show-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(232, 236, 239, 0.4);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}

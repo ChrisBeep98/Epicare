@@ -12,6 +12,7 @@ export default function LoaderEpicare() {
 
     // Bloquear scroll al cargar
     document.body.style.overflow = "hidden";
+    document.documentElement.classList.remove("show-scrollbar");
 
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
@@ -44,6 +45,11 @@ export default function LoaderEpicare() {
         onComplete: () => {
           setVisible(false);
           document.body.style.overflow = "";
+          document.documentElement.classList.add("show-scrollbar");
+          if (typeof window !== "undefined") {
+            (window as any).epicareLoaderDone = true;
+            window.dispatchEvent(new Event("epicareLoaderComplete"));
+          }
         }
       }, "<");
     }, containerRef);
