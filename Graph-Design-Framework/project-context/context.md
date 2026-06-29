@@ -132,6 +132,9 @@ Los componentes del nuevo diseño están consolidados en:
     - Extracción de la barra de navegación del Hero para consolidar el componente global e independiente `<HeaderEpicare />` usando el nuevo isotipo `/short_logo.svg`.
     - Solución definitiva al *scrollbar layout shift* (salto de la barra de scroll) forzando `overflow-y: scroll` en `html` con estilos transparentes durante la carga del Loader, revelándose suavemente con la clase `.show-scrollbar` al finalizar.
     - Configuración por defecto de Light Mode al remover la clase `dark` del tag `html` en `layout.tsx`.
+115. **[NUEVO] Internacionalización Dinámica & Header Polish (29 Jun 2026):**
+    - Implementación de un selector de idioma dinámico (ESP/ENG) tipo dropdown "liquid glass" minimalista en el Header que actualiza los textos en caliente sin remontar el DOM, preservando intactos los ScrollTriggers y el pin del video del Hero.
+    - Adición de un botón de Login en azul de la marca y localización completa de todos los componentes y copys quemados de la landing page en los diccionarios i18n.
 
 ## 6. Próximos Pasos (To-Do)
 - Empezar la construcción de la **Página de Inicio (Home)** integrando el motor de `HeroSequence` con los nuevos tokens de espaciado.

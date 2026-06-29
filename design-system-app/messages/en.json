@@ -22,7 +22,37 @@
       "itemDiTitle": "Item DI",
       "itemDiDesc": "Elevate your insurance workflow with intelligent tools.",
       "itemOmsTitle": "Item OMS",
-      "itemOmsDesc": "The supreme operating system for elite agencies."
+      "itemOmsDesc": "The supreme operating system for elite agencies.",
+      "sectionTitle": "The Entire Ecosystem in One Place",
+      "sectionDesc": "Discover the tools and modules designed to scale your operations without friction.",
+      "card1Title": "GO CRM",
+      "card1Desc": "Automate, track, and close more deals with real-time insights, custom workflows, and on-demand coaching.",
+      "card4Title": "GO AMS",
+      "card4Desc": "Seamless operation management with scalable tools and automated tracking.",
+      "card6Title": "GO CALLS",
+      "card6Desc": "Connect and communicate seamlessly with crystal clear voice integration and tracking.",
+      "card7Title": "Smart Metrics",
+      "card7Desc": "Unlock actionable insights and real-time data to optimize your daily operations."
+    },
+    "darkGradient": {
+      "sectionTitle": "Everything You Need to Succeed",
+      "sectionDesc": "We don’t just open doors — we provide the tools, support, and opportunities you need to succeed at every step.",
+      "feature1_step": "01 · Innovation",
+      "feature1_title": "Top marketing and tech solutions",
+      "feature1_subtitle": "Equip your business with modern tools.",
+      "feature1_body": "Access state-of-the-art marketing platforms and tech stacks designed to accelerate your growth and streamline your operations seamlessly.",
+      "feature2_step": "02 · Support",
+      "feature2_title": "Expert guidance and broker support",
+      "feature2_subtitle": "We walk with you every step.",
+      "feature2_body": "Rely on our dedicated team of industry veterans to provide personalized coaching, operational support, and strategic advice whenever you need it.",
+      "feature3_step": "03 · Earnings",
+      "feature3_title": "Top and transparent compensation",
+      "feature3_subtitle": "Maximize your true potential.",
+      "feature3_body": "Enjoy industry-leading commission structures with zero hidden fees. Our transparent models ensure you get rewarded fairly for every success.",
+      "feature4_step": "04 · Variety",
+      "feature4_title": "Diverse portfolio of products",
+      "feature4_subtitle": "Solutions for every single client.",
+      "feature4_body": "Offer a comprehensive suite of insurance products from top-rated carriers, allowing you to tailor coverage perfectly to your clients' unique needs."
     },
     "nav": {
       "about": "About",
@@ -46,7 +76,9 @@
       "solMarketingDesc": "Attract, engage and convert more members.",
       "solTech": "Technology",
       "solTechDesc": "Scalable and secure technology solutions.",
-      "comingSoon": "Coming Soon"
+      "comingSoon": "Coming Soon",
+      "login": "Login",
+      "moreFromEpicare": "More from Epicare"
     }
   }
 }

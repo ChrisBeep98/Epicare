@@ -1,28 +1,58 @@
 {
   "landingV2": {
     "hero": {
-      "scrollDown": "Scroll Down",
-      "title1": "The Operating System",
-      "title2": "For Insurance Agencies.",
-      "description": "Epicare is the ultimate platform designed for agents and agencies to manage their entire workflow, quote policies, and scale sales from a single place.",
-      "descriptionMobile": "Manage your entire workflow, quote policies, and scale sales from a single place.",
-      "ctaPlans": "Discover Our Plans",
-      "ctaAgents": "For Agents"
+      "scrollDown": "Deslizar",
+      "title1": "El Sistema Operativo",
+      "title2": "Para Agencias de Seguros.",
+      "description": "Epicare es la plataforma definitiva diseñada para que agentes y agencias gestionen todo su flujo de trabajo, coticen pólizas y escalen ventas desde un solo lugar.",
+      "descriptionMobile": "Gestiona todo tu flujo de trabajo, cotiza pólizas y escala tus ventas desde un solo lugar.",
+      "ctaPlans": "Descubre Nuestros Planes",
+      "ctaAgents": "Para Agentes"
     },
     "metrics": {
-      "carriers": "Carriers",
-      "years": "Years of Experience",
-      "agents": "Agents",
-      "platform": "Learning Platform",
-      "titleLine1": "Engineered to scale",
-      "titleLine2": "the most demanding",
-      "titleLine3": "insurance operations."
+      "carriers": "Aseguradoras",
+      "years": "Años de Experiencia",
+      "agents": "Agentes",
+      "platform": "Plataforma de Aprendizaje",
+      "titleLine1": "Diseñado para escalar",
+      "titleLine2": "las operaciones de seguros",
+      "titleLine3": "más exigentes."
     },
     "bento": {
       "itemDiTitle": "Item DI",
       "itemDiDesc": "Elevate your insurance workflow with intelligent tools.",
       "itemOmsTitle": "Item OMS",
-      "itemOmsDesc": "The supreme operating system for elite agencies."
+      "itemOmsDesc": "The supreme operating system for elite agencies.",
+      "sectionTitle": "Todo el Ecosistema en un Solo Lugar",
+      "sectionDesc": "Descubre las herramientas y módulos diseñados para escalar tus operaciones sin fricciones.",
+      "card1Title": "GO CRM",
+      "card1Desc": "Automatiza, rastrea y cierra más tratos con información en tiempo real, flujos de trabajo personalizados y asesoría bajo demanda.",
+      "card4Title": "GO AMS",
+      "card4Desc": "Gestión operativa sin complicaciones con herramientas escalables y seguimiento automatizado.",
+      "card6Title": "GO CALLS",
+      "card6Desc": "Conéctate y comunícate sin problemas con una integración de voz nítida y seguimiento continuo.",
+      "card7Title": "Métricas Inteligentes",
+      "card7Desc": "Desbloquea información útil y datos en tiempo real para optimizar tus operaciones diarias."
+    },
+    "darkGradient": {
+      "sectionTitle": "Todo lo que necesitas para tener éxito",
+      "sectionDesc": "No solo abrimos puertas: proporcionamos las herramientas, el apoyo y las oportunidades que necesitas para tener éxito en cada paso.",
+      "feature1_step": "01 · Innovación",
+      "feature1_title": "Soluciones tecnológicas y de marketing de primer nivel",
+      "feature1_subtitle": "Equipa tu negocio con herramientas modernas.",
+      "feature1_body": "Accede a plataformas de marketing y stacks tecnológicos de última generación diseñados para acelerar tu crecimiento y simplificar tus operaciones sin fricciones.",
+      "feature2_step": "02 · Soporte",
+      "feature2_title": "Orientación experta y soporte de intermediación",
+      "feature2_subtitle": "Te acompañamos en cada paso.",
+      "feature2_body": "Confía en nuestro dedicado equipo de veteranos de la industria para brindarte asesoría personalizada, soporte operativo y asesoramiento estratégico cuando lo necesites.",
+      "feature3_step": "03 · Ganancias",
+      "feature3_title": "Compensación máxima y transparente",
+      "feature3_subtitle": "Maximiza tu verdadero potencial.",
+      "feature3_body": "Disfruta de estructuras de comisiones líderes en la industria sin tarifas ocultas. Nuestros modelos transparentes aseguran que seas recompensado justamente por cada éxito.",
+      "feature4_step": "04 · Variedad",
+      "feature4_title": "Portafolio diverso de productos",
+      "feature4_subtitle": "Soluciones para cada tipo de cliente.",
+      "feature4_body": "Ofrece un conjunto integral de productos de seguros de aseguradoras de primer nivel, lo que te permite adaptar la cobertura perfectamente a las necesidades únicas de tus clientes."
     },
     "nav": {
       "about": "About",
@@ -46,7 +76,9 @@
       "solMarketingDesc": "Attract, engage and convert more members.",
       "solTech": "Technology",
       "solTechDesc": "Scalable and secure technology solutions.",
-      "comingSoon": "Coming Soon"
+      "comingSoon": "Coming Soon",
+      "login": "Iniciar Sesión",
+      "moreFromEpicare": "Más de Epicare"
     }
   }
 }

@@ -3,10 +3,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useTranslations } from 'next-intl';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function DarkGradientSection() {
+  const t = useTranslations('landingV2.darkGradient');
   const sectionRef = useRef<HTMLDivElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -38,35 +40,35 @@ export default function DarkGradientSection() {
 
   const features = [
     { 
-      step: "01 · Innovation", 
-      title: "Top marketing and tech solutions", 
-      subtitle: "Equip your business with modern tools.", 
-      body: "Access state-of-the-art marketing platforms and tech stacks designed to accelerate your growth and streamline your operations seamlessly.",
+      step: t('feature1_step'), 
+      title: t('feature1_title'), 
+      subtitle: t('feature1_subtitle'), 
+      body: t('feature1_body'),
       img: "innovation.mp4",
       imgLight: "innovation_Light.mp4",
       isVideo: true
     },
     { 
-      step: "02 · Support", 
-      title: "Expert guidance and broker support", 
-      subtitle: "We walk with you every step.", 
-      body: "Rely on our dedicated team of industry veterans to provide personalized coaching, operational support, and strategic advice whenever you need it.",
+      step: t('feature2_step'), 
+      title: t('feature2_title'), 
+      subtitle: t('feature2_subtitle'), 
+      body: t('feature2_body'),
       img: "support_dark.png",
       imgLight: "support_LLight.png",
       imgClass: "!p-0 md:!p-2 scale-[1.15] group-hover:scale-[1.20]"
     },
     { 
-      step: "03 · Earnings", 
-      title: "Top and transparent compensation", 
-      subtitle: "Maximize your true potential.", 
-      body: "Enjoy industry-leading commission structures with zero hidden fees. Our transparent models ensure you get rewarded fairly for every success.",
+      step: t('feature3_step'), 
+      title: t('feature3_title'), 
+      subtitle: t('feature3_subtitle'), 
+      body: t('feature3_body'),
       img: "Dark_wireframe_3D_illustration_on_202606232159 1 [Vectorized].png" 
     },
     { 
-      step: "04 · Variety", 
-      title: "Diverse portfolio of products", 
-      subtitle: "Solutions for every single client.", 
-      body: "Offer a comprehensive suite of insurance products from top-rated carriers, allowing you to tailor coverage perfectly to your clients' unique needs.",
+      step: t('feature4_step'), 
+      title: t('feature4_title'), 
+      subtitle: t('feature4_subtitle'), 
+      body: t('feature4_body'),
       img: "Dark_wireframe_3D_illustration_on_202606232200 1.png",
       imgLight: "Dark_wireframe_3D_illustration_on_202606232200 1.png"
     }
@@ -114,11 +116,11 @@ export default function DarkGradientSection() {
           <div className="relative z-10 flex flex-col items-start md:items-center gap-6 md:gap-8 max-w-4xl w-full md:mx-auto pb-4 md:pb-8">
             
             <h2 className="fade-up opacity-0 text-display text-left md:text-center text-[var(--color-text-Black-100)] dark:text-white tracking-tighter leading-[1.05] transition-colors duration-500">
-              Everything You Need to Succeed
+              {t('sectionTitle')}
             </h2>
 
             <p className="fade-up opacity-0 text-body text-left md:text-center text-[var(--color-text-Black-100)]/70 dark:text-white/70 max-w-2xl font-light transition-colors duration-500">
-              We don’t just open doors — we provide the tools, support, and opportunities you need to succeed at every step.
+              {t('sectionDesc')}
             </p>
 
           </div>

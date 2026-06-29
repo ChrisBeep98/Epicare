@@ -55,10 +55,10 @@ export default function BentoGridEpicare() {
           {/* Section Header */}
           <div className="flex flex-col gap-4 mb-16 max-w-3xl">
             <h2 className="text-display-lg font-medium text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)] tracking-tight">
-              Todo el Ecosistema en un Solo Lugar
+              {t('sectionTitle')}
             </h2>
             <p className="text-body text-black/60 dark:text-[var(--color-text-muted)] font-light leading-relaxed">
-              Descubre las herramientas y módulos diseñados para escalar tus operaciones sin fricciones.
+              {t('sectionDesc')}
             </p>
           </div>
 
@@ -74,10 +74,10 @@ export default function BentoGridEpicare() {
             <ArrowIcon className="absolute top-[14px] md:top-static-lg right-[14px] md:right-static-lg w-6 h-6 text-black/50 dark:text-[var(--color-text-muted)] group-hover:text-[var(--color-text-Black-100)] dark:group-hover:text-[var(--color-text-White-100)] transition-colors duration-500" />
             <div className="absolute bottom-[14px] md:bottom-static-lg left-[14px] md:left-static-lg right-[14px] md:right-static-lg flex flex-col gap-2">
               <h3 id="card-1-title" className="text-h1 font-medium text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)] tracking-tight">
-                GO CRM
+                {t('card1Title')}
               </h3>
               <p id="card-1-desc" className="text-body-xs text-black/60 dark:text-[var(--color-text-muted)] font-light md:max-w-[300px] leading-relaxed">
-                Automate, track, and close more deals with real-time insights, custom workflows, and on-demand coaching.
+                {t('card1Desc')}
               </p>
             </div>
           </div>
@@ -121,10 +121,10 @@ export default function BentoGridEpicare() {
             <ArrowIcon className="absolute top-[14px] md:top-static-lg right-[14px] md:right-static-lg w-6 h-6 text-black/50 dark:text-[var(--color-text-muted)] group-hover:text-[var(--color-text-Black-100)] dark:group-hover:text-[var(--color-text-White-100)] transition-colors duration-500" />
             <div className="absolute bottom-[14px] md:bottom-static-lg left-[14px] md:left-static-lg right-[14px] md:right-static-lg flex flex-col gap-2">
               <h3 id="card-4-title" className="text-h1 font-medium text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)] tracking-tight">
-                GO AMS
+                {t('card4Title')}
               </h3>
               <p id="card-4-desc" className="text-body-xs text-black/60 dark:text-[var(--color-text-muted)] font-light md:max-w-[220px] leading-relaxed">
-                Seamless operation management with scalable tools and automated tracking.
+                {t('card4Desc')}
               </p>
             </div>
           </div>
@@ -152,10 +152,10 @@ export default function BentoGridEpicare() {
             <ArrowIcon className="absolute top-[14px] md:top-static-lg right-[14px] md:right-static-lg w-6 h-6 text-white drop-shadow-md transition-colors duration-500 z-10" />
             <div className="absolute bottom-[14px] md:bottom-static-lg left-[14px] md:left-static-lg right-[14px] md:right-static-lg flex flex-col gap-2 z-10 pointer-events-none">
               <h3 id="card-6-title" className="text-h2 font-medium text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)] tracking-tight">
-                GO CALLS
+                {t('card6Title')}
               </h3>
               <p id="card-6-desc" className="text-body-xs text-black/60 dark:text-[var(--color-text-muted)] font-light md:max-w-[240px] leading-relaxed">
-                Connect and communicate seamlessly with crystal clear voice integration and tracking.
+                {t('card6Desc')}
               </p>
             </div>
             <div className="absolute top-[1px] left-[1px] right-[1px] bottom-[160px] z-0 overflow-hidden">
@@ -175,10 +175,10 @@ export default function BentoGridEpicare() {
             <ArrowIcon className="absolute top-[14px] md:top-static-lg right-[14px] md:right-static-lg w-6 h-6 text-black/50 dark:text-[var(--color-text-muted)] group-hover:text-[var(--color-text-Black-100)] dark:group-hover:text-[var(--color-text-White-100)] transition-colors duration-500 z-10" />
             <div className="flex flex-col gap-4">
               <h3 id="card-7-title" className="text-h2 font-medium text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)] tracking-tight">
-                Smart Metrics
+                {t('card7Title')}
               </h3>
               <p id="card-7-desc" className="text-body-sm text-black/60 dark:text-[var(--color-text-muted)] font-light max-w-[240px] leading-relaxed">
-                Unlock actionable insights and real-time data to optimize your daily operations.
+                {t('card7Desc')}
               </p>
             </div>
           </div>

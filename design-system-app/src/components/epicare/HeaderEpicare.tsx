@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState, useRef } from "react";
 import { useTranslations } from "next-intl";
+import { useLocale } from "./I18nProviderClient";
 
 interface HeaderEpicareProps {
   isHeaderPill?: boolean;
@@ -14,9 +15,31 @@ export default function HeaderEpicare({
 }: HeaderEpicareProps) {
   const t = useTranslations("landingV2.nav");
   const tHero = useTranslations("landingV2.hero");
+  const { locale, setLocale } = useLocale();
   const [isDark, setIsDark] = useState(false);
+  const [isLangOpen, setIsLangOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const isHeaderDark = isHeaderForcedDark || isDark;
+
+  // Clases para dropdowns de navegación (estilo global reutilizado)
+  const dropdownBgClass = isHeaderDark 
+    ? "bg-white/5 border-white/10 backdrop-blur-md" 
+    : "bg-white/50 dark:bg-white/5 border-black/10 dark:border-white/10 backdrop-blur-md";
+
+  // Clases del contenedor del dropdown de lenguaje (mismo estilo que submenús)
+  const dropdownContainerClass = `p-static-xs rounded-lg border shadow-elevation-2 backdrop-blur-md ${dropdownBgClass}`;
+
+  // Clases del botón de opción seleccionado
+  const optionActiveClass = isHeaderDark
+    ? "bg-white/[0.08] text-white font-bold"
+    : "bg-black/5 dark:bg-white/[0.08] text-[var(--color-text-Black-100)] dark:text-white font-bold";
+
+  // Clases del botón de opción inactivo
+  const optionInactiveClass = isHeaderDark
+    ? "text-white/60 hover:text-white hover:bg-white/[0.08]"
+    : "text-[var(--color-text-Black-100)]/60 dark:text-white/60 hover:text-[var(--color-text-Black-100)] dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/[0.08]";
 
   const handleMouseEnter = (key: string) => {
     if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
@@ -89,9 +112,7 @@ export default function HeaderEpicare({
       : "bg-white/80 dark:bg-white/5 border-black/10 dark:border-white/10 backdrop-blur-md shadow-elevation-2 rounded-none md:rounded-lg border-b md:border"
     : "bg-transparent border-transparent shadow-none rounded-none";
 
-  const dropdownBgClass = isHeaderForcedDark || isDark 
-    ? "bg-white/5 border-white/10 backdrop-blur-md" 
-    : "bg-white/50 dark:bg-white/5 border-black/10 dark:border-white/10 backdrop-blur-md";
+
 
   const iconColorClass = (isHeaderForcedDark || isDark)
     ? "text-white hover:text-white/80"
@@ -112,16 +133,74 @@ export default function HeaderEpicare({
       <nav 
         className={`${navPositionClass} flex justify-between items-center px-gutter-sm md:px-gutter-md z-[999999] pointer-events-auto transition-[top,background-color,border-color,box-shadow,opacity] duration-300 ${navLayoutClass}`}
       >
-        {/* Logo en el header */}
+        {/* Logo y Switch de Lenguaje en el header */}
         <div 
           id="fixed-navbar-logo" 
-          className="flex-shrink-0 flex items-center"
+          className="flex-shrink-0 flex items-center gap-static-sm"
         >
           <img 
             src="/short_logo.svg" 
             alt="Epicare" 
             className="h-[36px] md:h-[44px] w-auto select-none pointer-events-none"
           />
+          
+          {/* Switch de Lenguaje - Mini Dropdown Liquid Glass */}
+          <div 
+            className="relative flex items-center"
+            onMouseEnter={() => setIsLangOpen(true)}
+            onMouseLeave={() => setIsLangOpen(false)}
+          >
+            <button
+              onClick={() => setIsLangOpen(!isLangOpen)}
+              className={`flex items-center gap-1 text-[11px] font-semibold tracking-wider transition-opacity duration-200 hover:opacity-80 cursor-pointer select-none ${
+                isHeaderForcedDark || isDark 
+                  ? "text-white" 
+                  : "text-[var(--color-text-Black-100)]"
+              }`}
+            >
+              <span>{locale === "es" ? "ES" : "EN"}</span>
+              <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                width="8" 
+                height="8" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="3" 
+                strokeLinecap="round" 
+                strokeLinejoin="round"
+                className={`opacity-60 transition-transform duration-200 ${isLangOpen ? "rotate-180" : ""}`}
+              >
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+
+            {/* Dropdown Menu con efecto Liquid Glass - Wrapper sin brecha de aire */}
+            {isLangOpen && (
+              <div className="absolute top-full left-0 pt-1.5 z-[999999]">
+                <div 
+                  className={`p-static-xs rounded-lg border flex flex-col gap-0.5 w-[95px] shadow-elevation-2 backdrop-blur-lg transition-all duration-200 ${dropdownContainerClass}`}
+                >
+                  <button 
+                    onClick={() => { setLocale("es"); setIsLangOpen(false); }}
+                    className={`px-2 py-1 rounded text-left text-body-xs font-semibold cursor-pointer transition-colors duration-150 ${
+                      locale === "es" ? optionActiveClass : optionInactiveClass
+                    }`}
+                  >
+                    Español
+                  </button>
+                  <button 
+                    onClick={() => { setLocale("en"); setIsLangOpen(false); }}
+                    className={`px-2 py-1 rounded text-left text-body-xs font-semibold cursor-pointer transition-colors duration-150 ${
+                      locale === "en" ? optionActiveClass : optionInactiveClass
+                    }`}
+                  >
+                    English
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Desktop Navigation (Center) */}
@@ -203,9 +282,14 @@ export default function HeaderEpicare({
             </svg>
           </button>
           
+          {/* Botón de Login */}
+          <button className="hidden md:flex h-[44px] px-static-md rounded-full bg-brand-blue text-white text-body-sm font-semibold normal-case transition-all items-center justify-center shadow-elevation-1 hover:brightness-105 active:scale-95 cursor-pointer">
+            {t('login')}
+          </button>
+          
           {/* CTA Desktop Secundario */}
-          <button className={`hidden md:flex h-[44px] px-static-md rounded-full border text-body-sm font-medium normal-case transition-all items-center justify-center shadow-elevation-1 backdrop-blur-md ${secondaryCtaClass}`}>
-            {tHero('ctaAgents')}
+          <button className={`hidden md:flex h-[44px] px-static-md rounded-full border text-body-sm font-medium normal-case transition-all items-center justify-center shadow-elevation-1 backdrop-blur-md ${secondaryCtaClass} cursor-pointer`}>
+            {t('moreFromEpicare')}
           </button>
         </div>
       </nav>

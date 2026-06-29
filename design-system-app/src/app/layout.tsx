@@ -13,8 +13,7 @@ export const metadata: Metadata = {
   description: "New project with custom Design System",
 };
 
-import { NextIntlClientProvider } from 'next-intl';
-import messages from '../../messages/es.json';
+import I18nProviderClient from "../components/epicare/I18nProviderClient";
 
 export default function RootLayout({
   children,
@@ -24,9 +23,9 @@ export default function RootLayout({
   return (
     <html lang="es" className={`${inter.variable} font-inter antialiased`}>
       <body className="min-h-full flex flex-col bg-[var(--color-surface-BG-1)] text-[var(--color-text-primary)]">
-        <NextIntlClientProvider locale="es" messages={messages}>
+        <I18nProviderClient>
           {children}
-        </NextIntlClientProvider>
+        </I18nProviderClient>
       </body>
     </html>
   );
