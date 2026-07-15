@@ -53,24 +53,30 @@ export default function DarkGradientSection() {
       title: t('feature2_title'), 
       subtitle: t('feature2_subtitle'), 
       body: t('feature2_body'),
-      img: "support_dark.png",
-      imgLight: "support_LLight.png",
-      imgClass: "!p-0 md:!p-2 scale-[1.15] group-hover:scale-[1.20]"
+      img: "support_dark.mp4",
+      imgLight: "support_light.mp4",
+      isVideo: true,
+      imgClass: "object-cover"
     },
     { 
       step: t('feature3_step'), 
       title: t('feature3_title'), 
       subtitle: t('feature3_subtitle'), 
       body: t('feature3_body'),
-      img: "Dark_wireframe_3D_illustration_on_202606232159 1 [Vectorized].png" 
+      img: "Earnings_V3_Dark.mp4",
+      imgLight: "Earnings_V3_Ligh.mp4",
+      isVideo: true,
+      imgClass: "object-cover"
     },
     { 
       step: t('feature4_step'), 
       title: t('feature4_title'), 
       subtitle: t('feature4_subtitle'), 
       body: t('feature4_body'),
-      img: "Dark_wireframe_3D_illustration_on_202606232200 1.png",
-      imgLight: "Dark_wireframe_3D_illustration_on_202606232200 1.png"
+      img: "Variety_dark.mp4",
+      imgLight: "Variety_light.mp4",
+      isVideo: true,
+      imgClass: "object-cover"
     }
   ];
 
@@ -91,15 +97,25 @@ export default function DarkGradientSection() {
         
         <div className="relative w-full min-h-0 h-auto md:min-h-[75vh] rounded-[12px] border border-[var(--color-border-Strokes-default)] overflow-hidden flex flex-col justify-center items-start md:items-center text-left md:text-center px-[14px] py-12 md:p-12 lg:p-16 bg-transparent shadow-[var(--shadow-elevation-2)] transition-colors duration-500">
           
-          {/* Fondo Sólido y Textura de Puntos (Light Mode) */}
-          <div 
-            className="absolute inset-0 w-full h-full z-0 pointer-events-none transition-colors duration-500 bg-[var(--color-action-primary-subtle-hover)] block dark:hidden"
-          >
+          {/* Fondo Light Mode: Glow Ambient + Textura de Puntos */}
+          <div className="absolute inset-0 w-full h-full z-0 pointer-events-none block dark:hidden overflow-hidden bg-transparent">
+            {/* Ambient Glow Superior (Luz difusa de anclaje) */}
             <div 
-              className="absolute inset-0 w-full h-full opacity-[0.04]"
+              className="absolute -top-[30%] left-1/2 -translate-x-1/2 w-[120%] md:w-[100%] h-[120%] opacity-40 blur-[120px]"
               style={{
-                backgroundImage: "radial-gradient(#000 1px, transparent 1px)",
-                backgroundSize: "16px 16px"
+                background: "radial-gradient(circle at top, var(--color-brand-blue) 0%, rgba(53,187,253,0.15) 40%, transparent 70%)"
+              }}
+            />
+            
+            {/* Textura de Puntos (Fade de arriba hacia abajo) */}
+            <div 
+              className="absolute inset-0 w-full h-full opacity-30"
+              style={{
+                backgroundImage: "radial-gradient(var(--color-brand-blue) 1.5px, transparent 1.5px)",
+                backgroundSize: "24px 24px",
+                backgroundPosition: "center center",
+                maskImage: "radial-gradient(ellipse at top, black 0%, transparent 80%)",
+                WebkitMaskImage: "radial-gradient(ellipse at top, black 0%, transparent 80%)"
               }}
             />
           </div>
@@ -134,7 +150,7 @@ export default function DarkGradientSection() {
             {features.map((card, idx) => (
               <div 
                 key={idx} 
-                className="fade-up opacity-0 flex flex-col shrink-0 w-[80vw] md:w-auto rounded-[8px] bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-base)] backdrop-blur-md border border-[var(--color-border-Strokes-default)] hover:border-[var(--color-border-Strokes-Hover)] transition-all duration-500 shadow-[var(--shadow-elevation-1)] hover:shadow-[var(--shadow-elevation-3)] hover:md:-translate-y-2 cursor-pointer group overflow-hidden"
+                className="fade-up opacity-0 flex flex-col shrink-0 w-[80vw] md:w-auto rounded-[8px] bg-white dark:bg-white/[0.03] backdrop-blur-xl border border-[var(--color-border-Strokes-default)] dark:border-white/10 hover:border-[var(--color-border-Strokes-Hover)] dark:hover:border-white/20 dark:hover:bg-white/[0.06] transition-all duration-500 shadow-[var(--shadow-elevation-2)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.5)] hover:shadow-[var(--shadow-elevation-4)] dark:hover:shadow-[0_8px_32px_rgba(0,0,0,0.8)] hover:md:-translate-y-2 cursor-pointer group overflow-hidden"
               >
                 {/* Bloque de Texto Superior (Step, Título y Cuerpo Largo) */}
                 <div className="flex flex-col p-[14px] md:p-6 w-full gap-3 text-left">
@@ -152,39 +168,51 @@ export default function DarkGradientSection() {
                 </div>
 
                 {/* Contenedor Visual (Medio, flex-1, Transparente) */}
-                <div className="w-full flex-1 min-h-[200px] relative bg-transparent overflow-hidden transition-colors duration-500">
-                  {card.isVideo ? (
-                    <>
-                      <video 
-                        autoPlay 
-                        loop 
-                        muted 
-                        playsInline 
-                        src={`/Files/Epicare_Landing/Features/${card.imgLight || card.img}`}
-                        className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out block dark:hidden"
-                      />
-                      <video 
-                        autoPlay 
-                        loop 
-                        muted 
-                        playsInline 
-                        src={`/Files/Epicare_Landing/Features/${card.img}`}
-                        className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out hidden dark:block"
-                      />
-                    </>
+                <div className="w-full flex-1 min-h-[220px] relative bg-transparent overflow-hidden transition-colors duration-500 rounded-b-[8px]">
+                  {/* Elemento para Light Mode */}
+                  {card.isVideo || (card as any).isVideoLight ? (
+                    <video 
+                      autoPlay 
+                      loop 
+                      muted 
+                      playsInline 
+                      disablePictureInPicture
+                      src={(card.imgLight || card.img).startsWith('/') ? (card.imgLight || card.img) : `/Files/Epicare_Landing/Features/${card.imgLight || card.img}`}
+                      className={`absolute inset-0 w-full h-full block dark:hidden ${card.imgClass || "object-cover"}`}
+                      style={{
+                        maskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 100%)',
+                        WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 100%)'
+                      }}
+                    />
                   ) : (
-                    <>
-                      <img 
-                        src={`/Files/Epicare_Landing/Features/${card.imgLight || card.img}`} 
-                        alt={card.title} 
-                        className={`absolute inset-0 w-full h-full object-contain p-6 opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out block dark:hidden ${card.imgClass || ""}`} 
-                      />
-                      <img 
-                        src={`/Files/Epicare_Landing/Features/${card.img}`} 
-                        alt={card.title} 
-                        className={`absolute inset-0 w-full h-full object-contain p-6 opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out hidden dark:block ${card.imgClass || ""}`} 
-                      />
-                    </>
+                    <img 
+                      src={(card.imgLight || card.img).startsWith('/') ? (card.imgLight || card.img) : `/Files/Epicare_Landing/Features/${card.imgLight || card.img}`} 
+                      alt={card.title} 
+                      className={`absolute inset-0 w-full h-full opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out block dark:hidden ${card.imgClass || "object-contain p-6"}`} 
+                    />
+                  )}
+
+                  {/* Elemento para Dark Mode */}
+                  {card.isVideo || (card as any).isVideoDark ? (
+                    <video 
+                      autoPlay 
+                      loop 
+                      muted 
+                      playsInline 
+                      disablePictureInPicture
+                      src={card.img.startsWith('/') ? card.img : `/Files/Epicare_Landing/Features/${card.img}`}
+                      className={`absolute inset-0 w-full h-full hidden dark:block ${card.imgClass || "object-cover"}`}
+                      style={{
+                        maskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 100%)',
+                        WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 100%)'
+                      }}
+                    />
+                  ) : (
+                    <img 
+                      src={card.img.startsWith('/') ? card.img : `/Files/Epicare_Landing/Features/${card.img}`} 
+                      alt={card.title} 
+                      className={`absolute inset-0 w-full h-full opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out hidden dark:block ${card.imgClass || "object-contain p-6"}`} 
+                    />
                   )}
                 </div>
                 
@@ -214,7 +242,7 @@ export default function DarkGradientSection() {
                 className={`w-2 h-2 rounded-full transition-all duration-300 ${
                   activeIndex === idx 
                     ? 'bg-[var(--color-brand-blue)] w-4' 
-                    : 'bg-white/20'
+                    : 'bg-black/15 dark:bg-white/20'
                 }`}
                 aria-label={`Go to slide ${idx + 1}`}
               />
