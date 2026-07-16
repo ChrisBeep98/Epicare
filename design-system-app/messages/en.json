@@ -116,6 +116,11 @@
         "A lump-sum benefit for major events like stroke or heart attack.",
         "Fills the coverage gaps left by Original Medicare."
       ]
+    },
+    "peopleReveal": {
+      "portalWord": "TOGETHER",
+      "statement": "Experts on your side.",
+      "imageAlt": "Epicare agents and community"
     }
   }
 }

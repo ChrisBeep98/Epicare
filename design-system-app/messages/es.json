@@ -116,6 +116,11 @@
         "Beneficio de suma única para eventos graves como infarto o ACV.",
         "Cubre los vacíos que deja Medicare Original."
       ]
+    },
+    "peopleReveal": {
+      "portalWord": "JUNTOS",
+      "statement": "Expertos de tu lado.",
+      "imageAlt": "Agentes y comunidad de Epicare"
     }
   }
 }
