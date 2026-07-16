@@ -30,7 +30,7 @@ const AnimatedNumber = ({ value }: { value: string }) => {
       ease: "power4.out",
       scrollTrigger: {
         trigger: nodeRef.current,
-        start: "top 90%", // Start earlier
+        start: "top 90%",
       },
       onUpdate: () => {
         if (nodeRef.current) {
@@ -48,6 +48,7 @@ const AnimatedNumber = ({ value }: { value: string }) => {
 export default function MetricsEpicare() {
   const t = useTranslations('landingV2.metrics');
   const sectionRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
 
   const metricsData = [
     { value: "252+", label: t('carriers'), desc: "Integrated insurance carriers" },
@@ -56,11 +57,28 @@ export default function MetricsEpicare() {
     { value: "24/7", label: t('platform'), desc: "Uptime & support reliability" }
   ];
 
-  // ── GSAP: The Blur Reveal (Apple Style) ──
+  // ── GSAP: The Blur Reveal & Title Animation ──
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Usar fromTo asegura que si hay problemas de hidratación, 
-      // los estilos iniciales se fuercen y luego se limpien hacia el estado final.
+      
+      // 1. Unified Title Reveal (Organic Wrapping)
+      if (titleRef.current) {
+        gsap.fromTo(titleRef.current,
+          { y: 40, opacity: 0 },
+          {
+            y: 0, 
+            opacity: 1, 
+            duration: 1.2,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: titleRef.current,
+              start: "top 85%",
+            }
+          }
+        );
+      }
+
+      // 2. Bento Cards Reveal Animation
       gsap.fromTo(".metric-bento-reveal", 
         { 
           filter: "blur(20px)", 
@@ -77,11 +95,10 @@ export default function MetricsEpicare() {
           stagger: 0.15,
           ease: "power3.out",
           scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 85%", // Trigger un poco más abajo en pantalla para asegurar que se vea
-            toggleActions: "play none none none"
+            trigger: ".metric-grid-container",
+            start: "top 85%",
           },
-          clearProps: "filter" // Evita bugs visuales de Safari al terminar la animación
+          clearProps: "filter"
         }
       );
     }, sectionRef);
@@ -90,37 +107,61 @@ export default function MetricsEpicare() {
 
   return (
     <section ref={sectionRef} className="w-full relative z-20 bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] transition-colors duration-500 py-section-lg">
-      <div className="max-w-[1400px] mx-auto px-gutter-md">
+      <div className="max-w-[1400px] mx-auto px-[14px] md:px-[var(--space-gutter-md)]">
         
         {/* ── Header Section ── */}
-        <div className="mb-12 max-w-2xl metric-bento-reveal will-change-transform">
-          <h2 className="text-display font-medium tracking-tight text-[var(--color-text-Black-100)] dark:text-white">
-            Built for Scale
+        <div className="pb-section-xs max-w-4xl will-change-transform">
+          <h2 ref={titleRef} className="text-display font-medium tracking-tight text-[var(--color-text-Black-100)] dark:text-white leading-[1.1]">
+            {t('titleLine1')} <span className="text-[var(--color-text-muted)]">{t('titleLine2')}</span> <span className="text-[var(--color-brand-blue)]">{t('titleLine3')}</span>
           </h2>
-          <p className="text-body-lg text-[var(--color-text-muted)] mt-4">
-            Our infrastructure powers the modern insurance ecosystem.
-          </p>
         </div>
 
-        {/* ── Layout: The Bento Box Grid (Stripe/Vercel Style) ── */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* ── Layout: The Bento Box Grid ── */}
+        {/* Mobile: 2 cols, 14px gap. Desktop: 4 cols, 24px (gap-6) gap. pb-6 to compensate for the translate-y-6 shift. */}
+        <div className="metric-grid-container grid grid-cols-2 lg:grid-cols-4 gap-[14px] md:gap-6 pb-6 md:pb-0">
           {metricsData.map((metric, idx) => (
             <div 
               key={idx} 
-              className="metric-bento-reveal will-change-transform group relative p-8 rounded-3xl bg-[var(--color-surface-BG-1)] dark:bg-[#0a0a0a] border border-black/5 dark:border-white/10 hover:border-black/20 dark:hover:border-white/20 transition-all duration-300"
+              className="metric-bento-reveal will-change-transform group relative 
+                         p-[14px] md:p-8 rounded-[12px] 
+                         bg-[#ffffff] shadow-elevation-2 dark:bg-[#0a0a0a] 
+                         border border-black/5 dark:border-white/10 dark:shadow-none dark:hover:border-white/20 
+                         transition-transform duration-300 overflow-hidden
+                         [&:nth-child(even)]:translate-y-6 md:[&:nth-child(even)]:translate-y-0"
             >
-              {/* Subtle hover glow effect */}
-              <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-[var(--color-brand-blue)]/0 to-[var(--color-brand-blue)]/8 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+              {/* Blue Gradient Dots with Radial Diffusion (Light Mode Only) */}
+              <div 
+                className="absolute inset-0 pointer-events-none dark:hidden"
+                style={{
+                  maskImage: 'radial-gradient(circle at center, black 30%, transparent 80%)',
+                  WebkitMaskImage: 'radial-gradient(circle at center, black 30%, transparent 80%)'
+                }}
+              >
+                <div 
+                  className="absolute inset-0 bg-gradient-to-br from-[var(--color-brand-blue)] to-[var(--color-brand-purple)]"
+                  style={{
+                    opacity: 0.20,
+                    maskImage: 'radial-gradient(black 1.5px, transparent 1.5px)',
+                    maskSize: '16px 16px',
+                    WebkitMaskImage: 'radial-gradient(black 1.5px, transparent 1.5px)',
+                    WebkitMaskSize: '16px 16px',
+                  }}
+                />
+              </div>
               
-              <div className="relative z-10 flex flex-col h-full justify-between gap-12">
-                <div className="text-display-xl font-semibold tracking-tighter text-[var(--color-text-Black-100)] dark:text-white">
+              {/* Dark Mode Hover Glow */}
+              <div className="hidden dark:block absolute inset-0 bg-gradient-to-br from-transparent to-[var(--color-brand-blue)]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+              
+              <div className="relative z-10 flex flex-col h-full justify-between gap-6 md:gap-12">
+                <div className="text-display-lg md:text-display-xl font-semibold tracking-tighter text-[var(--color-text-Black-100)] dark:text-white">
                   <AnimatedNumber value={metric.value} />
                 </div>
                 <div>
-                  <div className="text-subtitle font-medium text-[var(--color-text-Black-100)] dark:text-white/90">
+                  <div className="text-h6 md:text-subtitle font-medium text-[var(--color-text-Black-100)] dark:text-white/90 leading-tight">
                     {metric.label}
                   </div>
-                  <div className="text-body-sm text-[var(--color-text-muted)] mt-1">
+                  {/* Hide desc on very small mobile to save space, or just make text smaller */}
+                  <div className="text-[12px] md:text-body-sm text-[var(--color-text-muted)] mt-1 md:mt-2 line-clamp-2 md:line-clamp-none">
                     {metric.desc}
                   </div>
                 </div>

@@ -45,7 +45,7 @@ export default function DarkGradientSection() {
       subtitle: t('feature1_subtitle'), 
       body: t('feature1_body'),
       img: "innovation.mp4",
-      imgLight: "innovation_Light.mp4",
+      imgLight: "Innovation_card_Light.mp4",
       isVideo: true
     },
     { 
