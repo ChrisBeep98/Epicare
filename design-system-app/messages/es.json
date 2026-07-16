@@ -79,6 +79,43 @@
       "comingSoon": "Coming Soon",
       "login": "Iniciar Sesión",
       "moreFromEpicare": "Más de Epicare"
+    },
+    "productLines": {
+      "overline": "Líneas de producto",
+      "tag": "3 categorías",
+      "productsLabel": "productos",
+      "titleLine1": "Todo el portafolio.",
+      "titleLine2": "Un solo contrato.",
+      "desc": "Al unirte a Epicare tenés acceso a las tres categorías principales de seguros — con los carriers correctos para cada una.",
+      "cat1_name": "Vida",
+      "cat1_desc": "Protección para lo que más importa — desde cobertura temporal hasta pólizas permanentes y gastos finales.",
+      "cat2_name": "Salud",
+      "cat2_desc": "Planes médicos para cada etapa y presupuesto, incluyendo el Marketplace y Medicare.",
+      "cat3_name": "Complementario",
+      "cat3_desc": "Cobertura que llena los vacíos: dental, visión y protección ante lo inesperado.",
+      "cat1_items": ["Term Life", "Whole Life", "Final Expense"],
+      "cat1_descs": [
+        "Cobertura asequible por un período fijo — ideal para proteger ingresos y familia.",
+        "Protección permanente que acumula valor en efectivo de por vida.",
+        "Póliza de vida pequeña que cubre gastos funerarios y del final de la vida."
+      ],
+      "cat2_items": ["Short Term Medical", "Major Medical", "ACA / Marketplace", "Medicare Advantage (MAPD)"],
+      "cat2_descs": [
+        "Cobertura médica temporal que cubre el vacío entre planes.",
+        "Cobertura de salud integral para atención cotidiana y grave.",
+        "Planes elegibles a subsidios a través del Marketplace federal.",
+        "Medicare todo-en-uno con cobertura de medicamentos incluida."
+      ],
+      "cat3_items": ["Dental", "Vision", "Accident", "Cancer", "Hospital Indemnity", "Critical Illness", "Senior Supplement"],
+      "cat3_descs": [
+        "Cobertura para cuidado dental preventivo y restaurador.",
+        "Cobertura de exámenes, lentes y monturas.",
+        "Beneficios en efectivo por lesiones de accidentes cubiertos.",
+        "Protección financiera que paga ante un diagnóstico de cáncer.",
+        "Pagos fijos en efectivo por cada hospitalización cubierta.",
+        "Beneficio de suma única para eventos graves como infarto o ACV.",
+        "Cubre los vacíos que deja Medicare Original."
+      ]
     }
   }
 }

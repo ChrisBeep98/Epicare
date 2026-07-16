@@ -4,6 +4,7 @@ import BrandsCarousel from "@/components/epicare/BrandsCarousel";
 import DarkGradientSection from "@/components/epicare/DarkGradientSection";
 import MetricsEpicare from "@/components/epicare/MetricsEpicare";
 import BentoGridEpicare from "@/components/epicare/BentoGridEpicare";
+import ProductLinesEpicare from "@/components/epicare/ProductLinesEpicare";
 
 export default function EpicareLandingPage() {
   return (
@@ -14,6 +15,7 @@ export default function EpicareLandingPage() {
       <DarkGradientSection />
       <MetricsEpicare />
       <BentoGridEpicare />
+      <ProductLinesEpicare />
     </main>
   );
 }

@@ -79,6 +79,43 @@
       "comingSoon": "Coming Soon",
       "login": "Login",
       "moreFromEpicare": "More from Epicare"
+    },
+    "productLines": {
+      "overline": "Product lines",
+      "tag": "3 categories",
+      "productsLabel": "products",
+      "titleLine1": "The entire portfolio.",
+      "titleLine2": "One single contract.",
+      "desc": "When you join Epicare you get access to the three core insurance categories — each backed by the right carriers.",
+      "cat1_name": "Life",
+      "cat1_desc": "Protection for what matters most — from term coverage to permanent policies and final expense.",
+      "cat2_name": "Health",
+      "cat2_desc": "Medical plans for every stage and budget, including the Marketplace and Medicare.",
+      "cat3_name": "Supplementary",
+      "cat3_desc": "Coverage that fills the gaps: dental, vision, and protection against the unexpected.",
+      "cat1_items": ["Term Life", "Whole Life", "Final Expense"],
+      "cat1_descs": [
+        "Affordable coverage for a set period — ideal for protecting income and family.",
+        "Permanent protection that builds cash value over your lifetime.",
+        "A small whole-life policy that covers funeral and end-of-life costs."
+      ],
+      "cat2_items": ["Short Term Medical", "Major Medical", "ACA / Marketplace", "Medicare Advantage (MAPD)"],
+      "cat2_descs": [
+        "Temporary medical coverage that bridges the gap between plans.",
+        "Comprehensive health coverage for both everyday and serious care.",
+        "Subsidy-eligible plans offered through the federal Marketplace.",
+        "All-in-one Medicare with built-in prescription drug coverage."
+      ],
+      "cat3_items": ["Dental", "Vision", "Accident", "Cancer", "Hospital Indemnity", "Critical Illness", "Senior Supplement"],
+      "cat3_descs": [
+        "Preventive and restorative dental care coverage.",
+        "Coverage for exams, lenses, and frames.",
+        "Cash benefits for injuries from covered accidents.",
+        "Financial protection that pays out on a cancer diagnosis.",
+        "Fixed cash payments for every covered hospital stay.",
+        "A lump-sum benefit for major events like stroke or heart attack.",
+        "Fills the coverage gaps left by Original Medicare."
+      ]
     }
   }
 }
