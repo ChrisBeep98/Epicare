@@ -44,9 +44,10 @@ export default function DarkGradientSection() {
       title: t('feature1_title'), 
       subtitle: t('feature1_subtitle'), 
       body: t('feature1_body'),
-      img: "innovation.mp4",
+      img: "Card_01_INNOVATION-Dark.mp4",
       imgLight: "Innovation_card_Light.mp4",
-      isVideo: true
+      isVideo: true,
+      imgClassDark: "object-cover scale-[1.15] origin-top"
     },
     { 
       step: t('feature2_step'), 
@@ -201,7 +202,7 @@ export default function DarkGradientSection() {
                       playsInline 
                       disablePictureInPicture
                       src={card.img.startsWith('/') ? card.img : `/Files/Epicare_Landing/Features/${card.img}`}
-                      className={`absolute inset-0 w-full h-full hidden dark:block ${card.imgClass || "object-cover"}`}
+                      className={`absolute inset-0 w-full h-full hidden dark:block ${(card as any).imgClassDark || card.imgClass || "object-cover"}`}
                       style={{
                         maskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 100%)',
                         WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 100%)'
@@ -211,7 +212,7 @@ export default function DarkGradientSection() {
                     <img 
                       src={card.img.startsWith('/') ? card.img : `/Files/Epicare_Landing/Features/${card.img}`} 
                       alt={card.title} 
-                      className={`absolute inset-0 w-full h-full opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out hidden dark:block ${card.imgClass || "object-contain p-6"}`} 
+                      className={`absolute inset-0 w-full h-full opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out hidden dark:block ${(card as any).imgClassDark || card.imgClass || "object-contain p-6"}`} 
                     />
                   )}
                 </div>
