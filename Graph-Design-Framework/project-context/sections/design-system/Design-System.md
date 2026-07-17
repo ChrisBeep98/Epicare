@@ -53,8 +53,8 @@ Familia Principal: `Inter` (La única tipografía permitida).
 **Max Widths:**
 - `--max-w-section-sm`: 768px
 - `--max-w-section-md`: 1024px
-- `--max-w-section-lg`: 1280px
-- `--max-w-section-xl`: 1536px
+- `--max-w-section-lg`: fluido `clamp(64rem, 57.5rem + 14vw, 80rem)` — 1080p ≈ 1190px, 2K → 1280px (cap)
+- `--max-w-section-xl`: fluido `clamp(76rem, 67rem + 18vw, 96rem)` — 1080p ≈ 1420px, 2K → 1536px (cap)
 
 **Márgenes y Paddings (Static Spacing Scale):**
 _Tallas estándar para uso de márgenes y paddings donde los fluidos no aplican._

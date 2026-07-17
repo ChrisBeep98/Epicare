@@ -25,8 +25,9 @@
   /* Layout Max Widths */
   --max-w-section-sm: 48rem; /* 768px */
   --max-w-section-md: 64rem; /* 1024px */
-  --max-w-section-lg: 80rem; /* 1280px */
-  --max-w-section-xl: 96rem; /* 1536px */
+  /* Fluid: shrink gently on 1080p desktops, keep the roomy feel on 2K+ (caps at 1280/1536). */
+  --max-w-section-lg: clamp(64rem, calc(57.5rem + 14vw), 80rem); /* 1440≈1120 · 1920≈1190 · 2560→1280 */
+  --max-w-section-xl: clamp(76rem, calc(67rem + 18vw), 96rem); /* 1440≈1330 · 1920≈1420 · 2560→1536 */
 
   /* Shadow Elevation System (Light Mode) */
   --shadow-elevation-1: 0px 2px 5px rgba(15, 23, 42, 0.01), 0px 6px 15px rgba(15, 23, 42, 0.02), 0px 15px 40px rgba(15, 23, 42, 0.03);
