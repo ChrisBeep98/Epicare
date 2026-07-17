@@ -192,7 +192,7 @@ export default function HeroEpicare() {
   };
 
   return (
-    <div className="w-full overflow-x-hidden bg-[var(--color-surface-BG-base)]">
+    <div className="w-full bg-[var(--color-surface-BG-base)]">
       
       {/* Header Reutilizable y Autogestionado */}
       <HeaderEpicare isHeaderPill={isHeaderPill} isHeaderForcedDark={isHeaderForcedDark} />
@@ -261,7 +261,7 @@ export default function HeroEpicare() {
                 
                 {/* Fila 2: Titular Principal */}
                 <div className="col-start-1 col-span-12 md:col-start-1 md:col-span-7 lg:col-span-9 row-start-2 md:row-start-5 row-span-1 flex flex-row justify-start items-end pb-8">
-                  <h1 className="text-display-xl text-white drop-shadow-lg leading-none mb-4">
+                  <h1 className="text-display md:text-display-xl text-white drop-shadow-lg leading-none mb-4">
                     {t('title1')}<br/>{t('title2')}
                   </h1>
                 </div>

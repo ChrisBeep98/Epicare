@@ -121,8 +121,9 @@ export default function ProductLinesEpicare() {
 
       <div className="relative z-10 max-w-section-lg mx-auto w-full">
 
-        {/* ── HEADER (12-col, asymmetric) ── */}
-        <header className="grid grid-cols-12 gap-fluid-md items-end mb-16 md:mb-24">
+        {/* ── HEADER (12-col on desktop; flex column on mobile to avoid the
+            12-track gap forcing an overflow on narrow phones) ── */}
+        <header className="flex flex-col gap-6 lg:grid lg:grid-cols-12 lg:gap-fluid-md lg:items-end mb-16 md:mb-24">
           <div className="col-span-12 lg:col-span-8">
             <span className="pl-head block text-overline text-[var(--color-brand-blue)] mb-5">
               {t('overline')}
@@ -137,8 +138,8 @@ export default function ProductLinesEpicare() {
           </p>
         </header>
 
-        {/* ── EDITORIAL INDEX (12-col) ── */}
-        <div className="grid grid-cols-12 gap-fluid-md">
+        {/* ── EDITORIAL INDEX (12-col on desktop; flex column on mobile) ── */}
+        <div className="flex flex-col lg:grid lg:grid-cols-12 lg:gap-fluid-md">
 
           {/* LEFT rail — oversized pinned category marker (Desktop only) */}
           <aside className="hidden lg:block lg:col-span-4">
