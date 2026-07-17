@@ -283,12 +283,12 @@ export default function HeaderEpicare({
           </button>
           
           {/* Botón de Login */}
-          <button className="hidden md:flex h-[44px] px-static-md rounded-full bg-brand-blue text-white text-body-sm font-semibold normal-case transition-all items-center justify-center shadow-elevation-1 hover:brightness-105 active:scale-95 cursor-pointer">
+          <button className="hidden md:flex h-[44px] px-static-md rounded-full bg-brand-blue text-white text-body-sm font-semibold normal-case transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] items-center justify-center shadow-elevation-1 hover:brightness-105 hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-elevation-3 active:scale-95 cursor-pointer">
             {t('login')}
           </button>
           
           {/* CTA Desktop Secundario */}
-          <button className={`hidden md:flex h-[44px] px-static-md rounded-full border text-body-sm font-medium normal-case transition-all items-center justify-center shadow-elevation-1 backdrop-blur-md ${secondaryCtaClass} cursor-pointer`}>
+          <button className={`hidden md:flex h-[44px] px-static-md rounded-full border text-body-sm font-medium normal-case transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] items-center justify-center shadow-elevation-1 backdrop-blur-md hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-elevation-3 active:scale-95 ${secondaryCtaClass} cursor-pointer`}>
             {t('moreFromEpicare')}
           </button>
         </div>

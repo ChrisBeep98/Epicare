@@ -6,6 +6,16 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useTranslations } from 'next-intl';
 import HeaderEpicare from './HeaderEpicare';
 
+/** Up-right arrow used inside the CTA bubbles. */
+const ArrowUR = ({ className = '' }: { className?: string }) => (
+  <svg
+    viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}
+    strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true"
+  >
+    <path d="M7 17 17 7M7 7h10v10" />
+  </svg>
+);
+
 export default function HeroEpicare() {
   const t = useTranslations('landingV2.hero');
   const [isDark, setIsDark] = useState(false);
@@ -246,11 +256,11 @@ export default function HeroEpicare() {
           <div className="absolute inset-0 w-full h-full z-[200] flex flex-col pointer-events-none">
             
             {/* Hero Content Original */}
-            <section ref={heroContentRef} className="w-full flex-1 px-[var(--space-gutter-sm)] lg:px-[var(--space-gutter-md)] flex flex-col pt-[120px] pb-[40px] md:pb-[60px] relative">
+            <section ref={heroContentRef} className="w-full flex-1 px-[var(--space-gutter-sm)] lg:px-[var(--space-gutter-md)] flex flex-col pt-[120px] lg:pt-[80px] pb-[40px] md:pb-[60px] relative">
               <div className="grid-layout flex-1 max-w-section-xl w-full mx-auto pointer-events-auto">
                 
                 {/* Fila 2: Titular Principal */}
-                <div className="col-start-1 col-span-12 md:col-start-1 md:col-span-7 row-start-2 md:row-start-5 row-span-1 flex flex-row justify-start items-end pb-8">
+                <div className="col-start-1 col-span-12 md:col-start-1 md:col-span-7 lg:col-span-9 row-start-2 md:row-start-5 row-span-1 flex flex-row justify-start items-end pb-8">
                   <h1 className="text-display-xl text-white drop-shadow-lg leading-none mb-4">
                     {t('title1')}<br/>{t('title2')}
                   </h1>
@@ -266,11 +276,22 @@ export default function HeroEpicare() {
                   </p>
                   
                   <div className="flex flex-col md:flex-row gap-static-md md:gap-fluid-xs">
-                    <button className="w-fit bg-[var(--color-action-primary-bg)] text-[var(--color-action-primary-text)] px-static-xl py-static-md rounded-full text-ui-label hover:opacity-90 transition-all flex justify-center items-center shadow-elevation-2">
-                      {t('ctaPlans')}
+                    {/* Primary CTA */}
+                    <button className="group w-fit h-12 pl-6 pr-2 rounded-full flex items-center gap-3 bg-[var(--color-action-primary-bg)] text-[var(--color-action-primary-text)] shadow-elevation-2 transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-elevation-4">
+                      <span className="text-body-sm font-medium">{t('ctaPlans')}</span>
+                      <span className="relative w-8 h-8 rounded-full bg-[var(--color-action-primary-text)] text-[var(--color-action-primary-bg)] flex items-center justify-center overflow-hidden shrink-0">
+                        <ArrowUR className="absolute w-4 h-4 transition-transform duration-300 ease-out group-hover:translate-x-5 group-hover:-translate-y-5" />
+                        <ArrowUR className="absolute w-4 h-4 -translate-x-5 translate-y-5 transition-transform duration-300 ease-out group-hover:translate-x-0 group-hover:translate-y-0" />
+                      </span>
                     </button>
-                    <button className="w-fit bg-white/10 border border-[var(--color-border-Strokes-White-100)] text-[var(--color-text-White-100)] px-static-xl py-static-md rounded-full text-ui-label hover:bg-white/20 transition-all flex justify-center items-center shadow-elevation-1">
-                      {t('ctaAgents')}
+
+                    {/* Secondary CTA */}
+                    <button className="group w-fit h-12 pl-6 pr-2 rounded-full flex items-center gap-3 bg-white/10 border border-[var(--color-border-Strokes-White-100)] text-[var(--color-text-White-100)] shadow-elevation-1 backdrop-blur-sm transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:bg-white/20 hover:-translate-y-0.5 hover:scale-[1.02]">
+                      <span className="text-body-sm font-medium">{t('ctaAgents')}</span>
+                      <span className="relative w-8 h-8 rounded-full bg-white/20 text-[var(--color-text-White-100)] flex items-center justify-center overflow-hidden shrink-0">
+                        <ArrowUR className="absolute w-4 h-4 transition-transform duration-300 ease-out group-hover:translate-x-5 group-hover:-translate-y-5" />
+                        <ArrowUR className="absolute w-4 h-4 -translate-x-5 translate-y-5 transition-transform duration-300 ease-out group-hover:translate-x-0 group-hover:translate-y-0" />
+                      </span>
                     </button>
                   </div>
                 </div>
