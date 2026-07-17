@@ -146,7 +146,7 @@ export default function DarkGradientSection() {
           <div 
             ref={scrollContainerRef}
             onScroll={handleScroll}
-            className="relative z-10 flex md:grid md:grid-cols-4 overflow-x-auto overflow-y-hidden md:overflow-x-visible md:overflow-y-visible scrollbar-none gap-[14px] md:gap-6 w-full mt-4 md:mt-12 md:perspective-[1000px]"
+            className="relative z-10 flex md:grid md:grid-cols-4 overflow-x-auto overflow-y-hidden md:overflow-x-visible md:overflow-y-visible scrollbar-none gap-[14px] md:gap-fluid-xs w-full mt-4 md:mt-12 md:perspective-[1000px]"
           >
             {features.map((card, idx) => (
               <div 

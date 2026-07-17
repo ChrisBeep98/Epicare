@@ -118,7 +118,7 @@ export default function MetricsEpicare() {
 
         {/* ── Layout: The Bento Box Grid ── */}
         {/* Mobile: 2 cols, 14px gap. Desktop: 4 cols, 24px (gap-6) gap. pb-6 to compensate for the translate-y-6 shift. */}
-        <div className="metric-grid-container grid grid-cols-2 lg:grid-cols-4 gap-[14px] md:gap-6 pb-6 md:pb-0">
+        <div className="metric-grid-container grid grid-cols-2 lg:grid-cols-4 gap-[14px] md:gap-fluid-xs pb-6 md:pb-0">
           {metricsData.map((metric, idx) => (
             <div 
               key={idx} 
