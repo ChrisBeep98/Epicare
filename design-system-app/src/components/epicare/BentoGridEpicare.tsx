@@ -5,238 +5,9 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useTranslations } from 'next-intl';
 
-export default function BentoGridEpicare() {
-  const t = useTranslations('landingV2.bento');
-  const containerRef = useRef<HTMLDivElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-    ScrollTrigger.config({ ignoreMobileResize: true });
-
-    const ctx = gsap.context(() => {
-      
-      let mm = gsap.matchMedia();
-
-      // Desktop 3D Cover Flow Physics
-      mm.add("(min-width: 768px)", () => {
-        const section = containerRef.current;
-        const track = trackRef.current;
-        const cards = gsap.utils.toArray('.coverflow-card');
-        
-        if (section && track && cards.length > 0) {
-          
-          // 1. Reset transforms in case of resize recalculations
-          gsap.set(track, { clearProps: "paddingLeft,paddingRight,x" });
-          cards.forEach((c: any) => gsap.set(c, { clearProps: "all" }));
-
-          // 2. Dynamically calculate centering padding based on Title Card
-          // We subtract the card's left margin to ensure the mathematical center is absolute
-          const firstCard = cards[0] as HTMLElement;
-          const cardWidth = firstCard.offsetWidth;
-          const cardMarginLeft = parseFloat(window.getComputedStyle(firstCard).marginLeft) || 0;
-          const sidePadding = (window.innerWidth - cardWidth) / 2 - cardMarginLeft;
-          
-          gsap.set(track, { paddingLeft: sidePadding, paddingRight: sidePadding });
-
-          // 3. PRE-CALCULATE STATIC CENTERS TO PREVENT GSAP JITTER/JUMPS
-          const cardStaticCenters = cards.map(card => {
-             const el = card as HTMLElement;
-             return el.offsetLeft + el.offsetWidth / 2;
-          });
-
-          // 4. Setup initial states via the exact same math to prevent 1st-frame popping
-          const scrollDist = track.scrollWidth - window.innerWidth;
-          
-          const updateCards3DPhysics = () => {
-             const currentTrackX = gsap.getProperty(track, "x") as number;
-             const screenCenter = window.innerWidth / 2;
-
-             cards.forEach((card: any, i) => {
-                const cardCenter = currentTrackX + cardStaticCenters[i];
-                
-                // 'screenCenter' as divisor means max rotation is reached perfectly at screen edges
-                const dist = (cardCenter - screenCenter) / screenCenter; 
-                const clampedDist = Math.max(-1, Math.min(1, dist));
-                
-                // Apply 3D Cover Flow transforms safely
-                gsap.set(card, {
-                  rotateY: clampedDist * 50, 
-                  scale: 1 - Math.abs(clampedDist) * 0.25, 
-                  z: -Math.abs(clampedDist) * 500, 
-                  // Math.max guarantees no negative opacities, 1.5 multiplier makes it fade fully before the extreme edge
-                  opacity: Math.max(0, 1 - Math.abs(clampedDist) * 1.5), 
-                });
-             });
-          };
-
-          // Run physics once instantly to set the initial flawless state
-          updateCards3DPhysics();
-
-          // 5. The Continuous Horizontal Scroll Timeline
-          gsap.to(track, {
-             x: -scrollDist,
-             ease: "none",
-             // CRITICAL FIX: onUpdate must be on the Tween to sync perfectly with scrub interpolation
-             onUpdate: updateCards3DPhysics,
-             scrollTrigger: {
-               trigger: section,
-               pin: true,
-               scrub: 1.2, // Liquid damping
-               start: "top top",
-               end: () => "+=" + scrollDist, 
-             }
-          });
-        }
-      });
-
-    }, containerRef);
-
-    return () => ctx.revert();
-  }, []);
-
-  const ecosytemCards = [
-    {
-      title: t('card1Title'),
-      desc: t('card1Desc'),
-      image: "/Files/Features/CRM_product_tablet_client_cards_202606242225.jpeg",
-      logo: <CrmLogo className="h-10 w-auto mb-6 drop-shadow-[0_0_15px_rgba(90,200,250,0.5)]" />
-    },
-    {
-      title: t('card4Title'),
-      desc: t('card4Desc'),
-      image: "/Files/Features/card_5_image.jpg",
-      logo: <AmsLogo className="h-10 w-auto mb-6 drop-shadow-[0_0_15px_rgba(90,200,250,0.5)]" />
-    },
-    {
-      title: t('card6Title'),
-      desc: t('card6Desc'),
-      image: "/Files/Features/Wireframe_monitor_with_headset.jpeg",
-      logo: <CallsLogo className="h-10 w-auto mb-6 drop-shadow-[0_0_15px_rgba(90,200,250,0.5)]" />
-    },
-    {
-      title: t('card7Title'),
-      desc: t('card7Desc'),
-      image: "/Files/Features/Diagonal_pipeline_CRM_stages_202606242208.jpeg",
-      logo: null
-    }
-  ];
-
-  return (
-    <>
-      {/* ----------------------------------------------------- */}
-      {/* DESKTOP: The Cinematic 3D Cover Flow Track */}
-      {/* ----------------------------------------------------- */}
-      <section 
-        ref={containerRef} 
-        className="hidden md:flex relative w-full h-screen overflow-hidden bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] z-20"
-        style={{ perspective: '2000px' }}
-      >
-        <div 
-          ref={trackRef}
-          className="horizontal-track absolute top-0 flex items-center h-full will-change-transform transform-gpu z-10" 
-          style={{ transformStyle: 'preserve-3d' }}
-        >
-          {/* THE TITLE CARD (Card 1: Transparent, 3D text block) */}
-          <div 
-            className="coverflow-card shrink-0 w-[65vw] lg:w-[40vw] h-[65vh] mx-[2vw] relative transform-gpu flex flex-col justify-center"
-            style={{ transformOrigin: 'center center' }}
-          >
-            <h2 className="text-[3.5rem] lg:text-[4.5rem] font-medium text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)] tracking-tight leading-[1.05] text-left">
-              {t('sectionTitle')}
-            </h2>
-            <p className="text-body-lg text-[var(--color-text-muted)] font-light mt-6 max-w-[500px] text-left">
-              {t('sectionDesc')}
-            </p>
-          </div>
-
-          {/* THE IMAGE CARDS (Cards 2+) */}
-          {ecosytemCards.map((card, idx) => (
-            <div 
-              key={idx} 
-              className="coverflow-card shrink-0 w-[65vw] lg:w-[45vw] h-[65vh] mx-[2vw] rounded-[24px] overflow-hidden shadow-[0_30px_80px_-20px_rgba(0,0,0,0.4)] ring-1 ring-white/10 relative transform-gpu"
-              style={{ transformOrigin: 'center center' }}
-            >
-              <img 
-                src={card.image} 
-                alt={card.title}
-                className="w-full h-full object-cover object-center" 
-              />
-              
-              {/* Premium Dark Gradient Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/50 to-transparent pointer-events-none"></div>
-              
-              {/* Overlaid Content */}
-              <div className="absolute inset-x-0 bottom-0 p-8 lg:p-12 flex flex-col justify-end text-[var(--color-text-White-100)]">
-                {card.logo && (
-                   <div className="text-[var(--color-brand-cyan)] dark:text-[var(--color-brand-blue)]">
-                      {card.logo}
-                   </div>
-                )}
-                <h3 className="text-[2.5rem] md:text-[3.5rem] font-medium tracking-tight leading-[1.1] mb-3">
-                  {card.title}
-                </h3>
-                <p className="text-body-lg text-white/70 font-light leading-relaxed max-w-[500px]">
-                  {card.desc}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ----------------------------------------------------- */}
-      {/* MOBILE: Clean Native Snap Scroll */}
-      {/* ----------------------------------------------------- */}
-      <section className="flex md:hidden flex-col w-full bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] z-20 pt-[10vh] pb-[10vh]">
-        
-        {/* Native Horizontal Snap Carousel */}
-        <div className="flex w-full overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-8 px-[5vw]">
-          
-          {/* Mobile Title Card */}
-          <div className="shrink-0 w-[85vw] mr-[5vw] snap-center relative flex flex-col justify-center">
-             <h2 className="text-[3.5rem] font-medium text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)] tracking-tight leading-[1] text-left">
-                {t('sectionTitle')}
-             </h2>
-             <p className="text-body mt-4 text-[var(--color-text-muted)] font-light text-left pr-4">
-                {t('sectionDesc')}
-             </p>
-          </div>
-
-          {/* Image Cards */}
-          {ecosytemCards.map((card, idx) => (
-            <div 
-              key={idx} 
-              className="shrink-0 w-[85vw] h-[60vh] mr-[5vw] snap-center rounded-[20px] overflow-hidden relative shadow-elevation-4"
-            >
-              <img 
-                src={card.image} 
-                alt={card.title}
-                className="w-full h-full object-cover object-center" 
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent pointer-events-none"></div>
-              
-              <div className="absolute inset-x-0 bottom-0 p-6 flex flex-col justify-end text-[var(--color-text-White-100)]">
-                {card.logo && (
-                   <div className="text-[var(--color-brand-cyan)] dark:text-[var(--color-brand-blue)] mb-4">
-                      {card.logo}
-                   </div>
-                )}
-                <h3 className="text-h2 font-medium tracking-tight leading-tight mb-2">
-                  {card.title}
-                </h3>
-                <p className="text-body text-white/70 font-light leading-relaxed">
-                  {card.desc}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-    </>
-  );
-}
-
+// ----------------------------------------------------------------------
+// LOGO COMPONENTS (Moved to top to prevent Turbopack ReferenceErrors)
+// ----------------------------------------------------------------------
 function CrmLogo({ className }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 192 73" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -253,10 +24,10 @@ function CrmLogo({ className }: { className?: string }) {
         </g>
       </g>
       <defs>
-        <clipPath id="clip0_2170_4274">
+        <clipPath id="clip0_2170_4296">
           <rect width="192" height="72.88" fill="white"/>
         </clipPath>
-        <clipPath id="clip1_2170_4274">
+        <clipPath id="clip1_2170_4296">
           <rect width="192" height="72.88" fill="white"/>
         </clipPath>
       </defs>
@@ -304,7 +75,7 @@ function CallsLogo({ className }: { className?: string }) {
           <path d="M131.854 61.2319L136.542 48.3599H139.466L144.154 61.2319H141.432L137.994 51.2839L134.538 61.2319H131.854ZM133.912 58.3459L134.592 56.3419H141.212L141.874 58.3459H133.912Z" className="fill-white transition-colors duration-500" />
           <path d="M145.074 61.2319V48.3599H147.648V59.2259H153.274V61.2299H145.074V61.2319Z" className="fill-white transition-colors duration-500" />
           <path d="M154.672 61.2319V48.3599H157.246V59.2259H162.872V61.2299H154.672V61.2319Z" className="fill-white transition-colors duration-500" />
-          <path d="M168.186 61.4519C167.254 61.4519 166.424 61.2919 165.694 60.9739C164.964 60.6559 164.386 60.1899 163.956 59.5759C163.526 58.9639 163.306 58.2219 163.294 57.3519H166.016C166.028 57.7199 166.124 58.0499 166.3 58.3439C166.478 58.6379 166.726 58.8719 167.044 59.0419C167.362 59.2139 167.736 59.2999 168.166 59.2999C168.546 59.2999 168.874 59.2379 169.15 59.1159C169.426 58.9939 169.64 58.8219 169.794 58.6019C169.948 58.3819 170.024 58.1119 170.024 57.7919C170.024 57.4499 169.934 57.1539 169.758 56.9099C169.58 56.6639 169.338 56.4559 169.032 56.2839C168.726 56.1119 168.374 55.9559 167.974 55.8159C167.576 55.6759 167.15 55.5319 166.696 55.3839C165.678 55.0539 164.904 54.6119 164.37 54.0599C163.836 53.5079 163.57 52.7719 163.57 51.8539C163.57 51.0699 163.756 50.4019 164.13 49.8499C164.504 49.2979 165.024 48.8759 165.692 48.5819C166.36 48.2879 167.116 48.1399 167.962 48.1399C168.808 48.1399 169.598 48.2899 170.26 48.5899C170.922 48.8899 171.446 49.3219 171.832 49.8859C172.218 50.4499 172.424 51.1179 172.448 51.8899H169.69C169.678 51.6079 169.598 51.3479 169.452 51.1079C169.304 50.8679 169.102 50.6759 168.846 50.5279C168.59 50.3799 168.282 50.3079 167.926 50.3079C167.62 50.2959 167.34 50.3419 167.09 50.4459C166.838 50.5499 166.64 50.7039 166.492 50.9059C166.344 51.1079 166.272 51.3619 166.272 51.6699C166.272 51.9779 166.346 52.2299 166.492 52.4339C166.64 52.6359 166.844 52.8099 167.108 52.9579C167.372 53.1059 167.68 53.2419 168.036 53.3719C168.392 53.4999 168.778 53.6319 169.194 53.7679C169.844 53.9879 170.438 54.2499 170.978 54.5499C171.518 54.8499 171.95 55.2399 172.274 55.7179C172.598 56.1959 172.762 56.8279 172.762 57.6119C172.762 58.2979 172.584 58.9339 172.228 59.5159C171.872 60.0979 171.358 60.5679 170.684 60.9219C170.01 61.2779 169.176 61.4559 168.184 61.4559L168.186 61.4519Z" className="fill-white transition-colors duration-500" />
+          <path d="M168.186 61.4519C167.254 61.4519 166.424 61.2919 165.694 60.9739C164.964 60.6559 164.386 60.1899 163.956 59.5759C163.526 58.9639 163.306 58.2219 163.294 57.3519H166.016C166.028 57.7199 166.124 58.0499 166.3 58.3439C166.478 58.6379 166.726 58.8719 167.044 59.0419C167.362 59.2139 167.736 59.2999 168.166 59.2999C168.546 59.2999 168.874 59.2379 169.15 59.1159C169.426 58.9939 169.64 58.8219 169.794 58.6019C169.948 58.3819 170.024 58.1119 170.024 57.7919C170.024 57.4499 169.934 57.1539 169.758 56.9099C169.58 56.6639 169.338 56.4559 169.032 56.2839C168.726 56.1119 168.374 55.9559 167.974 55.8159C167.576 55.6759 167.15 55.5319 166.696 55.3839C165.678 55.0539 164.904 54.6119 164.37 54.0599C163.836 53.5079 163.57 52.7719 163.57 51.8539C163.57 51.0699 163.756 50.4019 164.13 49.8499C164.504 49.2979 165.024 48.8759 165.692 48.5819C166.36 48.2879 167.116 48.1399 167.962 48.1399C168.808 48.1399 169.598 48.2899 170.26 48.5899C170.922 48.8899 171.446 49.3219 171.832 49.8859C172.218 50.4499 172.424 51.1179 172.448 51.8899H169.69C169.678 51.6079 169.598 51.3479 169.452 51.1079C169.304 50.8679 169.102 50.6759 168.846 50.5279C168.59 50.3799 168.282 50.3079 167.926 50.3079C167.62 50.2959 167.34 50.3419 167.09 50.4459C166.838 50.5499 166.64 50.7039 166.492 50.9059C166.344 51.1079 166.272 51.3619 166.272 51.6699C166.272 51.9779 166.346 52.2299 166.492 52.4339C166.64 52.6359 166.844 52.8099 167.108 52.9579C167.372 53.1059 167.68 53.2419 168.036 53.3719C168.392 53.4999 168.778 53.6319 169.194 53.7679C169.844 53.9879 170.438 54.2499 170.978 54.5499C171.518 54.8499 171.95 55.2399 172.274 55.7179C172.598 56.1959 172.762 56.8279 172.762 57.6119C172.762 58.2979 172.584 58.9339 172.228 59.5159C172.872 60.0979 171.358 60.5679 170.684 60.9219C170.01 61.2779 169.176 61.4559 168.184 61.4559L168.186 61.4519Z" className="fill-white transition-colors duration-500" />
         </g>
       </g>
       <defs>
@@ -316,5 +87,286 @@ function CallsLogo({ className }: { className?: string }) {
         </clipPath>
       </defs>
     </svg>
+  );
+}
+
+// ----------------------------------------------------------------------
+// MAIN COMPONENT
+// ----------------------------------------------------------------------
+export default function BentoGridEpicare() {
+  const t = useTranslations('landingV2.bento');
+  const containerRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const progressBarRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    ScrollTrigger.config({ ignoreMobileResize: true });
+
+    const section = containerRef.current;
+    const track = trackRef.current;
+    const cards = gsap.utils.toArray('.coverflow-card');
+    
+    if (!section || !track || cards.length === 0) return;
+
+    let mm = gsap.matchMedia();
+
+    // ----------------------------------------------------
+    // DESKTOP: HORIZONTAL 3D COVER FLOW
+    // ----------------------------------------------------
+    mm.add("(min-width: 768px)", () => {
+        let cardStaticCenters: number[] = [];
+
+        const calculateLayout = () => {
+           gsap.set(track, { clearProps: "all" });
+           cards.forEach((c: any) => gsap.set(c, { clearProps: "all" }));
+
+           const firstCard = cards[0] as HTMLElement;
+           const lastCard = cards[cards.length - 1] as HTMLElement;
+           const padLeft = (window.innerWidth - firstCard.offsetWidth) / 2;
+           const padRight = (window.innerWidth - lastCard.offsetWidth) / 2;
+           
+           gsap.set(track, { paddingLeft: padLeft, paddingRight: padRight });
+
+           cardStaticCenters = cards.map(card => {
+               const el = card as HTMLElement;
+               return el.offsetLeft + el.offsetWidth / 2;
+           });
+        };
+
+        calculateLayout();
+
+        const getScrollDist = () => track.scrollWidth - window.innerWidth;
+        
+        const updateCards3DPhysics = () => {
+            const currentTrackX = gsap.getProperty(track, "x") as number;
+            const screenCenter = window.innerWidth / 2;
+
+            cards.forEach((card: any, i) => {
+              const cardCenter = currentTrackX + cardStaticCenters[i];
+              const dist = (cardCenter - screenCenter) / screenCenter; 
+              const clampedDist = Math.max(-1, Math.min(1, dist));
+              
+              gsap.set(card, {
+                rotateY: clampedDist * 50, 
+                scale: 1 - Math.abs(clampedDist) * 0.25, 
+                z: -Math.abs(clampedDist) * 500, 
+                opacity: Math.max(0, 1 - Math.abs(clampedDist) * 1.5), 
+              });
+            });
+        };
+
+        updateCards3DPhysics();
+
+        const tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: section,
+              pin: true,
+              scrub: 1.2,
+              start: "top top",
+              end: () => "+=" + getScrollDist(),
+              invalidateOnRefresh: true,
+              onRefresh: () => {
+                 calculateLayout();
+                 updateCards3DPhysics();
+              }
+            }
+        });
+
+        tl.to(track, {
+            x: () => -getScrollDist(),
+            ease: "none",
+            onUpdate: updateCards3DPhysics
+        }, 0);
+
+        const progressBar = progressBarRef.current;
+        if (progressBar) {
+            gsap.set(progressBar, { transformOrigin: "left center" });
+            tl.to(progressBar, { scaleX: 1, ease: "none" }, 0);
+        }
+
+        return () => {
+            gsap.set(track, { clearProps: "all" });
+            cards.forEach((c: any) => gsap.set(c, { clearProps: "all" }));
+        };
+    });
+
+    // ----------------------------------------------------
+    // MOBILE: VERTICAL 3D ROLODEX (COVER FLOW)
+    // ----------------------------------------------------
+    mm.add("(max-width: 767px)", () => {
+        let cardStaticCenters: number[] = [];
+
+        const calculateLayout = () => {
+           gsap.set(track, { clearProps: "all" });
+           cards.forEach((c: any) => gsap.set(c, { clearProps: "all" }));
+
+           const firstCard = cards[0] as HTMLElement;
+           const lastCard = cards[cards.length - 1] as HTMLElement;
+           const padTop = (window.innerHeight - firstCard.offsetHeight) / 2;
+           const padBottom = (window.innerHeight - lastCard.offsetHeight) / 2;
+           
+           gsap.set(track, { paddingTop: padTop, paddingBottom: padBottom });
+
+           cardStaticCenters = cards.map(card => {
+               const el = card as HTMLElement;
+               return el.offsetTop + el.offsetHeight / 2;
+           });
+        };
+
+        calculateLayout();
+
+        const getScrollDist = () => track.scrollHeight - window.innerHeight;
+        
+        const updateCards3DPhysics = () => {
+            const currentTrackY = gsap.getProperty(track, "y") as number;
+            const screenCenter = window.innerHeight / 2;
+
+            cards.forEach((card: any, i) => {
+              const cardCenter = currentTrackY + cardStaticCenters[i];
+              const dist = (cardCenter - screenCenter) / screenCenter; 
+              const clampedDist = Math.max(-1, Math.min(1, dist));
+              
+              gsap.set(card, {
+                rotateX: -clampedDist * 50, // Pitch for vertical 3D
+                scale: 1 - Math.abs(clampedDist) * 0.15, // Softer scale for vertical
+                z: -Math.abs(clampedDist) * 500, 
+                opacity: Math.max(0, 1 - Math.abs(clampedDist) * 1.5), 
+              });
+            });
+        };
+
+        updateCards3DPhysics();
+
+        const tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: section,
+              pin: true,
+              scrub: 1.2,
+              start: "top top",
+              end: () => "+=" + getScrollDist(),
+              invalidateOnRefresh: true,
+              onRefresh: () => {
+                 calculateLayout();
+                 updateCards3DPhysics();
+              }
+            }
+        });
+
+        tl.to(track, {
+            y: () => -getScrollDist(),
+            ease: "none",
+            onUpdate: updateCards3DPhysics
+        }, 0);
+
+        const progressBar = progressBarRef.current;
+        if (progressBar) {
+            gsap.set(progressBar, { transformOrigin: "left center" });
+            tl.to(progressBar, { scaleX: 1, ease: "none" }, 0);
+        }
+
+        return () => {
+            gsap.set(track, { clearProps: "all" });
+            cards.forEach((c: any) => gsap.set(c, { clearProps: "all" }));
+        };
+    });
+
+    return () => mm.revert();
+  }, []);
+
+  const ecosytemCards = [
+    {
+      title: t('card1Title'),
+      desc: t('card1Desc'),
+      image: "/Files/Features/CRM_product_tablet_client_cards_202606242225.jpeg",
+      logo: <CrmLogo className="h-10 w-auto mb-6 drop-shadow-[0_0_15px_rgba(90,200,250,0.5)]" />
+    },
+    {
+      title: t('card4Title'),
+      desc: t('card4Desc'),
+      image: "/Files/Features/card_5_image.jpg",
+      logo: <AmsLogo className="h-10 w-auto mb-6 drop-shadow-[0_0_15px_rgba(90,200,250,0.5)]" />
+    },
+    {
+      title: t('card6Title'),
+      desc: t('card6Desc'),
+      image: "/Files/Features/Wireframe_monitor_with_headset.jpeg",
+      logo: <CallsLogo className="h-10 w-auto mb-6 drop-shadow-[0_0_15px_rgba(90,200,250,0.5)]" />
+    },
+    {
+      title: t('card7Title'),
+      desc: t('card7Desc'),
+      image: "/Files/Features/Diagonal_pipeline_CRM_stages_202606242208.jpeg",
+      logo: null
+    }
+  ];
+
+  return (
+      <section 
+        ref={containerRef} 
+        className="relative w-full h-screen overflow-hidden bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] z-20"
+        style={{ perspective: '2000px' }}
+      >
+        {/* SCROLL PROGRESS INDICATOR */}
+        <div className="absolute bottom-8 md:bottom-12 left-1/2 -translate-x-1/2 flex items-center justify-center z-50">
+          <div className="w-[80px] md:w-[120px] h-[2px] bg-black/10 dark:bg-white/10 relative overflow-hidden rounded-full">
+            <div 
+              ref={progressBarRef}
+              className="absolute top-0 left-0 h-full bg-[var(--color-text-Black-100)] dark:bg-[var(--color-text-White-100)] w-full origin-left transform-gpu scale-x-0"
+            ></div>
+          </div>
+        </div>
+
+        {/* DOM: Flex Column on Mobile, Flex Row on Desktop */}
+        <div 
+          ref={trackRef}
+          className="absolute top-0 flex flex-col md:flex-row items-center justify-start w-full md:w-auto md:h-full will-change-transform transform-gpu z-10 gap-[5vh] md:gap-[3vw]" 
+          style={{ transformStyle: 'preserve-3d' }}
+        >
+          {/* THE TITLE CARD */}
+          <div 
+            className="coverflow-card shrink-0 w-[85vw] lg:w-[40vw] h-[60vh] md:h-[65vh] relative transform-gpu flex flex-col justify-center"
+            style={{ transformOrigin: 'center center' }}
+          >
+            <h2 className="text-[2.75rem] md:text-[3.5rem] lg:text-[4.5rem] font-medium text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)] tracking-tight leading-[1.05] text-left">
+              {t('sectionTitle')}
+            </h2>
+            <p className="text-body md:text-body-lg text-[var(--color-text-muted)] font-light mt-4 md:mt-6 max-w-[500px] text-left">
+              {t('sectionDesc')}
+            </p>
+          </div>
+
+          {/* THE IMAGE CARDS */}
+          {ecosytemCards.map((card, idx) => (
+            <div 
+              key={idx} 
+              className="coverflow-card shrink-0 w-[85vw] lg:w-[45vw] h-[60vh] md:h-[65vh] rounded-[24px] overflow-hidden shadow-[0_30px_80px_-20px_rgba(0,0,0,0.4)] ring-1 ring-white/10 relative transform-gpu"
+              style={{ transformOrigin: 'center center' }}
+            >
+              <img 
+                src={card.image} 
+                alt={card.title}
+                className="w-full h-full object-cover object-center" 
+              />
+              
+              <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/50 to-transparent pointer-events-none"></div>
+              
+              <div className="absolute inset-x-0 bottom-0 p-6 lg:p-12 flex flex-col justify-end text-[var(--color-text-White-100)]">
+                {card.logo && (
+                   <div className="text-[var(--color-brand-cyan)] dark:text-[var(--color-brand-blue)] mb-3 lg:mb-4">
+                      {card.logo}
+                   </div>
+                )}
+                <h3 className="text-[2rem] md:text-[2.5rem] lg:text-[3.5rem] font-medium tracking-tight leading-[1.1] mb-2 lg:mb-3">
+                  {card.title}
+                </h3>
+                <p className="text-body md:text-body-lg text-white/70 font-light leading-relaxed max-w-[500px]">
+                  {card.desc}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
   );
 }
