@@ -361,20 +361,9 @@
   .px-gutter-lg { padding-left: var(--space-gutter-lg); padding-right: var(--space-gutter-lg); }
   .px-gutter-xl { padding-left: var(--space-gutter-xl); padding-right: var(--space-gutter-xl); }
 
-  .py-section-xs { padding-top: var(--space-section-xs); padding-bottom: var(--space-section-xs); }
-  .py-section-sm { padding-top: var(--space-section-sm); padding-bottom: var(--space-section-sm); }
-  .py-section-md { padding-top: var(--space-section-md); padding-bottom: var(--space-section-md); }
-  .py-section-lg { padding-top: var(--space-section-lg); padding-bottom: var(--space-section-lg); }
-
-  .pt-section-xs { padding-top: var(--space-section-xs); }
-  .pt-section-sm { padding-top: var(--space-section-sm); }
-  .pt-section-md { padding-top: var(--space-section-md); }
-  .pt-section-lg { padding-top: var(--space-section-lg); }
-
-  .pb-section-xs { padding-bottom: var(--space-section-xs); }
-  .pb-section-sm { padding-bottom: var(--space-section-sm); }
-  .pb-section-md { padding-bottom: var(--space-section-md); }
-  .pb-section-lg { padding-bottom: var(--space-section-lg); }
+  /* SECTION VERTICAL RHYTHM (py/pt/pb-section-*) → moved to top-level `@utility`
+     blocks below so responsive prefixes work (`md:py-section-lg`, `lg:pt-section-md`).
+     See VERTICAL-RHYTHM protocol: command-prompts/vertical-spacing-protocol.md */
 
   .gap-fluid-xs { gap: var(--space-fluid-xs); }
   .gap-fluid-sm { gap: var(--space-fluid-sm); }
@@ -461,6 +450,28 @@ body {
   .max-w-section-lg { max-width: var(--max-w-section-lg); width: 100%; margin-inline: auto; }
   .max-w-section-xl { max-width: var(--max-w-section-xl); width: 100%; margin-inline: auto; }
 }
+
+/* =========================================
+   SECTION VERTICAL RHYTHM TOKENS (Design System Scale)
+   Registered as `@utility` so responsive variants work:
+   `py-section-sm md:py-section-lg`, `pb-section-md`, `lg:pt-section-md`, etc.
+   Bare usage (`py-section-lg`) is unchanged.
+   Governing standard: command-prompts/vertical-spacing-protocol.md
+   ========================================= */
+@utility py-section-xs { padding-top: var(--space-section-xs); padding-bottom: var(--space-section-xs); }
+@utility py-section-sm { padding-top: var(--space-section-sm); padding-bottom: var(--space-section-sm); }
+@utility py-section-md { padding-top: var(--space-section-md); padding-bottom: var(--space-section-md); }
+@utility py-section-lg { padding-top: var(--space-section-lg); padding-bottom: var(--space-section-lg); }
+
+@utility pt-section-xs { padding-top: var(--space-section-xs); }
+@utility pt-section-sm { padding-top: var(--space-section-sm); }
+@utility pt-section-md { padding-top: var(--space-section-md); }
+@utility pt-section-lg { padding-top: var(--space-section-lg); }
+
+@utility pb-section-xs { padding-bottom: var(--space-section-xs); }
+@utility pb-section-sm { padding-bottom: var(--space-section-sm); }
+@utility pb-section-md { padding-bottom: var(--space-section-md); }
+@utility pb-section-lg { padding-bottom: var(--space-section-lg); }
 
 /* =========================================
    TYPOGRAPHY TOKENS (Design System Scale)

@@ -148,6 +148,9 @@ If there are ZERO violations, explicitly state: **"✅ ZERO typography violation
 *   **Grid Consistency:** For internal micro-spacing (e.g. within buttons or small cards), use `gap-1` through `gap-6`.
 
 #### 2.1 🚨 PROTOCOLO DE REVISIÓN: Espaciado Vertical y Simetría (Secciones)
+
+> 📐 **Fuente ampliada:** para una auditoría/mapeo completo del ritmo vertical de una página (escala de 4 niveles, convención single-owner, y el mapa vivo de fronteras por sección en desktop+móvil), usa el **Protocolo de Ritmo Vertical**: [`command-prompts/vertical-spacing-protocol.md`](../../command-prompts/vertical-spacing-protocol.md). Las reglas de abajo son el checklist rápido; ese protocolo es el estándar completo.
+
 Para asegurar que no existan saltos visuales desordenados, acumulaciones dobles de margen o asimetrías molestas en dispositivos móviles y de escritorio, el agente DEBE ejecutar esta lista de chequeo en cada auditoría y modificación:
 
 1. **Evitar la Acumulación de Margen/Padding:**

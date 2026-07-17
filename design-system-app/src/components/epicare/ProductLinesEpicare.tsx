@@ -108,7 +108,7 @@ export default function ProductLinesEpicare() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] py-section-lg z-20 transition-colors duration-500 px-[14px] md:px-[clamp(1.5rem,4vw,3.5rem)]"
+      className="relative w-full bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] py-section-sm md:py-section-md z-20 transition-colors duration-500 px-[14px] md:px-[clamp(1.5rem,4vw,3.5rem)]"
     >
       {/* Ambient glow — circular, isolated in its own clipped layer (keeps the
           section overflow visible so the sticky left rail can pin). */}
