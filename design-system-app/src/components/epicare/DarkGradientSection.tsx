@@ -55,9 +55,10 @@ export default function DarkGradientSection() {
       subtitle: t('feature2_subtitle'), 
       body: t('feature2_body'),
       img: "support_dark.mp4",
-      imgLight: "support_light.mp4",
+      imgLight: "Card 2_Support_light.mp4",
       isVideo: true,
-      imgClass: "object-cover"
+      imgClass: "object-cover",
+      imgClassDark: "object-contain scale-[1.4]"
     },
     { 
       step: t('feature3_step'), 
