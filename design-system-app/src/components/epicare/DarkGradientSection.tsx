@@ -67,7 +67,9 @@ export default function DarkGradientSection() {
       img: "Earnings_V3_Dark.mp4",
       imgLight: "Earnings_V3_Ligh.mp4",
       isVideo: true,
-      imgClass: "object-cover"
+      imgClass: "object-cover",
+      imgClassLight: "object-contain scale-[1.4]",
+      imgClassDark: "object-contain scale-[1.6]"
     },
     { 
       step: t('feature4_step'), 
@@ -179,7 +181,7 @@ export default function DarkGradientSection() {
                       playsInline 
                       disablePictureInPicture
                       src={(card.imgLight || card.img).startsWith('/') ? (card.imgLight || card.img) : `/Files/Epicare_Landing/Features/${card.imgLight || card.img}`}
-                      className={`absolute inset-0 w-full h-full block dark:hidden ${card.imgClass || "object-cover"}`}
+                      className={`absolute inset-0 w-full h-full block dark:hidden ${(card as any).imgClassLight || card.imgClass || "object-cover"}`}
                       style={{
                         maskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 100%)',
                         WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 100%)'
