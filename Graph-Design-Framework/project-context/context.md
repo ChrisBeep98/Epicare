@@ -1,6 +1,6 @@
 # Contexto del Proyecto: GO AMS Landing Page
-> **Última Actualización:** 26 de Junio, 2026
-> **Estado:** Fase 10 (E-Commerce & Platform Redesign)
+> **Última Actualización:** 17 de Julio, 2026
+> **Estado:** Fase 11 (Epicare Redesign) — secciones nuevas (Product Lines, People Reveal) + deploy GitHub Pages
 > **Navegación:** Ver [`README.md`](./README.md) para el índice completo de archivos de contexto.
 
 ## 1. Visión General
@@ -135,6 +135,26 @@ Los componentes del nuevo diseño están consolidados en:
 115. **[NUEVO] Internacionalización Dinámica & Header Polish (29 Jun 2026):**
     - Implementación de un selector de idioma dinámico (ESP/ENG) tipo dropdown "liquid glass" minimalista en el Header que actualiza los textos en caliente sin remontar el DOM, preservando intactos los ScrollTriggers y el pin del video del Hero.
     - Adición de un botón de Login en azul de la marca y localización completa de todos los componentes y copys quemados de la landing page en los diccionarios i18n.
+
+116. **[NUEVO] Epicare — Nueva Sección "Product Lines" (Índice Editorial) (17 Jul 2026):**
+    - Creación de `ProductLinesEpicare.tsx` (debajo de BentoGrid): las 3 categorías de seguros (Life/Health/Supplementary) como índice editorial. **Desktop:** riel izquierdo pinneado con marcador de categoría a escala gigante (`display-3xl`) que hace swap al scroll + lista de productos con reveal "light-up" ligado al scroll (scrub) y acordeón hover con mini-descripción. **Mobile:** pills minimalistas por categoría con reveal escalonado.
+    - i18n `landingV2.productLines` (en/es) con `t.raw()` para arrays de productos. Nombres de producto en inglés (estándar industria US).
+117. **[NUEVO] Epicare — Nueva Sección "People Reveal" (Kinetic Marquee) (17 Jul 2026):**
+    - Creación de `PeopleRevealEpicare.tsx` (antes de Product Lines): banda full-bleed de foto de personas revelada con **franjas interlocking** que colapsan/desvanecen (bezier `CustomEase`), sobre la que corre un **marquee cinético de la frase** (ligado al scroll con scrub + skew por velocidad), en `mix-blend-difference`, anclado abajo. Placeholder Unsplash (pendiente foto real). Copy: "Expertos de tu lado / Experts on your side".
+118. **[NUEVO] Design System & Landing — Responsividad 1080p + Hero/Header CTAs + Fixes Mobile (17 Jul 2026):**
+    - **DS:** `--max-w-section-lg/-xl` convertidos a `clamp()` fluido (se achican en 1080p, mantienen el ancho en 2K). Métricas migradas de `max-w-[1400px]` al token. Gaps de cards (Bento/Métricas) a `gap-fluid-xs`.
+    - **Hero/Header:** CTAs rediseñados (48px, sin mayúsculas, burbuja de icono con swap diagonal de flecha, hover con zoom/lift `cubic-bezier(0.22,1,0.36,1)`). Título del Hero ampliado a 9 col en desktop.
+    - **Fixes Mobile:** eliminado scroll horizontal global (el `grid grid-cols-12 gap-fluid-md` de ProductLines forzaba >viewport en ≤375px → ahora `lg:grid`, flex en mobile). Título del Hero responsive (`text-display` en mobile). Quitado `overflow-x-hidden` del wrapper del Hero (ancestro que rompía el pin de ScrollTrigger en mobile).
+    - **Services Bento:** swap de videos (Innovation/Support light+dark, nueva `Card 2_Support_light.mp4`), zoom-out por-modo vía `imgClassLight/imgClassDark` (`object-contain scale-*`), y purga de videos sin uso.
+119. **[NUEVO] DevOps — Deploy a GitHub Pages vía GitHub Actions (17 Jul 2026):**
+    - `next.config.ts` con `basePath` env-driven (`NEXT_PUBLIC_BASE_PATH`) + `trailingSlash` para el project site `/Epicare`; helper `src/lib/asset.ts` y prefijo de TODAS las rutas de assets crudas (`<img>/<video>` no las prefija Next automáticamente).
+    - `.github/workflows/deploy.yml` afinado: Node 22 + pnpm 11 (alineado con el `pnpm-workspace.yaml` v10+ y evitar `node:sqlite` crash). Push a **`https://github.com/ChrisBeep98/Epicare.git`** (remote `origin`; `Epicare_insurance` preservado como `insurance`). Sitio destino: `chrisbeep98.github.io/Epicare/`.
+120. **[NUEVO] Design System — Fix Crítico: Variantes Responsivas de Tokens Tipográficos (17 Jul 2026):**
+    - **Bug detectado:** los tokens de texto estaban definidos como CSS plano dentro de `@layer utilities` en `globals.css`. En **Tailwind v4 los prefijos de variante (`md:`, `hover:`, `dark:`) SOLO se generan para utilities registrados con `@utility`**. Por eso `md:text-display-xl` (y análogos) **no generaba ninguna regla** y colapsaba silenciosamente al token base — p.ej. el H1 del Hero se quedaba en `text-display` (56px) en desktop en vez de subir a `text-display-xl` (96px). Verificado en el CSS compilado (solo existía `.text-display-xl`, no `.md\:text-display-xl`).
+    - **Alcance:** afectaba a 4 componentes con overrides muertos: `HeroEpicare` (h1), `ProductLinesEpicare` (h2), `MetricsEpicare` (métrica), `DarkGradientSection` (h5→h4).
+    - **Fix:** migrados TODOS los tokens tipográficos (`text-display-*`, `text-h1..h7`, `text-overline`, `text-subtitle`, `text-body-*`, `text-data`, `text-caption`, `text-ui-label`) de `.clase {}` plana → `@utility <nombre> {}` a nivel top-level (mismo mecanismo que `@utility grid-layout`). El uso directo (sin prefijo) queda idéntico, así que es 100% retrocompatible. Ahora `md:`/`hover:`/`dark:` funcionan para toda la escala tipográfica.
+    - **Verificado con `pnpm build`:** el CSS de producción ahora emite `.md\:text-display-xl` dentro de `@media (min-width:48rem)` y en orden posterior a la base (override correcto en ≥768px).
+    - ⚠️ **Pendiente latente:** los tokens de espaciado/gap/shadow/max-width siguen como CSS plano en `@layer utilities` — tienen el MISMO bug si se usan con prefijo responsivo (`md:px-gutter-md`, etc.). Migrar a `@utility` si se necesitan variantes.
 
 ## 6. Próximos Pasos (To-Do)
 - Empezar la construcción de la **Página de Inicio (Home)** integrando el motor de `HeroSequence` con los nuevos tokens de espaciado.

@@ -128,7 +128,7 @@ export default function ProductLinesEpicare() {
             <span className="pl-head block text-overline text-[var(--color-brand-blue)] mb-5">
               {t('overline')}
             </span>
-            <h2 className="pl-head text-display-sm md:text-display-lg font-medium tracking-tighter leading-[1.05] text-[var(--color-text-Black-100)] dark:text-white break-words">
+            <h2 className="pl-head text-display md:text-display-xl font-medium tracking-tighter leading-[1.05] text-[var(--color-text-Black-100)] dark:text-white break-words">
               {t('titleLine1')}<br />
               <span className="text-[var(--color-text-muted)]">{t('titleLine2')}</span>
             </h2>

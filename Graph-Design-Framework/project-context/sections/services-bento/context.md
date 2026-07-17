@@ -7,6 +7,11 @@
 - **Descripción:** Sección "Everything You Need to Succeed". Una grilla interactiva estilo "Liquid Glass" y "Edge-to-Edge" en mobile, con un sistema de iluminación radial bimodal (Light/Dark mode) avanzado.
 
 ## 2. Historial de Cambios
+- **17 Jul 2026:**
+  - Gap entre las 4 cards reducido a `md:gap-fluid-xs` (token DS, antes `md:gap-6`).
+  - Swap de videos: card 1 (Innovation) light+dark, card 2 (Support) → nueva `Card 2_Support_light.mp4` (light) + zoom-out en dark. Card 3 (Earnings) zoom-out light+dark. Zoom-out implementado **por modo** con overrides `imgClassLight` / `imgClassDark` (`object-contain scale-[1.2..1.6]`, recortado por el `overflow-hidden` del contenedor → sin márgenes).
+  - Purga de videos sin uso en `/public/Files/Epicare_Landing/Features/` (`innovation.mp4`, `innovation_Light.mp4`, `support_light.mp4`).
+  - Todas las rutas de video pasan por el helper `asset()` para el deploy bajo `/Epicare`.
 - **23 Jun 2026:**
   - Implementación del sistema de iluminación radial bimodal: En Dark Mode utiliza `Brand Blue`, en Light Mode expande un wash completo y fluido del color `Blue Vivid` por todo el contenedor.
   - Las tarjetas se transformaron a bloques de alto contraste: en Light Mode son bloques negros masivos con texto blanco; en Dark Mode son paneles de cristal líquido totalmente transparentes.
@@ -19,6 +24,8 @@
 - **Edge-to-Edge Mobile:** La sección principal pierde sus márgenes laterales y curvas externas en celular (`px-0`, `rounded-none`, `border-x-0`) para dar la sensación de banda infinita.
 
 ## 4. Bugs Conocidos / Pendientes
-- Ninguno por el momento. GSAP ScrollTrigger (`fade-up`) y transiciones de color fluyen a 60fps sin problema de re-renderizado.
+- GSAP ScrollTrigger (`fade-up`) y transiciones de color fluyen a 60fps sin problema.
+- **Deuda técnica:** el tipo de las cards usa casts `(card as any)` para `imgClassLight`/`imgClassDark`/`isVideoLight`. Limpieza recomendada: tipar la interfaz de card.
+- El video `Card 2_Support_light.mp4` tiene un **espacio** en el nombre (funciona vía encoding, pero conviene renombrarlo sin espacio).
 
-> **Última Actualización:** 23 Junio 2026
+> **Última Actualización:** 17 Julio 2026

@@ -1,6 +1,6 @@
 # Contexto de Sección: Header
 
-> **Última Actualización:** 29 de Junio, 2026
+> **Última Actualización:** 17 de Julio, 2026
 
 ## 1. Visión General
 Esta sección cubre el componente de cabecera (`HeaderEpicare.tsx`) de la Landing Page de Epicare. Su objetivo es unificar la navegación, controles de tema (light/dark) y menú responsivo a nivel global para todas las páginas del sitio.
@@ -14,6 +14,7 @@ Esta sección cubre el componente de cabecera (`HeaderEpicare.tsx`) de la Landin
 - **CTAs del Header:** Contiene un botón primario de **Login** en azul de marca (`bg-brand-blue`), un botón secundario translúcido con borde (**More from Epicare**) y el switch de tema.
 
 ## 3. Historial de Cambios
+- **17 Jul 2026 (Sesión):** Se aplicó a los CTAs del header (Login + secundario) el mismo hover premium del Hero: `transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)]` con `hover:scale-[1.02]`, `hover:-translate-y-0.5`, `hover:shadow-elevation-3` y `active:scale-95`. El logo `/short_logo.svg` pasó por el helper `asset()` para el deploy bajo `/Epicare`.
 - **26 Jun 2026 (Sesión):** Extracción de la barra de navegación del Hero para consolidar el componente independiente `<HeaderEpicare />` en `src/components/epicare/HeaderEpicare.tsx`. Actualización del logo al isotipo `/short_logo.svg`. Remoción de las animaciones GSAP de carga inicial del header para forzar un cargado estático de máxima robustez.
 - **29 Jun 2026 (Sesión):** Implementación de un selector de lenguaje (ESP/ENG) en el Header en formato dropdown liquid-glass minimalista. Añadido botón Login azul y renombrado botón secundario a 'More from Epicare'. Localización y corrección de traducciones en toda la landing (Header, Hero, BentoGrid, y DarkGradientSection).
 
