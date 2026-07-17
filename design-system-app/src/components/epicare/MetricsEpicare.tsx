@@ -107,7 +107,7 @@ export default function MetricsEpicare() {
 
   return (
     <section ref={sectionRef} className="w-full relative z-20 bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] transition-colors duration-500 py-section-lg">
-      <div className="max-w-[1400px] mx-auto px-[14px] md:px-[var(--space-gutter-md)]">
+      <div className="max-w-section-lg px-[14px] md:px-[var(--space-gutter-md)]">
         
         {/* ── Header Section ── */}
         <div className="pb-section-xs max-w-4xl will-change-transform">
