@@ -5,6 +5,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useTranslations } from 'next-intl';
 import HeaderEpicare from './HeaderEpicare';
+import { asset } from "@/lib/asset";
 
 /** Up-right arrow used inside the CTA bubbles. */
 const ArrowUR = ({ className = '' }: { className?: string }) => (
@@ -220,7 +221,7 @@ export default function HeroEpicare() {
               playsInline 
               className="absolute inset-0 w-full h-full object-cover mix-blend-screen scale-[1.05]"
             >
-              <source src="/Files/Epicare_Landing/Hero/epicare_landing_hero.mp4" type="video/mp4" />
+              <source src={asset("/Files/Epicare_Landing/Hero/epicare_landing_hero.mp4")} type="video/mp4" />
             </video>
 
             {/* GRAN LOGO CENTRAL (DENTRO DEL VIDEO, ACTO 1) */}
@@ -229,7 +230,7 @@ export default function HeroEpicare() {
               className="absolute top-10 md:top-14 left-1/2 -translate-x-1/2 z-[60] flex flex-col items-center pointer-events-none"
             >
               <img 
-                src="/epicare_logo.svg" 
+                src={asset("/epicare_logo.svg")}
                 alt="Epicare" 
                 className="w-[180px] md:w-[240px] filter brightness-0 invert opacity-100 mix-blend-difference" 
               />

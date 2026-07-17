@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useTranslations } from 'next-intl';
+import { asset } from "@/lib/asset";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -181,7 +182,7 @@ export default function DarkGradientSection() {
                       muted 
                       playsInline 
                       disablePictureInPicture
-                      src={(card.imgLight || card.img).startsWith('/') ? (card.imgLight || card.img) : `/Files/Epicare_Landing/Features/${card.imgLight || card.img}`}
+                      src={asset((card.imgLight || card.img).startsWith('/') ? (card.imgLight || card.img) : `/Files/Epicare_Landing/Features/${card.imgLight || card.img}`)}
                       className={`absolute inset-0 w-full h-full block dark:hidden ${(card as any).imgClassLight || card.imgClass || "object-cover"}`}
                       style={{
                         maskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 100%)',
@@ -190,7 +191,7 @@ export default function DarkGradientSection() {
                     />
                   ) : (
                     <img 
-                      src={(card.imgLight || card.img).startsWith('/') ? (card.imgLight || card.img) : `/Files/Epicare_Landing/Features/${card.imgLight || card.img}`} 
+                      src={asset((card.imgLight || card.img).startsWith('/') ? (card.imgLight || card.img) : `/Files/Epicare_Landing/Features/${card.imgLight || card.img}`)} 
                       alt={card.title} 
                       className={`absolute inset-0 w-full h-full opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out block dark:hidden ${card.imgClass || "object-contain p-6"}`} 
                     />
@@ -204,7 +205,7 @@ export default function DarkGradientSection() {
                       muted 
                       playsInline 
                       disablePictureInPicture
-                      src={card.img.startsWith('/') ? card.img : `/Files/Epicare_Landing/Features/${card.img}`}
+                      src={asset(card.img.startsWith('/') ? card.img : `/Files/Epicare_Landing/Features/${card.img}`)}
                       className={`absolute inset-0 w-full h-full hidden dark:block ${(card as any).imgClassDark || card.imgClass || "object-cover"}`}
                       style={{
                         maskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 100%)',
@@ -213,7 +214,7 @@ export default function DarkGradientSection() {
                     />
                   ) : (
                     <img 
-                      src={card.img.startsWith('/') ? card.img : `/Files/Epicare_Landing/Features/${card.img}`} 
+                      src={asset(card.img.startsWith('/') ? card.img : `/Files/Epicare_Landing/Features/${card.img}`)} 
                       alt={card.title} 
                       className={`absolute inset-0 w-full h-full opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out hidden dark:block ${(card as any).imgClassDark || card.imgClass || "object-contain p-6"}`} 
                     />

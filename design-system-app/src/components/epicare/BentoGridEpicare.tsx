@@ -4,6 +4,7 @@ import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useTranslations } from 'next-intl';
+import { asset } from "@/lib/asset";
 
 // ----------------------------------------------------------------------
 // LOGO COMPONENTS (Moved to top to prevent Turbopack ReferenceErrors)
@@ -278,25 +279,25 @@ export default function BentoGridEpicare() {
     {
       title: t('card1Title'),
       desc: t('card1Desc'),
-      image: "/Files/Features/CRM_product_tablet_client_cards_202606242225.jpeg",
+      image: asset("/Files/Features/CRM_product_tablet_client_cards_202606242225.jpeg"),
       logo: <CrmLogo className="h-10 w-auto mb-6 drop-shadow-[0_0_15px_rgba(90,200,250,0.5)]" />
     },
     {
       title: t('card4Title'),
       desc: t('card4Desc'),
-      image: "/Files/Features/card_5_image.jpg",
+      image: asset("/Files/Features/card_5_image.jpg"),
       logo: <AmsLogo className="h-10 w-auto mb-6 drop-shadow-[0_0_15px_rgba(90,200,250,0.5)]" />
     },
     {
       title: t('card6Title'),
       desc: t('card6Desc'),
-      image: "/Files/Features/Wireframe_monitor_with_headset.jpeg",
+      image: asset("/Files/Features/Wireframe_monitor_with_headset.jpeg"),
       logo: <CallsLogo className="h-10 w-auto mb-6 drop-shadow-[0_0_15px_rgba(90,200,250,0.5)]" />
     },
     {
       title: t('card7Title'),
       desc: t('card7Desc'),
-      image: "/Files/Features/Diagonal_pipeline_CRM_stages_202606242208.jpeg",
+      image: asset("/Files/Features/Diagonal_pipeline_CRM_stages_202606242208.jpeg"),
       logo: null
     }
   ];

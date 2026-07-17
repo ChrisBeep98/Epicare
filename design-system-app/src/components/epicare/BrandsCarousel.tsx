@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
+import { asset } from "@/lib/asset";
 
 const brands = [
   "68b074e0f62ece962b5d26cb_12.avif",
@@ -107,7 +108,7 @@ export default function BrandsCarousel() {
           {arr.map((b, i) => (
             <img 
               key={`${keyPrefix}-set${setIndex}-${i}`} 
-              src={`/Files/Epicare_Landing/Brand_icons/${b}`} 
+              src={asset(`/Files/Epicare_Landing/Brand_icons/${b}`)}
               alt="Carrier Logo" 
               className="h-[60px] md:h-[70px] w-auto object-contain grayscale opacity-[0.86] hover:grayscale-0 hover:opacity-100 transition-all duration-300 dark:invert" 
             />

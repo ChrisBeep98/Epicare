@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from 'react';
+import { asset } from "@/lib/asset";
 
 // Helper to make a container break out of the right side of the grid and touch the viewport edge
 function BleedRight({ children, className = "" }: { children: React.ReactNode, className?: string }) {
@@ -141,7 +142,7 @@ export default function HeroSection() {
               {/* Media Editor (Video) */}
               <div id="hero-video" className="relative z-0 flex items-center justify-center max-lg:!h-full max-lg:!w-full max-lg:!rounded-[24px] overflow-hidden w-full h-[110%]">
                 <video autoPlay loop muted playsInline className="absolute top-0 left-0 w-full h-full object-cover max-lg:!rounded-[24px]">
-                  <source src="/Files/Hero/Isometric_wireframe_illustration…_202606181624.mp4" type="video/mp4" />
+                  <source src={asset("/Files/Hero/Isometric_wireframe_illustration…_202606181624.mp4")} type="video/mp4" />
                   Tu navegador no soporta el video.
                 </video>
                 {/* Textura de ruido optimizada sobre el video */}

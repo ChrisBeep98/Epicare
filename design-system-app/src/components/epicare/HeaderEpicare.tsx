@@ -3,6 +3,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useTranslations } from "next-intl";
 import { useLocale } from "./I18nProviderClient";
+import { asset } from "@/lib/asset";
 
 interface HeaderEpicareProps {
   isHeaderPill?: boolean;
@@ -139,7 +140,7 @@ export default function HeaderEpicare({
           className="flex-shrink-0 flex items-center gap-static-sm"
         >
           <img 
-            src="/short_logo.svg" 
+            src={asset("/short_logo.svg")}
             alt="Epicare" 
             className="h-[36px] md:h-[44px] w-auto select-none pointer-events-none"
           />
