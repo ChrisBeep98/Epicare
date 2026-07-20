@@ -291,8 +291,8 @@ export default function BentoGridEpicare() {
       desc: t('card1Desc'),
       image: null,
       videoLight: asset("/Files/Features/CRM_Light.mp4"),
-      videoDark: asset("/Files/Features/CRM_Dark.mp4"),
-      videoDarkClassName: "opacity-90",
+      videoDark: asset("/Files/Features/GO_CRM_DArk.mp4#t=2"),
+      videoDarkFullBackground: true,
       mediaClassNameDark: "dark:bg-[#0D0D0E]",
       cardClassNameDark: "dark:bg-[#0D0D0E]",
       logo: <CrmLogo className="h-10 w-auto mb-6 drop-shadow-[0_0_15px_rgba(90,200,250,0.5)]" />
@@ -368,9 +368,22 @@ export default function BentoGridEpicare() {
           {ecosytemCards.map((card, idx) => (
             <div 
               key={idx} 
-              className={`coverflow-card shrink-0 w-[85vw] lg:w-[50vw] h-[60vh] md:h-[60vh] rounded-[24px] overflow-hidden shadow-elevation-4 ring-1 ring-[var(--color-border-Strokes-White-100)] dark:ring-white/10 relative transform-gpu flex flex-col md:flex-row ${(card as any).cardClassNameDark ? `bg-[var(--color-surface-BG-white)] ${(card as any).cardClassNameDark}` : 'bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)]'}`}
+              className={`coverflow-card shrink-0 w-[85vw] lg:w-[50vw] h-[60vh] md:h-[60vh] rounded-[24px] overflow-hidden shadow-elevation-4 border border-[var(--color-border-Strokes-default)] relative transform-gpu flex flex-col md:flex-row ${(card as any).cardClassNameDark ? `bg-[var(--color-surface-BG-white)] ${(card as any).cardClassNameDark}` : 'bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)]'}`}
               style={{ transformOrigin: 'center center' }}
             >
+              {/* Full Background Dark Video */}
+              {(card as any).videoDark && (card as any).videoDarkFullBackground && (
+                <>
+                  <video 
+                    autoPlay loop muted playsInline
+                    src={(card as any).videoDark}
+                    className="absolute inset-0 w-full h-full object-cover object-center z-0 hidden dark:block" 
+                  />
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_40%,rgba(0,0,0,0.6)_120%)] pointer-events-none z-[1] hidden dark:block" />
+                  <div className="absolute inset-y-0 left-0 w-2/3 bg-gradient-to-r from-black/40 to-transparent pointer-events-none z-[1] hidden dark:block" />
+                </>
+              )}
+
               {/* Text Side (Left on Desktop, Top on Mobile) */}
               <div className="w-full md:w-5/12 p-static-lg lg:p-static-2xl flex flex-col justify-center relative z-10 shrink-0">
                 {card.logo && (
@@ -387,10 +400,10 @@ export default function BentoGridEpicare() {
               </div>
 
               {/* Media Side (Right on Desktop, Bottom on Mobile) */}
-              <div className={`w-full md:w-7/12 flex-1 relative overflow-hidden ${(card as any).mediaClassNameDark ? (card as any).mediaClassNameDark : 'bg-black/5 dark:bg-white/5'}`}>
+              <div className={`w-full md:w-7/12 flex-1 relative overflow-hidden ${(card as any).mediaClassNameDark ? (card as any).mediaClassNameDark : 'bg-black/5 dark:bg-white/5'} ${((card as any).videoDark && (card as any).videoDarkFullBackground) ? 'dark:hidden' : ''}`}>
                 {(() => {
                   const hasLightVideo = !!(card as any).videoLight;
-                  const hasDarkVideo = !!(card as any).videoDark;
+                  const hasDarkVideo = !!(card as any).videoDark && !(card as any).videoDarkFullBackground;
                   const hasImage = !!card.image;
 
                   return (
