@@ -91,11 +91,21 @@ function CallsLogo({ className }: { className?: string }) {
   );
 }
 
+const ArrowUR = ({ className = '' }: { className?: string }) => (
+  <svg
+    viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}
+    strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true"
+  >
+    <path d="M7 17 17 7M7 7h10v10" />
+  </svg>
+);
+
 // ----------------------------------------------------------------------
 // MAIN COMPONENT
 // ----------------------------------------------------------------------
 export default function BentoGridEpicare() {
   const t = useTranslations('landingV2.bento');
+  const th = useTranslations('landingV2.hero');
   const containerRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const progressBarRef = useRef<HTMLDivElement>(null);
@@ -280,6 +290,7 @@ export default function BentoGridEpicare() {
       title: t('card1Title'),
       desc: t('card1Desc'),
       image: asset("/Files/Features/CRM_product_tablet_client_cards_202606242225.jpeg"),
+      videoLight: asset("/Files/Features/Wireframe_illustration_reveal_an…_202607200953.mp4"),
       logo: <CrmLogo className="h-10 w-auto mb-6 drop-shadow-[0_0_15px_rgba(90,200,250,0.5)]" />
     },
     {
@@ -326,42 +337,69 @@ export default function BentoGridEpicare() {
         >
           {/* THE TITLE CARD */}
           <div 
-            className="coverflow-card shrink-0 w-[85vw] lg:w-[40vw] h-[60vh] md:h-[65vh] relative transform-gpu flex flex-col justify-center"
+            className="coverflow-card shrink-0 w-[85vw] lg:w-[40vw] h-[85vh] md:h-[100vh] relative transform-gpu flex flex-col justify-start pt-[12vh] md:pt-[15vh]"
             style={{ transformOrigin: 'center center' }}
           >
-            <h2 className="text-[2.75rem] md:text-[3.5rem] lg:text-[4.5rem] font-medium text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)] tracking-tight leading-[1.05] text-left">
+            <h2 className="text-display-lg text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)] text-left">
               {t('sectionTitle')}
             </h2>
-            <p className="text-body md:text-body-lg text-[var(--color-text-muted)] font-light mt-4 md:mt-6 max-w-[500px] text-left">
-              {t('sectionDesc')}
-            </p>
+            
+            <div className="my-auto flex flex-col gap-static-xl md:gap-static-2xl -translate-y-6 md:-translate-y-10">
+              <p className="text-body-lg text-[var(--color-text-muted)] font-light max-w-[500px] text-left">
+                {t('sectionDesc')}
+              </p>
+              <div className="flex">
+                <button className="group w-fit h-12 pl-6 pr-2 rounded-full flex items-center gap-3 bg-[var(--color-action-primary-bg)] text-[var(--color-action-primary-text)] shadow-elevation-2 transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-elevation-4">
+                  <span className="text-body-sm font-medium">{th('ctaPlans')}</span>
+                  <span className="relative w-8 h-8 rounded-full bg-[var(--color-action-primary-text)] text-[var(--color-action-primary-bg)] flex items-center justify-center overflow-hidden shrink-0">
+                    <ArrowUR className="absolute w-4 h-4 transition-transform duration-300 ease-out group-hover:translate-x-5 group-hover:-translate-y-5" />
+                    <ArrowUR className="absolute w-4 h-4 -translate-x-5 translate-y-5 transition-transform duration-300 ease-out group-hover:translate-x-0 group-hover:translate-y-0" />
+                  </span>
+                </button>
+              </div>
+            </div>
           </div>
 
           {/* THE IMAGE CARDS */}
           {ecosytemCards.map((card, idx) => (
             <div 
               key={idx} 
-              className="coverflow-card shrink-0 w-[85vw] lg:w-[45vw] h-[60vh] md:h-[65vh] rounded-[24px] overflow-hidden shadow-[0_30px_80px_-20px_rgba(0,0,0,0.4)] ring-1 ring-white/10 relative transform-gpu"
+              className="coverflow-card shrink-0 w-[90vw] lg:w-[55vw] h-[60vh] md:h-[65vh] rounded-[24px] overflow-hidden shadow-[0_30px_80px_-20px_rgba(0,0,0,0.4)] ring-1 ring-white/10 relative transform-gpu"
               style={{ transformOrigin: 'center center' }}
             >
-              <img 
-                src={card.image} 
-                alt={card.title}
-                className="w-full h-full object-cover object-center" 
-              />
+              {(card as any).videoLight ? (
+                <>
+                  <video 
+                    autoPlay loop muted playsInline
+                    src={(card as any).videoLight}
+                    className="w-full h-full object-cover object-center dark:hidden"
+                  />
+                  <img 
+                    src={card.image} 
+                    alt={card.title}
+                    className="w-full h-full object-cover object-center hidden dark:block" 
+                  />
+                </>
+              ) : (
+                <img 
+                  src={card.image} 
+                  alt={card.title}
+                  className="w-full h-full object-cover object-center" 
+                />
+              )}
               
-              <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/50 to-transparent pointer-events-none"></div>
+              <div className={`absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/50 to-transparent pointer-events-none ${(card as any).videoLight ? "hidden dark:block" : ""}`}></div>
               
-              <div className="absolute inset-x-0 bottom-0 p-6 lg:p-12 flex flex-col justify-end text-[var(--color-text-White-100)]">
+              <div className={`absolute inset-x-0 bottom-0 p-static-lg lg:p-static-2xl flex flex-col justify-end ${(card as any).videoLight ? "text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)]" : "text-[var(--color-text-White-100)]"}`}>
                 {card.logo && (
-                   <div className="text-[var(--color-brand-cyan)] dark:text-[var(--color-brand-blue)] mb-3 lg:mb-4">
+                   <div className="text-[var(--color-brand-blue)] dark:text-[var(--color-brand-cyan)] mb-static-sm lg:mb-static-md">
                       {card.logo}
                    </div>
                 )}
-                <h3 className="text-[2rem] md:text-[2.5rem] lg:text-[3.5rem] font-medium tracking-tight leading-[1.1] mb-2 lg:mb-3">
+                <h3 className={`text-display mb-static-sm lg:mb-static-md ${(card as any).videoLight ? "text-[var(--color-brand-blue)] dark:text-[var(--color-text-White-100)]" : ""}`}>
                   {card.title}
                 </h3>
-                <p className="text-body md:text-body-lg text-white/70 font-light leading-relaxed max-w-[500px]">
+                <p className="text-body-lg opacity-70 font-light max-w-[500px]">
                   {card.desc}
                 </p>
               </div>
