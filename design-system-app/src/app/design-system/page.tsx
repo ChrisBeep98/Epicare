@@ -90,8 +90,8 @@ export default function DesignSystemPage() {
           </p>
           <h1 className="text-display mb-6">Modern Design System</h1>
           <p className="text-subtitle text-[var(--color-text-muted)]">
-            A visual reference for developers and AI agents. This page demonstrates the fusion of 
-            premium artisanal coffee aesthetics with modern, tactile glassmorphism.
+            A visual reference for developers and AI agents. This page documents the Epicare
+            design system — brand color, typography, spacing and motion — in one living surface.
             <br/><br/>
             <strong>Currently exploring:</strong> {isDark ? 'Dark Theme (Dark)' : 'Light Theme (Light)'}
           </p>

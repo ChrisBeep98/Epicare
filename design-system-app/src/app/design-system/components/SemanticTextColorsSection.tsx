@@ -21,7 +21,9 @@ export default function SemanticTextColorsSection({ isDark }: { isDark: boolean 
             <ColorCard name="Secondary" variable="text-[var(--color-text-secondary)]" hex="Dynamic" colorClass="bg-[var(--color-text-primary)]-secondary" textWhite={isDark ? false : true} />
             <ColorCard name="Tertiary" variable="text-[var(--color-text-muted)]" hex="Dynamic" colorClass="bg-[var(--color-text-primary)]-tertiary" textWhite />
             <ColorCard name="Muted" variable="text-[var(--color-text-muted)]" hex="Dynamic" colorClass="bg-muted" textWhite />
-            <ColorCard name="Accent" variable="text-[var(--color-brand-orange)]" hex="Dynamic" colorClass="bg-[var(--color-brand-orange)]" textWhite />
+            <ColorCard name="Accent (Orange)" variable="text-[var(--color-accent-main)]" hex="Dynamic" colorClass="bg-[var(--color-accent-main)]" textWhite />
+            <ColorCard name="Accent Blue" variable="text-[var(--color-text-accent-blue)]" hex="Dynamic" colorClass="bg-[var(--color-text-accent-blue)]" textWhite />
+            <ColorCard name="Accent Dark" variable="text-[var(--color-text-accent-dark)]" hex="Dynamic" colorClass="bg-[var(--color-text-accent-dark)]" textWhite={isDark ? false : true} />
             <ColorCard name="Inverse" variable="text-[var(--color-text-primary-Reverted)]" hex="Dynamic" colorClass="bg-[var(--color-surface-BG-base)]" textWhite={isDark ? true : false} />
           </div>
 
@@ -43,8 +45,9 @@ export default function SemanticTextColorsSection({ isDark }: { isDark: boolean 
                       { id: "text-[var(--color-text-secondary)]", label: "Secondary" },
                       { id: "text-[var(--color-text-muted)]", label: "Muted" },
                       { id: "text-[var(--color-text-hint)]", label: "Hint" },
-                      { id: "text-[var(--color-brand-orange)]", label: "Brand Orange" },
-                      { id: "text-[var(--color-brand-blue)]", label: "Brand Blue" },
+                      { id: "text-[var(--color-accent-main)]", label: "Accent Orange" },
+                      { id: "text-[var(--color-text-accent-blue)]", label: "Accent Blue" },
+                      { id: "text-[var(--color-text-accent-dark)]", label: "Accent Dark" },
                       { id: "text-[var(--color-text-primary-Reverted)]", label: "Inverse" }
                     ].map((tc) => (
                       <button 
@@ -79,13 +82,13 @@ export default function SemanticTextColorsSection({ isDark }: { isDark: boolean 
                   <span className="text-caption font-mono opacity-60">Applied class: {sandboxTextColor}</span>
                 </div>
                 <h4 className={`text-display-sm leading-[1.1] transition-colors duration-300 ${sandboxTextColor}`}>
-                  The true cost of <span className="italic font-light text-[var(--color-brand-orange)]">Craftsmanship</span>
+                  Protection built on <span className="italic font-light text-[var(--color-brand-orange)]">Trust</span>
                 </h4>
                 <p className={`text-h4 leading-snug transition-colors duration-300 ${sandboxTextColor}`}>
-                  When you hold a cup of SalentoCoffee, you are not just holding a beverage. You are holding three generations of relentless dedication to the earth.
+                  When a client signs with Epicare, they are not just buying a policy. They are securing peace of mind for the people who depend on them most.
                 </p>
                 <p className={`text-body leading-relaxed max-w-2xl transition-colors duration-300 ${sandboxTextColor}`}>
-                  Our beans are carefully hand-picked by local farmers who have dedicated their lives to perfecting the art of the harvest. We believe in sustainable practices that honor both the mountain and the cup.
+                  Every plan is carefully tailored by licensed agents who understand that real coverage is about people, not paperwork. We build long-term relationships grounded in clarity, speed, and genuine care.
                 </p>
               </div>
             </div>

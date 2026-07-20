@@ -7,9 +7,19 @@ Este archivo es la **Única Fuente de Verdad (Single Source of Truth) Documental
 
 ---
 
-## 1. TIPOGRAFÍA (Tokens de Escala)
-Familia Principal: `Inter` (La única tipografía permitida).
+## 1. TIPOGRAFÍA (Sistema de 3 Roles)
 
+El sistema tipográfico usa **tres familias**, cada una atada a un rol semántico. La `font-family` se declara dentro de cada `@utility` (o se hereda del `body`); **nunca** se pone inline.
+
+| Rol | Familia | Uso | Pesos |
+|:---|:---|:---|:---|
+| **Display · Encabezados** | **Inter Display** (Inter variable, eje óptico `opsz` fijado en 32 vía `font-variation-settings`) | Títulos, portadas y manifiestos. **Nunca** para cuerpo. | 400 · 500 · 600 |
+| **Cuerpo · UI** | **Inter Tight** | Toda la lectura funcional y texto de interfaz. Es la fuente del `body` (todo hereda de aquí salvo override). | 300 · 400 · 500 · 600 · 700 |
+| **Meta · Código** | **JetBrains Mono** | Solo números, hex, labels y metadata. | 400 · 500 · 600 |
+
+> **Carga (next/font/google en `layout.tsx`):** `Inter({ axes: ['opsz'] })` → `--font-inter-display`; `Inter_Tight()` → `--font-inter-tight`; `JetBrains_Mono()` → `--font-jetbrains-mono`. Los stacks semánticos `--font-display-stack` / `--font-body-stack` / `--font-mono-stack` viven en `body` de `globals.css`.
+
+**Display + Encabezados → Inter Display (opsz 32):**
 | Token | CSS Variable / Clamp | Uso |
 |:---|:---|:---|
 | `.text-display-3xl` | clamp(6rem, 12vw, 12rem) | Títulos masivos, hero principal |
@@ -25,8 +35,22 @@ Familia Principal: `Inter` (La única tipografía permitida).
 | `.text-h5` | 1.125rem | Etiquetas grandes |
 | `.text-h6` | 1rem | Títulos micro / Datos secundarios |
 | `.text-h7` | 0.875rem | Títulos nano / Opciones de menú |
-| `.text-body-2xl` - `xs` | Escala desde 1.5rem hasta 0.75rem | Cuerpos de texto y párrafos |
-| `.text-ui-label` | 0.8125rem (Uppercase, tracking-wider) | Botones y tags |
+
+**Cuerpo · UI → Inter Tight (heredado del `body`):**
+| Token | CSS Variable / Clamp | Uso |
+|:---|:---|:---|
+| `.text-subtitle` | clamp(1.125rem, 2vw, 1.5rem), weight 300 | Bajadas / subtítulos largos |
+| `.text-body-2xl` … `.text-body-xs` | Escala 1.5rem → 0.75rem, weight 300 | Cuerpos de texto y párrafos |
+| `.text-body-*-light` | Mismos tamaños, **weight 300** (rebasado desde 200; Inter Tight no carga 200) | Variantes ligeras de cuerpo |
+| `.text-caption` | 0.75rem, weight 400 | Notas al pie, timestamps |
+
+**Meta · Código → JetBrains Mono:**
+| Token | CSS Variable / Clamp | Uso |
+|:---|:---|:---|
+| `.text-overline` | 0.875rem, uppercase, tracking 0.1em, weight 600 | Eyebrows / categorías |
+| `.text-ui-label` | 0.875rem, uppercase, tracking 0.05em, weight 500 | Botones y tags |
+| `.text-data` | 1rem monoespaciado | Cifras, montos |
+| `.text-meta` | 0.75rem, tracking 0.01em, weight 400 | Hex, IDs, versiones, metadata |
 
 ---
 
@@ -111,6 +135,8 @@ _El sistema es Bimodal (Light/Dark). El uso de colores genéricos de Tailwind (`
 - `--color-text-hint`
 - `--color-text-primary-Reverted`
 - `--color-text-Blue-Vivid`
+- `--color-text-accent-blue` — **texto-acento azul bimodal** (`#0297E3` light / `#7DD3FC` dark). Úsalo para énfasis azul en texto; NO uses `brand-blue` crudo (bajo contraste en fondo claro).
+- `--color-text-accent-dark` — **texto-acento gris oscuro bimodal** (`#2F3437` light / `#E8ECEF` dark). Invierte en dark para no morir; NO uses `brand-dark` crudo en texto.
 - `--color-text-White-100`
 - `--color-text-Black-100`
 

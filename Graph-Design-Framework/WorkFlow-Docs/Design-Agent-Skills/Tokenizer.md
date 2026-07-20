@@ -64,6 +64,22 @@ Before writing any `className`, verify you are NOT using these forbidden pattern
 > [!CAUTION]
 > This is the #1 source of violations in the codebase. You MUST actively scan for and fix ALL of the patterns below. Do NOT skip this step. Do NOT say "looks good" without running every check.
 
+#### 1.0 🅰️ FONT-FAMILY ROLES (3-Family System)
+
+Typography is carried by **three families**, each bound to a role. The family is declared **inside each `@utility`** (or inherited from `body`). **NEVER** set `font-family`/`fontFamily` inline in a component, and **NEVER** mix a family into the wrong role.
+
+| Role | Family | Tokens that carry it | Weights |
+|:---|:---|:---|:---|
+| **Display · Headings** | **Inter Display** (Inter var, `opsz` 32) | `text-display-*`, `text-h1`…`text-h7` | 400·500·600 |
+| **Body · UI** | **Inter Tight** | `text-body-*`, `text-body-*-light`, `text-subtitle`, `text-caption` (all inherit from `body`) | 300·400·500·600·700 |
+| **Meta · Código** | **JetBrains Mono** | `text-overline`, `text-ui-label`, `text-data`, `text-meta` | 400·500·600 |
+
+**Rules:**
+- Display family is **forbidden for body copy** — headings/titles only.
+- Body `-light` variants are **weight 300** (rebased from 200; Inter Tight does not load 200). Do not reintroduce weight 200.
+- Use `text-meta` for hex, IDs, versions and metadata; `text-data` for figures/amounts.
+- ❌ `style={{ fontFamily: '...' }}` or `font-[family]` in components → **VIOLATION**. Pick the token whose role matches instead.
+
 #### 1.1 🚨 FORBIDDEN PATTERN: Arbitrary Pixel Sizes (`text-[Xpx]`)
 
 **SCAN FOR:** Any class matching `text-[NUMBER px]` in the component. These are ALWAYS violations unless they are decorative mega-typography (>100px) or font-size values using `rem`/`em`/`vw`.
@@ -168,10 +184,21 @@ Para asegurar que no existan saltos visuales desordenados, acumulaciones dobles 
    - [ ] ¿Se utiliza adecuadamente el token `--space-section-sm` (`4.75rem` / 76px) en pantallas móviles?
 
 ### 3. 🎨 CHROMATIC DIMENSION (Colors & Atmosphere)
-*   **Theme Readiness:** Check for HARDCODED dark values (DARK MODE IS DISABLED for GO AMS AI).
-*   **Palette:** Are colors strictly from the defined palette (Earthy Gradient)?
+*   **Theme Readiness:** Colors MUST be bimodal — verify every value flips correctly in Light/Dark.
+*   **Palette:** Are colors strictly from the defined palette (semantic tokens / brand)?
 *   **Usage:** Are semantic colors used correctly?
-*   **Opacity:** Use semantic opacity variables (`bg-glass`) instead of raw `bg-white/5`.
+*   **Opacity:** Use semantic opacity variables instead of raw `bg-white/5`.
+
+#### 3.1 🅱️ BRAND ACCENT TEXT (bimodal-safe)
+
+Para texto de acento con los 3 colores de marca, usa **tokens de texto** (bimodales), NO los primitivos crudos:
+
+| Intención | Token ✅ | NO uses ❌ | Por qué |
+|:---|:---|:---|:---|
+| Texto naranja | `text-[var(--color-accent-main)]` (+ `-text-muted`/`-strong`) | — | Ya bimodal |
+| Texto azul | `text-[var(--color-text-accent-blue)]` | `text-[var(--color-brand-blue)]`, `text-sky-400`, `text-blue-500` | `brand-blue` (#35BBFD) tiene bajo contraste en fondo claro |
+| Texto gris oscuro | `text-[var(--color-text-accent-dark)]` | `text-[var(--color-brand-dark)]` | `brand-dark` (#2F3437) es ilegible en dark mode (no invierte) |
+| Título grande | `text-[var(--color-text-primary)]` | `brand-dark` crudo | `text-primary` invierte por modo |
 
 ### 4. 🧩 COMPONENT DIMENSION (Radius & Effects)
 *   **Borders:** Is `border-radius` consistent?

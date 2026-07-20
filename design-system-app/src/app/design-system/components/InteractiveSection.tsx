@@ -43,8 +43,8 @@ export default function InteractiveSection() {
               </div>
             </div>
             <div className="relative rounded-3xl overflow-hidden p-12 flex items-center justify-center min-h-[25rem] bg-[var(--color-surface-BG-2)]">
-              <div className="absolute top-10 right-10 w-48 h-48 bg-salento-terracotta rounded-full mix-blend-screen filter blur-2xl opacity-50" />
-              <div className="absolute bottom-10 left-10 w-64 h-64 bg-salento-gold rounded-full mix-blend-screen filter blur-3xl opacity-30" />
+              <div className="absolute top-10 right-10 w-48 h-48 bg-[var(--color-brand-orange)] rounded-full mix-blend-screen filter blur-2xl opacity-50" />
+              <div className="absolute bottom-10 left-10 w-64 h-64 bg-[var(--color-brand-blue)] rounded-full mix-blend-screen filter blur-3xl opacity-30" />
               <div className="organic-glass-panel breathing-card w-full max-w-sm p-8 relative z-10">
                 <p className="text-overline text-[var(--color-brand-orange)] mb-2">Signature Glass</p>
                 <h4 className="text-h3 mb-4 text-[var(--color-text-primary)]">Soft Organic Card</h4>

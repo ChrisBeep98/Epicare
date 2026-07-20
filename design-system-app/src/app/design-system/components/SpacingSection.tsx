@@ -50,8 +50,8 @@ export default function SpacingSection() {
               onOptionChange={setActiveFluidGap}
               visual={
                 <div className={`flex ${activeFluidGap} p-2 w-full h-20 items-stretch transition-all duration-300`}>
-                  <div className="flex-1 bg-[var(--color-surface-BG-3)]/10 border border-dashed border-salento-moss/30 rounded-lg"></div>
-                  <div className="flex-1 bg-[var(--color-surface-BG-3)]/10 border border-dashed border-salento-moss/30 rounded-lg"></div>
+                  <div className="flex-1 bg-[var(--color-surface-BG-3)]/10 border border-dashed border-[var(--color-brand-blue)]/30 rounded-lg"></div>
+                  <div className="flex-1 bg-[var(--color-surface-BG-3)]/10 border border-dashed border-[var(--color-brand-blue)]/30 rounded-lg"></div>
                 </div>
               }
             />
@@ -64,10 +64,10 @@ export default function SpacingSection() {
               activeOption={activeSectionPadding}
               onOptionChange={setActiveSectionPadding}
               visual={
-                <div className="flex flex-col w-full border border-dashed border-salento-mocha/30 rounded-lg overflow-hidden transition-all duration-300">
-                  <div className={`${activeSectionPadding === 'py-section-xs' ? 'h-2' : activeSectionPadding === 'py-section-sm' ? 'h-4' : activeSectionPadding === 'py-section-md' ? 'h-8' : 'h-12'} bg-[var(--color-surface-BG-2)]/10 border-b border-dashed border-salento-mocha/20 transition-all`}></div>
+                <div className="flex flex-col w-full border border-dashed border-[var(--color-brand-dark)]/30 rounded-lg overflow-hidden transition-all duration-300">
+                  <div className={`${activeSectionPadding === 'py-section-xs' ? 'h-2' : activeSectionPadding === 'py-section-sm' ? 'h-4' : activeSectionPadding === 'py-section-md' ? 'h-8' : 'h-12'} bg-[var(--color-surface-BG-2)]/10 border-b border-dashed border-[var(--color-brand-dark)]/20 transition-all`}></div>
                   <div className="h-12 flex items-center justify-center text-[0.625rem] text-[var(--color-text-muted)] uppercase">Contenido</div>
-                  <div className={`${activeSectionPadding === 'py-section-xs' ? 'h-2' : activeSectionPadding === 'py-section-sm' ? 'h-4' : activeSectionPadding === 'py-section-md' ? 'h-8' : 'h-12'} bg-[var(--color-surface-BG-2)]/10 border-t border-dashed border-salento-mocha/20 transition-all`}></div>
+                  <div className={`${activeSectionPadding === 'py-section-xs' ? 'h-2' : activeSectionPadding === 'py-section-sm' ? 'h-4' : activeSectionPadding === 'py-section-md' ? 'h-8' : 'h-12'} bg-[var(--color-surface-BG-2)]/10 border-t border-dashed border-[var(--color-brand-dark)]/20 transition-all`}></div>
                 </div>
               }
             />
@@ -95,7 +95,7 @@ export default function SpacingSection() {
             <div className="mt-8">
               <h4 className="text-h3 mb-4">Live Studio</h4>
               <p className="text-body text-[var(--color-text-muted)] mb-12 max-w-2xl">
-                Controla y visualiza la estructura de SalentoCoffee en tiempo real.
+                Controla y visualiza la estructura de Epicare en tiempo real.
               </p>
 
               <div className="flex flex-col gap-20">
@@ -115,10 +115,10 @@ export default function SpacingSection() {
                     </div>
                   </div>
                   <div className="w-full bg-[var(--color-surface-BG-base)] border border-[var(--color-border-Strokes-default)] rounded-2xl relative h-48 overflow-hidden flex items-center justify-center shadow-elevation-4 transition-all duration-500">
-                    <div className="absolute inset-y-0 left-0 bg-salento-terracotta/10 border-r border-dashed border-salento-terracotta/30 flex items-center justify-center transition-all duration-500" style={{ width: `var(--space-gutter-${activePageGutter.replace('px-gutter-', '')})` }}>
+                    <div className="absolute inset-y-0 left-0 bg-[var(--color-brand-orange)]/10 border-r border-dashed border-[var(--color-brand-orange)]/30 flex items-center justify-center transition-all duration-500" style={{ width: `var(--space-gutter-${activePageGutter.replace('px-gutter-', '')})` }}>
                       <span className="text-[0.625rem] font-mono text-[var(--color-brand-orange)] rotate-90 whitespace-nowrap">{activePageGutter}</span>
                     </div>
-                    <div className="absolute inset-y-0 right-0 bg-salento-terracotta/10 border-l border-dashed border-salento-terracotta/30 flex items-center justify-center transition-all duration-500" style={{ width: `var(--space-gutter-${activePageGutter.replace('px-gutter-', '')})` }}>
+                    <div className="absolute inset-y-0 right-0 bg-[var(--color-brand-orange)]/10 border-l border-dashed border-[var(--color-brand-orange)]/30 flex items-center justify-center transition-all duration-500" style={{ width: `var(--space-gutter-${activePageGutter.replace('px-gutter-', '')})` }}>
                       <span className="text-[0.625rem] font-mono text-[var(--color-brand-orange)] rotate-90 whitespace-nowrap">{activePageGutter}</span>
                     </div>
                     <div className="text-ui-label text-[var(--color-text-muted)] uppercase tracking-widest">Main Layout Area (87.5rem)</div>
@@ -141,12 +141,12 @@ export default function SpacingSection() {
                     </div>
                   </div>
                   <div className="bg-[var(--color-surface-BG-base)] border border-[var(--color-border-Strokes-default)] rounded-2xl overflow-hidden shadow-elevation-4 transition-all duration-500">
-                    <div className="bg-[var(--color-surface-BG-2)]/10 border-b border-dashed border-salento-mocha/30 flex items-center justify-center transition-all duration-500" style={{ height: `var(--space-section-${activeSectionPadding.replace('py-section-', '')})` }}>
-                      <span className="text-[0.625rem] font-mono text-salento-mocha uppercase font-bold">{activeSectionPadding}</span>
+                    <div className="bg-[var(--color-surface-BG-2)]/10 border-b border-dashed border-[var(--color-brand-dark)]/30 flex items-center justify-center transition-all duration-500" style={{ height: `var(--space-section-${activeSectionPadding.replace('py-section-', '')})` }}>
+                      <span className="text-[0.625rem] font-mono text-[var(--color-brand-dark)] uppercase font-bold">{activeSectionPadding}</span>
                     </div>
                     <div className="py-16 text-center text-body text-[var(--color-text-muted)] uppercase tracking-[0.5em] opacity-30">Website Content Block</div>
-                    <div className="bg-[var(--color-surface-BG-2)]/10 border-t border-dashed border-salento-mocha/30 flex items-center justify-center transition-all duration-500" style={{ height: `var(--space-section-${activeSectionPadding.replace('py-section-', '')})` }}>
-                      <span className="text-[0.625rem] font-mono text-salento-mocha uppercase font-bold">{activeSectionPadding}</span>
+                    <div className="bg-[var(--color-surface-BG-2)]/10 border-t border-dashed border-[var(--color-brand-dark)]/30 flex items-center justify-center transition-all duration-500" style={{ height: `var(--space-section-${activeSectionPadding.replace('py-section-', '')})` }}>
+                      <span className="text-[0.625rem] font-mono text-[var(--color-brand-dark)] uppercase font-bold">{activeSectionPadding}</span>
                     </div>
                   </div>
                 </div>
@@ -166,7 +166,7 @@ export default function SpacingSection() {
                       ))}
                     </div>
                   </div>
-                  <div className={`flex ${activeFluidGap} p-8 border border-dashed border-salento-moss/30 bg-[var(--color-surface-BG-3)]/5 rounded-2xl relative min-h-[18rem] transition-all duration-500 items-stretch`}>
+                  <div className={`flex ${activeFluidGap} p-8 border border-dashed border-[var(--color-brand-blue)]/30 bg-[var(--color-surface-BG-3)]/5 rounded-2xl relative min-h-[18rem] transition-all duration-500 items-stretch`}>
                     <div className="flex-1 bg-[var(--color-surface-BG-base)] border border-[var(--color-border-Strokes-default)] shadow-elevation-2 rounded-xl flex items-center justify-center">
                       <span className="text-caption text-[var(--color-text-muted)] font-mono uppercase">Column A</span>
                     </div>
@@ -196,7 +196,7 @@ export default function SpacingSection() {
                   </div>
                   <div className={`organic-glass-panel p-8 flex flex-col ${activeInternalGap} transition-all duration-300 shadow-elevation-4 max-w-md`}>
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-salento-terracotta/20 flex items-center justify-center text-[var(--color-brand-orange)] font-bold italic">S</div>
+                      <div className="w-10 h-10 rounded-full bg-[var(--color-brand-orange)]/20 flex items-center justify-center text-[var(--color-brand-orange)] font-bold italic">S</div>
                       <div className="flex flex-col gap-1">
                         <div className="h-3 w-24 bg-[var(--color-text-primary)]/80 rounded"></div>
                         <div className="h-2 w-16 bg-muted/40 rounded"></div>

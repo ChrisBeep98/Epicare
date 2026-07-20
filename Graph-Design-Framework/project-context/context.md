@@ -1,6 +1,6 @@
 # Contexto del Proyecto: GO AMS Landing Page
-> **Última Actualización:** 17 de Julio, 2026
-> **Estado:** Fase 11 (Epicare Redesign) — secciones nuevas (Product Lines, People Reveal) + deploy GitHub Pages
+> **Última Actualización:** 20 de Julio, 2026
+> **Estado:** Fase 11 (Epicare Redesign) — reestructuración tipográfica a sistema de 3 familias (Inter Display / Inter Tight / JetBrains Mono)
 > **Navegación:** Ver [`README.md`](./README.md) para el índice completo de archivos de contexto.
 
 ## 1. Visión General
@@ -160,6 +160,26 @@ Los componentes del nuevo diseño están consolidados en:
     - **Fix del motor:** migrados `py-section-*`, `pt-section-*`, `pb-section-*` de `@layer utilities` plano → `@utility` en `globals.css` (mismo fix que #120 para tipografía). Ahora `md:py-section-lg` / `lg:pt-section-md` generan CSS. Uso bare idéntico → retrocompatible. Efecto inmediato: el `md:py-section-lg` de `DarkGradientSection` **empieza a aplicar** en desktop (pasa de ~96px a ~160px), que era el bug original que motivó el protocolo.
     - **FASE 3 aplicada (secciones de contenido):** single-owner MD en BrandsCarousel/DarkGradient/Metrics/ProductLines (`pt-0` + `pb-section-sm md:pb-section-md`), eliminando el doble margen. El peor caso era DarkGradient↔Metrics (~346px desktop → ~154px). Full-bleed (BentoGrid/PeopleReveal) se dejan pegadas a propósito (meterles gap añadiría espacio). GSAP del Hero intacto.
     - ⚠️ **Pendiente latente restante:** `px-gutter-*`, `gap-fluid-*`, `shadow-elevation-*`, `max-w-section-*` siguen planos (mismo bug si se usan con prefijo responsivo).
+
+122. **[NUEVO] Design System — Reestructuración Tipográfica a Sistema de 3 Familias (20 Jul 2026):**
+    - Migración de la fuente única `Inter` a un **sistema de 3 roles**: **Inter Display** (Inter variable con eje óptico `opsz=32`) para Display+Encabezados, **Inter Tight** para Cuerpo+UI, **JetBrains Mono** para Meta/Código.
+    - **Fase 1 (motor):** `layout.tsx` carga las 3 fuentes vía `next/font/google` (`Inter({axes:['opsz']})`, `Inter_Tight`, `JetBrains_Mono`) exponiendo `--font-inter-display/-tight/-jetbrains-mono`. En `globals.css` se crearon 3 stacks semánticos (`--font-display-stack/-body-stack/-mono-stack`); el `body` ahora usa Inter Tight (aliases legacy `--font-primary/-secondary` repuntados). Se añadió `font-family` + `font-variation-settings:'opsz' 32` a los 13 tokens de display/heading; `text-data`/`text-overline`/`text-ui-label` movidos a mono; **nuevo token `text-meta`** (0.75rem mono para hex/IDs/metadata).
+    - **Decisiones del usuario:** las 7 variantes `text-body-*-light` se **rebasaron de weight 200 → 300** (Inter Tight no carga 200); `text-overline` y `text-ui-label` van a **JetBrains Mono** (labels de UI en mono, por spec).
+    - **Fase 2 (UI):** `TypographySection.tsx` reescrito con leyenda de las 3 familias (`FontRoleCard`) y etiquetado por rol; `TypeRow` ya no inyecta `fontFamily` inline (dejaba muerto `var(--font-inter)`), ahora la familia la aporta el `@utility`.
+    - **Fase 3 (docs):** `Design-System.md` §1 reescrita como tabla de 3 roles + tokens por familia; `Tokenizer.md` §1.0 nueva (FONT-FAMILY ROLES) que prohíbe `fontFamily` inline y el peso 200.
+    - **Verificado con `pnpm build` (exit 0):** el CSS emite `opsz" 32` en los 13 tokens display/heading y `--font-mono-stack` en overline/ui-label/data/meta. **Commit pendiente de autorización del usuario.**
+123. **[NUEVO] Design System — Migración/Purga de Remanentes "SalentoCoffee" → Epicare (20 Jul 2026):**
+    - **Colores muertos:** los tokens `salento-moss/mocha/terracotta/gold` NO existen en `globals.css` Epicare → 15 clases renderizaban transparente en `/design-system`. Migradas a marca: **moss → `brand-blue`**, **mocha → `brand-dark`**, **terracotta/gold → `brand-orange`+`brand-blue`** (glows), en `SpacingSection.tsx` (13) e `InteractiveSection.tsx` (2).
+    - **Copy de café → seguros:** reescrito el sandbox de `SemanticTextColorsSection.tsx` (beans/harvest → Epicare/póliza) y el header de `page.tsx` (café artesanal → DS Epicare) y el "SalentoCoffee" de `SpacingSection`.
+    - **Huérfano eliminado:** `git rm design-system/page.tsx` (página de referencia SalentoCoffee sin referencias; su contenido ya existía migrado en la versión modular Epicare de `design-system-app`). Conservados: `design-system/*.tokens.json` (export Figma Epicare), `Typography.svg`, `svg iLLUSTRATIONS/`, scripts `.py`.
+    - **Directiva de marca (preferencia del usuario):** en futuras generaciones de sección, usar los 3 colores de marca (azul `#35BBFD`, naranja `#F26023` = `accent-main`, gris oscuro `#2F3437` = `brand-dark`) en acentos/detalles. `brand-dark` nunca en texto de títulos (no invierte en dark) → usar `text-primary`.
+    - **Verificado con `pnpm build` (exit 0)** y grep: 0 remanentes `salento/coffee` en `src`. **Commit pendiente de autorización.**
+
+124. **[NUEVO] Design System — Tokens de Texto-Acento de Marca (Blue + Dark) (20 Jul 2026):**
+    - Creados 2 tokens de **texto de acento bimodales** vía `update-design-system-protocol` (3 fases): `--color-text-accent-blue` (`#0297E3` light / `#7DD3FC` dark) y `--color-text-accent-dark` (`#2F3437` light / `#E8ECEF` dark). Cierran la asimetría: antes solo el naranja (`accent-main`) tenía familia de texto; azul y gris oscuro no.
+    - **Razón:** `brand-blue` crudo (#35BBFD) tiene bajo contraste en fondo claro, y `brand-dark` (#2F3437) es ilegible en dark (no invierte). Los nuevos tokens flipan por modo.
+    - **Fase 1:** `@theme` + `:root` + `.dark` en `globals.css`. **Fase 2:** `SemanticTextColorsSection.tsx` (2 swatches nuevos "Accent Blue"/"Accent Dark" + 2 botones en el sandbox). **Fase 3:** `Design-System.md` (lista Textos) + `Tokenizer.md` §3.1 nueva (Brand Accent Text bimodal-safe).
+    - **Verificado con `pnpm build` (exit 0):** el CSS emite ambos tokens en light y dark. **Commit pendiente de autorización.**
 
 ## 6. Próximos Pasos (To-Do)
 - **Aplicar el mapa de ritmo vertical** (FASE 3 de `vertical-spacing-protocol.md`) a las 8 secciones de la landing.
