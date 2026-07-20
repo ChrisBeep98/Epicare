@@ -31,6 +31,7 @@ export const metadata: Metadata = {
 };
 
 import I18nProviderClient from "../components/epicare/I18nProviderClient";
+import SmoothScrollProvider from "../components/SmoothScrollProvider";
 
 export default function RootLayout({
   children,
@@ -43,9 +44,11 @@ export default function RootLayout({
       className={`${interDisplay.variable} ${interTight.variable} ${jetBrainsMono.variable} font-body antialiased`}
     >
       <body className="min-h-full flex flex-col bg-[var(--color-surface-BG-1)] text-[var(--color-text-primary)]">
-        <I18nProviderClient>
-          {children}
-        </I18nProviderClient>
+        <SmoothScrollProvider>
+          <I18nProviderClient>
+            {children}
+          </I18nProviderClient>
+        </SmoothScrollProvider>
       </body>
     </html>
   );

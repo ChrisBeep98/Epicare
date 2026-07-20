@@ -181,6 +181,16 @@ Los componentes del nuevo diseño están consolidados en:
     - **Fase 1:** `@theme` + `:root` + `.dark` en `globals.css`. **Fase 2:** `SemanticTextColorsSection.tsx` (2 swatches nuevos "Accent Blue"/"Accent Dark" + 2 botones en el sandbox). **Fase 3:** `Design-System.md` (lista Textos) + `Tokenizer.md` §3.1 nueva (Brand Accent Text bimodal-safe).
     - **Verificado con `pnpm build` (exit 0):** el CSS emite ambos tokens en light y dark. **Commit pendiente de autorización.**
 
+125. **[NUEVO] Framework — Protocolo Intermedio "Token-Live Mode" (20 Jul 2026):**
+    - Creado `Graph-Design-Framework/command-prompts/tokenized-design-protocol.md`: punto medio entre los protocolos creativos (`master-design-prompt`, `refactor-design-prompt`, AWWWARDS/CINEMATIC) y la auditoría pesada del `Tokenizer.md`. **Preventivo** (no hardcodea al escribir) vs. correctivo (Tokenizer). Principio: creatividad en composición/narrativa/motion, medidas SIEMPRE de tokens.
+    - Incluye **quick-reference embebido** (tipografía 3 familias, `px-gutter-*`, `py/pt/pb-section-*`, `gap-fluid-*`, `*-static-*`, `max-w-section-*`, `shadow-elevation-*`, `grid-layout`, color semántico + 3 marca + accent-text), regla on-write, excepciones (vw/vh/transforms/opacidades), self-audit y prompt de ejecución.
+    - **Margen creativo con reporte obligatorio:** la IA puede salirse de un token si mejora el diseño, pero DEBE declararlo en un "Reporte de Margen Creativo" (elemento / valor / token cercano / por qué / ¿promover a token?). Desviación no declarada = violación; declarada = decisión válida. No amordaza la creatividad, pero el usuario siempre se entera.
+    - **Cableado:** punteros añadidos en `master-design-prompt.md`, `refactor-design-prompt.md` (mantener Token-Live encendido durante creación) y en `Tokenizer.md` (prevención > corrección). Resuelve el dolor del doble-flujo creación→tokenización del usuario.
+
+126. **[NUEVO] UX — Lenis Smooth Scroll integrado con GSAP (20 Jul 2026):**
+    - `pnpm add lenis` (v1.3.25). Nuevo `src/components/SmoothScrollProvider.tsx` (client): inicializa Lenis y lo **sincroniza con `gsap.ticker`** (`lenis.on('scroll', ScrollTrigger.update)` + `gsap.ticker.add(t => lenis.raf(t*1000))` + `lagSmoothing(0)`), imprescindible para no romper los 6 ScrollTriggers existentes (pin del Hero, coverflow del Bento, scrubs). Respeta `prefers-reduced-motion` (no inicializa Lenis). Montado en `layout.tsx` envolviendo `I18nProviderClient`. CSS mínimo de Lenis añadido al tope de `globals.css`.
+    - **Verificado `pnpm build` (exit 0).** ⚠️ **Pendiente verificación visual en navegador** (que el pin del Hero y el coverflow del Bento sigan bien con el scroll suavizado). Sin commit aún.
+
 ## 6. Próximos Pasos (To-Do)
 - **Aplicar el mapa de ritmo vertical** (FASE 3 de `vertical-spacing-protocol.md`) a las 8 secciones de la landing.
 - Empezar la construcción de la **Página de Inicio (Home)** integrando el motor de `HeroSequence` con los nuevos tokens de espaciado.
