@@ -59,19 +59,19 @@ export default function TypographySection() {
         <div className="organic-glass-panel p-8 md:p-12 flex flex-col gap-12">
           {/* ── DISPLAY + HEADINGS → Inter Display ── */}
           {[
-            { token: ".text-display-3xl", name: "Display 3XL", text: "IMMENSE", details: `Size: clamp(6rem, 12vw, 12rem)\nWeight: 500\nLine-height: 0.95\nLetter-spacing: -0.02em` },
-            { token: ".text-display-2xl", name: "Display 2XL", text: "GIANT", details: `Size: clamp(4.5rem, 8vw, 8rem)\nWeight: 500\nLine-height: 1\nLetter-spacing: -0.01em` },
-            { token: ".text-display-xl", name: "Display XL", text: "GO AMS Portal", details: `Size: clamp(3.5rem, 6vw, 6rem)\nWeight: 500\nLine-height: 1.1` },
+            { token: ".text-display-3xl", name: "Display 3XL", text: "IMMENSE", details: `Size: clamp(6rem, 12vw, 12rem)\nWeight: 600\nLine-height: 0.95\nLetter-spacing: -0.02em` },
+            { token: ".text-display-2xl", name: "Display 2XL", text: "GIANT", details: `Size: clamp(4.5rem, 8vw, 8rem)\nWeight: 600\nLine-height: 1\nLetter-spacing: -0.01em` },
+            { token: ".text-display-xl", name: "Display XL", text: "GO AMS Portal", details: `Size: clamp(3.5rem, 6vw, 6rem)\nWeight: 600\nLine-height: 1.1` },
             { token: ".text-display-lg", name: "Display LG", text: "Agent Dashboard", details: `Size: clamp(3rem, 5vw, 4.5rem)\nWeight: 600\nLine-height: 1.1` },
-            { token: ".text-display", name: "Display", text: "Sales Performance", details: `Size: clamp(2.5rem, 4vw, 3.5rem)\nWeight: 500\nLine-height: 1.15` },
-            { token: ".text-display-sm", name: "Display SM", text: "Client Portfolio", details: `Size: clamp(2rem, 3vw, 2.5rem)\nWeight: 500\nLine-height: 1.2` },
-            { token: ".text-h1", name: "H1 Section", text: "Commission Tracking", details: `Size: clamp(1.75rem, 2.5vw, 2.25rem)\nWeight: 500\nLine-height: 1.2` },
-            { token: ".text-h2", name: "H2 Sub-section", text: "Active Policies", details: `Size: clamp(1.5rem, 2vw, 1.875rem)\nWeight: 500\nLine-height: 1.3` },
-            { token: ".text-h3", name: "H3 Card", text: "Lead Generation", details: `Size: clamp(1.25rem, 1.5vw, 1.5rem)\nWeight: 500\nLine-height: 1.3` },
-            { token: ".text-h4", name: "H4 Subtitle", text: "Monthly Targets", details: `Size: clamp(1.125rem, 1.25vw, 1.25rem)\nWeight: 500\nLine-height: 1.4` },
-            { token: ".text-h5", name: "H5 Small", text: "Approved", details: `Size: 1.125rem\nWeight: 500\nLine-height: 1.5` },
-            { token: ".text-h6", name: "H6 Micro", text: "Policy ID #4092", details: `Size: 1rem\nWeight: 500\nLine-height: 1.5` },
-            { token: ".text-h7", name: "H7 Nano", text: "Dropdown Menu Option", details: `Size: 0.875rem\nWeight: 500\nLine-height: 1.6` },
+            { token: ".text-display", name: "Display", text: "Sales Performance", details: `Size: clamp(2.5rem, 4vw, 3.5rem)\nWeight: 600\nLine-height: 1.15` },
+            { token: ".text-display-sm", name: "Display SM", text: "Client Portfolio", details: `Size: clamp(2rem, 3vw, 2.5rem)\nWeight: 600\nLine-height: 1.2` },
+            { token: ".text-h1", name: "H1 Section", text: "Commission Tracking", details: `Size: clamp(1.75rem, 2.5vw, 2.25rem)\nWeight: 600\nLine-height: 1.2` },
+            { token: ".text-h2", name: "H2 Sub-section", text: "Active Policies", details: `Size: clamp(1.5rem, 2vw, 1.875rem)\nWeight: 600\nLine-height: 1.3` },
+            { token: ".text-h3", name: "H3 Card", text: "Lead Generation", details: `Size: clamp(1.25rem, 1.5vw, 1.5rem)\nWeight: 600\nLine-height: 1.3` },
+            { token: ".text-h4", name: "H4 Subtitle", text: "Monthly Targets", details: `Size: clamp(1.125rem, 1.25vw, 1.25rem)\nWeight: 600\nLine-height: 1.4` },
+            { token: ".text-h5", name: "H5 Small", text: "Approved", details: `Size: 1.125rem\nWeight: 600\nLine-height: 1.5` },
+            { token: ".text-h6", name: "H6 Micro", text: "Policy ID #4092", details: `Size: 1rem\nWeight: 600\nLine-height: 1.5` },
+            { token: ".text-h7", name: "H7 Nano", text: "Dropdown Menu Option", details: `Size: 0.875rem\nWeight: 600\nLine-height: 1.6` },
           ].map((item) => (
             <TypeRow key={item.token} {...item} font={DISPLAY} />
           ))}

@@ -20,6 +20,9 @@ El sistema tipográfico usa **tres familias**, cada una atada a un rol semántic
 > **Carga (next/font/google en `layout.tsx`):** `Inter({ axes: ['opsz'] })` → `--font-inter-display`; `Inter_Tight()` → `--font-inter-tight`; `JetBrains_Mono()` → `--font-jetbrains-mono`. Los stacks semánticos `--font-display-stack` / `--font-body-stack` / `--font-mono-stack` viven en `body` de `globals.css`.
 
 **Display + Encabezados → Inter Display (opsz 32):**
+
+> **Peso:** toda la familia de títulos (display-3xl…display-sm y h1–h7) usa **weight 600** (SemiBold). Se subió de 500→600 porque a 500 se veían débiles.
+
 | Token | CSS Variable / Clamp | Uso |
 |:---|:---|:---|
 | `.text-display-3xl` | clamp(6rem, 12vw, 12rem) | Títulos masivos, hero principal |
