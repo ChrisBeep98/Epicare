@@ -97,8 +97,8 @@ export default function TypographySection() {
           {/* ── META · CODE → JetBrains Mono ── */}
           <TypeRow token=".text-overline" name="Overline" font={MONO} text="AGENT OVERVIEW" details={`Size: 0.875rem\nWeight: 600\nTracking: 0.1em`} />
           <TypeRow token=".text-ui-label" name="UI Label" font={MONO} text="Generate Quote" details={`Size: 0.875rem\nWeight: 500\nTracking: 0.05em`} />
-          <TypeRow token=".text-data" name="Data" font={MONO} text="$14,500.00 YTD" details={`Size: 1rem\nFamily: JetBrains Mono`} />
-          <TypeRow token=".text-meta" name="Meta" font={MONO} text="0xA1F3 · id_4092 · v2.4.1" details={`Size: 0.75rem\nWeight: 400\nTracking: 0.01em`} />
+          <TypeRow token=".text-data" name="Data" font={MONO} text="$14,500.00 YTD" details={`Size: 1rem\nWeight: 600 (SemiBold)\nFamily: JetBrains Mono`} />
+          <TypeRow token=".text-meta" name="Meta" font={MONO} text="0xA1F3 · id_4092 · v2.4.1" details={`Size: 0.75rem\nWeight: 500 (Medium)\nTracking: 0.01em`} />
         </div>
       </section>
     </>

@@ -49,8 +49,8 @@ El sistema tipográfico usa **tres familias**, cada una atada a un rol semántic
 |:---|:---|:---|
 | `.text-overline` | 0.875rem, uppercase, tracking 0.1em, weight 600 | Eyebrows / categorías |
 | `.text-ui-label` | 0.875rem, uppercase, tracking 0.05em, weight 500 | Botones y tags |
-| `.text-data` | 1rem monoespaciado | Cifras, montos |
-| `.text-meta` | 0.75rem, tracking 0.01em, weight 400 | Hex, IDs, versiones, metadata |
+| `.text-data` | 1rem monoespaciado, **weight 600** (SemiBold) | Cifras, montos |
+| `.text-meta` | 0.75rem, tracking 0.01em, **weight 500** (Medium) | Hex, IDs, versiones, metadata |
 
 ---
 
