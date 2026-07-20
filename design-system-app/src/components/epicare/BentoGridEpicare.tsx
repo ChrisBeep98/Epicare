@@ -289,8 +289,12 @@ export default function BentoGridEpicare() {
     {
       title: t('card1Title'),
       desc: t('card1Desc'),
-      image: asset("/Files/Features/CRM_product_tablet_client_cards_202606242225.jpeg"),
-      videoLight: asset("/Files/Features/Wireframe_illustration_reveal_an…_202607200953.mp4"),
+      image: null,
+      videoLight: asset("/Files/Features/CRM_Light.mp4"),
+      videoDark: asset("/Files/Features/CRM_Dark.mp4"),
+      videoDarkClassName: "opacity-90",
+      mediaClassNameDark: "dark:bg-[#0D0D0E]",
+      cardClassNameDark: "dark:bg-[#0D0D0E]",
       logo: <CrmLogo className="h-10 w-auto mb-6 drop-shadow-[0_0_15px_rgba(90,200,250,0.5)]" />
     },
     {
@@ -364,44 +368,49 @@ export default function BentoGridEpicare() {
           {ecosytemCards.map((card, idx) => (
             <div 
               key={idx} 
-              className="coverflow-card shrink-0 w-[90vw] lg:w-[55vw] h-[60vh] md:h-[65vh] rounded-[24px] overflow-hidden shadow-[0_30px_80px_-20px_rgba(0,0,0,0.4)] ring-1 ring-white/10 relative transform-gpu"
+              className={`coverflow-card shrink-0 w-[85vw] lg:w-[50vw] h-[60vh] md:h-[60vh] rounded-[24px] overflow-hidden shadow-elevation-4 ring-1 ring-[var(--color-border-Strokes-White-100)] dark:ring-white/10 relative transform-gpu flex flex-col md:flex-row ${(card as any).cardClassNameDark ? `bg-[var(--color-surface-BG-white)] ${(card as any).cardClassNameDark}` : 'bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)]'}`}
               style={{ transformOrigin: 'center center' }}
             >
-              {(card as any).videoLight ? (
-                <>
-                  <video 
-                    autoPlay loop muted playsInline
-                    src={(card as any).videoLight}
-                    className="w-full h-full object-cover object-center dark:hidden"
-                  />
-                  <img 
-                    src={card.image} 
-                    alt={card.title}
-                    className="w-full h-full object-cover object-center hidden dark:block" 
-                  />
-                </>
-              ) : (
-                <img 
-                  src={card.image} 
-                  alt={card.title}
-                  className="w-full h-full object-cover object-center" 
-                />
-              )}
-              
-              <div className={`absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/50 to-transparent pointer-events-none ${(card as any).videoLight ? "hidden dark:block" : ""}`}></div>
-              
-              <div className={`absolute inset-x-0 bottom-0 p-static-lg lg:p-static-2xl flex flex-col justify-end ${(card as any).videoLight ? "text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)]" : "text-[var(--color-text-White-100)]"}`}>
+              {/* Text Side (Left on Desktop, Top on Mobile) */}
+              <div className="w-full md:w-5/12 p-static-lg lg:p-static-2xl flex flex-col justify-center relative z-10 shrink-0">
                 {card.logo && (
                    <div className="text-[var(--color-brand-blue)] dark:text-[var(--color-brand-cyan)] mb-static-sm lg:mb-static-md">
                       {card.logo}
                    </div>
                 )}
-                <h3 className={`text-display mb-static-sm lg:mb-static-md ${(card as any).videoLight ? "text-[var(--color-brand-blue)] dark:text-[var(--color-text-White-100)]" : ""}`}>
+                <h3 className="text-display mb-static-sm lg:mb-static-md text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)]">
                   {card.title}
                 </h3>
-                <p className="text-body-lg opacity-70 font-light max-w-[500px]">
+                <p className="text-body-lg text-[var(--color-text-muted)] font-light max-w-[400px]">
                   {card.desc}
                 </p>
+              </div>
+
+              {/* Media Side (Right on Desktop, Bottom on Mobile) */}
+              <div className={`w-full md:w-7/12 flex-1 relative overflow-hidden ${(card as any).mediaClassNameDark ? (card as any).mediaClassNameDark : 'bg-black/5 dark:bg-white/5'}`}>
+                {(() => {
+                  const hasLightVideo = !!(card as any).videoLight;
+                  const hasDarkVideo = !!(card as any).videoDark;
+                  const hasImage = !!card.image;
+
+                  return (
+                    <>
+                      {/* LIGHT MODE MEDIA */}
+                      {hasLightVideo ? (
+                        <video autoPlay loop muted playsInline src={(card as any).videoLight} className={`absolute inset-0 w-full h-full object-cover object-center ${hasDarkVideo || hasImage ? 'dark:hidden' : ''}`} />
+                      ) : hasImage ? (
+                        <img src={card.image} alt={card.title} className={`absolute inset-0 w-full h-full object-cover object-center ${hasDarkVideo ? 'dark:hidden' : ''}`} />
+                      ) : null}
+
+                      {/* DARK MODE MEDIA */}
+                      {hasDarkVideo ? (
+                        <video autoPlay loop muted playsInline src={(card as any).videoDark} className={`absolute inset-0 w-full h-full object-cover object-center ${(card as any).videoDarkClassName || ''} ${hasLightVideo || hasImage ? 'hidden dark:block' : ''}`} />
+                      ) : (hasImage && hasLightVideo) ? (
+                        <img src={card.image} alt={card.title} className="absolute inset-0 w-full h-full object-cover object-center hidden dark:block" />
+                      ) : null}
+                    </>
+                  );
+                })()}
               </div>
             </div>
           ))}
