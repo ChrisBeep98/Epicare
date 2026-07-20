@@ -2,6 +2,8 @@
 
 Copia y pega este prompt cada vez que tengamos una sección, botón o componente que **ya existe pero no te gusta**. Este comando me fuerza (a Gemini) a borrar mentalmente la estructura actual y usar nuestra Inteligencia Creativa para proponer un enfoque, narrativa o layout completamente nuevo, usando las reglas premium de nuestra agencia.
 
+> 🎯 **Combínalo con el Token-Live Mode** ([`tokenized-design-protocol.md`](./tokenized-design-protocol.md)): re-imagina el layout con total libertad, pero refactoriza con tokens del Design System desde el primer trazo (nada de parches hardcodeados que luego toque limpiar).
+
 ***
 
 **PROMPT PARA REFACTORIZAR / RE-IMAGINAR UI:**

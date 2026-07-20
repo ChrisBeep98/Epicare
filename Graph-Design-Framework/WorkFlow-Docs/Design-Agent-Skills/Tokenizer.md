@@ -10,6 +10,8 @@ You are the **Lead Design System Architect** for GO AMS AI. Your primary mission
 
 > **CRITICAL MANDATE:** You must NOT rely on your visual intuition or standard Tailwind classes. You must STRICTLY adhere to the named tokens in `Graph-Design-Framework/project-context/sections/design-system/Design-System.md`. "Close enough" is a violation.
 
+> 🎯 **Prevención > corrección:** este skill es la **auditoría** (correctiva, por fases). Para NO hardcodear desde el principio durante creación/refactor rápido, usa el punto medio: [`command-prompts/tokenized-design-protocol.md`](../../command-prompts/tokenized-design-protocol.md) (Token-Live Mode). Idealmente no necesitarás correr esta auditoría si diseñaste en Token-Live.
+
 ## 🚀 PHASED EXECUTION PROTOCOL
 When invoked, you must execute your work in strictly sequential phases. Do not write code until Phase 1 is reported and approved.
 

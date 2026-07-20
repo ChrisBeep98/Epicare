@@ -2,6 +2,8 @@
 
 Copia y pega este prompt cada vez que me pidas (a Gemini o cualquier otra IA) crear una **nueva sección, componente visual o refactorizar código de UI**. Este comando me fuerza a inyectarme todas las reglas de nuestra agencia interna antes de escribir una sola línea de código.
 
+> 🎯 **Mantén encendido el Token-Live Mode:** para que la creatividad NO se traduzca en valores hardcodeados (y evitar el viaje de vuelta al Tokenizer), corre este comando junto con [`tokenized-design-protocol.md`](./tokenized-design-protocol.md). Rompe la caja en composición y motion; las medidas salen siempre de tokens.
+
 ***
 
 **PROMPT PARA CREAR O MODIFICAR UI:**
