@@ -196,6 +196,10 @@ Los componentes del nuevo diseño están consolidados en:
     - **Clave — OVERRIDES:** las skills creativas están escritas para el proyecto viejo (Playfair, café, violeta→cian, solo-light). El protocolo toma su filosofía/técnicas pero **fuerza el DS Epicare**: Inter 3 fuentes, marca azul/naranja/gris, bimodal, y Lenis global ya sincronizado (no re-inicializar). Flujo de 6 pasos (concepto → motion pillars → tokens → 60fps → bimodal/reduced-motion → self-audit + reporte). Enlaces verificados.
     - **Nota:** la sección `ForWhoEpicare` (creada + rediseñada este día) quedó pendiente de rehacer bajo este protocolo (feedback del usuario: faltaba dirección creativa/motion). Sin commitear.
 
+128. **[NUEVO] Epicare — Nueva Sección "Para quién es" (ForWhoEpicare) (20 Jul 2026):**
+    - Sección de bifurcación de audiencias (Agente azul / Agency Owner naranja) montada al final de `page.tsx`. i18n `landingV2.forWho` (en/es). Dirigida con `creative-motion-protocol.md`. Variante actual: dos paneles full-bleed cinematográficos con hover-expand + cortina clip-path + parallax.
+    - ⚠️ **En iteración:** ~8 rediseños a ciegas, el usuario sigue insatisfecho ("básico"). Bloqueante: falta loop visual (Chrome declinado). Ver `sections/for-who/context.md`. Recomendado: referencia visual del usuario. Dev server en `localhost:3000`.
+
 ## 6. Próximos Pasos (To-Do)
 - **Aplicar el mapa de ritmo vertical** (FASE 3 de `vertical-spacing-protocol.md`) a las 8 secciones de la landing.
 - Empezar la construcción de la **Página de Inicio (Home)** integrando el motor de `HeroSequence` con los nuevos tokens de espaciado.
