@@ -121,6 +121,44 @@
       "portalWord": "TOGETHER",
       "statement": "Experts on your side.",
       "imageAlt": "Epicare agents and community"
+    },
+    "forWho": {
+      "overline": "Who it's for",
+      "titleLine1": "Built for",
+      "titleLine2": "how you actually work.",
+      "desc": "Whether you're an independent agent or an agency with a multi-level structure, Epicare has the model for your operation.",
+      "tagAgent": "Agent",
+      "tagOwner": "Agency Owner",
+      "tagSub": "Sub-agency",
+      "toggleAgent": "For agents",
+      "toggleAgency": "For agencies",
+      "agentTitle": "For agents",
+      "agentKicker": "Solo operator, full control",
+      "agencyTitle": "For agencies",
+      "agencyKicker": "Multi-level, one system",
+      "agentItems": [
+        "A dashboard that tells you what to handle today",
+        "Your contracts with 130+ carriers in one place",
+        "Quoting and enrollment from a single portal",
+        "Professional proposals in minutes",
+        "License tracking with expiration alerts",
+        "Epicare support with visible SLAs",
+        "Staff with their own access and permissions"
+      ],
+      "agencyItems": [
+        "Aggregated view of your entire downline",
+        "Onboard new agents right from the portal",
+        "Your agency's contracts, centralized",
+        "Production metrics per agent",
+        "Multi-level structure supported natively",
+        "Agency / Agent toggle — operate in both modes",
+        "Your agents use the same system you do"
+      ],
+      "hoverHint": "Hover to see more →",
+      "agentImg1Alt": "Agent dashboard on tablet",
+      "agentImg2Alt": "Agent with headset providing support",
+      "agencyImg1Alt": "Agency pipeline across stages",
+      "agencyImg2Alt": "Aggregated agency composition"
     }
   }
 }

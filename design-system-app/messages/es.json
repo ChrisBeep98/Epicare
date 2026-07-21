@@ -121,6 +121,44 @@
       "portalWord": "JUNTOS",
       "statement": "Expertos de tu lado.",
       "imageAlt": "Agentes y comunidad de Epicare"
+    },
+    "forWho": {
+      "overline": "Para quién es",
+      "titleLine1": "Diseñado para",
+      "titleLine2": "cómo trabajás vos.",
+      "desc": "Ya seas agente independiente o agencia con estructura multinivel, Epicare tiene el modelo para tu operación.",
+      "tagAgent": "Agente",
+      "tagOwner": "Agency Owner",
+      "tagSub": "Sub-agencia",
+      "toggleAgent": "Para agentes",
+      "toggleAgency": "Para agencias",
+      "agentTitle": "Para agentes",
+      "agentKicker": "Operás solo, control total",
+      "agencyTitle": "Para agencias",
+      "agencyKicker": "Multinivel, un solo sistema",
+      "agentItems": [
+        "Dashboard que te dice qué atender hoy",
+        "Tus contratos con 130+ carriers en un lugar",
+        "Cotización y enrollment desde un solo portal",
+        "Propuestas profesionales en minutos",
+        "Licencias con alertas de vencimiento",
+        "Soporte a Epicare con SLAs visibles",
+        "Staff con acceso y permisos propios"
+      ],
+      "agencyItems": [
+        "Vista agregada de todo tu downline",
+        "Onboarding de nuevos agentes desde el portal",
+        "Contratos de tu agencia centralizados",
+        "Métricas de producción por agente",
+        "Estructura multinivel soportada de forma nativa",
+        "Toggle Agency / Agent — operás en ambos modos",
+        "Tus agentes usan el mismo sistema que vos"
+      ],
+      "hoverHint": "Pasá el mouse para ver más →",
+      "agentImg1Alt": "Dashboard del agente en tablet",
+      "agentImg2Alt": "Agente con headset dando soporte",
+      "agencyImg1Alt": "Pipeline de la agencia por etapas",
+      "agencyImg2Alt": "Composición agregada de la agencia"
     }
   }
 }
