@@ -86,7 +86,7 @@
       "productsLabel": "productos",
       "titleLine1": "Todo el portafolio.",
       "titleLine2": "Un solo contrato.",
-      "desc": "Al unirte a Epicare tenés acceso a las tres categorías principales de seguros — con los carriers correctos para cada una.",
+      "desc": "Al unirte a Epicare tienes acceso a las tres categorías principales de seguros — con los carriers correctos para cada una.",
       "cat1_name": "Vida",
       "cat1_desc": "Protección para lo que más importa — desde cobertura temporal hasta pólizas permanentes y gastos finales.",
       "cat2_name": "Salud",
@@ -125,7 +125,7 @@
     "forWho": {
       "overline": "Para quién es",
       "titleLine1": "Diseñado para",
-      "titleLine2": "cómo trabajás vos.",
+      "titleLine2": "tu forma de trabajar.",
       "desc": "Ya seas agente independiente o agencia con estructura multinivel, Epicare tiene el modelo para tu operación.",
       "tagAgent": "Agente",
       "tagOwner": "Agency Owner",
@@ -133,7 +133,7 @@
       "toggleAgent": "Para agentes",
       "toggleAgency": "Para agencias",
       "agentTitle": "Para agentes",
-      "agentKicker": "Operás solo, control total",
+      "agentKicker": "Operas solo, control total",
       "agencyTitle": "Para agencias",
       "agencyKicker": "Multinivel, un solo sistema",
       "agentItems": [
@@ -151,10 +151,10 @@
         "Contratos de tu agencia centralizados",
         "Métricas de producción por agente",
         "Estructura multinivel soportada de forma nativa",
-        "Toggle Agency / Agent — operás en ambos modos",
-        "Tus agentes usan el mismo sistema que vos"
+        "Toggle Agency / Agent — operas en ambos modos",
+        "Tus agentes usan el mismo sistema que tú"
       ],
-      "hoverHint": "Pasá el mouse para ver más →",
+      "hoverHint": "Pasa el mouse para ver más →",
       "agentImg1Alt": "Dashboard del agente en tablet",
       "agentImg2Alt": "Agente con headset dando soporte",
       "agencyImg1Alt": "Pipeline de la agencia por etapas",
