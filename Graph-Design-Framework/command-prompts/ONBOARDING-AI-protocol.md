@@ -45,6 +45,12 @@ DEBES utilizar los tokens ya integrados en Tailwind.
 Si el usuario te pide probar variaciones complejas de UI (colores, blend-modes, layouts A/B), **NO modifiques el código definitivo de inmediato ni envíes 10 versiones para recompilar**. 
 Debes leer y aplicar obligatoriamente la skill: `context-Docs/WorkFlow-Docs/Design-Agent-Skills/DEBUG-PANEL-ARCHITECT.md`.
 
+### A.1 Diseño de Secciones (Protocolos Invocables)
+Para crear o refactorizar UI, usa los protocolos del graph (ver índice [`command-prompts/README.md`](./README.md)):
+- **`creative-motion-protocol.md`** — secciones de alto impacto (hero, narrativas, reveals). Unifica toda la dirección creativa + motion + tokens en una llamada.
+- **`tokenized-design-protocol.md`** — "Token-Live Mode" para diseño/refactor rápido sin hardcodear.
+Son `.md` planos, invocables desde cualquier chat/IA con `@ruta`.
+
 ### B. Animaciones Complejas (GSAP / Framer)
 - Usa `gsap.context()` dentro de los `useEffect` y asegúrate de retornar `() => ctx.revert()` siempre para evitar memory leaks en React 18+.
 - Si vas a usar animaciones de Scroll, usa siempre `ScrollTrigger`.

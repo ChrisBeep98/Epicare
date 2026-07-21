@@ -191,6 +191,11 @@ Los componentes del nuevo diseño están consolidados en:
     - `pnpm add lenis` (v1.3.25). Nuevo `src/components/SmoothScrollProvider.tsx` (client): inicializa Lenis y lo **sincroniza con `gsap.ticker`** (`lenis.on('scroll', ScrollTrigger.update)` + `gsap.ticker.add(t => lenis.raf(t*1000))` + `lagSmoothing(0)`), imprescindible para no romper los 6 ScrollTriggers existentes (pin del Hero, coverflow del Bento, scrubs). Respeta `prefers-reduced-motion` (no inicializa Lenis). Montado en `layout.tsx` envolviendo `I18nProviderClient`. CSS mínimo de Lenis añadido al tope de `globals.css`.
     - **Verificado `pnpm build` (exit 0).** ⚠️ **Pendiente verificación visual en navegador** (que el pin del Hero y el coverflow del Bento sigan bien con el scroll suavizado). Sin commit aún.
 
+127. **[NUEVO] Framework — Protocolo Unificado "Creative Motion Director" (20 Jul 2026):**
+    - Creado `Graph-Design-Framework/command-prompts/creative-motion-protocol.md`: **una sola llamada** que une las 8 fuentes creativas/motion (CREATIVE-DIRECTION, CREATIVE-MOTION, AWWWARDS-MOTION, SCROLL-EFFECTS-ARCHITECT, CINEMATIC-ARCHITECT, COGNITIVE-TYPOGRAPHER, HARDWARE-SYMPHONY + Token-Live). Para secciones de alto impacto de marca.
+    - **Clave — OVERRIDES:** las skills creativas están escritas para el proyecto viejo (Playfair, café, violeta→cian, solo-light). El protocolo toma su filosofía/técnicas pero **fuerza el DS Epicare**: Inter 3 fuentes, marca azul/naranja/gris, bimodal, y Lenis global ya sincronizado (no re-inicializar). Flujo de 6 pasos (concepto → motion pillars → tokens → 60fps → bimodal/reduced-motion → self-audit + reporte). Enlaces verificados.
+    - **Nota:** la sección `ForWhoEpicare` (creada + rediseñada este día) quedó pendiente de rehacer bajo este protocolo (feedback del usuario: faltaba dirección creativa/motion). Sin commitear.
+
 ## 6. Próximos Pasos (To-Do)
 - **Aplicar el mapa de ritmo vertical** (FASE 3 de `vertical-spacing-protocol.md`) a las 8 secciones de la landing.
 - Empezar la construcción de la **Página de Inicio (Home)** integrando el motor de `HeroSequence` con los nuevos tokens de espaciado.
