@@ -301,6 +301,7 @@ export default function BentoGridEpicare() {
       title: t('card4Title'),
       desc: t('card4Desc'),
       image: asset("/Files/Features/card_5_image.jpg"),
+      videoLight: asset("/Files/Features/Go_AMS_Light.mp4"),
       logo: <AmsLogo className="h-10 w-auto mb-6 drop-shadow-[0_0_15px_rgba(90,200,250,0.5)]" />
     },
     {
