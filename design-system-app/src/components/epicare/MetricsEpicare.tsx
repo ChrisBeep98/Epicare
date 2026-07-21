@@ -51,10 +51,10 @@ export default function MetricsEpicare() {
   const titleRef = useRef<HTMLHeadingElement>(null);
 
   const metricsData = [
-    { value: "252+", label: t('carriers'), desc: "Integrated insurance carriers" },
-    { value: "25+", label: t('years'), desc: "Years of market leadership" },
-    { value: "216+", label: t('agents'), desc: "Active enterprise agents" },
-    { value: "24/7", label: t('platform'), desc: "Uptime & support reliability" }
+    { value: "252+", label: t('carriers') },
+    { value: "25+", label: t('years') },
+    { value: "216+", label: t('agents') },
+    { value: "24/7", label: t('platform') }
   ];
 
   // ── GSAP: The Blur Reveal & Title Animation ──
@@ -153,16 +153,12 @@ export default function MetricsEpicare() {
               <div className="hidden dark:block absolute inset-0 bg-gradient-to-br from-transparent to-[var(--color-brand-blue)]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
               
               <div className="relative z-10 flex flex-col h-full justify-between gap-6 md:gap-12">
-                <div className="text-display-lg md:text-display-xl font-semibold tracking-tighter text-[var(--color-text-Black-100)] dark:text-white">
+                <div className="text-display md:text-display-lg font-semibold tracking-tighter text-[var(--color-text-Black-100)] dark:text-white">
                   <AnimatedNumber value={metric.value} />
                 </div>
                 <div>
-                  <div className="text-h6 md:text-subtitle font-medium text-[var(--color-text-Black-100)] dark:text-white/90 leading-tight">
+                  <div className="text-h6 md:text-subtitle font-medium text-[var(--color-text-Black-100)] dark:text-white/90 leading-tight whitespace-pre-line">
                     {metric.label}
-                  </div>
-                  {/* Hide desc on very small mobile to save space, or just make text smaller */}
-                  <div className="text-[12px] md:text-body-sm text-[var(--color-text-muted)] mt-1 md:mt-2 line-clamp-2 md:line-clamp-none">
-                    {metric.desc}
                   </div>
                 </div>
               </div>
