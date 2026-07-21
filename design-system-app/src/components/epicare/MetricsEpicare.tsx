@@ -42,7 +42,7 @@ const AnimatedNumber = ({ value }: { value: string }) => {
     });
   }, [value]);
 
-  return <span ref={nodeRef} className="tabular-nums inline-block">{value}</span>;
+  return <span ref={nodeRef} className="tabular-nums font-mono inline-block">{value}</span>;
 };
 
 export default function MetricsEpicare() {
