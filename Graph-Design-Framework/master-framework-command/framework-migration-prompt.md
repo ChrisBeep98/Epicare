@@ -24,7 +24,7 @@ Por favor, utiliza la siguiente información para guiar la transformación:
 
 **FASE 1: Planificación e Inmersión**
 1. Ingresa a `Plan Mode`.
-2. Lee `ONBOARDING-AI.md`, `WorkFlow-Docs/Design-System/Design-System.md` y `project-context/context.md` para entender el estado actual del framework.
+2. Lee `ONBOARDING-AI.md`, `project-context/sections/design-system/Design-System.md` y `project-context/context.md` para entender el estado actual del framework.
 3. Redacta un documento de estrategia detallando cómo adaptarás la antigua estética a la nueva.
 
 **FASE 2: Cirugía de Tokens (Core Design System)**

@@ -1,7 +1,32 @@
-# Changelog — GO AMS context-Docs Framework
+# Changelog — Graph Design Framework (Epicare)
 
 All notable changes to this framework are documented here.
 Format follows [Keep a Changelog](https://keepachangelog.com/) and [Semantic Versioning](https://semver.org/).
+
+## [3.0.0] — 2026-07-22 · "La Gran Purga"
+
+Reestructuración completa tras auditoría: la ruta de entrada calibraba a la IA con la marca muerta (GO AMS/café/Playfair) vía rutas rotas (`context-Docs/`), la sustancia ejecutable estaba enterrada bajo 4 docs de filosofía redundantes, y no existían tokens de motion ni criterios de calidad verificables.
+
+### Added
+- **`START-HERE.md`** — único punto de entrada con router por intención y las 5 leyes.
+- **`MOTION-BIBLE.md`** — fusión de AWWWARDS-MOTION + CREATIVE-MOTION + CINEMATIC-ARCHITECT: cada pilar con receta GSAP ejecutable y valores de la firma real.
+- **`src/lib/motion.ts`** (design-system-app) — tokens de motion (EASE/DUR/STAGGER/REVEAL/SCRUB/TRIGGER/PARALLAX) extraídos del censo de la landing.
+- **`SECTION-ARCHETYPES.md`** — coreografía mínima obligatoria + paradigmas de layout por tipo de sección.
+- **`AWWWARDS-RUBRIC.md`** — examen binario 15 puntos, umbral 12/15 para entregar.
+- **`redesign-section-protocol.md`** — comando de rediseño: censo → autopsia → 3 conceptos de paradigmas distintos → STOP → implementar → rubric. Reglas anti-loop.
+- **`project-context/scrollytelling-map.md`** — mapa canónico de la coreografía de scroll de toda la página (censo 2026-07-22), con firma, deudas y territorio virgen.
+
+### Changed
+- **`creative-motion-protocol.md`** — reescrito sin tabla de overrides (fuentes ya limpias); carga scrollytelling-map primero; exige Motion Score y RUBRIC.
+- **`ONBOARDING-AI-protocol.md`** — identidad Epicare (Inter/bimodal/fintech), rutas reales, router de protocolos.
+- **`validation-rules.md`** — ahora valida la marca correcta (flaggea Playfair/café/violeta) + reglas MOTION_TOKEN_SYNC y BIMODAL_RULE.
+- **Rutas unificadas** a raíz `Graph-Design-Framework/` en todos los prompts activos (update-context, session-close, hardware-audit, backup-brain, framework-migration).
+- Ambos README (command-prompts y Design-Agent-Skills) actualizados; skills marcadas como receta/dirección/guardián/examen.
+
+### Removed (→ `_archive/legacy-goams/`)
+- `master-design-prompt.md`, `refactor-design-prompt.md`, `onboarding-context.md` (calibraban a la marca muerta con rutas rotas).
+- `CREATIVE-DIRECTION.md`, `CREATIVE-MOTION.md`, `AWWWARDS-MOTION.md`, `CINEMATIC-ARCHITECT.md` (fusionadas en MOTION-BIBLE).
+- Scrapings (Alche, iru) movidos a `references/` como inspiración, no protocolo.
 
 ## [2.3.0] — 2026-03-19
 

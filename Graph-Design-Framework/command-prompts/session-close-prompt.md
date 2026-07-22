@@ -8,7 +8,7 @@ Copia y pega este prompt al FINAL de cada sesión de trabajo para que el agente 
 
 > "Hola. Estamos cerrando esta sesión de trabajo. Por favor, crea una nota de sesión siguiendo estos pasos:
 > 
-> 1. Crea un archivo en `context-Docs/project-context/session-notes/` con el nombre `YYYY-MM-DD_[tema-principal].md`.
+> 1. Crea un archivo en `Graph-Design-Framework/project-context/session-notes/` con el nombre `YYYY-MM-DD_[tema-principal].md`.
 > 2. Incluye estas secciones:
 >    - **Resumen:** Qué se logró en esta sesión (3-5 bullets).
 >    - **Decisiones Tomadas:** Decisiones de diseño o arquitectura importantes y por qué.

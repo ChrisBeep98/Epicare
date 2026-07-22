@@ -10,8 +10,8 @@ Copia y pega este prompt cuando sientas que la página está lenta, el scroll se
 > 
 > Es OBLIGATORIO que actives tu protocolo de rendimiento estricto leyendo:
 > 
-> 1. `context-Docs/WorkFlow-Docs/Design-Agent-Skills/HARDWARE-SYMPHONY.md` 
-> 2. `context-Docs/WorkFlow-Docs/Design-System/Design-System.md` (Para verificar si estamos usando demasiados blurs de cristal innecesarios).
+> 1. `Graph-Design-Framework/WorkFlow-Docs/Design-Agent-Skills/HARDWARE-SYMPHONY.md` 
+> 2. `Graph-Design-Framework/WorkFlow-Docs/Design-System/Design-System.md` (Para verificar si estamos usando demasiados blurs de cristal innecesarios).
 > 
 > **Tu directiva de escaneo:** 
 > - Revisa línea por línea el código de **[INSERTAR AQUÍ EL COMPONENTE. EJ: "ScrollSequence.tsx"]**.

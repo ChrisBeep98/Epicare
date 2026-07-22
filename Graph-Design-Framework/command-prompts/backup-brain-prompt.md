@@ -1,6 +1,6 @@
 # Prompt de Respaldo de Cerebro (Brain Backup v2.0)
 
-Copia y pega este prompt cada vez que quieras guardar una "Instantánea" del framework `context-Docs`. Esto crea un ZIP versionado en `_archive/` como versionamiento local.
+Copia y pega este prompt cada vez que quieras guardar una "Instantánea" del framework `Graph-Design-Framework`. Esto crea un ZIP versionado en `_archive/` como versionamiento local.
 
 ***
 
@@ -8,10 +8,10 @@ Copia y pega este prompt cada vez que quieras guardar una "Instantánea" del fra
 
 > "Hola. Hemos hecho mejoras al framework de contexto. Crea un respaldo siguiendo estos pasos:
 > 
-> 1. Determina el siguiente número de versión mirando qué archivos ya existen en `context-Docs/_archive/`.
+> 1. Determina el siguiente número de versión mirando qué archivos ya existen en `Graph-Design-Framework/_archive/`.
 > 2. Ejecuta en PowerShell:
 >    ```powershell
->    Compress-Archive -Path "d:/Proyectos-Importantes/GO AMS/Production-Web/context-Docs/*" -DestinationPath "d:/Proyectos-Importantes/GO AMS/Production-Web/context-Docs/_archive/brain-vN_MonDD.zip" -Force
+>    Compress-Archive -Path "d:/A01 Proyectos-Importantes/GOAMS Landing_Production/Graph-Design-Framework/*" -DestinationPath "d:/A01 Proyectos-Importantes/GOAMS Landing_Production/Graph-Design-Framework/_archive/brain-vN_MonDD.zip" -Force
 >    ```
 >    Reemplaza `vN` por el número de versión y `MonDD` por la fecha (ej: `brain-v3_Mar19.zip`).
 >    **Nota:** Excluir la carpeta `_archive` del ZIP no es posible nativamente con `Compress-Archive`. Si el ZIP incluye `_archive`, está bien — los backups anteriores se preservan como nested history.

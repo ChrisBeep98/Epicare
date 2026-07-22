@@ -1,37 +1,32 @@
 ---
 name: Agent Skills Index
-description: Navigation index and recommended reading order for all GO AMS Design Agent Skills.
+description: Índice y orden de carga de las Design Agent Skills de Epicare, marcando cuáles son ejecutables (recetas) y cuáles filosofía.
 ---
 
-# 🧠 GO AMS Design Agent Skills — Índice
+# 🧠 Epicare Design Agent Skills — Índice
 
-> **Propósito:** Este directorio contiene los protocolos de comportamiento modulares para agentes de IA que trabajan en GO AMS. Cada skill es un "plugin" que inyecta conocimiento especializado.
+> **Propósito:** protocolos modulares para agentes de IA. Entrada global: [`../../START-HERE.md`](../../START-HERE.md). Las skills se cargan desde los protocolos de `command-prompts/` (creative-motion, redesign-section, tokenized).
 
-## 📖 Orden de Lectura Recomendado
+## 📖 Orden de carga para trabajo de DISEÑO/MOTION
 
-Lee en este orden para construir conocimiento de forma incremental:
-
-| # | Skill | Archivo | Categoría | Descripción |
+| # | Skill | Archivo | Tipo | Descripción |
 |:--|:---|:---|:---|:---|
-| 1 | **Tokenizer** | [`Tokenizer.md`](./Tokenizer.md) | `guardián` | Enforce del Design System. Zero-tolerance policy para violations. 5 dimensiones de análisis. |
-| 2 | **Cognitive Typographer** | [`COGNITIVE-TYPOGRAPHER.md`](./COGNITIVE-TYPOGRAPHER.md) | `tipografía` | Ritmo tipográfico: tracking, text-wrap, medida óptima de línea, unidades rem. |
-| 3 | **Hardware Symphony** | [`HARDWARE-SYMPHONY.md`](./HARDWARE-SYMPHONY.md) | `performance` | 60fps protocol. Smart Shutdown, elegant degradation, legal animated properties. |
-| 4 | **Debug Panel Architect** | [`DEBUG-PANEL-ARCHITECT.md`](./DEBUG-PANEL-ARCHITECT.md) | `workflow` | **v2.0 Pro.** Collapsible pill UI, tabbed controls, 8 control types, context-aware detection, Tailwind-ready copy, 9-step purge checklist. |
-| 5 | **Creative Direction** | [`CREATIVE-DIRECTION.md`](./CREATIVE-DIRECTION.md) | `diseño` | Anti-"AI Slop". Dirección de arte premium para GO AMS. |
-| 6 | **Creative Motion** | [`CREATIVE-MOTION.md`](./CREATIVE-MOTION.md) | `animación` | Filosofía Awwwards: scroll pin, liquid cursor, scrollytelling, parallax. |
-| 7 | **Awwwards Motion** | [`AWWWARDS-MOTION.md`](./AWWWARDS-MOTION.md) | `animación` | Físicas de scroll: Layered Unveiling, Water Mask, Breathing Canvas. |
-| 8 | **Cinematic Architect** | [`CINEMATIC-ARCHITECT.md`](./CINEMATIC-ARCHITECT.md) | `narrativa` | Narrativa visual DOM-3D: Diegetic UI, Sandwich Technique, Tunnel Transition. |
-| 9 | **Scroll Effects Architect** | [`SCROLL-EFFECTS-ARCHITECT.md`](./SCROLL-EFFECTS-ARCHITECT.md) | `referencia` | 7 técnicas GSAP avanzadas con código completo (815 líneas). |
-| 10 | **Commerce Architect** | [`COMMERCE-CONVERSION-ARCHITECT.md`](./COMMERCE-CONVERSION-ARCHITECT.md) | `workflow` | Psicología e-commerce. Reglas para cart drawers, galerías magnéticas y GSAP FLIP. |
-| 11 | **Visual Prompter** | [`visual-prompt-engineer/SKILL.md`](./visual-prompt-engineer/SKILL.md) | `diseño` | Director de arte AI. Creación de prompts complejos para Veo, NanoBanana y Google AI. |
+| 1 | **Motion Bible** | [`MOTION-BIBLE.md`](./MOTION-BIBLE.md) | ⚙️ receta | LA fuente canónica: física de Epicare + tokens de motion (`src/lib/motion.ts`) + receta ejecutable de cada pilar. |
+| 2 | **Scroll Effects Architect** | [`SCROLL-EFFECTS-ARCHITECT.md`](./SCROLL-EFFECTS-ARCHITECT.md) | ⚙️ receta | 7 técnicas GSAP pesadas con código completo (split-scroll, stacking, horizontal, scrollytelling, velocity, FLIP). |
+| 3 | **Section Archetypes** | [`SECTION-ARCHETYPES.md`](./SECTION-ARCHETYPES.md) | 🎯 dirección | Coreografía mínima obligatoria + paradigmas de layout por tipo de sección. |
+| 4 | **Awwwards Rubric** | [`AWWWARDS-RUBRIC.md`](./AWWWARDS-RUBRIC.md) | ✅ examen | Checklist binario 15 puntos. Umbral 12/15 para entregar. |
+| 5 | **Tokenizer** | [`Tokenizer.md`](./Tokenizer.md) | 🛡️ guardián | Enforcement Zero-Px del Design System. |
+| 6 | **Cognitive Typographer** | [`COGNITIVE-TYPOGRAPHER.md`](./COGNITIVE-TYPOGRAPHER.md) | ⚙️ receta | Tracking, text-wrap, medida de línea. |
+| 7 | **Hardware Symphony** | [`HARDWARE-SYMPHONY.md`](./HARDWARE-SYMPHONY.md) | 🛡️ guardián | 60fps: qué animar y qué no, smart shutdown, degradación. |
 
-## 🏷️ Categorías
+## 🧰 Skills de workflow (bajo demanda)
 
-- **`guardián`** — Enforce de reglas y auditoría
-- **`tipografía`** — Texto, fuentes, legibilidad
-- **`performance`** — Optimización y 60fps
-- **`workflow`** — Procesos de trabajo
-- **`diseño`** — Dirección creativa y estética
-- **`animación`** — Motion design y GSAP
-- **`narrativa`** — Experiencias cinematográficas
-- **`referencia`** — Código de referencia y snippets
+| Skill | Archivo | Descripción |
+|:--|:---|:---|
+| **Debug Panel Architect** | [`DEBUG-PANEL-ARCHITECT/`](./DEBUG-PANEL-ARCHITECT/README.md) | **Carpeta** de 17 módulos: panel de debug inyectable para tuning visual en vivo + Purge Protocol. |
+| **Commerce Architect** | [`COMMERCE-CONVERSION-ARCHITECT.md`](./COMMERCE-CONVERSION-ARCHITECT.md) | UX/motion e-commerce (cart drawer, galerías, FLIP → ver SEA §6). |
+| **Visual Prompter** | [`visual-prompt-engineer/SKILL.md`](./visual-prompt-engineer/SKILL.md) | Prompts para AI video/imagen (Veo, Midjourney) para heros. |
+
+## 🗄️ Retiradas (no cargar)
+
+`CREATIVE-DIRECTION`, `CREATIVE-MOTION`, `AWWWARDS-MOTION` y `CINEMATIC-ARCHITECT` fueron **fusionadas en MOTION-BIBLE.md** y archivadas en [`../../_archive/legacy-goams/`](../../_archive/legacy-goams/) — contenían la marca muerta (Playfair/café/violeta/light-only). Los scrapings de referencia (Alche, iru) viven en [`../../references/`](../../references/) como inspiración, no protocolo.
