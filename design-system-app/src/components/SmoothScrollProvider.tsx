@@ -31,6 +31,10 @@ export default function SmoothScrollProvider({ children }: { children: React.Rea
 
     const lenis = new Lenis(LENIS_OPTIONS);
 
+    // Expose the instance so components can drive programmatic scrolls
+    // (e.g. Bento progress-bar seek) through Lenis instead of fighting it.
+    (window as unknown as { lenis?: Lenis }).lenis = lenis;
+
     // Keep ScrollTrigger in lockstep with Lenis' smoothed scroll position.
     lenis.on("scroll", ScrollTrigger.update);
 
@@ -41,6 +45,7 @@ export default function SmoothScrollProvider({ children }: { children: React.Rea
 
     return () => {
       gsap.ticker.remove(raf);
+      delete (window as unknown as { lenis?: Lenis }).lenis;
       lenis.destroy();
     };
   }, []);

@@ -5,6 +5,19 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useTranslations } from 'next-intl';
 import { asset } from "@/lib/asset";
+import { EASE, DUR, REVEAL, TRIGGER } from "@/lib/motion";
+
+// ── INTERNAL ARC: brand accent per card (title + 5 products). The ambient
+// orb morphs to the active card's color so the journey has a beginning,
+// middle and end instead of being a flat carousel.
+const CARD_ACCENT_VARS = [
+  '--color-brand-blue',   // title card
+  '--color-brand-blue',   // GO AMS (core)
+  '--color-brand-cyan',   // GO CRM
+  '--color-brand-orange', // Epicare Academy
+  '--color-brand-purple', // Eppigo
+  '--color-brand-blue',   // Solutions — closes the loop back to brand base
+];
 
 // ----------------------------------------------------------------------
 // LOGO COMPONENTS (Moved to top to prevent Turbopack ReferenceErrors)
@@ -109,6 +122,9 @@ export default function BentoGridEpicare() {
   const containerRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const progressBarRef = useRef<HTMLDivElement>(null);
+  const progressHitRef = useRef<HTMLDivElement>(null);
+  const orbRef = useRef<HTMLDivElement>(null);
+  const stRef = useRef<ScrollTrigger | null>(null);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -117,15 +133,31 @@ export default function BentoGridEpicare() {
     const section = containerRef.current;
     const track = trackRef.current;
     const cards = gsap.utils.toArray('.coverflow-card');
-    
+
     if (!section || !track || cards.length === 0) return;
+
+    // Resolve brand accents from the DS tokens once.
+    const styles = getComputedStyle(document.documentElement);
+    const accents = CARD_ACCENT_VARS.map(v => styles.getPropertyValue(v).trim() || '#35BBFD');
+    let activeIdx = 0;
+
+    const morphOrb = (idx: number) => {
+      if (idx === activeIdx || !orbRef.current) return;
+      activeIdx = idx;
+      gsap.to(orbRef.current, {
+        backgroundColor: accents[idx],
+        duration: DUR.slow,
+        ease: EASE.inOut,
+        overwrite: 'auto',
+      });
+    };
 
     let mm = gsap.matchMedia();
 
     // ----------------------------------------------------
-    // DESKTOP: HORIZONTAL 3D COVER FLOW
+    // DESKTOP: HORIZONTAL 3D COVER FLOW (pinned, snapped)
     // ----------------------------------------------------
-    mm.add("(min-width: 768px)", () => {
+    mm.add("(min-width: 768px) and (prefers-reduced-motion: no-preference)", () => {
         let cardStaticCenters: number[] = [];
 
         const calculateLayout = () => {
@@ -152,19 +184,25 @@ export default function BentoGridEpicare() {
         const updateCards3DPhysics = () => {
             const currentTrackX = gsap.getProperty(track, "x") as number;
             const screenCenter = window.innerWidth / 2;
+            let closestIdx = 0;
+            let closestDist = Infinity;
 
             cards.forEach((card: any, i) => {
               const cardCenter = currentTrackX + cardStaticCenters[i];
-              const dist = (cardCenter - screenCenter) / screenCenter; 
+              const dist = (cardCenter - screenCenter) / screenCenter;
               const clampedDist = Math.max(-1, Math.min(1, dist));
-              
+
+              if (Math.abs(dist) < closestDist) { closestDist = Math.abs(dist); closestIdx = i; }
+
               gsap.set(card, {
-                rotateY: clampedDist * 50, 
-                scale: 1 - Math.abs(clampedDist) * 0.25, 
-                z: -Math.abs(clampedDist) * 500, 
-                opacity: Math.max(0, 1 - Math.abs(clampedDist) * 1.5), 
+                rotateY: clampedDist * 50,
+                scale: 1 - Math.abs(clampedDist) * 0.25,
+                z: -Math.abs(clampedDist) * 500,
+                opacity: Math.max(0, 1 - Math.abs(clampedDist) * 1.5),
               });
             });
+
+            morphOrb(closestIdx);
         };
 
         updateCards3DPhysics();
@@ -177,12 +215,21 @@ export default function BentoGridEpicare() {
               start: "top top",
               end: () => "+=" + getScrollDist(),
               invalidateOnRefresh: true,
+              // Each scroll gesture settles one card dead-center: the pin
+              // reads as chapters instead of a continuous toll.
+              snap: {
+                snapTo: 1 / (cards.length - 1),
+                duration: { min: 0.2, max: 0.6 },
+                ease: EASE.inOut,
+                delay: 0.1,
+              },
               onRefresh: () => {
                  calculateLayout();
                  updateCards3DPhysics();
               }
             }
         });
+        stRef.current = tl.scrollTrigger ?? null;
 
         tl.to(track, {
             x: () => -getScrollDist(),
@@ -196,107 +243,53 @@ export default function BentoGridEpicare() {
             tl.to(progressBar, { scaleX: 1, ease: "none" }, 0);
         }
 
+        // Progress bar = scrubber: click seeks to that point of the journey via Lenis.
+        const hit = progressHitRef.current;
+        const onSeek = (e: MouseEvent) => {
+            const st = stRef.current;
+            if (!st || !hit) return;
+            const rect = hit.getBoundingClientRect();
+            const ratio = Math.min(1, Math.max(0, (e.clientX - rect.left) / rect.width));
+            // Land exactly on the nearest card's snap point.
+            const snapped = Math.round(ratio * (cards.length - 1)) / (cards.length - 1);
+            const target = st.start + snapped * (st.end - st.start);
+            const lenis = (window as unknown as { lenis?: { scrollTo: (y: number, o?: object) => void } }).lenis;
+            if (lenis) lenis.scrollTo(target, { duration: 1.2 });
+            else window.scrollTo({ top: target, behavior: 'smooth' });
+        };
+        hit?.addEventListener('click', onSeek);
+
         return () => {
+            hit?.removeEventListener('click', onSeek);
+            stRef.current = null;
             gsap.set(track, { clearProps: "all" });
             cards.forEach((c: any) => gsap.set(c, { clearProps: "all" }));
         };
     });
 
     // ----------------------------------------------------
-    // MOBILE: VERTICAL 3D ROLODEX (COVER FLOW)
+    // MOBILE: FREE-SCROLL STACK (the thumb keeps control —
+    // no pin toll on touch; cards reveal with the house physics)
     // ----------------------------------------------------
-    mm.add("(max-width: 767px)", () => {
-        let cardStaticCenters: number[] = [];
-
-        const calculateLayout = () => {
-           gsap.set(track, { clearProps: "all" });
-           cards.forEach((c: any) => gsap.set(c, { clearProps: "all" }));
-
-           const firstCard = cards[0] as HTMLElement;
-           const lastCard = cards[cards.length - 1] as HTMLElement;
-           const padTop = (window.innerHeight - firstCard.offsetHeight) / 2;
-           const padBottom = (window.innerHeight - lastCard.offsetHeight) / 2;
-           
-           gsap.set(track, { paddingTop: padTop, paddingBottom: padBottom });
-
-           cardStaticCenters = cards.map(card => {
-               const el = card as HTMLElement;
-               return el.offsetTop + el.offsetHeight / 2;
-           });
-        };
-
-        calculateLayout();
-
-        const getScrollDist = () => track.scrollHeight - window.innerHeight;
-        
-        const updateCards3DPhysics = () => {
-            const currentTrackY = gsap.getProperty(track, "y") as number;
-            const screenCenter = window.innerHeight / 2;
-
-            cards.forEach((card: any, i) => {
-              const cardCenter = currentTrackY + cardStaticCenters[i];
-              const dist = (cardCenter - screenCenter) / screenCenter; 
-              const clampedDist = Math.max(-1, Math.min(1, dist));
-              
-              gsap.set(card, {
-                rotateX: -clampedDist * 50, // Pitch for vertical 3D
-                scale: 1 - Math.abs(clampedDist) * 0.15, // Softer scale for vertical
-                z: -Math.abs(clampedDist) * 500, 
-                opacity: Math.max(0, 1 - Math.abs(clampedDist) * 1.5), 
-              });
-            });
-        };
-
-        updateCards3DPhysics();
-
-        const tl = gsap.timeline({
-            scrollTrigger: {
-              trigger: section,
-              pin: true,
-              scrub: 1.2,
-              start: "top top",
-              end: () => "+=" + getScrollDist(),
-              invalidateOnRefresh: true,
-              onRefresh: () => {
-                 calculateLayout();
-                 updateCards3DPhysics();
-              }
-            }
-        });
-
-        tl.to(track, {
-            y: () => -getScrollDist(),
-            ease: "none",
-            onUpdate: updateCards3DPhysics
-        }, 0);
-
-        const progressBar = progressBarRef.current;
-        if (progressBar) {
-            gsap.set(progressBar, { transformOrigin: "left center" });
-            tl.to(progressBar, { scaleX: 1, ease: "none" }, 0);
-        }
-
-        return () => {
-            gsap.set(track, { clearProps: "all" });
-            cards.forEach((c: any) => gsap.set(c, { clearProps: "all" }));
-        };
+    mm.add("(max-width: 767px) and (prefers-reduced-motion: no-preference)", () => {
+        const tweens = cards.map((card: any) =>
+          gsap.from(card, {
+            y: REVEAL.md,
+            opacity: 0,
+            duration: DUR.base,
+            ease: EASE.out,
+            scrollTrigger: { trigger: card, start: TRIGGER.standard },
+          })
+        );
+        return () => tweens.forEach(tw => { tw.scrollTrigger?.kill(); tw.kill(); });
     });
 
     return () => mm.revert();
   }, []);
 
+  // Confirmed ecosystem (2026-07-22): GO AMS (core) → GO CRM → Epicare Academy → Eppigo → Solutions.
+  // GO CALLS dropped from the landing; Marketing lives inside Solutions.
   const ecosytemCards = [
-    {
-      title: t('card1Title'),
-      desc: t('card1Desc'),
-      image: null,
-      videoLight: asset("/Files/Features/CRM_Light.mp4"),
-      videoDark: asset("/Files/Features/GO_CRM_DArk.mp4#t=2"),
-      videoDarkFullBackground: true,
-      mediaClassNameDark: "dark:bg-[#0D0D0E]",
-      cardClassNameDark: "dark:bg-[#0D0D0E]",
-      logo: <CrmLogo className="h-10 w-auto mb-6 drop-shadow-[0_0_15px_rgba(90,200,250,0.5)]" />
-    },
     {
       title: t('card4Title'),
       desc: t('card4Desc'),
@@ -307,6 +300,17 @@ export default function BentoGridEpicare() {
       mediaClassNameDark: "dark:bg-[#0D0D0E]",
       cardClassNameDark: "dark:bg-[#0D0D0E]",
       logo: <AmsLogo className="h-10 w-auto mb-6 drop-shadow-[0_0_15px_rgba(90,200,250,0.5)]" />
+    },
+    {
+      title: t('card1Title'),
+      desc: t('card1Desc'),
+      image: null,
+      videoLight: asset("/Files/Features/CRM_Light.mp4"),
+      videoDark: asset("/Files/Features/GO_CRM_DArk.mp4#t=2"),
+      videoDarkFullBackground: true,
+      mediaClassNameDark: "dark:bg-[#0D0D0E]",
+      cardClassNameDark: "dark:bg-[#0D0D0E]",
+      logo: <CrmLogo className="h-10 w-auto mb-6 drop-shadow-[0_0_15px_rgba(90,200,250,0.5)]" />
     },
     {
       title: t('card8Title'),
@@ -321,45 +325,64 @@ export default function BentoGridEpicare() {
       logo: null
     },
     {
-      title: t('card7Title'),
-      desc: t('card7Desc'),
+      title: t('cardEppigoTitle'),
+      desc: t('cardEppigoDesc'),
+      image: asset("/Files/Features/Wireframe_CRM_composition_floating.jpeg"),
+      logo: null
+    },
+    {
+      title: t('cardSolutionsTitle'),
+      desc: t('cardSolutionsDesc'),
       image: asset("/Files/Features/Diagonal_pipeline_CRM_stages_202606242208.jpeg"),
       logo: null
     }
   ];
 
   return (
-      <section 
-        ref={containerRef} 
-        className="relative w-full h-screen overflow-hidden bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] z-20"
+      <section
+        ref={containerRef}
+        className="relative w-full h-auto md:h-screen overflow-visible md:overflow-hidden bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] z-20"
         style={{ perspective: '2000px' }}
       >
-        {/* SCROLL PROGRESS INDICATOR */}
-        <div className="absolute bottom-8 md:bottom-12 left-1/2 -translate-x-1/2 flex items-center justify-center z-50">
+        {/* AMBIENT ORB — the journey's mood: morphs to the active product's accent */}
+        <div
+          ref={orbRef}
+          aria-hidden="true"
+          className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[70vw] h-[70vw] md:w-[55vw] md:h-[55vw] rounded-full blur-[120px] opacity-[0.10] dark:opacity-[0.16] z-0 transform-gpu"
+          style={{ backgroundColor: 'var(--color-brand-blue)' }}
+        ></div>
+
+        {/* SCROLL PROGRESS — clickable scrubber (desktop pin only) */}
+        <div
+          ref={progressHitRef}
+          className="absolute bottom-8 md:bottom-12 left-1/2 -translate-x-1/2 hidden md:flex items-center justify-center z-50 cursor-pointer py-3 px-2"
+          role="slider"
+          aria-label="Ecosystem progress"
+        >
           <div className="w-[80px] md:w-[120px] h-[2px] bg-black/10 dark:bg-white/10 relative overflow-hidden rounded-full">
-            <div 
+            <div
               ref={progressBarRef}
               className="absolute top-0 left-0 h-full bg-[var(--color-text-Black-100)] dark:bg-[var(--color-text-White-100)] w-full origin-left transform-gpu scale-x-0"
             ></div>
           </div>
         </div>
 
-        {/* DOM: Flex Column on Mobile, Flex Row on Desktop */}
-        <div 
+        {/* DOM: free-scroll column on mobile, pinned coverflow row on desktop */}
+        <div
           ref={trackRef}
-          className="absolute top-0 flex flex-col md:flex-row items-center justify-start w-full md:w-auto md:h-full will-change-transform transform-gpu z-10 gap-[5vh] md:gap-[3vw]" 
+          className="relative md:absolute md:top-0 flex flex-col md:flex-row items-center justify-start w-full md:w-auto md:h-full will-change-transform transform-gpu z-10 gap-[5vh] md:gap-[3vw] py-section-sm md:py-0"
           style={{ transformStyle: 'preserve-3d' }}
         >
           {/* THE TITLE CARD */}
-          <div 
-            className="coverflow-card shrink-0 w-[85vw] lg:w-[40vw] h-[85vh] md:h-[100vh] relative transform-gpu flex flex-col justify-start pt-[12vh] md:pt-[15vh]"
+          <div
+            className="coverflow-card shrink-0 w-[85vw] lg:w-[40vw] h-auto md:h-[100vh] relative transform-gpu flex flex-col justify-start gap-static-xl pt-[6vh] md:pt-[15vh]"
             style={{ transformOrigin: 'center center' }}
           >
             <h2 className="text-display-lg text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)] text-left">
               {t('sectionTitle')}
             </h2>
             
-            <div className="my-auto flex flex-col gap-static-xl md:gap-static-2xl -translate-y-6 md:-translate-y-10">
+            <div className="md:my-auto flex flex-col gap-static-xl md:gap-static-2xl translate-y-0 md:-translate-y-10">
               <p className="text-body-lg text-[var(--color-text-muted)] font-light max-w-[500px] text-left">
                 {t('sectionDesc')}
               </p>

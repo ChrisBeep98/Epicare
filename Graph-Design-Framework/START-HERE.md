@@ -12,6 +12,8 @@
 | Intención | Carga esto |
 |:--|:--|
 | **Entrar al proyecto por primera vez** | `command-prompts/ONBOARDING-AI-protocol.md` |
+| **Planificar/modificar el arco de tensión de la página** | `command-prompts/narrative-arc-protocol.md` ← nivel película: picos, valles, presupuesto de pins |
+| **Escribir/revisar copy (headlines, CTAs, microcopy)** | `command-prompts/copy-storytelling-protocol.md` + `project-context/landing-blueprint.md` (copy canónico) |
 | **Crear una sección nueva de alto impacto** | `command-prompts/creative-motion-protocol.md` |
 | **Rediseñar una sección que ya no gusta** | `command-prompts/redesign-section-protocol.md` ← exige censo + 3 conceptos + STOP |
 | **Refactor/diseño rápido sin hardcodear** | `command-prompts/tokenized-design-protocol.md` |

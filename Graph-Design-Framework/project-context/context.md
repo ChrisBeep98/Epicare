@@ -200,6 +200,11 @@ Los componentes del nuevo diseño están consolidados en:
     - Sección de bifurcación de audiencias (Agente azul / Agency Owner naranja) montada al final de `page.tsx`. i18n `landingV2.forWho` (en/es). Dirigida con `creative-motion-protocol.md`. Variante actual: dos paneles full-bleed cinematográficos con hover-expand + cortina clip-path + parallax.
     - ⚠️ **En iteración:** ~8 rediseños a ciegas, el usuario sigue insatisfecho ("básico"). Bloqueante: falta loop visual (Chrome declinado). Ver `sections/for-who/context.md`. Recomendado: referencia visual del usuario. Dev server en `localhost:3000`.
 
+### Fase 12 — Framework v3.0 + Arco Narrativo (22 Jul 2026)
+- **129. Framework reestructurado a v3.0 "La Gran Purga":** marca muerta archivada (`_archive/legacy-goams/`), skills fusionadas en `MOTION-BIBLE.md`, nuevos `START-HERE.md`, `AWWWARDS-RUBRIC.md`, `SECTION-ARCHETYPES.md`, `scrollytelling-map.md` (censo completo), tokens de motion en `src/lib/motion.ts`, y 4 protocolos por altitud: narrative-arc / creative-motion / redesign-section / copy-storytelling. Ver `CHANGELOG.md` v3.0.0.
+- **130. Arco de tensión APROBADO (15 posiciones, pins 3/3):** persistido en `scrollytelling-map.md` + copy canónico ES/EN en `landing-blueprint.md`. ⚠️ Bloqueante de datos: conflicto de métricas (252+/25+/216+ web vs 130+/5+/100+/6k IA) — confirmar con César. Urgencia del CTA original vencida (14 Jul) → copy pivotado a post-launch.
+- **131. BentoGrid redimido (PICO 2):** arco interno con orbe gradient-morph por producto activo, snap por tarjeta, progress-scrubber clicable vía Lenis, móvil sin pin, reduced-motion, y los 5 productos confirmados (AMS/CRM/Academy/Eppigo/Solutions — GO CALLS fuera). Ver `sections/bento-ecosystem/context.md`. Pendiente: assets propios de Eppigo/Solutions.
+
 ## 6. Próximos Pasos (To-Do)
 - **Aplicar el mapa de ritmo vertical** (FASE 3 de `vertical-spacing-protocol.md`) a las 8 secciones de la landing.
 - Empezar la construcción de la **Página de Inicio (Home)** integrando el motor de `HeroSequence` con los nuevos tokens de espaciado.

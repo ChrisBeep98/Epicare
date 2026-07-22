@@ -1,0 +1,940 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+.root { max-width: 680px; font-family: var(--font-sans); padding-bottom: 60px; }
+
+/* Top nav */
+.top-nav { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 6px; }
+.tnav-btn { font-size: 11px; font-weight: 500; padding: 4px 10px; border-radius: 20px; background: var(--color-background-secondary); border: 0.5px solid var(--color-border-tertiary); color: var(--color-text-secondary); cursor: pointer; }
+.tnav-btn.active { background: var(--color-background-info); color: var(--color-text-info); border-color: transparent; }
+
+/* Section jump bar */
+.jump-bar { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 24px; padding: 10px 0; border-bottom: 0.5px solid var(--color-border-tertiary); }
+.jump-btn { font-size: 10px; font-weight: 500; padding: 3px 8px; border-radius: 20px; background: var(--color-background-secondary); border: 0.5px solid var(--color-border-tertiary); color: var(--color-text-tertiary); cursor: pointer; white-space: nowrap; }
+.jump-btn:hover { color: var(--color-text-primary); }
+.jump-btn.active { background: var(--color-background-primary); color: var(--color-text-primary); border-color: var(--color-border-secondary); }
+
+/* Page */
+.page { display: none; }
+.page.visible { display: block; }
+
+/* Section */
+.section-block { margin-bottom: 32px; scroll-margin-top: 20px; }
+.sec-header { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 0.5px solid var(--color-border-tertiary); }
+.sec-num { font-size: 11px; font-weight: 500; padding: 3px 8px; border-radius: 4px; background: var(--color-background-secondary); border: 0.5px solid var(--color-border-tertiary); color: var(--color-text-tertiary); flex-shrink: 0; margin-top: 2px; font-family: var(--font-mono); }
+.sec-info { flex: 1; }
+.sec-name { font-size: 16px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
+.sec-purpose { font-size: 12px; color: var(--color-text-secondary); line-height: 1.55; }
+.sec-tags { margin-top: 6px; display: flex; gap: 5px; flex-wrap: wrap; }
+.tag { font-size: 10px; font-weight: 500; padding: 2px 8px; border-radius: 20px; }
+.tag-blue { background: var(--color-background-info); color: var(--color-text-info); }
+.tag-warn { background: var(--color-background-warning); color: var(--color-text-warning); }
+.tag-success { background: var(--color-background-success); color: var(--color-text-success); }
+.tag-muted { background: var(--color-background-secondary); color: var(--color-text-secondary); border: 0.5px solid var(--color-border-tertiary); }
+.tag-danger { background: var(--color-background-danger); color: var(--color-text-danger); }
+
+/* Copy cards */
+.copy-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); overflow: hidden; margin-bottom: 10px; }
+.copy-card-head { padding: 7px 14px; background: var(--color-background-secondary); border-bottom: 0.5px solid var(--color-border-tertiary); display: flex; justify-content: space-between; align-items: center; }
+.copy-card-label { font-size: 11px; font-weight: 500; color: var(--color-text-tertiary); text-transform: uppercase; letter-spacing: .07em; }
+.copy-card-spec { font-size: 11px; color: var(--color-text-tertiary); font-family: var(--font-mono); }
+.copy-card-body { padding: 14px 16px; }
+
+/* Typography in copy cards */
+.c-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--color-text-tertiary); margin-bottom: 5px; }
+.c-h1 { font-size: 32px; font-weight: 500; color: var(--color-text-primary); line-height: 1.1; letter-spacing: -0.025em; margin-bottom: 8px; }
+.c-h2 { font-size: 22px; font-weight: 500; color: var(--color-text-primary); line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 8px; }
+.c-sub { font-size: 14px; color: var(--color-text-secondary); line-height: 1.65; margin-bottom: 8px; }
+.c-body { font-size: 13px; color: var(--color-text-secondary); line-height: 1.65; margin-bottom: 6px; }
+.c-body:last-child { margin-bottom: 0; }
+.c-accent { color: var(--color-text-info); font-weight: 500; }
+
+/* CTA mockups */
+.cta-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+.cta-p { font-size: 13px; font-weight: 500; padding: 9px 20px; border-radius: 8px; background: var(--color-background-info); color: var(--color-text-info); }
+.cta-s { font-size: 13px; padding: 9px 20px; border-radius: 8px; border: 0.5px solid var(--color-border-secondary); color: var(--color-text-secondary); }
+.cta-micro { font-size: 11px; color: var(--color-text-tertiary); margin-top: 5px; }
+
+/* Note */
+.note { display: flex; gap: 8px; background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 9px 12px; font-size: 12px; color: var(--color-text-secondary); line-height: 1.5; margin-top: 10px; }
+.note i { flex-shrink: 0; margin-top: 1px; color: var(--color-text-warning); font-size: 14px; }
+.note-info i { color: var(--color-text-info); }
+.note-danger i { color: var(--color-text-danger); }
+
+/* Divider */
+.div { border: none; border-top: 0.5px solid var(--color-border-tertiary); margin: 14px 0; }
+
+/* Grid helpers */
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+
+/* Stat display */
+.stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.stat-box { text-align: left; }
+.stat-val { font-size: 28px; font-weight: 500; color: var(--color-text-primary); font-family: var(--font-mono); line-height: 1; }
+.stat-lbl { font-size: 11px; color: var(--color-text-tertiary); margin-top: 3px; line-height: 1.4; }
+
+/* Feature row */
+.feat { display: flex; gap: 10px; padding: 10px 0; border-bottom: 0.5px solid var(--color-border-tertiary); }
+.feat:last-child { border-bottom: none; padding-bottom: 0; }
+.feat-icon { font-size: 17px; color: var(--color-text-info); flex-shrink: 0; margin-top: 1px; }
+.feat-title { font-size: 13px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 2px; }
+.feat-desc { font-size: 12px; color: var(--color-text-secondary); line-height: 1.5; }
+
+/* Pill item */
+.pill-item { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; color: var(--color-text-secondary); padding: 5px 10px; border-radius: 8px; background: var(--color-background-secondary); border: 0.5px solid var(--color-border-tertiary); margin: 3px; }
+.pill-item i { font-size: 13px; color: var(--color-text-info); }
+
+/* Step */
+.step { display: flex; gap: 12px; padding: 10px 0; border-bottom: 0.5px solid var(--color-border-tertiary); }
+.step:last-child { border-bottom: none; }
+.step-n { width: 26px; height: 26px; border-radius: 50%; background: var(--color-background-secondary); border: 0.5px solid var(--color-border-tertiary); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; color: var(--color-text-secondary); flex-shrink: 0; }
+.step-title { font-size: 13px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 2px; }
+.step-desc { font-size: 12px; color: var(--color-text-secondary); line-height: 1.5; }
+
+/* FAQ */
+.faq { padding: 11px 0; border-bottom: 0.5px solid var(--color-border-tertiary); }
+.faq:last-child { border-bottom: none; }
+.faq-q { font-size: 13px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
+.faq-a { font-size: 12px; color: var(--color-text-secondary); line-height: 1.6; }
+
+/* Audience cols */
+.aud-col { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 14px; }
+.aud-title { font-size: 13px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+.aud-list { list-style: none; }
+.aud-list li { font-size: 12px; color: var(--color-text-secondary); padding: 4px 0; border-bottom: 0.5px solid var(--color-border-tertiary); display: flex; gap: 6px; line-height: 1.45; }
+.aud-list li::before { content: '—'; color: var(--color-text-tertiary); flex-shrink: 0; }
+.aud-list li:last-child { border-bottom: none; }
+
+/* Pillar */
+.pillar { padding: 12px 14px; background: var(--color-background-secondary); border-radius: var(--border-radius-md); border-left: 2px solid var(--color-border-info); }
+.pillar-title { font-size: 13px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
+.pillar-desc { font-size: 12px; color: var(--color-text-secondary); line-height: 1.55; }
+
+/* Product line */
+.prod-line { display: flex; gap: 10px; padding: 10px 0; border-bottom: 0.5px solid var(--color-border-tertiary); align-items: flex-start; }
+.prod-line:last-child { border-bottom: none; }
+.prod-cat { font-size: 11px; font-weight: 500; min-width: 100px; color: var(--color-text-tertiary); text-transform: uppercase; letter-spacing: .05em; padding-top: 1px; }
+.prod-items { font-size: 12px; color: var(--color-text-secondary); line-height: 1.6; flex: 1; }
+
+/* KV row */
+.kv { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 0.5px solid var(--color-border-tertiary); font-size: 12px; }
+.kv:last-child { border-bottom: none; }
+.kv-k { color: var(--color-text-secondary); }
+.kv-v { font-weight: 500; color: var(--color-text-primary); text-align: right; }
+
+/* Carrier grid */
+.carrier-grid { display: flex; flex-wrap: wrap; gap: 6px; }
+.carrier-pill { font-size: 11px; font-weight: 500; padding: 4px 10px; border-radius: 6px; background: var(--color-background-secondary); border: 0.5px solid var(--color-border-tertiary); color: var(--color-text-secondary); }
+
+/* Geo grid */
+.geo-badge { display: inline-block; font-size: 11px; padding: 3px 7px; border-radius: 4px; background: var(--color-background-secondary); border: 0.5px solid var(--color-border-tertiary); color: var(--color-text-secondary); margin: 2px; font-family: var(--font-mono); }
+
+/* Overview table */
+.ov-row { display: grid; grid-template-columns: 32px 120px 1fr 80px; gap: 0; border-bottom: 0.5px solid var(--color-border-tertiary); padding: 9px 0; align-items: start; }
+.ov-row:last-child { border-bottom: none; }
+.ov-num { font-size: 11px; color: var(--color-text-tertiary); font-family: var(--font-mono); }
+.ov-name { font-size: 12px; font-weight: 500; color: var(--color-text-primary); }
+.ov-desc { font-size: 12px; color: var(--color-text-secondary); line-height: 1.45; }
+.ov-tag { font-size: 10px; font-weight: 500; text-align: right; }
+</style>
+
+<div class="root">
+
+  <!-- HEADER -->
+  <div style="margin-bottom:18px; padding-bottom:14px; border-bottom:0.5px solid var(--color-border-tertiary);">
+    <div style="font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--color-text-tertiary);margin-bottom:6px;">Epicare Insurance Corp · Landing Pública · IA + Copy</div>
+    <div style="font-size:20px;font-weight:500;color:var(--color-text-primary);margin-bottom:4px;">Arquitectura de información y copy — 15 secciones</div>
+    <div style="font-size:13px;color:var(--color-text-secondary);">Documento completo de planeación. GO AMS vive dentro de S07 — Servicios.</div>
+  </div>
+
+  <!-- PAGE TABS -->
+  <div class="top-nav">
+    <button class="tnav-btn active" onclick="switchPage('overview')">Vista general</button>
+    <button class="tnav-btn" onclick="switchPage('s01s05')">S01–S05</button>
+    <button class="tnav-btn" onclick="switchPage('s06s10')">S06–S10</button>
+    <button class="tnav-btn" onclick="switchPage('s11s15')">S11–S15</button>
+    <button class="tnav-btn" onclick="switchPage('nav_footer')">NAV + Footer</button>
+  </div>
+  <div class="jump-bar" id="jumpBar"></div>
+
+  <!-- ═══════════════ OVERVIEW ═══════════════ -->
+  <div id="overview" class="page visible">
+    <div style="font-size:13px;color:var(--color-text-secondary);margin-bottom:16px;line-height:1.6;">15 secciones en orden narrativo estricto. La lógica es: <strong style="font-weight:500;color:var(--color-text-primary);">captura → credibilidad → problema → solución → prueba → elimina fricción → convierte.</strong></div>
+
+    <div style="margin-bottom:4px;display:grid;grid-template-columns:32px 130px 1fr 70px;font-size:10px;font-weight:500;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.06em;padding:5px 0;border-bottom:0.5px solid var(--color-border-tertiary);">
+      <span>#</span><span>Sección</span><span>Trabajo narrativo</span><span>Audiencia</span>
+    </div>
+
+    <div class="ov-row"><span class="ov-num">S01</span><span class="ov-name">Hero</span><span class="ov-desc">Primera impresión. Tesis de la compañía en una frase. Credenciales en la segunda.</span><span class="ov-tag tag tag-muted">Todos</span></div>
+    <div class="ov-row"><span class="ov-num">S02</span><span class="ov-name">Carrusel carriers</span><span class="ov-desc">Credibilidad visual inmediata. Logos de carriers reales = confianza sin palabras.</span><span class="ov-tag tag tag-muted">Todos</span></div>
+    <div class="ov-row"><span class="ov-num">S03</span><span class="ov-name">Métricas</span><span class="ov-desc">Escala de la operación en números. Track record de Epicare Insurance Corp.</span><span class="ov-tag tag tag-muted">Todos</span></div>
+    <div class="ov-row"><span class="ov-num">S04</span><span class="ov-name">El problema</span><span class="ov-desc">Resonancia emocional. Nombrar el caos antes de vender la solución.</span><span class="ov-tag tag tag-muted">Agentes</span></div>
+    <div class="ov-row"><span class="ov-num">S05</span><span class="ov-name">Productos / Líneas</span><span class="ov-desc">Qué pueden vender. Life, Health, ACA, Medicare, Supplementary — concreto.</span><span class="ov-tag tag tag-muted">Todos</span></div>
+    <div class="ov-row"><span class="ov-num">S06</span><span class="ov-name">Features / Plataforma</span><span class="ov-desc">Cómo funciona GO AMS y Eppigo. El sistema unificado.</span><span class="ov-tag tag tag-blue">Agentes</span></div>
+    <div class="ov-row"><span class="ov-num">S07</span><span class="ov-name">Servicios / GO HUB</span><span class="ov-desc">Ecosistema completo. GO AMS como core + GO CRM, GO CALLS, Academy.</span><span class="ov-tag tag tag-muted">Todos</span></div>
+    <div class="ov-row"><span class="ov-num">S08</span><span class="ov-name">Para quién es</span><span class="ov-desc">Bifurcación agente individual vs agencia con downline. Mensajes distintos.</span><span class="ov-tag tag tag-warn">Bifurcado</span></div>
+    <div class="ov-row"><span class="ov-num">S09</span><span class="ov-name">Cobertura geográfica</span><span class="ov-desc">52 jurisdicciones visualizadas. Diferenciador de escala nacional.</span><span class="ov-tag tag tag-muted">Todos</span></div>
+    <div class="ov-row"><span class="ov-num">S10</span><span class="ov-name">Por qué Epicare</span><span class="ov-desc">El diferenciador emocional. 4 pilares de la compañía — no features.</span><span class="ov-tag tag tag-muted">Todos</span></div>
+    <div class="ov-row"><span class="ov-num">S11</span><span class="ov-name">Carriers por categoría</span><span class="ov-desc">Portafolio profundo. Logos organizados por línea de producto.</span><span class="ov-tag tag tag-muted">Agentes</span></div>
+    <div class="ov-row"><span class="ov-num">S12</span><span class="ov-name">Testimonials</span><span class="ov-desc">Prueba social de agentes reales. Slot reservado para post-lanzamiento.</span><span class="ov-tag tag tag-danger">Reservado</span></div>
+    <div class="ov-row"><span class="ov-num">S13</span><span class="ov-name">Cómo unirse</span><span class="ov-desc">5 pasos simples. Reduce fricción antes del CTA final.</span><span class="ov-tag tag tag-muted">Todos</span></div>
+    <div class="ov-row"><span class="ov-num">S14</span><span class="ov-name">FAQ</span><span class="ov-desc">Elimina las objeciones que no dicen en voz alta. 7 preguntas reales.</span><span class="ov-tag tag tag-muted">Todos</span></div>
+    <div class="ov-row"><span class="ov-num">S15</span><span class="ov-name">CTA Final</span><span class="ov-desc">Cierre con urgencia real — fecha de lanzamiento GO AMS Jul 14 2026.</span><span class="ov-tag tag tag-warn">Conversión</span></div>
+
+    <div class="note note-info" style="margin-top:16px;"><i class="ti ti-info-circle" aria-hidden="true"></i>GO AMS vive dentro de S07 como el producto core del ecosistema. Tiene su propia landing en <code style="font-size:11px;">ams.epicareinsurance.com</code> — el CTA de S07 lleva ahí.</div>
+  </div>
+
+  <!-- ═══════════════ S01–S05 ═══════════════ -->
+  <div id="s01s05" class="page">
+
+    <!-- S01 HERO -->
+    <div class="section-block" id="sec-s01">
+      <div class="sec-header">
+        <span class="sec-num">S01</span>
+        <div class="sec-info">
+          <div class="sec-name">Hero</div>
+          <div class="sec-purpose">Primera impresión. La tesis de Epicare en una sola frase — quiénes son, para quién existen. Sin features, sin bullets. Credenciales en el subhead.</div>
+          <div class="sec-tags"><span class="tag tag-muted">Todos</span><span class="tag tag-blue">CTA primario</span><span class="tag tag-muted">Full viewport</span></div>
+        </div>
+      </div>
+
+      <div class="copy-card">
+        <div class="copy-card-head"><span class="copy-card-label">Eyebrow</span><span class="copy-card-spec">11px · uppercase · tracked +0.1em</span></div>
+        <div class="copy-card-body"><div class="c-eyebrow">Licenciados en 52 jurisdicciones · Miami, FL</div></div>
+      </div>
+
+      <div class="copy-card">
+        <div class="copy-card-head"><span class="copy-card-label">Headline</span><span class="copy-card-spec">h1 · 80–96px · weight 800 · tracking -0.03em</span></div>
+        <div class="copy-card-body">
+          <div class="c-h1">La agencia que<br>trabaja para ti,<br>no al revés.</div>
+          <div class="div"></div>
+          <div style="font-size:11px;font-weight:500;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;">Alternativas evaluadas</div>
+          <div class="c-body">A — <em>"Seguros que sí funcionan."</em> → vago, cualquier agencia lo dice</div>
+          <div class="c-body">B — <em>"Tu carrera en seguros, respaldada."</em> → más específico al agente, menos corporativo</div>
+          <div class="c-body">C — <em>"La agencia que trabaja para ti, no al revés."</em> → ✅ preferida — nombra la propuesta de valor sin decirla explícitamente</div>
+        </div>
+      </div>
+
+      <div class="copy-card">
+        <div class="copy-card-head"><span class="copy-card-label">Subhead</span><span class="copy-card-spec">18–20px · weight 400 · secondary color</span></div>
+        <div class="copy-card-body">
+          <div class="c-sub">Epicare Insurance Corp es una agencia de seguros licenciada con 5+ años de operación activa, 130+ carrier appointments y presencia en todos los estados. Contrátate, vende más y crece tu negocio con una operación real detrás.</div>
+        </div>
+      </div>
+
+      <div class="copy-card">
+        <div class="copy-card-head"><span class="copy-card-label">CTAs</span><span class="copy-card-spec">primario + secundario</span></div>
+        <div class="copy-card-body">
+          <div class="cta-row">
+            <div class="cta-p">Únete a Epicare →</div>
+            <div class="cta-s">Ver cómo funciona</div>
+          </div>
+          <div class="cta-micro">Sin costo de plataforma · Incluido en tu contrato de productor</div>
+          <div class="note"><i class="ti ti-info-circle" aria-hidden="true"></i>"Ver cómo funciona" hace scroll suave a S06. CTA primario lleva al formulario de contracting o a ams.epicareinsurance.com/join — pendiente de confirmar destino.</div>
+        </div>
+      </div>
+
+      <div class="copy-card">
+        <div class="copy-card-head"><span class="copy-card-label">Visual del hero</span><span class="copy-card-spec">directriz de diseño</span></div>
+        <div class="copy-card-body">
+          <div class="feat"><i class="feat-icon ti ti-layout-grid" aria-hidden="true"></i><div><div class="feat-title">Opción A — Dark canvas + grid de datos animados</div><div class="feat-desc">Background #2F3437. Métricas en Geist Mono contando al cargar (130+, 52, 6k+). Dot-grid sutil 8% opacidad. Acento #35BBFD en el eyebrow.</div></div></div>
+          <div class="feat"><i class="feat-icon ti ti-typography" aria-hidden="true"></i><div><div class="feat-title">Opción B — Tipografía display asimétrica</div><div class="feat-desc">Headline en 96px+ cortado por el viewport derecho. Sin imagen. El tipo es el visual. Más editorial, más memorable si se ejecuta bien.</div></div></div>
+          <div class="feat" style="border-bottom:none;"><i class="feat-icon ti ti-vector" aria-hidden="true"></i><div><div class="feat-title">Opción C — Ilustración editorial del ecosistema</div><div class="feat-desc">Asset generado con epicare-mobile-visuals o go-ams-visuals. Mapa conceptual de la operación: agente → Epicare → carrier → cliente.</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S02 CARRUSEL -->
+    <div class="section-block" id="sec-s02">
+      <div class="sec-header">
+        <span class="sec-num">S02</span>
+        <div class="sec-info">
+          <div class="sec-name">Carrusel de carriers</div>
+          <div class="sec-purpose">Credibilidad visual inmediata. Logos de carriers reales en movimiento continuo — comunica escala sin una sola palabra.</div>
+          <div class="sec-tags"><span class="tag tag-muted">Todos</span><span class="tag tag-muted">Auto-scroll · sin pausa</span></div>
+        </div>
+      </div>
+
+      <div class="copy-card">
+        <div class="copy-card-head"><span class="copy-card-label">Eyebrow / Label</span><span class="copy-card-spec">sobre el carrusel · centered</span></div>
+        <div class="copy-card-body">
+          <div class="c-eyebrow">Contratos activos con 130+ carriers</div>
+          <div class="note"><i class="ti ti-info-circle" aria-hidden="true"></i>No usar "Trusted by" — es el cliché de SaaS. El framing de "contratos activos" es más específico y suena a operación real, no a partnership de marketing.</div>
+        </div>
+      </div>
+
+      <div class="copy-card">
+        <div class="copy-card-head"><span class="copy-card-label">Carriers con API en Eppigo (Quote & Enroll)</span><span class="copy-card-spec">destacar visualmente · badge diferenciador</span></div>
+        <div class="copy-card-body">
+          <div class="carrier-grid">
+            <span class="carrier-pill">Ameritas</span>
+            <span class="carrier-pill">Allstate</span>
+            <span class="carrier-pill">Manhattan Life</span>
+            <span class="carrier-pill">Mutual of Omaha</span>
+            <span class="carrier-pill">Triple-S</span>
+          </div>
+          <div class="note" style="margin-top:8px;"><i class="ti ti-info-circle" aria-hidden="true"></i>Estos 5 carriers tienen integración API activa. En el carrusel pueden tener un badge sutil "Cotización directa" o destacarse de alguna forma visual para diferenciarlos de los 125+ que son solo appointments.</div>
+        </div>
+      </div>
+
+      <div class="copy-card">
+        <div class="copy-card-head"><span class="copy-card-label">Muestra representativa del carrusel</span><span class="copy-card-spec">carriers conocidos del portafolio</span></div>
+        <div class="copy-card-body">
+          <div class="carrier-grid">
+            <span class="carrier-pill">Aetna</span><span class="carrier-pill">Cigna</span><span class="carrier-pill">Humana</span><span class="carrier-pill">UnitedHealthcare</span><span class="carrier-pill">BlueCross</span><span class="carrier-pill">Anthem</span><span class="carrier-pill">Molina</span><span class="carrier-pill">Oscar</span><span class="carrier-pill">Centene</span><span class="carrier-pill">WellCare</span><span class="carrier-pill">Bright Health</span><span class="carrier-pill">Friday Health</span>
+          </div>
+          <div class="note note-danger" style="margin-top:8px;"><i class="ti ti-alert-triangle" aria-hidden="true"></i>Lista ilustrativa — confirmar contra carriers-roster.md de Eppigo antes de publicar. Nunca hardcodear un count específico más allá de "130+".</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S03 MÉTRICAS -->
+    <div class="section-block" id="sec-s03">
+      <div class="sec-header">
+        <span class="sec-num">S03</span>
+        <div class="sec-info">
+          <div class="sec-name">Métricas — La escala de la operación</div>
+          <div class="sec-purpose">Los números de Epicare Insurance Corp como composición visual. No marketing — operación real. El visitante lee esto y entiende que no es una startup nueva.</div>
+          <div class="sec-tags"><span class="tag tag-muted">Todos</span><span class="tag tag-muted">Count-up on scroll</span></div>
+        </div>
+      </div>
+
+      <div class="copy-card">
+        <div class="copy-card-head"><span class="copy-card-label">Headline de sección</span><span class="copy-card-spec">h2 · 40–48px</span></div>
+        <div class="copy-card-body">
+          <div class="c-h2">5 años construyendo<br>lo que ahora es tuyo.</div>
+          <div class="c-sub" style="margin-top:8px;">Estas no son proyecciones. Son los números de una operación activa.</div>
+        </div>
+      </div>
+
+      <div class="copy-card">
+        <div class="copy-card-head"><span class="copy-card-label">Métricas</span><span class="copy-card-spec">Geist Mono · tabular-nums · 4 columnas</span></div>
+        <div class="copy-card-body">
+          <div class="stat-row">
+            <div class="stat-box"><div class="stat-val">5+</div><div class="stat-lbl">Años de operación activa</div></div>
+            <div class="stat-box"><div class="stat-val">130+</div><div class="stat-lbl">Carrier appointments activos</div></div>
+            <div class="stat-box"><div class="stat-val">52</div><div class="stat-lbl">Jurisdicciones licenciadas</div></div>
+            <div class="stat-box"><div class="stat-val">6k+</div><div class="stat-lbl">Asegurados activos</div></div>
+          </div>
+          <div class="div"></div>
+          <div class="stat-row" style="grid-template-columns:1fr 1fr;">
+            <div class="stat-box"><div class="stat-val">100+</div><div class="stat-lbl">Agentes licenciados</div></div>
+            <div class="stat-box"><div class="stat-val">2021</div><div class="stat-lbl">Año de fundación · Miami, FL</div></div>
+          </div>
+          <div class="note" style="margin-top:10px;"><i class="ti ti-info-circle" aria-hidden="true"></i>Diseño editorial: números en 60–80px Geist Mono, labels en 12px. Spacing generoso — los números necesitan respirar. Sin cards, sin sombras — tabla editorial estilo FT.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S04 PROBLEMA -->
+    <div class="section-block" id="sec-s04">
+      <div class="sec-header">
+        <span class="sec-num">S04</span>
+        <div class="sec-info">
+          <div class="sec-name">El problema</div>
+          <div class="sec-purpose">Nombrar el caos actual del agente. Antes de la solución, el visitante se tiene que reconocer en el problema. Sin esto, el resto de la página no convierte.</div>
+          <div class="sec-tags"><span class="tag tag-muted">Agentes</span><span class="tag tag-muted">Resonancia emocional</span></div>
+        </div>
+      </div>
+
+      <div class="copy-card">
+        <div class="copy-card-head"><span class="copy-card-label">Headline</span><span class="copy-card-spec">h2 · 48px · peso extremo</span></div>
+        <div class="copy-card-body">
+          <div class="c-h2">Demasiados sistemas.<br>Un solo tú.</div>
+        </div>
+      </div>
+
+      <div class="copy-card">
+        <div class="copy-card-head"><span class="copy-card-label">Copy del dolor</span><span class="copy-card-spec">16–18px · párrafo único · honesto</span></div>
+        <div class="copy-card-body">
+          <div class="c-sub">Como agente de seguros operás entre portales de carriers que no hablan entre sí, un CRM que no controlás, spreadsheets que nadie actualiza y emails que esperan respuesta días. No es un sistema — es una acumulación de parches.</div>
+          <div class="c-sub">Si además tenés agentes bajo tu agencia, el problema se multiplica: sin visibilidad de su producción, sin forma de onboardearlos rápido, sin infraestructura que los soporte.</div>
+        </div>
+      </div>
+
+      <div class="copy-card">
+        <div class="copy-card-head"><span class="copy-card-label">Puntos de dolor — grid visual</span><span class="copy-card-spec">3×2 · iconografía stroke</span></div>
+        <div class="copy-card-body">
+          <div class="grid3" style="gap:8px;">
+            <div style="background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:12px;">
+              <i class="ti ti-plug-x" style="font-size:18px;color:var(--color-text-secondary);margin-bottom:6px;display:block;" aria-hidden="true"></i>
+              <div style="font-size:12px;font-weight:500;color:var(--color-text-primary);margin-bottom:3px;">Portales desconectados</div>
+              <div style="font-size:11px;color:var(--color-text-tertiary);line-height:1.45;">Cada carrier, su propio portal. Todo manual.</div>
+            </div>
+            <div style="background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:12px;">
+              <i class="ti ti-eye-off" style="font-size:18px;color:var(--color-text-secondary);margin-bottom:6px;display:block;" aria-hidden="true"></i>
+              <div style="font-size:12px;font-weight:500;color:var(--color-text-primary);margin-bottom:3px;">Downline invisible</div>
+              <div style="font-size:11px;color:var(--color-text-tertiary);line-height:1.45;">Sin visibilidad de tu equipo ni su producción.</div>
+            </div>
+            <div style="background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:12px;">
+              <i class="ti ti-file-spreadsheet" style="font-size:18px;color:var(--color-text-secondary);margin-bottom:6px;display:block;" aria-hidden="true"></i>
+              <div style="font-size:12px;font-weight:500;color:var(--color-text-primary);margin-bottom:3px;">Spreadsheets como sistema</div>
+              <div style="font-size:11px;color:var(--color-text-tertiary);line-height:1.45;">Clientes, comisiones, renovaciones — todo archivos.</div>
+            </div>
+            <div style="background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:12px;">
+              <i class="ti ti-mail-question" style="font-size:18px;color:var(--color-text-secondary);margin-bottom:6px;display:block;" aria-hidden="true"></i>
+              <div style="font-size:12px;font-weight:500;color:var(--color-text-primary);margin-bottom:3px;">Soporte sin SLAs</div>
+              <div style="font-size:11px;color:var(--color-text-tertiary);line-height:1.45;">Sin tickets, sin historial, sin tiempos de respuesta.</div>
+            </div>
+            <div style="background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:12px;">
+              <i class="ti ti-certificate-off" style="font-size:18px;color:var(--color-text-secondary);margin-bottom:6px;display:block;" aria-hidden="true"></i>
+              <div style="font-size:12px;font-weight:500;color:var(--color-text-primary);margin-bottom:3px;">Licencias sin alerta</div>
+              <div style="font-size:11px;color:var(--color-text-tertiary);line-height:1.45;">Te enterás cuando ya vencieron — o cuando el cliente pregunta.</div>
+            </div>
+            <div style="background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:12px;">
+              <i class="ti ti-database-off" style="font-size:18px;color:var(--color-text-secondary);margin-bottom:6px;display:block;" aria-hidden="true"></i>
+              <div style="font-size:12px;font-weight:500;color:var(--color-text-primary);margin-bottom:3px;">Producción opaca</div>
+              <div style="font-size:11px;color:var(--color-text-tertiary);line-height:1.45;">Tus datos en sistemas que no controlás directamente.</div>
+            </div>
+          </div>
+          <div class="note" style="margin-top:10px;"><i class="ti ti-info-circle" aria-hidden="true"></i>La transición visual de S04 → S05 es la más importante de la página. El problema (fragmentación, oscuridad) debe contrastar visualmente con la solución (unificación, claridad). Considerar cambio de background o separación generosa.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S05 PRODUCTOS -->
+    <div class="section-block" id="sec-s05">
+      <div class="sec-header">
+        <span class="sec-num">S05</span>
+        <div class="sec-info">
+          <div class="sec-name">Productos / Líneas de seguros</div>
+          <div class="sec-purpose">Qué pueden vender. Anclar la conversación en lo concreto. Sin esto, "seguros" es demasiado amplio para ser creíble.</div>
+          <div class="sec-tags"><span class="tag tag-muted">Todos</span><span class="tag tag-muted">3 categorías</span></div>
+        </div>
+      </div>
+
+      <div class="copy-card">
+        <div class="copy-card-head"><span class="copy-card-label">Headline</span><span class="copy-card-spec">h2 · 40–48px</span></div>
+        <div class="copy-card-body">
+          <div class="c-h2">Todo el portafolio.<br>Un solo contrato.</div>
+          <div class="c-sub" style="margin-top:8px;">Al unirte a Epicare tenés acceso a las tres categorías principales de seguros — con los carriers correctos para cada una.</div>
+        </div>
+      </div>
+
+      <div class="copy-card">
+        <div class="copy-card-head"><span class="copy-card-label">Líneas de producto</span><span class="copy-card-spec">3 categorías · lista editorial</span></div>
+        <div class="copy-card-body">
+          <div class="prod-line">
+            <span class="prod-cat">Life / Vida</span>
+            <div class="prod-items"><span class="pill-item"><i class="ti ti-heart-rate" aria-hidden="true"></i>Term Life</span><span class="pill-item"><i class="ti ti-heart-rate" aria-hidden="true"></i>Whole Life</span><span class="pill-item"><i class="ti ti-heart-rate" aria-hidden="true"></i>Final Expense</span></div>
+          </div>
+          <div class="prod-line">
+            <span class="prod-cat">Health / Salud</span>
+            <div class="prod-items"><span class="pill-item"><i class="ti ti-stethoscope" aria-hidden="true"></i>Short Term Medical</span><span class="pill-item"><i class="ti ti-stethoscope" aria-hidden="true"></i>Major Medical</span><span class="pill-item"><i class="ti ti-stethoscope" aria-hidden="true"></i>ACA / Marketplace</span><span class="pill-item"><i class="ti ti-stethoscope" aria-hidden="true"></i>Medicare Advantage (MAPD)</span></div>
+          </div>
+          <div class="prod-line" style="border-bottom:none;">
+            <span class="prod-cat">Supplementary</span>
+            <div class="prod-items"><span class="pill-item"><i class="ti ti-tooth" aria-hidden="true"></i>Dental</span><span class="pill-item"><i class="ti ti-eye" aria-hidden="true"></i>Vision</span><span class="pill-item"><i class="ti ti-alert-circle" aria-hidden="true"></i>Accident</span><span class="pill-item"><i class="ti ti-ribbon" aria-hidden="true"></i>Cancer</span><span class="pill-item"><i class="ti ti-building-hospital" aria-hidden="true"></i>Hospital Indemnity</span><span class="pill-item"><i class="ti ti-heart" aria-hidden="true"></i>Critical Illness</span><span class="pill-item"><i class="ti ti-user-heart" aria-hidden="true"></i>Senior Supplement</span></div>
+          </div>
+          <div class="note" style="margin-top:10px;"><i class="ti ti-info-circle" aria-hidden="true"></i>Dental y Vision son Supplementary — nunca categoría separada. ACA y MAPD son flujo asistido (no self-enrollment D2C). Esta distinción no va en el copy de la landing — es operacional.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ S06–S10 ═══════════════ -->
+  <div id="s06s10" class="page">
+
+    <!-- S06 FEATURES -->
+    <div class="section-block" id="sec-s06">
+      <div class="sec-header">
+        <span class="sec-num">S06</span>
+        <div class="sec-info">
+          <div class="sec-name">Features — La plataforma</div>
+          <div class="sec-purpose">Cómo funciona GO AMS y Eppigo juntos como sistema unificado. Dos grandes bloques: Back Office y Quote & Enroll. Concepto primero, features después.</div>
+          <div class="sec-tags"><span class="tag tag-blue">Agentes</span><span class="tag tag-muted">Feature principal</span></div>
+        </div>
+      </div>
+
+      <div class="copy-card">
+        <div class="copy-card-head"><span class="copy-card-label">Headline</span><span class="copy-card-spec">h2 · 48px</span></div>
+        <div class="copy-card-body">
+          <div class="c-h2">Un sistema.<br>Dos súper-poderes.</div>
+          <div class="c-sub" style="margin-top:8px;">Epicare te da las herramientas para administrar tu operación y producir nuevas ventas — todo desde un solo lugar.</div>
+        </div>
+      </div>
+
+      <div class="copy-card">
+        <div class="copy-card-head"><span class="copy-card-label">Bloque A — Back Office</span><span class="copy-card-spec">feature section</span></div>
+        <div class="copy-card-body">
+          <div class="c-eyebrow" style="color:var(--color-text-info);">Back Office · GO AMS</div>
+          <div class="c-h2" style="font-size:18px;margin-bottom:8px;">Controlá tu operación</div>
+          <div class="c-body">Todo lo que necesitás para administrar tu negocio: contratos, clientes, licencias, comisiones y soporte — sincronizado en tiempo real.</div>
+          <div class="div"></div>
+          <div class="feat"><i class="feat-icon ti ti-file-certificate" aria-hidden="true"></i><div><div class="feat-title">Appointments con 130+ carriers</div><div class="feat-desc">Tus contratos, writing numbers y comisiones visibles sin entrar al portal de cada carrier.</div></div></div>
+          <div class="feat"><i class="feat-icon ti ti-users" aria-hidden="true"></i><div><div class="feat-title">Book of Business completo</div><div class="feat-desc">Clientes activos, inactivos y prospectos con análisis de coverage gaps por perfil.</div></div></div>
+          <div class="feat"><i class="feat-icon ti ti-license" aria-hidden="true"></i><div><div class="feat-title">Licencias con alertas automáticas</div><div class="feat-desc">52 jurisdicciones monitoreadas. Alertas de vencimiento antes de que sea un problema.</div></div></div>
+          <div class="feat" style="border-bottom:none;"><i class="feat-icon ti ti-chart-bar" aria-hidden="true"></i><div><div class="feat-title">Dashboard de KPIs en tiempo real</div><div class="feat-desc">Alertas de retención, cumpleaños de clientes, oportunidades Medicare. Lo urgente siempre visible.</div></div></div>
+        </div>
+      </div>
+
+      <div class="copy-card">
+        <div class="copy-card-head"><span class="copy-card-label">Bloque B — Quote & Enroll</span><span class="copy-card-spec">feature section</span></div>
+        <div class="copy-card-body">
+          <div class="c-eyebrow" style="color:var(--color-text-warning);">Quote & Enroll · Powered by Eppigo</div>
+          <div class="c-h2" style="font-size:18px;margin-bottom:8px;">Producí más, más rápido</div>
+          <div class="c-body">Motor de cotización y enrollment directo desde tu portal. Cotizá con tus carriers, generá propuestas y enrollá con consentimiento digital.</div>
+          <div class="div"></div>
+          <div class="feat"><i class="feat-icon ti ti-calculator" aria-hidden="true"></i><div><div class="feat-title">Cotización multicarrier</div><div class="feat-desc">Cotizá solo con los carriers donde tenés appointment activo — ACA, Medicare, Life y Suplementarios.</div></div></div>
+          <div class="feat"><i class="feat-icon ti ti-presentation" aria-hidden="true"></i><div><div class="feat-title">Proposals web interactivas</div><div class="feat-desc">Propuestas con precios en tiempo real. El cliente las ve en su navegador. Tracking de apertura incluido.</div></div></div>
+          <div class="feat" style="border-bottom:none;"><i class="feat-icon ti ti-link" aria-hidden="true"></i><div><div class="feat-title">Links trazables + QR codes</div><div class="feat-desc">Links de cotización personalizados con QR descargable. Sabés cuándo el cliente abre el link.</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S07 SERVICIOS / GO HUB -->
+    <div class="section-block" id="sec-s07">
+      <div class="sec-header">
+        <span class="sec-num">S07</span>
+        <div class="sec-info">
+          <div class="sec-name">Servicios — El ecosistema GO</div>
+          <div class="sec-purpose">GO AMS como core del hub. Al unirse a Epicare no se recibe solo un portal — se recibe infraestructura completa. Esta sección diferencia de cualquier otra agencia.</div>
+          <div class="sec-tags"><span class="tag tag-muted">Todos</span><span class="tag tag-warn">GO AMS aquí</span><span class="tag tag-muted">Diferenciador</span></div>
+        </div>
+      </div>
+
+      <div class="copy-card">
+        <div class="copy-card-head"><span class="copy-card-label">Headline</span><span class="copy-card-spec">h2 · 48px</span></div>
+        <div class="copy-card-body">
+          <div class="c-h2">Un portal es una<br>herramienta.<br>Esto es infraestructura.</div>
+          <div class="c-sub" style="margin-top:8px;">Al contratar con Epicare tenés acceso al ecosistema GO — el conjunto de herramientas diseñado para que tu negocio de seguros opere como empresa, no como freelance.</div>
+        </div>
+      </div>
+
+      <div class="copy-card">
+        <div class="copy-card-head"><span class="copy-card-label">Servicios del ecosistema GO</span><span class="copy-card-spec">tabla editorial · 4 productos</span></div>
+        <div class="copy-card-body">
+          <div style="display:grid;grid-template-columns:110px 1fr 90px;font-size:10px;font-weight:500;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.06em;padding:5px 0;border-bottom:0.5px solid var(--color-border-tertiary);margin-bottom:2px;">
+            <span>Producto</span><span>Qué hace</span><span style="text-align:right;">Acceso</span>
+          </div>
+          <div style="display:grid;grid-template-columns:110px 1fr 90px;padding:11px 0;border-bottom:0.5px solid var(--color-border-tertiary);gap:0;align-items:start;">
+            <div><div style="font-size:13px;font-weight:500;color:var(--color-text-primary);">GO AMS</div><div style="font-size:11px;color:var(--color-text-tertiary);margin-top:2px;">ams.epicareinsurance.com</div></div>
+            <div style="font-size:12px;color:var(--color-text-secondary);line-height:1.5;padding-right:8px;">Broker portal completo — back office, quote & enroll, clientes, contratos, licencias y soporte en un sistema.</div>
+            <div style="text-align:right;"><span class="tag tag-blue" style="font-size:10px;">Incluido</span></div>
+          </div>
+          <div style="display:grid;grid-template-columns:110px 1fr 90px;padding:11px 0;border-bottom:0.5px solid var(--color-border-tertiary);gap:0;align-items:start;">
+            <div><div style="font-size:13px;font-weight:500;color:var(--color-text-primary);">GO CRM</div></div>
+            <div style="font-size:12px;color:var(--color-text-secondary);line-height:1.5;padding-right:8px;">CRM del agente con automatizaciones, pipelines de ventas y seguimiento de prospectos.</div>
+            <div style="text-align:right;font-size:12px;color:var(--color-text-tertiary);">Solicitud</div>
+          </div>
+          <div style="display:grid;grid-template-columns:110px 1fr 90px;padding:11px 0;border-bottom:0.5px solid var(--color-border-tertiary);gap:0;align-items:start;">
+            <div><div style="font-size:13px;font-weight:500;color:var(--color-text-primary);">GO CALLS</div></div>
+            <div style="font-size:12px;color:var(--color-text-secondary);line-height:1.5;padding-right:8px;">Compra de llamadas calificadas — leads listos para trabajar, filtrados por producto y estado.</div>
+            <div style="text-align:right;font-size:12px;color:var(--color-text-tertiary);">Solicitud</div>
+          </div>
+          <div style="display:grid;grid-template-columns:110px 1fr 90px;padding:11px 0;gap:0;align-items:start;">
+            <div><div style="font-size:13px;font-weight:500;color:var(--color-text-primary);">Academy</div></div>
+            <div style="font-size:12px;color:var(--color-text-secondary);line-height:1.5;padding-right:8px;">Plataforma de training, certificaciones AHIP/NIPR y recursos de ventas por línea de producto.</div>
+            <div style="text-align:right;font-size:12px;color:var(--color-text-tertiary);">Solicitud</div>
+          </div>
+          <div class="note" style="margin-top:10px;"><i class="ti ti-info-circle" aria-hidden="true"></i>El CTA de la card de GO AMS lleva a ams.epicareinsurance.com — la landing específica del producto. Los demás no tienen landing propia todavía.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S08 PARA QUIÉN -->
+    <div class="section-block" id="sec-s08">
+      <div class="sec-header">
+        <span class="sec-num">S08</span>
+        <div class="sec-info">
+          <div class="sec-name">Para quién es</div>
+          <div class="sec-purpose">Bifurcar el mensaje. Agente individual y Agency Owner tienen motivaciones distintas — si no les hablás diferente, ninguno siente que es para él.</div>
+          <div class="sec-tags"><span class="tag tag-blue">Agente</span><span class="tag tag-warn">Agency Owner</span><span class="tag tag-success">Sub-agencia</span></div>
+        </div>
+      </div>
+
+      <div class="copy-card">
+        <div class="copy-card-head"><span class="copy-card-label">Headline</span><span class="copy-card-spec">h2 · 48px</span></div>
+        <div class="copy-card-body">
+          <div class="c-h2">Diseñado para<br>cómo trabajás vos.</div>
+          <div class="c-sub" style="margin-top:8px;">Ya seas agente independiente o agencia con estructura multinivel, Epicare tiene el modelo para tu operación.</div>
+        </div>
+      </div>
+
+      <div class="copy-card">
+        <div class="copy-card-head"><span class="copy-card-label">Bifurcación de audiencias</span><span class="copy-card-spec">2 columnas · toggle en mobile</span></div>
+        <div class="copy-card-body">
+          <div class="grid2">
+            <div class="aud-col">
+              <div class="aud-title"><i class="ti ti-user-check" style="font-size:15px;color:var(--color-text-info);" aria-hidden="true"></i>Para agentes</div>
+              <ul class="aud-list">
+                <li>Dashboard que te dice qué atender hoy</li>
+                <li>Tus contratos con 130+ carriers en un lugar</li>
+                <li>Cotización y enrollment desde un solo portal</li>
+                <li>Propuestas profesionales en minutos</li>
+                <li>Licencias con alertas de vencimiento</li>
+                <li>Soporte a Epicare con SLAs visibles</li>
+                <li>Staff con acceso y permisos propios</li>
+              </ul>
+            </div>
+            <div class="aud-col">
+              <div class="aud-title"><i class="ti ti-building-estate" style="font-size:15px;color:var(--color-text-warning);" aria-hidden="true"></i>Para agencias</div>
+              <ul class="aud-list">
+                <li>Vista aggregada de todo tu downline</li>
+                <li>Onboarding de nuevos agentes desde el portal</li>
+                <li>Contratos de tu agencia centralizados</li>
+                <li>Métricas de producción por agente</li>
+                <li>Estructura multinivel soportada natively</li>
+                <li>Toggle Agency / Agent — operás en ambos modos</li>
+                <li>Tus agentes usan el mismo sistema que vos</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S09 COBERTURA GEOGRÁFICA -->
+    <div class="section-block" id="sec-s09">
+      <div class="sec-header">
+        <span class="sec-num">S09</span>
+        <div class="sec-info">
+          <div class="sec-name">Cobertura geográfica</div>
+          <div class="sec-purpose">52 jurisdicciones es un diferenciador real. La mayoría de agencias independientes están en 5–10 estados. Visualizar esto comunica escala sin palabras.</div>
+          <div class="sec-tags"><span class="tag tag-muted">Todos</span><span class="tag tag-muted">Mapa o grid visual</span></div>
+        </div>
+      </div>
+
+      <div class="copy-card">
+        <div class="copy-card-head"><span class="copy-card-label">Headline</span><span class="copy-card-spec">h2 · 40px</span></div>
+        <div class="copy-card-body">
+          <div class="c-h2">Donde estés,<br>Epicare opera.</div>
+          <div class="c-sub" style="margin-top:8px;">Licencias activas en los 50 estados, Washington DC y Puerto Rico. Tu agencia no necesita cambiar de operadora si tu libro crece hacia otro estado.</div>
+        </div>
+      </div>
+
+      <div class="copy-card">
+        <div class="copy-card-head"><span class="copy-card-label">Visual sugerido</span><span class="copy-card-spec">2 opciones</span></div>
+        <div class="copy-card-body">
+          <div class="feat"><i class="feat-icon ti ti-map" aria-hidden="true"></i><div><div class="feat-title">Opción A — Mapa de EE.UU. con estados highlighted</div><div class="feat-desc">SVG interactivo o ilustración flat. Todos los estados en color Epicare Blue (#35BBFD). Puerto Rico destacado aparte. Hover muestra nombre del estado.</div></div></div>
+          <div class="feat" style="border-bottom:none;"><i class="feat-icon ti ti-layout-grid" aria-hidden="true"></i><div><div class="feat-title">Opción B — Grid de abreviaciones de estados</div><div class="feat-desc">Grid de 52 badges (AL, AK, AZ... + DC + PR) en Geist Mono. Simple, legible, no requiere SVG complejo. Recomendada para MVP.</div></div></div>
+        </div>
+      </div>
+
+      <div class="copy-card">
+        <div class="copy-card-head"><span class="copy-card-label">Muestra del grid de estados</span><span class="copy-card-spec">52 jurisdicciones</span></div>
+        <div class="copy-card-body" style="line-height:2;">
+          {['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY','DC','PR'].map(s => `<span class="geo-badge">${s}</span>`).join('')}
+          <script>
+          (function(){
+            const states = ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY','DC','PR'];
+            const el = document.currentScript.parentElement;
+            el.innerHTML = states.map(s => `<span class="geo-badge">${s}</span>`).join('');
+          })();
+          </script>
+        </div>
+      </div>
+    </div>
+
+    <!-- S10 POR QUÉ EPICARE -->
+    <div class="section-block" id="sec-s10">
+      <div class="sec-header">
+        <span class="sec-num">S10</span>
+        <div class="sec-info">
+          <div class="sec-name">Por qué Epicare</div>
+          <div class="sec-purpose">El diferenciador emocional. No features — valores y filosofía. La pregunta que responde es "¿por qué contigo y no con otra agencia?". 4 pilares sólidos.</div>
+          <div class="sec-tags"><span class="tag tag-muted">Todos</span><span class="tag tag-muted">Emocional · no funcional</span></div>
+        </div>
+      </div>
+
+      <div class="copy-card">
+        <div class="copy-card-head"><span class="copy-card-label">Headline</span><span class="copy-card-spec">h2 · 48px</span></div>
+        <div class="copy-card-body">
+          <div class="c-h2">No somos el intermediario.<br>Somos la operación.</div>
+          <div class="c-sub" style="margin-top:8px;">Hay cientos de agencias en el mercado. La diferencia no está en los carriers que ofrecemos — está en cómo construimos la infraestructura para que vos produzcas más.</div>
+        </div>
+      </div>
+
+      <div class="copy-card">
+        <div class="copy-card-head"><span class="copy-card-label">4 pilares diferenciadores</span><span class="copy-card-spec">grid 2×2 · con border-left accent</span></div>
+        <div class="copy-card-body">
+          <div class="grid2" style="gap:10px;">
+            <div class="pillar">
+              <div class="pillar-title">Operación probada, no promesa</div>
+              <div class="pillar-desc">5 años de operación activa, 6,000+ asegurados y 100+ agentes. Te unís a algo que ya funciona — no a un experimento.</div>
+            </div>
+            <div class="pillar">
+              <div class="pillar-title">Tecnología que vos controlás</div>
+              <div class="pillar-desc">GO AMS te da visibilidad de tu negocio en tiempo real. Nunca más depender de reportes que llegan tarde o datos que no podés ver.</div>
+            </div>
+            <div class="pillar">
+              <div class="pillar-title">130+ carriers, un solo acuerdo</div>
+              <div class="pillar-desc">Al contratar con Epicare tenés acceso al portafolio completo. No necesitás negociar contratos por separado con cada carrier.</div>
+            </div>
+            <div class="pillar">
+              <div class="pillar-title">Equipo que resuelve</div>
+              <div class="pillar-desc">Soporte con SLAs reales, equipo de contracting, commissions y compliance. Cuando algo falla, alguien lo resuelve.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ S11–S15 ═══════════════ -->
+  <div id="s11s15" class="page">
+
+    <!-- S11 CARRIERS POR CATEGORÍA -->
+    <div class="section-block" id="sec-s11">
+      <div class="sec-header">
+        <span class="sec-num">S11</span>
+        <div class="sec-info">
+          <div class="sec-name">Carriers por categoría</div>
+          <div class="sec-purpose">Profundidad del portafolio. Los logos del carrusel (S02) dan escala — esta sección da especificidad. Organizado por línea de producto.</div>
+          <div class="sec-tags"><span class="tag tag-muted">Agentes</span><span class="tag tag-muted">Logos + categorías</span></div>
+        </div>
+      </div>
+      <div class="copy-card">
+        <div class="copy-card-head"><span class="copy-card-label">Headline</span><span class="copy-card-spec">h2 · 40px</span></div>
+        <div class="copy-card-body">
+          <div class="c-h2">El carrier correcto<br>para cada producto.</div>
+          <div class="c-sub" style="margin-top:8px;">130+ relaciones activas, organizadas por línea. Cuando tu cliente necesita un plan, tenés la opción correcta.</div>
+        </div>
+      </div>
+      <div class="copy-card">
+        <div class="copy-card-head"><span class="copy-card-label">Categorías con carriers destacados</span><span class="copy-card-spec">tabs o accordeon · con API badge en cotizables</span></div>
+        <div class="copy-card-body">
+          <div style="font-size:11px;font-weight:500;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;">Health / Medicare</div>
+          <div class="carrier-grid" style="margin-bottom:14px;"><span class="carrier-pill">Humana</span><span class="carrier-pill">UnitedHealthcare</span><span class="carrier-pill">Aetna</span><span class="carrier-pill">Cigna</span><span class="carrier-pill">Molina</span><span class="carrier-pill">Triple-S ✦</span><span class="carrier-pill">WellCare</span><span class="carrier-pill">Oscar</span></div>
+          <div style="font-size:11px;font-weight:500;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;">Life / Vida</div>
+          <div class="carrier-grid" style="margin-bottom:14px;"><span class="carrier-pill">Manhattan Life ✦</span><span class="carrier-pill">Mutual of Omaha ✦</span><span class="carrier-pill">Transamerica</span><span class="carrier-pill">Protective</span><span class="carrier-pill">Pacific Life</span></div>
+          <div style="font-size:11px;font-weight:500;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;">Supplementary</div>
+          <div class="carrier-grid"><span class="carrier-pill">Ameritas ✦</span><span class="carrier-pill">Allstate ✦</span><span class="carrier-pill">Cigna</span><span class="carrier-pill">Delta Dental</span><span class="carrier-pill">VSP</span><span class="carrier-pill">Aflac</span></div>
+          <div class="note note-danger" style="margin-top:10px;"><i class="ti ti-alert-triangle" aria-hidden="true"></i>✦ = carriers con API activa en Eppigo. Resto de la lista es ilustrativa — confirmar contra carriers-roster.md antes de publicar. Nunca usar logos sin autorización del carrier.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S12 TESTIMONIALS -->
+    <div class="section-block" id="sec-s12">
+      <div class="sec-header">
+        <span class="sec-num">S12</span>
+        <div class="sec-info">
+          <div class="sec-name">Testimonials</div>
+          <div class="sec-purpose">Prueba social. El agente más convencido por otro agente que por cualquier copy. Slot reservado — se activa post-lanzamiento con testimonials reales.</div>
+          <div class="sec-tags"><span class="tag tag-danger">Reservado · post-lanzamiento</span></div>
+        </div>
+      </div>
+      <div class="copy-card">
+        <div class="copy-card-head"><span class="copy-card-label">Headline (draft)</span><span class="copy-card-spec">h2 · 40px</span></div>
+        <div class="copy-card-body">
+          <div class="c-h2">Lo que dicen<br>los que ya están.</div>
+        </div>
+      </div>
+      <div class="copy-card">
+        <div class="copy-card-head"><span class="copy-card-label">Placeholder copy — estado de lanzamiento</span><span class="copy-card-spec">sección oculta hasta tener testimonials</span></div>
+        <div class="copy-card-body">
+          <div class="c-body">Formato ideal: nombre + estado + tipo de agente + quote de 2-3 líneas. 3 testimonials mínimo. Pedir a los primeros 10 agentes del go-live.</div>
+          <div class="c-body">Alternativa si no hay testimonials al lanzar: omitir la sección completamente. Una sección vacía o con placeholder daña más que no tenerla.</div>
+          <div class="note note-danger"><i class="ti ti-alert-triangle" aria-hidden="true"></i>No usar testimonials inventados ni atribuidos a personas no identificables. Si no hay reales, la sección no va en v1.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S13 CÓMO UNIRSE -->
+    <div class="section-block" id="sec-s13">
+      <div class="sec-header">
+        <span class="sec-num">S13</span>
+        <div class="sec-info">
+          <div class="sec-name">Cómo unirse</div>
+          <div class="sec-purpose">Reducir la fricción del "¿qué pasa si aplico?". 5 pasos sin jerga técnica. El visitante que llega aquí ya está interesado — solo necesita saber que es simple.</div>
+          <div class="sec-tags"><span class="tag tag-muted">Todos</span><span class="tag tag-muted">Reduce fricción</span></div>
+        </div>
+      </div>
+      <div class="copy-card">
+        <div class="copy-card-head"><span class="copy-card-label">Headline</span><span class="copy-card-spec">h2 · 40px</span></div>
+        <div class="copy-card-body">
+          <div class="c-h2">De cero a produciendo<br>en 5 pasos.</div>
+        </div>
+      </div>
+      <div class="copy-card">
+        <div class="copy-card-head"><span class="copy-card-label">Steps</span><span class="copy-card-spec">step flow · numbered</span></div>
+        <div class="copy-card-body">
+          <div class="step"><div class="step-n">1</div><div><div class="step-title">Aplicás</div><div class="step-desc">Completás el formulario con tu información básica. El equipo de contracting te contacta en 24–48 horas hábiles.</div></div></div>
+          <div class="step"><div class="step-n">2</div><div><div class="step-title">Hablamos</div><div class="step-desc">Una llamada para revisar tu perfil, tus carriers actuales y qué necesitás para producir con Epicare.</div></div></div>
+          <div class="step"><div class="step-n">3</div><div><div class="step-title">Firmás el acuerdo</div><div class="step-desc">Exclusive Producer Agreement firmado digitalmente desde GO AMS. Sin papel.</div></div></div>
+          <div class="step"><div class="step-n">4</div><div><div class="step-title">Configurás tu cuenta</div><div class="step-desc">Acceso a GO AMS activado. Configurás tu perfil, conectás tus carriers y revisás tu dashboard.</div></div></div>
+          <div class="step" style="border-bottom:none;"><div class="step-n" style="background:var(--color-background-info);color:var(--color-text-info);border:none;">5</div><div><div class="step-title" style="color:var(--color-text-info);">Producís</div><div class="step-desc">Cotizás, enrollás, gestionás clientes y hacés crecer tu libro — todo desde un solo sistema.</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S14 FAQ -->
+    <div class="section-block" id="sec-s14">
+      <div class="sec-header">
+        <span class="sec-num">S14</span>
+        <div class="sec-info">
+          <div class="sec-name">FAQ</div>
+          <div class="sec-purpose">Eliminar las objeciones que no van a decir en voz alta. 7 preguntas reales de agentes evaluando unirse. Tono directo — si la respuesta es "sí", se dice "sí".</div>
+          <div class="sec-tags"><span class="tag tag-muted">Todos</span><span class="tag tag-muted">Elimina objeciones</span></div>
+        </div>
+      </div>
+      <div class="copy-card">
+        <div class="copy-card-head"><span class="copy-card-label">Headline</span><span class="copy-card-spec">h2 · 40px</span></div>
+        <div class="copy-card-body">
+          <div class="c-h2">Las preguntas directas<br>merecen respuestas directas.</div>
+        </div>
+      </div>
+      <div class="copy-card">
+        <div class="copy-card-head"><span class="copy-card-label">7 preguntas frecuentes</span><span class="copy-card-spec">accordion o flat · respuestas directas</span></div>
+        <div class="copy-card-body">
+          <div class="faq"><div class="faq-q">¿Cuánto cuesta unirme a Epicare?</div><div class="faq-a">Contratar con Epicare no tiene costo. GO AMS está incluido en tu acuerdo de productor — sin suscripción mensual, sin costos ocultos de plataforma.</div></div>
+          <div class="faq"><div class="faq-q">¿Necesito estar en Florida?</div><div class="faq-a">No. Epicare opera en los 50 estados, DC y Puerto Rico. Podés unirte desde cualquier jurisdicción donde tengas licencia activa.</div></div>
+          <div class="faq"><div class="faq-q">Ya tengo mis propios appointments. ¿Los pierdo?</div><div class="faq-a">No. Tus appointments actuales quedan registrados en GO AMS. Además ganás acceso al portafolio de 130+ carriers con los que Epicare ya tiene contratos.</div></div>
+          <div class="faq"><div class="faq-q">Tengo una agencia con mis propios agentes. ¿Eso funciona?</div><div class="faq-a">Sí, de forma nativa. El rol Agency Owner incluye su propio módulo de Downline, Onboarding y vista aggregada de producción. Podés operar como agente y como agencia desde el mismo portal con un toggle.</div></div>
+          <div class="faq"><div class="faq-q">¿Cuándo está disponible GO AMS?</div><div class="faq-a">GO AMS lanza el 14 de julio de 2026. Si aplicás ahora, el equipo de contracting te contacta para completar el proceso antes del lanzamiento.</div></div>
+          <div class="faq"><div class="faq-q">¿Puedo tener staff con acceso a mi cuenta?</div><div class="faq-a">Sí. GO AMS tiene un módulo de Delegate Users donde creás cuentas independientes para tu staff con permisos personalizados. Audit trail completo de cada acción.</div></div>
+          <div class="faq" style="border-bottom:none;"><div class="faq-q">¿Epicare es una startup o una compañía establecida?</div><div class="faq-a">Epicare Insurance Corp es una corporación con 5+ años de operación activa, EIN 87-1093490, licenciada en 52 jurisdicciones y con marca registrada EPICARE® ante la USPTO (Reg. 8148738). No es una startup.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S15 CTA FINAL -->
+    <div class="section-block" id="sec-s15">
+      <div class="sec-header">
+        <span class="sec-num">S15</span>
+        <div class="sec-info">
+          <div class="sec-name">CTA Final</div>
+          <div class="sec-purpose">Cierre con urgencia real. Una sola decisión. El naranja (#F26023) aparece aquí y solo aquí como color de botón. Fecha de lanzamiento como anchor factual.</div>
+          <div class="sec-tags"><span class="tag tag-warn">Urgencia real</span><span class="tag tag-blue">Conversión</span><span class="tag tag-muted">Full width · dark bg</span></div>
+        </div>
+      </div>
+      <div class="copy-card">
+        <div class="copy-card-head"><span class="copy-card-label">Headline de cierre</span><span class="copy-card-spec">h2 · 56–64px · display weight</span></div>
+        <div class="copy-card-body">
+          <div class="c-h2" style="font-size:28px;">GO AMS lanza el<br>14 de julio.<br>¿Estás adentro?</div>
+          <div class="c-sub" style="margin-top:10px;">El proceso de contracting toma días — no horas. Aplicá ahora para estar listo el día del lanzamiento y empezar a producir desde el primer día.</div>
+        </div>
+      </div>
+      <div class="copy-card">
+        <div class="copy-card-head"><span class="copy-card-label">CTAs</span><span class="copy-card-spec">primario naranja · secundario texto</span></div>
+        <div class="copy-card-body">
+          <div class="cta-row">
+            <div class="cta-p" style="background:var(--color-background-warning);color:var(--color-text-warning);">Aplicar ahora →</div>
+            <div class="cta-s">Hablar con contracting</div>
+          </div>
+          <div class="cta-micro">Sin costo de plataforma · EPICARE® USPTO Reg. 8148738 · Miami, FL</div>
+          <div class="note"><i class="ti ti-info-circle" aria-hidden="true"></i>El naranja (#F26023) es exclusivo de esta sección y del S01 mobile CTA. En ningún otro lugar de la landing aparece como color de botón primario. Su reserva le da peso aquí.</div>
+        </div>
+      </div>
+      <div class="copy-card">
+        <div class="copy-card-head"><span class="copy-card-label">Trust strip final</span><span class="copy-card-spec">bajo los CTAs · 12px · muted</span></div>
+        <div class="copy-card-body" style="display:flex;gap:16px;flex-wrap:wrap;">
+          <div style="font-size:12px;color:var(--color-text-tertiary);display:flex;align-items:center;gap:5px;"><i class="ti ti-shield-check" aria-hidden="true"></i>Licenciado en 52 jurisdicciones</div>
+          <div style="font-size:12px;color:var(--color-text-tertiary);display:flex;align-items:center;gap:5px;"><i class="ti ti-certificate" aria-hidden="true"></i>EPICARE® USPTO Reg. 8148738</div>
+          <div style="font-size:12px;color:var(--color-text-tertiary);display:flex;align-items:center;gap:5px;"><i class="ti ti-building" aria-hidden="true"></i>Epicare Insurance Corp · Miami, FL · Est. 2021</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ NAV + FOOTER ═══════════════ -->
+  <div id="nav_footer" class="page">
+
+    <div class="section-block">
+      <div class="sec-header">
+        <span class="sec-num">NAV</span>
+        <div class="sec-info">
+          <div class="sec-name">Navegación global</div>
+          <div class="sec-purpose">Pill flotante. Minimalista. Logo izquierda, un solo CTA derecha. Visible siempre — no desaparece en scroll.</div>
+          <div class="sec-tags"><span class="tag tag-muted">Fixed · pill floating</span><span class="tag tag-muted">backdrop-blur</span></div>
+        </div>
+      </div>
+      <div class="copy-card">
+        <div class="copy-card-head"><span class="copy-card-label">Estructura del nav</span></div>
+        <div class="copy-card-body">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:0.5px solid var(--color-border-tertiary);flex-wrap:wrap;gap:8px;">
+            <span style="font-size:14px;font-weight:500;color:var(--color-text-primary);">Epicare Insurance Corp® <span style="font-size:11px;font-weight:400;color:var(--color-text-tertiary);">Miami, FL</span></span>
+            <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;">
+              <span style="font-size:13px;color:var(--color-text-secondary);">Productos</span>
+              <span style="font-size:13px;color:var(--color-text-secondary);">Para agencias</span>
+              <span style="font-size:13px;color:var(--color-text-secondary);">Carriers</span>
+              <span style="font-size:13px;color:var(--color-text-secondary);">FAQ</span>
+              <span class="cta-p" style="font-size:12px;padding:7px 16px;">Únete →</span>
+            </div>
+          </div>
+          <div class="note" style="margin-top:10px;"><i class="ti ti-info-circle" aria-hidden="true"></i>"Productos" en el nav es un dropdown o anchor que lleva a S07 (Servicios / GO HUB). "Para agencias" lleva a S08. "Carriers" a S02/S11. "FAQ" a S14. El CTA del nav es idéntico al del hero — siempre disponible.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <div class="sec-header">
+        <span class="sec-num">Footer</span>
+        <div class="sec-info">
+          <div class="sec-name">Footer</div>
+          <div class="sec-purpose">Cierre limpio. Marca, links mínimos, disclaimers legales requeridos. Confirma que es una compañía real. No newsletter, no árbol de links.</div>
+          <div class="sec-tags"><span class="tag tag-muted">Minimal · 3 columnas</span></div>
+        </div>
+      </div>
+      <div class="copy-card">
+        <div class="copy-card-head"><span class="copy-card-label">Estructura del footer</span></div>
+        <div class="copy-card-body">
+          <div class="grid3" style="gap:16px;padding-bottom:14px;border-bottom:0.5px solid var(--color-border-tertiary);margin-bottom:12px;">
+            <div>
+              <div style="font-size:14px;font-weight:500;color:var(--color-text-primary);margin-bottom:6px;">Epicare Insurance Corp®</div>
+              <div style="font-size:12px;color:var(--color-text-tertiary);line-height:1.6;">Agencia de seguros licenciada.<br>Miami, FL · Est. 2021</div>
+            </div>
+            <div>
+              <div style="font-size:10px;font-weight:500;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;">Ecosistema GO</div>
+              <div style="font-size:12px;color:var(--color-text-secondary);margin-bottom:4px;">GO AMS</div>
+              <div style="font-size:12px;color:var(--color-text-secondary);margin-bottom:4px;">GO CRM</div>
+              <div style="font-size:12px;color:var(--color-text-secondary);margin-bottom:4px;">GO CALLS</div>
+              <div style="font-size:12px;color:var(--color-text-secondary);">Epicare Academy</div>
+            </div>
+            <div>
+              <div style="font-size:10px;font-weight:500;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;">Compañía</div>
+              <div style="font-size:12px;color:var(--color-text-secondary);margin-bottom:4px;">epicareinsurance.com</div>
+              <div style="font-size:12px;color:var(--color-text-secondary);margin-bottom:4px;">Aplicar como agente</div>
+              <div style="font-size:12px;color:var(--color-text-secondary);margin-bottom:4px;">ams.epicareinsurance.com</div>
+              <div style="font-size:12px;color:var(--color-text-secondary);">Soporte</div>
+            </div>
+          </div>
+          <div style="font-size:11px;color:var(--color-text-tertiary);line-height:1.7;">© 2026 Epicare Insurance Corp. EIN 87-1093490 · EPICARE® USPTO Reg. 8148738 · NPN 19985316</div>
+          <div style="font-size:11px;color:var(--color-text-tertiary);margin-top:4px;line-height:1.6;">Epicare Insurance Corp is a licensed insurance agency, not a carrier. Products and availability vary by state. This is not an offer of coverage.</div>
+          <div style="display:flex;gap:14px;margin-top:8px;">
+            <span style="font-size:11px;color:var(--color-text-tertiary);">Privacy Policy</span>
+            <span style="font-size:11px;color:var(--color-text-tertiary);">Terms of Use</span>
+            <span style="font-size:11px;color:var(--color-text-tertiary);">State Licenses</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function switchPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('visible'));
+  document.querySelectorAll('.tnav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('visible');
+  event.target.classList.add('active');
+  buildJumpBar(id);
+  window.scrollTo(0,0);
+}
+
+const sectionMeta = {
+  's01s05': [['sec-s01','S01 Hero'],['sec-s02','S02 Carriers'],['sec-s03','S03 Métricas'],['sec-s04','S04 Problema'],['sec-s05','S05 Productos']],
+  's06s10': [['sec-s06','S06 Features'],['sec-s07','S07 Servicios'],['sec-s08','S08 Para quién'],['sec-s09','S09 Geografía'],['sec-s10','S10 Por qué']],
+  's11s15': [['sec-s11','S11 Carriers'],['sec-s12','S12 Testimonials'],['sec-s13','S13 Proceso'],['sec-s14','S14 FAQ'],['sec-s15','S15 CTA']],
+  'nav_footer': [['sec-s01','NAV'],['sec-s02','Footer']]
+};
+
+function buildJumpBar(page) {
+  const bar = document.getElementById('jumpBar');
+  const secs = sectionMeta[page] || [];
+  if (!secs.length) { bar.innerHTML = ''; return; }
+  bar.innerHTML = secs.map(([id,label]) => `<button class="jump-btn" onclick="scrollTo('${id}',this)">${label}</button>`).join('');
+}
+
+function scrollTo(id, btn) {
+  document.querySelectorAll('.jump-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const el = document.getElementById(id);
+  if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+buildJumpBar('overview');
+</script>

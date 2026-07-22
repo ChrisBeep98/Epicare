@@ -6,6 +6,8 @@ Protocolos **invocables** del framework Epicare. Son `.md` planos: cualquier cha
 
 | Protocolo | Cuándo usarlo |
 |:--|:--|
+| [`narrative-arc-protocol.md`](./narrative-arc-protocol.md) | **PLANIFICAR/MODIFICAR el arco de tensión de la página completa**: valles/picos, presupuesto de pins, añadir/quitar/reordenar secciones. Opera a nivel película; los demás protocolos obedecen su arco. |
+| [`copy-storytelling-protocol.md`](./copy-storytelling-protocol.md) | **ESCRIBIR/REVISAR copy** con la voz Epicare: headlines de tensión, motivo "operación real", tú neutro (jamás voseo), ES+EN, números solo del blueprint. |
 | [`creative-motion-protocol.md`](./creative-motion-protocol.md) | **CREAR secciones de alto impacto** (hero, narrativas, reveals). Carga scrollytelling-map + MOTION-BIBLE + arquetipos + recetario + Token-Live + RUBRIC en una llamada. |
 | [`redesign-section-protocol.md`](./redesign-section-protocol.md) | **REDISEÑAR una sección existente.** Censo → autopsia → 3 conceptos de paradigmas distintos (Motion Scores) → STOP para elegir → implementar → RUBRIC. Con reglas anti-loop. |
 | [`tokenized-design-protocol.md`](./tokenized-design-protocol.md) | **Token-Live Mode.** Diseño/refactor rápido sin hardcodear; margen creativo declarado. |

@@ -33,19 +33,15 @@ Copia y pega este prompt cada vez que terminemos un hito importante en una secci
 
 ## 📂 Carpetas de Sección Disponibles
 
-| Sección | Carpeta |
+| Sección (componente) | Carpeta |
 |:---|:---|
-| Header | `sections/header/` |
-| Hero (Liquid) | `sections/hero/` |
-| Hero Image | `sections/hero-image/` |
-| Services Bento | `sections/services-bento/` |
-| Wave Reveal | `sections/wave-reveal/` |
-| Integrations | `sections/integrations/` |
-| Comparison | `sections/comparison/` |
-| Testimonials | `sections/testimonials/` |
-| Dashboard Reveal | `sections/dashboard-reveal/` |
-| Calculator | `sections/calculator/` |
-| Footer | `sections/footer/` |
-| GO AMS Portal Hero | `sections/flowsell-hero/` |
+| Header (`HeaderEpicare`) | `sections/header/` |
+| Hero (`HeroEpicare` + Loader) | `sections/hero/` |
+| La Plataforma (`DarkGradientSection`) | `sections/services-bento/` |
+| Bento Ecosystem (`BentoGridEpicare`) | `sections/bento-ecosystem/` |
+| People Reveal (`PeopleRevealEpicare`) | `sections/people-reveal/` |
+| Product Lines (`ProductLinesEpicare`) | `sections/product-lines/` |
+| For Who (`ForWhoEpicare`) | `sections/for-who/` |
+| Design System (app interactiva) | `sections/design-system/` |
 
-> **Nota:** Si creas una nueva sección o página, también crea su carpeta en `sections/` con un `context.md` inicial.
+> **Nota:** si creas una nueva sección (p. ej. las 🔴 pendientes del arco: Problema, Cobertura-52, Cómo Unirse, FAQ, CTA-Final/Footer, WhyEpicare rediseñada), crea también su carpeta en `sections/` con un `context.md` inicial **y su entrada en `project-context/scrollytelling-map.md`**. Secciones sin carpeta aún: BrandsCarousel, Metrics, WhyEpicare (documentadas solo en el mapa).

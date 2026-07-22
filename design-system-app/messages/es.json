@@ -23,8 +23,8 @@
       "itemDiDesc": "Elevate your insurance workflow with intelligent tools.",
       "itemOmsTitle": "Item OMS",
       "itemOmsDesc": "The supreme operating system for elite agencies.",
-      "sectionTitle": "Todo el Ecosistema en un Solo Lugar",
-      "sectionDesc": "Descubre las herramientas y módulos diseñados para escalar tus operaciones sin fricciones.",
+      "sectionTitle": "Un portal es una herramienta. Esto es infraestructura.",
+      "sectionDesc": "El ecosistema GO: las herramientas para que tu negocio de seguros opere como empresa, no como freelance.",
       "card1Title": "GO CRM",
       "card1Desc": "Automatiza, rastrea y cierra más tratos con información en tiempo real, flujos de trabajo personalizados y asesoría bajo demanda.",
       "card4Title": "GO AMS",
@@ -35,6 +35,10 @@
       "card7Desc": "Desbloquea información útil y datos en tiempo real para optimizar tus operaciones diarias.",
       "card8Title": "Epicare Academy",
       "card8Desc": "Capacitación, recursos y certificaciones.",
+      "cardEppigoTitle": "Eppigo",
+      "cardEppigoDesc": "Motor de cotización y enrollment — cotiza con múltiples carriers, genera propuestas interactivas e inscribe digitalmente desde un solo portal.",
+      "cardSolutionsTitle": "Solutions",
+      "cardSolutionsDesc": "Campañas de marketing personalizadas, embudos de venta probados y sistemas automatizados para agentes.",
       "cardCta": "Explorar"
     },
     "darkGradient": {
