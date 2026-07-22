@@ -37,28 +37,15 @@ export default function WhyEpicare() {
           scrollTrigger: { trigger: sectionRef.current, start: 'top 75%' } 
         }
       );
-      
-      // Subtitle Reveal
-      gsap.fromTo('.we-desc', 
-        { opacity: 0, x: 40 },
-        { 
-          opacity: 1, 
-          x: 0, 
-          duration: 1.4, 
-          ease: 'power3.out', 
-          delay: 0.4,
-          scrollTrigger: { trigger: sectionRef.current, start: 'top 75%' } 
-        }
-      );
 
-      // Layered Unveiling for the Asymmetric Grid
+      // Layered Unveiling for the Grid
       gsap.fromTo('.we-pillar',
         { opacity: 0, y: 80 },
         { 
           opacity: 1, 
           y: 0, 
           duration: 1.5, 
-          stagger: 0.2, 
+          stagger: 0.15, 
           ease: 'power4.out',
           scrollTrigger: { 
             trigger: '.we-grid', 
@@ -76,46 +63,79 @@ export default function WhyEpicare() {
       ref={sectionRef} 
       className="relative w-full bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] pt-section-lg pb-section-xl overflow-hidden transition-colors duration-500"
     >
-      <div className="max-w-section-lg mx-auto w-full px-gutter-sm md:px-gutter-md">
-        
+      <div className="relative max-w-section-lg px-gutter-sm md:px-gutter-md">
         {/* ── MASSIVE ASYMMETRICAL HEADER ── */}
-        <header className="mb-24 md:mb-40 flex flex-col">
-          <h2 className="text-[12vw] md:text-[6.5vw] font-bold tracking-tighter text-[var(--color-text-Black-100)] dark:text-white leading-[0.9]">
-            <span className="block overflow-hidden pb-static-sm">
-              <span className="we-line inline-block">{t('headlineLine1')}</span>
-            </span>
-            <span className="block overflow-hidden pb-static-sm">
-              <span className="we-line inline-block text-[var(--color-brand-orange)]">{t('headlineLine2')}</span>
-            </span>
-          </h2>
-          
-          <div className="mt-12 md:mt-16 w-full max-w-2xl md:ml-auto md:mr-[10%]">
-            <p className="we-desc text-body-xl md:text-[1.75rem] font-light text-[var(--color-text-Black-100)]/80 dark:text-white/80 leading-snug text-balance">
-              {t('subtitle')}
-            </p>
+        <header className="mb-24 md:mb-40 grid-layout">
+          <div className="col-start-1 col-span-6 row-start-1 md:col-start-1 md:col-span-12 md:row-start-1 flex flex-col">
+            <h2 className="text-[12vw] md:text-[6.5vw] font-bold tracking-tighter text-[var(--color-text-Black-100)] dark:text-white leading-[0.9]">
+              <span className="block overflow-hidden pb-static-sm">
+                <span className="we-line inline-block">{t('headlineLine1')}</span>
+              </span>
+              <span className="block overflow-hidden pb-static-sm">
+                <span className="we-line inline-block text-[var(--color-brand-orange)]">{t('headlineLine2')}</span>
+              </span>
+            </h2>
           </div>
         </header>
 
-        {/* ── RAW EDITORIAL 2x2 GRID ── */}
-        <div className="we-grid grid grid-cols-1 md:grid-cols-2 gap-x-fluid-xl gap-y-16 md:gap-y-fluid-xl">
-          {pillars.map((pillar, i) => (
-            <article 
-              key={i} 
-              className={`we-pillar flex flex-col ${i % 2 === 1 ? 'md:mt-32' : ''}`}
-            >
-              <h3 
-                className="text-display-sm md:text-display font-semibold tracking-tight text-[var(--color-text-Black-100)] dark:text-white mb-6"
-                style={{ color: pillar.accent === 'var(--color-brand-blue)' ? 'var(--color-brand-blue)' : pillar.accent === 'var(--color-brand-orange)' ? 'var(--color-brand-orange)' : undefined }}
-              >
-                {pillar.title}
-              </h3>
-              <p className="text-body-lg text-[var(--color-text-muted)] font-light leading-relaxed max-w-md">
-                {pillar.desc}
-              </p>
-            </article>
-          ))}
-        </div>
+        {/* ── MINIMALIST 4-COL GRID ── */}
+        <div className="we-grid grid-layout gap-y-16 md:gap-y-24 mt-20 md:mt-32">
+          {/* Pillar 1 */}
+          <article className="we-pillar col-start-1 col-span-6 row-start-1 md:col-start-1 md:col-span-3 md:row-start-1 flex flex-col pt-6 md:pt-8 border-t border-[var(--color-border-Strokes-default)]">
+            <div className="flex items-center justify-between mb-8 md:mb-12 w-full">
+              <span className="text-data text-[var(--color-text-muted)] font-medium">01</span>
+              <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: pillars[0].accent }} aria-hidden="true" />
+            </div>
+            <h3 className="text-h5 md:text-h4 font-medium tracking-tight text-[var(--color-text-Black-100)] dark:text-white mb-4 text-left">
+              {pillars[0].title}
+            </h3>
+            <p className="text-body-md text-[var(--color-text-muted)] font-light leading-relaxed max-w-sm text-left">
+              {pillars[0].desc}
+            </p>
+          </article>
 
+          {/* Pillar 2 */}
+          <article className="we-pillar col-start-1 col-span-6 row-start-2 md:col-start-7 md:col-span-3 md:row-start-1 flex flex-col pt-6 md:pt-8 border-t border-[var(--color-border-Strokes-default)]">
+            <div className="flex items-center justify-between mb-8 md:mb-12 w-full">
+              <span className="text-data text-[var(--color-text-muted)] font-medium">02</span>
+              <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: pillars[1].accent }} aria-hidden="true" />
+            </div>
+            <h3 className="text-h5 md:text-h4 font-medium tracking-tight text-[var(--color-text-Black-100)] dark:text-white mb-4 text-left">
+              {pillars[1].title}
+            </h3>
+            <p className="text-body-md text-[var(--color-text-muted)] font-light leading-relaxed max-w-sm text-left">
+              {pillars[1].desc}
+            </p>
+          </article>
+
+          {/* Pillar 3 */}
+          <article className="we-pillar col-start-1 col-span-6 row-start-3 md:col-start-4 md:col-span-3 md:row-start-1 flex flex-col pt-6 md:pt-8 border-t border-[var(--color-border-Strokes-default)]">
+            <div className="flex items-center justify-between mb-8 md:mb-12 w-full">
+              <span className="text-data text-[var(--color-text-muted)] font-medium">03</span>
+              <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: pillars[2].accent }} aria-hidden="true" />
+            </div>
+            <h3 className="text-h5 md:text-h4 font-medium tracking-tight text-[var(--color-text-Black-100)] dark:text-white mb-4 text-left">
+              {pillars[2].title}
+            </h3>
+            <p className="text-body-md text-[var(--color-text-muted)] font-light leading-relaxed max-w-sm text-left">
+              {pillars[2].desc}
+            </p>
+          </article>
+
+          {/* Pillar 4 */}
+          <article className="we-pillar col-start-1 col-span-6 row-start-4 md:col-start-10 md:col-span-3 md:row-start-1 flex flex-col pt-6 md:pt-8 border-t border-[var(--color-border-Strokes-default)]">
+            <div className="flex items-center justify-between mb-8 md:mb-12 w-full">
+              <span className="text-data text-[var(--color-text-muted)] font-medium">04</span>
+              <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: pillars[3].accent }} aria-hidden="true" />
+            </div>
+            <h3 className="text-h5 md:text-h4 font-medium tracking-tight text-[var(--color-text-Black-100)] dark:text-white mb-4 text-left">
+              {pillars[3].title}
+            </h3>
+            <p className="text-body-md text-[var(--color-text-muted)] font-light leading-relaxed max-w-sm text-left">
+              {pillars[3].desc}
+            </p>
+          </article>
+        </div>
       </div>
     </section>
   );
