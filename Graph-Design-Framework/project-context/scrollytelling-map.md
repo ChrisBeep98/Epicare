@@ -80,7 +80,7 @@ El scrollbar es la línea de tiempo de una película: la página alterna **valle
 | 1 | Loader + Hero | HOOK · pin 1 | ✅ (copy swap) |
 | 2 | BrandsCarousel (+badges API, absorbe carriers-por-categoría) | valle credibilidad | ✅ |
 | 3 | Metrics **(se mueve antes de DarkGradient)** | valle prueba + mini-pico | ✅ ⚠️ números |
-| 4 | **El Problema** (dark forzado) | valle emocional | 🔴 construir |
+| 4 | **El Problema** (dark forzado) | valle emocional | ✅ (text-birth + grid light-up) |
 | 5 | La Plataforma (DarkGradient reenfocada) | solución (dark→light: la transición clave) | ✅ (copy swap) |
 | 6 | Ecosistema GO (BentoGrid) | **PICO 2 · pin** | ✅ |
 | 7 | PeopleReveal | respiro humano | ✅ |

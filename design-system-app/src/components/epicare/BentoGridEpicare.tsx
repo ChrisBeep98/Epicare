@@ -259,8 +259,23 @@ export default function BentoGridEpicare() {
         };
         hit?.addEventListener('click', onSeek);
 
+        // External Jump Event (Triggered by CTA in ProblemSection)
+        const onJump = (e: Event) => {
+            const customEvent = e as CustomEvent;
+            const targetIndex = customEvent.detail?.index || 0; // index 1 is GO AMS
+            const st = stRef.current;
+            if (!st) return;
+            // cards.length is 6 (1 title + 5 product cards). Index 1 is the second card.
+            const target = st.start + (targetIndex / (cards.length - 1)) * (st.end - st.start);
+            const lenis = (window as unknown as { lenis?: { scrollTo: (y: number, o?: object) => void } }).lenis;
+            if (lenis) lenis.scrollTo(target, { duration: 1.5 });
+            else window.scrollTo({ top: target, behavior: 'smooth' });
+        };
+        window.addEventListener('epicare-jump', onJump);
+
         return () => {
             hit?.removeEventListener('click', onSeek);
+            window.removeEventListener('epicare-jump', onJump);
             stRef.current = null;
             gsap.set(track, { clearProps: "all" });
             cards.forEach((c: any) => gsap.set(c, { clearProps: "all" }));
@@ -340,6 +355,7 @@ export default function BentoGridEpicare() {
 
   return (
       <section
+        id="plataforma"
         ref={containerRef}
         className="relative w-full h-auto md:h-screen overflow-visible md:overflow-hidden bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] z-20"
         style={{ perspective: '2000px' }}
