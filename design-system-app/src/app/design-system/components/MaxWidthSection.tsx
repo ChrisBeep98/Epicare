@@ -18,10 +18,9 @@ export default function MaxWidthSection() {
 
           <div className="flex flex-col gap-12 items-center w-full">
             {/* Dashboard Demo - Contenedor con Escala Real */}
-            <motion.div 
-               className="w-full mx-auto bg-[var(--color-surface-BG-base)] border border-[var(--color-border-Strokes-default)] rounded-2xl p-6 shadow-elevation-5 flex flex-col"
-               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-               animate={{ 
+            <div
+               className="w-full mx-auto bg-[var(--color-surface-BG-base)] border border-[var(--color-border-Strokes-default)] rounded-2xl p-6 shadow-elevation-5 flex flex-col transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
+               style={{
                  maxWidth: activeMaxWidth === 'max-w-section-sm' ? '768px' : activeMaxWidth === 'max-w-section-md' ? '1024px' : activeMaxWidth === 'max-w-section-lg' ? '1440px' : '1536px'
                }}
             >
@@ -53,7 +52,7 @@ export default function MaxWidthSection() {
                     <span className="text-caption text-[var(--color-text-muted)] mt-1 block">({activeMaxWidth})</span>
                  </p>
               </div>
-            </motion.div>
+            </div>
 
             {/* Controles de Medida (La tabla debajo) */}
             <div className="flex flex-wrap justify-center gap-4 w-full">
