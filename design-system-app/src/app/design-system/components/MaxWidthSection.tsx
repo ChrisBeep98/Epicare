@@ -18,10 +18,11 @@ export default function MaxWidthSection() {
 
           <div className="flex flex-col gap-12 items-center w-full">
             {/* Dashboard Demo - Contenedor con Escala Real */}
-            <div 
-               className="w-full mx-auto bg-[var(--color-surface-BG-base)] border border-[var(--color-border-Strokes-default)] rounded-2xl p-6 shadow-elevation-5 transition-all duration-700 flex flex-col"
-               style={{ 
-                 maxWidth: activeMaxWidth === 'max-w-section-sm' ? '768px' : activeMaxWidth === 'max-w-section-md' ? '1024px' : activeMaxWidth === 'max-w-section-lg' ? '1280px' : '1536px'
+            <motion.div 
+               className="w-full mx-auto bg-[var(--color-surface-BG-base)] border border-[var(--color-border-Strokes-default)] rounded-2xl p-6 shadow-elevation-5 flex flex-col"
+               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+               animate={{ 
+                 maxWidth: activeMaxWidth === 'max-w-section-sm' ? '768px' : activeMaxWidth === 'max-w-section-md' ? '1024px' : activeMaxWidth === 'max-w-section-lg' ? '1440px' : '1536px'
                }}
             >
               {/* Fake UI Header */}
@@ -47,20 +48,20 @@ export default function MaxWidthSection() {
                  <p className="text-body-sm text-[var(--color-text-hint)] text-center">
                     Demostración fluida (Max-Width):<br/>
                     <strong className="text-[var(--color-text-primary)] text-xl mt-2 block">
-                      {activeMaxWidth === 'max-w-section-sm' ? '768px' : activeMaxWidth === 'max-w-section-md' ? '1024px' : activeMaxWidth === 'max-w-section-lg' ? '1280px' : '1536px'}
+                      {activeMaxWidth === 'max-w-section-sm' ? '768px' : activeMaxWidth === 'max-w-section-md' ? '1024px' : activeMaxWidth === 'max-w-section-lg' ? '1440px' : '1536px'}
                     </strong>
                     <span className="text-caption text-[var(--color-text-muted)] mt-1 block">({activeMaxWidth})</span>
                  </p>
               </div>
-            </div>
+            </motion.div>
 
             {/* Controles de Medida (La tabla debajo) */}
             <div className="flex flex-wrap justify-center gap-4 w-full">
               {[
                 { id: 'max-w-section-sm', px: '768px', rem: '48rem', desc: 'Formularios y Login' },
-                { id: 'max-w-section-md', px: '1024px', rem: '64rem', desc: 'Artículos / Detalle' },
-                { id: 'max-w-section-lg', px: '1280px', rem: '80rem', desc: 'Dashboards GO AMS' },
-                { id: 'max-w-section-xl', px: '1536px', rem: '96rem', desc: 'Tablas Extensas' }
+                { id: 'max-w-section-md', px: '1024px', rem: '64rem', desc: 'Hero Subtitles / 2-Col layouts' },
+                { id: 'max-w-section-lg', px: '1440px', rem: '90rem', desc: 'Dashboards GO AMS / Full Grids' },
+                { id: 'max-w-section-xl', px: '1536px', rem: '96rem', desc: 'Ultra-wide Cinematic (hero covers)' }
               ].map((opt) => (
                 <button
                   key={opt.id}

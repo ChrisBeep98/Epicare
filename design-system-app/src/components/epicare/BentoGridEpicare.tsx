@@ -302,13 +302,23 @@ export default function BentoGridEpicare() {
       desc: t('card4Desc'),
       image: asset("/Files/Features/card_5_image.jpg"),
       videoLight: asset("/Files/Features/Go_AMS_Light.mp4"),
+      videoDark: asset("/Files/Features/Go_AMS_Dark.mp4"),
+      videoDarkFullBackground: true,
+      mediaClassNameDark: "dark:bg-[#0D0D0E]",
+      cardClassNameDark: "dark:bg-[#0D0D0E]",
       logo: <AmsLogo className="h-10 w-auto mb-6 drop-shadow-[0_0_15px_rgba(90,200,250,0.5)]" />
     },
     {
-      title: t('card6Title'),
-      desc: t('card6Desc'),
+      title: t('card8Title'),
+      desc: t('card8Desc'),
       image: asset("/Files/Features/Wireframe_monitor_with_headset.jpeg"),
-      logo: <CallsLogo className="h-10 w-auto mb-6 drop-shadow-[0_0_15px_rgba(90,200,250,0.5)]" />
+      videoLight: asset("/Files/Features/Academy_Light.mp4"),
+      videoLightContain: true,
+      videoDark: asset("/Files/Features/Academy_Dark.mp4"),
+      videoDarkFullBackground: true,
+      mediaClassNameDark: "dark:bg-[#0D0D0E]",
+      cardClassNameDark: "dark:bg-[#0D0D0E]",
+      logo: null
     },
     {
       title: t('card7Title'),
@@ -380,8 +390,6 @@ export default function BentoGridEpicare() {
                     src={(card as any).videoDark}
                     className="absolute inset-0 w-full h-full object-cover object-center z-0 hidden dark:block" 
                   />
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_40%,rgba(0,0,0,0.6)_120%)] pointer-events-none z-[1] hidden dark:block" />
-                  <div className="absolute inset-y-0 left-0 w-2/3 bg-gradient-to-r from-black/40 to-transparent pointer-events-none z-[1] hidden dark:block" />
                 </>
               )}
 
@@ -411,7 +419,7 @@ export default function BentoGridEpicare() {
                     <>
                       {/* LIGHT MODE MEDIA */}
                       {hasLightVideo ? (
-                        <video autoPlay loop muted playsInline src={(card as any).videoLight} className={`absolute inset-0 w-full h-full object-cover object-center ${hasDarkVideo || hasImage ? 'dark:hidden' : ''}`} />
+                        <video autoPlay loop muted playsInline src={(card as any).videoLight} className={`absolute inset-0 w-full h-full ${(card as any).videoLightContain ? 'object-contain p-16' : 'object-cover'} object-center ${hasDarkVideo || hasImage ? 'dark:hidden' : ''}`} />
                       ) : hasImage ? (
                         <img src={card.image} alt={card.title} className={`absolute inset-0 w-full h-full object-cover object-center ${hasDarkVideo ? 'dark:hidden' : ''}`} />
                       ) : null}

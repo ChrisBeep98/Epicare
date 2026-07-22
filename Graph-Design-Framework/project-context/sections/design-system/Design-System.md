@@ -80,7 +80,7 @@ El sistema tipográfico usa **tres familias**, cada una atada a un rol semántic
 **Max Widths:**
 - `--max-w-section-sm`: 768px
 - `--max-w-section-md`: 1024px
-- `--max-w-section-lg`: fluido `clamp(64rem, 57.5rem + 14vw, 80rem)` — 1080p ≈ 1190px, 2K → 1280px (cap)
+- `--max-w-section-lg`: fluido `clamp(64rem, 46rem + 30vw, 90rem)` — 1440px (90rem)
 - `--max-w-section-xl`: fluido `clamp(76rem, 67rem + 18vw, 96rem)` — 1080p ≈ 1420px, 2K → 1536px (cap)
 
 **Márgenes y Paddings (Static Spacing Scale):**

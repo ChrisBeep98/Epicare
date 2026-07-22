@@ -7,6 +7,7 @@ import BentoGridEpicare from "@/components/epicare/BentoGridEpicare";
 import PeopleRevealEpicare from "@/components/epicare/PeopleRevealEpicare";
 import ProductLinesEpicare from "@/components/epicare/ProductLinesEpicare";
 import ForWhoEpicare from "@/components/epicare/ForWhoEpicare";
+import WhyEpicare from "@/components/epicare/WhyEpicare";
 
 export default function EpicareLandingPage() {
   return (
@@ -20,6 +21,7 @@ export default function EpicareLandingPage() {
       <PeopleRevealEpicare />
       <ProductLinesEpicare />
       <ForWhoEpicare />
+      <WhyEpicare />
     </main>
   );
 }

@@ -34,7 +34,7 @@ html.lenis body { height: auto; }
   --max-w-section-sm: 48rem; /* 768px */
   --max-w-section-md: 64rem; /* 1024px */
   /* Fluid: shrink gently on 1080p desktops, keep the roomy feel on 2K+ (caps at 1280/1536). */
-  --max-w-section-lg: clamp(64rem, calc(57.5rem + 14vw), 80rem); /* 1440≈1120 · 1920≈1190 · 2560→1280 */
+  --max-w-section-lg: clamp(64rem, calc(46rem + 30vw), 90rem); /* 1440≈1168 · 1920≈1312 · 2560→1440 */
   --max-w-section-xl: clamp(76rem, calc(67rem + 18vw), 96rem); /* 1440≈1330 · 1920≈1420 · 2560→1536 */
 
   /* Shadow Elevation System (Light Mode) */

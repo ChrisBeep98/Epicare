@@ -107,8 +107,8 @@ export default function ForWhoEpicare() {
         </header>
       </div>
 
-      {/* ── DUAL FULL-BLEED PANELS ── */}
-      <div className="fw-stage mt-14 md:mt-20 flex flex-col lg:flex-row w-full gap-3 px-gutter-sm md:px-gutter-md">
+      {/* ── DUAL PANELS ── */}
+      <div className="fw-stage mt-14 md:mt-20 flex flex-col lg:flex-row w-full max-w-section-lg mx-auto gap-3 px-gutter-sm md:px-gutter-md">
         {audiences.map((aud) => {
           const accent = ACCENT[aud.key];
           return (

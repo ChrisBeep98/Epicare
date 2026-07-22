@@ -32,7 +32,9 @@
       "card6Title": "GO CALLS",
       "card6Desc": "Connect and communicate seamlessly with crystal clear voice integration and tracking.",
       "card7Title": "Smart Metrics",
-      "card7Desc": "Unlock actionable insights and real-time data to optimize your daily operations."
+      "card7Desc": "Unlock actionable insights and real-time data to optimize your daily operations.",
+      "card8Title": "Epicare Academy",
+      "card8Desc": "Training, resources and certifications."
     },
     "darkGradient": {
       "sectionTitle": "Everything You Need to Succeed",
@@ -159,6 +161,19 @@
       "agentImg2Alt": "Agent with headset providing support",
       "agencyImg1Alt": "Agency pipeline across stages",
       "agencyImg2Alt": "Aggregated agency composition"
+    },
+    "whyEpicare": {
+      "headlineLine1": "We are not the middleman.",
+      "headlineLine2": "We are the operation.",
+      "subtitle": "There are hundreds of agencies in the market. The difference isn't in the carriers we offer — it's in how we build the infrastructure so you can produce more.",
+      "pillar1Title": "Proven operation, not a promise",
+      "pillar1Desc": "5 years of active operation, 6,000+ insured and 100+ agents. You join something that already works — not an experiment.",
+      "pillar2Title": "Technology you control",
+      "pillar2Desc": "GO AMS gives you visibility of your business in real-time. Never again depend on late reports or data you can't see.",
+      "pillar3Title": "130+ carriers, one agreement",
+      "pillar3Desc": "By contracting with Epicare you get access to the full portfolio. You don't need to negotiate separate contracts with each carrier.",
+      "pillar4Title": "A team that solves",
+      "pillar4Desc": "Support with real SLAs, contracting, commissions, and compliance teams. When something fails, someone resolves it."
     }
   }
 }

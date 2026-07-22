@@ -32,7 +32,9 @@
       "card6Title": "GO CALLS",
       "card6Desc": "Conéctate y comunícate sin problemas con una integración de voz nítida y seguimiento continuo.",
       "card7Title": "Métricas Inteligentes",
-      "card7Desc": "Desbloquea información útil y datos en tiempo real para optimizar tus operaciones diarias."
+      "card7Desc": "Desbloquea información útil y datos en tiempo real para optimizar tus operaciones diarias.",
+      "card8Title": "Epicare Academy",
+      "card8Desc": "Capacitación, recursos y certificaciones."
     },
     "darkGradient": {
       "sectionTitle": "Todo lo que necesitas para tener éxito",
@@ -159,6 +161,19 @@
       "agentImg2Alt": "Agente con headset dando soporte",
       "agencyImg1Alt": "Pipeline de la agencia por etapas",
       "agencyImg2Alt": "Composición agregada de la agencia"
+    },
+    "whyEpicare": {
+      "headlineLine1": "No somos el intermediario.",
+      "headlineLine2": "Somos la operación.",
+      "subtitle": "Hay cientos de agencias en el mercado. La diferencia no está en los carriers que ofrecemos — está en cómo construimos la infraestructura para que vos produzcas más.",
+      "pillar1Title": "Operación probada, no promesa",
+      "pillar1Desc": "5 años de operación activa, 6,000+ asegurados y 100+ agentes. Te unís a algo que ya funciona — no a un experimento.",
+      "pillar2Title": "Tecnología que vos controlás",
+      "pillar2Desc": "GO AMS te da visibilidad de tu negocio en tiempo real. Nunca más depender de reportes que llegan tarde o datos que no podés ver.",
+      "pillar3Title": "130+ carriers, un solo acuerdo",
+      "pillar3Desc": "Al contratar con Epicare tenés acceso al portafolio completo. No necesitás negociar contratos por separado con cada carrier.",
+      "pillar4Title": "Equipo que resuelve",
+      "pillar4Desc": "Soporte con SLAs reales, equipo de contracting, commissions y compliance. Cuando algo falla, alguien lo resuelve."
     }
   }
 }
