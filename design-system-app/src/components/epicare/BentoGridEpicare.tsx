@@ -379,60 +379,72 @@ export default function BentoGridEpicare() {
           {ecosytemCards.map((card, idx) => (
             <div 
               key={idx} 
-              className={`coverflow-card shrink-0 w-[85vw] lg:w-[50vw] h-[60vh] md:h-[60vh] rounded-[24px] overflow-hidden shadow-elevation-4 border border-[var(--color-border-Strokes-default)] relative transform-gpu flex flex-col md:flex-row ${(card as any).cardClassNameDark ? `bg-[var(--color-surface-BG-white)] ${(card as any).cardClassNameDark}` : 'bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)]'}`}
+              className="coverflow-card shrink-0 w-[85vw] lg:w-[50vw] h-[60vh] md:h-[60vh] relative transform-gpu"
               style={{ transformOrigin: 'center center' }}
             >
-              {/* Full Background Dark Video */}
-              {(card as any).videoDark && (card as any).videoDarkFullBackground && (
-                <>
-                  <video 
-                    autoPlay loop muted playsInline
-                    src={(card as any).videoDark}
-                    className="absolute inset-0 w-full h-full object-cover object-center z-0 hidden dark:block" 
-                  />
-                </>
-              )}
+              <div className={`group absolute inset-0 w-full h-full rounded-[24px] overflow-hidden shadow-elevation-4 border border-[var(--color-border-Strokes-default)] flex flex-col md:flex-row transition-transform duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:scale-[1.02] cursor-pointer ${(card as any).cardClassNameDark ? `bg-[var(--color-surface-BG-white)] ${(card as any).cardClassNameDark}` : 'bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)]'}`}>
+                
+                {/* Floating Action Bubble (Liquid Glass Pill) */}
+                <div className="absolute bottom-5 right-5 md:bottom-8 md:right-8 h-10 md:h-12 pl-4 pr-1.5 md:pl-5 md:pr-2 bg-white/30 dark:bg-black/30 backdrop-blur-md border border-[var(--color-brand-blue)]/20 dark:border-white/10 text-[var(--color-text-Black-100)] dark:text-white rounded-full flex items-center justify-center gap-2 md:gap-3 overflow-hidden shadow-elevation-2 z-50 transition-all duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105 group-hover:shadow-elevation-4 group-hover:bg-[var(--color-brand-blue)] group-hover:border-[var(--color-brand-blue)] group-hover:text-white">
+                  <span className="text-body-sm font-medium tracking-wide">{t('cardCta')}</span>
+                  <div className="relative w-7 h-7 md:w-8 md:h-8 rounded-full bg-[var(--color-brand-blue)]/10 dark:bg-[var(--color-brand-cyan)]/10 text-[var(--color-brand-blue)] dark:text-[var(--color-brand-cyan)] flex items-center justify-center overflow-hidden shrink-0 transition-colors duration-[600ms] group-hover:bg-white/20 group-hover:text-white">
+                    <ArrowUR className="absolute w-4 h-4 md:w-4 md:h-4 transition-transform duration-[400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-6 group-hover:-translate-y-6" />
+                    <ArrowUR className="absolute w-4 h-4 md:w-4 md:h-4 -translate-x-6 translate-y-6 transition-transform duration-[400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-0 group-hover:translate-y-0" />
+                  </div>
+                </div>
 
-              {/* Text Side (Left on Desktop, Top on Mobile) */}
-              <div className="w-full md:w-5/12 p-static-lg lg:p-static-2xl flex flex-col justify-center relative z-10 shrink-0">
-                {card.logo && (
-                   <div className="text-[var(--color-brand-blue)] dark:text-[var(--color-brand-cyan)] mb-static-sm lg:mb-static-md">
-                      {card.logo}
-                   </div>
+                {/* Full Background Dark Video */}
+                {(card as any).videoDark && (card as any).videoDarkFullBackground && (
+                  <>
+                    <video 
+                      autoPlay loop muted playsInline
+                      src={(card as any).videoDark}
+                      className="absolute inset-0 w-full h-full object-cover object-center z-0 hidden dark:block transition-transform duration-[800ms] ease-out group-hover:scale-[1.05]" 
+                    />
+                  </>
                 )}
-                <h3 className="text-display mb-static-sm lg:mb-static-md text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)]">
-                  {card.title}
-                </h3>
-                <p className="text-body-lg text-[var(--color-text-muted)] font-light max-w-[400px]">
-                  {card.desc}
-                </p>
-              </div>
 
-              {/* Media Side (Right on Desktop, Bottom on Mobile) */}
-              <div className={`w-full md:w-7/12 flex-1 relative overflow-hidden ${(card as any).mediaClassNameDark ? (card as any).mediaClassNameDark : 'bg-black/5 dark:bg-white/5'} ${((card as any).videoDark && (card as any).videoDarkFullBackground) ? 'dark:hidden' : ''}`}>
-                {(() => {
-                  const hasLightVideo = !!(card as any).videoLight;
-                  const hasDarkVideo = !!(card as any).videoDark && !(card as any).videoDarkFullBackground;
-                  const hasImage = !!card.image;
+                {/* Text Side (Left on Desktop, Top on Mobile) */}
+                <div className="w-full md:w-5/12 p-static-lg lg:p-static-2xl flex flex-col justify-start relative z-10 shrink-0 pointer-events-none">
+                  {card.logo && (
+                     <div className="text-[var(--color-brand-blue)] dark:text-[var(--color-brand-cyan)] mb-static-sm lg:mb-static-md">
+                        {card.logo}
+                     </div>
+                  )}
+                  <h3 className="text-display mb-static-sm lg:mb-static-md text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)]">
+                    {card.title}
+                  </h3>
+                  <p className="text-body-lg text-[var(--color-text-muted)] font-light max-w-[400px]">
+                    {card.desc}
+                  </p>
+                </div>
 
-                  return (
-                    <>
-                      {/* LIGHT MODE MEDIA */}
-                      {hasLightVideo ? (
-                        <video autoPlay loop muted playsInline src={(card as any).videoLight} className={`absolute inset-0 w-full h-full ${(card as any).videoLightContain ? 'object-contain p-16' : 'object-cover'} object-center ${hasDarkVideo || hasImage ? 'dark:hidden' : ''}`} />
-                      ) : hasImage ? (
-                        <img src={card.image} alt={card.title} className={`absolute inset-0 w-full h-full object-cover object-center ${hasDarkVideo ? 'dark:hidden' : ''}`} />
-                      ) : null}
+                {/* Media Side (Right on Desktop, Bottom on Mobile) */}
+                <div className={`w-full md:w-7/12 flex-1 relative overflow-hidden pointer-events-none ${(card as any).mediaClassNameDark ? (card as any).mediaClassNameDark : 'bg-black/5 dark:bg-white/5'} ${((card as any).videoDark && (card as any).videoDarkFullBackground) ? 'dark:hidden' : ''}`}>
+                  {(() => {
+                    const hasLightVideo = !!(card as any).videoLight;
+                    const hasDarkVideo = !!(card as any).videoDark && !(card as any).videoDarkFullBackground;
+                    const hasImage = !!card.image;
 
-                      {/* DARK MODE MEDIA */}
-                      {hasDarkVideo ? (
-                        <video autoPlay loop muted playsInline src={(card as any).videoDark} className={`absolute inset-0 w-full h-full object-cover object-center ${(card as any).videoDarkClassName || ''} ${hasLightVideo || hasImage ? 'hidden dark:block' : ''}`} />
-                      ) : (hasImage && hasLightVideo) ? (
-                        <img src={card.image} alt={card.title} className="absolute inset-0 w-full h-full object-cover object-center hidden dark:block" />
-                      ) : null}
-                    </>
-                  );
-                })()}
+                    return (
+                      <>
+                        {/* LIGHT MODE MEDIA */}
+                        {hasLightVideo ? (
+                          <video autoPlay loop muted playsInline src={(card as any).videoLight} className={`absolute inset-0 w-full h-full ${(card as any).videoLightContain ? 'object-contain p-16' : 'object-cover'} object-center transition-transform duration-[800ms] ease-out group-hover:scale-[1.05] ${hasDarkVideo || hasImage ? 'dark:hidden' : ''}`} />
+                        ) : hasImage ? (
+                          <img src={card.image} alt={card.title} className={`absolute inset-0 w-full h-full object-cover object-center transition-transform duration-[800ms] ease-out group-hover:scale-[1.05] ${hasDarkVideo ? 'dark:hidden' : ''}`} />
+                        ) : null}
+
+                        {/* DARK MODE MEDIA */}
+                        {hasDarkVideo ? (
+                          <video autoPlay loop muted playsInline src={(card as any).videoDark} className={`absolute inset-0 w-full h-full object-cover object-center transition-transform duration-[800ms] ease-out group-hover:scale-[1.05] ${(card as any).videoDarkClassName || ''} ${hasLightVideo || hasImage ? 'hidden dark:block' : ''}`} />
+                        ) : (hasImage && hasLightVideo) ? (
+                          <img src={card.image} alt={card.title} className="absolute inset-0 w-full h-full object-cover object-center hidden dark:block transition-transform duration-[800ms] ease-out group-hover:scale-[1.05]" />
+                        ) : null}
+                      </>
+                    );
+                  })()}
+                </div>
               </div>
             </div>
           ))}
