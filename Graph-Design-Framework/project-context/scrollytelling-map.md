@@ -91,6 +91,6 @@ El scrollbar es la línea de tiempo de una película: la página alterna **valle
 | 12 | Testimonials (solo con reales) | slot reservado | ⬜ post-launch |
 | 13 | **Cómo unirse** (5 pasos) | valle fricción-cero | 🔴 construir |
 | 14 | **FAQ** (acordeón — jamás pin) | valle objeciones | 🔴 construir |
-| 15 | **CTA Final + Footer** (naranja debuta como botón) | RESOLUCIÓN | 🔴 construir |
+| 15 | **CTA Final + Footer** | RESOLUCIÓN | ✅ (Forma curva Duolingo + Orb Mascot) |
 
 **Regla para toda sección:** ubícala en este arco antes de construir/rediseñar. Valle → motion contenido (reveals + parallax, sin pin). Pico → debe justificar su pin (ley 3 del `narrative-arc-protocol.md`). **Presupuesto de pins: agotado** — cualquier pin nuevo requiere quitarle el pin a otra sección vía Narrative Arc Director.
