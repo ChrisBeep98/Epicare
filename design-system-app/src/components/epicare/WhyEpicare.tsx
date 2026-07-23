@@ -22,7 +22,6 @@ import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SCRUB } from "@/lib/motion";
-import { LiveEditorCopier } from "@/components/utils/LiveEditor";
 import { asset } from "@/lib/asset";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -232,8 +231,6 @@ export default function WhyEpicare() {
             </div>
         </div>
       </section>
-
-      <LiveEditorCopier />
     </div>
   );
 }
