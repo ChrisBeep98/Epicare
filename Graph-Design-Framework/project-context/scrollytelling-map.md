@@ -87,7 +87,7 @@ El scrollbar es la línea de tiempo de una película: la página alterna **valle
 | 8 | ProductLines | valle portafolio | ✅ (copy swap) |
 | 9 | **Cobertura 52** (banda badges mono) | mini-pico visual | ✅ |
 | 10 | ForWho | valle decisión | 🟡 sin aprobar |
-| 11 | WhyEpicare (manifiesto por capítulos + snap) | **CLÍMAX · pin 3** | 🔴 rediseño |
+| 11 | WhyEpicare | **CLÍMAX · pin 3** (Kinetic Typographic Wall) | ✅ |
 | 12 | Testimonials (solo con reales) | slot reservado | ⬜ post-launch |
 | 13 | **Cómo unirse** (5 pasos) | **PICO · pin extra** (Stacking) | ✅ |
 | 14 | **FAQ** (acordeón — jamás pin) | valle objeciones | ✅ |
