@@ -354,6 +354,11 @@ export default function BentoGridEpicare() {
       title: t('cardSolutionsTitle'),
       desc: t('cardSolutionsDesc'),
       image: asset("/Files/Features/Diagonal_pipeline_CRM_stages_202606242208.jpeg"),
+      videoLight: asset("/Files/Features/Solutions_Light_Final.mp4"),
+      videoDark: asset("/Files/Features/Solutions_Dark_Final.mp4"),
+      videoDarkFullBackground: true,
+      mediaClassNameDark: "dark:bg-[#0D0D0E]",
+      cardClassNameDark: "dark:bg-[#0D0D0E]",
       logo: null
     }
   ];
