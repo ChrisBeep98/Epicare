@@ -85,12 +85,12 @@ El scrollbar es la línea de tiempo de una película: la página alterna **valle
 | 6 | Ecosistema GO (BentoGrid) | **PICO 2 · pin** | ✅ |
 | 7 | PeopleReveal | respiro humano | ✅ |
 | 8 | ProductLines | valle portafolio | ✅ (copy swap) |
-| 9 | **Cobertura 52** (banda badges mono) | mini-pico visual | 🔴 construir |
+| 9 | **Cobertura 52** (banda badges mono) | mini-pico visual | ✅ |
 | 10 | ForWho | valle decisión | 🟡 sin aprobar |
 | 11 | WhyEpicare (manifiesto por capítulos + snap) | **CLÍMAX · pin 3** | 🔴 rediseño |
 | 12 | Testimonials (solo con reales) | slot reservado | ⬜ post-launch |
-| 13 | **Cómo unirse** (5 pasos) | valle fricción-cero | 🔴 construir |
-| 14 | **FAQ** (acordeón — jamás pin) | valle objeciones | 🔴 construir |
+| 13 | **Cómo unirse** (5 pasos) | **PICO · pin extra** (Stacking) | ✅ |
+| 14 | **FAQ** (acordeón — jamás pin) | valle objeciones | ✅ |
 | 15 | **CTA Final + Footer** | RESOLUCIÓN | ✅ (Forma curva Duolingo + Orb Mascot) |
 
 **Regla para toda sección:** ubícala en este arco antes de construir/rediseñar. Valle → motion contenido (reveals + parallax, sin pin). Pico → debe justificar su pin (ley 3 del `narrative-arc-protocol.md`). **Presupuesto de pins: agotado** — cualquier pin nuevo requiere quitarle el pin a otra sección vía Narrative Arc Director.

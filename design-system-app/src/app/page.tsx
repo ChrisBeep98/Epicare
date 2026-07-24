@@ -7,8 +7,11 @@ import DarkGradientSection from "@/components/epicare/DarkGradientSection";
 import BentoGridEpicare from "@/components/epicare/BentoGridEpicare";
 import PeopleRevealEpicare from "@/components/epicare/PeopleRevealEpicare";
 import ProductLinesEpicare from "@/components/epicare/ProductLinesEpicare";
+import Coverage52Epicare from "@/components/epicare/Coverage52Epicare";
 import ForWhoEpicare from "@/components/epicare/ForWhoEpicare";
 import WhyEpicare from "@/components/epicare/WhyEpicare";
+import HowToJoinEpicare from "@/components/epicare/HowToJoinEpicare";
+import FAQEpicare from "@/components/epicare/FAQEpicare";
 import FooterEpicare from "@/components/epicare/FooterEpicare";
 
 export default function EpicareLandingPage() {
@@ -23,8 +26,11 @@ export default function EpicareLandingPage() {
       <BentoGridEpicare />
       <PeopleRevealEpicare />
       <ProductLinesEpicare />
+      <Coverage52Epicare />
       <ForWhoEpicare />
       <WhyEpicare />
+      <HowToJoinEpicare />
+      <FAQEpicare />
       <FooterEpicare />
     </main>
   );
