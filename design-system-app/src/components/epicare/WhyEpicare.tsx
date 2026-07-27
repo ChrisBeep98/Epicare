@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useLayoutEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -15,22 +15,35 @@ const METRICS = [
 
 export default function WhyEpicare() {
   const container = useRef<HTMLDivElement>(null);
-  
-  useLayoutEffect(() => {
+  const elementsRef = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
     let ctx = gsap.context(() => {
-      // Parallax scroll on the giant texts based on velocity/scroll position
-      gsap.utils.toArray<HTMLElement>(".wy-huge-text").forEach((text, i) => {
-        gsap.to(text, {
-          yPercent: -40 * (i + 1), // Different speeds for extreme parallax
-          ease: "none",
-          scrollTrigger: {
-            trigger: container.current,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: 1
+      
+      elementsRef.current.forEach((el, i) => {
+        if (!el) return;
+        const isEven = i % 2 === 0;
+
+        // Aseguramos que la animación se aplique directamente al DOM node
+        gsap.fromTo(el,
+          {
+            x: isEven ? "-100vw" : "100vw",
+            opacity: 0
+          },
+          {
+            x: "0vw",
+            opacity: 1,
+            ease: "none",
+            scrollTrigger: {
+              trigger: el,
+              start: "top 95%", 
+              end: "top 35%",   
+              scrub: 1
+            }
           }
-        });
+        );
       });
+
     }, container);
     return () => ctx.revert();
   }, []);
@@ -38,14 +51,17 @@ export default function WhyEpicare() {
   return (
     <section 
       ref={container} 
-      className="w-full min-h-[200vh] bg-[#FAFAFA] dark:bg-[#050505] overflow-hidden flex flex-col justify-center relative px-gutter-lg"
+      className="w-full min-h-[150vh] bg-[#FAFAFA] dark:bg-[#050505] overflow-hidden flex flex-col justify-center relative px-gutter-lg"
     >
       <div className="mx-auto max-w-section-lg w-full gap-0">
-        <div className="relative z-10 w-full flex flex-col gap-12 md:-gap-8 mix-blend-difference text-white">
+        <div className="relative z-10 w-full flex flex-col gap-12 md:-gap-8 mix-blend-difference text-white pt-[15vh]">
            {METRICS.map((m, i) => (
              <div 
                key={i} 
-               className="wy-huge-text flex flex-col md:flex-row md:items-baseline leading-[0.85] mb-16 md:mb-0 transform-gpu"
+               ref={el => {
+                 elementsRef.current[i] = el;
+               }}
+               className="w-full flex flex-col md:flex-row md:items-baseline leading-[0.85] mb-16 md:mb-0 transform-gpu"
              >
                <span className="font-mono text-left text-[25vw] md:text-[18vw] font-black tracking-tighter tabular-nums whitespace-nowrap opacity-95">
                  {m.value}
