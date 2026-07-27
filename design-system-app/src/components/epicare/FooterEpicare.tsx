@@ -118,15 +118,15 @@ export default function FooterEpicare() {
         {/* Forma / Sello Central (Mascot / Logo Orb) */}
         <div 
           ref={orbRef} 
-          className="relative w-28 h-28 md:w-40 md:h-40 rounded-full bg-[var(--color-surface-BG-white)] dark:bg-[#1A1A1A] shadow-[0_20px_50px_rgba(0,0,0,0.2)] flex items-center justify-center border-[6px] border-[var(--color-brand-blue)] z-20 overflow-visible"
+          className="relative w-28 h-28 md:w-40 md:h-40 rounded-full bg-white/10 dark:bg-black/10 backdrop-blur-[24px] border border-white/40 dark:border-white/10 shadow-[0_30px_60px_rgba(0,0,0,0.15),inset_0_0_20px_rgba(255,255,255,0.2)] flex items-center justify-center z-20 overflow-visible"
         >
-          {/* Núcleo de energía interactivo */}
-          <div className="w-16 h-16 md:w-24 md:h-24 rounded-full bg-[var(--color-brand-orange)] shadow-[0_0_40px_var(--color-brand-orange)] flex items-center justify-center overflow-hidden relative group cursor-pointer transition-transform duration-500 hover:scale-110">
-             <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+          {/* Núcleo interactivo sin fondo naranja */}
+          <div className="w-20 h-20 md:w-28 md:h-28 rounded-full bg-transparent flex items-center justify-center overflow-hidden relative group cursor-pointer transition-transform duration-500 hover:scale-110">
+             <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full"></div>
              <img 
                src={asset("/short_logo.svg")}
                alt="GO AMS"
-               className="w-8 h-8 md:w-10 md:h-10 drop-shadow-md object-contain brightness-0 invert pointer-events-none select-none transition-transform duration-300 group-hover:rotate-12"
+               className="w-16 h-16 md:w-20 md:h-20 drop-shadow-md object-contain pointer-events-none select-none transition-transform duration-300 group-hover:rotate-12"
              />
           </div>
         </div>
