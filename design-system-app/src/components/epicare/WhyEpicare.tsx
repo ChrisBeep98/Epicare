@@ -24,21 +24,23 @@ export default function WhyEpicare() {
         if (!el) return;
         const isEven = i % 2 === 0;
 
-        // Aseguramos que la animación se aplique directamente al DOM node
+        // 1. Entrada Lateral Original (del Commit) + Máscara
         gsap.fromTo(el,
           {
             x: isEven ? "-100vw" : "100vw",
+            clipPath: isEven ? "inset(0 100% 0 0)" : "inset(0 0 0 100%)", // La máscara solicitada
             opacity: 0
           },
           {
             x: "0vw",
+            clipPath: "inset(0 -20% 0 -20%)",
             opacity: 1,
-            ease: "none",
+            ease: "none", // El suavizado lineal que preferías del commit
             scrollTrigger: {
               trigger: el,
               start: "top 95%", 
               end: "top 35%",   
-              scrub: 1
+              scrub: 1 // El timing original del commit
             }
           }
         );
@@ -51,10 +53,10 @@ export default function WhyEpicare() {
   return (
     <section 
       ref={container} 
-      className="w-full min-h-[150vh] bg-[#FAFAFA] dark:bg-[#050505] overflow-hidden flex flex-col justify-center relative px-gutter-lg"
+      className="w-full py-section-lg bg-[#FAFAFA] dark:bg-[#050505] overflow-hidden flex flex-col justify-center relative px-gutter-lg"
     >
       <div className="mx-auto max-w-section-lg w-full gap-0">
-        <div className="relative z-10 w-full flex flex-col gap-12 md:-gap-8 mix-blend-difference text-white pt-[15vh]">
+        <div className="relative z-10 w-full flex flex-col gap-12 md:-gap-8 mix-blend-difference text-white">
            {METRICS.map((m, i) => (
              <div 
                key={i} 
