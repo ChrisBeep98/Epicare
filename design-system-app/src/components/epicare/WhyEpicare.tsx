@@ -10,7 +10,7 @@ const METRICS = [
   { value: "6,000+", label: "Asegurados activos" },
   { value: "130+",   label: "Carrier appointments" },
   { value: "52",     label: "Jurisdicciones" },
-  { value: "< 24h",  label: "SLA garantizado" },
+  { value: "< 24h",  label: "Respuesta garantizada" },
 ];
 
 export default function WhyEpicare() {
@@ -36,20 +36,26 @@ export default function WhyEpicare() {
   }, []);
 
   return (
-    <section ref={container} className="w-full min-h-[200vh] bg-[#FAFAFA] dark:bg-[#050505] overflow-hidden flex flex-col justify-center px-6 md:px-12 py-32 relative">
-      
-
-      <div className="relative z-10 w-full flex flex-col gap-12 md:-gap-8 mix-blend-difference text-white pt-[30vh]">
-         {METRICS.map((m, i) => (
-           <div key={i} className="wy-huge-text flex flex-col md:flex-row md:items-baseline leading-[0.85] mb-16 md:mb-0 transform-gpu">
-             <span className="text-[25vw] md:text-[18vw] font-black tracking-tighter tabular-nums whitespace-nowrap opacity-95">
-               {m.value}
-             </span>
-             <span className="text-h4 md:text-h2 font-medium tracking-tight md:ml-8 mt-2 md:mt-0 opacity-80 uppercase md:normal-case">
-               {m.label}
-             </span>
-           </div>
-         ))}
+    <section 
+      ref={container} 
+      className="w-full min-h-[200vh] bg-[#FAFAFA] dark:bg-[#050505] overflow-hidden flex flex-col justify-center relative px-gutter-lg"
+    >
+      <div className="mx-auto max-w-section-lg w-full gap-0">
+        <div className="relative z-10 w-full flex flex-col gap-12 md:-gap-8 mix-blend-difference text-white">
+           {METRICS.map((m, i) => (
+             <div 
+               key={i} 
+               className="wy-huge-text flex flex-col md:flex-row md:items-baseline leading-[0.85] mb-16 md:mb-0 transform-gpu"
+             >
+               <span className="font-mono text-left text-[25vw] md:text-[18vw] font-black tracking-tighter tabular-nums whitespace-nowrap opacity-95">
+                 {m.value}
+               </span>
+               <span className="text-left text-body-xl-light md:text-body-2xl-light md:ml-8 mt-2 md:mt-0 opacity-70 uppercase md:normal-case">
+                 {m.label}
+               </span>
+             </div>
+           ))}
+        </div>
       </div>
     </section>
   );
