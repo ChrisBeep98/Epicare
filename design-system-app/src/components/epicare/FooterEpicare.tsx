@@ -20,10 +20,10 @@ export default function FooterEpicare() {
 
     const ctx = gsap.context(() => {
       // 1. El Arco Masivo Orgánico (El Cerro Duolingo)
-      // Empieza hundido para desinflarse notoriamente al subir el scroll
+      // Empieza hundido desde mucho más abajo para que el scrub lo suba con más fuerza
       gsap.fromTo(
         hillRef.current,
-        { y: 600, scaleY: 0.2 },
+        { y: "150vh", scaleY: 0.1 },
         {
           y: 0,
           scaleY: 1,
@@ -59,7 +59,25 @@ export default function FooterEpicare() {
         }
       );
 
-      // 3. Textos del CTA (Fade up en Cascada con toggle)
+      // 3. Efecto de Gravedad para el Contenido
+      // El contenido (links, logo) sube ligeramente después de que el cerro lo empuja
+      gsap.fromTo(
+        ".wy-footer-content",
+        { y: 150, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top 75%",
+            end: "bottom bottom",
+            scrub: 1,
+          }
+        }
+      );
+
+      // 4. Textos del CTA (Fade up en Cascada con toggle)
       const texts = textRef.current ? gsap.utils.toArray(textRef.current.children) : [];
       if (texts.length > 0) {
         gsap.fromTo(texts, 
