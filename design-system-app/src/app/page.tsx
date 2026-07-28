@@ -21,9 +21,9 @@ export default function EpicareLandingPage() {
       <HeroEpicare />
       <BrandsCarousel />
       <MetricsEpicare />
+      <BentoGridEpicare />
       <ProblemSectionEpicare />
       <DarkGradientSection />
-      <BentoGridEpicare />
       <PeopleRevealEpicare />
       <ProductLinesEpicare />
       <Coverage52Epicare />

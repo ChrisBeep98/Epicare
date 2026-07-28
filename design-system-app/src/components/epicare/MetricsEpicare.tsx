@@ -49,6 +49,7 @@ export default function MetricsEpicare() {
   const t = useTranslations('landingV2.metrics');
   const sectionRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
+  const mobileElementsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   const metricsData = [
     { value: "252+", label: t('carriers') },
@@ -78,7 +79,7 @@ export default function MetricsEpicare() {
         );
       }
 
-      // 2. Bento Cards Reveal Animation
+      // 2. Bento Cards Reveal Animation (Desktop only actually visually, but logic applies to the class)
       gsap.fromTo(".metric-bento-reveal", 
         { 
           filter: "blur(20px)", 
@@ -101,13 +102,43 @@ export default function MetricsEpicare() {
           clearProps: "filter"
         }
       );
+
+      // 3. Mobile Giant Metrics Reveal (Lateral Entry)
+      const mm = gsap.matchMedia();
+      mm.add("(max-width: 767px)", () => {
+        mobileElementsRef.current.forEach((el, i) => {
+          if (!el) return;
+          const isEven = i % 2 === 0;
+
+          gsap.fromTo(el,
+            {
+              x: isEven ? "-100vw" : "100vw",
+              clipPath: isEven ? "inset(0 100% 0 0)" : "inset(0 0 0 100%)",
+              opacity: 0
+            },
+            {
+              x: "0vw",
+              clipPath: "inset(0 -20% 0 -20%)",
+              opacity: 1,
+              ease: "none", 
+              scrollTrigger: {
+                trigger: el,
+                start: "top 95%", 
+                end: "top 45%",   
+                scrub: 1 
+              }
+            }
+          );
+        });
+      });
+
     }, sectionRef);
     return () => ctx.revert();
   }, []);
 
   return (
     <section ref={sectionRef} className="w-full relative z-20 bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] transition-colors duration-500 pt-0 pb-section-sm md:pb-section-md">
-      <div className="max-w-section-lg px-[14px] md:px-[var(--space-gutter-md)]">
+      <div className="max-w-section-lg px-gutter-sm md:px-gutter-md">
         
         {/* ── Header Section ── */}
         <div className="pb-section-xs max-w-4xl will-change-transform">
@@ -116,14 +147,13 @@ export default function MetricsEpicare() {
           </h2>
         </div>
 
-        {/* ── Layout: The Bento Box Grid ── */}
-        {/* Mobile: 2 cols, 14px gap. Desktop: 4 cols, 24px (gap-6) gap. pb-6 to compensate for the translate-y-6 shift. */}
-        <div className="metric-grid-container grid grid-cols-2 lg:grid-cols-4 gap-[14px] md:gap-fluid-xs pb-6 md:pb-0">
+        {/* ── Layout: The Bento Box Grid (Desktop) ── */}
+        <div className="metric-grid-container hidden md:grid grid-cols-2 lg:grid-cols-4 gap-fluid-sm md:gap-fluid-xs pb-6 md:pb-0">
           {metricsData.map((metric, idx) => (
             <div 
               key={idx} 
               className="metric-bento-reveal will-change-transform group relative 
-                         p-[14px] md:p-8 rounded-[12px] 
+                         p-static-md md:p-static-2xl rounded-[12px] 
                          bg-[#ffffff] shadow-elevation-2 dark:bg-[#0a0a0a] 
                          border border-black/5 dark:border-white/10 dark:shadow-none dark:hover:border-white/20 
                          transition-transform duration-300 overflow-hidden
@@ -164,6 +194,26 @@ export default function MetricsEpicare() {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* ── Layout: Mobile Giant Metrics (Hidden on Desktop) ── */}
+        <div className="flex md:hidden flex-col gap-12 mt-4 overflow-hidden w-full max-w-full relative z-10">
+           {metricsData.map((m, i) => (
+             <div 
+               key={`mobile-${i}`}
+               ref={el => {
+                 mobileElementsRef.current[i] = el;
+               }}
+               className="w-full flex flex-col leading-[0.85] transform-gpu"
+             >
+               <span className="font-mono text-left text-[26vw] font-black tracking-tighter tabular-nums whitespace-nowrap text-[var(--color-text-Black-100)] dark:text-white opacity-95">
+                 <AnimatedNumber value={m.value} />
+               </span>
+               <span className="text-left text-body-xl-light mt-1 opacity-70 uppercase text-[var(--color-text-Black-100)] dark:text-white">
+                 {m.label}
+               </span>
+             </div>
+           ))}
         </div>
 
       </div>

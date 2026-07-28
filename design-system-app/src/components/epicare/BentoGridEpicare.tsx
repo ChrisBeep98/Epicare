@@ -396,12 +396,12 @@ export default function BentoGridEpicare() {
         {/* DOM: free-scroll column on mobile, pinned coverflow row on desktop */}
         <div
           ref={trackRef}
-          className="relative md:absolute md:top-0 flex flex-col md:flex-row items-center justify-start w-full md:w-auto md:h-full will-change-transform transform-gpu z-10 gap-[5vh] md:gap-[3vw] py-section-sm md:py-0"
+          className="relative md:absolute md:top-0 flex flex-col md:flex-row items-center justify-start w-full md:w-auto md:h-full will-change-transform transform-gpu z-10 gap-fluid-sm md:gap-[3vw] py-static-md md:py-0 px-gutter-sm md:px-[4vw]"
           style={{ transformStyle: 'preserve-3d' }}
         >
           {/* THE TITLE CARD */}
           <div
-            className="coverflow-card shrink-0 w-[85vw] lg:w-[40vw] h-auto md:h-[100vh] relative transform-gpu flex flex-col justify-start gap-static-xl pt-[6vh] md:pt-[15vh]"
+            className="coverflow-card shrink-0 w-full lg:w-[40vw] h-auto md:h-[100vh] relative transform-gpu flex flex-col justify-start gap-static-md md:gap-static-xl pt-static-md md:pt-[15vh]"
             style={{ transformOrigin: 'center center' }}
           >
             <h2 className="text-display-lg text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)] text-left">
@@ -428,13 +428,13 @@ export default function BentoGridEpicare() {
           {ecosytemCards.map((card, idx) => (
             <div 
               key={idx} 
-              className="coverflow-card shrink-0 w-[85vw] lg:w-[50vw] h-[60vh] md:h-[60vh] relative transform-gpu"
+              className="coverflow-card shrink-0 w-full lg:w-[50vw] h-[60vh] md:h-[60vh] relative transform-gpu"
               style={{ transformOrigin: 'center center' }}
             >
               <div className={`group absolute inset-0 w-full h-full rounded-[24px] overflow-hidden shadow-elevation-4 border border-[var(--color-border-Strokes-default)] flex flex-col md:flex-row transition-transform duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:scale-[1.02] cursor-pointer ${(card as any).cardClassNameDark ? `bg-[var(--color-surface-BG-white)] ${(card as any).cardClassNameDark}` : 'bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)]'}`}>
                 
                 {/* Floating Action Bubble (Liquid Glass Pill) */}
-                <div className="absolute bottom-5 right-5 md:bottom-8 md:right-8 h-10 md:h-12 pl-4 pr-1.5 md:pl-5 md:pr-2 bg-white/30 dark:bg-black/30 backdrop-blur-md border border-[var(--color-brand-blue)]/20 dark:border-white/10 text-[var(--color-text-Black-100)] dark:text-white rounded-full flex items-center justify-center gap-2 md:gap-3 overflow-hidden shadow-elevation-2 z-50 transition-all duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105 group-hover:shadow-elevation-4 group-hover:bg-[var(--color-brand-blue)] group-hover:border-[var(--color-brand-blue)] group-hover:text-white">
+                <div className="absolute bottom-static-md right-static-md md:bottom-8 md:right-8 h-10 md:h-12 pl-4 pr-1.5 md:pl-5 md:pr-2 bg-white/30 dark:bg-black/30 backdrop-blur-md border border-[var(--color-brand-blue)]/20 dark:border-white/10 text-[var(--color-text-Black-100)] dark:text-white rounded-full flex items-center justify-center gap-2 md:gap-3 overflow-hidden shadow-elevation-2 z-50 transition-all duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105 group-hover:shadow-elevation-4 group-hover:bg-[var(--color-brand-blue)] group-hover:border-[var(--color-brand-blue)] group-hover:text-white">
                   <span className="text-body-sm font-medium tracking-wide">{t('cardCta')}</span>
                   <div className="relative w-7 h-7 md:w-8 md:h-8 rounded-full bg-[var(--color-brand-blue)]/10 dark:bg-[var(--color-brand-cyan)]/10 text-[var(--color-brand-blue)] dark:text-[var(--color-brand-cyan)] flex items-center justify-center overflow-hidden shrink-0 transition-colors duration-[600ms] group-hover:bg-white/20 group-hover:text-white">
                     <ArrowUR className="absolute w-4 h-4 md:w-4 md:h-4 transition-transform duration-[400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-6 group-hover:-translate-y-6" />
@@ -454,7 +454,7 @@ export default function BentoGridEpicare() {
                 )}
 
                 {/* Text Side (Left on Desktop, Top on Mobile) */}
-                <div className="w-full md:w-5/12 p-static-lg lg:p-static-2xl flex flex-col justify-start relative z-10 shrink-0 pointer-events-none">
+                <div className="w-full md:w-5/12 px-gutter-sm py-static-lg md:p-static-lg lg:p-static-2xl flex flex-col justify-start relative z-10 shrink-0 pointer-events-none">
                   {card.logo && (
                      <div className="text-[var(--color-brand-blue)] dark:text-[var(--color-brand-cyan)] mb-static-sm lg:mb-static-md">
                         {card.logo}
