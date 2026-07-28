@@ -1,10 +1,75 @@
 "use client";
 
-import React, { useRef, useLayoutEffect } from "react";
+import React, { useRef, useLayoutEffect, useState, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { asset } from "@/lib/asset";
 
 gsap.registerPlugin(ScrollTrigger);
+
+const ZONE1_IMAGES = [
+  asset('/Files/how-to-join/zone1-step1.jpeg'),
+  asset('/Files/how-to-join/zone1-step2.jpeg'),
+  asset('/Files/how-to-join/zone1-step3.jpeg'),
+];
+
+const ZONE2_IMAGES = [
+  asset('/Files/how-to-join/zone2-step1.jpeg'),
+  asset('/Files/how-to-join/zone2-step2.jpeg'),
+  asset('/Files/how-to-join/zone2-step3.jpeg'),
+];
+
+function StatusCarousel({ images, id, accentClass }: { images: string[], id: string, accentClass: string }) {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % images.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [images.length]);
+
+  return (
+    <div className="absolute inset-0 w-full h-full">
+      <style>{`
+        @keyframes status-progress-${id} {
+          0% { width: 0%; }
+          100% { width: 100%; }
+        }
+      `}</style>
+      {/* Status Bars (Liquid Glass) */}
+      <div className="absolute top-6 left-6 right-6 z-20 flex gap-2">
+        {images.map((_, i) => (
+          <div key={i} className="flex-1 h-1.5 rounded-full overflow-hidden liquid-glass bg-black/20 shadow-sm border border-white/10">
+            <div 
+              className="h-full bg-white"
+              style={{
+                width: i < activeIndex ? '100%' : '0%',
+                animation: i === activeIndex ? `status-progress-${id} 5s linear forwards` : 'none'
+              }}
+            />
+          </div>
+        ))}
+      </div>
+      
+      {/* Images */}
+      {images.map((img, i) => (
+        <img
+          key={img}
+          src={img}
+          alt={`Step visual ${i}`}
+          className={`c-img-${id} absolute inset-0 w-full h-full object-cover object-[75%_center] transition-opacity duration-1000 ease-in-out ${
+            i === activeIndex ? "opacity-100 z-10" : "opacity-0 z-0"
+          }`}
+        />
+      ))}
+      {/* Soft dark overlay for readability */}
+      <div className="absolute inset-0 bg-[var(--color-surface-BG-black)]/20 z-20"></div>
+      {/* Brand Color Tint */}
+      <div className={`absolute inset-0 mix-blend-color opacity-30 z-20 ${accentClass}`}></div>
+    </div>
+  );
+}
 
 const STEPS = [
   { num: "01", title: "El Primer Contacto", desc: "Todo nace en nuestro portal hiper-optimizado. Datos base y validación de identidad en tiempo récord, sin fricción burocrática." },
@@ -57,12 +122,7 @@ export default function HowToJoinEpicare() {
       <div className="c-zone-1 flex flex-col md:flex-row w-full relative">
         {/* Panel Izquierdo: Sticky Visual */}
         <div className="w-full md:w-1/2 h-[50vh] md:h-screen sticky top-0 overflow-hidden border-r border-[var(--color-border-Strokes-default)]">
-          <img 
-            className="c-img-1 absolute inset-0 w-full h-full object-cover filter grayscale contrast-125 mix-blend-luminosity opacity-80"
-            src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2000" 
-            alt="Nodes" 
-          />
-          <div className="absolute inset-0 bg-[var(--color-brand-blue)] mix-blend-color opacity-20"></div>
+          <StatusCarousel images={ZONE1_IMAGES} id="1" accentClass="bg-[var(--color-brand-blue)]" />
         </div>
         
         {/* Panel Derecho: Scroll de Textos */}
@@ -92,12 +152,7 @@ export default function HowToJoinEpicare() {
 
         {/* Panel Derecho: Sticky Visual */}
         <div className="w-full md:w-1/2 h-[50vh] md:h-screen sticky top-0 overflow-hidden border-l border-[var(--color-border-Strokes-default)]">
-          <img 
-            className="c-img-2 absolute inset-0 w-full h-full object-cover filter grayscale contrast-125 mix-blend-luminosity opacity-80"
-            src="https://images.unsplash.com/photo-1614729939124-03290b56c9ce?q=80&w=2000" 
-            alt="Core" 
-          />
-          <div className="absolute inset-0 bg-[var(--color-brand-orange)] mix-blend-color opacity-20"></div>
+          <StatusCarousel images={ZONE2_IMAGES} id="2" accentClass="bg-[var(--color-brand-orange)]" />
         </div>
       </div>
 

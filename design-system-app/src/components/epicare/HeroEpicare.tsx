@@ -221,7 +221,7 @@ export default function HeroEpicare() {
               playsInline 
               className="absolute inset-0 w-full h-full object-cover mix-blend-screen scale-[1.05]"
             >
-              <source src={asset("/Files/Epicare_Landing/Hero/epicare_landing_hero.mp4")} type="video/mp4" />
+              <source src={asset("/Files/Epicare_Landing/Hero/Hero_02.mp4")} type="video/mp4" />
             </video>
 
             {/* GRAN LOGO CENTRAL (DENTRO DEL VIDEO, ACTO 1) */}

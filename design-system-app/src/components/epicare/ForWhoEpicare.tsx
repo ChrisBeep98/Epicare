@@ -21,8 +21,8 @@ const ACCENT: Record<AudienceKey, string> = {
 
 /** Panel background image (cover). */
 const HERO: Record<AudienceKey, string> = {
-  agent: asset('/Files/Features/CRM_product_tablet_client_cards_202606242208.jpeg'),
-  agency: asset('/Files/Features/Diagonal_pipeline_CRM_stages_202606242208.jpeg'),
+  agent: asset('/Files/for-who/agent-hero.jpeg'),
+  agency: asset('/Files/for-who/agency-hero.jpeg'),
 };
 
 /**

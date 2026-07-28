@@ -26,8 +26,8 @@ const jetBrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Design System Project",
-  description: "New project with custom Design System",
+  title: "Epicare",
+  description: "Ecosistema integral de seguros y gestión de pólizas",
 };
 
 import I18nProviderClient from "../components/epicare/I18nProviderClient";

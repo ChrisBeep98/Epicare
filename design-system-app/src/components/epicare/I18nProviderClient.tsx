@@ -47,7 +47,7 @@ export default function I18nProviderClient({
 
   return (
     <I18nContext.Provider value={{ locale, setLocale }}>
-      <NextIntlClientProvider locale={locale} messages={messages}>
+      <NextIntlClientProvider locale={locale} messages={messages} timeZone="UTC">
         {children}
       </NextIntlClientProvider>
     </I18nContext.Provider>

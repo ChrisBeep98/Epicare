@@ -21,12 +21,13 @@ export default function FooterEpicare() {
     const ctx = gsap.context(() => {
       // 1. El Arco Masivo Orgánico (El Cerro Duolingo)
       // Empieza hundido desde mucho más abajo para que el scrub lo suba con más fuerza
+      // 1. El Rectángulo de Fondo (Crece desde el centro y sube desde abajo)
       gsap.fromTo(
         hillRef.current,
-        { y: "150vh", scaleY: 0.1 },
+        { scale: 0, y: "100vh" },
         {
+          scale: 1,
           y: 0,
-          scaleY: 1,
           ease: "none",
           scrollTrigger: {
             trigger: containerRef.current,
@@ -124,10 +125,10 @@ export default function FooterEpicare() {
       ref={containerRef} 
       className="relative w-full overflow-hidden bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] pt-32 pb-0"
     >
-      {/* El Cerro / Curva Gigante estilo Duolingo */}
+      {/* Rectángulo de Fondo (Crece desde el centro) */}
       <div 
         ref={hillRef} 
-        className="absolute top-20 left-1/2 -translate-x-1/2 w-[200vw] md:w-[120vw] h-[1200px] bg-[var(--color-brand-blue)] rounded-[50%_50%_0_0] z-0 transform-gpu origin-bottom"
+        className="absolute inset-0 m-auto w-full h-full bg-[var(--color-brand-blue)] z-0 transform-gpu origin-center"
       ></div>
 
       {/* Contenido Flotante Principal */}

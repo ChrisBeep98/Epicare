@@ -14,6 +14,8 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
+  // Permite conectarse desde el celular (Next.js 16/Turbopack lo bloquea por defecto por seguridad)
+  allowedDevOrigins: ['192.168.18.221'],
 };
 
 export default withNextIntl(nextConfig);
