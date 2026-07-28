@@ -59,91 +59,123 @@ export default function HeroEpicare() {
       // Asegurar que la viñeta oscura empiece invisible
       gsap.set(vignetteRef.current, { opacity: 0 });
 
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top top",
-          end: "+=250%", // Tarda 1.5 pantallas en hacer la expansión completa + 1.0 pantalla anclada para que el Carousel pase por encima
-          pin: true,
-          scrub: 1, // Suavizado
-          onUpdate: (self) => {
-            // Desactivar el efecto 3D del mouse en cuanto el usuario empiece a scrollear
-            if (self.progress > 0.05) {
-              setIsExpanded(true);
-            } else {
-              setIsExpanded(false);
-            }
+      const mm = gsap.matchMedia();
 
-            // Force dark header style during Act 2 expansion (when background video is fullscreen behind header)
-            if (self.progress >= 0.35 && self.progress < 0.95) {
-              setIsHeaderForcedDark(true);
-            } else {
-              setIsHeaderForcedDark(false);
-            }
+      mm.add({
+        isMobile: "(max-width: 767px)",
+        isDesktop: "(min-width: 768px)"
+      }, (context) => {
+        const { isMobile } = context.conditions as { isMobile: boolean; isDesktop: boolean };
 
-            // Header becomes a pill from Act 2 onwards (progress >= 0.35)
-            if (self.progress >= 0.35) {
-              setIsHeaderPill(true);
-            } else {
-              setIsHeaderPill(false);
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top top",
+            end: "+=250%", 
+            pin: true,
+            scrub: 1, 
+            onUpdate: (self) => {
+              if (self.progress > 0.05) {
+                setIsExpanded(true);
+              } else {
+                setIsExpanded(false);
+              }
+
+              if (self.progress >= 0.35 && self.progress < 0.95) {
+                setIsHeaderForcedDark(true);
+              } else {
+                setIsHeaderForcedDark(false);
+              }
+
+              // Header becomes a pill (with heavy backdrop-blur) ONLY after video finishes expanding (progress >= 0.55)
+              // This is a massive mobile GPU optimization to prevent blur + resize lag.
+              if (self.progress >= 0.55) {
+                setIsHeaderPill(true);
+              } else {
+                setIsHeaderPill(false);
+              }
             }
           }
+        });
+
+        tl.to(scrollIndicatorRef.current, {
+          opacity: 0,
+          y: 20,
+          duration: 0.3,
+          ease: "power2.out"
+        }, 0);
+
+        tl.to(bigLogoRef.current, {
+          opacity: 0,
+          y: -30,
+          duration: 0.3,
+          ease: "power2.out"
+        }, 0);
+
+        // Acto 1 -> Expansión del Video a Full Screen
+        if (isMobile) {
+          // MOBILE: HARDWARE SYMPHONY PROTOCOL (Elegant Degradation)
+          // Animating width/height triggers Layout/Paint recalculations (extreme lag).
+          // We set the container to 100vw/100vh instantly, scale it down to 85% via transform,
+          // and then animate scale back to 1. 0% Reflows, 100% GPU Compositor.
+          gsap.set(videoWrapperRef.current, {
+            position: "absolute",
+            bottom: 0,
+            left: 0,
+            right: 0,
+            margin: "0 auto",
+            width: "100%",
+            height: "100vh",
+            scale: 0.85, 
+            transformOrigin: "bottom center",
+            borderRadius: "32px",
+            boxShadow: "none",
+            force3D: true,
+          });
+
+          tl.to(videoWrapperRef.current, {
+            scale: 1, // Animamos única y exclusivamente el GPU Transform
+            borderRadius: "0px",
+            duration: 1,
+            ease: "power2.inOut"
+          }, 0);
+        } else {
+          // DESKTOP: Mantener todo el lujo intacto
+          tl.to(videoWrapperRef.current, {
+            width: "100%", 
+            maxWidth: "100%",
+            height: "100vh", 
+            borderRadius: "0px",
+            rotationX: 0,
+            rotationY: 0,
+            x: 0,
+            y: 0,
+            borderWidth: "0px",
+            boxShadow: "0 0px 0px rgba(0,0,0,0)",
+            force3D: true,
+            duration: 1,
+            ease: "power2.inOut"
+          }, 0);
         }
+
+        tl.to(vignetteRef.current, {
+          opacity: 1,
+          duration: 1,
+          ease: "power2.inOut"
+        }, 0);
+
+        tl.to(heroContentRef.current, {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          pointerEvents: "auto",
+          duration: 0.5,
+          ease: "power2.out",
+          stagger: 0.1
+        }, 0.6);
+
+        tl.to({}, { duration: 0.8 });
       });
-
-      // Acto 1 -> Desaparece el indicador de scroll y el gran logo apenas se mueve la rueda
-      tl.to(scrollIndicatorRef.current, {
-        opacity: 0,
-        y: 20,
-        duration: 0.3,
-        ease: "power2.out"
-      }, 0);
-
-      tl.to(bigLogoRef.current, {
-        opacity: 0,
-        y: -30,
-        duration: 0.3,
-        ease: "power2.out"
-      }, 0);
-
-      // Acto 1 -> Expansión del Video a Full Screen
-      tl.to(videoWrapperRef.current, {
-        width: "100%", // Se usa 100% en vez de 100vw para evitar scroll horizontal por culpa de la barra de desplazamiento
-        maxWidth: "100%",
-        height: "100dvh", // Uso de dvh para evitar saltos en móvil
-        borderRadius: "0px",
-        rotationX: 0,
-        rotationY: 0,
-        x: 0,
-        y: 0,
-        borderWidth: "0px",
-        boxShadow: "0 0px 0px rgba(0,0,0,0)",
-        force3D: true,
-        duration: 1,
-        ease: "power2.inOut"
-      }, 0);
-
-      // Acto 1 -> Aparece la viñeta oscura
-      tl.to(vignetteRef.current, {
-        opacity: 1,
-        duration: 1,
-        ease: "power2.inOut"
-      }, 0);
-
-      // Acto 2 -> Revelación del Hero
-      tl.to(heroContentRef.current, {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        pointerEvents: "auto",
-        duration: 0.5,
-        ease: "power2.out",
-        stagger: 0.1
-      }, 0.6);
-
-      // Acto 3 (Invisible) -> Mantenemos el Hero pineado sin hacer nada durante 100vh adicionales 
-      // para que la siguiente sección con margin-top negativo se deslice por encima.
-      tl.to({}, { duration: 0.8 });
 
     }, containerRef);
 
@@ -202,7 +234,7 @@ export default function HeroEpicare() {
         
         {/* Viewport Fijo para la experiencia cinemática */}
         <div 
-          className="sticky top-0 h-[100dvh] w-full overflow-hidden flex flex-col items-center justify-end bg-[var(--color-surface-BG-base)]"
+          className="sticky top-0 h-screen w-full overflow-hidden flex flex-col items-center justify-end bg-[var(--color-surface-BG-base)]"
           style={{ perspective: "1200px" }}
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
@@ -211,7 +243,7 @@ export default function HeroEpicare() {
           {/* EL VIDEO (ACTO 1: Pequeño y sin viñeta -> ACTO 2: Fullscreen con viñeta) */}
           <div 
             ref={videoWrapperRef} 
-            className="relative w-[calc(100vw-64px)] md:w-[85vw] lg:w-[1100px] max-w-[100%] h-[85dvh] md:h-[70dvh] rounded-t-[2rem] rounded-b-none overflow-hidden shadow-elevation-2 bg-[var(--color-surface-BG-black)] will-change-transform z-0"
+            className="relative w-[calc(100vw-64px)] md:w-[85vw] lg:w-[1100px] max-w-[100%] h-[85vh] md:h-[70vh] rounded-t-[2rem] rounded-b-none overflow-hidden shadow-elevation-2 bg-[var(--color-surface-BG-black)] will-change-transform z-0"
             style={{ transformStyle: 'preserve-3d', transformOrigin: 'bottom center' }}
           >
             <video 
@@ -278,7 +310,7 @@ export default function HeroEpicare() {
                   
                   <div className="flex flex-col md:flex-row gap-static-md md:gap-fluid-xs">
                     {/* Primary CTA */}
-                    <button className="group w-fit h-12 pl-6 pr-2 rounded-full flex items-center gap-3 bg-[var(--color-action-primary-bg)] text-[var(--color-action-primary-text)] shadow-elevation-2 transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-elevation-4">
+                    <button className="group w-fit h-12 pl-6 pr-2 rounded-full flex items-center gap-3 bg-[var(--color-action-primary-bg)] text-[var(--color-action-primary-text)] shadow-elevation-2 transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-elevation-4 active:scale-[0.96] active:opacity-80 active:duration-150">
                       <span className="text-body-sm font-medium">{t('ctaPlans')}</span>
                       <span className="relative w-8 h-8 rounded-full bg-[var(--color-action-primary-text)] text-[var(--color-action-primary-bg)] flex items-center justify-center overflow-hidden shrink-0">
                         <ArrowUR className="absolute w-4 h-4 transition-transform duration-300 ease-out group-hover:translate-x-5 group-hover:-translate-y-5" />
@@ -287,7 +319,7 @@ export default function HeroEpicare() {
                     </button>
 
                     {/* Secondary CTA */}
-                    <button className="group w-fit h-12 pl-6 pr-2 rounded-full flex items-center gap-3 bg-white/10 border border-[var(--color-border-Strokes-White-100)] text-[var(--color-text-White-100)] shadow-elevation-1 backdrop-blur-sm transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:bg-white/20 hover:-translate-y-0.5 hover:scale-[1.02]">
+                    <button className="group w-fit h-12 pl-6 pr-2 rounded-full flex items-center gap-3 bg-white/10 border border-[var(--color-border-Strokes-White-100)] text-[var(--color-text-White-100)] shadow-elevation-1 backdrop-blur-sm transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:bg-white/20 hover:-translate-y-0.5 hover:scale-[1.02] active:scale-[0.96] active:opacity-80 active:duration-150">
                       <span className="text-body-sm font-medium">{t('ctaAgents')}</span>
                       <span className="relative w-8 h-8 rounded-full bg-white/20 text-[var(--color-text-White-100)] flex items-center justify-center overflow-hidden shrink-0">
                         <ArrowUR className="absolute w-4 h-4 transition-transform duration-300 ease-out group-hover:translate-x-5 group-hover:-translate-y-5" />
