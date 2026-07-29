@@ -175,7 +175,7 @@ export default function HeroEpicare() {
         tl.to('.hero-anim-item', {
           opacity: 1,
           y: 0,
-          clipPath: "inset(0% 0% 0% 0%)",
+          clipPath: "inset(-20% -10% -20% -10%)", // Margen negativo para no cortar colas de la "g", "j", "p"
           duration: 0.8, // Slightly longer for the dramatic deceleration
           ease: "power4.out", // Start fast, end slow (heavy deceleration)
           stagger: 0.15
