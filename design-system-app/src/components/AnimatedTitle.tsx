@@ -28,8 +28,8 @@ export function AnimatedTitle({ children, className = "" }: AnimatedTitleProps) 
         scrollTrigger: {
           trigger: containerRef.current,
           start: "top 85%",
-          end: "top 20%", // Massively expanded scroll distance to naturally slow down the scrub speed
-          scrub: 1
+          end: "top 20%", 
+          scrub: true // Changed from 1 to true. 1 causes a 1-second trailing momentum which feels like input lag on mobile
         }
       });
     }, containerRef);
@@ -38,7 +38,7 @@ export function AnimatedTitle({ children, className = "" }: AnimatedTitleProps) 
   }, [children]);
 
   return (
-    <h2 ref={containerRef} className={className}>
+    <h2 ref={containerRef} className={`will-change-transform ${className}`}>
       {children}
     </h2>
   );
@@ -60,7 +60,7 @@ export function AnimatedTitleLine({ children, className = "" }: { children: Reac
         display: "inline",
         WebkitBoxDecorationBreak: "clone",
         boxDecorationBreak: "clone",
-        transform: "translateZ(0)" // Critical fix for WebKit compositor bug where text-clip disappears
+        willChange: "background-position" // Pre-warm the paint thread for this specific property
       } as React.CSSProperties}
     >
       {children}{' '}
