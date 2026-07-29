@@ -21,7 +21,7 @@ export default function EpicareLandingPage() {
       <div className="w-full order-2"><HeroEpicare /></div>
       <div className="w-full order-3 mt-[-100vh] relative z-20"><BrandsCarousel /></div>
       <div className="w-full order-4"><MetricsEpicare /></div>
-      <div className="w-full order-5"><BentoGridEpicare /></div>
+      <div className="w-full order-5 pb-section-lg"><BentoGridEpicare /></div>
       
       {/* 
         ==================================================
@@ -29,7 +29,7 @@ export default function EpicareLandingPage() {
         ==================================================
         Both Mobile & Desktop: PeopleReveal -> Problem -> DarkGradient
       */}
-      <div className="w-full order-6"><PeopleRevealEpicare /></div>
+      <div className="w-full order-6 pb-section-lg"><PeopleRevealEpicare /></div>
       <div className="w-full order-7"><ProblemSectionEpicare /></div>
       <div className="w-full order-8"><DarkGradientSection /></div>
       {/* ================================================== */}
