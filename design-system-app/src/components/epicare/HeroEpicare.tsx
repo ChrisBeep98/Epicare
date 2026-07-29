@@ -56,7 +56,15 @@ export default function HeroEpicare() {
       gsap.set('.hero-anim-item', { 
         opacity: 0, 
         y: 60, // Deeper origin for Layered Unveiling
-        clipPath: "inset(0% 0% 100% 0%)" // Invisible horizon mask
+        clipPath: "inset(0% 0% 100% 0%)", // Invisible horizon mask
+        willChange: "transform, opacity, clip-path"
+      });
+      // The Grow Mask for buttons
+      gsap.set('.hero-anim-grow', {
+        opacity: 0,
+        y: 30,
+        scale: 0.92,
+        willChange: "transform, opacity"
       });
 
       // Asegurar que la viñeta oscura empiece invisible
@@ -172,6 +180,15 @@ export default function HeroEpicare() {
           ease: "power4.out", // Start fast, end slow (heavy deceleration)
           stagger: 0.15
         }, 0.6);
+
+        // Los botones entran con un "Grow Pop" suavizado y optimizado
+        tl.to('.hero-anim-grow', {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.6,
+          ease: "power2.out" // Eliminamos el back.out (overshoot) que revienta la GPU de iOS
+        }, 0.8);
 
         tl.to({}, { duration: 0.8 });
       });
@@ -307,7 +324,7 @@ export default function HeroEpicare() {
                     {t('descriptionMobile')}
                   </p>
                   
-                  <div className="hero-anim-item flex flex-col md:flex-row gap-static-md md:gap-fluid-xs">
+                  <div className="hero-anim-grow flex flex-col md:flex-row gap-static-md md:gap-fluid-xs">
                     {/* Primary CTA */}
                     <button className="group w-fit h-12 pl-6 pr-2 rounded-full flex items-center gap-3 bg-[var(--color-action-primary-bg)] text-[var(--color-action-primary-text)] shadow-elevation-2 transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-elevation-4 active:scale-[0.96] active:opacity-80 active:duration-150">
                       <span className="text-body-sm font-medium">{t('ctaPlans')}</span>
