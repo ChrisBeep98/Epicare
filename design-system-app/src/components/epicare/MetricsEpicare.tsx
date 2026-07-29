@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl';
 import { useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { AnimatedTitle, AnimatedTitleLine } from '@/components/AnimatedTitle';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -48,7 +49,7 @@ const AnimatedNumber = ({ value }: { value: string }) => {
 export default function MetricsEpicare() {
   const t = useTranslations('landingV2.metrics');
   const sectionRef = useRef<HTMLDivElement>(null);
-  const titleRef = useRef<HTMLHeadingElement>(null);
+
   const mobileElementsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   const metricsData = [
@@ -62,22 +63,7 @@ export default function MetricsEpicare() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       
-      // 1. Unified Title Reveal (Organic Wrapping)
-      if (titleRef.current) {
-        gsap.fromTo(titleRef.current,
-          { y: 40, opacity: 0 },
-          {
-            y: 0, 
-            opacity: 1, 
-            duration: 1.2,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: titleRef.current,
-              start: "top 85%",
-            }
-          }
-        );
-      }
+      // 1. Unified Title Reveal is now handled by <AnimatedTitle>
 
       // 2. Bento Cards Reveal Animation (Desktop only actually visually, but logic applies to the class)
       gsap.fromTo(".metric-bento-reveal", 
@@ -142,9 +128,11 @@ export default function MetricsEpicare() {
         
         {/* ── Header Section ── */}
         <div className="pb-section-xs max-w-4xl will-change-transform">
-          <h2 ref={titleRef} className="text-display font-medium tracking-tight text-[var(--color-text-Black-100)] dark:text-white leading-[1.1]">
-            {t('titleLine1')} <span className="text-[var(--color-text-muted)]">{t('titleLine2')}</span> <span className="text-[var(--color-brand-blue)]">{t('titleLine3')}</span>
-          </h2>
+          <AnimatedTitle className="text-display-lg tracking-tight text-[var(--color-text-Black-100)] dark:text-white leading-[1.1]">
+            <AnimatedTitleLine>{t('titleLine1')}</AnimatedTitleLine>
+            <AnimatedTitleLine>{t('titleLine2')}</AnimatedTitleLine>
+            <AnimatedTitleLine className="text-[var(--color-brand-blue)]">{t('titleLine3')}</AnimatedTitleLine>
+          </AnimatedTitle>
         </div>
 
         {/* ── Layout: The Bento Box Grid (Desktop) ── */}
@@ -183,11 +171,11 @@ export default function MetricsEpicare() {
               <div className="hidden dark:block absolute inset-0 bg-gradient-to-br from-transparent to-[var(--color-brand-blue)]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
               
               <div className="relative z-10 flex flex-col h-full justify-between gap-6 md:gap-12">
-                <div className="text-display md:text-display-lg font-semibold tracking-tighter text-[var(--color-text-Black-100)] dark:text-white">
+                <div className="text-display md:text-display-lg tracking-tighter text-[var(--color-text-Black-100)] dark:text-white">
                   <AnimatedNumber value={metric.value} />
                 </div>
                 <div>
-                  <div className="text-h6 md:text-subtitle font-medium text-[var(--color-text-Black-100)] dark:text-white/90 leading-tight whitespace-pre-line">
+                  <div className="text-h6 md:text-subtitle text-[var(--color-text-Black-100)] dark:text-white/90 leading-tight whitespace-pre-line">
                     {metric.label}
                   </div>
                 </div>
@@ -197,21 +185,25 @@ export default function MetricsEpicare() {
         </div>
 
         {/* ── Layout: Mobile Giant Metrics (Hidden on Desktop) ── */}
-        <div className="flex md:hidden flex-col gap-12 mt-4 overflow-hidden w-full max-w-full relative z-10">
+        <div className="flex md:hidden flex-col mt-10 border-t border-b border-[var(--color-border-Strokes-default)] overflow-hidden w-full max-w-full relative z-10">
            {metricsData.map((m, i) => (
-             <div 
-               key={`mobile-${i}`}
-               ref={el => {
-                 mobileElementsRef.current[i] = el;
-               }}
-               className="w-full flex flex-col leading-[0.85] transform-gpu"
-             >
-               <span className="font-mono text-left text-[26vw] font-black tracking-tighter tabular-nums whitespace-nowrap text-[var(--color-text-Black-100)] dark:text-white opacity-95">
-                 <AnimatedNumber value={m.value} />
-               </span>
-               <span className="text-left text-body-xl-light mt-1 opacity-70 uppercase text-[var(--color-text-Black-100)] dark:text-white">
-                 {m.label}
-               </span>
+             <div key={`mobile-${i}`} className="w-full flex flex-col">
+               <div 
+                 ref={el => {
+                   mobileElementsRef.current[i] = el;
+                 }}
+                 className="w-full flex flex-col py-10 leading-[0.85] transform-gpu"
+               >
+                 <span className="font-mono text-left text-[26vw] font-black tracking-tighter tabular-nums whitespace-nowrap text-[var(--color-text-Black-100)] dark:text-white opacity-95">
+                   <AnimatedNumber value={m.value} />
+                 </span>
+                 <span className="text-left text-body-xl-light mt-1 opacity-70 uppercase text-[var(--color-text-Black-100)] dark:text-white">
+                   {m.label}
+                 </span>
+               </div>
+               {i !== metricsData.length - 1 && (
+                 <div className="w-full h-px bg-[var(--color-border-Strokes-default)]" />
+               )}
              </div>
            ))}
         </div>

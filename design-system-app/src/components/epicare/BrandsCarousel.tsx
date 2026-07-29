@@ -24,9 +24,7 @@ const brands = [
 ];
 
 export default function BrandsCarousel() {
-  const desktopTrackRef = useRef<HTMLDivElement>(null);
-  const mobileTrack1Ref = useRef<HTMLDivElement>(null);
-  const mobileTrack2Ref = useRef<HTMLDivElement>(null);
+  const carouselTrackRef = useRef<HTMLDivElement>(null);
   const scrollWrapperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -34,37 +32,19 @@ export default function BrandsCarousel() {
       const isMobile = window.innerWidth < 768;
       let cleanupHover = () => {};
 
-      // Velocidades base ultra-suaves (Premium feeling)
-      const baseDurationDesktop = 45; 
-      const baseDurationMobile = 70; // Ultra lento en mobile para contrarrestar la densidad visual
-
-      if (isMobile) {
-        if (mobileTrack1Ref.current && mobileTrack2Ref.current) {
-          // Fila 1 Móvil: Izquierda, muy lento
-          gsap.to(mobileTrack1Ref.current, {
+      if (carouselTrackRef.current) {
+        // GSAP se ejecuta SOLO en Desktop. 
+        // En móvil delegamos todo a CSS puro (GPU) para evitar que JS bloquee el hilo principal durante el scroll.
+        if (!isMobile) {
+          const marqueeTween = gsap.to(carouselTrackRef.current, {
             xPercent: -33.33333,
             ease: "none",
-            duration: baseDurationMobile,
-            repeat: -1
-          });
-          
-          // Fila 2 Móvil: Derecha, muy lento
-          gsap.fromTo(mobileTrack2Ref.current, 
-            { xPercent: -33.33333 },
-            { xPercent: 0, ease: "none", duration: baseDurationMobile, repeat: -1 }
-          );
-        }
-      } else {
-        if (desktopTrackRef.current) {
-          const marqueeTween = gsap.to(desktopTrackRef.current, {
-            xPercent: -33.33333,
-            ease: "none",
-            duration: baseDurationDesktop,
-            repeat: -1
+            duration: 45,
+            repeat: -1,
+            force3D: true
           });
 
-          const track = desktopTrackRef.current;
-          // Hover ultra elegante: reduce a 20% de velocidad suavemente
+          const track = carouselTrackRef.current;
           const onEnter = () => gsap.to(marqueeTween, { timeScale: 0.2, duration: 1.2, ease: "power2.out" });
           const onLeave = () => gsap.to(marqueeTween, { timeScale: 1, duration: 1.2, ease: "power2.inOut" });
 
@@ -78,16 +58,16 @@ export default function BrandsCarousel() {
         }
       }
 
-      // Parallax de Scrub con el Scroll (Sutil y elegante)
-      if (scrollWrapperRef.current) {
+      // Scrub de parallax SOLO para Desktop.
+      if (!isMobile && scrollWrapperRef.current) {
         gsap.to(scrollWrapperRef.current, {
-          x: isMobile ? "-1vw" : "-8vw", // Desplazamiento mínimo solo para inercia
+          x: "-8vw", 
           ease: "none",
           scrollTrigger: {
             trigger: scrollWrapperRef.current,
             start: "top bottom",
             end: "bottom top",
-            scrub: 2 // Scrub alto para máxima sedosidad
+            scrub: 2
           }
         });
       }
@@ -98,9 +78,6 @@ export default function BrandsCarousel() {
     return () => ctx.revert();
   }, []);
 
-  const half1 = brands.slice(0, 8);
-  const half2 = brands.slice(8, 16);
-
   const renderLogos = (arr: string[], keyPrefix: string) => (
     <>
       {[1, 2, 3].map((setIndex) => (
@@ -110,7 +87,10 @@ export default function BrandsCarousel() {
               key={`${keyPrefix}-set${setIndex}-${i}`} 
               src={asset(`/Files/Epicare_Landing/Brand_icons/${b}`)}
               alt="Carrier Logo" 
-              className="h-[60px] md:h-[70px] w-auto object-contain grayscale opacity-[0.86] hover:grayscale-0 hover:opacity-100 transition-all duration-300 dark:invert" 
+              loading="lazy"
+              decoding="async"
+              // Eliminada la clase transition-all. Las transformaciones constantes + transitions pesadas matan la GPU en iOS/Android.
+              className="h-[60px] md:h-[70px] w-auto object-contain grayscale opacity-[0.86] md:hover:grayscale-0 md:hover:opacity-100 transition-[filter,opacity] duration-300 dark:invert gpu-layer"
             />
           ))}
         </React.Fragment>
@@ -119,31 +99,17 @@ export default function BrandsCarousel() {
   );
 
   return (
-    <section className="relative w-full bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] text-[var(--color-text-Black-100)] dark:text-white z-20 mt-[-100vh] flex flex-col justify-start pt-section-sm md:pt-[15vh] pb-section-sm md:pb-section-md transition-colors duration-500">
+    <section className="relative w-full rounded-t-[32px] overflow-hidden bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] text-[var(--color-text-Black-100)] dark:text-white z-20 mt-[-100vh] flex flex-col justify-start pt-section-sm md:pt-[15vh] pb-section-sm md:pb-section-md transition-colors duration-500">
       
       <div className="w-full flex flex-col items-center px-4">
         
-        {/* Marquee Container with Centered Peak Gradient Mask */}
         <div className="relative w-full overflow-hidden flex carousel-mask">
           
-          {/* Scroll Parallax Wrapper */}
           <div ref={scrollWrapperRef} className="flex flex-col will-change-transform">
             
-            {/* --- DESKTOP TRACK (1 ROW) --- */}
-            <div ref={desktopTrackRef} className="hidden md:flex w-max items-center gap-fluid-md px-8 py-4 will-change-transform">
-              {renderLogos(brands, 'desktop')}
-            </div>
-
-            {/* --- MOBILE TRACKS (2 ROWS) --- */}
-            <div className="flex md:hidden flex-col gap-fluid-xs w-max py-4">
-              {/* Row 1: Left */}
-              <div ref={mobileTrack1Ref} className="flex w-max items-center gap-fluid-md px-4 will-change-transform">
-                {renderLogos(half1, 'mob1')}
-              </div>
-              {/* Row 2: Right */}
-              <div ref={mobileTrack2Ref} className="flex w-max items-center gap-fluid-md px-4 will-change-transform ml-[-15vw]">
-                {renderLogos(half2, 'mob2')}
-              </div>
+            {/* En móvil, la clase mobile-marquee-anim toma el control vía CSS. En desktop, GSAP anima esto. */}
+            <div ref={carouselTrackRef} className="flex w-max items-center gap-fluid-md px-4 md:px-8 py-4 will-change-transform mobile-marquee-anim">
+              {renderLogos(brands, 'carousel')}
             </div>
 
           </div>
@@ -151,14 +117,33 @@ export default function BrandsCarousel() {
       </div>
 
       <style>{`
+        /* Aislamiento estricto de GPU para las imágenes */
+        .gpu-layer {
+          transform: translateZ(0);
+          backface-visibility: hidden;
+        }
+
         .carousel-mask {
-          /* Mobile curve: wider plateau, sharper fade */
           mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.2) 10%, black 25%, black 75%, rgba(0,0,0,0.2) 90%, transparent 100%);
           -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.2) 10%, black 25%, black 75%, rgba(0,0,0,0.2) 90%, transparent 100%);
         }
+
+        @media (max-width: 767px) {
+          @keyframes marquee-mob {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-33.33333%, 0, 0); }
+          }
+          /* Animación 100% CSS en móvil. No bloquea el hilo principal de JS durante el scroll. */
+          .mobile-marquee-anim {
+            animation: marquee-mob 70s linear infinite;
+          }
+        }
+
         @media (min-width: 768px) {
+          .mobile-marquee-anim {
+            animation: none;
+          }
           .carousel-mask {
-            /* Desktop curve: original */
             mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.2) 15%, black 35%, black 65%, rgba(0,0,0,0.2) 85%, transparent 100%);
             -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.2) 15%, black 35%, black 65%, rgba(0,0,0,0.2) 85%, transparent 100%);
           }

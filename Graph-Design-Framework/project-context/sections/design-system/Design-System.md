@@ -13,7 +13,7 @@ El sistema tipográfico usa **tres familias**, cada una atada a un rol semántic
 
 | Rol | Familia | Uso | Pesos |
 |:---|:---|:---|:---|
-| **Display · Encabezados** | **Inter Display** (Inter variable, eje óptico `opsz` fijado en 32 vía `font-variation-settings`) | Títulos, portadas y manifiestos. **Nunca** para cuerpo. | 400 · 500 · 600 |
+| **Display · Encabezados** | **Inter Display** (Inter variable, eje óptico `opsz` fijado en 32 vía `font-variation-settings`) | Títulos, portadas y manifiestos. **Nunca** para cuerpo. | 400 · 500 · 600 · 700 |
 | **Cuerpo · UI** | **Inter Tight** | Toda la lectura funcional y texto de interfaz. Es la fuente del `body` (todo hereda de aquí salvo override). | 300 · 400 · 500 · 600 · 700 |
 | **Meta · Código** | **JetBrains Mono** | Solo números, hex, labels y metadata. | 400 · 500 · 600 |
 
@@ -21,7 +21,7 @@ El sistema tipográfico usa **tres familias**, cada una atada a un rol semántic
 
 **Display + Encabezados → Inter Display (opsz 32):**
 
-> **Peso:** toda la familia de títulos (display-3xl…display-sm y h1–h7) usa **weight 600** (SemiBold). Se subió de 500→600 porque a 500 se veían débiles.
+> **Peso:** toda la familia de títulos (display-3xl…display-sm y h1–h7) usa **weight 700 en Móvil** y **weight 600 en Desktop**. Se ajustó para tener mayor autoridad visual en pantallas pequeñas (Mobile-first punch).
 
 | Token | CSS Variable / Clamp | Uso |
 |:---|:---|:---|

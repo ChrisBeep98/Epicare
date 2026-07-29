@@ -216,7 +216,7 @@ export default function BentoGridMobile() {
 
         // 2. STACKING CARDS EFFECT (Native CSS Sticky + GSAP 3D Shrink)
         // Arquitectura 100% fluida, elimina el gap falso en la parte inferior de la página.
-        const stackCards = gsap.utils.toArray(".mobile-stack-card");
+        const stackCards = gsap.utils.toArray(".mobile-stack-card") as HTMLElement[];
 
         stackCards.forEach((card: any, i) => {
           if (i < stackCards.length - 1) {

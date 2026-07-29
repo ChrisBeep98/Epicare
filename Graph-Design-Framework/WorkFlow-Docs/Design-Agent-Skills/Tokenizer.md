@@ -72,7 +72,7 @@ Typography is carried by **three families**, each bound to a role. The family is
 
 | Role | Family | Tokens that carry it | Weights |
 |:---|:---|:---|:---|
-| **Display · Headings** | **Inter Display** (Inter var, `opsz` 32) | `text-display-*`, `text-h1`…`text-h7` | 400·500·600 |
+| **Display · Headings** | **Inter Display** (Inter var, `opsz` 32) | `text-display-*`, `text-h1`…`text-h7` | 400·500·600·700 |
 | **Body · UI** | **Inter Tight** | `text-body-*`, `text-body-*-light`, `text-subtitle`, `text-caption` (all inherit from `body`) | 300·400·500·600·700 |
 | **Meta · Código** | **JetBrains Mono** | `text-overline`, `text-ui-label`, `text-data`, `text-meta` | 400·500·600 |
 
