@@ -53,7 +53,11 @@ export default function PeopleRevealEpicare() {
       // Full-bleed photo — interlocking slat reveal: bars collapse AND fade out.
       // Long scroll window + pro bezier + high scrub = slow, buttery, no jumps.
       const proReveal = CustomEase.create('proReveal', REVEAL_EASE);
-      gsap.to('.pr-slat', {
+      
+      // Filtrar sólo los cuadritos (slats) visibles para que el cálculo del centro ('from: center') sea perfecto
+      const visibleSlats = gsap.utils.toArray('.pr-slat').filter((el: any) => getComputedStyle(el).display !== 'none');
+
+      gsap.to(visibleSlats, {
         scaleY: 0,
         opacity: 0,
         transformOrigin: (i: number) => (i % 2 === 0 ? 'top center' : 'bottom center'),
@@ -121,14 +125,17 @@ export default function PeopleRevealEpicare() {
         {SLATS.map((_, i) => (
           <div
             key={i}
-            className="pr-slat flex-1 h-full bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] will-change-transform"
+            // En móvil solo dejamos 4 columnas vivas. El resto se esconden y GSAP las ignora en el array.
+            className={`pr-slat flex-1 h-full bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] will-change-transform ${
+              i >= 4 ? 'hidden md:block' : 'block'
+            }`}
           />
         ))}
       </div>
 
       {/* Kinetic marquee ON TOP of the image, along the bottom */}
       <div className="absolute inset-x-0 bottom-6 md:bottom-10 z-20 flex whitespace-nowrap pointer-events-none select-none mix-blend-difference">
-        <div className="pr-marquee-inner flex will-change-transform text-[11vw] md:text-[8vw] font-medium tracking-tighter leading-none text-white">
+        <div className="pr-marquee-inner flex will-change-transform text-display-2xl md:text-display-3xl tracking-tighter leading-none text-white">
           <Group />
           <Group hidden />
         </div>
