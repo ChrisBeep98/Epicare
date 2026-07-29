@@ -16,7 +16,7 @@ export default function DarkGradientSection() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Premium 3D Blur Reveal
+      // Premium 3D Blur Reveal - Optimized for snappy, fast-scroll performance
       gsap.fromTo(".fade-up", 
         { opacity: 0, y: 60, rotationX: 15, scale: 0.9, filter: "blur(8px)" },
         {
@@ -25,12 +25,12 @@ export default function DarkGradientSection() {
           rotationX: 0,
           scale: 1,
           filter: "blur(0px)",
-          duration: 0.8,
-          stagger: 0.08,
-          ease: "power3.out",
+          duration: 0.5, // Much faster entry
+          stagger: 0.04, // Extremely tight stagger so cards don't wait for text
+          ease: "power4.out", // Explosive start, smooth settle
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: "top 98%"
+            start: "top 85%" // Triggers when the section is genuinely in view
           }
         }
       );
@@ -100,7 +100,7 @@ export default function DarkGradientSection() {
     >
       <div className="max-w-section-lg mx-auto w-full">
         
-        <div className="relative w-full min-h-0 h-auto md:min-h-[75vh] rounded-[12px] border border-[var(--color-border-Strokes-default)] overflow-hidden flex flex-col justify-center items-start md:items-center text-left md:text-center px-[14px] py-12 md:p-12 lg:p-16 bg-transparent shadow-[var(--shadow-elevation-2)] transition-colors duration-500">
+        <div className="relative w-full min-h-0 h-auto md:min-h-[75vh] rounded-[12px] border border-[var(--color-border-Strokes-default)] overflow-hidden flex flex-col justify-center items-start md:items-center text-left md:text-center px-[14px] py-12 md:p-12 lg:p-16 bg-transparent transition-colors duration-500">
           
           {/* Fondo Light Mode: Glow Ambient + Textura de Puntos */}
           <div className="absolute inset-0 w-full h-full z-0 pointer-events-none block dark:hidden overflow-hidden bg-transparent">
