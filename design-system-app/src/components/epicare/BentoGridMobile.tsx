@@ -114,6 +114,48 @@ const ArrowUR = ({ className = '' }: { className?: string }) => (
 );
 
 // ----------------------------------------------------------------------
+// HARDWARE SYMPHONY: SmartVideo Component
+// ----------------------------------------------------------------------
+function SmartVideo({ src, className, ...props }: { src: string, className?: string, [key: string]: any }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            video.play().catch(() => {});
+          } else {
+            video.pause();
+          }
+        });
+      },
+      { threshold: 0.05 } // Se activa cuando asoma el 5%
+    );
+
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <video
+      ref={videoRef}
+      src={src}
+      className={className}
+      muted
+      playsInline
+      loop
+      preload="metadata"
+      {...props}
+    />
+  );
+}
+
+
+// ----------------------------------------------------------------------
 // MAIN COMPONENT
 // ----------------------------------------------------------------------
 export default function BentoGridMobile() {
@@ -178,19 +220,29 @@ export default function BentoGridMobile() {
 
         stackCards.forEach((card: any, i) => {
           if (i < stackCards.length - 1) {
-            // Cuando la tarjeta de abajo empieza a subir, la actual se encoge y se desvanece
-            gsap.to(card, {
-              scale: 0.85,
-              opacity: 0,
-              y: -50,
+            const tl = gsap.timeline({
               scrollTrigger: {
                 trigger: stackCards[i + 1],
-                start: "top bottom", // Inicia cuando la siguiente tarjeta asoma en la parte inferior
-                end: "top top",      // Termina cuando la siguiente tarjeta llega al top
+                start: "top 55%",
+                end: "top top",      
                 scrub: true,
-                invalidateOnRefresh: true
+                invalidateOnRefresh: true,
+                onLeave: () => gsap.set(card, { autoAlpha: 0 }), // Smart Shutdown: Elimina overdraw cuando está cubierta
+                onEnterBack: () => gsap.set(card, { autoAlpha: 1 }) // Restaura al devolver scroll
               }
             });
+
+            // Animación 3D pura por hardware (transform localizado)
+            tl.to(card, {
+              y: -60,
+              scale: 0.96,
+              rotationX: -4, 
+              transformPerspective: 1500, // Perspectiva local evita distorsión en las últimas cards
+              transformOrigin: "top center",
+              force3D: true, 
+              ease: "none"
+            }, 0);
+
           }
         });
     });
@@ -292,10 +344,10 @@ export default function BentoGridMobile() {
         {/* DOM: NATIVE CSS STICKY 3D STACK (Zero-Gap Architecture) */}
         <div
           ref={trackRef}
-          className="relative flex flex-col items-center justify-start w-full z-10 pb-32"
+          className="relative flex flex-col items-center justify-start w-full z-10"
         >
           {/* CARD 0: THE TITLE COMPOSITION */}
-          <div className="mobile-stack-card sticky top-0 w-full min-h-[100dvh] flex flex-col justify-center items-start gap-10 px-gutter-sm origin-top transform-gpu z-[10]">
+          <div className="mobile-stack-card sticky top-0 w-full min-h-[100vh] flex flex-col justify-center items-start gap-10 px-gutter-sm origin-top transform-gpu will-change-transform [backface-visibility:hidden] z-[10] relative">
               <h2 className="text-display-lg text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)] text-left leading-[1.1]">
                 {t('sectionTitle').split('\n').map((line, i, arr) => {
                   const isHighlight = i === 1;
@@ -326,16 +378,18 @@ export default function BentoGridMobile() {
           </div>
 
           {/* CARDS 1-5: ECOSYSTEM */}
-          {ecosytemCards.map((card, idx) => (
+          {ecosytemCards.map((card, idx) => {
+            const isLastCard = idx === ecosytemCards.length - 1;
+            return (
             <div 
               key={idx} 
-              className="mobile-stack-card sticky top-0 w-full h-[100dvh] pt-16 pb-8 px-4 flex flex-col justify-center origin-top transform-gpu"
+              className={`mobile-stack-card w-full h-[100vh] flex flex-col justify-center items-center origin-top transform-gpu will-change-transform [backface-visibility:hidden] ${!isLastCard ? 'sticky top-0' : 'relative'}`}
               style={{ zIndex: 11 + idx }}
             >
-                <div className={`group relative w-full h-full rounded-[32px] overflow-hidden shadow-[0_4px_30px_rgba(0,0,0,0.1)] border border-[var(--color-border-Strokes-default)] flex flex-col transition-transform duration-[600ms] cursor-pointer ${(card as any).cardClassNameDark ? `bg-[var(--color-surface-BG-white)] ${(card as any).cardClassNameDark}` : 'bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)]'}`}>
+                <div className={`group relative w-full h-full rounded-[32px] overflow-hidden shadow-[0_4px_30px_rgba(0,0,0,0.1)] border border-[var(--color-border-Strokes-default)] flex flex-col transition-transform duration-[600ms] cursor-pointer [transform:translateZ(0)] outline outline-1 outline-transparent ${(card as any).cardClassNameDark ? `bg-[var(--color-surface-BG-white)] ${(card as any).cardClassNameDark}` : 'bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)]'}`}>
                   
-                  {/* Floating Action Bubble */}
-                  <div className="absolute bottom-6 right-6 h-10 pl-4 pr-1.5 bg-white/30 dark:bg-black/30 backdrop-blur-md border border-[var(--color-brand-blue)]/20 dark:border-white/10 text-[var(--color-text-Black-100)] dark:text-white rounded-full flex items-center justify-center gap-2 overflow-hidden shadow-elevation-2 z-50 transition-all duration-[600ms] group-hover:scale-105 group-hover:bg-[var(--color-brand-blue)] group-hover:text-white">
+                  {/* Floating Action Bubble (Hardware Symphony: No backdrop-blur) */}
+                  <div className="absolute bottom-6 right-6 h-10 pl-4 pr-1.5 bg-white/95 dark:bg-[#0D0D0E]/95 border border-[var(--color-brand-blue)]/20 dark:border-white/10 text-[var(--color-text-Black-100)] dark:text-white rounded-full flex items-center justify-center gap-2 overflow-hidden shadow-elevation-2 z-50 transition-all duration-[600ms] group-hover:scale-105 group-hover:bg-[var(--color-brand-blue)] group-hover:text-white">
                     <span className="text-body-sm font-medium tracking-wide">{t('cardCta')}</span>
                     <div className="relative w-7 h-7 rounded-full bg-[var(--color-brand-blue)]/10 dark:bg-[var(--color-brand-cyan)]/10 text-[var(--color-brand-blue)] dark:text-[var(--color-brand-cyan)] flex items-center justify-center overflow-hidden shrink-0 group-hover:bg-white/20 group-hover:text-white">
                       <ArrowUR className="absolute w-4 h-4 transition-transform duration-[400ms] group-hover:translate-x-6 group-hover:-translate-y-6" />
@@ -345,8 +399,7 @@ export default function BentoGridMobile() {
 
                   {/* Dark Mode Video BG */}
                   {(card as any).videoDark && (card as any).videoDarkFullBackground && (
-                    <video 
-                      autoPlay loop muted playsInline
+                    <SmartVideo 
                       src={(card as any).videoDark}
                       className="absolute inset-0 w-full h-full object-cover object-center z-0 hidden dark:block transition-transform duration-[800ms] group-hover:scale-[1.05]" 
                     />
@@ -378,14 +431,14 @@ export default function BentoGridMobile() {
                         <>
                           {/* LIGHT MODE MEDIA */}
                           {hasLightVideo ? (
-                            <video autoPlay loop muted playsInline src={(card as any).videoLight} className={`absolute inset-0 w-full h-full ${(card as any).videoLightContain ? 'object-contain p-8' : 'object-cover'} object-center transition-transform duration-[800ms] ease-out group-hover:scale-[1.05] ${hasDarkVideo || hasImage ? 'dark:hidden' : ''}`} />
+                            <SmartVideo src={(card as any).videoLight} className={`absolute inset-0 w-full h-full ${(card as any).videoLightContain ? 'object-contain p-8' : 'object-cover'} object-center transition-transform duration-[800ms] ease-out group-hover:scale-[1.05] ${hasDarkVideo || hasImage ? 'dark:hidden' : ''}`} />
                           ) : hasImage ? (
                             <img src={card.image} alt={card.title} className={`absolute inset-0 w-full h-full object-cover object-center transition-transform duration-[800ms] ease-out group-hover:scale-[1.05] ${hasDarkVideo ? 'dark:hidden' : ''}`} />
                           ) : null}
 
                           {/* DARK MODE MEDIA */}
                           {hasDarkVideo ? (
-                            <video autoPlay loop muted playsInline src={(card as any).videoDark} className={`absolute inset-0 w-full h-full object-cover object-center transition-transform duration-[800ms] ease-out group-hover:scale-[1.05] ${(card as any).videoDarkClassName || ''} ${hasLightVideo || hasImage ? 'hidden dark:block' : ''}`} />
+                            <SmartVideo src={(card as any).videoDark} className={`absolute inset-0 w-full h-full object-cover object-center transition-transform duration-[800ms] ease-out group-hover:scale-[1.05] ${(card as any).videoDarkClassName || ''} ${hasLightVideo || hasImage ? 'hidden dark:block' : ''}`} />
                           ) : (hasImage && hasLightVideo) ? (
                             <img src={card.image} alt={card.title} className="absolute inset-0 w-full h-full object-cover object-center hidden dark:block transition-transform duration-[800ms] ease-out group-hover:scale-[1.05]" />
                           ) : null}
@@ -395,7 +448,8 @@ export default function BentoGridMobile() {
                   </div>
                 </div>
               </div>
-            ))}
+            );
+          })}
         </div>
       </section>
   );
