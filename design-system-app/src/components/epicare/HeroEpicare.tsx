@@ -50,10 +50,13 @@ export default function HeroEpicare() {
 
       // Ocultar la UI del Hero y el Navbar real al inicio
       gsap.set(heroContentRef.current, { 
+        pointerEvents: 'none'
+      });
+      // AWWWARDS MOTION: The Water Mask (Birth of Typography)
+      gsap.set('.hero-anim-item', { 
         opacity: 0, 
-        pointerEvents: 'none', 
-        y: 30,
-        scale: 0.98 
+        y: 60, // Deeper origin for Layered Unveiling
+        clipPath: "inset(0% 0% 100% 0%)" // Invisible horizon mask
       });
 
       // Asegurar que la viñeta oscura empiece invisible
@@ -75,24 +78,16 @@ export default function HeroEpicare() {
             pin: true,
             scrub: 1, 
             onUpdate: (self) => {
-              if (self.progress > 0.05) {
-                setIsExpanded(true);
-              } else {
-                setIsExpanded(false);
-              }
+              setIsExpanded(self.progress > 0.05);
+              setIsHeaderForcedDark(self.progress >= 0.35 && self.progress < 0.95);
 
-              if (self.progress >= 0.35 && self.progress < 0.95) {
-                setIsHeaderForcedDark(true);
+              const isMobileCheck = window.innerWidth < 768;
+              if (isMobileCheck) {
+                if (self.progress >= 0.85) setIsHeaderPill(true);
+                else setIsHeaderPill(false);
               } else {
-                setIsHeaderForcedDark(false);
-              }
-
-              // Header becomes a pill (with heavy backdrop-blur) ONLY after video finishes expanding (progress >= 0.55)
-              // This is a massive mobile GPU optimization to prevent blur + resize lag.
-              if (self.progress >= 0.55) {
-                setIsHeaderPill(true);
-              } else {
-                setIsHeaderPill(false);
+                if (self.progress >= 0.55) setIsHeaderPill(true);
+                else setIsHeaderPill(false);
               }
             }
           }
@@ -114,33 +109,34 @@ export default function HeroEpicare() {
 
         // Acto 1 -> Expansión del Video a Full Screen
         if (isMobile) {
-          // MOBILE: HARDWARE SYMPHONY PROTOCOL (Elegant Degradation)
-          // Animating width/height triggers Layout/Paint recalculations (extreme lag).
-          // We set the container to 100vw/100vh instantly, scale it down to 85% via transform,
-          // and then animate scale back to 1. 0% Reflows, 100% GPU Compositor.
+          // MOBILE: OPTIMIZACIÓN EXTREMA NATIVA (Video Scaler)
           gsap.set(videoWrapperRef.current, {
             position: "absolute",
             bottom: 0,
             left: 0,
             right: 0,
             margin: "0 auto",
-            width: "100%",
-            height: "100vh",
-            scale: 0.85, 
+            width: "85%", // Ancho inicial
+            height: "85vh", // Alto inicial
+            scale: 1, 
             transformOrigin: "bottom center",
             borderRadius: "32px",
             boxShadow: "none",
-            force3D: true,
+            force3D: false, // Crucial apagarlo para que no use texturas de capa
+            willChange: "width, height, border-radius"
           });
 
           tl.to(videoWrapperRef.current, {
-            scale: 1, // Animamos única y exclusivamente el GPU Transform
+            width: "100%",
+            height: "100vh",
             borderRadius: "0px",
             duration: 1,
             ease: "power2.inOut"
           }, 0);
         } else {
-          // DESKTOP: Mantener todo el lujo intacto
+          // DESKTOP: Mantener todo el lujo intacto (Desktop GPU soporta repaints)
+          gsap.set(videoWrapperRef.current, { clipPath: "none" });
+
           tl.to(videoWrapperRef.current, {
             width: "100%", 
             maxWidth: "100%",
@@ -164,14 +160,17 @@ export default function HeroEpicare() {
           ease: "power2.inOut"
         }, 0);
 
-        tl.to(heroContentRef.current, {
+        // Activamos la interactividad del contenedor
+        tl.to(heroContentRef.current, { pointerEvents: "auto", duration: 0.1 }, 0.6);
+        
+        // AWWWARDS MOTION: Layered Unveiling & Birth of Typography
+        tl.to('.hero-anim-item', {
           opacity: 1,
           y: 0,
-          scale: 1,
-          pointerEvents: "auto",
-          duration: 0.5,
-          ease: "power2.out",
-          stagger: 0.1
+          clipPath: "inset(0% 0% 0% 0%)",
+          duration: 0.8, // Slightly longer for the dramatic deceleration
+          ease: "power4.out", // Start fast, end slow (heavy deceleration)
+          stagger: 0.15
         }, 0.6);
 
         tl.to({}, { duration: 0.8 });
@@ -251,7 +250,7 @@ export default function HeroEpicare() {
               loop 
               muted 
               playsInline 
-              className="absolute inset-0 w-full h-full object-cover mix-blend-screen scale-[1.05]"
+              className="absolute inset-0 w-full h-full object-cover md:mix-blend-screen scale-[1.05]"
             >
               <source src={asset("/Files/Epicare_Landing/Hero/Hero_02.mp4")} type="video/mp4" />
             </video>
@@ -264,7 +263,7 @@ export default function HeroEpicare() {
               <img 
                 src={asset("/epicare_logo.svg")}
                 alt="Epicare" 
-                className="w-[180px] md:w-[240px] filter brightness-0 invert opacity-100 mix-blend-difference" 
+                className="w-[180px] md:w-[240px] filter brightness-0 invert opacity-100 md:mix-blend-difference" 
               />
             </div>
 
@@ -294,21 +293,21 @@ export default function HeroEpicare() {
                 
                 {/* Fila 2: Titular Principal */}
                 <div className="col-start-1 col-span-12 md:col-start-1 md:col-span-7 lg:col-span-9 row-start-2 md:row-start-5 row-span-1 flex flex-row justify-start items-end pb-8">
-                  <h1 className="text-display md:text-display-xl text-white drop-shadow-lg leading-none mb-4">
+                  <h1 className="hero-anim-item text-display md:text-display-xl text-white md:drop-shadow-lg leading-none mb-4">
                     {t('title1')}<br/>{t('title2')}
                   </h1>
                 </div>
 
                 {/* Fila 3: Subtítulo y CTA */}
                 <div className="col-start-1 col-span-12 md:col-start-1 md:col-span-5 row-start-3 md:row-start-6 row-span-1 flex flex-col justify-start items-start gap-fluid-sm">
-                  <p className="hidden md:block text-body-lg text-[var(--color-text-White-100)] leading-relaxed font-light">
+                  <p className="hero-anim-item hidden md:block text-body-lg text-[var(--color-text-White-100)] leading-relaxed font-light">
                     {t('description')}
                   </p>
-                  <p className="md:hidden text-body-md text-[var(--color-text-White-100)] leading-relaxed font-light">
+                  <p className="hero-anim-item md:hidden text-body-md text-[var(--color-text-White-100)] leading-relaxed font-light">
                     {t('descriptionMobile')}
                   </p>
                   
-                  <div className="flex flex-col md:flex-row gap-static-md md:gap-fluid-xs">
+                  <div className="hero-anim-item flex flex-col md:flex-row gap-static-md md:gap-fluid-xs">
                     {/* Primary CTA */}
                     <button className="group w-fit h-12 pl-6 pr-2 rounded-full flex items-center gap-3 bg-[var(--color-action-primary-bg)] text-[var(--color-action-primary-text)] shadow-elevation-2 transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-elevation-4 active:scale-[0.96] active:opacity-80 active:duration-150">
                       <span className="text-body-sm font-medium">{t('ctaPlans')}</span>
@@ -319,7 +318,7 @@ export default function HeroEpicare() {
                     </button>
 
                     {/* Secondary CTA */}
-                    <button className="group w-fit h-12 pl-6 pr-2 rounded-full flex items-center gap-3 bg-white/10 border border-[var(--color-border-Strokes-White-100)] text-[var(--color-text-White-100)] shadow-elevation-1 backdrop-blur-sm transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:bg-white/20 hover:-translate-y-0.5 hover:scale-[1.02] active:scale-[0.96] active:opacity-80 active:duration-150">
+                    <button className="group w-fit h-12 pl-6 pr-2 rounded-full flex items-center gap-3 bg-white/10 border border-[var(--color-border-Strokes-White-100)] text-[var(--color-text-White-100)] shadow-elevation-1 md:backdrop-blur-sm transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:bg-white/20 hover:-translate-y-0.5 hover:scale-[1.02] active:scale-[0.96] active:opacity-80 active:duration-150">
                       <span className="text-body-sm font-medium">{t('ctaAgents')}</span>
                       <span className="relative w-8 h-8 rounded-full bg-white/20 text-[var(--color-text-White-100)] flex items-center justify-center overflow-hidden shrink-0">
                         <ArrowUR className="absolute w-4 h-4 transition-transform duration-300 ease-out group-hover:translate-x-5 group-hover:-translate-y-5" />
