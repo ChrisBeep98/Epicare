@@ -132,9 +132,8 @@ export default function BentoGridMobile() {
 
     const section = containerRef.current;
     const track = trackRef.current;
-    const cards = gsap.utils.toArray('.coverflow-card');
 
-    if (!section || !track || cards.length === 0) return;
+    if (!section || !track) return;
 
     // Resolve brand accents from the DS tokens once.
     const styles = getComputedStyle(document.documentElement);
@@ -173,17 +172,27 @@ export default function BentoGridMobile() {
           }
         );
 
-        // 2. CARDS ANIMATION
-        const tweens = cards.map((card: any) =>
-          gsap.from(card, {
-            y: REVEAL.md,
-            opacity: 0,
-            duration: DUR.base,
-            ease: EASE.out,
-            scrollTrigger: { trigger: card, start: TRIGGER.standard },
-          })
-        );
-        return () => tweens.forEach(tw => { tw.scrollTrigger?.kill(); tw.kill(); });
+        // 2. STACKING CARDS EFFECT (Native CSS Sticky + GSAP 3D Shrink)
+        // Arquitectura 100% fluida, elimina el gap falso en la parte inferior de la página.
+        const stackCards = gsap.utils.toArray(".mobile-stack-card");
+
+        stackCards.forEach((card: any, i) => {
+          if (i < stackCards.length - 1) {
+            // Cuando la tarjeta de abajo empieza a subir, la actual se encoge y se desvanece
+            gsap.to(card, {
+              scale: 0.85,
+              opacity: 0,
+              y: -50,
+              scrollTrigger: {
+                trigger: stackCards[i + 1],
+                start: "top bottom", // Inicia cuando la siguiente tarjeta asoma en la parte inferior
+                end: "top top",      // Termina cuando la siguiente tarjeta llega al top
+                scrub: true,
+                invalidateOnRefresh: true
+              }
+            });
+          }
+        });
     });
 
     return () => mm.revert();
@@ -280,119 +289,113 @@ export default function BentoGridMobile() {
           </div>
         </div>
 
-        {/* DOM: free-scroll column on mobile, pinned coverflow row on desktop */}
+        {/* DOM: NATIVE CSS STICKY 3D STACK (Zero-Gap Architecture) */}
         <div
           ref={trackRef}
-          className="relative md:absolute md:top-0 flex flex-col md:flex-row items-center justify-start w-full md:w-auto md:h-full will-change-transform transform-gpu z-10 gap-fluid-sm md:gap-[3vw] py-static-md md:py-0 px-gutter-sm md:px-[4vw]"
-          style={{ transformStyle: 'preserve-3d' }}
+          className="relative flex flex-col items-center justify-start w-full z-10 pb-32"
         >
-          {/* THE TITLE CARD */}
-          <div
-            className="coverflow-card shrink-0 w-full lg:w-[40vw] h-auto md:h-[100vh] relative transform-gpu flex flex-col justify-start gap-static-md md:gap-static-xl pt-static-md md:pt-[15vh]"
-            style={{ transformOrigin: 'center center' }}
-          >
-            <h2 className="text-display-lg text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)] text-left leading-[1.1]">
-              {t('sectionTitle').split('\n').map((line, i, arr) => {
-                const isHighlight = i === 1;
-                return (
-                  <span key={i} className="block overflow-hidden pb-1 -mb-1">
-                    <span className={`title-line-reveal block ${isHighlight ? 'text-[var(--color-brand-blue)] font-bold tracking-tight' : ''}`}>
-                      {line}
+          {/* CARD 0: THE TITLE COMPOSITION */}
+          <div className="mobile-stack-card sticky top-0 w-full min-h-[100dvh] flex flex-col justify-center items-start gap-10 px-gutter-sm origin-top transform-gpu z-[10]">
+              <h2 className="text-display-lg text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)] text-left leading-[1.1]">
+                {t('sectionTitle').split('\n').map((line, i, arr) => {
+                  const isHighlight = i === 1;
+                  return (
+                    <span key={i} className="block overflow-hidden pb-1 -mb-1">
+                      <span className={`title-line-reveal block ${isHighlight ? 'text-[var(--color-brand-blue)] font-bold tracking-tight' : ''}`}>
+                        {line}
+                      </span>
                     </span>
-                  </span>
-                );
-              })}
-            </h2>
-            
-            <div className="md:my-auto flex flex-col gap-static-xl md:gap-static-2xl translate-y-0 md:-translate-y-10">
-              <p className="text-body-lg text-[var(--color-text-muted)] font-light max-w-[500px] text-left">
-                {t('sectionDesc')}
-              </p>
-              <div className="flex">
-                <button className="group w-fit h-12 pl-6 pr-2 rounded-full flex items-center gap-3 bg-[var(--color-action-primary-bg)] text-[var(--color-action-primary-text)] shadow-elevation-2 transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-elevation-4">
-                  <span className="text-body-sm font-medium">{th('ctaPlans')}</span>
-                  <span className="relative w-8 h-8 rounded-full bg-[var(--color-action-primary-text)] text-[var(--color-action-primary-bg)] flex items-center justify-center overflow-hidden shrink-0">
-                    <ArrowUR className="absolute w-4 h-4 transition-transform duration-300 ease-out group-hover:translate-x-5 group-hover:-translate-y-5" />
-                    <ArrowUR className="absolute w-4 h-4 -translate-x-5 translate-y-5 transition-transform duration-300 ease-out group-hover:translate-x-0 group-hover:translate-y-0" />
-                  </span>
-                </button>
+                  );
+                })}
+              </h2>
+              
+              <div className="flex flex-col gap-6 w-full pr-4">
+                <p className="text-body-lg text-[var(--color-text-muted)] font-light text-left">
+                  {t('sectionDesc')}
+                </p>
+                <div className="flex">
+                  <button className="group w-fit h-12 pl-6 pr-2 rounded-full flex items-center gap-3 bg-[var(--color-action-primary-bg)] text-[var(--color-action-primary-text)] shadow-elevation-2 transition-all duration-[450ms] hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-elevation-4">
+                    <span className="text-body-sm font-medium">{th('ctaPlans')}</span>
+                    <span className="relative w-8 h-8 rounded-full bg-[var(--color-action-primary-text)] text-[var(--color-action-primary-bg)] flex items-center justify-center overflow-hidden shrink-0">
+                      <ArrowUR className="absolute w-4 h-4 transition-transform duration-300 ease-out group-hover:translate-x-5 group-hover:-translate-y-5" />
+                      <ArrowUR className="absolute w-4 h-4 -translate-x-5 translate-y-5 transition-transform duration-300 ease-out group-hover:translate-x-0 group-hover:translate-y-0" />
+                    </span>
+                  </button>
+                </div>
               </div>
-            </div>
           </div>
 
-          {/* THE IMAGE CARDS */}
+          {/* CARDS 1-5: ECOSYSTEM */}
           {ecosytemCards.map((card, idx) => (
             <div 
               key={idx} 
-              className="coverflow-card shrink-0 w-full lg:w-[50vw] h-[60vh] md:h-[60vh] relative transform-gpu"
-              style={{ transformOrigin: 'center center' }}
+              className="mobile-stack-card sticky top-0 w-full h-[100dvh] pt-16 pb-8 px-4 flex flex-col justify-center origin-top transform-gpu"
+              style={{ zIndex: 11 + idx }}
             >
-              <div className={`group absolute inset-0 w-full h-full rounded-[24px] overflow-hidden shadow-elevation-4 border border-[var(--color-border-Strokes-default)] flex flex-col md:flex-row transition-transform duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:scale-[1.02] cursor-pointer ${(card as any).cardClassNameDark ? `bg-[var(--color-surface-BG-white)] ${(card as any).cardClassNameDark}` : 'bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)]'}`}>
-                
-                {/* Floating Action Bubble (Liquid Glass Pill) */}
-                <div className="absolute bottom-static-md right-static-md md:bottom-8 md:right-8 h-10 md:h-12 pl-4 pr-1.5 md:pl-5 md:pr-2 bg-white/30 dark:bg-black/30 backdrop-blur-md border border-[var(--color-brand-blue)]/20 dark:border-white/10 text-[var(--color-text-Black-100)] dark:text-white rounded-full flex items-center justify-center gap-2 md:gap-3 overflow-hidden shadow-elevation-2 z-50 transition-all duration-[600ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105 group-hover:shadow-elevation-4 group-hover:bg-[var(--color-brand-blue)] group-hover:border-[var(--color-brand-blue)] group-hover:text-white">
-                  <span className="text-body-sm font-medium tracking-wide">{t('cardCta')}</span>
-                  <div className="relative w-7 h-7 md:w-8 md:h-8 rounded-full bg-[var(--color-brand-blue)]/10 dark:bg-[var(--color-brand-cyan)]/10 text-[var(--color-brand-blue)] dark:text-[var(--color-brand-cyan)] flex items-center justify-center overflow-hidden shrink-0 transition-colors duration-[600ms] group-hover:bg-white/20 group-hover:text-white">
-                    <ArrowUR className="absolute w-4 h-4 md:w-4 md:h-4 transition-transform duration-[400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-6 group-hover:-translate-y-6" />
-                    <ArrowUR className="absolute w-4 h-4 md:w-4 md:h-4 -translate-x-6 translate-y-6 transition-transform duration-[400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-0 group-hover:translate-y-0" />
+                <div className={`group relative w-full h-full rounded-[32px] overflow-hidden shadow-[0_4px_30px_rgba(0,0,0,0.1)] border border-[var(--color-border-Strokes-default)] flex flex-col transition-transform duration-[600ms] cursor-pointer ${(card as any).cardClassNameDark ? `bg-[var(--color-surface-BG-white)] ${(card as any).cardClassNameDark}` : 'bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)]'}`}>
+                  
+                  {/* Floating Action Bubble */}
+                  <div className="absolute bottom-6 right-6 h-10 pl-4 pr-1.5 bg-white/30 dark:bg-black/30 backdrop-blur-md border border-[var(--color-brand-blue)]/20 dark:border-white/10 text-[var(--color-text-Black-100)] dark:text-white rounded-full flex items-center justify-center gap-2 overflow-hidden shadow-elevation-2 z-50 transition-all duration-[600ms] group-hover:scale-105 group-hover:bg-[var(--color-brand-blue)] group-hover:text-white">
+                    <span className="text-body-sm font-medium tracking-wide">{t('cardCta')}</span>
+                    <div className="relative w-7 h-7 rounded-full bg-[var(--color-brand-blue)]/10 dark:bg-[var(--color-brand-cyan)]/10 text-[var(--color-brand-blue)] dark:text-[var(--color-brand-cyan)] flex items-center justify-center overflow-hidden shrink-0 group-hover:bg-white/20 group-hover:text-white">
+                      <ArrowUR className="absolute w-4 h-4 transition-transform duration-[400ms] group-hover:translate-x-6 group-hover:-translate-y-6" />
+                      <ArrowUR className="absolute w-4 h-4 -translate-x-6 translate-y-6 transition-transform duration-[400ms] group-hover:translate-x-0 group-hover:translate-y-0" />
+                    </div>
                   </div>
-                </div>
 
-                {/* Full Background Dark Video */}
-                {(card as any).videoDark && (card as any).videoDarkFullBackground && (
-                  <>
+                  {/* Dark Mode Video BG */}
+                  {(card as any).videoDark && (card as any).videoDarkFullBackground && (
                     <video 
                       autoPlay loop muted playsInline
                       src={(card as any).videoDark}
-                      className="absolute inset-0 w-full h-full object-cover object-center z-0 hidden dark:block transition-transform duration-[800ms] ease-out group-hover:scale-[1.05]" 
+                      className="absolute inset-0 w-full h-full object-cover object-center z-0 hidden dark:block transition-transform duration-[800ms] group-hover:scale-[1.05]" 
                     />
-                  </>
-                )}
-
-                {/* Text Side (Left on Desktop, Top on Mobile) */}
-                <div className="w-full md:w-5/12 px-gutter-sm py-static-lg md:p-static-lg lg:p-static-2xl flex flex-col justify-start relative z-10 shrink-0 pointer-events-none">
-                  {card.logo && (
-                     <div className="text-[var(--color-brand-blue)] dark:text-[var(--color-brand-cyan)] mb-static-sm lg:mb-static-md">
-                        {card.logo}
-                     </div>
                   )}
-                  <h3 className="text-display mb-static-sm lg:mb-static-md text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)]">
-                    {card.title}
-                  </h3>
-                  <p className="text-body-lg text-[var(--color-text-muted)] font-light max-w-[400px]">
-                    {card.desc}
-                  </p>
-                </div>
 
-                {/* Media Side (Right on Desktop, Bottom on Mobile) */}
-                <div className={`w-full md:w-7/12 flex-1 relative overflow-hidden pointer-events-none ${(card as any).mediaClassNameDark ? (card as any).mediaClassNameDark : 'bg-black/5 dark:bg-white/5'} ${((card as any).videoDark && (card as any).videoDarkFullBackground) ? 'dark:hidden' : ''}`}>
-                  {(() => {
-                    const hasLightVideo = !!(card as any).videoLight;
-                    const hasDarkVideo = !!(card as any).videoDark && !(card as any).videoDarkFullBackground;
-                    const hasImage = !!card.image;
+                  {/* Text Container (Top) */}
+                  <div className="w-full p-6 flex flex-col justify-start relative z-10 pointer-events-none">
+                    {card.logo && (
+                       <div className="text-[var(--color-brand-blue)] dark:text-[var(--color-brand-cyan)] mb-4">
+                          {card.logo}
+                       </div>
+                    )}
+                    <h3 className="text-display mb-2 text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)]">
+                      {card.title}
+                    </h3>
+                    <p className="text-body-sm text-[var(--color-text-muted)] font-light max-w-[90%]">
+                      {card.desc}
+                    </p>
+                  </div>
 
-                    return (
-                      <>
-                        {/* LIGHT MODE MEDIA */}
-                        {hasLightVideo ? (
-                          <video autoPlay loop muted playsInline src={(card as any).videoLight} className={`absolute inset-0 w-full h-full ${(card as any).videoLightContain ? 'object-contain p-16' : 'object-cover'} object-center transition-transform duration-[800ms] ease-out group-hover:scale-[1.05] ${hasDarkVideo || hasImage ? 'dark:hidden' : ''}`} />
-                        ) : hasImage ? (
-                          <img src={card.image} alt={card.title} className={`absolute inset-0 w-full h-full object-cover object-center transition-transform duration-[800ms] ease-out group-hover:scale-[1.05] ${hasDarkVideo ? 'dark:hidden' : ''}`} />
-                        ) : null}
+                  {/* Media Container (Bottom) */}
+                  <div className={`w-full flex-1 relative overflow-hidden pointer-events-none ${(card as any).mediaClassNameDark ? (card as any).mediaClassNameDark : 'bg-black/5 dark:bg-white/5'} ${((card as any).videoDark && (card as any).videoDarkFullBackground) ? 'dark:hidden' : ''}`}>
+                    {(() => {
+                      const hasLightVideo = !!(card as any).videoLight;
+                      const hasDarkVideo = !!(card as any).videoDark && !(card as any).videoDarkFullBackground;
+                      const hasImage = !!card.image;
 
-                        {/* DARK MODE MEDIA */}
-                        {hasDarkVideo ? (
-                          <video autoPlay loop muted playsInline src={(card as any).videoDark} className={`absolute inset-0 w-full h-full object-cover object-center transition-transform duration-[800ms] ease-out group-hover:scale-[1.05] ${(card as any).videoDarkClassName || ''} ${hasLightVideo || hasImage ? 'hidden dark:block' : ''}`} />
-                        ) : (hasImage && hasLightVideo) ? (
-                          <img src={card.image} alt={card.title} className="absolute inset-0 w-full h-full object-cover object-center hidden dark:block transition-transform duration-[800ms] ease-out group-hover:scale-[1.05]" />
-                        ) : null}
-                      </>
-                    );
-                  })()}
+                      return (
+                        <>
+                          {/* LIGHT MODE MEDIA */}
+                          {hasLightVideo ? (
+                            <video autoPlay loop muted playsInline src={(card as any).videoLight} className={`absolute inset-0 w-full h-full ${(card as any).videoLightContain ? 'object-contain p-8' : 'object-cover'} object-center transition-transform duration-[800ms] ease-out group-hover:scale-[1.05] ${hasDarkVideo || hasImage ? 'dark:hidden' : ''}`} />
+                          ) : hasImage ? (
+                            <img src={card.image} alt={card.title} className={`absolute inset-0 w-full h-full object-cover object-center transition-transform duration-[800ms] ease-out group-hover:scale-[1.05] ${hasDarkVideo ? 'dark:hidden' : ''}`} />
+                          ) : null}
+
+                          {/* DARK MODE MEDIA */}
+                          {hasDarkVideo ? (
+                            <video autoPlay loop muted playsInline src={(card as any).videoDark} className={`absolute inset-0 w-full h-full object-cover object-center transition-transform duration-[800ms] ease-out group-hover:scale-[1.05] ${(card as any).videoDarkClassName || ''} ${hasLightVideo || hasImage ? 'hidden dark:block' : ''}`} />
+                          ) : (hasImage && hasLightVideo) ? (
+                            <img src={card.image} alt={card.title} className="absolute inset-0 w-full h-full object-cover object-center hidden dark:block transition-transform duration-[800ms] ease-out group-hover:scale-[1.05]" />
+                          ) : null}
+                        </>
+                      );
+                    })()}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
         </div>
       </section>
   );
