@@ -159,6 +159,21 @@ export default function BentoGridMobile() {
     // no pin toll on touch; cards reveal with the house physics)
     // ----------------------------------------------------
     mm.add("(max-width: 767px) and (prefers-reduced-motion: no-preference)", () => {
+        // 1. SAFE KINETIC TYPOGRAPHY ANIMATION
+        gsap.fromTo(".title-line-reveal",
+          { yPercent: 120 },
+          { 
+            yPercent: 0, 
+            duration: 1.2, ease: "power4.out", stagger: 0.15,
+            scrollTrigger: {
+              trigger: section,
+              start: "top 80%",
+              toggleActions: "play none none reverse"
+            }
+          }
+        );
+
+        // 2. CARDS ANIMATION
         const tweens = cards.map((card: any) =>
           gsap.from(card, {
             y: REVEAL.md,
@@ -276,8 +291,17 @@ export default function BentoGridMobile() {
             className="coverflow-card shrink-0 w-full lg:w-[40vw] h-auto md:h-[100vh] relative transform-gpu flex flex-col justify-start gap-static-md md:gap-static-xl pt-static-md md:pt-[15vh]"
             style={{ transformOrigin: 'center center' }}
           >
-            <h2 className="text-display-lg text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)] text-left whitespace-pre-line">
-              {t('sectionTitle')}
+            <h2 className="text-display-lg text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)] text-left leading-[1.1]">
+              {t('sectionTitle').split('\n').map((line, i, arr) => {
+                const isHighlight = i === 1;
+                return (
+                  <span key={i} className="block overflow-hidden pb-1 -mb-1">
+                    <span className={`title-line-reveal block ${isHighlight ? 'text-[var(--color-brand-blue)] font-bold tracking-tight' : ''}`}>
+                      {line}
+                    </span>
+                  </span>
+                );
+              })}
             </h2>
             
             <div className="md:my-auto flex flex-col gap-static-xl md:gap-static-2xl translate-y-0 md:-translate-y-10">
