@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef, useLayoutEffect, useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { asset } from "@/lib/asset";
@@ -80,6 +81,7 @@ const STEPS = [
 ];
 
 export default function HowToJoinEpicare() {
+  const t = useTranslations("landingV2.howToJoin");
   const sectionRef = useRef<HTMLDivElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [activeMobileStep, setActiveMobileStep] = useState(0);
@@ -133,6 +135,20 @@ export default function HowToJoinEpicare() {
     <section ref={sectionRef} className="w-full relative bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)]">
       
       {/* ========================================================= */}
+      {/* SECTION HEADER                                            */}
+      {/* ========================================================= */}
+      <header className="c-text-block relative z-10 max-w-section-lg mx-auto w-full flex flex-col mb-8 md:mb-12 px-[var(--space-gutter-sm)] md:px-[clamp(1.5rem,4vw,3.5rem)] pt-section-sm md:pt-section-md">
+        <span className="block text-overline text-[var(--color-brand-blue)] mb-4 md:mb-6">
+          {t("overline")}
+        </span>
+        <h2 className="overflow-hidden pb-static-xs text-display-xl font-semibold tracking-tight leading-[1] text-[var(--color-text-Black-100)] dark:text-white">
+          <span className="block">
+            {t("title")}
+          </span>
+        </h2>
+      </header>
+      
+      {/* ========================================================= */}
       {/* DESKTOP LAYOUT (Sticky Zones)                             */}
       {/* ========================================================= */}
       <div className="hidden md:block">
@@ -178,12 +194,12 @@ export default function HowToJoinEpicare() {
       {/* ========================================================= */}
       {/* MOBILE LAYOUT (Horizontal Snap Carousel)                  */}
       {/* ========================================================= */}
-      <div className="block md:hidden w-full py-section-sm">
+      <div className="block md:hidden w-full pb-section-sm">
         
         <div 
           ref={scrollContainerRef}
           onScroll={handleMobileScroll}
-          className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar px-[var(--space-gutter-sm)] gap-[var(--space-gutter-sm)] pb-8 pt-4"
+          className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar px-[var(--space-gutter-sm)] gap-[var(--space-gutter-sm)] pb-8"
         >
           {STEPS.map((step, idx) => {
             const imgSrc = idx < 3 ? ZONE1_IMAGES[idx] : ZONE2_IMAGES[idx - 3];

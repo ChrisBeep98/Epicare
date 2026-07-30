@@ -168,6 +168,10 @@
       "agencyImg1Alt": "Pipeline de la agencia por etapas",
       "agencyImg2Alt": "Composición agregada de la agencia"
     },
+    "howToJoin": {
+      "overline": "04 // Onboarding",
+      "title": "Cómo Funciona la Vinculación"
+    },
     "whyEpicare": {
       "headlineLine1": "No somos el intermediario.",
       "headlineLine2": "Somos la operación.",

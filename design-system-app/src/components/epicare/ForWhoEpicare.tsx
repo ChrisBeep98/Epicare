@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -33,6 +33,97 @@ const HERO: Record<AudienceKey, string> = {
  * born through a mask, panels rise with a clip-path curtain and their giant numerals
  * parallax on scroll. Bimodal, tokenized, 60fps, reduced-motion aware; stacks on mobile.
  */
+const MobileAccordion = ({ aud, accent, HERO, isOpen, onClick }: any) => {
+  return (
+    <article className="w-full border-b border-black/10 dark:border-white/20 flex flex-col group cursor-pointer" onClick={onClick}>
+       {/* Header (Always visible) */}
+       <div className="w-full flex items-center justify-between py-6 px-[var(--space-gutter-sm)]">
+          <div className="flex items-center gap-4">
+             <span className={`text-display-sm font-semibold tabular-nums transition-all duration-500 ${isOpen ? 'bg-gradient-to-br from-[var(--color-brand-blue)] to-[var(--color-brand-cyan)] bg-clip-text text-transparent scale-110 origin-left' : 'text-black/30 dark:text-white/30'}`}>
+               {aud.index}
+             </span>
+             <h3 className="text-display-sm font-semibold tracking-tighter text-[var(--color-text-Black-100)] dark:text-white">
+               {aud.title}
+             </h3>
+          </div>
+          {/* Animated Plus/Minus */}
+          <div className="w-8 h-8 rounded-full border border-black/20 dark:border-white/20 flex items-center justify-center shrink-0">
+             <span className="relative w-full h-full flex items-center justify-center">
+                <span className="absolute w-3 h-[1.5px] bg-[var(--color-text-Black-100)] dark:bg-white transition-transform duration-500" />
+                <span className={`absolute w-3 h-[1.5px] bg-[var(--color-text-Black-100)] dark:bg-white transition-transform duration-500 ${isOpen ? 'rotate-0' : 'rotate-90'}`} />
+             </span>
+          </div>
+       </div>
+
+       {/* Body (Collapsible via CSS Grid) */}
+       <div className={`grid transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${isOpen ? 'grid-rows-[1fr] opacity-100 pb-8' : 'grid-rows-[0fr] opacity-0 pb-0'}`}>
+          <div className="overflow-hidden flex flex-col gap-4">
+             {/* Kicker */}
+             <div className="flex items-center gap-3 mt-2 px-[var(--space-gutter-sm)]">
+                <span className="w-6 h-[1px] bg-black/40 dark:bg-white/40" />
+                <span className="text-overline text-[var(--color-text-Black-100)]/80 dark:text-white/80 tracking-widest uppercase">
+                   {aud.kicker}
+                </span>
+             </div>
+             
+             {/* Immersive Image Canvas (Full Width Edge-to-Edge) */}
+             <div className="relative w-full h-[35vh] overflow-hidden mt-4 shadow-[var(--shadow-elevation-2)] dark:shadow-none">
+                <img 
+                  src={HERO[aud.key]} 
+                  alt={aud.heroAlt} 
+                  className={`absolute inset-0 w-full h-full object-cover origin-center transition-all duration-[1.2s] ease-[cubic-bezier(0.22,1,0.36,1)] ${isOpen ? 'scale-100 blur-0 opacity-100' : 'scale-125 blur-md opacity-0'}`} 
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-80" />
+                <div className={`absolute inset-0 mix-blend-color transition-opacity duration-1000 ${isOpen ? 'opacity-40' : 'opacity-0'}`} style={{ backgroundColor: accent }} />
+             </div>
+             
+             {/* Capabilities List */}
+             <ul className="flex flex-col gap-0 border-t border-black/10 dark:border-white/10 mt-4 px-[var(--space-gutter-sm)]">
+               {aud.items.map((item: string, i: number) => (
+                 <li key={item} 
+                     style={{ transitionDelay: `${i * 100}ms` }}
+                     className={`flex items-start gap-4 py-4 border-b border-black/10 dark:border-white/10 transition-all duration-700 ${isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}
+                     strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"
+                     className="w-5 h-5 mt-0.5 shrink-0" style={{ color: accent }}>
+                     <path d="m5 12 5 5L20 7" />
+                   </svg>
+                   <span className="text-body-md font-light text-[var(--color-text-Black-100)]/90 dark:text-white/90 leading-relaxed">{item}</span>
+                 </li>
+               ))}
+             </ul>
+          </div>
+       </div>
+    </article>
+  );
+};
+
+const MobileAccordionGroup = ({ audiences, HERO, ACCENT }: any) => {
+  // Independent toggle state prevents the scroll-jump UX issue
+  const [openStates, setOpenStates] = useState<Record<string, boolean>>({
+    [audiences[0].key]: true
+  });
+
+  const toggle = (key: string) => {
+    setOpenStates(prev => ({ ...prev, [key]: !prev[key] }));
+  };
+
+  return (
+    <div className="fw-stage mt-10 flex lg:hidden flex-col w-full border-t border-black/10 dark:border-white/20">
+      {audiences.map((aud: any) => (
+         <MobileAccordion 
+            key={aud.key} 
+            aud={aud} 
+            accent={ACCENT[aud.key]} 
+            HERO={HERO} 
+            isOpen={!!openStates[aud.key]}
+            onClick={() => toggle(aud.key)}
+         />
+      ))}
+    </div>
+  );
+};
+
 export default function ForWhoEpicare() {
   const t = useTranslations('landingV2.forWho');
   const sectionRef = useRef<HTMLElement>(null);
@@ -107,14 +198,14 @@ export default function ForWhoEpicare() {
         </header>
       </div>
 
-      {/* ── DUAL PANELS ── */}
-      <div className="fw-stage mt-14 md:mt-20 flex flex-col lg:flex-row w-full max-w-section-lg mx-auto gap-[var(--spacing-static-sm)] px-[var(--space-gutter-sm)] md:px-[var(--space-gutter-md)]">
+      {/* ── DUAL PANELS (DESKTOP: Hover to Expand) ── */}
+      <div className="fw-stage mt-14 md:mt-20 hidden lg:flex flex-row w-full max-w-section-lg mx-auto gap-[var(--spacing-static-sm)] px-[var(--space-gutter-md)]">
         {audiences.map((aud) => {
           const accent = ACCENT[aud.key];
           return (
             <article
               key={aud.key}
-              className="fw-panel fw-curtain group relative overflow-hidden rounded-3xl h-auto min-h-[70vh] lg:min-h-0 lg:h-[82vh] flex flex-col flex-1 lg:grow lg:basis-0 lg:hover:grow-[1.9] transition-[flex-grow] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-[flex-grow]"
+              className="fw-panel fw-curtain group relative overflow-hidden rounded-3xl h-[82vh] flex flex-col flex-1 grow basis-0 hover:grow-[1.9] transition-[flex-grow] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-[flex-grow]"
             >
               {/* Cover image + parallax */}
               <img src={HERO[aud.key]} alt={aud.heroAlt} loading="lazy"
@@ -133,17 +224,17 @@ export default function ForWhoEpicare() {
               </span>
 
               {/* Content — anchored bottom */}
-              <div className="relative z-20 mt-auto p-static-xl md:p-static-2xl flex flex-col w-full">
+              <div className="relative z-20 mt-auto p-static-2xl flex flex-col w-full">
                 <span className="inline-flex items-center gap-2 text-overline text-[var(--color-text-White-100)]/70 mb-4">
                   <span className="w-2 h-2 rounded-full" style={{ backgroundColor: accent }} />
                   {aud.kicker}
                 </span>
-                <h3 className="text-display-sm md:text-display font-semibold tracking-tight text-[var(--color-text-White-100)]">
+                <h3 className="text-display font-semibold tracking-tight text-[var(--color-text-White-100)]">
                   {aud.title}
                 </h3>
 
                 {/* Capabilities — Visible by default on mobile, hidden behind hover on desktop */}
-                <ul className="mt-6 max-w-xl grid gap-y-0 opacity-100 translate-y-0 max-h-[34rem] lg:opacity-0 lg:translate-y-6 lg:max-h-0 overflow-hidden
+                <ul className="mt-6 max-w-xl grid gap-y-0 opacity-0 translate-y-6 max-h-0 overflow-hidden
                   group-hover:opacity-100 group-hover:translate-y-0 group-hover:max-h-[34rem]
                   transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]">
                   {aud.items.map((item) => (
@@ -167,6 +258,9 @@ export default function ForWhoEpicare() {
           );
         })}
       </div>
+
+      {/* ── DUAL PANELS (MOBILE: Concept B - Accordion) ── */}
+      <MobileAccordionGroup audiences={audiences} HERO={HERO} ACCENT={ACCENT} />
     </section>
   );
 }

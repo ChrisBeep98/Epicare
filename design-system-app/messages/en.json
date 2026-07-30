@@ -168,6 +168,10 @@
       "agencyImg1Alt": "Agency pipeline across stages",
       "agencyImg2Alt": "Aggregated agency composition"
     },
+    "howToJoin": {
+      "overline": "04 // Onboarding",
+      "title": "How the Onboarding Works"
+    },
     "whyEpicare": {
       "headlineLine1": "We are not the middleman.",
       "headlineLine2": "We are the operation.",
