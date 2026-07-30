@@ -16,8 +16,16 @@ export default function DarkGradientSection() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Premium 3D Blur Reveal - Optimized for snappy, fast-scroll performance
-      gsap.fromTo(".fade-up", 
+      // Standard Header Entrance (Hardware Optimized)
+      gsap.fromTo('.anim-head-line', { yPercent: 118, willChange: 'transform' },
+        { yPercent: 0, duration: 1.15, stagger: 0.12, ease: 'power4.out', clearProps: 'willChange',
+          scrollTrigger: { trigger: sectionRef.current, start: 'top 82%' } });
+      gsap.fromTo('.anim-head-fade', { opacity: 0, y: 26, willChange: 'transform, opacity' },
+        { opacity: 1, y: 0, duration: 0.9, stagger: 0.08, ease: 'power3.out', clearProps: 'willChange',
+          scrollTrigger: { trigger: sectionRef.current, start: 'top 80%' } });
+
+      // Premium 3D Blur Reveal for Cards
+      gsap.fromTo(".card-reveal", 
         { opacity: 0, y: 60, rotationX: 15, scale: 0.9, filter: "blur(8px)" },
         {
           opacity: 1, 
@@ -25,12 +33,12 @@ export default function DarkGradientSection() {
           rotationX: 0,
           scale: 1,
           filter: "blur(0px)",
-          duration: 0.5, // Much faster entry
-          stagger: 0.04, // Extremely tight stagger so cards don't wait for text
-          ease: "power4.out", // Explosive start, smooth settle
+          duration: 0.5,
+          stagger: 0.04,
+          ease: "power4.out",
           scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 85%" // Triggers when the section is genuinely in view
+            trigger: scrollContainerRef.current,
+            start: "top 85%"
           }
         }
       );
@@ -102,28 +110,7 @@ export default function DarkGradientSection() {
         
         <div className="relative w-full min-h-0 h-auto md:min-h-[75vh] rounded-[12px] border border-[var(--color-border-Strokes-default)] overflow-hidden flex flex-col justify-center items-start md:items-center text-left md:text-center px-[14px] py-12 md:p-12 lg:p-16 bg-transparent transition-colors duration-500">
           
-          {/* Fondo Light Mode: Glow Ambient + Textura de Puntos */}
-          <div className="absolute inset-0 w-full h-full z-0 pointer-events-none block dark:hidden overflow-hidden bg-transparent">
-            {/* Ambient Glow Superior (Luz difusa de anclaje) */}
-            <div 
-              className="absolute -top-[30%] left-1/2 -translate-x-1/2 w-[120%] md:w-[100%] h-[120%] opacity-40 blur-[120px]"
-              style={{
-                background: "radial-gradient(circle at top, var(--color-brand-blue) 0%, rgba(53,187,253,0.15) 40%, transparent 70%)"
-              }}
-            />
-            
-            {/* Textura de Puntos (Fade de arriba hacia abajo) */}
-            <div 
-              className="absolute inset-0 w-full h-full opacity-30"
-              style={{
-                backgroundImage: "radial-gradient(var(--color-brand-blue) 1.5px, transparent 1.5px)",
-                backgroundSize: "24px 24px",
-                backgroundPosition: "center center",
-                maskImage: "radial-gradient(ellipse at top, black 0%, transparent 80%)",
-                WebkitMaskImage: "radial-gradient(ellipse at top, black 0%, transparent 80%)"
-              }}
-            />
-          </div>
+
 
           {/* Resplandor Azul (Dark Mode - Brand Blue Original) */}
           <div 
@@ -136,11 +123,13 @@ export default function DarkGradientSection() {
           {/* Contenido Central (Clases Congeladas - Purga Fase 2) */}
           <div className="relative z-10 flex flex-col items-start md:items-center gap-6 md:gap-8 max-w-4xl w-full md:mx-auto pb-4 md:pb-8">
             
-            <h2 className="fade-up opacity-0 text-display text-left md:text-center text-[var(--color-text-Black-100)] dark:text-white tracking-tighter leading-[1.05] transition-colors duration-500">
-              {t('sectionTitle')}
+            <h2 className="overflow-hidden pb-static-xs text-display text-left md:text-center text-[var(--color-text-Black-100)] dark:text-white tracking-tighter leading-[1.05] transition-colors duration-500">
+              <span className="anim-head-line block">
+                {t('sectionTitle')}
+              </span>
             </h2>
 
-            <p className="fade-up opacity-0 text-body text-left md:text-center text-[var(--color-text-Black-100)]/70 dark:text-white/70 max-w-2xl font-light transition-colors duration-500">
+            <p className="hidden md:block anim-head-fade text-body text-left md:text-center text-[var(--color-text-Black-100)]/70 dark:text-white/70 max-w-2xl font-light transition-colors duration-500">
               {t('sectionDesc')}
             </p>
 
@@ -155,7 +144,7 @@ export default function DarkGradientSection() {
             {features.map((card, idx) => (
               <div 
                 key={idx} 
-                className="fade-up opacity-0 flex flex-col shrink-0 w-[80vw] md:w-auto rounded-[8px] bg-white dark:bg-white/[0.03] backdrop-blur-xl border border-[var(--color-border-Strokes-default)] dark:border-white/10 hover:border-[var(--color-border-Strokes-Hover)] dark:hover:border-white/20 dark:hover:bg-white/[0.06] transition-all duration-500 shadow-[var(--shadow-elevation-2)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.5)] hover:shadow-[var(--shadow-elevation-4)] dark:hover:shadow-[0_8px_32px_rgba(0,0,0,0.8)] hover:md:-translate-y-2 cursor-pointer group overflow-hidden"
+                className="card-reveal opacity-0 flex flex-col shrink-0 w-[80vw] md:w-auto rounded-[8px] bg-white dark:bg-white/[0.03] backdrop-blur-xl border border-[var(--color-border-Strokes-default)] dark:border-white/10 hover:border-[var(--color-border-Strokes-Hover)] dark:hover:border-white/20 dark:hover:bg-white/[0.06] transition-all duration-500 shadow-[var(--shadow-elevation-2)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.5)] hover:shadow-[var(--shadow-elevation-4)] dark:hover:shadow-[0_8px_32px_rgba(0,0,0,0.8)] hover:md:-translate-y-2 cursor-pointer group overflow-hidden"
               >
                 {/* Bloque de Texto Superior (Step, Título y Cuerpo Largo) */}
                 <div className="flex flex-col p-[14px] md:p-6 w-full gap-3 text-left">
