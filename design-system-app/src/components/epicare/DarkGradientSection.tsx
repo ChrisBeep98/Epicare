@@ -91,15 +91,15 @@ const FlipCard = ({ card, t }: { card: any, t: any }) => {
 
         {/* BACK */}
         <div 
-          className="absolute inset-0 w-full h-full flex flex-col items-start justify-center p-6 md:p-8 rounded-[8px] bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-2)] backdrop-blur-xl border border-[var(--color-border-Strokes-default)] dark:border-white/10 shadow-[var(--shadow-elevation-3)] overflow-hidden"
+          className="absolute inset-0 w-full h-full flex flex-col items-start justify-start p-6 md:p-8 rounded-[8px] bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-2)] backdrop-blur-xl border border-[var(--color-border-Strokes-default)] dark:border-white/10 shadow-[var(--shadow-elevation-3)] overflow-hidden"
           style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
         >
            <p className="text-body text-[var(--color-text-Black-100)]/80 dark:text-white/70 font-light leading-relaxed text-left">
               {card.body}
            </p>
-           {/* Boton volver animado (Flechas de retorno) */}
-           <div className="mt-8 w-10 h-10 rounded-full bg-black/5 dark:bg-white/10 flex items-center justify-center text-[var(--color-text-Black-100)] dark:text-white/80 hover:bg-[var(--color-brand-blue)] hover:text-white transition-colors duration-300 shadow-sm cursor-pointer hover:scale-105">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="w-5 h-5 animate-[spin_6s_linear_infinite]">
+           {/* Boton volver animado (Flechas de retorno) - Bottom Right */}
+           <div className="absolute bottom-5 right-5 w-8 h-8 rounded-full bg-black/5 dark:bg-white/10 flex items-center justify-center text-[var(--color-text-Black-100)] dark:text-white/80 hover:bg-[var(--color-brand-blue)] hover:text-white transition-colors duration-300 shadow-sm cursor-pointer hover:scale-105">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="w-4 h-4 animate-[spin_6s_linear_infinite]">
                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
               </svg>
            </div>
@@ -148,12 +148,16 @@ export default function DarkGradientSection() {
     return () => ctx.revert();
   }, []);
 
+  const renderRichBody = (key: any) => t.rich(key, { 
+    b: (chunks) => <span className="font-semibold text-[var(--color-text-Black-100)] dark:text-white">{chunks}</span> 
+  });
+
   const features = [
     { 
       step: t('feature1_step'), 
       title: t('feature1_title'), 
       subtitle: t('feature1_subtitle'), 
-      body: t('feature1_body'),
+      body: renderRichBody('feature1_body'),
       img: "Card_01_INNOVATION-Dark.mp4",
       imgLight: "Innovation_card_Light.mp4",
       isVideo: true,
@@ -163,7 +167,7 @@ export default function DarkGradientSection() {
       step: t('feature2_step'), 
       title: t('feature2_title'), 
       subtitle: t('feature2_subtitle'), 
-      body: t('feature2_body'),
+      body: renderRichBody('feature2_body'),
       img: "support_dark.mp4",
       imgLight: "Card 2_Support_light.mp4",
       isVideo: true,
@@ -174,7 +178,7 @@ export default function DarkGradientSection() {
       step: t('feature3_step'), 
       title: t('feature3_title'), 
       subtitle: t('feature3_subtitle'), 
-      body: t('feature3_body'),
+      body: renderRichBody('feature3_body'),
       img: "Earnings_V3_Dark.mp4",
       imgLight: "Earnings_V3_Ligh.mp4",
       isVideo: true,
@@ -186,7 +190,7 @@ export default function DarkGradientSection() {
       step: t('feature4_step'), 
       title: t('feature4_title'), 
       subtitle: t('feature4_subtitle'), 
-      body: t('feature4_body'),
+      body: renderRichBody('feature4_body'),
       img: "Variety_dark.mp4",
       imgLight: "Variety_light.mp4",
       isVideo: true,
