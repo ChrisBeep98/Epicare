@@ -361,7 +361,7 @@ export default function BentoGridMobile() {
           className="relative flex flex-col items-center justify-start w-full z-10"
         >
           {/* CARD 0: THE TITLE COMPOSITION */}
-          <div className="mobile-stack-card sticky top-0 w-full min-h-[100vh] flex flex-col justify-center items-start gap-10 px-gutter-sm origin-top transform-gpu will-change-transform [backface-visibility:hidden] z-[10] relative">
+          <div className="mobile-stack-card sticky top-0 w-full min-h-[100vh] flex flex-col justify-start pt-[calc(15vh-24px)] items-start gap-10 px-[var(--space-gutter-sm)] origin-top transform-gpu will-change-transform [backface-visibility:hidden] z-[10] relative">
               <h2 className="text-display-lg text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)] text-left leading-[1.1]">
                 {t('sectionTitle').split('\n').map((line, i, arr) => {
                   const isHighlight = i === 1;

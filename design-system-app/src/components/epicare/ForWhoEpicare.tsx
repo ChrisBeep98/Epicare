@@ -96,6 +96,24 @@ const MobileAccordion = ({ aud, accent, HERO, isOpen, onClick }: any) => {
                  </li>
                ))}
              </ul>
+
+             {/* Action Link */}
+             <div className="pt-2 pb-4 px-[var(--space-gutter-sm)] flex justify-end">
+                <a href="#" 
+                   onClick={(e) => { e.preventDefault(); e.stopPropagation(); }} 
+                   onTouchStart={() => {}} // Forzar :active state en iOS Safari
+                   style={{ transitionDelay: `${aud.items.length * 80}ms` }}
+                   className={`group/link inline-flex items-center gap-2 text-body-md font-semibold text-[var(--color-brand-blue)] transition-all duration-300 ease-out ${isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+                   <span className="relative">
+                      Explore features
+                      <span className="absolute left-0 -bottom-[2px] w-full h-[1.5px] bg-[var(--color-brand-blue)] origin-right transition-transform duration-300 ease-out group-hover/link:scale-x-0 group-hover/link:origin-left group-active/link:scale-x-0 group-active/link:origin-left" />
+                   </span>
+                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} 
+                        className="w-4 h-4 transition-transform duration-300 ease-out group-hover/link:translate-x-1 group-active/link:translate-x-2">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+                   </svg>
+                </a>
+             </div>
           </div>
        </div>
     </article>
