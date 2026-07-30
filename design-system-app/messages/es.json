@@ -42,7 +42,7 @@
       "cardCta": "Explorar"
     },
     "darkGradient": {
-      "sectionTitle": "Opera tu agencia a otro nivel.",
+      "sectionTitle": "Opera tu agencia a <span>otro nivel</span>.",
       "sectionDesc": "No solo abrimos puertas: proporcionamos las herramientas, el apoyo y las oportunidades que necesitas para tener éxito en cada paso.",
       "tiltCard": "Girar",
       "feature1_step": "01 · Innovación",

@@ -13,7 +13,7 @@ const FlipCard = ({ card, t }: { card: any, t: any }) => {
 
   return (
     <div 
-      className="card-reveal opacity-0 shrink-0 w-[80vw] md:w-auto min-h-[380px] md:min-h-[460px] group cursor-pointer"
+      className="card-reveal opacity-0 shrink-0 w-[80vw] md:w-auto min-h-[440px] md:min-h-[492px] group cursor-pointer"
       style={{ perspective: '1500px' }}
       onClick={() => setIsFlipped(!isFlipped)}
     >
@@ -230,7 +230,9 @@ export default function DarkGradientSection() {
             
             <h2 className="overflow-hidden pb-static-xs text-display text-left md:text-center text-[var(--color-text-Black-100)] dark:text-white tracking-tighter leading-[1.05] transition-colors duration-500">
               <span className="anim-head-line block">
-                {t('sectionTitle')}
+                {t.rich('sectionTitle', {
+                  span: (chunks) => <span className="text-[var(--color-brand-blue)]">{chunks}</span>
+                })}
               </span>
             </h2>
 
