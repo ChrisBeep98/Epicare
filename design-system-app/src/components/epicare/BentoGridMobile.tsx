@@ -361,7 +361,7 @@ export default function BentoGridMobile() {
           className="relative flex flex-col items-center justify-start w-full z-10"
         >
           {/* CARD 0: THE TITLE COMPOSITION */}
-          <div className="mobile-stack-card sticky top-0 w-full min-h-[100vh] flex flex-col justify-start pt-[calc(15vh-24px)] items-start gap-10 px-[var(--space-gutter-sm)] origin-top transform-gpu will-change-transform [backface-visibility:hidden] z-[10] relative">
+          <div className="mobile-stack-card sticky top-0 w-full min-h-fit pb-[12vh] flex flex-col justify-start pt-[calc(15vh-24px)] items-start px-[var(--space-gutter-sm)] origin-top transform-gpu will-change-transform [backface-visibility:hidden] z-[10] relative">
               <h2 className="text-display-lg text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)] text-left leading-[1.1]">
                 {t('sectionTitle').split('\n').map((line, i, arr) => {
                   const isHighlight = i === 1;
@@ -374,21 +374,6 @@ export default function BentoGridMobile() {
                   );
                 })}
               </h2>
-              
-              <div className="flex flex-col gap-6 w-full pr-4">
-                <p className="anim-head-fade text-body-lg text-[var(--color-text-muted)] font-light text-left">
-                  {t('sectionDesc')}
-                </p>
-                <div className="anim-head-fade flex">
-                  <button className="group w-fit h-12 pl-6 pr-2 rounded-full flex items-center gap-3 bg-[var(--color-action-primary-bg)] text-[var(--color-action-primary-text)] shadow-elevation-2 transition-all duration-[450ms] hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-elevation-4">
-                    <span className="text-body-sm font-medium">{th('ctaPlans')}</span>
-                    <span className="relative w-8 h-8 rounded-full bg-[var(--color-action-primary-text)] text-[var(--color-action-primary-bg)] flex items-center justify-center overflow-hidden shrink-0">
-                      <ArrowUR className="absolute w-4 h-4 transition-transform duration-300 group-hover:translate-x-5 group-hover:-translate-y-5" />
-                      <ArrowUR className="absolute w-4 h-4 -translate-x-5 translate-y-5 transition-transform duration-300 group-hover:translate-x-0 group-hover:translate-y-0" />
-                    </span>
-                  </button>
-                </div>
-              </div>
           </div>
 
           {/* CARDS 1-5: ECOSYSTEM */}
@@ -429,7 +414,7 @@ export default function BentoGridMobile() {
                     <h3 className="text-display mb-2 text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)]">
                       {card.title}
                     </h3>
-                    <p className="text-body-sm text-[var(--color-text-muted)] font-light max-w-[90%]">
+                    <p className="text-body-md text-[var(--color-text-muted)] font-normal leading-relaxed max-w-[95%]">
                       {card.desc}
                     </p>
                   </div>
