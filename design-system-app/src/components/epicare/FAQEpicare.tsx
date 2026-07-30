@@ -90,48 +90,89 @@ export default function FAQEpicare() {
         
         {/* Header */}
         <div className="flex flex-col items-center text-center mb-static-2xl">
-          <span className="anim-head-fade text-overline text-[var(--color-text-muted)] mb-static-md block">
-            06 // F.A.Q
+          <span className="anim-head-fade text-overline text-[var(--color-brand-blue)] dark:text-[var(--color-brand-cyan)] mb-static-md block">
+            F.A.Q.
           </span>
-          <h2 className="overflow-hidden pb-static-xs text-h2 text-[var(--color-text-primary)]">
+          <h2 className="overflow-hidden pb-static-xs text-display-xl font-semibold tracking-tight leading-[1] text-[var(--color-text-Black-100)] dark:text-white">
             <span className="anim-head-line block">
               Dudas Frecuentes
             </span>
           </h2>
         </div>
 
-        {/* Lista de Acordeón */}
-        <div ref={listRef} className="flex flex-col border-t border-[var(--color-border-Strokes-default)]">
+        {/* Premium Accordion List (Awwwards Level) */}
+        <div ref={listRef} className="flex flex-col w-full border-t border-[var(--color-border-Strokes-default)]">
           {FAQS.map((faq, idx) => {
             const isOpen = openIndex === idx;
+            const num = (idx + 1).toString().padStart(2, '0');
             return (
               <div 
                 key={idx} 
-                className="faq-item border-b border-[var(--color-border-Strokes-default)] group cursor-pointer"
+                className="faq-item group cursor-pointer border-b border-[var(--color-border-Strokes-default)] relative overflow-hidden"
                 onClick={() => toggleAccordion(idx)}
               >
-                <div className="py-static-lg flex items-center justify-between gap-static-md">
-                  <h3 className={`text-h5 transition-colors duration-300 ${isOpen ? "text-[var(--color-text-primary)]" : "text-[var(--color-text-secondary)] group-hover:text-[var(--color-text-primary)]"}`}>
-                    {faq.q}
-                  </h3>
+                {/* Liquid Hover Background (Hardware Accelerated) */}
+                <div className={`absolute inset-0 w-full h-full bg-[var(--color-brand-blue)]/[0.02] dark:bg-[var(--color-brand-cyan)]/[0.03] transform origin-bottom transition-transform duration-[700ms] ease-[cubic-bezier(0.19,1,0.22,1)] pointer-events-none z-0 ${
+                  isOpen ? "scale-y-100" : "scale-y-0 group-hover:scale-y-100"
+                }`}></div>
+
+                <div className="py-8 md:py-10 flex flex-row items-center md:items-center justify-between gap-4 md:gap-6 relative z-10">
                   
-                  {/* Icono de cruz/menos animado */}
-                  <div className="relative w-6 h-6 flex items-center justify-center flex-shrink-0">
-                    <span className="absolute w-full h-[2px] bg-[var(--color-text-primary)] rounded-full"></span>
-                    <span 
-                      className={`absolute w-full h-[2px] bg-[var(--color-text-primary)] rounded-full transition-transform duration-[400ms] ease-in-out ${isOpen ? "rotate-0" : "rotate-90"}`}
-                    ></span>
+                  {/* Left Side: Number + Question */}
+                  <div className="flex flex-row items-center gap-4 md:gap-12 flex-1">
+                    
+                    {/* Rolling Text / Slot Machine Animation for Number */}
+                    <div className="flex flex-col h-[1.2em] justify-start overflow-hidden relative font-mono text-body-sm md:text-body-lg text-[var(--color-text-muted)] transition-transform duration-[700ms] ease-[cubic-bezier(0.19,1,0.22,1)] transform-gpu shrink-0">
+                      <div className={`flex flex-col transition-transform duration-[700ms] ease-[cubic-bezier(0.19,1,0.22,1)] transform-gpu ${
+                        isOpen ? "-translate-y-1/2 delay-[400ms] md:delay-0" : "group-hover:-translate-y-1/2 delay-0"
+                      }`}>
+                        <span className="leading-tight h-[1.2em]">{num}</span>
+                        <span className="leading-tight h-[1.2em]">{num}</span>
+                      </div>
+                    </div>
+                    
+                    {/* Massive Typography with Magnetic Shift */}
+                    <h3 className={`text-h4 md:text-h3 font-medium tracking-tight leading-[1.15] transition-all duration-[700ms] ease-[cubic-bezier(0.19,1,0.22,1)] transform-gpu max-w-[90%] md:max-w-[85%] ${
+                      isOpen 
+                        ? "text-[var(--color-brand-blue)] dark:text-[var(--color-brand-cyan)] translate-x-2 md:translate-x-6" 
+                        : "text-[var(--color-text-primary)] group-hover:text-[var(--color-brand-blue)] dark:group-hover:text-[var(--color-brand-cyan)] group-hover:translate-x-2 md:group-hover:translate-x-6"
+                    }`}>
+                      {faq.q}
+                    </h3>
+                  </div>
+                  
+                  {/* Brutalist Plus/Cross Icon */}
+                  <div className="relative w-6 h-6 md:w-10 md:h-10 flex items-center justify-center shrink-0 overflow-hidden">
+                    {/* Horizontal */}
+                    <span className={`absolute w-full h-[2px] bg-current transition-all duration-[700ms] ease-[cubic-bezier(0.19,1,0.22,1)] transform-gpu ${
+                      isOpen 
+                        ? "rotate-[135deg] text-[var(--color-brand-blue)] dark:text-[var(--color-brand-cyan)]" 
+                        : "rotate-0 text-[var(--color-text-primary)] group-hover:text-[var(--color-brand-blue)] dark:group-hover:text-[var(--color-brand-cyan)] group-hover:rotate-180"
+                    }`}></span>
+                    {/* Vertical */}
+                    <span className={`absolute h-full w-[2px] bg-current transition-all duration-[700ms] ease-[cubic-bezier(0.19,1,0.22,1)] transform-gpu ${
+                      isOpen 
+                        ? "rotate-[135deg] text-[var(--color-brand-blue)] dark:text-[var(--color-brand-cyan)]" 
+                        : "rotate-0 text-[var(--color-text-primary)] group-hover:text-[var(--color-brand-blue)] dark:group-hover:text-[var(--color-brand-cyan)] group-hover:rotate-180"
+                    }`}></span>
                   </div>
                 </div>
 
-                {/* Contenedor colapsable vía Grid de Tailwind */}
+                {/* Hardware-Accelerated Accordion Body via CSS Grid + Birth of Typography Reveal */}
                 <div 
-                  className={`grid transition-[grid-template-rows,opacity] duration-[400ms] ease-in-out ${isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}
+                  className={`grid transition-[grid-template-rows,opacity] duration-[700ms] ease-[cubic-bezier(0.19,1,0.22,1)] relative z-10 ${
+                    isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                  }`}
                 >
                   <div className="overflow-hidden">
-                    <p className="text-body-md text-[var(--color-text-secondary)] pb-static-lg max-w-[90%]">
-                      {faq.a}
-                    </p>
+                    {/* Inner wrapper for parallax/slide up effect */}
+                    <div className={`transition-transform duration-[700ms] ease-[cubic-bezier(0.19,1,0.22,1)] transform-gpu ${
+                      isOpen ? "translate-y-0" : "translate-y-8"
+                    }`}>
+                       <p className="text-body-md md:text-body-lg text-[var(--color-text-secondary)] font-normal leading-relaxed pb-10 md:pb-12 pl-[3.25rem] md:pl-[5.5rem] max-w-[95%] md:max-w-[75%]">
+                         {faq.a}
+                       </p>
+                    </div>
                   </div>
                 </div>
               </div>

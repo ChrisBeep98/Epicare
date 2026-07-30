@@ -21,6 +21,11 @@ export default function HeaderEpicare({
   const [isLangOpen, setIsLangOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  
+  const [isHidden, setIsHidden] = useState(false);
+  const lastScrollY = useRef(0);
+  const lastScrollDirection = useRef<'up'|'down'>('up');
+  const scrollDistance = useRef(0);
 
   const isHeaderDark = isHeaderForcedDark || isDark;
 
@@ -91,6 +96,43 @@ export default function HeaderEpicare({
     setIsDark(isDarkTheme);
   }, []);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      const safeZone = window.innerHeight * 2.5;
+      
+      if (currentScrollY < safeZone) {
+        setIsHidden(false);
+        scrollDistance.current = 0;
+      } else {
+        const delta = currentScrollY - lastScrollY.current;
+        
+        if (delta > 0) {
+          // Scrolling down
+          if (lastScrollDirection.current !== 'down') {
+            lastScrollDirection.current = 'down';
+            scrollDistance.current = 0;
+          }
+          scrollDistance.current += delta;
+          
+          // Tolerancia brutal: 420px de scroll down antes de desaparecer
+          if (scrollDistance.current > 420) {
+            setIsHidden(true);
+          }
+        } else if (delta < 0) {
+          // Scrolling up
+          lastScrollDirection.current = 'up';
+          scrollDistance.current = 0; // Reset for down-scroll
+          setIsHidden(false); // Aparece inmediatamente
+        }
+      }
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const toggleTheme = () => {
     const nextDark = !isDark;
     setIsDark(nextDark);
@@ -102,16 +144,20 @@ export default function HeaderEpicare({
   };
 
   const navLayoutClass = isHeaderPill
-    ? "top-0 md:top-2 h-16"
+    ? "top-[6px] md:top-2 h-16"
     : "top-4 md:top-6 h-16";
 
-  const navPositionClass = "fixed left-0 right-0 mx-auto w-full md:w-[calc(100%-2*var(--space-gutter-sm))] lg:w-[calc(100%-2*var(--space-gutter-md))] max-w-section-xl";
+  const navPositionClass = `fixed transition-all duration-300 z-[999999] ${
+    isHeaderPill 
+      ? "left-1.5 right-1.5 w-auto md:left-0 md:right-0 md:mx-auto md:w-[calc(100%-2*var(--space-gutter-sm))] lg:w-[calc(100%-2*var(--space-gutter-md))] md:max-w-section-xl"
+      : "left-0 right-0 w-full md:mx-auto md:w-[calc(100%-2*var(--space-gutter-sm))] lg:w-[calc(100%-2*var(--space-gutter-md))] md:max-w-section-xl"
+  }`;
 
   const navBgClass = isHeaderPill 
     ? (isHeaderForcedDark || isDark)
-      ? "bg-white/5 border-white/10 backdrop-blur-md shadow-elevation-2 rounded-none md:rounded-lg border-b md:border" 
-      : "bg-white/80 dark:bg-white/5 border-black/10 dark:border-white/10 backdrop-blur-md shadow-elevation-2 rounded-none md:rounded-lg border-b md:border"
-    : "bg-transparent border-transparent shadow-none rounded-none";
+      ? "bg-white/5 border-white/10 backdrop-blur-md shadow-elevation-2 rounded-xl border" 
+      : "bg-white/80 dark:bg-white/5 border-black/10 dark:border-white/10 backdrop-blur-md shadow-elevation-2 rounded-xl border"
+    : "bg-transparent border-transparent shadow-none rounded-xl";
 
 
 
@@ -123,16 +169,18 @@ export default function HeaderEpicare({
     ? "bg-white/10 border-white/40 text-white hover:bg-white/20"
     : "bg-white/50 border-white text-[var(--color-text-primary)] hover:bg-white/80";
 
+  const visibilityClass = isHidden ? "-translate-y-[150%] opacity-0 pointer-events-none" : "translate-y-0 opacity-100";
+
   return (
     <>
       {/* Background Pill Layer */}
       <div 
-        className={`${navPositionClass} pointer-events-none transition-[top,background-color,border-color,box-shadow,opacity] duration-300 ${navLayoutClass} ${navBgClass} z-[999998]`}
+        className={`${navPositionClass} ${visibilityClass} pointer-events-none ${navLayoutClass} ${navBgClass} z-[999998]`}
       />
 
       {/* Controls & Logo Layer */}
       <nav 
-        className={`${navPositionClass} flex justify-between items-center px-gutter-sm md:px-gutter-md z-[999999] pointer-events-auto transition-[top,background-color,border-color,box-shadow,opacity] duration-300 ${navLayoutClass}`}
+        className={`${navPositionClass} ${visibilityClass} flex justify-between items-center px-gutter-sm md:px-gutter-md z-[999999] pointer-events-auto ${navLayoutClass}`}
       >
         {/* Logo y Switch de Lenguaje en el header */}
         <div 
