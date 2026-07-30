@@ -81,6 +81,18 @@ const STEPS = [
 
 export default function HowToJoinEpicare() {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [activeMobileStep, setActiveMobileStep] = useState(0);
+
+  const handleMobileScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const el = e.currentTarget;
+    const scrollLeft = el.scrollLeft;
+    const cardWidth = el.scrollWidth / STEPS.length;
+    const newIndex = Math.round(scrollLeft / cardWidth);
+    if (newIndex !== activeMobileStep) {
+      setActiveMobileStep(newIndex);
+    }
+  };
 
   useLayoutEffect(() => {
     let ctx = gsap.context(() => {
@@ -120,8 +132,12 @@ export default function HowToJoinEpicare() {
   return (
     <section ref={sectionRef} className="w-full relative bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)]">
       
-      {/* ── ZONA 1: Izquierda Fija / Derecha Scrollea (Pasos 1-3) ── */}
-      <div className="c-zone-1 flex flex-col md:flex-row w-full relative">
+      {/* ========================================================= */}
+      {/* DESKTOP LAYOUT (Sticky Zones)                             */}
+      {/* ========================================================= */}
+      <div className="hidden md:block">
+        {/* ── ZONA 1: Izquierda Fija / Derecha Scrollea (Pasos 1-3) ── */}
+        <div className="c-zone-1 flex flex-col md:flex-row w-full relative">
         {/* Panel Izquierdo: Sticky Visual */}
         <div className="w-full md:w-1/2 h-[50vh] md:h-screen sticky top-0 overflow-hidden border-r border-[var(--color-border-Strokes-default)]">
           <StatusCarousel images={ZONE1_IMAGES} id="1" accentClass="bg-[var(--color-brand-blue)]" />
@@ -155,6 +171,57 @@ export default function HowToJoinEpicare() {
         {/* Panel Derecho: Sticky Visual */}
         <div className="w-full md:w-1/2 h-[50vh] md:h-screen sticky top-0 overflow-hidden border-l border-[var(--color-border-Strokes-default)]">
           <StatusCarousel images={ZONE2_IMAGES} id="2" accentClass="bg-[var(--color-brand-orange)]" />
+        </div>
+      </div>
+      </div>
+
+      {/* ========================================================= */}
+      {/* MOBILE LAYOUT (Horizontal Snap Carousel)                  */}
+      {/* ========================================================= */}
+      <div className="block md:hidden w-full py-section-sm">
+        
+        <div 
+          ref={scrollContainerRef}
+          onScroll={handleMobileScroll}
+          className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar px-[var(--space-gutter-sm)] gap-[var(--space-gutter-sm)] pb-8 pt-4"
+        >
+          {STEPS.map((step, idx) => {
+            const imgSrc = idx < 3 ? ZONE1_IMAGES[idx] : ZONE2_IMAGES[idx - 3];
+            const isOrange = idx >= 3;
+            return (
+              <div key={idx} className="relative min-w-[85vw] h-[65vh] snap-center flex flex-col justify-end rounded-3xl overflow-hidden shadow-elevation-3 border border-white/10 dark:border-white/5">
+                {/* Image Background */}
+                <img src={imgSrc} alt={step.title} className="absolute inset-0 w-full h-full object-cover object-[75%_center]" />
+                
+                {/* Vignette / Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/60 to-transparent"></div>
+                <div className="absolute inset-0 bg-black/20"></div> {/* Extra global darkening for contrast */}
+                
+                {/* Text Overlay */}
+                <div className="relative z-10 p-[var(--space-gutter-sm)] flex flex-col gap-3">
+                  <span className={`text-display-md drop-shadow-md opacity-90 ${isOrange ? 'text-[var(--color-brand-orange)]' : 'text-[var(--color-brand-blue)]'}`}>
+                    {step.num}
+                  </span>
+                  <h3 className="text-h3 text-white drop-shadow-md">{step.title}</h3>
+                  <p className="text-body-md text-white/80 font-light leading-relaxed drop-shadow-sm">{step.desc}</p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Pagination Dots */}
+        <div className="flex justify-center items-center gap-2 mt-2 pb-6">
+          {STEPS.map((_, idx) => (
+            <div 
+              key={idx} 
+              className={`transition-all duration-300 rounded-full ${
+                idx === activeMobileStep 
+                  ? "w-6 h-1.5 bg-[var(--color-brand-blue)] dark:bg-[var(--color-brand-cyan)]" 
+                  : "w-1.5 h-1.5 bg-[var(--color-text-muted)] opacity-30"
+              }`}
+            />
+          ))}
         </div>
       </div>
 
