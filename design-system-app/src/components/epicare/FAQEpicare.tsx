@@ -64,6 +64,14 @@ export default function FAQEpicare() {
           }
         );
       }
+
+      // Header standardization (Hardware Optimized)
+      gsap.fromTo('.anim-head-line', { yPercent: 118, willChange: 'transform' },
+        { yPercent: 0, duration: 1.15, stagger: 0.12, ease: 'power4.out', clearProps: 'willChange',
+          scrollTrigger: { trigger: sectionRef.current, start: 'top 82%' } });
+      gsap.fromTo('.anim-head-fade', { opacity: 0, y: 26, willChange: 'transform, opacity' },
+        { opacity: 1, y: 0, duration: 0.9, stagger: 0.08, ease: 'power3.out', clearProps: 'willChange',
+          scrollTrigger: { trigger: sectionRef.current, start: 'top 80%' } });
     }, sectionRef);
 
     return () => ctx.revert();
@@ -82,11 +90,13 @@ export default function FAQEpicare() {
         
         {/* Header */}
         <div className="flex flex-col items-center text-center mb-static-2xl">
-          <span className="text-overline text-[var(--color-text-muted)] mb-static-md block">
+          <span className="anim-head-fade text-overline text-[var(--color-text-muted)] mb-static-md block">
             06 // F.A.Q
           </span>
-          <h2 className="text-h2 text-[var(--color-text-primary)]">
-            Dudas Frecuentes
+          <h2 className="overflow-hidden pb-static-xs text-h2 text-[var(--color-text-primary)]">
+            <span className="anim-head-line block">
+              Dudas Frecuentes
+            </span>
           </h2>
         </div>
 

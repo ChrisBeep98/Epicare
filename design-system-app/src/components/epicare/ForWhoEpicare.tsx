@@ -55,18 +55,18 @@ export default function ForWhoEpicare() {
         return;
       }
       // Headline text-birth.
-      gsap.fromTo('.fw-line', { yPercent: 118 },
-        { yPercent: 0, duration: 1.15, stagger: 0.12, ease: 'power4.out',
+      gsap.fromTo('.fw-line', { yPercent: 118, willChange: 'transform' },
+        { yPercent: 0, duration: 1.15, stagger: 0.12, ease: 'power4.out', clearProps: 'willChange',
           scrollTrigger: { trigger: sectionRef.current, start: 'top 82%' } });
-      gsap.fromTo('.fw-head', { opacity: 0, y: 26 },
-        { opacity: 1, y: 0, duration: 0.9, stagger: 0.08, ease: 'power3.out',
+      gsap.fromTo('.fw-head', { opacity: 0, y: 26, willChange: 'transform, opacity' },
+        { opacity: 1, y: 0, duration: 0.9, stagger: 0.08, ease: 'power3.out', clearProps: 'willChange',
           scrollTrigger: { trigger: sectionRef.current, start: 'top 80%' } });
 
-      // Panels — clip-path curtain reveal.
+      // Panels — Safe Reveal (Replaced buggy clipPath for mobile Safari compatibility)
       gsap.utils.toArray<HTMLElement>('.fw-curtain').forEach((panel, i) => {
-        gsap.fromTo(panel, { clipPath: 'inset(0% 0% 100% 0%)' },
-          { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.3, ease: 'power4.out', delay: i * 0.12,
-            scrollTrigger: { trigger: '.fw-stage', start: 'top 80%' } });
+        gsap.fromTo(panel, { opacity: 0, y: 60 },
+          { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out',
+            scrollTrigger: { trigger: panel, start: 'top 85%' } });
       });
 
       // Giant numerals — parallax + cover image drift.
@@ -88,8 +88,8 @@ export default function ForWhoEpicare() {
       className="relative w-full overflow-hidden bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] pt-0 pb-section-sm md:pb-section-lg transition-colors duration-500"
     >
       {/* ── CENTERED HEADER ── */}
-      <div className="max-w-section-lg mx-auto w-full px-gutter-sm md:px-gutter-md pt-section-sm md:pt-section-md">
-        <header className="text-center max-w-4xl mx-auto">
+      <div className="max-w-section-lg mx-auto w-full px-[var(--space-gutter-sm)] md:px-[var(--space-gutter-md)] pt-section-sm md:pt-section-md">
+        <header className="text-left md:text-center max-w-4xl mx-auto md:mx-auto">
           <span className="fw-head block text-overline text-[var(--color-brand-blue)] mb-6">
             {t('overline')}
           </span>
@@ -101,20 +101,20 @@ export default function ForWhoEpicare() {
               <span className="fw-line inline-block text-[var(--color-text-muted)]">{t('titleLine2')}</span>
             </span>
           </h2>
-          <p className="fw-head text-body-lg font-light text-[var(--color-text-Black-100)]/60 dark:text-white/55 mt-8 mx-auto max-w-2xl">
+          <p className="fw-head text-body-lg font-light text-[var(--color-text-Black-100)]/60 dark:text-white/55 mt-8 max-w-2xl mx-0 md:mx-auto">
             {t('desc')}
           </p>
         </header>
       </div>
 
       {/* ── DUAL PANELS ── */}
-      <div className="fw-stage mt-14 md:mt-20 flex flex-col lg:flex-row w-full max-w-section-lg mx-auto gap-3 px-gutter-sm md:px-gutter-md">
+      <div className="fw-stage mt-14 md:mt-20 flex flex-col lg:flex-row w-full max-w-section-lg mx-auto gap-[var(--spacing-static-sm)] px-[var(--space-gutter-sm)] md:px-[var(--space-gutter-md)]">
         {audiences.map((aud) => {
           const accent = ACCENT[aud.key];
           return (
             <article
               key={aud.key}
-              className="fw-panel fw-curtain group relative overflow-hidden rounded-3xl h-[62vh] lg:h-[82vh] flex-1 lg:grow lg:basis-0 lg:hover:grow-[1.9] transition-[flex-grow] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-[flex-grow]"
+              className="fw-panel fw-curtain group relative overflow-hidden rounded-3xl h-auto min-h-[70vh] lg:min-h-0 lg:h-[82vh] flex flex-col flex-1 lg:grow lg:basis-0 lg:hover:grow-[1.9] transition-[flex-grow] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-[flex-grow]"
             >
               {/* Cover image + parallax */}
               <img src={HERO[aud.key]} alt={aud.heroAlt} loading="lazy"
@@ -133,7 +133,7 @@ export default function ForWhoEpicare() {
               </span>
 
               {/* Content — anchored bottom */}
-              <div className="absolute inset-x-0 bottom-0 z-20 p-static-xl md:p-static-2xl flex flex-col">
+              <div className="relative z-20 mt-auto p-static-xl md:p-static-2xl flex flex-col w-full">
                 <span className="inline-flex items-center gap-2 text-overline text-[var(--color-text-White-100)]/70 mb-4">
                   <span className="w-2 h-2 rounded-full" style={{ backgroundColor: accent }} />
                   {aud.kicker}
@@ -142,8 +142,8 @@ export default function ForWhoEpicare() {
                   {aud.title}
                 </h3>
 
-                {/* Capabilities — hidden until this panel is hovered/expanded */}
-                <ul className="mt-6 max-w-xl grid gap-y-0 opacity-0 translate-y-6 max-h-0 overflow-hidden
+                {/* Capabilities — Visible by default on mobile, hidden behind hover on desktop */}
+                <ul className="mt-6 max-w-xl grid gap-y-0 opacity-100 translate-y-0 max-h-[34rem] lg:opacity-0 lg:translate-y-6 lg:max-h-0 overflow-hidden
                   group-hover:opacity-100 group-hover:translate-y-0 group-hover:max-h-[34rem]
                   transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]">
                   {aud.items.map((item) => (

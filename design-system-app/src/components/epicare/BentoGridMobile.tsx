@@ -202,10 +202,24 @@ export default function BentoGridMobile() {
     mm.add("(max-width: 767px) and (prefers-reduced-motion: no-preference)", () => {
         // 1. SAFE KINETIC TYPOGRAPHY ANIMATION
         gsap.fromTo(".title-line-reveal",
-          { yPercent: 120 },
+          { yPercent: 120, willChange: 'transform' },
           { 
             yPercent: 0, 
             duration: 1.2, ease: "power4.out", stagger: 0.15,
+            clearProps: 'willChange',
+            scrollTrigger: {
+              trigger: section,
+              start: "top 80%",
+              toggleActions: "play none none reverse"
+            }
+          }
+        );
+        
+        gsap.fromTo(".anim-head-fade",
+          { opacity: 0, y: 26, willChange: 'transform, opacity' },
+          { 
+            opacity: 1, y: 0, duration: 0.9, stagger: 0.08, ease: "power3.out",
+            clearProps: 'willChange',
             scrollTrigger: {
               trigger: section,
               start: "top 80%",
@@ -362,15 +376,15 @@ export default function BentoGridMobile() {
               </h2>
               
               <div className="flex flex-col gap-6 w-full pr-4">
-                <p className="text-body-lg text-[var(--color-text-muted)] font-light text-left">
+                <p className="anim-head-fade text-body-lg text-[var(--color-text-muted)] font-light text-left">
                   {t('sectionDesc')}
                 </p>
-                <div className="flex">
+                <div className="anim-head-fade flex">
                   <button className="group w-fit h-12 pl-6 pr-2 rounded-full flex items-center gap-3 bg-[var(--color-action-primary-bg)] text-[var(--color-action-primary-text)] shadow-elevation-2 transition-all duration-[450ms] hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-elevation-4">
                     <span className="text-body-sm font-medium">{th('ctaPlans')}</span>
                     <span className="relative w-8 h-8 rounded-full bg-[var(--color-action-primary-text)] text-[var(--color-action-primary-bg)] flex items-center justify-center overflow-hidden shrink-0">
-                      <ArrowUR className="absolute w-4 h-4 transition-transform duration-300 ease-out group-hover:translate-x-5 group-hover:-translate-y-5" />
-                      <ArrowUR className="absolute w-4 h-4 -translate-x-5 translate-y-5 transition-transform duration-300 ease-out group-hover:translate-x-0 group-hover:translate-y-0" />
+                      <ArrowUR className="absolute w-4 h-4 transition-transform duration-300 group-hover:translate-x-5 group-hover:-translate-y-5" />
+                      <ArrowUR className="absolute w-4 h-4 -translate-x-5 translate-y-5 transition-transform duration-300 group-hover:translate-x-0 group-hover:translate-y-0" />
                     </span>
                   </button>
                 </div>

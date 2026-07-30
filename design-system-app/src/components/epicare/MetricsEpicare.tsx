@@ -110,7 +110,7 @@ export default function MetricsEpicare() {
               scrollTrigger: {
                 trigger: el,
                 start: "top 95%", 
-                end: "top 45%",   
+                end: "top 60%",   
                 scrub: 1 
               }
             }
@@ -136,12 +136,12 @@ export default function MetricsEpicare() {
         </div>
 
         {/* ── Layout: The Bento Box Grid (Desktop) ── */}
-        <div className="metric-grid-container hidden md:grid grid-cols-2 lg:grid-cols-4 gap-fluid-sm md:gap-fluid-xs pb-6 md:pb-0">
+        <div className="metric-grid-container hidden md:grid grid-cols-2 lg:grid-cols-4 gap-[var(--spacing-static-sm)] pb-6 md:pb-0">
           {metricsData.map((metric, idx) => (
             <div 
               key={idx} 
               className="metric-bento-reveal will-change-transform group relative 
-                         p-static-md md:p-static-2xl rounded-[12px] 
+                         p-static-md md:p-static-lg rounded-[12px] 
                          bg-[#ffffff] shadow-elevation-2 dark:bg-[#0a0a0a] 
                          border border-black/5 dark:border-white/10 dark:shadow-none dark:hover:border-white/20 
                          transition-transform duration-300 overflow-hidden

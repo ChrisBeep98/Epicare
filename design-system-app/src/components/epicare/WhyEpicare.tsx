@@ -39,8 +39,8 @@ export default function WhyEpicare() {
             scrollTrigger: {
               trigger: el,
               start: "top 95%", 
-              end: "top 35%",   
-              scrub: 1 // El timing original del commit
+              end: "top 60%",   
+              scrub: 1
             }
           }
         );
@@ -56,14 +56,14 @@ export default function WhyEpicare() {
       className="w-full py-section-lg bg-[#FAFAFA] dark:bg-[#050505] overflow-hidden flex flex-col justify-center relative px-gutter-lg"
     >
       <div className="mx-auto max-w-section-lg w-full gap-0">
-        <div className="relative z-10 w-full flex flex-col gap-12 md:-gap-8 mix-blend-difference text-white">
+        <div className="relative z-10 w-full flex flex-col gap-[var(--spacing-static-lg)] md:gap-[var(--spacing-static-sm)] mix-blend-difference text-white">
            {METRICS.map((m, i) => (
              <div 
                key={i} 
                ref={el => {
                  elementsRef.current[i] = el;
                }}
-               className="w-full flex flex-col md:flex-row md:items-baseline leading-[0.85] mb-16 md:mb-0 transform-gpu"
+               className="w-full flex flex-col md:flex-row md:items-baseline leading-[0.85] transform-gpu"
              >
                <span className="font-mono text-left text-[25vw] md:text-[18vw] font-black tracking-tighter tabular-nums whitespace-nowrap opacity-95">
                  {m.value}

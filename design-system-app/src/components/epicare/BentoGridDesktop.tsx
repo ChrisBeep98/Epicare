@@ -207,6 +207,35 @@ export default function BentoGridDesktop() {
 
         updateCards3DPhysics();
 
+        // 1. SAFE KINETIC TYPOGRAPHY ANIMATION (Title & Subtitle Entrance)
+        gsap.fromTo(".anim-head-line",
+          { yPercent: 120, willChange: 'transform' },
+          { 
+            yPercent: 0, 
+            duration: 1.2, ease: "power4.out", stagger: 0.15,
+            clearProps: 'willChange',
+            scrollTrigger: {
+              trigger: section,
+              start: "top 80%",
+              toggleActions: "play none none reverse"
+            }
+          }
+        );
+        
+        gsap.fromTo(".anim-head-fade",
+          { opacity: 0, y: 26, willChange: 'transform, opacity' },
+          { 
+            opacity: 1, y: 0, duration: 0.9, stagger: 0.08, ease: "power3.out",
+            clearProps: 'willChange',
+            scrollTrigger: {
+              trigger: section,
+              start: "top 80%",
+              toggleActions: "play none none reverse"
+            }
+          }
+        );
+
+        // HORIZONTAL SCROLL LOGIC
         const tl = gsap.timeline({
             scrollTrigger: {
               trigger: section,
@@ -387,15 +416,17 @@ export default function BentoGridDesktop() {
             className="coverflow-card shrink-0 w-full lg:w-[40vw] h-auto md:h-[100vh] relative transform-gpu flex flex-col justify-start gap-static-md md:gap-static-xl pt-static-md md:pt-[15vh]"
             style={{ transformOrigin: 'center center' }}
           >
-            <h2 className="text-display-lg text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)] text-left whitespace-pre-line">
-              {t('sectionTitle')}
+            <h2 className="overflow-hidden pb-static-xs text-display-lg text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)] text-left whitespace-pre-line">
+              <span className="anim-head-line block">
+                {t('sectionTitle')}
+              </span>
             </h2>
             
             <div className="md:my-auto flex flex-col gap-static-xl md:gap-static-2xl translate-y-0 md:-translate-y-10">
-              <p className="text-body-lg text-[var(--color-text-muted)] font-light max-w-[500px] text-left">
+              <p className="anim-head-fade text-body-lg text-[var(--color-text-muted)] font-light max-w-[500px] text-left">
                 {t('sectionDesc')}
               </p>
-              <div className="flex">
+              <div className="anim-head-fade flex">
                 <button className="group w-fit h-12 pl-6 pr-2 rounded-full flex items-center gap-3 bg-[var(--color-action-primary-bg)] text-[var(--color-action-primary-text)] shadow-elevation-2 transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-elevation-4">
                   <span className="text-body-sm font-medium">{th('ctaPlans')}</span>
                   <span className="relative w-8 h-8 rounded-full bg-[var(--color-action-primary-text)] text-[var(--color-action-primary-bg)] flex items-center justify-center overflow-hidden shrink-0">

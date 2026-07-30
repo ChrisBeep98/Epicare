@@ -52,16 +52,13 @@ export default function ProductLinesEpicare() {
       if (reduce) {
         gsap.set('.pl-head, .pl-line, .pl-pill', { opacity: 1, y: 0, filter: 'none' });
       } else {
-        // Header — soft blur rise.
-        gsap.fromTo('.pl-head',
-          { opacity: 0, y: 40, filter: 'blur(6px)' },
-          {
-            opacity: 1, y: 0, filter: 'blur(0px)',
-            duration: 1, stagger: 0.1, ease: 'power3.out',
-            scrollTrigger: { trigger: sectionRef.current, start: 'top 78%' },
-            clearProps: 'filter',
-          }
-        );
+        // Headline text-birth (Hardware Optimized)
+        gsap.fromTo('.pl-head-line', { yPercent: 118, willChange: 'transform' },
+          { yPercent: 0, duration: 1.15, stagger: 0.12, ease: 'power4.out', clearProps: 'willChange',
+            scrollTrigger: { trigger: sectionRef.current, start: 'top 82%' } });
+        gsap.fromTo('.pl-head', { opacity: 0, y: 26, willChange: 'transform, opacity' },
+          { opacity: 1, y: 0, duration: 0.9, stagger: 0.08, ease: 'power3.out', clearProps: 'willChange',
+            scrollTrigger: { trigger: sectionRef.current, start: 'top 80%' } });
 
         // Per-line scroll-linked "light up" (scrollytelling reading reveal).
         gsap.utils.toArray<HTMLElement>('.pl-line').forEach((line) => {
@@ -125,15 +122,16 @@ export default function ProductLinesEpicare() {
             12-track gap forcing an overflow on narrow phones) ── */}
         <header className="flex flex-col gap-6 lg:grid lg:grid-cols-12 lg:gap-fluid-md lg:items-end mb-16 md:mb-24">
           <div className="col-span-12 lg:col-span-8">
-            <span className="pl-head block text-overline text-[var(--color-brand-blue)] mb-5">
+            <span className="pl-head block text-overline text-[var(--color-brand-blue)] mb-6">
               {t('overline')}
             </span>
-            <h2 className="pl-head text-display md:text-display-xl font-medium tracking-tighter leading-[1.05] text-[var(--color-text-Black-100)] dark:text-white break-words">
-              {t('titleLine1')}<br />
-              <span className="text-[var(--color-text-muted)]">{t('titleLine2')}</span>
+            <h2 className="overflow-hidden pb-static-xs text-display-xl font-semibold tracking-tight leading-[1] text-[var(--color-text-Black-100)] dark:text-white">
+              <span className="pl-head-line block">
+                {t('titleLine1')} <span className="text-[var(--color-text-muted)]">{t('titleLine2')}</span>
+              </span>
             </h2>
           </div>
-          <p className="pl-head col-span-12 lg:col-span-4 text-body-sm font-light text-[var(--color-text-Black-100)]/60 dark:text-white/50">
+          <p className="pl-head col-span-12 lg:col-span-4 text-body-lg font-light text-[var(--color-text-Black-100)]/60 dark:text-white/55">
             {t('desc')}
           </p>
         </header>
