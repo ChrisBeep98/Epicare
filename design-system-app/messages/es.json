@@ -170,7 +170,22 @@
     },
     "howToJoin": {
       "overline": "04 // Onboarding",
-      "title": "Cómo Funciona la Vinculación"
+      "titleLine1": "Cómo Funciona",
+      "titleLine2": "la Vinculación",
+      "steps": {
+        "step1Title": "El Primer Contacto",
+        "step1Desc": "Todo nace en nuestro portal optimizado. Datos y validación de identidad en tiempo récord, sin burocracia.",
+        "step2Title": "Background Check",
+        "step2Desc": "Nuestros nodos se conectan con los entes federales. Un proceso que tomaba semanas, resuelto en segundos.",
+        "step3Title": "Firma Electrónica",
+        "step3Desc": "Olvídate por completo del papel. Tu onboarding se sella criptográficamente en una bóveda transparente.",
+        "step4Title": "Aprovisionamiento",
+        "step4Desc": "El ecosistema despierta a tu orden. Tus accesos al CRM, AMS y la plataforma se generan automáticamente.",
+        "step5Title": "Entrenamiento",
+        "step5Desc": "Ingresas a Epicare Academy, nuestra pista de despegue. Aquí obtienes las bases para romper el mercado.",
+        "step6Title": "Ready, Go Live!",
+        "step6Desc": "Tu infraestructura está lista, tu contrato firmado y accesos activados. Es hora de dominar la industria."
+      }
     },
     "whyEpicare": {
       "headlineLine1": "No somos el intermediario.",

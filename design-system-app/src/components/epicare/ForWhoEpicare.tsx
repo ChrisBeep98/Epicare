@@ -35,11 +35,11 @@ const HERO: Record<AudienceKey, string> = {
  */
 const MobileAccordion = ({ aud, accent, HERO, isOpen, onClick }: any) => {
   return (
-    <article className="w-full border-b border-black/10 dark:border-white/20 flex flex-col group cursor-pointer" onClick={onClick}>
+    <article className="fw-mobile-curtain w-full border-b border-black/10 dark:border-white/20 flex flex-col group cursor-pointer" onClick={onClick}>
        {/* Header (Always visible) */}
        <div className="w-full flex items-center justify-between py-6 px-[var(--space-gutter-sm)]">
           <div className="flex items-center gap-4">
-             <span className={`text-display-sm font-semibold tabular-nums transition-all duration-500 ${isOpen ? 'bg-gradient-to-br from-[var(--color-brand-blue)] to-[var(--color-brand-cyan)] bg-clip-text text-transparent scale-110 origin-left' : 'text-black/30 dark:text-white/30'}`}>
+             <span className={`text-display-sm font-semibold tabular-nums transition-[transform,opacity,color] duration-500 ${isOpen ? 'bg-gradient-to-br from-[var(--color-brand-blue)] to-[var(--color-brand-cyan)] bg-clip-text text-transparent scale-110 origin-left' : 'text-black/30 dark:text-white/30'}`}>
                {aud.index}
              </span>
              <h3 className="text-display-sm font-semibold tracking-tighter text-[var(--color-text-Black-100)] dark:text-white">
@@ -56,7 +56,7 @@ const MobileAccordion = ({ aud, accent, HERO, isOpen, onClick }: any) => {
        </div>
 
        {/* Body (Collapsible via CSS Grid) */}
-       <div className={`grid transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${isOpen ? 'grid-rows-[1fr] opacity-100 pb-8' : 'grid-rows-[0fr] opacity-0 pb-0'}`}>
+       <div className={`grid transition-[grid-template-rows,opacity,padding] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${isOpen ? 'grid-rows-[1fr] opacity-100 pb-8' : 'grid-rows-[0fr] opacity-0 pb-0'}`}>
           <div className="overflow-hidden flex flex-col gap-4">
              {/* Kicker */}
              <div className="flex items-center gap-3 mt-2 px-[var(--space-gutter-sm)]">
@@ -66,23 +66,27 @@ const MobileAccordion = ({ aud, accent, HERO, isOpen, onClick }: any) => {
                 </span>
              </div>
              
-             {/* Immersive Image Canvas (Full Width Edge-to-Edge) */}
-             <div className="relative w-full h-[35vh] overflow-hidden mt-4 shadow-[var(--shadow-elevation-2)] dark:shadow-none">
-                <img 
-                  src={HERO[aud.key]} 
-                  alt={aud.heroAlt} 
-                  className={`absolute inset-0 w-full h-full object-cover origin-center transition-all duration-[1.2s] ease-[cubic-bezier(0.22,1,0.36,1)] ${isOpen ? 'scale-100 blur-0 opacity-100' : 'scale-125 blur-md opacity-0'}`} 
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-80" />
-                <div className={`absolute inset-0 mix-blend-color transition-opacity duration-1000 ${isOpen ? 'opacity-40' : 'opacity-0'}`} style={{ backgroundColor: accent }} />
+             <div 
+               className="relative h-[35vh] overflow-hidden mt-4 shadow-[var(--shadow-elevation-2)] dark:shadow-none bg-[#050505]"
+               style={{ width: '100vw', marginLeft: 'calc(var(--space-gutter-sm) * -1)' }}
+             >
+                <div className="fw-mobile-cover absolute inset-0 w-full h-full will-change-transform">
+                   <img 
+                     src={HERO[aud.key]} 
+                     alt={aud.heroAlt} 
+                     className={`absolute inset-0 w-full h-full object-cover origin-center transition-[transform,opacity] duration-[1s] ease-[cubic-bezier(0.22,1,0.36,1)] ${isOpen ? 'scale-100 opacity-100' : 'scale-[1.15] opacity-0'}`} 
+                   />
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-80 pointer-events-none" />
+                <div className={`absolute inset-0 transition-opacity duration-700 pointer-events-none ${isOpen ? 'opacity-20' : 'opacity-0'}`} style={{ backgroundColor: accent }} />
              </div>
              
              {/* Capabilities List */}
              <ul className="flex flex-col gap-0 border-t border-black/10 dark:border-white/10 mt-4 px-[var(--space-gutter-sm)]">
                {aud.items.map((item: string, i: number) => (
                  <li key={item} 
-                     style={{ transitionDelay: `${i * 100}ms` }}
-                     className={`flex items-start gap-4 py-4 border-b border-black/10 dark:border-white/10 transition-all duration-700 ${isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+                     style={{ transitionDelay: `${i * 80}ms` }}
+                     className={`flex items-start gap-4 py-4 border-b border-black/10 dark:border-white/10 transition-[transform,opacity] duration-500 ${isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}
                      strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"
                      className="w-5 h-5 mt-0.5 shrink-0" style={{ color: accent }}>
@@ -106,6 +110,14 @@ const MobileAccordionGroup = ({ audiences, HERO, ACCENT }: any) => {
 
   const toggle = (key: string) => {
     setOpenStates(prev => ({ ...prev, [key]: !prev[key] }));
+    
+    // Altera la altura del documento, obligando a GSAP a recalcular sus disparadores 
+    // de Parallax. El acordeón tarda 500ms en abrirse.
+    setTimeout(() => {
+      import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
+        ScrollTrigger.refresh();
+      });
+    }, 550);
   };
 
   return (
@@ -139,13 +151,19 @@ export default function ForWhoEpicare() {
 
   useEffect(() => {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const ctx = gsap.context(() => {
+    const mm = gsap.matchMedia(sectionRef);
+
+    mm.add({
+      isDesktop: "(min-width: 1024px)",
+      isMobile: "(max-width: 1023px)"
+    }, (context) => {
       if (reduce) {
-        gsap.set('.fw-head, .fw-line, .fw-panel, .fw-num', { opacity: 1, y: 0, yPercent: 0 });
+        gsap.set('.fw-head, .fw-line, .fw-panel, .fw-num, .fw-mobile-curtain', { opacity: 1, y: 0, yPercent: 0 });
         gsap.set('.fw-curtain', { clipPath: 'inset(0% 0% 0% 0%)' });
         return;
       }
-      // Headline text-birth.
+
+      // Headline text-birth (All screens)
       gsap.fromTo('.fw-line', { yPercent: 118, willChange: 'transform' },
         { yPercent: 0, duration: 1.15, stagger: 0.12, ease: 'power4.out', clearProps: 'willChange',
           scrollTrigger: { trigger: sectionRef.current, start: 'top 82%' } });
@@ -153,24 +171,44 @@ export default function ForWhoEpicare() {
         { opacity: 1, y: 0, duration: 0.9, stagger: 0.08, ease: 'power3.out', clearProps: 'willChange',
           scrollTrigger: { trigger: sectionRef.current, start: 'top 80%' } });
 
-      // Panels — Safe Reveal (Replaced buggy clipPath for mobile Safari compatibility)
-      gsap.utils.toArray<HTMLElement>('.fw-curtain').forEach((panel, i) => {
-        gsap.fromTo(panel, { opacity: 0, y: 60 },
-          { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out',
-            scrollTrigger: { trigger: panel, start: 'top 85%' } });
-      });
-
-      // Giant numerals — parallax + cover image drift.
+      // Giant numerals — parallax (All screens)
       gsap.utils.toArray<HTMLElement>('.fw-num').forEach((num) => {
-        gsap.fromTo(num, { yPercent: 20 }, { yPercent: -20, ease: 'none',
+        gsap.fromTo(num, { yPercent: 20, willChange: 'transform' }, { yPercent: -20, ease: 'none', clearProps: 'willChange',
           scrollTrigger: { trigger: '.fw-stage', start: 'top bottom', end: 'bottom top', scrub: true } });
       });
-      gsap.utils.toArray<HTMLElement>('.fw-cover').forEach((img) => {
-        gsap.fromTo(img, { yPercent: -8 }, { yPercent: 8, ease: 'none',
-          scrollTrigger: { trigger: img, start: 'top bottom', end: 'bottom top', scrub: true } });
-      });
-    }, sectionRef);
-    return () => ctx.revert();
+
+      if (context.conditions?.isDesktop) {
+        // Desktop Panels — Safe Reveal
+        gsap.utils.toArray<HTMLElement>('.fw-curtain').forEach((panel) => {
+          gsap.fromTo(panel, { opacity: 0, y: 60, willChange: 'transform, opacity' },
+            { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out', clearProps: 'willChange',
+              scrollTrigger: { trigger: panel, start: 'top 85%' } });
+        });
+        
+        // Desktop Cover Parallax
+        gsap.utils.toArray<HTMLElement>('.fw-cover').forEach((img) => {
+          gsap.fromTo(img, { yPercent: -8, willChange: 'transform' }, { yPercent: 8, ease: 'none', clearProps: 'willChange',
+            scrollTrigger: { trigger: img, start: 'top bottom', end: 'bottom top', scrub: true } });
+        });
+      }
+
+      if (context.conditions?.isMobile) {
+        // Mobile Accordions — Reveal
+        gsap.utils.toArray<HTMLElement>('.fw-mobile-curtain').forEach((acc) => {
+          gsap.fromTo(acc, { opacity: 0, y: 30, willChange: 'transform, opacity' },
+            { opacity: 1, y: 0, duration: 1, ease: 'power3.out', clearProps: 'willChange',
+              scrollTrigger: { trigger: acc, start: 'top 90%' } });
+        });
+
+        // Mobile Image Parallax (Precise 52px vertical drift)
+        gsap.utils.toArray<HTMLElement>('.fw-mobile-cover').forEach((cover) => {
+          gsap.fromTo(cover, { y: -52, scale: 1.2, willChange: 'transform' }, { y: 52, scale: 1.2, ease: 'none', clearProps: 'willChange',
+            scrollTrigger: { trigger: cover.parentElement, start: 'top bottom', end: 'bottom top', scrub: true } });
+        });
+      }
+    });
+
+    return () => mm.revert();
   }, []);
 
   return (

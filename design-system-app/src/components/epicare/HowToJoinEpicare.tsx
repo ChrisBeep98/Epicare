@@ -72,16 +72,16 @@ function StatusCarousel({ images, id, accentClass }: { images: string[], id: str
   );
 }
 
-const STEPS = [
-  { num: "01", title: "El Primer Contacto", desc: "Todo nace en nuestro portal hiper-optimizado. Datos base y validación de identidad en tiempo récord, sin fricción burocrática." },
-  { num: "02", title: "Background Check", desc: "Nuestros nodos se conectan con bases de datos federales. Un proceso que tomaba semanas, ahora resuelto en milisegundos." },
-  { num: "03", title: "Firma Electrónica", desc: "Olvídate del papel. Tu onboarding comercial se sella criptográficamente en nuestra bóveda transparente." },
-  { num: "04", title: "Aprovisionamiento", desc: "El ecosistema despierta. Tus accesos al CRM, AMS y la plataforma educativa se generan automáticamente." },
-  { num: "05", title: "Emisión Activa", desc: "El fin del proceso es el inicio de tu negocio. Estás listo para emitir tu primera póliza." },
-];
 
 export default function HowToJoinEpicare() {
   const t = useTranslations("landingV2.howToJoin");
+  
+  const STEPS = Array.from({ length: 6 }).map((_, i) => ({
+    num: `0${i + 1}`,
+    title: t(`steps.step${i + 1}Title`),
+    desc: t(`steps.step${i + 1}Desc`),
+  }));
+  
   const sectionRef = useRef<HTMLDivElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [activeMobileStep, setActiveMobileStep] = useState(0);
@@ -137,13 +137,14 @@ export default function HowToJoinEpicare() {
       {/* ========================================================= */}
       {/* SECTION HEADER                                            */}
       {/* ========================================================= */}
-      <header className="c-text-block relative z-10 max-w-section-lg mx-auto w-full flex flex-col mb-8 md:mb-12 px-[var(--space-gutter-sm)] md:px-[clamp(1.5rem,4vw,3.5rem)] pt-section-sm md:pt-section-md">
+      <header className="c-text-block relative z-10 max-w-section-lg mx-auto w-full flex flex-col mb-8 md:mb-24 px-[var(--space-gutter-sm)] md:px-[clamp(1.5rem,4vw,3.5rem)] pt-section-sm md:pt-section-md">
         <span className="block text-overline text-[var(--color-brand-blue)] mb-4 md:mb-6">
           {t("overline")}
         </span>
         <h2 className="overflow-hidden pb-static-xs text-display-xl font-semibold tracking-tight leading-[1] text-[var(--color-text-Black-100)] dark:text-white">
           <span className="block">
-            {t("title")}
+            <span className="inline md:block">{t("titleLine1")} </span>
+            <span className="inline md:block text-[var(--color-text-muted)]">{t("titleLine2")}</span>
           </span>
         </h2>
       </header>
@@ -214,12 +215,16 @@ export default function HowToJoinEpicare() {
                 <div className="absolute inset-0 bg-black/20"></div> {/* Extra global darkening for contrast */}
                 
                 {/* Text Overlay */}
-                <div className="relative z-10 p-[var(--space-gutter-sm)] flex flex-col gap-3">
+                <div className="relative z-10 px-[var(--space-gutter-sm)] pt-[var(--space-gutter-sm)] pb-10 md:pb-12 flex flex-col gap-3">
                   <span className={`text-display-md drop-shadow-md opacity-90 ${isOrange ? 'text-[var(--color-brand-orange)]' : 'text-[var(--color-brand-blue)]'}`}>
                     {step.num}
                   </span>
-                  <h3 className="text-h3 text-white drop-shadow-md">{step.title}</h3>
-                  <p className="text-body-md text-white/80 font-light leading-relaxed drop-shadow-sm">{step.desc}</p>
+                  <h3 className="text-display-sm font-semibold text-white drop-shadow-lg leading-tight">
+                    {step.title}
+                  </h3>
+                  <p className="text-body-md font-light text-white/90 leading-relaxed drop-shadow-md">
+                    {step.desc}
+                  </p>
                 </div>
               </div>
             );

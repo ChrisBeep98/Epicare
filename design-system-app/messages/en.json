@@ -170,7 +170,22 @@
     },
     "howToJoin": {
       "overline": "04 // Onboarding",
-      "title": "How the Onboarding Works"
+      "titleLine1": "How the",
+      "titleLine2": "Onboarding Works",
+      "steps": {
+        "step1Title": "The First Contact",
+        "step1Desc": "Everything starts in our optimized portal. Data and identity validation in record time, zero bureaucracy.",
+        "step2Title": "Background Check",
+        "step2Desc": "Our nodes connect with federal databases. A process that took weeks, now resolved in a matter of seconds.",
+        "step3Title": "Electronic Signature",
+        "step3Desc": "Forget about paper completely. Your onboarding is cryptographically sealed in a fully transparent vault.",
+        "step4Title": "Provisioning",
+        "step4Desc": "The ecosystem awakens at your command. Your CRM, AMS, and platform access are generated automatically.",
+        "step5Title": "Training",
+        "step5Desc": "You enter Epicare Academy, our launchpad. Here you get the knowledge base to dominate the whole market.",
+        "step6Title": "Ready, Go Live!",
+        "step6Desc": "Your infrastructure is ready, contracts signed and access activated. It's time to dominate the industry."
+      }
     },
     "whyEpicare": {
       "headlineLine1": "We are not the middleman.",
