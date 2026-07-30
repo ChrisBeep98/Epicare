@@ -362,9 +362,12 @@ export default function BentoGridMobile() {
         >
           {/* CARD 0: THE TITLE COMPOSITION */}
           <div className="mobile-stack-card sticky top-0 w-full min-h-fit pb-[12vh] flex flex-col justify-start pt-[calc(15vh-24px)] items-start px-[var(--space-gutter-sm)] origin-top transform-gpu will-change-transform [backface-visibility:hidden] z-[10] relative">
+              <div className="mb-4">
+                <img src={asset('/Go_Hub_.svg')} alt="GO Hub" className="h-14 w-auto opacity-90 dark:opacity-100" />
+              </div>
               <h2 className="text-display-lg text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)] text-left leading-[1.1]">
                 {t('sectionTitle').split('\n').map((line, i, arr) => {
-                  const isHighlight = i === 1;
+                  const isHighlight = i === arr.length - 1;
                   return (
                     <span key={i} className="block overflow-hidden pb-1 -mb-1">
                       <span className={`title-line-reveal block ${isHighlight ? 'text-[var(--color-brand-blue)] font-bold tracking-tight' : ''}`}>

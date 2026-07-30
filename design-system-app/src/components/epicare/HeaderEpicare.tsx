@@ -147,10 +147,10 @@ export default function HeaderEpicare({
     ? "top-[6px] md:top-2 h-16"
     : "top-4 md:top-6 h-16";
 
-  const navPositionClass = `fixed transition-all duration-300 z-[999999] ${
+  const navPositionClass = `fixed left-0 right-0 mx-auto max-w-section-xl transition-all duration-300 z-[999999] ${
     isHeaderPill 
-      ? "left-1.5 right-1.5 w-auto md:left-0 md:right-0 md:mx-auto md:w-[calc(100%-2*var(--space-gutter-sm))] lg:w-[calc(100%-2*var(--space-gutter-md))] md:max-w-section-xl"
-      : "left-0 right-0 w-full md:mx-auto md:w-[calc(100%-2*var(--space-gutter-sm))] lg:w-[calc(100%-2*var(--space-gutter-md))] md:max-w-section-xl"
+      ? "w-[calc(100%-12px)] md:w-[calc(100%-2*var(--space-gutter-sm))] lg:w-[calc(100%-2*var(--space-gutter-md))]"
+      : "w-full md:w-[calc(100%-2*var(--space-gutter-sm))] lg:w-[calc(100%-2*var(--space-gutter-md))]"
   }`;
 
   const navBgClass = isHeaderPill 

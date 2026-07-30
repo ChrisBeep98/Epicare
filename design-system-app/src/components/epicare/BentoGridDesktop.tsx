@@ -416,10 +416,20 @@ export default function BentoGridDesktop() {
             className="coverflow-card shrink-0 w-full lg:w-[40vw] h-auto md:h-[100vh] relative transform-gpu flex flex-col justify-start gap-static-md md:gap-static-xl pt-static-md md:pt-[15vh]"
             style={{ transformOrigin: 'center center' }}
           >
-            <h2 className="overflow-hidden pb-static-xs text-display-lg text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)] text-left whitespace-pre-line">
-              <span className="anim-head-line block">
-                {t('sectionTitle')}
-              </span>
+            <div className="anim-head-line w-full flex justify-start -mb-4 md:-mb-8">
+                <img src={asset('/Go_Hub_.svg')} alt="GO Hub" className="h-16 md:h-20 lg:h-24 w-auto opacity-90 dark:opacity-100" />
+            </div>
+            <h2 className="overflow-hidden pb-static-xs text-display-lg text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)] text-left leading-[1.1]">
+              {t('sectionTitle').split('\n').map((line, i, arr) => {
+                const isHighlight = i === arr.length - 1;
+                return (
+                  <span key={i} className="block overflow-hidden pb-1 -mb-1">
+                    <span className={`anim-head-line block ${isHighlight ? 'text-[var(--color-brand-blue)] font-bold tracking-tight' : ''}`}>
+                      {line}
+                    </span>
+                  </span>
+                );
+              })}
             </h2>
             
             <div className="md:my-auto flex flex-col gap-static-xl md:gap-static-2xl translate-y-0 md:-translate-y-10">
