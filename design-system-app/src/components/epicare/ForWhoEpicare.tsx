@@ -82,11 +82,11 @@ const MobileAccordion = ({ aud, accent, HERO, isOpen, onClick }: any) => {
              </div>
              
              {/* Capabilities List */}
-             <ul className="flex flex-col gap-0 border-t border-black/10 dark:border-white/10 mt-4 px-[var(--space-gutter-sm)]">
+             <ul className="flex flex-col gap-0 mt-4 px-[var(--space-gutter-sm)]">
                {aud.items.map((item: string, i: number) => (
                  <li key={item} 
                      style={{ transitionDelay: `${i * 80}ms` }}
-                     className={`flex items-start gap-4 py-4 border-b border-black/10 dark:border-white/10 transition-[transform,opacity] duration-500 ${isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+                     className={`flex items-start gap-4 py-4 border-b border-black/10 dark:border-white/10 last:border-b-0 transition-[transform,opacity] duration-500 ${isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}
                      strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"
                      className="w-5 h-5 mt-0.5 shrink-0" style={{ color: accent }}>
