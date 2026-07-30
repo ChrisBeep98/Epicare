@@ -35,7 +35,7 @@ export default function EpicareLandingPage() {
 
       <div className="w-full order-9"><ProductLinesEpicare /></div>
       <div className="w-full order-11"><ForWhoEpicare /></div>
-      <div className="w-full order-12"><WhyEpicare /></div>
+      {/* <div className="w-full order-12"><WhyEpicare /></div> */}
       <div className="w-full order-[13]"><HowToJoinEpicare /></div>
       <div className="w-full order-[14]"><FAQEpicare /></div>
       <div className="w-full order-[15]"><FooterEpicare /></div>

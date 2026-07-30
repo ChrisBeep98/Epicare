@@ -10,10 +10,10 @@
       "ctaAgents": "For Agents"
     },
     "metrics": {
-      "carriers": "Carriers",
-      "years": "Years of Experience",
-      "agents": "Agents",
-      "platform": "Learning Platform",
+      "carriers": "Carrier\nAppointments",
+      "years": "Years of\nExperience",
+      "agents": "Active\nAgents",
+      "platform": "Learning\nPlatform",
       "titleLine1": "Engineered to scale",
       "titleLine2": "the most demanding",
       "titleLine3": "insurance operations."

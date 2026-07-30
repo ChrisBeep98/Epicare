@@ -8,7 +8,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 const METRICS = [
   { value: "6,000+", label: "Asegurados activos" },
-  { value: "130+",   label: "Carrier appointments" },
   { value: "52",     label: "Jurisdicciones" },
   { value: "< 24h",  label: "Respuesta garantizada" },
 ];

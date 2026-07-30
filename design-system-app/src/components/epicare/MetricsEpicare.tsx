@@ -53,9 +53,9 @@ export default function MetricsEpicare() {
   const mobileElementsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   const metricsData = [
-    { value: "252+", label: t('carriers') },
-    { value: "25+", label: t('years') },
-    { value: "216+", label: t('agents') },
+    { value: "132+", label: t('carriers') },
+    { value: "15+", label: t('years') },
+    { value: "600+", label: t('agents') },
     { value: "24/7", label: t('platform') }
   ];
 
