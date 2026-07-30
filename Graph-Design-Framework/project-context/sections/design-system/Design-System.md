@@ -34,7 +34,7 @@ El sistema tipográfico usa **tres familias**, cada una atada a un rol semántic
 | `.text-h1` | clamp(1.75rem, 2.5vw, 2.25rem) | Títulos de sección |
 | `.text-h2` | clamp(1.5rem, 2vw, 1.875rem) | Subtítulos de sección |
 | `.text-h3` | clamp(1.25rem, 1.5vw, 1.5rem) | Títulos de tarjetas |
-| `.text-h4` | clamp(1.125rem, 1.25vw, 1.25rem) | Títulos de grupos pequeños |
+| `.text-h4` | clamp(1.1875rem, 1.25vw, 1.25rem) | Títulos de grupos pequeños |
 | `.text-h5` | 1.125rem | Etiquetas grandes |
 | `.text-h6` | 1rem | Títulos micro / Datos secundarios |
 | `.text-h7` | 0.875rem | Títulos nano / Opciones de menú |

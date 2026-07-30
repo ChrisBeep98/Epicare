@@ -24,20 +24,20 @@ export default function DarkGradientSection() {
         { opacity: 1, y: 0, duration: 0.9, stagger: 0.08, ease: 'power3.out', clearProps: 'willChange',
           scrollTrigger: { trigger: sectionRef.current, start: 'top 80%' } });
 
-      // Premium 3D Blur Reveal for Cards
+      // Hardware Symphony: Pure GPU reveal (opacity + transform only). No filter: blur() to prevent mobile scroll lag.
       gsap.fromTo(".card-reveal", 
-        { opacity: 0, y: 60, rotationX: 15, scale: 0.9, filter: "blur(8px)" },
+        { opacity: 0, y: 40, scale: 0.97, willChange: 'transform, opacity' },
         {
           opacity: 1, 
           y: 0,
-          rotationX: 0,
           scale: 1,
-          filter: "blur(0px)",
-          duration: 0.5,
-          stagger: 0.04,
-          ease: "power4.out",
+          duration: 0.6,
+          stagger: 0.05,
+          ease: "power3.out",
+          force3D: true, // Offloads composition strictly to GPU
+          clearProps: 'willChange',
           scrollTrigger: {
-            trigger: scrollContainerRef.current,
+            trigger: sectionRef.current,
             start: "top 85%"
           }
         }
@@ -152,7 +152,7 @@ export default function DarkGradientSection() {
                     {card.step}
                   </span>
                   <div className="flex flex-col gap-2">
-                    <h3 className="text-h5 md:text-h4 text-[var(--color-text-Black-100)] dark:text-white font-medium leading-tight tracking-tight transition-colors duration-500">
+                    <h3 className="text-h2 text-[var(--color-text-Black-100)] dark:text-white leading-tight tracking-tight transition-colors duration-500">
                       {card.title}
                     </h3>
                     <p className="text-body-sm text-[var(--color-text-Black-100)]/70 dark:text-white/60 font-light leading-relaxed transition-colors duration-500">
