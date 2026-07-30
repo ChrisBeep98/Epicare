@@ -144,8 +144,8 @@ export default function HeaderEpicare({
   };
 
   const navLayoutClass = isHeaderPill
-    ? "top-[6px] md:top-2 h-16"
-    : "top-4 md:top-6 h-16";
+    ? "top-[6px] md:top-2 h-[72px]"
+    : "top-4 md:top-6 h-[72px]";
 
   const navPositionClass = `fixed left-0 right-0 mx-auto max-w-section-xl transition-all duration-300 z-[999999] ${
     isHeaderPill 
