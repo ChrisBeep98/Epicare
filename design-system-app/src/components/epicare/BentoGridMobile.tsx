@@ -300,7 +300,7 @@ export default function BentoGridMobile() {
       videoDarkFullBackground: true,
       mediaClassNameDark: "dark:bg-[#0D0D0E]",
       cardClassNameDark: "dark:bg-[#0D0D0E]",
-      logo: <AmsLogo className="h-10 w-auto mb-6 drop-shadow-[0_0_15px_rgba(90,200,250,0.5)]" />
+      logo: <AmsLogo className="h-10 w-auto drop-shadow-[0_0_15px_rgba(90,200,250,0.5)]" />
     },
     {
       title: t('card1Title'),
@@ -311,7 +311,7 @@ export default function BentoGridMobile() {
       videoDarkFullBackground: true,
       mediaClassNameDark: "dark:bg-[#0D0D0E]",
       cardClassNameDark: "dark:bg-[#0D0D0E]",
-      logo: <CrmLogo className="h-10 w-auto mb-6 drop-shadow-[0_0_15px_rgba(90,200,250,0.5)]" />
+      logo: <CrmLogo className="h-10 w-auto drop-shadow-[0_0_15px_rgba(90,200,250,0.5)]" />
     },
     {
       title: t('card8Title'),
@@ -323,7 +323,7 @@ export default function BentoGridMobile() {
       videoDarkFullBackground: true,
       mediaClassNameDark: "dark:bg-[#0D0D0E]",
       cardClassNameDark: "dark:bg-[#0D0D0E]",
-      logo: <AcademyIcon className="h-10 w-auto mb-6 drop-shadow-[0_0_15px_rgba(90,200,250,0.5)]" />
+      logo: <AcademyIcon className="h-10 w-auto drop-shadow-[0_0_15px_rgba(90,200,250,0.5)]" />
     },
     {
       title: t('cardEppigoTitle'),
@@ -334,7 +334,7 @@ export default function BentoGridMobile() {
       videoDarkFullBackground: true,
       mediaClassNameDark: "dark:bg-[#0D0D0E]",
       cardClassNameDark: "dark:bg-[#0D0D0E]",
-      logo: <EppigoIcon className="h-10 w-auto mb-6 drop-shadow-[0_0_15px_rgba(90,200,250,0.5)]" />
+      logo: <EppigoIcon className="h-10 w-auto drop-shadow-[0_0_15px_rgba(90,200,250,0.5)]" />
     },
     {
       title: t('cardSolutionsTitle'),
@@ -345,7 +345,7 @@ export default function BentoGridMobile() {
       videoDarkFullBackground: true,
       mediaClassNameDark: "dark:bg-[#0D0D0E]",
       cardClassNameDark: "dark:bg-[#0D0D0E]",
-      logo: <SolutionsIcon className="h-10 w-auto mb-6" />
+      logo: <SolutionsIcon className="h-10 w-auto" />
     }
   ];
 
@@ -438,14 +438,16 @@ export default function BentoGridMobile() {
 
                   {/* Text Container (Top) */}
                   <div className="w-full p-6 flex flex-col justify-start relative z-10 pointer-events-none">
-                    {card.logo && (
-                       <div className="text-[var(--color-brand-blue)] dark:text-[var(--color-brand-cyan)] mb-4">
-                          {card.logo}
-                       </div>
-                    )}
-                    <h3 className="text-display mb-2 text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)]">
-                      {card.title}
-                    </h3>
+                    <div className="flex items-center gap-3 mb-2">
+                      {card.logo && (
+                         <div className="shrink-0 text-[var(--color-brand-blue)] dark:text-[var(--color-brand-cyan)]">
+                            {card.logo}
+                         </div>
+                      )}
+                      <h3 className="text-display text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)]">
+                        {card.title}
+                      </h3>
+                    </div>
                     <p className="text-body-md text-[var(--color-text-muted)] font-normal leading-relaxed max-w-[95%]">
                       {card.desc}
                     </p>

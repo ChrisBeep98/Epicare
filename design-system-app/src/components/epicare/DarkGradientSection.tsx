@@ -118,12 +118,12 @@ export default function DarkGradientSection() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       // Standard Header Entrance (Hardware Optimized)
-      gsap.fromTo('.anim-head-line', { yPercent: 118, willChange: 'transform' },
+      gsap.fromTo('.dg-head-line', { yPercent: 118, willChange: 'transform' },
         { yPercent: 0, duration: 1.15, stagger: 0.12, ease: 'power4.out', clearProps: 'willChange',
-          scrollTrigger: { trigger: sectionRef.current, start: 'top 82%', once: true } });
-      gsap.fromTo('.anim-head-fade', { opacity: 0, y: 26, willChange: 'transform, opacity' },
+          scrollTrigger: { trigger: sectionRef.current, start: 'top 82%', toggleActions: 'play none none reverse' } });
+      gsap.fromTo('.dg-head-fade', { opacity: 0, y: 26, willChange: 'transform, opacity' },
         { opacity: 1, y: 0, duration: 0.9, stagger: 0.08, ease: 'power3.out', clearProps: 'willChange',
-          scrollTrigger: { trigger: sectionRef.current, start: 'top 80%', once: true } });
+          scrollTrigger: { trigger: sectionRef.current, start: 'top 80%', toggleActions: 'play none none reverse' } });
 
       // Hardware Symphony: Pure GPU reveal (opacity + transform only). No filter: blur() to prevent mobile scroll lag.
       gsap.fromTo(".card-reveal", 
@@ -140,7 +140,7 @@ export default function DarkGradientSection() {
           scrollTrigger: {
             trigger: sectionRef.current,
             start: "top 85%",
-            once: true
+            toggleActions: 'play none none reverse'
           }
         }
       );
@@ -214,7 +214,7 @@ export default function DarkGradientSection() {
     >
       <div className="max-w-section-lg mx-auto w-full">
         
-        <div className="relative w-full min-h-0 h-auto md:min-h-[75vh] rounded-[12px] border border-[var(--color-border-Strokes-default)] overflow-hidden flex flex-col justify-center items-start md:items-center text-left md:text-center px-[14px] py-12 md:p-12 lg:p-16 bg-transparent transition-colors duration-500">
+        <div className="relative w-full min-h-0 h-auto md:min-h-[75vh] rounded-[12px] border border-[var(--color-border-Strokes-default)] overflow-hidden flex flex-col justify-center items-start md:items-center text-left md:text-center px-[14px] pt-7 pb-12 md:p-12 lg:p-16 bg-transparent transition-colors duration-500">
           
 
 
@@ -227,17 +227,17 @@ export default function DarkGradientSection() {
           />
 
           {/* Contenido Central (Clases Congeladas - Purga Fase 2) */}
-          <div className="relative z-10 flex flex-col items-start md:items-center gap-6 md:gap-8 max-w-4xl w-full md:mx-auto pb-4 md:pb-8">
+          <div className="relative z-10 flex flex-col items-start md:items-center gap-6 md:gap-8 max-w-4xl w-full md:mx-auto pb-5 md:pb-8">
             
             <h2 className="overflow-hidden pb-static-xs text-display text-left md:text-center text-[var(--color-text-Black-100)] dark:text-white tracking-tighter leading-[1.05] transition-colors duration-500">
-              <span className="anim-head-line block">
+              <span className="dg-head-line block">
                 {t.rich('sectionTitle', {
                   span: (chunks) => <span className="text-[var(--color-brand-blue)]">{chunks}</span>
                 })}
               </span>
             </h2>
 
-            <p className="hidden md:block anim-head-fade text-body text-left md:text-center text-[var(--color-text-Black-100)]/70 dark:text-white/70 max-w-2xl font-light transition-colors duration-500">
+            <p className="hidden md:block dg-head-fade text-body text-left md:text-center text-[var(--color-text-Black-100)]/70 dark:text-white/70 max-w-2xl font-light transition-colors duration-500">
               {t('sectionDesc')}
             </p>
 
@@ -247,7 +247,7 @@ export default function DarkGradientSection() {
           <div 
             ref={scrollContainerRef}
             onScroll={handleScroll}
-            className="relative z-10 flex md:grid md:grid-cols-4 overflow-x-auto overflow-y-hidden md:overflow-x-visible md:overflow-y-visible scrollbar-none gap-[14px] md:gap-fluid-xs w-[calc(100%+28px)] md:w-full mt-4 md:mt-12 md:perspective-[1000px] py-12 md:py-0 -my-12 md:my-0 -mx-[14px] md:mx-0 px-[14px] md:px-0"
+            className="relative z-10 flex md:grid md:grid-cols-4 overflow-x-auto overflow-y-hidden md:overflow-x-visible md:overflow-y-visible scrollbar-none gap-[14px] md:gap-fluid-xs w-[calc(100%+28px)] md:w-full md:mt-12 md:perspective-[1000px] py-12 md:py-0 -my-12 md:my-0 -mx-[14px] md:mx-0 px-[14px] md:px-0"
           >
             {features.map((card, idx) => (
               <FlipCard key={idx} card={card} t={t} />

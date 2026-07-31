@@ -176,7 +176,7 @@ export default function HowToJoinEpicare() {
       <div className="c-zone-2 flex flex-col-reverse md:flex-row w-full relative">
         {/* Panel Izquierdo: Scroll de Textos */}
         <div className="w-[92%] md:w-1/2 py-[10vh] px-6 md:py-[20vh] md:px-[8vw] flex flex-col justify-end gap-[30vh] bg-[var(--color-surface-BG-white)] dark:bg-[#0D0D0E] md:bg-transparent md:dark:bg-transparent rounded-r-lg md:rounded-none shadow-[0_-10px_40px_rgba(0,0,0,0.1)] dark:shadow-[0_-10px_40px_rgba(0,0,0,0.3)] md:shadow-none relative z-10 md:z-auto backdrop-blur-md md:backdrop-blur-none border border-white/20 dark:border-white/5 border-l-0 md:border-none">
-          {STEPS.slice(3, 5).map((step, idx) => (
+          {STEPS.slice(3, 6).map((step, idx) => (
             <div key={idx} className="c-text-block max-w-lg mx-auto w-full">
               <span className="text-display-md text-[var(--color-brand-orange)] opacity-50 block mb-4">{step.num}</span>
               <h3 className="text-h2 text-[var(--color-text-primary)] mb-6">{step.title}</h3>
