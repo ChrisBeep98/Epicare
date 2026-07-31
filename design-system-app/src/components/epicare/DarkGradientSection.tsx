@@ -120,10 +120,10 @@ export default function DarkGradientSection() {
       // Standard Header Entrance (Hardware Optimized)
       gsap.fromTo('.anim-head-line', { yPercent: 118, willChange: 'transform' },
         { yPercent: 0, duration: 1.15, stagger: 0.12, ease: 'power4.out', clearProps: 'willChange',
-          scrollTrigger: { trigger: sectionRef.current, start: 'top 82%' } });
+          scrollTrigger: { trigger: sectionRef.current, start: 'top 82%', once: true } });
       gsap.fromTo('.anim-head-fade', { opacity: 0, y: 26, willChange: 'transform, opacity' },
         { opacity: 1, y: 0, duration: 0.9, stagger: 0.08, ease: 'power3.out', clearProps: 'willChange',
-          scrollTrigger: { trigger: sectionRef.current, start: 'top 80%' } });
+          scrollTrigger: { trigger: sectionRef.current, start: 'top 80%', once: true } });
 
       // Hardware Symphony: Pure GPU reveal (opacity + transform only). No filter: blur() to prevent mobile scroll lag.
       gsap.fromTo(".card-reveal", 
@@ -139,7 +139,8 @@ export default function DarkGradientSection() {
           clearProps: 'willChange',
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: "top 85%"
+            start: "top 85%",
+            once: true
           }
         }
       );

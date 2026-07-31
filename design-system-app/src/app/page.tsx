@@ -19,18 +19,18 @@ export default function EpicareLandingPage() {
       <div className="w-full order-1"><LoaderEpicare /></div>
       <div className="w-full order-2"><HeroEpicare /></div>
       <div className="w-full order-3 mt-[-100vh] relative z-20"><BrandsCarousel /></div>
-      <div className="w-full order-4"><MetricsEpicare /></div>
-      <div className="w-full order-5 pb-section-lg"><BentoGridEpicare /></div>
+      <div className="w-full order-4"><DarkGradientSection /></div>
+      <div className="w-full order-5"><MetricsEpicare /></div>
+      <div className="w-full order-6 pb-section-lg"><BentoGridEpicare /></div>
       
       {/* 
         ==================================================
         UNIVERSAL ORDER OVERRIDE 
         ==================================================
-        Both Mobile & Desktop: PeopleReveal -> Problem -> DarkGradient
+        Both Mobile & Desktop: PeopleReveal -> Problem
       */}
-      <div className="w-full order-6 pb-section-lg"><PeopleRevealEpicare /></div>
-      <div className="w-full order-7"><ProblemSectionEpicare /></div>
-      <div className="w-full order-8"><DarkGradientSection /></div>
+      <div className="w-full order-7 pb-section-lg"><PeopleRevealEpicare /></div>
+      <div className="w-full order-8"><ProblemSectionEpicare /></div>
       {/* ================================================== */}
 
       <div className="w-full order-9"><ProductLinesEpicare /></div>
