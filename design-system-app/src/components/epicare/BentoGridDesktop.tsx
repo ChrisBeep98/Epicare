@@ -350,7 +350,7 @@ export default function BentoGridDesktop() {
       videoDarkFullBackground: true,
       mediaClassNameDark: "dark:bg-[#0D0D0E]",
       cardClassNameDark: "dark:bg-[#0D0D0E]",
-      logo: <AmsLogo className="h-10 w-auto mb-6 drop-shadow-[0_0_15px_rgba(90,200,250,0.5)]" />
+      logo: <AmsLogo className="h-10 w-auto drop-shadow-[0_0_15px_rgba(90,200,250,0.5)]" />
     },
     {
       title: t('card1Title'),
@@ -361,7 +361,7 @@ export default function BentoGridDesktop() {
       videoDarkFullBackground: true,
       mediaClassNameDark: "dark:bg-[#0D0D0E]",
       cardClassNameDark: "dark:bg-[#0D0D0E]",
-      logo: <CrmLogo className="h-10 w-auto mb-6 drop-shadow-[0_0_15px_rgba(90,200,250,0.5)]" />
+      logo: <CrmLogo className="h-10 w-auto drop-shadow-[0_0_15px_rgba(90,200,250,0.5)]" />
     },
     {
       title: t('card8Title'),
@@ -373,7 +373,7 @@ export default function BentoGridDesktop() {
       videoDarkFullBackground: true,
       mediaClassNameDark: "dark:bg-[#0D0D0E]",
       cardClassNameDark: "dark:bg-[#0D0D0E]",
-      logo: <AcademyIcon className="h-10 w-auto mb-6 drop-shadow-[0_0_15px_rgba(90,200,250,0.5)]" />
+      logo: <AcademyIcon className="h-10 w-auto drop-shadow-[0_0_15px_rgba(90,200,250,0.5)]" />
     },
     {
       title: t('cardEppigoTitle'),
@@ -384,7 +384,7 @@ export default function BentoGridDesktop() {
       videoDarkFullBackground: true,
       mediaClassNameDark: "dark:bg-[#0D0D0E]",
       cardClassNameDark: "dark:bg-[#0D0D0E]",
-      logo: <EppigoIcon className="h-10 w-auto mb-6 drop-shadow-[0_0_15px_rgba(90,200,250,0.5)]" />
+      logo: <EppigoIcon className="h-10 w-auto drop-shadow-[0_0_15px_rgba(90,200,250,0.5)]" />
     },
     {
       title: t('cardSolutionsTitle'),
@@ -395,7 +395,7 @@ export default function BentoGridDesktop() {
       videoDarkFullBackground: true,
       mediaClassNameDark: "dark:bg-[#0D0D0E]",
       cardClassNameDark: "dark:bg-[#0D0D0E]",
-      logo: <SolutionsIcon className="h-10 w-auto mb-6" />
+      logo: <SolutionsIcon className="h-10 w-auto" />
     }
   ];
 
