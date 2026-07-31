@@ -88,11 +88,11 @@ export default function FooterEpicare() {
             SPLIT-SCREEN EDITORIAL LAYOUT
             ========================================================================
           */}
-          <div className="flex flex-col md:flex-row w-full flex-1 relative z-10 border-b border-[var(--color-border-Strokes-default)]">
+          <div className="flex flex-col md:flex-row-reverse w-full flex-1 relative z-10 border-b border-[var(--color-border-Strokes-default)]">
         
         <div 
           ref={leftColumnRef} 
-          className="w-full md:w-1/2 shrink-0 md:shrink flex-[0.8] md:flex-1 p-[var(--space-fluid-sm)] border-b md:border-b-0 md:border-r border-[var(--color-border-Strokes-default)] relative flex flex-col justify-between overflow-hidden bg-[var(--color-surface-BG-base)]/20 backdrop-blur-3xl group"
+          className="w-full md:w-1/2 shrink-0 md:shrink flex-[0.8] md:flex-1 py-[var(--space-fluid-sm)] px-[var(--space-fluid-md)] border-b md:border-b-0 md:border-l border-[var(--color-border-Strokes-default)] relative flex flex-col justify-between overflow-hidden bg-[var(--color-surface-BG-base)]/20 backdrop-blur-3xl group"
         >
            {/* Kinetic Vertical Marquee (Ahora es el protagonista) */}
            <div ref={marqueeRef} className="absolute inset-0 pointer-events-none opacity-20 overflow-hidden mix-blend-overlay flex items-center">
@@ -107,7 +107,7 @@ export default function FooterEpicare() {
         <div className="w-full md:w-1/2 flex-[1.2] md:flex-1 flex flex-col bg-[var(--color-surface-BG-base)]/20 backdrop-blur-3xl">
            
            {/* Block 0: CTA */}
-           <div className="flex-1 p-[var(--space-fluid-sm)] border-b border-[var(--color-border-Strokes-default)] transition-colors duration-500 flex flex-col justify-center items-start gap-fluid-xs">
+           <div className="flex-1 py-[var(--space-fluid-sm)] pl-[var(--space-fluid-lg)] pr-[var(--space-fluid-md)] border-b border-[var(--color-border-Strokes-default)] transition-colors duration-500 flex flex-col justify-center items-start gap-fluid-xs">
               <p className="text-display-xs md:text-display-sm font-medium text-[var(--color-text-primary)] w-full max-w-xl leading-tight">
                  Join the ecosystem of the future and elevate your business today.
               </p>
@@ -126,7 +126,7 @@ export default function FooterEpicare() {
            </div>
 
            {/* Block 1: GOHUB */}
-           <div className="flex-1 p-[var(--space-fluid-sm)] border-b border-[var(--color-border-Strokes-default)] transition-colors duration-500 flex flex-col justify-center gap-fluid-xs">
+           <div className="flex-1 py-[var(--space-fluid-sm)] pl-[var(--space-fluid-lg)] pr-[var(--space-fluid-md)] border-b border-[var(--color-border-Strokes-default)] transition-colors duration-500 flex flex-col justify-center gap-fluid-xs">
               <h3 className="text-display-md uppercase font-bold tracking-tight transition-colors">{t("gohub")}</h3>
               <div className="grid grid-cols-2 gap-fluid-xs">
                  <Link href="#" className="inline-flex items-center gap-1 w-fit border-b border-[var(--color-border-Strokes-default)] pb-0.5 hover:border-[var(--color-text-primary)] transition-all group/link text-body-md">
@@ -148,7 +148,7 @@ export default function FooterEpicare() {
            <div className="flex-1 flex flex-col md:flex-row transition-colors duration-500">
               
               {/* SOLUTIONS */}
-              <div className="flex-1 p-[var(--space-fluid-sm)] border-b md:border-b-0 md:border-r border-[var(--color-border-Strokes-default)] flex flex-col justify-center gap-fluid-xs">
+              <div className="flex-1 py-[var(--space-fluid-sm)] pl-[var(--space-fluid-lg)] pr-[var(--space-fluid-md)] border-b md:border-b-0 md:border-r border-[var(--color-border-Strokes-default)] flex flex-col justify-center gap-fluid-xs">
                  <h3 className="text-display-md uppercase font-bold tracking-tight transition-colors">{t("solutions")}</h3>
                  <div className="flex flex-col gap-fluid-xs">
                     <Link href="#" className="inline-flex items-center gap-1 w-fit border-b border-[var(--color-border-Strokes-default)] pb-0.5 hover:border-[var(--color-text-primary)] transition-all group/link text-body-md">
@@ -161,7 +161,7 @@ export default function FooterEpicare() {
               </div>
 
               {/* COMPANY */}
-              <div className="flex-1 p-[var(--space-fluid-sm)] flex flex-col justify-center gap-fluid-xs">
+              <div className="flex-1 py-[var(--space-fluid-sm)] px-[var(--space-fluid-md)] flex flex-col justify-center gap-fluid-xs">
                  <h3 className="text-display-md uppercase font-bold tracking-tight transition-colors">{t("about")}</h3>
                  <div className="flex flex-col gap-fluid-xs">
                     <Link href="#" className="inline-flex items-center gap-1 w-fit border-b border-[var(--color-border-Strokes-default)] pb-0.5 hover:border-[var(--color-text-primary)] transition-all group/link text-body-md">
@@ -186,7 +186,7 @@ export default function FooterEpicare() {
         BOTTOM META BAR
         ========================================================================
       */}
-      <div className="w-full flex flex-col md:flex-row justify-between items-center text-meta uppercase tracking-widest text-[var(--color-text-muted)] py-static-md md:py-static-lg px-gutter-lg bg-[var(--color-surface-BG-base)]/60 backdrop-blur-2xl relative z-20">
+      <div className="w-full flex flex-col md:flex-row justify-between items-center text-meta uppercase tracking-widest text-[var(--color-text-muted)] py-static-md md:py-static-lg pl-[var(--space-fluid-lg)] pr-gutter-lg bg-[var(--color-surface-BG-base)]/60 backdrop-blur-2xl relative z-20">
          <div className="flex items-center gap-4 mb-static-md md:mb-0">
             <span className="text-[var(--color-text-primary)] hover:text-[var(--color-brand-blue)] transition-colors cursor-pointer flex-shrink-0">
                <BrandIsotype />
