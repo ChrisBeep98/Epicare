@@ -92,7 +92,7 @@ export default function FooterEpicare() {
         
         <div 
           ref={leftColumnRef} 
-          className="w-full md:w-1/2 shrink-0 md:shrink flex-[0.8] md:flex-1 py-[var(--space-fluid-sm)] px-[var(--space-fluid-md)] border-b md:border-b-0 md:border-l border-[var(--color-border-Strokes-default)] relative flex flex-col justify-between overflow-hidden bg-[var(--color-surface-BG-base)]/20 backdrop-blur-3xl group"
+          className="w-full md:w-1/2 shrink-0 md:flex-none py-[var(--space-fluid-sm)] px-[var(--space-fluid-md)] border-b md:border-b-0 md:border-l border-[var(--color-border-Strokes-default)] relative flex flex-col justify-between overflow-hidden bg-[var(--color-surface-BG-base)]/20 backdrop-blur-3xl group"
         >
            {/* Kinetic Vertical Marquee (Ahora es el protagonista) */}
            <div ref={marqueeRef} className="absolute inset-0 pointer-events-none opacity-20 overflow-hidden mix-blend-overlay flex items-center">
@@ -104,11 +104,11 @@ export default function FooterEpicare() {
         </div>
 
         {/* COLUMNA ENLACES: CTA + Sitemap */}
-        <div className="w-full md:w-1/2 flex-[1.2] md:flex-1 flex flex-col bg-[var(--color-surface-BG-base)]/20 backdrop-blur-3xl">
+        <div className="w-full md:w-1/2 md:flex-none flex flex-col bg-[var(--color-surface-BG-base)]/20 backdrop-blur-3xl">
            
            {/* Block 0: CTA Gigante */}
            <div className="flex-[1.5] py-[var(--space-fluid-md)] pl-[var(--space-fluid-lg)] pr-[var(--space-fluid-md)] border-b border-[var(--color-border-Strokes-default)] transition-colors duration-500 flex flex-col justify-center items-start gap-fluid-sm">
-              <p className="text-display-sm md:text-display-md lg:text-display-lg font-medium text-[var(--color-text-primary)] w-full max-w-none leading-tight">
+              <p className="text-display-sm md:text-display-md xl:text-display-lg font-medium text-[var(--color-text-primary)] w-full max-w-none leading-tight">
                  Elevate your<br />insurance agency.
               </p>
               <div className="flex flex-wrap items-center gap-4 mt-fluid-xs">
