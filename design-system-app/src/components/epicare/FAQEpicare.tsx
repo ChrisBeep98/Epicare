@@ -84,7 +84,7 @@ export default function FAQEpicare() {
   return (
     <section
       ref={sectionRef}
-      className="w-full pt-0 pb-section-lg relative bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] transition-colors duration-500 overflow-hidden"
+      className="w-full py-section-lg relative bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] transition-colors duration-500 overflow-hidden"
     >
       <div className="mx-auto max-w-section-md px-[0.875rem] md:px-gutter-md">
         
