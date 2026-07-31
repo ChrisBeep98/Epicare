@@ -35,12 +35,18 @@ export default function FooterEpicare() {
     if (prefersReduced || !containerRef.current) return;
 
     const ctx = gsap.context(() => {
-      // 1. KINETIC MARQUEE VERTICAL EN COLUMNA IZQUIERDA
+      // 1. KINETIC MARQUEE
       if (marqueeRef.current) {
         gsap.to(".marquee-track-vertical", {
           yPercent: -50,
           ease: "none",
-          duration: 100, // Ralentizado de 30 a 100 para que sea ambiental y no maree
+          duration: 100, // Ralentizado
+          repeat: -1,
+        });
+        gsap.to(".marquee-track-horizontal", {
+          xPercent: -50,
+          ease: "none",
+          duration: 100,
           repeat: -1,
         });
       }
@@ -88,99 +94,105 @@ export default function FooterEpicare() {
             SPLIT-SCREEN EDITORIAL LAYOUT
             ========================================================================
           */}
-          <div className="flex flex-col md:flex-row-reverse w-full flex-1 relative z-10 border-b border-[var(--color-border-Strokes-default)]">
-        
-        <div 
-          ref={leftColumnRef} 
-          className="w-full md:w-1/2 shrink-0 md:flex-none py-[var(--space-fluid-sm)] px-[var(--space-fluid-md)] border-b md:border-b-0 md:border-l border-[var(--color-border-Strokes-default)] relative flex flex-col justify-between overflow-hidden bg-[var(--color-surface-BG-base)]/20 backdrop-blur-3xl group"
-        >
-           {/* Kinetic Vertical Marquee (Ahora es el protagonista) */}
-           <div ref={marqueeRef} className="absolute inset-0 pointer-events-none opacity-20 overflow-hidden mix-blend-overlay flex items-center">
-             <div className="marquee-track-vertical flex flex-col gap-fluid-lg text-[16vw] md:text-[12vw] font-black uppercase tracking-tighter leading-none text-[var(--color-text-primary)]">
-               <div className="text-center md:text-left">{marqueeContent}</div>
-               <div className="text-center md:text-left">{marqueeContent}</div>
-             </div>
-           </div>
-        </div>
+          {/* CUERPO DEL FOOTER (Marquee + Links) */}
+      <div className="grid grid-cols-1 grid-rows-[1.2fr_0.8fr_1.5fr] md:grid-cols-2 md:grid-rows-[auto_1fr] w-full flex-1 relative z-10 border-b border-[var(--color-border-Strokes-default)] bg-[var(--color-surface-BG-base)]/20 backdrop-blur-3xl">
+         
+         {/* Block 0: CTA Gigante */}
+         <div className="order-1 md:order-1 md:col-start-1 md:row-start-1 py-[var(--space-fluid-sm)] md:py-[var(--space-fluid-md)] px-[var(--space-gutter-sm)] md:pl-[var(--space-fluid-lg)] md:pr-[var(--space-fluid-md)] border-b border-[var(--color-border-Strokes-default)] transition-colors duration-500 flex flex-col justify-center items-start gap-fluid-sm">
+            <p className="text-display xl:text-display-lg text-[var(--color-text-primary)] w-full max-w-none leading-tight">
+               Elevate your<br />insurance agency.
+            </p>
+            <div className="flex flex-wrap items-center gap-4 mt-fluid-xs">
+               <button className="group w-fit h-12 pl-6 pr-2 rounded-full flex items-center gap-3 bg-[var(--color-brand-blue)] text-white shadow-elevation-2 transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-elevation-4 active:scale-[0.96] active:opacity-80 active:duration-150">
+                 <span className="text-body-sm font-medium">Get Started</span>
+                 <span className="relative w-8 h-8 rounded-full bg-white text-[var(--color-brand-blue)] flex items-center justify-center overflow-hidden shrink-0">
+                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="absolute w-4 h-4 transition-transform duration-300 ease-out group-hover:translate-x-5 group-hover:-translate-y-5" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10" /></svg>
+                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="absolute w-4 h-4 -translate-x-5 translate-y-5 transition-transform duration-300 ease-out group-hover:translate-x-0 group-hover:translate-y-0" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10" /></svg>
+                 </span>
+               </button>
+               <button className="group w-fit h-12 px-6 rounded-full flex items-center justify-center border border-[var(--color-border-Strokes-default)] text-[var(--color-text-primary)] hover:border-[var(--color-text-primary)] hover:bg-[var(--color-text-primary)] hover:text-[var(--color-surface-BG-base)] transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:scale-[1.02] active:scale-[0.96]">
+                 <span className="text-body-sm font-medium">Contact Us</span>
+               </button>
+            </div>
+         </div>
 
-        {/* COLUMNA ENLACES: CTA + Sitemap */}
-        <div className="w-full md:w-1/2 md:flex-none flex flex-col bg-[var(--color-surface-BG-base)]/20 backdrop-blur-3xl">
-           
-           {/* Block 0: CTA Gigante */}
-           <div className="flex-[1.5] py-[var(--space-fluid-md)] pl-[var(--space-fluid-lg)] pr-[var(--space-fluid-md)] border-b border-[var(--color-border-Strokes-default)] transition-colors duration-500 flex flex-col justify-center items-start gap-fluid-sm">
-              <p className="text-display-sm md:text-display-md xl:text-display-lg font-medium text-[var(--color-text-primary)] w-full max-w-none leading-tight">
-                 Elevate your<br />insurance agency.
-              </p>
-              <div className="flex flex-wrap items-center gap-4 mt-fluid-xs">
-                 <button className="group w-fit h-12 pl-6 pr-2 rounded-full flex items-center gap-3 bg-[var(--color-brand-blue)] text-white shadow-elevation-2 transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-elevation-4 active:scale-[0.96] active:opacity-80 active:duration-150">
-                   <span className="text-body-sm font-medium">Get Started</span>
-                   <span className="relative w-8 h-8 rounded-full bg-white text-[var(--color-brand-blue)] flex items-center justify-center overflow-hidden shrink-0">
-                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="absolute w-4 h-4 transition-transform duration-300 ease-out group-hover:translate-x-5 group-hover:-translate-y-5" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10" /></svg>
-                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="absolute w-4 h-4 -translate-x-5 translate-y-5 transition-transform duration-300 ease-out group-hover:translate-x-0 group-hover:translate-y-0" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10" /></svg>
-                   </span>
-                 </button>
-                 <button className="group w-fit h-12 px-6 rounded-full flex items-center justify-center border border-[var(--color-border-Strokes-default)] text-[var(--color-text-primary)] hover:border-[var(--color-text-primary)] hover:bg-[var(--color-text-primary)] hover:text-[var(--color-surface-BG-base)] transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:scale-[1.02] active:scale-[0.96]">
-                   <span className="text-body-sm font-medium">Contact Us</span>
-                 </button>
-              </div>
-           </div>
+         {/* MARQUEE */}
+         <div 
+           ref={leftColumnRef} 
+           className="order-2 md:order-2 md:col-start-2 md:row-span-2 w-full h-full py-[var(--space-fluid-sm)] md:py-[var(--space-fluid-md)] px-[var(--space-gutter-sm)] md:px-[var(--space-fluid-md)] border-b md:border-b-0 md:border-l border-[var(--color-border-Strokes-default)] relative flex flex-col justify-center overflow-hidden group"
+         >
+            {/* Kinetic Marquee */}
+            <div ref={marqueeRef} className="absolute inset-0 pointer-events-none opacity-20 overflow-hidden mix-blend-overlay flex items-center justify-center">
+               
+               {/* Mobile: Horizontal */}
+               <div className="marquee-track-horizontal flex md:hidden flex-row text-[16vw] font-black uppercase tracking-tighter leading-none text-[var(--color-text-primary)] w-max whitespace-nowrap">
+                 <div className="flex flex-row items-center">{marqueeContent}</div>
+                 <div className="flex flex-row items-center">{marqueeContent}</div>
+               </div>
 
-           {/* Block 1: SITEMAP (GOHUB + SOLUTIONS + COMPANY) */}
-           <div className="flex-1 py-[var(--space-fluid-sm)] pl-[var(--space-fluid-lg)] pr-[var(--space-fluid-md)] transition-colors duration-500 flex flex-col justify-center">
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-fluid-md">
-                 
-                 {/* GOHUB */}
-                 <div className="flex flex-col gap-fluid-xs">
-                    <h4 className="text-meta uppercase font-bold text-[var(--color-text-muted)] tracking-widest mb-1">{t("gohub")}</h4>
-                    <div className="flex flex-col gap-2">
-                      <Link href="#" className="inline-flex items-center gap-1 w-fit border-b border-[var(--color-border-Strokes-default)] pb-0.5 hover:border-[var(--color-text-primary)] transition-all group/link text-body-md">
-                        {t("gohubCrm")} <span className="text-[0.8em] opacity-50 group-hover/link:opacity-100 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-all">↗</span>
-                      </Link>
-                      <Link href="#" className="inline-flex items-center gap-1 w-fit border-b border-[var(--color-border-Strokes-default)] pb-0.5 hover:border-[var(--color-text-primary)] transition-all group/link text-body-md">
-                        {t("gohubAms")} <span className="text-[0.8em] opacity-50 group-hover/link:opacity-100 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-all">↗</span>
-                      </Link>
-                      <Link href="#" className="inline-flex items-center gap-1 w-fit border-b border-[var(--color-border-Strokes-default)] pb-0.5 hover:border-[var(--color-text-primary)] transition-all group/link text-body-md">
-                        {t("gohubCalls")} <span className="text-[0.8em] opacity-50 group-hover/link:opacity-100 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-all">↗</span>
-                      </Link>
-                      <Link href="#" className="inline-flex items-center gap-1 w-fit border-b border-[var(--color-border-Strokes-default)] pb-0.5 hover:border-[var(--color-text-primary)] transition-all group/link text-body-md">
-                        {t("gohubAcademy")} <span className="text-[0.8em] opacity-50 group-hover/link:opacity-100 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-all">↗</span>
-                      </Link>
-                    </div>
-                 </div>
+               {/* Desktop: Vertical */}
+               <div className="marquee-track-vertical hidden md:flex flex-col gap-fluid-lg text-[12vw] font-black uppercase tracking-tighter leading-none text-[var(--color-text-primary)]">
+                 <div className="text-left">{marqueeContent}</div>
+                 <div className="text-left">{marqueeContent}</div>
+               </div>
+               
+            </div>
+         </div>
 
-                 {/* SOLUTIONS */}
-                 <div className="flex flex-col gap-fluid-xs">
-                    <h4 className="text-meta uppercase font-bold text-[var(--color-text-muted)] tracking-widest mb-1">{t("solutions")}</h4>
-                    <div className="flex flex-col gap-2">
-                      <Link href="#" className="inline-flex items-center gap-1 w-fit border-b border-[var(--color-border-Strokes-default)] pb-0.5 hover:border-[var(--color-text-primary)] transition-all group/link text-body-md">
-                        {t("solMarketing")} <span className="text-[0.8em] opacity-50 group-hover/link:opacity-100 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-all">↗</span>
-                      </Link>
-                      <Link href="#" className="inline-flex items-center gap-1 w-fit border-b border-[var(--color-border-Strokes-default)] pb-0.5 hover:border-[var(--color-text-primary)] transition-all group/link text-body-md">
-                        {t("solTech")} <span className="text-[0.8em] opacity-50 group-hover/link:opacity-100 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-all">↗</span>
-                      </Link>
-                    </div>
-                 </div>
+         {/* Block 1: SITEMAP (GOHUB + SOLUTIONS + COMPANY) */}
+         <div className="order-3 md:order-3 md:col-start-1 md:row-start-2 py-[var(--space-fluid-sm)] md:py-[var(--space-fluid-md)] px-[var(--space-gutter-sm)] md:pl-[var(--space-fluid-lg)] md:pr-[var(--space-fluid-md)] transition-colors duration-500 flex flex-col justify-center">
+            <div className="columns-2 md:columns-3 gap-fluid-sm md:gap-fluid-md w-full">
+               
+               {/* GOHUB */}
+               <div className="break-inside-avoid flex flex-col gap-2 md:gap-fluid-xs mb-2 md:mb-0">
+                  <h4 className="hidden md:block text-meta uppercase font-bold text-[var(--color-text-muted)] tracking-widest mb-1">{t("gohub")}</h4>
+                  <div className="flex flex-col gap-2">
+                    <Link href="#" className="inline-flex items-center gap-1 w-fit border-b border-[var(--color-border-Strokes-default)] pb-0.5 hover:border-[var(--color-text-primary)] active:border-[var(--color-text-primary)] active:text-[var(--color-text-primary)] active:opacity-70 active:scale-[0.98] transition-all group/link text-body-md">
+                      {t("gohubCrm")} <span className="text-[0.8em] opacity-50 group-hover/link:opacity-100 group-active/link:opacity-100 group-hover/link:translate-x-0.5 group-active/link:translate-x-0.5 group-hover/link:-translate-y-0.5 group-active/link:-translate-y-0.5 transition-all">↗</span>
+                    </Link>
+                    <Link href="#" className="inline-flex items-center gap-1 w-fit border-b border-[var(--color-border-Strokes-default)] pb-0.5 hover:border-[var(--color-text-primary)] active:border-[var(--color-text-primary)] active:text-[var(--color-text-primary)] active:opacity-70 active:scale-[0.98] transition-all group/link text-body-md">
+                      {t("gohubAms")} <span className="text-[0.8em] opacity-50 group-hover/link:opacity-100 group-active/link:opacity-100 group-hover/link:translate-x-0.5 group-active/link:translate-x-0.5 group-hover/link:-translate-y-0.5 group-active/link:-translate-y-0.5 transition-all">↗</span>
+                    </Link>
+                    <Link href="#" className="inline-flex items-center gap-1 w-fit border-b border-[var(--color-border-Strokes-default)] pb-0.5 hover:border-[var(--color-text-primary)] active:border-[var(--color-text-primary)] active:text-[var(--color-text-primary)] active:opacity-70 active:scale-[0.98] transition-all group/link text-body-md">
+                      {t("gohubCalls")} <span className="text-[0.8em] opacity-50 group-hover/link:opacity-100 group-active/link:opacity-100 group-hover/link:translate-x-0.5 group-active/link:translate-x-0.5 group-hover/link:-translate-y-0.5 group-active/link:-translate-y-0.5 transition-all">↗</span>
+                    </Link>
+                    <Link href="#" className="inline-flex items-center gap-1 w-fit border-b border-[var(--color-border-Strokes-default)] pb-0.5 hover:border-[var(--color-text-primary)] active:border-[var(--color-text-primary)] active:text-[var(--color-text-primary)] active:opacity-70 active:scale-[0.98] transition-all group/link text-body-md">
+                      {t("gohubAcademy")} <span className="text-[0.8em] opacity-50 group-hover/link:opacity-100 group-active/link:opacity-100 group-hover/link:translate-x-0.5 group-active/link:translate-x-0.5 group-hover/link:-translate-y-0.5 group-active/link:-translate-y-0.5 transition-all">↗</span>
+                    </Link>
+                  </div>
+               </div>
 
-                 {/* COMPANY */}
-                 <div className="flex flex-col gap-fluid-xs">
-                    <h4 className="text-meta uppercase font-bold text-[var(--color-text-muted)] tracking-widest mb-1">{t("about")}</h4>
-                    <div className="flex flex-col gap-2">
-                      <Link href="#" className="inline-flex items-center gap-1 w-fit border-b border-[var(--color-border-Strokes-default)] pb-0.5 hover:border-[var(--color-text-primary)] transition-all group/link text-body-md">
-                        {t("aboutCompany")} <span className="text-[0.8em] opacity-50 group-hover/link:opacity-100 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-all">↗</span>
-                      </Link>
-                      <Link href="#" className="inline-flex items-center gap-1 w-fit border-b border-[var(--color-border-Strokes-default)] pb-0.5 hover:border-[var(--color-text-primary)] transition-all group/link text-body-md">
-                        {t("aboutTeam")} <span className="text-[0.8em] opacity-50 group-hover/link:opacity-100 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-all">↗</span>
-                      </Link>
-                      <Link href="#" className="inline-flex items-center gap-1 w-fit border-b border-[var(--color-border-Strokes-default)] pb-0.5 hover:border-[var(--color-text-primary)] transition-all group/link text-body-md">
-                        {t("aboutLicensing")} <span className="text-[0.8em] opacity-50 group-hover/link:opacity-100 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-all">↗</span>
-                      </Link>
-                    </div>
-                 </div>
+               {/* SOLUTIONS */}
+               <div className="break-inside-avoid flex flex-col gap-2 md:gap-fluid-xs mb-2 md:mb-0">
+                  <h4 className="hidden md:block text-meta uppercase font-bold text-[var(--color-text-muted)] tracking-widest mb-1">{t("solutions")}</h4>
+                  <div className="flex flex-col gap-2">
+                    <Link href="#" className="inline-flex items-center gap-1 w-fit border-b border-[var(--color-border-Strokes-default)] pb-0.5 hover:border-[var(--color-text-primary)] active:border-[var(--color-text-primary)] active:text-[var(--color-text-primary)] active:opacity-70 active:scale-[0.98] transition-all group/link text-body-md">
+                      {t("solMarketing")} <span className="text-[0.8em] opacity-50 group-hover/link:opacity-100 group-active/link:opacity-100 group-hover/link:translate-x-0.5 group-active/link:translate-x-0.5 group-hover/link:-translate-y-0.5 group-active/link:-translate-y-0.5 transition-all">↗</span>
+                    </Link>
+                    <Link href="#" className="inline-flex items-center gap-1 w-fit border-b border-[var(--color-border-Strokes-default)] pb-0.5 hover:border-[var(--color-text-primary)] active:border-[var(--color-text-primary)] active:text-[var(--color-text-primary)] active:opacity-70 active:scale-[0.98] transition-all group/link text-body-md">
+                      {t("solTech")} <span className="text-[0.8em] opacity-50 group-hover/link:opacity-100 group-active/link:opacity-100 group-hover/link:translate-x-0.5 group-active/link:translate-x-0.5 group-hover/link:-translate-y-0.5 group-active/link:-translate-y-0.5 transition-all">↗</span>
+                    </Link>
+                  </div>
+               </div>
 
-              </div>
-           </div>
-        </div>
+               {/* COMPANY */}
+               <div className="break-inside-avoid flex flex-col gap-2 md:gap-fluid-xs">
+                  <h4 className="hidden md:block text-meta uppercase font-bold text-[var(--color-text-muted)] tracking-widest mb-1">{t("about")}</h4>
+                  <div className="flex flex-col gap-2">
+                    <Link href="#" className="inline-flex items-center gap-1 w-fit border-b border-[var(--color-border-Strokes-default)] pb-0.5 hover:border-[var(--color-text-primary)] active:border-[var(--color-text-primary)] active:text-[var(--color-text-primary)] active:opacity-70 active:scale-[0.98] transition-all group/link text-body-md">
+                      {t("aboutCompany")} <span className="text-[0.8em] opacity-50 group-hover/link:opacity-100 group-active/link:opacity-100 group-hover/link:translate-x-0.5 group-active/link:translate-x-0.5 group-hover/link:-translate-y-0.5 group-active/link:-translate-y-0.5 transition-all">↗</span>
+                    </Link>
+                    <Link href="#" className="inline-flex items-center gap-1 w-fit border-b border-[var(--color-border-Strokes-default)] pb-0.5 hover:border-[var(--color-text-primary)] active:border-[var(--color-text-primary)] active:text-[var(--color-text-primary)] active:opacity-70 active:scale-[0.98] transition-all group/link text-body-md">
+                      {t("aboutTeam")} <span className="text-[0.8em] opacity-50 group-hover/link:opacity-100 group-active/link:opacity-100 group-hover/link:translate-x-0.5 group-active/link:translate-x-0.5 group-hover/link:-translate-y-0.5 group-active/link:-translate-y-0.5 transition-all">↗</span>
+                    </Link>
+                    <Link href="#" className="inline-flex items-center gap-1 w-fit border-b border-[var(--color-border-Strokes-default)] pb-0.5 hover:border-[var(--color-text-primary)] active:border-[var(--color-text-primary)] active:text-[var(--color-text-primary)] active:opacity-70 active:scale-[0.98] transition-all group/link text-body-md">
+                      {t("aboutLicensing")} <span className="text-[0.8em] opacity-50 group-hover/link:opacity-100 group-active/link:opacity-100 group-hover/link:translate-x-0.5 group-active/link:translate-x-0.5 group-hover/link:-translate-y-0.5 group-active/link:-translate-y-0.5 transition-all">↗</span>
+                    </Link>
+                  </div>
+               </div>
 
+            </div>
+         </div>
       </div>
 
       {/* 
@@ -188,16 +200,16 @@ export default function FooterEpicare() {
         BOTTOM META BAR
         ========================================================================
       */}
-      <div className="w-full flex flex-col md:flex-row justify-between items-center text-meta uppercase tracking-widest text-[var(--color-text-muted)] py-static-md md:py-static-lg pl-[var(--space-fluid-lg)] pr-gutter-lg bg-[var(--color-surface-BG-base)]/60 backdrop-blur-2xl relative z-20">
-         <div className="flex items-center gap-4 mb-static-md md:mb-0">
-            <span className="text-[var(--color-text-primary)] hover:text-[var(--color-brand-blue)] transition-colors cursor-pointer flex-shrink-0">
+      <div className="w-full flex flex-row justify-between items-center text-meta uppercase tracking-widest text-[var(--color-text-muted)] py-static-sm md:py-static-lg px-[var(--space-gutter-sm)] md:px-[var(--space-fluid-lg)] bg-[var(--color-surface-BG-base)]/60 backdrop-blur-2xl relative z-20">
+         <div className="flex items-center gap-2 md:gap-4">
+            <span className="text-[var(--color-text-primary)] hover:text-[var(--color-brand-blue)] active:text-[var(--color-brand-blue)] active:opacity-70 transition-colors cursor-pointer flex-shrink-0 scale-75 md:scale-100 origin-left">
                <BrandIsotype />
             </span>
-            <span className="text-body-md font-medium">© {new Date().getFullYear()} EPICARE</span>
+            <span className="text-meta md:text-body-md font-medium">© {new Date().getFullYear()} EPICARE</span>
          </div>
-         <div className="flex items-center gap-fluid-md">
-            <Link href="#" className="hover:text-[var(--color-accent-main)] transition-colors">Privacy</Link>
-            <Link href="#" className="hover:text-[var(--color-brand-blue)] transition-colors">Terms</Link>
+         <div className="flex items-center gap-3 md:gap-fluid-md">
+            <Link href="#" className="hover:text-[var(--color-brand-blue)] hover:underline hover:underline-offset-4 active:text-[var(--color-brand-blue)] active:underline active:underline-offset-4 active:scale-95 active:opacity-70 transition-all">Privacy</Link>
+            <Link href="#" className="hover:text-[var(--color-brand-blue)] hover:underline hover:underline-offset-4 active:text-[var(--color-brand-blue)] active:underline active:underline-offset-4 active:scale-95 active:opacity-70 transition-all">Terms</Link>
          </div>
       </div>
 
