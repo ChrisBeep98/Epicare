@@ -6,6 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useTranslations } from 'next-intl';
 import { asset } from "@/lib/asset";
 import { EASE, DUR, REVEAL, TRIGGER } from "@/lib/motion";
+import GoHubLogo from "./GoHubLogo";
 
 // ── INTERNAL ARC: brand accent per card (title + 5 products). The ambient
 // orb morphs to the active card's color so the journey has a beginning,
@@ -112,34 +113,6 @@ const ArrowUR = ({ className = '' }: { className?: string }) => (
     <path d="M7 17 17 7M7 7h10v10" />
   </svg>
 );
-
-// GO HUB LOGO — inlined so the entrance can animate its parts with meaning:
-//   .gohub-shape  = each shape of the GO symbol + the rounded HUB panel (the mark draws in piece by piece)
-//   .gohub-letter = H · U · B (the word clicks into place after)
-// The dark #303439 shapes flip to white in dark mode so the mark never sinks into the bg.
-function GoHubLogo({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 823 733" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="GO Hub">
-      <g clipPath="url(#clip0_20697_10)">
-        <path className="gohub-shape" d="M195.079 177.933C203.426 197.318 214.891 214.518 228.614 228.154C240.398 197.31 270.248 175.396 305.232 175.396C332.86 175.396 357.279 189.072 372.138 210.007C379.032 186.958 390.817 166.017 406.281 148.361C379.446 123.058 343.302 107.521 303.506 107.521C263.565 107.521 227.303 123.173 200.437 148.641C199.792 149.371 199.109 150.126 198.354 150.929C190.899 158.849 191.894 168.924 195.079 177.933Z" fill="#54B4E7"/>
-        <path className="gohub-shape fill-[#303439] dark:fill-[var(--color-text-White-100)] transition-colors duration-500" d="M676.933 287.86C678.942 278.069 679.998 267.93 679.998 257.545C679.998 174.689 612.83 107.521 529.973 107.521C452.034 107.521 387.991 166.96 380.664 242.979H449.2C456.079 204.596 489.611 175.458 529.972 175.458C575.308 175.458 612.06 212.209 612.06 257.545C612.06 257.879 612.039 258.207 612.035 258.54H647.26C662.325 258.54 674.794 271.271 676.933 287.86Z"/>
-        <path className="gohub-shape fill-[#303439] dark:fill-[var(--color-text-White-100)] transition-colors duration-500" d="M529.973 339.636C503.072 339.636 479.212 326.683 464.246 306.684V392.399C484.096 402.099 506.388 407.572 529.973 407.572C602.445 407.572 662.912 356.187 676.933 287.863C674.794 271.274 662.326 258.543 647.26 258.543H612.035C611.5 303.416 574.975 339.636 529.973 339.636Z"/>
-        <path className="gohub-shape" d="M453.186 262.874H387.023H309.291V311.321H366.965C351.936 328.524 329.871 339.42 305.232 339.42C260.319 339.42 223.86 303.311 223.251 258.542C223.246 258.163 223.222 257.788 223.222 257.407C223.222 251.932 223.77 246.587 224.793 241.412C205.381 223.928 189.175 200.867 178.927 174.059C162.951 197.893 153.621 226.559 153.621 257.407C153.621 266.751 154.484 275.891 156.12 284.762C168.978 354.477 230.071 407.291 303.507 407.291C340.687 407.291 374.678 393.722 400.87 371.302L404.741 368.446V406.771H453.187V264.225C453.208 263.774 453.25 263.328 453.266 262.874H453.186Z" fill="#54B4E7" stroke="white"/>
-        <path className="gohub-shape" d="M456.947 524.791V519.039C456.488 520.996 456.537 522.924 456.947 524.791Z" fill="#54B4E7"/>
-        <path className="gohub-shape" d="M607.99 400.964C562.027 425.577 509.565 425.942 465.256 406.509C464.922 406.596 464.219 406.517 464.469 406.548L464.493 417.596L392.473 416.938L392.598 393.604C382.182 400.465 369.805 406.222 357.552 410.639C283.287 437.41 202.252 406.272 163.836 340.457C161.766 336.91 159.826 333.257 158.009 329.514C157.342 329.328 156.992 329.232 156.992 329.232L157.992 564.487V539.487C157.992 583.67 188.998 619.487 227.245 619.487H610.74C648.987 619.487 679.993 583.67 679.993 539.487V564.487C679.993 564.487 680.326 348.422 680.155 323.127C665.962 355.266 641.364 383.092 607.99 400.964Z" fill="#54B4E7"/>
-        <path className="gohub-shape" d="M157.992 539.487V564.487L156.992 329.232C156.992 329.232 157.342 329.328 158.009 329.514C159.826 333.257 161.766 336.91 163.836 340.457C202.252 406.272 283.287 437.41 357.552 410.639C369.805 406.222 382.182 400.465 392.598 393.604L392.473 416.938L464.493 417.596L464.469 406.548C464.219 406.517 464.922 406.596 465.256 406.509C509.565 425.942 562.027 425.577 607.99 400.964C641.364 383.092 665.962 355.266 680.155 323.127C680.326 348.422 679.993 564.487 679.993 564.487V539.487M157.992 539.487V539.065M157.992 539.487C157.992 583.67 188.998 619.487 227.245 619.487H610.74C648.987 619.487 679.993 583.67 679.993 539.487M679.993 539.487V539.065" stroke="white"/>
-        <path className="gohub-letter" d="M311 555.191V470.191H328.522V504.305H364.534V470.191H382V555.191H364.534V519.366H328.522V555.191H311Z" fill="white"/>
-        <path className="gohub-letter" d="M428.971 556.191C421.897 556.191 415.737 554.893 410.487 552.3C405.239 549.707 401.178 546.091 398.307 541.451C395.435 536.812 394 531.444 394 525.347V470.191H411.172V523.926C411.172 528.888 412.788 532.987 416.021 536.224C419.254 539.462 423.571 541.081 428.971 541.081C434.41 541.081 438.746 539.472 441.979 536.253C445.211 533.034 446.827 528.925 446.827 523.926V470.191H464V525.347C464 531.444 462.554 536.811 459.665 541.451C456.773 546.09 452.705 549.707 447.455 552.3C442.207 554.893 436.046 556.191 428.971 556.191Z" fill="white"/>
-        <path className="gohub-letter" d="M476 555.191V470.191H510.173C519.333 470.191 526.402 472.197 531.382 476.21C536.361 480.222 538.853 485.499 538.853 492.04C538.853 496.946 537.479 500.996 534.731 504.191C531.983 507.386 528.263 509.573 523.569 510.751V510.865C528.758 511.321 533.129 513.319 536.677 516.855C540.226 520.392 542 525.184 542 531.232C542 538.343 539.443 544.115 534.33 548.545C529.216 552.977 521.812 555.191 512.119 555.191H476ZM493.23 505.504H508.857C512.75 505.504 515.802 504.534 518.017 502.594C520.229 500.654 521.337 498.05 521.337 494.779C521.337 491.47 520.229 488.846 518.017 486.907C515.802 484.967 512.75 483.997 508.857 483.997H493.23V505.504ZM493.23 541.386H509.659C514.2 541.386 517.731 540.417 520.249 538.477C522.768 536.537 524.027 533.799 524.027 530.262C524.027 526.726 522.786 523.922 520.306 521.848C517.825 519.775 514.371 518.739 509.945 518.739H493.23V541.386Z" fill="white"/>
-      </g>
-      <defs>
-        <clipPath id="clip0_20697_10">
-          <rect width="823" height="732.051" fill="white"/>
-        </clipPath>
-      </defs>
-    </svg>
-  );
-}
 
 // ----------------------------------------------------------------------
 // MAIN COMPONENT
@@ -491,7 +464,9 @@ export default function BentoGridDesktop() {
                 })}
               </p>
               <div className="anim-head-fade flex">
-                <button className="group w-fit h-12 pl-6 pr-2 rounded-full flex items-center gap-3 bg-[var(--color-action-primary-bg)] text-[var(--color-action-primary-text)] shadow-elevation-2 transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-elevation-4">
+                <button
+                  onClick={() => window.dispatchEvent(new CustomEvent('epicare-jump', { detail: { index: 1 } }))}
+                  className="group w-fit h-12 pl-6 pr-2 rounded-full flex items-center gap-3 bg-[var(--color-action-primary-bg)] text-[var(--color-action-primary-text)] shadow-elevation-2 transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-elevation-4">
                   <span className="text-body-sm font-medium">{th('ctaPlans')}</span>
                   <span className="relative w-8 h-8 rounded-full bg-[var(--color-action-primary-text)] text-[var(--color-action-primary-bg)] flex items-center justify-center overflow-hidden shrink-0">
                     <ArrowUR className="absolute w-4 h-4 transition-transform duration-300 ease-out group-hover:translate-x-5 group-hover:-translate-y-5" />

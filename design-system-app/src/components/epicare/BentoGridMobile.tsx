@@ -6,6 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useTranslations } from 'next-intl';
 import { asset } from "@/lib/asset";
 import { EASE, DUR, REVEAL, TRIGGER } from "@/lib/motion";
+import GoHubLogo from "./GoHubLogo";
 
 // ── INTERNAL ARC: brand accent per card (title + 5 products). The ambient
 // orb morphs to the active card's color so the journey has a beginning,
@@ -200,6 +201,28 @@ export default function BentoGridMobile() {
     // no pin toll on touch; cards reveal with the house physics)
     // ----------------------------------------------------
     mm.add("(max-width: 767px) and (prefers-reduced-motion: no-preference)", () => {
+        // 0. LOGO ENTRANCE — the GO mark draws in shape by shape, then H·U·B click into place.
+        const logoShapes = gsap.utils.toArray(section.querySelectorAll('.gohub-shape'));
+        const logoLetters = gsap.utils.toArray(section.querySelectorAll('.gohub-letter'));
+        if (logoShapes.length && logoLetters.length) {
+          const logoTl = gsap.timeline({
+            scrollTrigger: {
+              trigger: section,
+              start: "top 80%",
+              toggleActions: "play none none reverse",
+            }
+          });
+          logoTl
+            .from(logoShapes, {
+              opacity: 0, scale: 0.55, transformOrigin: '50% 50%',
+              duration: 0.6, ease: "back.out(1.5)", stagger: 0.09,
+            })
+            .from(logoLetters, {
+              opacity: 0, y: 42, scale: 0.5, transformOrigin: '50% 100%',
+              duration: 0.55, ease: "back.out(2)", stagger: 0.12,
+            }, "-=0.25");
+        }
+
         // 1. SAFE KINETIC TYPOGRAPHY ANIMATION
         gsap.fromTo(".title-line-reveal",
           { yPercent: 120, willChange: 'transform' },
@@ -362,8 +385,8 @@ export default function BentoGridMobile() {
         >
           {/* CARD 0: THE TITLE COMPOSITION */}
           <div className="mobile-stack-card sticky top-0 w-full min-h-fit pb-[12vh] flex flex-col justify-start pt-[calc(15vh-24px)] items-start px-[var(--space-gutter-sm)] origin-top transform-gpu will-change-transform [backface-visibility:hidden] z-[10] relative">
-              <div className="mb-4">
-                <img src={asset('/Go_Hub_.svg')} alt="GO Hub" className="h-14 w-auto opacity-90 dark:opacity-100" />
+              <div className="mb-6">
+                <GoHubLogo className="h-24 w-auto opacity-90 dark:opacity-100" />
               </div>
               <h2 className="text-display-lg text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)] text-left leading-[1.1]">
                 {t('sectionTitle').split('\n').map((line, i, arr) => {
@@ -377,6 +400,11 @@ export default function BentoGridMobile() {
                   );
                 })}
               </h2>
+              <p className="anim-head-fade text-body-lg text-[var(--color-text-muted)] font-light max-w-[420px] text-left mt-static-md">
+                {t.rich('sectionDesc', {
+                  b: (chunks) => <span className="font-semibold text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)]">{chunks}</span>,
+                })}
+              </p>
           </div>
 
           {/* CARDS 1-5: ECOSYSTEM */}
