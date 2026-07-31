@@ -7,6 +7,7 @@ import { useTranslations } from 'next-intl';
 import { asset } from "@/lib/asset";
 import { EASE, DUR, REVEAL, TRIGGER } from "@/lib/motion";
 import GoHubLogo from "./GoHubLogo";
+import { AcademyIcon, EppigoIcon, SolutionsIcon } from "./EcosystemIcons";
 
 // ── INTERNAL ARC: brand accent per card (title + 5 products). The ambient
 // orb morphs to the active card's color so the journey has a beginning,
@@ -372,7 +373,7 @@ export default function BentoGridDesktop() {
       videoDarkFullBackground: true,
       mediaClassNameDark: "dark:bg-[#0D0D0E]",
       cardClassNameDark: "dark:bg-[#0D0D0E]",
-      logo: null
+      logo: <AcademyIcon className="h-10 w-auto mb-6 drop-shadow-[0_0_15px_rgba(90,200,250,0.5)]" />
     },
     {
       title: t('cardEppigoTitle'),
@@ -383,7 +384,7 @@ export default function BentoGridDesktop() {
       videoDarkFullBackground: true,
       mediaClassNameDark: "dark:bg-[#0D0D0E]",
       cardClassNameDark: "dark:bg-[#0D0D0E]",
-      logo: null
+      logo: <EppigoIcon className="h-10 w-auto mb-6 drop-shadow-[0_0_15px_rgba(90,200,250,0.5)]" />
     },
     {
       title: t('cardSolutionsTitle'),
@@ -394,7 +395,7 @@ export default function BentoGridDesktop() {
       videoDarkFullBackground: true,
       mediaClassNameDark: "dark:bg-[#0D0D0E]",
       cardClassNameDark: "dark:bg-[#0D0D0E]",
-      logo: null
+      logo: <SolutionsIcon className="h-10 w-auto mb-6" />
     }
   ];
 

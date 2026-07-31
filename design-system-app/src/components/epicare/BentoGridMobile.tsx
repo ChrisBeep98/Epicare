@@ -7,6 +7,7 @@ import { useTranslations } from 'next-intl';
 import { asset } from "@/lib/asset";
 import { EASE, DUR, REVEAL, TRIGGER } from "@/lib/motion";
 import GoHubLogo from "./GoHubLogo";
+import { AcademyIcon, EppigoIcon, SolutionsIcon } from "./EcosystemIcons";
 
 // ── INTERNAL ARC: brand accent per card (title + 5 products). The ambient
 // orb morphs to the active card's color so the journey has a beginning,
@@ -322,7 +323,7 @@ export default function BentoGridMobile() {
       videoDarkFullBackground: true,
       mediaClassNameDark: "dark:bg-[#0D0D0E]",
       cardClassNameDark: "dark:bg-[#0D0D0E]",
-      logo: null
+      logo: <AcademyIcon className="h-10 w-auto mb-6 drop-shadow-[0_0_15px_rgba(90,200,250,0.5)]" />
     },
     {
       title: t('cardEppigoTitle'),
@@ -333,7 +334,7 @@ export default function BentoGridMobile() {
       videoDarkFullBackground: true,
       mediaClassNameDark: "dark:bg-[#0D0D0E]",
       cardClassNameDark: "dark:bg-[#0D0D0E]",
-      logo: null
+      logo: <EppigoIcon className="h-10 w-auto mb-6 drop-shadow-[0_0_15px_rgba(90,200,250,0.5)]" />
     },
     {
       title: t('cardSolutionsTitle'),
@@ -344,7 +345,7 @@ export default function BentoGridMobile() {
       videoDarkFullBackground: true,
       mediaClassNameDark: "dark:bg-[#0D0D0E]",
       cardClassNameDark: "dark:bg-[#0D0D0E]",
-      logo: null
+      logo: <SolutionsIcon className="h-10 w-auto mb-6" />
     }
   ];
 
@@ -429,9 +430,9 @@ export default function BentoGridMobile() {
 
                   {/* Dark Mode Video BG */}
                   {(card as any).videoDark && (card as any).videoDarkFullBackground && (
-                    <SmartVideo 
+                    <SmartVideo
                       src={(card as any).videoDark}
-                      className="absolute inset-0 w-full h-full object-cover object-center z-0 hidden dark:block transition-transform duration-[800ms] group-hover:scale-[1.05]" 
+                      className="absolute inset-0 w-full h-full object-contain object-center z-0 hidden dark:block transition-transform duration-[800ms] group-hover:scale-[1.05]"
                     />
                   )}
 
@@ -461,14 +462,14 @@ export default function BentoGridMobile() {
                         <>
                           {/* LIGHT MODE MEDIA */}
                           {hasLightVideo ? (
-                            <SmartVideo src={(card as any).videoLight} className={`absolute inset-0 w-full h-full ${(card as any).videoLightContain ? 'object-contain p-8' : 'object-cover'} object-center transition-transform duration-[800ms] ease-out group-hover:scale-[1.05] ${hasDarkVideo || hasImage ? 'dark:hidden' : ''}`} />
+                            <SmartVideo src={(card as any).videoLight} className={`absolute inset-0 w-full h-full object-contain object-center transition-transform duration-[800ms] ease-out group-hover:scale-[1.05] ${hasDarkVideo || hasImage ? 'dark:hidden' : ''}`} />
                           ) : hasImage ? (
                             <img src={card.image} alt={card.title} className={`absolute inset-0 w-full h-full object-cover object-center transition-transform duration-[800ms] ease-out group-hover:scale-[1.05] ${hasDarkVideo ? 'dark:hidden' : ''}`} />
                           ) : null}
 
                           {/* DARK MODE MEDIA */}
                           {hasDarkVideo ? (
-                            <SmartVideo src={(card as any).videoDark} className={`absolute inset-0 w-full h-full object-cover object-center transition-transform duration-[800ms] ease-out group-hover:scale-[1.05] ${(card as any).videoDarkClassName || ''} ${hasLightVideo || hasImage ? 'hidden dark:block' : ''}`} />
+                            <SmartVideo src={(card as any).videoDark} className={`absolute inset-0 w-full h-full object-contain object-center transition-transform duration-[800ms] ease-out group-hover:scale-[1.05] ${(card as any).videoDarkClassName || ''} ${hasLightVideo || hasImage ? 'hidden dark:block' : ''}`} />
                           ) : (hasImage && hasLightVideo) ? (
                             <img src={card.image} alt={card.title} className="absolute inset-0 w-full h-full object-cover object-center hidden dark:block transition-transform duration-[800ms] ease-out group-hover:scale-[1.05]" />
                           ) : null}
