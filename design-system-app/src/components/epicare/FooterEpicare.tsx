@@ -103,15 +103,15 @@ export default function FooterEpicare() {
            </div>
         </div>
 
-        {/* COLUMNA DERECHA: Brutalist Grid Lists */}
+        {/* COLUMNA ENLACES: CTA + Sitemap */}
         <div className="w-full md:w-1/2 flex-[1.2] md:flex-1 flex flex-col bg-[var(--color-surface-BG-base)]/20 backdrop-blur-3xl">
            
-           {/* Block 0: CTA */}
-           <div className="flex-1 py-[var(--space-fluid-sm)] pl-[var(--space-fluid-lg)] pr-[var(--space-fluid-md)] border-b border-[var(--color-border-Strokes-default)] transition-colors duration-500 flex flex-col justify-center items-start gap-fluid-xs">
-              <p className="text-display-xs md:text-display-sm font-medium text-[var(--color-text-primary)] w-full max-w-xl leading-tight">
-                 Join the ecosystem of the future and elevate your business today.
+           {/* Block 0: CTA Gigante */}
+           <div className="flex-[1.5] py-[var(--space-fluid-md)] pl-[var(--space-fluid-lg)] pr-[var(--space-fluid-md)] border-b border-[var(--color-border-Strokes-default)] transition-colors duration-500 flex flex-col justify-center items-start gap-fluid-sm">
+              <p className="text-display-sm md:text-display-md lg:text-display-lg font-medium text-[var(--color-text-primary)] w-full max-w-none leading-tight">
+                 Elevate your<br />insurance agency.
               </p>
-              <div className="flex flex-wrap items-center gap-4 mt-2">
+              <div className="flex flex-wrap items-center gap-4 mt-fluid-xs">
                  <button className="group w-fit h-12 pl-6 pr-2 rounded-full flex items-center gap-3 bg-[var(--color-brand-blue)] text-white shadow-elevation-2 transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-elevation-4 active:scale-[0.96] active:opacity-80 active:duration-150">
                    <span className="text-body-sm font-medium">Get Started</span>
                    <span className="relative w-8 h-8 rounded-full bg-white text-[var(--color-brand-blue)] flex items-center justify-center overflow-hidden shrink-0">
@@ -125,60 +125,62 @@ export default function FooterEpicare() {
               </div>
            </div>
 
-           {/* Block 1: GOHUB */}
-           <div className="flex-1 py-[var(--space-fluid-sm)] pl-[var(--space-fluid-lg)] pr-[var(--space-fluid-md)] border-b border-[var(--color-border-Strokes-default)] transition-colors duration-500 flex flex-col justify-center gap-fluid-xs">
-              <h3 className="text-display-md uppercase font-bold tracking-tight transition-colors">{t("gohub")}</h3>
-              <div className="grid grid-cols-2 gap-fluid-xs">
-                 <Link href="#" className="inline-flex items-center gap-1 w-fit border-b border-[var(--color-border-Strokes-default)] pb-0.5 hover:border-[var(--color-text-primary)] transition-all group/link text-body-md">
-                   {t("gohubCrm")} <span className="text-[0.8em] opacity-50 group-hover/link:opacity-100 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-all">↗</span>
-                 </Link>
-                 <Link href="#" className="inline-flex items-center gap-1 w-fit border-b border-[var(--color-border-Strokes-default)] pb-0.5 hover:border-[var(--color-text-primary)] transition-all group/link text-body-md">
-                   {t("gohubAms")} <span className="text-[0.8em] opacity-50 group-hover/link:opacity-100 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-all">↗</span>
-                 </Link>
-                 <Link href="#" className="inline-flex items-center gap-1 w-fit border-b border-[var(--color-border-Strokes-default)] pb-0.5 hover:border-[var(--color-text-primary)] transition-all group/link text-body-md">
-                   {t("gohubCalls")} <span className="text-[0.8em] opacity-50 group-hover/link:opacity-100 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-all">↗</span>
-                 </Link>
-                 <Link href="#" className="inline-flex items-center gap-1 w-fit border-b border-[var(--color-border-Strokes-default)] pb-0.5 hover:border-[var(--color-text-primary)] transition-all group/link text-body-md">
-                   {t("gohubAcademy")} <span className="text-[0.8em] opacity-50 group-hover/link:opacity-100 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-all">↗</span>
-                 </Link>
+           {/* Block 1: SITEMAP (GOHUB + SOLUTIONS + COMPANY) */}
+           <div className="flex-1 py-[var(--space-fluid-sm)] pl-[var(--space-fluid-lg)] pr-[var(--space-fluid-md)] transition-colors duration-500 flex flex-col justify-center">
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-fluid-md">
+                 
+                 {/* GOHUB */}
+                 <div className="flex flex-col gap-fluid-xs">
+                    <h4 className="text-meta uppercase font-bold text-[var(--color-text-muted)] tracking-widest mb-1">{t("gohub")}</h4>
+                    <div className="flex flex-col gap-2">
+                      <Link href="#" className="inline-flex items-center gap-1 w-fit border-b border-[var(--color-border-Strokes-default)] pb-0.5 hover:border-[var(--color-text-primary)] transition-all group/link text-body-md">
+                        {t("gohubCrm")} <span className="text-[0.8em] opacity-50 group-hover/link:opacity-100 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-all">↗</span>
+                      </Link>
+                      <Link href="#" className="inline-flex items-center gap-1 w-fit border-b border-[var(--color-border-Strokes-default)] pb-0.5 hover:border-[var(--color-text-primary)] transition-all group/link text-body-md">
+                        {t("gohubAms")} <span className="text-[0.8em] opacity-50 group-hover/link:opacity-100 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-all">↗</span>
+                      </Link>
+                      <Link href="#" className="inline-flex items-center gap-1 w-fit border-b border-[var(--color-border-Strokes-default)] pb-0.5 hover:border-[var(--color-text-primary)] transition-all group/link text-body-md">
+                        {t("gohubCalls")} <span className="text-[0.8em] opacity-50 group-hover/link:opacity-100 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-all">↗</span>
+                      </Link>
+                      <Link href="#" className="inline-flex items-center gap-1 w-fit border-b border-[var(--color-border-Strokes-default)] pb-0.5 hover:border-[var(--color-text-primary)] transition-all group/link text-body-md">
+                        {t("gohubAcademy")} <span className="text-[0.8em] opacity-50 group-hover/link:opacity-100 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-all">↗</span>
+                      </Link>
+                    </div>
+                 </div>
+
+                 {/* SOLUTIONS */}
+                 <div className="flex flex-col gap-fluid-xs">
+                    <h4 className="text-meta uppercase font-bold text-[var(--color-text-muted)] tracking-widest mb-1">{t("solutions")}</h4>
+                    <div className="flex flex-col gap-2">
+                      <Link href="#" className="inline-flex items-center gap-1 w-fit border-b border-[var(--color-border-Strokes-default)] pb-0.5 hover:border-[var(--color-text-primary)] transition-all group/link text-body-md">
+                        {t("solMarketing")} <span className="text-[0.8em] opacity-50 group-hover/link:opacity-100 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-all">↗</span>
+                      </Link>
+                      <Link href="#" className="inline-flex items-center gap-1 w-fit border-b border-[var(--color-border-Strokes-default)] pb-0.5 hover:border-[var(--color-text-primary)] transition-all group/link text-body-md">
+                        {t("solTech")} <span className="text-[0.8em] opacity-50 group-hover/link:opacity-100 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-all">↗</span>
+                      </Link>
+                    </div>
+                 </div>
+
+                 {/* COMPANY */}
+                 <div className="flex flex-col gap-fluid-xs">
+                    <h4 className="text-meta uppercase font-bold text-[var(--color-text-muted)] tracking-widest mb-1">{t("about")}</h4>
+                    <div className="flex flex-col gap-2">
+                      <Link href="#" className="inline-flex items-center gap-1 w-fit border-b border-[var(--color-border-Strokes-default)] pb-0.5 hover:border-[var(--color-text-primary)] transition-all group/link text-body-md">
+                        {t("aboutCompany")} <span className="text-[0.8em] opacity-50 group-hover/link:opacity-100 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-all">↗</span>
+                      </Link>
+                      <Link href="#" className="inline-flex items-center gap-1 w-fit border-b border-[var(--color-border-Strokes-default)] pb-0.5 hover:border-[var(--color-text-primary)] transition-all group/link text-body-md">
+                        {t("aboutTeam")} <span className="text-[0.8em] opacity-50 group-hover/link:opacity-100 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-all">↗</span>
+                      </Link>
+                      <Link href="#" className="inline-flex items-center gap-1 w-fit border-b border-[var(--color-border-Strokes-default)] pb-0.5 hover:border-[var(--color-text-primary)] transition-all group/link text-body-md">
+                        {t("aboutLicensing")} <span className="text-[0.8em] opacity-50 group-hover/link:opacity-100 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-all">↗</span>
+                      </Link>
+                    </div>
+                 </div>
+
               </div>
            </div>
-
-           {/* Block 2 & 3: SOLUTIONS and COMPANY (Split Row) */}
-           <div className="flex-1 flex flex-col md:flex-row transition-colors duration-500">
-              
-              {/* SOLUTIONS */}
-              <div className="flex-1 py-[var(--space-fluid-sm)] pl-[var(--space-fluid-lg)] pr-[var(--space-fluid-md)] border-b md:border-b-0 md:border-r border-[var(--color-border-Strokes-default)] flex flex-col justify-center gap-fluid-xs">
-                 <h3 className="text-display-md uppercase font-bold tracking-tight transition-colors">{t("solutions")}</h3>
-                 <div className="flex flex-col gap-fluid-xs">
-                    <Link href="#" className="inline-flex items-center gap-1 w-fit border-b border-[var(--color-border-Strokes-default)] pb-0.5 hover:border-[var(--color-text-primary)] transition-all group/link text-body-md">
-                      {t("solMarketing")} <span className="text-[0.8em] opacity-50 group-hover/link:opacity-100 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-all">↗</span>
-                    </Link>
-                    <Link href="#" className="inline-flex items-center gap-1 w-fit border-b border-[var(--color-border-Strokes-default)] pb-0.5 hover:border-[var(--color-text-primary)] transition-all group/link text-body-md">
-                      {t("solTech")} <span className="text-[0.8em] opacity-50 group-hover/link:opacity-100 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-all">↗</span>
-                    </Link>
-                 </div>
-              </div>
-
-              {/* COMPANY */}
-              <div className="flex-1 py-[var(--space-fluid-sm)] px-[var(--space-fluid-md)] flex flex-col justify-center gap-fluid-xs">
-                 <h3 className="text-display-md uppercase font-bold tracking-tight transition-colors">{t("about")}</h3>
-                 <div className="flex flex-col gap-fluid-xs">
-                    <Link href="#" className="inline-flex items-center gap-1 w-fit border-b border-[var(--color-border-Strokes-default)] pb-0.5 hover:border-[var(--color-text-primary)] transition-all group/link text-body-md">
-                      {t("aboutCompany")} <span className="text-[0.8em] opacity-50 group-hover/link:opacity-100 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-all">↗</span>
-                    </Link>
-                    <Link href="#" className="inline-flex items-center gap-1 w-fit border-b border-[var(--color-border-Strokes-default)] pb-0.5 hover:border-[var(--color-text-primary)] transition-all group/link text-body-md">
-                      {t("aboutTeam")} <span className="text-[0.8em] opacity-50 group-hover/link:opacity-100 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-all">↗</span>
-                    </Link>
-                    <Link href="#" className="inline-flex items-center gap-1 w-fit border-b border-[var(--color-border-Strokes-default)] pb-0.5 hover:border-[var(--color-text-primary)] transition-all group/link text-body-md">
-                      {t("aboutLicensing")} <span className="text-[0.8em] opacity-50 group-hover/link:opacity-100 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-all">↗</span>
-                    </Link>
-                 </div>
-              </div>
-
-           </div>
-
         </div>
+
       </div>
 
       {/* 
