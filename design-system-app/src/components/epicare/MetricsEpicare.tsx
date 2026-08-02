@@ -53,10 +53,10 @@ export default function MetricsEpicare() {
   const mobileElementsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   const metricsData = [
-    { value: "132+", label: t('carriers') },
-    { value: "15+", label: t('years') },
-    { value: "600+", label: t('agents') },
-    { value: "24/7", label: t('platform') }
+    { value: "130+", label: t('carriers') },
+    { value: "6,000+", label: t('years') },
+    { value: "100+", label: t('agents') },
+    { value: "2021", label: t('platform') }
   ];
 
   // ── GSAP: The Blur Reveal & Title Animation ──

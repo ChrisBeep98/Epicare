@@ -7,9 +7,9 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const METRICS = [
-  { value: "6,000+", label: "Asegurados activos" },
-  { value: "52",     label: "Jurisdicciones" },
-  { value: "< 24h",  label: "Respuesta garantizada" },
+  { value: "100%", label: "De tu book of business" },
+  { value: "$0",     label: "Costo de plataforma" },
+  { value: "< 24h",  label: "Respuesta de soporte" },
 ];
 
 export default function WhyEpicare() {

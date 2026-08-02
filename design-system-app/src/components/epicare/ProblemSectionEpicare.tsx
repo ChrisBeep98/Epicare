@@ -7,12 +7,12 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const DOLORES = [
-  { title: "Portales desconectados", desc: "Cada carrier exige su propio portal; cruzar datos y conciliar se ha vuelto un proceso 100% manual y propenso a errores." },
-  { title: "Downline invisible", desc: "No tienes visibilidad en tiempo real de tu equipo, su volumen de producción ni las métricas de retención clave." },
-  { title: "Spreadsheets como sistema", desc: "La información de tus clientes, comisiones y renovaciones sobrevive esparcida en docenas de archivos frágiles." },
-  { title: "Soporte sin SLAs", desc: "La comunicación carece de sistema de tickets, no hay historial auditable y los tiempos de respuesta son una incógnita." },
-  { title: "Licencias sin alerta", desc: "Te enteras de que una licencia estatal venció cuando el negocio ya se detuvo y perdiste la comisión." },
-  { title: "Producción opaca", desc: "Tus datos viven secuestrados en sistemas legacy de terceros que no puedes auditar, controlar ni integrar." }
+  { title: "Portales desconectados", desc: "Cada carrier exige su propio portal, su propio login y su propio formato. Cruzar datos es trabajo manual y el error es cuestión de tiempo." },
+  { title: "Downline invisible", desc: "No sabes qué produjo tu equipo esta semana hasta que alguien arma el reporte. Para entonces ya no puedes hacer nada al respecto." },
+  { title: "Spreadsheets como sistema", desc: "Clientes, comisiones y renovaciones repartidos en docenas de archivos. Uno se corrompe y no hay copia." },
+  { title: "Soporte sin SLAs", desc: "Mandas un correo y esperas. Sin ticket, sin historial, sin idea de cuándo te contestan." },
+  { title: "Licencias sin alerta", desc: "Te enteras de que una licencia estatal venció cuando el negocio ya se cayó y la comisión se fue." },
+  { title: "Producción opaca", desc: "Tus datos viven en sistemas de terceros que no puedes auditar ni exportar. Son tuyos, pero no los controlas." }
 ];
 
 /** Flecha hacia arriba para el CTA (ya que la plataforma está arriba) */
@@ -80,13 +80,13 @@ export default function ProblemSectionEpicare() {
             {/* Título forzado a 2 líneas */}
             <h2 className="overflow-hidden pb-static-xs text-display-lg md:text-display-xl text-[var(--color-text-primary)] tracking-tighter leading-none md:ml-[-6px]">
               <span className="anim-head-line block">
-                ¿Reconoces estos<br className="hidden md:block"/> síntomas?
+                Así se ve una operación<br className="hidden md:block"/> que nadie construyó.
               </span>
             </h2>
           </div>
           <div className="md:col-span-4 flex justify-start md:justify-end mt-4 md:mt-0">
              <p className="anim-head-fade text-body-lg md:text-body-xl text-[var(--color-text-secondary)] pb-2 max-w-sm">
-               Si tu operación diaria se ve así, la fragmentación del sistema está ahogando tu crecimiento.
+               No es falta de disciplina. Es que cada pieza de tu negocio vive en un sistema distinto y ninguno habla con los demás.
              </p>
           </div>
         </div>
@@ -154,7 +154,7 @@ export default function ProblemSectionEpicare() {
                 }}
                 className="group w-fit h-12 pl-6 pr-2 rounded-full flex items-center gap-3 bg-[var(--color-action-primary-bg)] text-[var(--color-action-primary-text)] shadow-elevation-2 transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-elevation-4 active:scale-[0.96] active:opacity-80 active:duration-150 cursor-pointer"
               >
-                <span className="text-body-sm font-medium">Descubre la solución</span>
+                <span className="text-body-sm font-medium">Así lo resolvemos</span>
                 <span className="relative w-8 h-8 rounded-full bg-[var(--color-action-primary-text)] text-[var(--color-action-primary-bg)] flex items-center justify-center overflow-hidden shrink-0">
                   {/* Flecha lateral - Animación Grow */}
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="absolute w-4 h-4 transition-transform duration-300 ease-out group-hover:translate-x-5" aria-hidden="true">

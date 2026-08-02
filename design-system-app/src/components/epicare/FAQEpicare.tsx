@@ -15,24 +15,32 @@ gsap.registerPlugin(ScrollTrigger);
 
 const FAQS = [
   {
-    q: "¿Qué carriers o aseguradoras están disponibles?",
-    a: "Proveemos acceso directo a los carriers más prestigiosos de nivel nacional y regional en salud, vida y property & casualty. Nuestro motor se actualiza mensualmente con nuevos nombramientos.",
+    q: "¿Qué carriers están disponibles?",
+    a: "130+ carrier appointments en Life, Health y Supplementary — nacionales y regionales. La lista crece conforme sumamos nombramientos.",
   },
   {
-    q: "¿Son dueños de mi Book of Business?",
-    a: "Absolutamente no. Tú mantienes el 100% de la propiedad de tu cartera desde el día uno. Epicare es el motor tecnológico y tu socio operativo, no el dueño de tu trabajo.",
+    q: "¿Son dueños de mi book of business?",
+    a: "No. Mantienes el 100% de la propiedad de tu cartera desde el día uno. Epicare es tu infraestructura operativa, no el dueño de tu trabajo.",
   },
   {
-    q: "¿Existen tarifas ocultas de mantenimiento?",
-    a: "Operamos bajo una estructura de costos 100% transparente. Tienes un fee claro por el uso del stack tecnológico (AMS/CRM) y tu split de comisiones acordado. Sin sorpresas.",
+    q: "¿Cuánto cuesta la plataforma?",
+    a: "GO AMS, GO CRM, Eppigo y Academy están incluidos en tu contrato de productor, sin costo de plataforma. Lo único que se acuerda al contratar es tu split de comisiones.",
+  },
+  {
+    q: "¿Necesito estar en Florida?",
+    a: "No. Nuestra sede está en Miami, pero operamos en las 52 jurisdicciones: los 50 estados, Washington DC y Puerto Rico. Tú vendes donde tengas licencia.",
+  },
+  {
+    q: "¿Epicare es una startup o una compañía establecida?",
+    a: "Epicare Insurance Corp opera desde 2021, con 6,000+ asegurados y 100+ agentes activos. EIN 87-1093490 · NPN 19985316 · EPICARE® registrada en USPTO (Reg. 8148738).",
   },
   {
     q: "¿Qué pasa si ya tengo mi propio CRM?",
-    a: "El ecosistema Epicare está diseñado para estar unificado. Sin embargo, nuestro sistema incluye APIs abiertas para exportación de datos si deseas mantener respaldos externos.",
+    a: "Puedes seguir usándolo. GO AMS es donde viven tus contratos, comisiones y licencias — eso no se duplica en otro sistema. Para tus datos hay exportación disponible.",
   },
   {
-    q: "¿Cuánto tiempo toma el onboarding completo?",
-    a: "Si tienes todas tus licencias en regla, el proceso de alta, firma de contratos y aprovisionamiento del software toma entre 24 y 48 horas.",
+    q: "¿Cuánto tarda el onboarding completo?",
+    a: "De 24 a 48 horas desde la firma si tus licencias están vigentes. Los appointments con cada carrier dependen del tiempo de respuesta de cada uno; te mostramos el estado en vivo desde el portal.",
   }
 ];
 

@@ -74,7 +74,7 @@ export default function FooterEpicare() {
 
   const marqueeContent = Array.from({ length: 8 }).map((_, i) => (
     <React.Fragment key={i}>
-      EPICARE <Sparkle /> SHAPE THE FUTURE <Sparkle />{" "}
+      EPICARE <Sparkle /> OPERACIÓN REAL <Sparkle />{" "}
     </React.Fragment>
   ));
 
@@ -100,18 +100,18 @@ export default function FooterEpicare() {
          {/* Block 0: CTA Gigante */}
          <div className="order-1 md:order-1 md:col-start-1 md:row-start-1 py-[var(--space-fluid-sm)] md:py-[var(--space-fluid-md)] px-[var(--space-gutter-sm)] md:pl-[var(--space-fluid-lg)] md:pr-[var(--space-fluid-md)] border-b border-[var(--color-border-Strokes-default)] transition-colors duration-500 flex flex-col justify-center items-start gap-fluid-sm">
             <p className="text-display xl:text-display-lg text-[var(--color-text-primary)] w-full max-w-none leading-tight">
-               Elevate your<br />insurance agency.
+               La agencia que trabaja para ti.<br />No al revés.
             </p>
             <div className="flex flex-wrap items-center gap-4 mt-fluid-xs">
                <button className="group w-fit h-12 pl-6 pr-2 rounded-full flex items-center gap-3 bg-[var(--color-brand-blue)] text-white shadow-elevation-2 transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-elevation-4 active:scale-[0.96] active:opacity-80 active:duration-150">
-                 <span className="text-body-sm font-medium">Get Started</span>
+                 <span className="text-body-sm font-medium">Solicita tu contrato</span>
                  <span className="relative w-8 h-8 rounded-full bg-white text-[var(--color-brand-blue)] flex items-center justify-center overflow-hidden shrink-0">
                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="absolute w-4 h-4 transition-transform duration-300 ease-out group-hover:translate-x-5 group-hover:-translate-y-5" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10" /></svg>
                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="absolute w-4 h-4 -translate-x-5 translate-y-5 transition-transform duration-300 ease-out group-hover:translate-x-0 group-hover:translate-y-0" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10" /></svg>
                  </span>
                </button>
                <button className="group w-fit h-12 px-6 rounded-full flex items-center justify-center border border-[var(--color-border-Strokes-default)] text-[var(--color-text-primary)] hover:border-[var(--color-text-primary)] hover:bg-[var(--color-text-primary)] hover:text-[var(--color-surface-BG-base)] transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:scale-[1.02] active:scale-[0.96]">
-                 <span className="text-body-sm font-medium">Contact Us</span>
+                 <span className="text-body-sm font-medium">Habla con el equipo</span>
                </button>
             </div>
          </div>
@@ -205,11 +205,11 @@ export default function FooterEpicare() {
             <span className="text-[var(--color-text-primary)] hover:text-[var(--color-brand-blue)] active:text-[var(--color-brand-blue)] active:opacity-70 transition-colors cursor-pointer flex-shrink-0 scale-75 md:scale-100 origin-left">
                <BrandIsotype />
             </span>
-            <span className="text-meta md:text-body-md font-medium">© {new Date().getFullYear()} EPICARE</span>
+            <span className="text-meta md:text-body-md font-medium">© {new Date().getFullYear()} Epicare Insurance Corp</span>
          </div>
          <div className="flex items-center gap-3 md:gap-fluid-md">
-            <Link href="#" className="hover:text-[var(--color-brand-blue)] hover:underline hover:underline-offset-4 active:text-[var(--color-brand-blue)] active:underline active:underline-offset-4 active:scale-95 active:opacity-70 transition-all">Privacy</Link>
-            <Link href="#" className="hover:text-[var(--color-brand-blue)] hover:underline hover:underline-offset-4 active:text-[var(--color-brand-blue)] active:underline active:underline-offset-4 active:scale-95 active:opacity-70 transition-all">Terms</Link>
+            <Link href="#" className="hover:text-[var(--color-brand-blue)] hover:underline hover:underline-offset-4 active:text-[var(--color-brand-blue)] active:underline active:underline-offset-4 active:scale-95 active:opacity-70 transition-all">Privacidad</Link>
+            <Link href="#" className="hover:text-[var(--color-brand-blue)] hover:underline hover:underline-offset-4 active:text-[var(--color-brand-blue)] active:underline active:underline-offset-4 active:scale-95 active:opacity-70 transition-all">Términos</Link>
          </div>
       </div>
 

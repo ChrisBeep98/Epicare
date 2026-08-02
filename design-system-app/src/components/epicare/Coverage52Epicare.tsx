@@ -104,14 +104,13 @@ export default function Coverage52Epicare() {
         {/* Header de la sección */}
         <div ref={headerRef} className="flex flex-col gap-fluid-xs mb-static-2xl items-center text-center">
           <span className="text-overline text-[var(--color-text-muted)]">
-            04 // National Reach
+            Alcance nacional
           </span>
           <h2 className="text-h2 text-[var(--color-text-primary)]">
-            Cobertura 52 Estados
+            52 jurisdicciones.
           </h2>
           <p className="text-subtitle text-[var(--color-text-secondary)] max-w-section-md">
-            Una infraestructura de red sin fronteras. Desde licencias hasta cumplimiento normativo, 
-            operamos en la totalidad del territorio nacional, incluyendo DC y PR.
+            50 estados, Washington DC y Puerto Rico. Licenciados y operando en todas — no en proceso, no próximamente.
           </p>
         </div>
 
