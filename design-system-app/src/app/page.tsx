@@ -2,7 +2,6 @@ import LoaderEpicare from "@/components/epicare/LoaderEpicare";
 import HeroEpicare from "@/components/epicare/HeroEpicare";
 import BrandsCarousel from "@/components/epicare/BrandsCarousel";
 import MetricsEpicare from "@/components/epicare/MetricsEpicare";
-import ProblemSectionEpicare from "@/components/epicare/ProblemSectionEpicare";
 import DarkGradientSection from "@/components/epicare/DarkGradientSection";
 import BentoGridEpicare from "@/components/epicare/BentoGridEpicare";
 import PeopleRevealEpicare from "@/components/epicare/PeopleRevealEpicare";
@@ -28,8 +27,6 @@ export default function EpicareLandingPage() {
       <div className="w-full order-5"><DarkGradientSection /></div>
       {/* ── S05 · BentoGrid / Ecosistema GO (PICO 2 · pin) ── */}
       <div className="w-full order-6 pb-section-lg"><BentoGridEpicare /></div>
-      {/* ── S06 · Problem (contraste / dolor que eliminamos) ── */}
-      <div className="w-full order-7"><ProblemSectionEpicare /></div>
       {/* ── S07 · PeopleReveal (respiro humano) ── */}
       <div className="w-full order-8 pb-section-lg"><PeopleRevealEpicare /></div>
       {/* ── S08 · ProductLines (portafolio) ── */}
