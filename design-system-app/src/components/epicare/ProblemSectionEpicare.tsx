@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useLayoutEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -30,7 +30,7 @@ export default function ProblemSectionEpicare() {
   const descRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         descRef.current,
@@ -41,60 +41,94 @@ export default function ProblemSectionEpicare() {
     return () => ctx.revert();
   }, [activeIndex]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (prefersReduced) return;
 
-    const ctx = gsap.context(() => {
-      // Header standardization (Hardware & Lenis Optimized)
+    const ctx = gsap.context((self) => {
+      const q = self.selector!;
+
+      if (prefersReduced) {
+        gsap.set(q('.problem-head-line, .problem-head-fade, .problem-item, .problem-detail-card'), {
+          opacity: 1,
+          y: 0,
+          yPercent: 0,
+          filter: 'none'
+        });
+        return;
+      }
+
+      // 1. Headline Text-Birth (Hardware Optimized)
       gsap.fromTo(
-        '.anim-head-line',
+        q('.problem-head-line'),
         { yPercent: 118, willChange: 'transform' },
         {
           yPercent: 0,
           duration: 1.15,
           stagger: 0.12,
           ease: 'power4.out',
-          clearProps: 'all',
+          clearProps: 'willChange',
           scrollTrigger: {
             trigger: containerRef.current,
-            start: 'top 92%',
-            toggleActions: 'play none none none',
+            start: 'top 82%',
           },
         }
       );
 
+      // 2. Eyebrow Fade-Up
       gsap.fromTo(
-        '.anim-head-fade',
-        { opacity: 0, y: 24, willChange: 'transform, opacity' },
+        q('.problem-head-fade'),
+        { opacity: 0, y: 26, willChange: 'transform, opacity' },
         {
           opacity: 1,
           y: 0,
           duration: 0.9,
           stagger: 0.08,
           ease: 'power3.out',
-          clearProps: 'all',
+          clearProps: 'willChange',
           scrollTrigger: {
             trigger: containerRef.current,
-            start: 'top 90%',
-            toggleActions: 'play none none none',
+            start: 'top 80%',
           },
         }
       );
 
-      gsap.from(".reveal-item:not(.grid)", {
-        opacity: 0,
-        y: 36,
-        stagger: 0.12,
-        duration: 0.9,
-        ease: "power3.out",
-        clearProps: "all",
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top 88%",
-          toggleActions: "play none none none",
+      // 3. Left Column List Items Staggered Entrance
+      gsap.fromTo(
+        q('.problem-item'),
+        { opacity: 0, y: 36, scale: 0.98, willChange: 'transform, opacity' },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.7,
+          stagger: 0.06,
+          ease: 'power3.out',
+          force3D: true,
+          clearProps: 'willChange',
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: 'top 80%',
+          },
         }
-      });
+      );
+
+      // 4. Right Column Detail Card Entrance
+      gsap.fromTo(
+        q('.problem-reveal-item'),
+        { opacity: 0, y: 40, willChange: 'transform, opacity' },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: 'power3.out',
+          force3D: true,
+          clearProps: 'willChange',
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: 'top 78%',
+          },
+        }
+      );
     }, containerRef);
     return () => ctx.revert();
   }, []);
@@ -105,11 +139,11 @@ export default function ProblemSectionEpicare() {
         
         {/* Encabezado Editorial Masivo */}
         <div className="mb-static-lg md:mb-static-xl border-b border-[var(--color-border-Strokes-default)] pb-static-md md:pb-static-lg">
-          <span className="anim-head-fade text-overline text-[var(--color-status-red-main)] mb-3 block font-semibold tracking-wider">
+          <span className="problem-head-fade text-overline text-[var(--color-status-red-main)] mb-3 block font-semibold tracking-wider">
             El Problema
           </span>
           <h2 className="overflow-hidden pb-1 text-display-lg md:text-display-xl text-[var(--color-text-primary)] tracking-tighter leading-tight md:ml-[-4px]">
-            <span className="anim-head-line block">
+            <span className="problem-head-line block">
               Así se ve una operación<br className="hidden md:block"/> que nadie construyó.
             </span>
           </h2>
@@ -119,7 +153,7 @@ export default function ProblemSectionEpicare() {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-fluid-lg items-stretch">
           
           {/* Columna Izquierda: Índice Interactivo (Cinta en móvil, Lista en desktop) */}
-          <div className="md:col-span-5 flex flex-row md:flex-col overflow-x-auto md:overflow-x-visible pb-2 md:pb-0 gap-3 md:gap-fluid-xs reveal-item scrollbar-none snap-x snap-mandatory w-[calc(100vw-2rem)] md:w-auto -ml-4 pl-4 md:ml-0 md:pl-0 pr-4 md:pr-0">
+          <div className="md:col-span-5 flex flex-row md:flex-col overflow-x-auto md:overflow-x-visible pb-2 md:pb-0 gap-3 md:gap-fluid-xs scrollbar-none snap-x snap-mandatory w-[calc(100vw-2rem)] md:w-auto -ml-4 pl-4 md:ml-0 md:pl-0 pr-4 md:pr-0">
             {DOLORES.map((dolor, i) => {
               const isActive = activeIndex === i;
               return (
@@ -135,7 +169,7 @@ export default function ProblemSectionEpicare() {
                       e.currentTarget.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
                     }
                   }}
-                  className={`group relative text-left transition-all duration-300 outline-none flex items-center py-2.5 md:py-2 shrink-0 snap-center md:snap-align-none rounded-full md:rounded-none px-5 md:px-0 border md:border-y-0 md:border-r-0 md:border-l-0 ${
+                  className={`problem-item group relative text-left transition-all duration-300 outline-none flex items-center py-2.5 md:py-2 shrink-0 snap-center md:snap-align-none rounded-full md:rounded-none px-5 md:px-0 border md:border-y-0 md:border-r-0 md:border-l-0 ${
                     isActive 
                       ? "text-[var(--color-text-primary)] md:translate-x-4 border-[var(--color-status-red-main)] bg-[var(--color-status-red-main)]/10 md:bg-transparent" 
                       : "text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] md:hover:translate-x-2 border-[var(--color-border-Strokes-default)] md:border-transparent"
@@ -157,7 +191,7 @@ export default function ProblemSectionEpicare() {
           </div>
 
           {/* Columna Derecha: Lectura Profunda y CTA */}
-          <div className="md:col-span-7 md:pl-static-md lg:pl-static-lg border-t md:border-t-0 md:border-l border-[var(--color-border-Strokes-default)] pt-static-md md:pt-0 reveal-item flex flex-col justify-start md:justify-center min-h-[220px] md:min-h-[300px]">
+          <div className="md:col-span-7 md:pl-static-md lg:pl-static-lg border-t md:border-t-0 md:border-l border-[var(--color-border-Strokes-default)] pt-static-md md:pt-0 problem-reveal-item flex flex-col justify-start md:justify-center min-h-[220px] md:min-h-[300px]">
             
             {/* Contenido Cambiante */}
             <div ref={descRef} className="">
