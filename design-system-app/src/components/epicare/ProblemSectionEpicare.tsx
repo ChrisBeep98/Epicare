@@ -46,23 +46,53 @@ export default function ProblemSectionEpicare() {
     if (prefersReduced) return;
 
     const ctx = gsap.context(() => {
-      // Header standardization (Hardware Optimized)
-      gsap.fromTo('.anim-head-line', { yPercent: 118, willChange: 'transform' },
-        { yPercent: 0, duration: 1.15, stagger: 0.12, ease: 'power4.out', clearProps: 'willChange',
-          scrollTrigger: { trigger: containerRef.current, start: 'top 82%' } });
-      gsap.fromTo('.anim-head-fade', { opacity: 0, y: 26, willChange: 'transform, opacity' },
-        { opacity: 1, y: 0, duration: 0.9, stagger: 0.08, ease: 'power3.out', clearProps: 'willChange',
-          scrollTrigger: { trigger: containerRef.current, start: 'top 80%' } });
+      // Header standardization (Hardware & Lenis Optimized)
+      gsap.fromTo(
+        '.anim-head-line',
+        { yPercent: 118, willChange: 'transform' },
+        {
+          yPercent: 0,
+          duration: 1.15,
+          stagger: 0.12,
+          ease: 'power4.out',
+          clearProps: 'all',
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: 'top 92%',
+            toggleActions: 'play none none none',
+          },
+        }
+      );
 
-      gsap.from(".reveal-item:not(.grid)", { // exclude the header grid from the old animation
+      gsap.fromTo(
+        '.anim-head-fade',
+        { opacity: 0, y: 24, willChange: 'transform, opacity' },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.9,
+          stagger: 0.08,
+          ease: 'power3.out',
+          clearProps: 'all',
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: 'top 90%',
+            toggleActions: 'play none none none',
+          },
+        }
+      );
+
+      gsap.from(".reveal-item:not(.grid)", {
         opacity: 0,
-        y: 40,
-        stagger: 0.15,
-        duration: 1,
+        y: 36,
+        stagger: 0.12,
+        duration: 0.9,
         ease: "power3.out",
+        clearProps: "all",
         scrollTrigger: {
           trigger: containerRef.current,
-          start: "top 80%",
+          start: "top 88%",
+          toggleActions: "play none none none",
         }
       });
     }, containerRef);
@@ -70,25 +100,19 @@ export default function ProblemSectionEpicare() {
   }, []);
 
   return (
-    <section id="el_problema" className="w-full bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] pt-0 pb-section-lg overflow-hidden transition-colors duration-500">
+    <section id="el_problema" className="w-full bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] pt-0 pb-section-md overflow-hidden transition-colors duration-500">
       <div ref={containerRef} className="w-full max-w-section-lg mx-auto px-gutter-md">
         
         {/* Encabezado Editorial Masivo */}
-        <div className="mb-static-xl md:mb-static-2xl grid grid-cols-1 md:grid-cols-12 gap-fluid-sm border-b border-[var(--color-border-Strokes-default)] pb-static-lg items-end">
-          <div className="md:col-span-8">
-            <span className="anim-head-fade text-overline text-[var(--color-status-red-main)] mb-4 block">El Problema</span>
-            {/* Título forzado a 2 líneas */}
-            <h2 className="overflow-hidden pb-static-xs text-display-lg md:text-display-xl text-[var(--color-text-primary)] tracking-tighter leading-none md:ml-[-6px]">
-              <span className="anim-head-line block">
-                Así se ve una operación<br className="hidden md:block"/> que nadie construyó.
-              </span>
-            </h2>
-          </div>
-          <div className="md:col-span-4 flex justify-start md:justify-end mt-4 md:mt-0">
-             <p className="anim-head-fade text-body-lg md:text-body-xl text-[var(--color-text-secondary)] pb-2 max-w-sm">
-               No es falta de disciplina. Es que cada pieza de tu negocio vive en un sistema distinto y ninguno habla con los demás.
-             </p>
-          </div>
+        <div className="mb-static-lg md:mb-static-xl border-b border-[var(--color-border-Strokes-default)] pb-static-md md:pb-static-lg">
+          <span className="anim-head-fade text-overline text-[var(--color-status-red-main)] mb-3 block font-semibold tracking-wider">
+            El Problema
+          </span>
+          <h2 className="overflow-hidden pb-1 text-display-lg md:text-display-xl text-[var(--color-text-primary)] tracking-tighter leading-tight md:ml-[-4px]">
+            <span className="anim-head-line block">
+              Así se ve una operación<br className="hidden md:block"/> que nadie construyó.
+            </span>
+          </h2>
         </div>
 
         {/* Layout Interactivo Compacto */}
