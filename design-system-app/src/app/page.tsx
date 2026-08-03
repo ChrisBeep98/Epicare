@@ -9,7 +9,6 @@ import PeopleRevealEpicare from "@/components/epicare/PeopleRevealEpicare";
 import ProductLinesEpicare from "@/components/epicare/ProductLinesEpicare";
 import Coverage52Epicare from "@/components/epicare/Coverage52Epicare";
 import ForWhoEpicare from "@/components/epicare/ForWhoEpicare";
-import WhyEpicare from "@/components/epicare/WhyEpicare";
 import HowToJoinEpicare from "@/components/epicare/HowToJoinEpicare";
 import FAQEpicare from "@/components/epicare/FAQEpicare";
 import FooterEpicare from "@/components/epicare/FooterEpicare";
@@ -25,12 +24,12 @@ export default function EpicareLandingPage() {
       <div className="w-full order-3 mt-[-100vh] relative z-20"><BrandsCarousel /></div>
       {/* ── S03 · Metrics (prueba dura) ── */}
       <div className="w-full order-4"><MetricsEpicare /></div>
-      {/* ── S04 · Problem (dolor — dark forzado) ── */}
-      <div className="w-full order-5"><ProblemSectionEpicare /></div>
-      {/* ── S05 · DarkGradient / La Plataforma (solución) ── */}
-      <div className="w-full order-6"><DarkGradientSection /></div>
-      {/* ── S06 · BentoGrid / Ecosistema (PICO 2 · pin) ── */}
-      <div className="w-full order-7 pb-section-lg"><BentoGridEpicare /></div>
+      {/* ── S04 · DarkGradient / La Plataforma (solución inmediata) ── */}
+      <div className="w-full order-5"><DarkGradientSection /></div>
+      {/* ── S05 · BentoGrid / Ecosistema GO (PICO 2 · pin) ── */}
+      <div className="w-full order-6 pb-section-lg"><BentoGridEpicare /></div>
+      {/* ── S06 · Problem (contraste / dolor que eliminamos) ── */}
+      <div className="w-full order-7"><ProblemSectionEpicare /></div>
       {/* ── S07 · PeopleReveal (respiro humano) ── */}
       <div className="w-full order-8 pb-section-lg"><PeopleRevealEpicare /></div>
       {/* ── S08 · ProductLines (portafolio) ── */}
@@ -39,8 +38,6 @@ export default function EpicareLandingPage() {
       <div className="w-full order-10"><Coverage52Epicare /></div>
       {/* ── S10 · ForWho (decisión) ── */}
       <div className="w-full order-11"><ForWhoEpicare /></div>
-      {/* ── S11 · WhyEpicare (CLÍMAX · pin 3) ── */}
-      <div className="w-full order-12"><WhyEpicare /></div>
       {/* ── S13 · HowToJoin (fricción cero) ── */}
       <div className="w-full order-[13]"><HowToJoinEpicare /></div>
       {/* ── S14 · FAQ (objeciones) ── */}
