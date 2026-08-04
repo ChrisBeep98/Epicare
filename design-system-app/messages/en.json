@@ -9,6 +9,16 @@
       "ctaPlans": "Get contracted",
       "ctaAgents": "See GO AMS"
     },
+    "licensingHero": {
+      "title": "Licensing",
+      "description": "Epicare Insurance holds the necessary state licenses to conduct insurance business. All insurance transactions are carried out through licensed agents in compliance with state regulations.",
+      "cta": "Check Our Active Licenses"
+    },
+    "interactiveMap": {
+      "overline": "National Reach",
+      "title": "52 Jurisdictions.",
+      "description": "Licensed and actively operating in all 50 states, Washington DC, and Puerto Rico. One agreement covers your entire footprint."
+    },
     "metrics": {
       "carriers": "Carrier\nAppointments",
       "years": "Active\npolicyholders",
