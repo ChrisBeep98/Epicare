@@ -12,9 +12,71 @@ import HowToJoinEpicare from "@/components/epicare/HowToJoinEpicare";
 import FAQEpicare from "@/components/epicare/FAQEpicare";
 import FooterEpicare from "@/components/epicare/FooterEpicare";
 
+import en from "../../messages/en.json";
+import { SITE_URL } from "./layout";
+
+// ── STRUCTURED DATA ──
+// page.tsx es server component, así que el JSON-LD se emite en el HTML estático.
+// El FAQPage lee las mismas claves que renderiza FAQEpicare (que es client), así
+// que no hay copia duplicada del copy: una sola fuente en messages/en.json.
+const faq = en.landingV2.faq;
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${SITE_URL}/#organization`,
+      name: "Epicare Insurance Corp",
+      url: `${SITE_URL}/`,
+      foundingDate: "2021",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Miami",
+        addressRegion: "FL",
+        addressCountry: "US",
+      },
+      // Identificadores públicos verificables (los mismos que declara el FAQ).
+      taxID: "87-1093490",
+      identifier: [
+        { "@type": "PropertyValue", name: "NPN", value: "19985316" },
+        { "@type": "PropertyValue", name: "USPTO Reg.", value: "8148738" },
+      ],
+      areaServed: {
+        "@type": "Country",
+        name: "United States",
+      },
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
+      url: `${SITE_URL}/`,
+      name: "Epicare",
+      inLanguage: "en-US",
+      publisher: { "@id": `${SITE_URL}/#organization` },
+    },
+    {
+      "@type": "FAQPage",
+      "@id": `${SITE_URL}/#faq`,
+      mainEntity: Array.from({ length: 7 }, (_, i) => ({
+        "@type": "Question",
+        name: faq[`q${i + 1}` as keyof typeof faq],
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: faq[`a${i + 1}` as keyof typeof faq],
+        },
+      })),
+    },
+  ],
+};
+
 export default function EpicareLandingPage() {
   return (
     <main className="flex flex-col w-full min-h-screen bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] transition-colors duration-500">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
       {/* ── S00 · Loader ── */}
       <div className="w-full order-1"><LoaderEpicare /></div>
       {/* ── S01 · Hero (HOOK · pin 1) ── */}

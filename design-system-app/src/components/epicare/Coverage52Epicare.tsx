@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef, useLayoutEffect } from "react";
+import { useTranslations } from "next-intl";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
@@ -35,6 +36,7 @@ const STATES_DATA = [
 ];
 
 export default function Coverage52Epicare() {
+  const t = useTranslations("landingV2.coverage");
   const sectionRef = useRef<HTMLElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
@@ -104,13 +106,13 @@ export default function Coverage52Epicare() {
         {/* Header de la sección */}
         <div ref={headerRef} className="flex flex-col gap-fluid-xs mb-static-2xl items-center text-center">
           <span className="text-overline text-[var(--color-text-muted)]">
-            Alcance nacional
+            {t("overline")}
           </span>
           <h2 className="text-h2 text-[var(--color-text-primary)]">
-            52 jurisdicciones.
+            {t("title")}
           </h2>
           <p className="text-subtitle text-[var(--color-text-secondary)] max-w-section-md">
-            50 estados, Washington DC y Puerto Rico. Licenciados y operando en todas — no en proceso, no próximamente.
+            {t("desc")}
           </p>
         </div>
 

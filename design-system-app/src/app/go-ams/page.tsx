@@ -1,17 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import HeroSection from "@/components/go-ams/HeroSection";
 
 export default function GoAmsPage() {
-  const [isDark, setIsDark] = useState(false);
-
+  // Esta ruta se diseñó solo en dark. No hay estado React asociado: el tema vive
+  // en la clase del <html>, así que guardarlo también en useState era una segunda
+  // fuente de verdad que además disparaba un render en cascada al montar.
   useEffect(() => {
-    // The design system forces dark mode for the landing page
-    if (!document.documentElement.classList.contains('dark')) {
-      document.documentElement.classList.add('dark');
-      setIsDark(true);
-    }
+    document.documentElement.classList.add("dark");
   }, []);
 
   return (

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef, useLayoutEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
@@ -13,38 +14,13 @@ import {
 
 gsap.registerPlugin(ScrollTrigger);
 
-const FAQS = [
-  {
-    q: "¿Qué carriers están disponibles?",
-    a: "130+ carrier appointments en Life, Health y Supplementary — nacionales y regionales. La lista crece conforme sumamos nombramientos.",
-  },
-  {
-    q: "¿Son dueños de mi book of business?",
-    a: "No. Mantienes el 100% de la propiedad de tu cartera desde el día uno. Epicare es tu infraestructura operativa, no el dueño de tu trabajo.",
-  },
-  {
-    q: "¿Cuánto cuesta la plataforma?",
-    a: "GO AMS, GO CRM, Eppigo y Academy están incluidos en tu contrato de productor, sin costo de plataforma. Lo único que se acuerda al contratar es tu split de comisiones.",
-  },
-  {
-    q: "¿Necesito estar en Florida?",
-    a: "No. Nuestra sede está en Miami, pero operamos en las 52 jurisdicciones: los 50 estados, Washington DC y Puerto Rico. Tú vendes donde tengas licencia.",
-  },
-  {
-    q: "¿Epicare es una startup o una compañía establecida?",
-    a: "Epicare Insurance Corp opera desde 2021, con 6,000+ asegurados y 100+ agentes activos. EIN 87-1093490 · NPN 19985316 · EPICARE® registrada en USPTO (Reg. 8148738).",
-  },
-  {
-    q: "¿Qué pasa si ya tengo mi propio CRM?",
-    a: "Puedes seguir usándolo. GO AMS es donde viven tus contratos, comisiones y licencias — eso no se duplica en otro sistema. Para tus datos hay exportación disponible.",
-  },
-  {
-    q: "¿Cuánto tarda el onboarding completo?",
-    a: "De 24 a 48 horas desde la firma si tus licencias están vigentes. Los appointments con cada carrier dependen del tiempo de respuesta de cada uno; te mostramos el estado en vivo desde el portal.",
-  }
-];
-
 export default function FAQEpicare() {
+  const t = useTranslations("landingV2.faq");
+  const FAQS = Array.from({ length: 7 }, (_, i) => ({
+    q: t(`q${i + 1}`),
+    a: t(`a${i + 1}`),
+  }));
+
   const sectionRef = useRef<HTMLElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
   
@@ -99,11 +75,11 @@ export default function FAQEpicare() {
         {/* Header */}
         <div className="flex flex-col items-center text-center mb-static-2xl">
           <span className="anim-head-fade text-overline text-[var(--color-brand-blue)] dark:text-[var(--color-brand-cyan)] mb-static-md block">
-            F.A.Q.
+            {t("overline")}
           </span>
           <h2 className="overflow-hidden pb-static-xs text-display-xl font-semibold tracking-tight leading-[1] text-[var(--color-text-Black-100)] dark:text-white">
             <span className="anim-head-line block">
-              Dudas Frecuentes
+              {t("title")}
             </span>
           </h2>
         </div>

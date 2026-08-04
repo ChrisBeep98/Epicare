@@ -42,8 +42,8 @@
       "cardCta": "Explorar"
     },
     "darkGradient": {
-      "sectionTitle": "Nosotros ya construimos <span>esa operación</span>.",
-      "sectionDesc": "Appointments, cotización, enrollment, comisiones, licencias y soporte en un solo sistema. No es software que compramos y revendemos con nuestro logo encima — lo construimos para operar nuestra propia agencia.",
+      "sectionTitle": "Un solo acuerdo para <span>toda tu organización.</span>",
+      "sectionDesc": "Appointments con 130+ carriers, sistema de gestión, visibilidad en tiempo real y equipo de soporte. Todo incluido bajo el mismo contrato.",
       "tiltCard": "Girar",
       "feature1_step": "01 · Contratación",
       "feature1_title": "Un contrato, 130+ carriers",
@@ -101,20 +101,37 @@
       "cat2_desc": "Planes médicos para cada etapa y presupuesto, incluyendo Marketplace y Medicare Advantage.",
       "cat3_name": "Complementario",
       "cat3_desc": "Lo que llena los vacíos: dental, visión y protección ante lo inesperado.",
-      "cat1_items": ["Term Life", "Whole Life", "Final Expense"],
+      "cat1_items": [
+        "Term Life",
+        "Whole Life",
+        "Final Expense"
+      ],
       "cat1_descs": [
         "Cobertura asequible por un período fijo — ideal para proteger ingresos y familia.",
         "Protección permanente que acumula valor en efectivo de por vida.",
         "Póliza de vida pequeña que cubre gastos funerarios y del final de la vida."
       ],
-      "cat2_items": ["Short Term Medical", "Major Medical", "ACA / Marketplace", "Medicare Advantage (MAPD)"],
+      "cat2_items": [
+        "Short Term Medical",
+        "Major Medical",
+        "ACA / Marketplace",
+        "Medicare Advantage (MAPD)"
+      ],
       "cat2_descs": [
         "Cobertura médica temporal que cubre el vacío entre planes.",
         "Cobertura de salud integral para atención cotidiana y grave.",
         "Planes elegibles a subsidios a través del Marketplace federal.",
         "Medicare todo-en-uno con cobertura de medicamentos incluida."
       ],
-      "cat3_items": ["Dental", "Vision", "Accident", "Cancer", "Hospital Indemnity", "Critical Illness", "Senior Supplement"],
+      "cat3_items": [
+        "Dental",
+        "Vision",
+        "Accident",
+        "Cancer",
+        "Hospital Indemnity",
+        "Critical Illness",
+        "Senior Supplement"
+      ],
       "cat3_descs": [
         "Cobertura para cuidado dental preventivo y restaurador.",
         "Cobertura de exámenes, lentes y monturas.",
@@ -187,18 +204,37 @@
         "step6Desc": "Contrato activo, appointments en curso y sistema listo. Ya puedes cotizar."
       }
     },
-    "whyEpicare": {
-      "headlineLine1": "Todos te ofrecen carriers.",
-      "headlineLine2": "Nadie te entrega la operación.",
-      "subtitle": "Hay cientos de agencias compitiendo por tu producción. La diferencia no está en el catálogo de carriers — está en si alguien construyó el sistema con el que trabajas todos los días.",
-      "pillar1Title": "Operación probada, no promesa",
-      "pillar1Desc": "Est. 2021. Seis mil asegurados y cien agentes activos. Te unes a algo que ya funciona, no a un lanzamiento.",
-      "pillar2Title": "Tecnología que controlas tú",
-      "pillar2Desc": "GO AMS es nuestro. Cuando algo no sirve, lo cambiamos nosotros — no abrimos un ticket con un proveedor y esperamos su roadmap.",
-      "pillar3Title": "130+ carriers, un solo acuerdo",
-      "pillar3Desc": "Firmas una vez y accedes al portafolio completo. Sin negociar contrato por contrato con cada carrier.",
-      "pillar4Title": "Un equipo que responde",
-      "pillar4Desc": "Contracting, commissions y compliance con tickets, historial y SLA. Cuando algo se traba, hay alguien con nombre resolviéndolo."
+    "faq": {
+      "overline": "F.A.Q.",
+      "title": "Dudas Frecuentes",
+      "q1": "¿Qué carriers están disponibles?",
+      "a1": "130+ carrier appointments en Life, Health y Supplementary — nacionales y regionales. La lista crece conforme sumamos nombramientos.",
+      "q2": "¿Son dueños de mi book of business?",
+      "a2": "No. Mantienes el 100% de la propiedad de tu cartera desde el día uno. Epicare es tu infraestructura operativa, no el dueño de tu trabajo.",
+      "q3": "¿Cuánto cuesta la plataforma?",
+      "a3": "GO AMS, GO CRM, Eppigo y Academy están incluidos en tu contrato de productor, sin costo de plataforma. Lo único que se acuerda al contratar es tu split de comisiones.",
+      "q4": "¿Necesito estar en Florida?",
+      "a4": "No. Nuestra sede está en Miami, pero operamos en las 52 jurisdicciones: los 50 estados, Washington DC y Puerto Rico. Tú vendes donde tengas licencia.",
+      "q5": "¿Epicare es una startup o una compañía establecida?",
+      "a5": "Epicare Insurance Corp opera desde 2021, con 6,000+ asegurados y 100+ agentes activos. EIN 87-1093490 · NPN 19985316 · EPICARE® registrada en USPTO (Reg. 8148738).",
+      "q6": "¿Qué pasa si ya tengo mi propio CRM?",
+      "a6": "Puedes seguir usándolo. GO AMS es donde viven tus contratos, comisiones y licencias — eso no se duplica en otro sistema. Para tus datos hay exportación disponible.",
+      "q7": "¿Cuánto tarda el onboarding completo?",
+      "a7": "De 24 a 48 horas desde la firma si tus licencias están vigentes. Los appointments con cada carrier dependen del tiempo de respuesta de cada uno; te mostramos el estado en vivo desde el portal."
+    },
+    "coverage": {
+      "overline": "Alcance nacional",
+      "title": "52 jurisdicciones.",
+      "desc": "50 estados, Washington DC y Puerto Rico. Licenciados y operando en todas — no en proceso, no próximamente."
+    },
+    "footerCta": {
+      "marquee": "EPICARE ✦ OPERACIÓN REAL ✦",
+      "line1": "La agencia que trabaja para ti.",
+      "line2": "No al revés.",
+      "primary": "Solicita tu contrato",
+      "secondary": "Habla con el equipo",
+      "privacy": "Privacidad",
+      "terms": "Términos"
     }
   }
 }
