@@ -11,10 +11,9 @@ gsap.registerPlugin(ScrollTrigger);
 // Contador fluido estándar
 const AnimatedNumber = ({ value }: { value: string }) => {
   const nodeRef = useRef<HTMLSpanElement>(null);
-  const initialized = useRef(false);
 
   useEffect(() => {
-    if (!nodeRef.current || initialized.current) return;
+    if (!nodeRef.current) return;
     const match = value.match(/([\d,\.]+)(.*)/);
     if (!match) return;
 
@@ -22,25 +21,30 @@ const AnimatedNumber = ({ value }: { value: string }) => {
     const suffix = match[2] || '';
     if (isNaN(targetValue)) return;
 
-    initialized.current = true;
     const obj = { val: 0 };
-    
-    gsap.to(obj, {
-      val: targetValue,
-      duration: 2.5,
-      ease: "power4.out",
-      scrollTrigger: {
-        trigger: nodeRef.current,
-        start: "top 90%",
-      },
-      onUpdate: () => {
-        if (nodeRef.current) {
-          const currentVal = Math.floor(obj.val);
-          const formatted = currentVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-          nodeRef.current.innerText = `${formatted}${suffix}`;
+
+    // El contador vive en su propio contexto: sin esto, su ScrollTrigger nace
+    // fuera del ctx del padre y sobrevive al desmontaje (8 instancias huérfanas).
+    const ctx = gsap.context(() => {
+      gsap.to(obj, {
+        val: targetValue,
+        duration: 2.5,
+        ease: "power4.out",
+        scrollTrigger: {
+          trigger: nodeRef.current,
+          start: "top 90%",
+        },
+        onUpdate: () => {
+          if (nodeRef.current) {
+            const currentVal = Math.floor(obj.val);
+            const formatted = currentVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            nodeRef.current.innerText = `${formatted}${suffix}`;
+          }
         }
-      }
+      });
     });
+
+    return () => ctx.revert();
   }, [value]);
 
   return <span ref={nodeRef} className="tabular-nums font-mono inline-block">{value}</span>;

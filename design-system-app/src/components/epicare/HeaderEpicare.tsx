@@ -96,6 +96,15 @@ export default function HeaderEpicare({
     setIsDark(isDarkTheme);
   }, []);
 
+  // El timeout de cierre del menú solo se limpiaba en el siguiente hover: si el
+  // usuario sale del nav y navega, quedaba pendiente un setState sobre un
+  // componente ya desmontado.
+  useEffect(() => {
+    return () => {
+      if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
+    };
+  }, []);
+
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;

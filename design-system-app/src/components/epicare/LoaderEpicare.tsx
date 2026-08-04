@@ -46,10 +46,6 @@ export default function LoaderEpicare() {
           setVisible(false);
           document.body.style.overflow = "";
           document.documentElement.classList.add("show-scrollbar");
-          if (typeof window !== "undefined") {
-            (window as any).epicareLoaderDone = true;
-            window.dispatchEvent(new Event("epicareLoaderComplete"));
-          }
         }
       }, "<");
     }, containerRef);

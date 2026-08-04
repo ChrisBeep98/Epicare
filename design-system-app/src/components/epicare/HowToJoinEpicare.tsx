@@ -100,7 +100,7 @@ export default function HowToJoinEpicare() {
   };
 
   useLayoutEffect(() => {
-    let ctx = gsap.context(() => {
+    const ctx = gsap.context(() => {
       // Standardized text-block animation (Hardware Optimized)
       gsap.utils.toArray<HTMLElement>(".c-text-block").forEach(block => {
         gsap.fromTo(block.children, 

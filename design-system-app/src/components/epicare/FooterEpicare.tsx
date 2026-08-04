@@ -51,22 +51,6 @@ export default function FooterEpicare() {
         });
       }
 
-      // 2. PARALLAX EDITORIAL (El texto principal sube mientras scrolleas)
-      gsap.fromTo(
-        ".editorial-text",
-        { y: 100, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 1.5,
-          ease: "expo.out",
-          scrollTrigger: {
-            trigger: wrapperRef.current,
-            start: "top 80%",
-          },
-        }
-      );
-
     }, containerRef);
 
     return () => ctx.revert();
