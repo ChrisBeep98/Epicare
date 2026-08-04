@@ -16,6 +16,12 @@
   - **Primera sección migrada a `src/lib/motion.ts`** (tokens EASE/DUR/REVEAL/TRIGGER).
   - Cards actualizadas a los 5 productos; nuevas keys i18n `cardEppigoTitle/Desc`, `cardSolutionsTitle/Desc` (ES+EN); headline swap en `sectionTitle/Desc`. Build verde.
 
+- **[04/08/2026] · Hardening de producción.**
+  - **Vídeo diferido:** los 10 `<video autoPlay>` del Bento desktop descargaban ~7.3 MB en la primera carga aunque estuvieran dentro de `hidden md:block` (invisible en móvil) o en la variante de tema oculta. Migrados a `<SmartVideo>` (`src/components/epicare/SmartVideo.tsx`), extraído del patrón que ya vivía dentro de `BentoGridMobile`. Clave: **un elemento en `display:none` nunca interseca**, así que la variante que no toca no descarga nada.
+  - **`CallsLogo` eliminado** de los dos archivos: 28 líneas de SVG byte-idénticas y sin ninguna referencia (GO CALLS salió de la landing).
+  - Imports `REVEAL` y `TRIGGER` sin usar, y `let mm` → `const mm`.
+  - `loading="lazy"` + `decoding="async"` en las `<img>` de las cards.
+
 ## 3. Decisiones de Diseño
 - **"Un pin debe ganarse su costo" (ley 3 del arco):** el cover-flow oculta contenido comparable, así que se le dio arco interno (morph de mood), navegación (snap + scrubber) y se le quitó el peaje en móvil, donde el pulgar manda. Ver teoría en `command-prompts/narrative-arc-protocol.md`.
 - **Orden de cards:** GO AMS primero por ser el core del hub (blueprint S07-IA); Solutions cierra devolviendo el orbe al azul de marca (el viaje "vuelve a casa").
@@ -27,4 +33,4 @@
 - 🟡 `CallsLogo` quedó sin uso en el componente (GO CALLS fuera) — limpiar en el próximo refactor.
 - Deuda menor: casts `(card as any)` heredados del patrón original.
 
-> **Última Actualización:** 22 Julio 2026
+> **Última Actualización:** 4 Agosto 2026

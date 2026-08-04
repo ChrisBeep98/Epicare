@@ -21,6 +21,12 @@
   - **Limpieza de Tokens (Zero Px):** Reemplazados los márgenes forzados y tokens inexistentes (`text-display-md`) por la escala estricta del DS (`--space-gutter-sm`, `text-display`, `text-meta`).
   - **Micro-interacciones:** Unificación de los estados Hover/Active en enlaces con subrayados aéreos (`underline-offset-4`) y azul corporativo.
 
+- **[04/08/2026] - Hardening de producción (i18n + limpieza):**
+  - **Copy migrado a i18n:** el CTA gigante, ambos botones, los links legales y el marquee estaban **hardcodeados en español** dentro de una página cuyo idioma canónico es inglés. Ahora leen del namespace `landingV2.footerCta` (7 claves, paridad en/es verificada).
+  - **Marquee:** su texto pasa por `tc("marquee")`. El loop `xPercent/yPercent: -50` sigue funcionando porque las 8 repeticiones son idénticas entre sí; la longitud del string es indiferente.
+  - **Tween muerto eliminado:** `gsap.fromTo(".editorial-text", ...)` animaba una clase que no existe en ningún JSX del repo (GSAP emitía "target not found").
+  - Verificado con `design-fingerprint`: cero cambios en clases y estilos inline; solo cambió el texto, que era el objetivo.
+
 ## 🎨 Decisiones de Diseño Críticas
 - **Grid Dinámico Asimétrico vs Flexbox:** Flexbox fallaba en dispositivos móviles al querer alterar drásticamente el flujo visual (CTA > Marquee > Enlaces). CSS Grid permite cambiar las posiciones usando la directiva `order-*` respetando una semántica de un solo árbol de DOM limpio.
 - **Curtain Reveal Flotante:** A diferencia de un `fixed` que rompe el layout en móviles y tapa el FAQ, usamos Parallax interno: la capa se mueve de `yPercent: -100` a `0` dentro de un contenedor `overflow-hidden`.
@@ -32,4 +38,4 @@
 - **Validación pendiente:** Verificar en dispositivos iOS Safari que el 100dvh y el clip de borderRadius funcionen sin *glitches* gráficos al hacer scroll pesado.
 
 ## 📅 Última Actualización
-31 de Julio de 2026
+4 de Agosto de 2026

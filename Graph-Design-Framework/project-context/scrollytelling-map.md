@@ -7,7 +7,7 @@
 **Motor global:** Lenis vía `SmoothScrollProvider` (`duration: 1.1`, easeOutExpo, sincronizado con ticker GSAP, respeta reduced-motion). **NUNCA re-inicializar Lenis en componentes.**
 
 **Orden de render** (`src/app/page.tsx`):
-`Loader → Hero → BrandsCarousel → DarkGradient → Metrics → BentoGrid → PeopleReveal → ProductLines → ForWho → WhyEpicare`
+`Loader → Hero → BrandsCarousel → Metrics → DarkGradient → BentoGrid → ProblemSection → PeopleReveal → ProductLines → ForWho → WhyEpicare`
 
 ---
 
@@ -18,13 +18,14 @@
 | 0 | **Loader** | Cortina de marca | Cascada logo con blur reveal (`power4.out`, stagger 0.045) | — | Desmontaje al terminar; dispara `epicareLoaderComplete` |
 | 1 | **Hero** | Apertura cinemática | **Pin theater 3 actos** (`end:+=250%`, scrub 1): video expande a fullscreen → titular revela → acto vacío para el solape. Mouse-tilt 3D ±3°. Controla el header (umbrales 0.35/0.95) | ✅ | — |
 | 2 | **BrandsCarousel** | Prueba social | Marquee infinito (45s desktop / 2 filas opuestas móvil) + parallax x (`-8vw`, scrub 2). Hover: `timeScale 0.2` | — | **SOLAPE `mt-[-100vh]`** — se desliza SOBRE el Hero pineado |
-| 3 | **DarkGradient** | Primer bloque de valor (4 features + video) | "Premium 3D Blur Reveal": `y:60, rotationX:15, blur(8px)`, stagger 0.08, `power3.out`. Carrusel horizontal nativo con dots | — | `pt-0` corte suave |
-| 4 | **Metrics** | Números (count-up 2.5s `power4.out`) | Bento blur reveal (`blur(20px)`, stagger 0.15) + offset escalonado CSS | — | `pt-0` |
+| 3 | **Metrics** | Números (count-up 2.5s `power4.out`) | Bento blur reveal (`blur(20px)`, stagger 0.15) + offset escalonado CSS | — | `pt-0` |
+| 4 | **DarkGradient** | Primer bloque de valor (4 features + video) | "Premium 3D Blur Reveal": `y:60, rotationX:15, blur(8px)`, stagger 0.08, `power3.out`. Carrusel horizontal nativo con dots | — | `pt-0` corte suave |
 | 5 | **BentoGrid** | Ecosistema (5 productos: AMS→CRM→Academy→Eppigo→Solutions) | **Cover-flow 3D pineado con arco interno** (scrub 1.2 + `snap` por tarjeta): orbe ambiental (blur 120px) que **morphea al acento del producto activo** (`DUR.slow`/`EASE.inOut`); física por card `rotateY ±50°, z -500`; progress bar clicable (seek vía Lenis). **Móvil: libre, sin pin** — stack con reveal estándar (`REVEAL.md`, `EASE.out`). Reduced-motion cubierto | ✅ desktop | Corte por pin |
-| 6 | **PeopleReveal** | Momento humano full-bleed | **Slat reveal** 9 lamas (CustomEase `proReveal`, stagger 0.07 from center, scrub 3) + parallax foto (scrub 2) + marquee scrubbed (`xPercent -12`, scrub 3) + **velocity skew** (±3.5°) | — | Flujo normal |
-| 7 | **ProductLines** | Índice editorial 3 líneas | Sticky CSS del marcador gigante + **light-up de lectura** (`opacity 0.18→1`, scrub true) + tracking de categoría activa | sticky | Flujo normal |
-| 8 | **ForWho** | Bifurcación audiencia (Agent azul / Agency naranja) | **Text-birth** (`yPercent 118, power4.out, stagger 0.12`) + **cortina clip-path** por panel + numerales parallax (`yPercent ±20`) + hover `grow-[1.9]` | — | `pt-0` · 🟡 sección NO aprobada aún |
-| 9 | **WhyEpicare** | Cierre manifiesto | Aparato tipográfico: text-birth con `rotateZ:2`, líneas 1px `scaleX 0→1` (`power4.inOut`), filas con hover editorial | — | ⚠️ light-only + serif + púrpura `#A40EBB` — **rompe el sistema** (en rediseño) |
+| 6 | **ProblemSection** | Contraste / dolor eliminado | Header editorial masivo + lista interactiva de dolores (01-06) con reveal cinemático `start: top 92%` | — | `pt-0` |
+| 7 | **PeopleReveal** | Momento humano full-bleed | **Slat reveal** 9 lamas (CustomEase `proReveal`, stagger 0.07 from center, scrub 3) + parallax foto (scrub 2) + marquee scrubbed (`xPercent -12`, scrub 3) + **velocity skew** (±3.5°) | — | Flujo normal |
+| 8 | **ProductLines** | Índice editorial 3 líneas | Sticky CSS del marcador gigante + **light-up de lectura** (`opacity 0.18→1`, scrub true) + tracking de categoría activa | sticky | Flujo normal |
+| 9 | **ForWho** | Bifurcación audiencia (Agent azul / Agency naranja) | **Text-birth** (`yPercent 118, power4.out, stagger 0.12`) + **cortina clip-path** por panel + numerales parallax (`yPercent ±20`) + hover `grow-[1.9]` | — | `pt-0` · 🟡 sección NO aprobada aún |
+| 10 | **WhyEpicare** | Cierre manifiesto | Aparato tipográfico: text-birth con `rotateZ:2`, líneas 1px `scaleX 0→1` (`power4.inOut`), filas con hover editorial | — | ⚠️ light-only + serif + púrpura `#A40EBB` — **rompe el sistema** (en rediseño) |
 
 ---
 

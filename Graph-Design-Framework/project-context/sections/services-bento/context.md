@@ -18,6 +18,8 @@
   - Sustitución de imágenes JPG por PNGs vectorizados con transparencia, flotando en el centro mediante `object-contain` sin restricciones de fondo.
   - Refinamiento estricto móvil: `14px` de padding forzado en toda la sección, separaciones y paddings interiores. Transformación a un layout "Full-Width" puro que toca los bordes del dispositivo.
 
+- **[04/08/2026] · Hardening de producción.** Los 8 `<video autoPlay>` (4 cards × light/dark) descargaban **11 MB** en la primera carga: ambas variantes de tema se montan a la vez con `block dark:hidden` / `hidden dark:block` y `autoPlay` fuerza la descarga incluso en `display:none`. Migrados a `<SmartVideo>`, que usa `preload="none"` + IntersectionObserver, así que la variante oculta no pide un solo byte. Las `<img>` de fallback llevan ya `loading="lazy"`.
+
 ## 3. Decisiones de Diseño
 - **Iluminación Bimodal Asimétrica:** En lugar de invertir los colores linealmente, la iluminación cambia su comportamiento físico: en Dark Mode actúa como un foco (radial) y en Light Mode como un "wash" (filtro ambiente de borde a borde) para evitar el "efecto donut" feo sobre el fondo blanco.
 - **Alto Contraste Invertido:** En Light Mode, las tarjetas retienen deliberadamente un `bg-[#0A0A0A]` para funcionar como monitores de grado industrial sobre la luz brillante.
@@ -28,4 +30,4 @@
 - **Deuda técnica:** el tipo de las cards usa casts `(card as any)` para `imgClassLight`/`imgClassDark`/`isVideoLight`. Limpieza recomendada: tipar la interfaz de card.
 - El video `Card 2_Support_light.mp4` tiene un **espacio** en el nombre (funciona vía encoding, pero conviene renombrarlo sin espacio).
 
-> **Última Actualización:** 17 Julio 2026
+> **Última Actualización:** 4 Agosto 2026
