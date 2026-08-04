@@ -8,6 +8,7 @@ import { asset } from "@/lib/asset";
 import { EASE, DUR } from "@/lib/motion";
 import GoHubLogo from "./GoHubLogo";
 import { AcademyIcon, EppigoIcon, SolutionsIcon } from "./EcosystemIcons";
+import SmartVideo from "./SmartVideo";
 
 // ── INTERNAL ARC: brand accent per card (title + 5 products). The ambient
 // orb morphs to the active card's color so the journey has a beginning,
@@ -86,47 +87,6 @@ const ArrowUR = ({ className = '' }: { className?: string }) => (
     <path d="M7 17 17 7M7 7h10v10" />
   </svg>
 );
-
-// ----------------------------------------------------------------------
-// HARDWARE SYMPHONY: SmartVideo Component
-// ----------------------------------------------------------------------
-function SmartVideo({ src, className, ...props }: { src: string, className?: string, [key: string]: any }) {
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            video.play().catch(() => {});
-          } else {
-            video.pause();
-          }
-        });
-      },
-      { threshold: 0.05 } // Se activa cuando asoma el 5%
-    );
-
-    observer.observe(video);
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <video
-      ref={videoRef}
-      src={src}
-      className={className}
-      muted
-      playsInline
-      loop
-      preload="metadata"
-      {...props}
-    />
-  );
-}
 
 
 // ----------------------------------------------------------------------
