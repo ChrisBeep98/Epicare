@@ -20,6 +20,7 @@ Protocolos **invocables** del framework Epicare. Son `.md` planos: cualquier cha
 | Prompt | Para qué |
 |:--|:--|
 | [`ONBOARDING-AI-protocol.md`](./ONBOARDING-AI-protocol.md) | **Primer documento a leer** al entrar al proyecto. |
+| [`codebase-architecture-protocol.md`](./codebase-architecture-protocol.md) | **OBLIGATORIO antes de tocar código en `design-system-app/`.** Mapa de dónde va cada cosa, restricciones del static export, la trampa `@utility` vs `@layer utilities`, disciplina de GSAP/cleanup, checklist de "limpio y pulido", verificación anti-regresión con `design-fingerprint` y la deuda técnica abierta. |
 | [`update-context-prompt.md`](./update-context-prompt.md) | Actualizar el log de contexto tras un feature. |
 | [`session-close-prompt.md`](./session-close-prompt.md) | Cerrar sesión (notas de sesión). |
 | [`backup-brain-prompt.md`](./backup-brain-prompt.md) | Respaldo del framework a `_archive/`. |
