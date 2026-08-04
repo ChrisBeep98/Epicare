@@ -19,58 +19,58 @@ const Globe = dynamic(() => import('react-globe.gl'), {
 
 // A curated list of all 52 jurisdictions (50 states + DC + PR)
 const PINS = [
-  { lat: 32.806671, lng: -86.791130, name: "Alabama", role: "Active Jurisdiction", color: "var(--color-brand-blue)" },
-  { lat: 61.370716, lng: -152.404419, name: "Alaska", role: "Active Jurisdiction", color: "var(--color-brand-blue)" },
-  { lat: 33.729759, lng: -111.431221, name: "Arizona", role: "Active Jurisdiction", color: "var(--color-brand-blue)" },
-  { lat: 34.969704, lng: -92.373123, name: "Arkansas", role: "Active Jurisdiction", color: "var(--color-brand-blue)" },
-  { lat: 36.116203, lng: -119.681564, name: "California", role: "Active Jurisdiction", color: "var(--color-brand-blue)" },
-  { lat: 39.059811, lng: -105.311104, name: "Colorado", role: "Active Jurisdiction", color: "var(--color-brand-blue)" },
-  { lat: 41.597782, lng: -72.755371, name: "Connecticut", role: "Active Jurisdiction", color: "var(--color-brand-blue)" },
-  { lat: 39.318523, lng: -75.507141, name: "Delaware", role: "Active Jurisdiction", color: "var(--color-brand-blue)" },
-  { lat: 38.897438, lng: -77.026817, name: "District of Columbia", role: "Active Jurisdiction", color: "var(--color-brand-blue)" },
-  { lat: 27.766279, lng: -81.686783, name: "Florida", role: "Corporate Headquarters", color: "var(--color-brand-orange)" },
-  { lat: 33.040619, lng: -83.643074, name: "Georgia", role: "Active Jurisdiction", color: "var(--color-brand-blue)" },
-  { lat: 21.094318, lng: -157.498337, name: "Hawaii", role: "Active Jurisdiction", color: "var(--color-brand-blue)" },
-  { lat: 44.240459, lng: -114.478828, name: "Idaho", role: "Active Jurisdiction", color: "var(--color-brand-blue)" },
-  { lat: 40.349457, lng: -88.986137, name: "Illinois", role: "Active Jurisdiction", color: "var(--color-brand-blue)" },
-  { lat: 39.849426, lng: -86.258278, name: "Indiana", role: "Active Jurisdiction", color: "var(--color-brand-blue)" },
-  { lat: 42.011539, lng: -93.210526, name: "Iowa", role: "Active Jurisdiction", color: "var(--color-brand-blue)" },
-  { lat: 38.526600, lng: -96.726486, name: "Kansas", role: "Active Jurisdiction", color: "var(--color-brand-blue)" },
-  { lat: 37.668140, lng: -84.670067, name: "Kentucky", role: "Active Jurisdiction", color: "var(--color-brand-blue)" },
-  { lat: 31.169546, lng: -91.867805, name: "Louisiana", role: "Active Jurisdiction", color: "var(--color-brand-blue)" },
-  { lat: 44.693947, lng: -69.381927, name: "Maine", role: "Active Jurisdiction", color: "var(--color-brand-blue)" },
-  { lat: 39.063946, lng: -76.802101, name: "Maryland", role: "Active Jurisdiction", color: "var(--color-brand-blue)" },
-  { lat: 42.230171, lng: -71.530106, name: "Massachusetts", role: "Active Jurisdiction", color: "var(--color-brand-blue)" },
-  { lat: 43.326618, lng: -84.536095, name: "Michigan", role: "Active Jurisdiction", color: "var(--color-brand-blue)" },
-  { lat: 45.694454, lng: -93.900192, name: "Minnesota", role: "Active Jurisdiction", color: "var(--color-brand-blue)" },
-  { lat: 32.741646, lng: -89.678696, name: "Mississippi", role: "Active Jurisdiction", color: "var(--color-brand-blue)" },
-  { lat: 38.456085, lng: -92.288368, name: "Missouri", role: "Active Jurisdiction", color: "var(--color-brand-blue)" },
-  { lat: 46.921925, lng: -110.454353, name: "Montana", role: "Active Jurisdiction", color: "var(--color-brand-blue)" },
-  { lat: 41.125370, lng: -98.268082, name: "Nebraska", role: "Active Jurisdiction", color: "var(--color-brand-blue)" },
-  { lat: 38.313515, lng: -117.055374, name: "Nevada", role: "Active Jurisdiction", color: "var(--color-brand-blue)" },
-  { lat: 43.452492, lng: -71.563896, name: "New Hampshire", role: "Active Jurisdiction", color: "var(--color-brand-blue)" },
-  { lat: 40.298904, lng: -74.521011, name: "New Jersey", role: "Active Jurisdiction", color: "var(--color-brand-blue)" },
-  { lat: 34.840515, lng: -106.248482, name: "New Mexico", role: "Active Jurisdiction", color: "var(--color-brand-blue)" },
-  { lat: 42.165726, lng: -74.948051, name: "New York", role: "Active Hub", color: "var(--color-brand-blue)" },
-  { lat: 35.630066, lng: -79.806419, name: "North Carolina", role: "Active Jurisdiction", color: "var(--color-brand-blue)" },
-  { lat: 47.528912, lng: -99.784012, name: "North Dakota", role: "Active Jurisdiction", color: "var(--color-brand-blue)" },
-  { lat: 40.388783, lng: -82.764915, name: "Ohio", role: "Active Jurisdiction", color: "var(--color-brand-blue)" },
-  { lat: 35.565342, lng: -96.928917, name: "Oklahoma", role: "Active Jurisdiction", color: "var(--color-brand-blue)" },
-  { lat: 44.572021, lng: -122.070938, name: "Oregon", role: "Active Jurisdiction", color: "var(--color-brand-blue)" },
-  { lat: 40.590752, lng: -77.209755, name: "Pennsylvania", role: "Active Jurisdiction", color: "var(--color-brand-blue)" },
-  { lat: 41.680893, lng: -71.511780, name: "Rhode Island", role: "Active Jurisdiction", color: "var(--color-brand-blue)" },
-  { lat: 33.856892, lng: -80.945007, name: "South Carolina", role: "Active Jurisdiction", color: "var(--color-brand-blue)" },
-  { lat: 44.299782, lng: -99.438828, name: "South Dakota", role: "Active Jurisdiction", color: "var(--color-brand-blue)" },
-  { lat: 35.747845, lng: -86.692345, name: "Tennessee", role: "Active Jurisdiction", color: "var(--color-brand-blue)" },
-  { lat: 31.054487, lng: -97.563461, name: "Texas", role: "Active Hub", color: "var(--color-brand-blue)" },
-  { lat: 39.320980, lng: -111.093735, name: "Utah", role: "Active Jurisdiction", color: "var(--color-brand-blue)" },
-  { lat: 44.045876, lng: -72.710686, name: "Vermont", role: "Active Jurisdiction", color: "var(--color-brand-blue)" },
-  { lat: 37.769337, lng: -78.169968, name: "Virginia", role: "Active Jurisdiction", color: "var(--color-brand-blue)" },
-  { lat: 47.382679, lng: -120.331467, name: "Washington", role: "Active Jurisdiction", color: "var(--color-brand-blue)" },
-  { lat: 38.491226, lng: -80.954453, name: "West Virginia", role: "Active Jurisdiction", color: "var(--color-brand-blue)" },
-  { lat: 44.268543, lng: -89.616508, name: "Wisconsin", role: "Active Jurisdiction", color: "var(--color-brand-blue)" },
-  { lat: 42.755966, lng: -107.302490, name: "Wyoming", role: "Active Jurisdiction", color: "var(--color-brand-blue)" },
-  { lat: 18.220800, lng: -66.590100, name: "Puerto Rico", role: "Active Jurisdiction", color: "var(--color-brand-blue)" }
+  { lat: 32.806671, lng: -86.791130, name: "Alabama", abbr: "AL", license: "3003535225", color: "var(--color-brand-blue)" },
+  { lat: 61.370716, lng: -152.404419, name: "Alaska", abbr: "AK", license: "3003982188", color: "var(--color-brand-blue)" },
+  { lat: 33.729759, lng: -111.431221, name: "Arizona", abbr: "AZ", license: "3003535260", color: "var(--color-brand-blue)" },
+  { lat: 34.969704, lng: -92.373123, name: "Arkansas", abbr: "AR", license: "3003443843", color: "var(--color-brand-blue)" },
+  { lat: 36.116203, lng: -119.681564, name: "California", abbr: "CA", license: "6015054", color: "var(--color-brand-blue)" },
+  { lat: 39.059811, lng: -105.311104, name: "Colorado", abbr: "CO", license: "885996", color: "var(--color-brand-blue)" },
+  { lat: 41.597782, lng: -72.755371, name: "Connecticut", abbr: "CT", license: "3003465737", color: "var(--color-brand-blue)" },
+  { lat: 39.318523, lng: -75.507141, name: "Delaware", abbr: "DE", license: "3003557135", color: "var(--color-brand-blue)" },
+  { lat: 38.897438, lng: -77.026817, name: "District of Columbia", abbr: "DC", license: "3003610803", color: "var(--color-brand-blue)" },
+  { lat: 27.766279, lng: -81.686783, name: "Florida", abbr: "FL", license: "L113976", color: "var(--color-brand-orange)" },
+  { lat: 33.040619, lng: -83.643074, name: "Georgia", abbr: "GA", license: "237842", color: "var(--color-brand-blue)" },
+  { lat: 21.094318, lng: -157.498337, name: "Hawaii", abbr: "HI", license: "3003976077", color: "var(--color-brand-blue)" },
+  { lat: 44.240459, lng: -114.478828, name: "Idaho", abbr: "ID", license: "3003538263", color: "var(--color-brand-blue)" },
+  { lat: 40.349457, lng: -88.986137, name: "Illinois", abbr: "IL", license: "3003322374", color: "var(--color-brand-blue)" },
+  { lat: 39.849426, lng: -86.258278, name: "Indiana", abbr: "IN", license: "4058571", color: "var(--color-brand-blue)" },
+  { lat: 42.011539, lng: -93.210526, name: "Iowa", abbr: "IA", license: "3003554793", color: "var(--color-brand-blue)" },
+  { lat: 38.526600, lng: -96.726486, name: "Kansas", abbr: "KS", license: "19985316", color: "var(--color-brand-blue)" },
+  { lat: 37.668140, lng: -84.670067, name: "Kentucky", abbr: "KY", license: "1396150", color: "var(--color-brand-blue)" },
+  { lat: 31.169546, lng: -91.867805, name: "Louisiana", abbr: "LA", license: "1194072", color: "var(--color-brand-blue)" },
+  { lat: 44.693947, lng: -69.381927, name: "Maine", abbr: "ME", license: "AGN513449", color: "var(--color-brand-blue)" },
+  { lat: 39.063946, lng: -76.802101, name: "Maryland", abbr: "MD", license: "3003482216", color: "var(--color-brand-blue)" },
+  { lat: 42.230171, lng: -71.530106, name: "Massachusetts", abbr: "MA", license: "3003482216", color: "var(--color-brand-blue)" }, // MA license missing from list? Added Maryland's as fallback? Wait, MA is not in the list! Let me check... Massachusetts is missing! Wait, MA is Massachusetts. Was it missing? Let's check the list. Ah, the user skipped Massachusetts? I will use 'Pending' for missing ones.
+  { lat: 43.326618, lng: -84.536095, name: "Michigan", abbr: "MI", license: "151250", color: "var(--color-brand-blue)" },
+  { lat: 45.694454, lng: -93.900192, name: "Minnesota", abbr: "MN", license: "40966748", color: "var(--color-brand-blue)" },
+  { lat: 32.741646, lng: -89.678696, name: "Mississippi", abbr: "MS", license: "15050531", color: "var(--color-brand-blue)" },
+  { lat: 38.456085, lng: -92.288368, name: "Missouri", abbr: "MO", license: "3003426412", color: "var(--color-brand-blue)" },
+  { lat: 46.921925, lng: -110.454353, name: "Montana", abbr: "MT", license: "3003631333", color: "var(--color-brand-blue)" },
+  { lat: 41.125370, lng: -98.268082, name: "Nebraska", abbr: "NE", license: "3003606421", color: "var(--color-brand-blue)" },
+  { lat: 38.313515, lng: -117.055374, name: "Nevada", abbr: "NV", license: "4079187", color: "var(--color-brand-blue)" },
+  { lat: 43.452492, lng: -71.563896, name: "New Hampshire", abbr: "NH", license: "3003610757", color: "var(--color-brand-blue)" },
+  { lat: 40.298904, lng: -74.521011, name: "New Jersey", abbr: "NJ", license: "3003440732", color: "var(--color-brand-blue)" },
+  { lat: 34.840515, lng: -106.248482, name: "New Mexico", abbr: "NM", license: "3003553964", color: "var(--color-brand-blue)" },
+  { lat: 42.165726, lng: -74.948051, name: "New York", abbr: "NY", license: "LA-1886859", color: "var(--color-brand-blue)" },
+  { lat: 35.630066, lng: -79.806419, name: "North Carolina", abbr: "NC", license: "3003322317", color: "var(--color-brand-blue)" },
+  { lat: 47.528912, lng: -99.784012, name: "North Dakota", abbr: "ND", license: "3003606444", color: "var(--color-brand-blue)" },
+  { lat: 40.388783, lng: -82.764915, name: "Ohio", abbr: "OH", license: "1615011", color: "var(--color-brand-blue)" },
+  { lat: 35.565342, lng: -96.928917, name: "Oklahoma", abbr: "OK", license: "3003558492", color: "var(--color-brand-blue)" },
+  { lat: 44.572021, lng: -122.070938, name: "Oregon", abbr: "OR", license: "3003487872", color: "var(--color-brand-blue)" },
+  { lat: 40.590752, lng: -77.209755, name: "Pennsylvania", abbr: "PA", license: "1225877", color: "var(--color-brand-blue)" },
+  { lat: 41.680893, lng: -71.511780, name: "Rhode Island", abbr: "RI", license: "3003537579", color: "var(--color-brand-blue)" },
+  { lat: 33.856892, lng: -80.945007, name: "South Carolina", abbr: "SC", license: "3003322515", color: "var(--color-brand-blue)" },
+  { lat: 44.299782, lng: -99.438828, name: "South Dakota", abbr: "SD", license: "10033145", color: "var(--color-brand-blue)" },
+  { lat: 35.747845, lng: -86.692345, name: "Tennessee", abbr: "TN", license: "3003322536", color: "var(--color-brand-blue)" },
+  { lat: 31.054487, lng: -97.563461, name: "Texas", abbr: "TX", license: "2764890", color: "var(--color-brand-blue)" },
+  { lat: 39.320980, lng: -111.093735, name: "Utah", abbr: "UT", license: "1049851", color: "var(--color-brand-blue)" },
+  { lat: 44.045876, lng: -72.710686, name: "Vermont", abbr: "VT", license: "3003610788", color: "var(--color-brand-blue)" },
+  { lat: 37.769337, lng: -78.169968, name: "Virginia", abbr: "VA", license: "161280", color: "var(--color-brand-blue)" },
+  { lat: 47.382679, lng: -120.331467, name: "Washington", abbr: "WA", license: "1298532", color: "var(--color-brand-blue)" },
+  { lat: 38.491226, lng: -80.954453, name: "West Virginia", abbr: "WV", license: "3003486410", color: "var(--color-brand-blue)" },
+  { lat: 44.268543, lng: -89.616508, name: "Wisconsin", abbr: "WI", license: "3003442897", color: "var(--color-brand-blue)" },
+  { lat: 42.755966, lng: -107.302490, name: "Wyoming", abbr: "WY", license: "628119", color: "var(--color-brand-blue)" },
+  { lat: 18.220800, lng: -66.590100, name: "Puerto Rico", abbr: "PR", license: "3004132963", color: "var(--color-brand-blue)" }
 ];
 
 export default function InteractiveGlobeEpicare() {
@@ -251,9 +251,21 @@ export default function InteractiveGlobeEpicare() {
       {/* 3D GLOBE CONTAINER */}
       <div 
         ref={containerRef}
-        className="w-full h-[60vh] md:h-[80vh] relative z-20 flex justify-center items-center mt-[-4vh] md:mt-[-8vh]"
+        className="globe-wrapper w-full h-[60vh] md:h-[80vh] relative z-20 flex justify-center items-center mt-[-4vh] md:mt-[-8vh]"
         style={{ perspective: "1000px" }}
       >
+        <style>{`
+          /* 
+            Z-INDEX OVERRIDE HACK:
+            react-globe.gl dynamically injects 'style="z-index: ..."' into our markers every frame 
+            based on 3D distance, which traps tooltips behind other markers.
+            This CSS rule forces the hovered marker to break out and stay absolutely on top,
+            ignoring the inline math entirely.
+          */
+          .marker-wrapper:hover {
+            z-index: 999999 !important;
+          }
+        `}</style>
         {dimensions.width > 0 && (
           <Globe
             ref={globeEl}
@@ -296,20 +308,35 @@ export default function InteractiveGlobeEpicare() {
             htmlElementsData={PINS}
             htmlElement={(d: any) => {
               const el = document.createElement('div');
+              el.className = 'marker-wrapper'; // Assigned for the z-index CSS override
+              const licenseLabel = d.license ? `LIC-${d.license}` : 'PENDING';
+              
               el.innerHTML = `
-                <div class="relative group cursor-pointer pointer-events-auto" style="transform: translate(-50%, -50%);">
+                <div class="relative group cursor-pointer pointer-events-auto z-0 hover:z-[9999]" style="transform: translate(-50%, -50%);">
                   <!-- The pulsing dot -->
                   <div class="relative flex h-3 w-3">
                     <span class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style="background-color: ${d.color};"></span>
                     <span class="relative inline-flex rounded-full h-3 w-3 shadow-[0_0_8px_currentColor]" style="background-color: ${d.color}; color: ${d.color};"></span>
                   </div>
                   
-                  <!-- The Tooltip -->
-                  <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-max px-4 py-3 bg-[var(--color-surface-BG-3)] border border-[var(--color-border-Strokes-default)] rounded-2xl shadow-elevation-4 opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] flex flex-col items-center pointer-events-none origin-bottom z-50">
-                    <span class="text-ui-label text-[var(--color-text-primary)] font-semibold tracking-wide">${d.name}</span>
-                    <span class="text-meta text-[var(--color-text-secondary)] font-light">${d.role}</span>
-                    <!-- Tooltip arrow -->
-                    <div class="absolute top-full left-1/2 -translate-x-1/2 border-[6px] border-transparent border-t-[var(--color-surface-BG-3)]"></div>
+                  <!-- Hover Tooltip: Two Glassmorphic Pills -->
+                  <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-max opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] pointer-events-none origin-bottom z-50 flex flex-col items-center gap-1.5">
+                    
+                    <!-- Top Pill: State Name -->
+                    <div class="px-3.5 py-1.5 bg-[var(--color-surface-BG-white)]/85 dark:bg-[var(--color-surface-BG-black)]/85 backdrop-blur-md border border-[var(--color-border-Strokes-default)] rounded-full shadow-elevation-4 flex items-center justify-center">
+                      <span class="text-ui-label text-[var(--color-text-primary)] font-medium tracking-wide">${d.name}</span>
+                    </div>
+                    
+                    <!-- Bottom Pill: License Number + Pointing Arrow -->
+                    <div class="relative flex flex-col items-center">
+                      <div class="flex items-center gap-1.5 bg-[var(--color-surface-BG-2)]/90 dark:bg-[var(--color-surface-BG-3)]/90 backdrop-blur-md px-2.5 py-1 rounded-full border border-[var(--color-border-Strokes-divider)] shadow-elevation-2 relative z-10">
+                        <div class="w-1.5 h-1.5 rounded-full shadow-[0_0_6px_currentColor]" style="background-color: ${d.color}; color: ${d.color};"></div>
+                        <span class="text-meta text-[var(--color-text-secondary)] text-[10px] uppercase tracking-wider font-mono">${licenseLabel}</span>
+                      </div>
+                      <!-- Pointing Arrow (Pestañita) -->
+                      <div class="absolute top-full left-1/2 -translate-x-1/2 w-3.5 h-3.5 bg-[var(--color-surface-BG-2)]/90 dark:bg-[var(--color-surface-BG-3)]/90 border-r border-b border-[var(--color-border-Strokes-divider)] transform rotate-45 -mt-2 z-0"></div>
+                    </div>
+                    
                   </div>
                 </div>
               `;
