@@ -83,7 +83,6 @@ export default function InteractiveGlobeEpicare() {
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const [countriesDataGlobal, setCountriesDataGlobal] = useState<any[]>([]);
   const [usStatesData, setUsStatesData] = useState<any[]>([]);
-  const [isInView, setIsInView] = useState(false);
 
   // 1. Fetch GeoJSON Data (World + US States separate)
   useEffect(() => {
@@ -113,7 +112,6 @@ export default function InteractiveGlobeEpicare() {
     if (!sectionRef.current) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
-        setIsInView(entry.isIntersecting);
         if (globeEl.current) {
           const controls = globeEl.current.controls();
           if (entry.isIntersecting) {
