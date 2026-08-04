@@ -125,6 +125,8 @@ export default function PeopleRevealEpicare() {
       <img
         src={PLACEHOLDER_IMG}
         alt={t('imageAlt')}
+        loading="lazy"
+        decoding="async"
         className="pr-img absolute inset-0 w-full h-full object-cover scale-[1.18] will-change-transform"
       />
 

@@ -50,8 +50,10 @@ const FlipCard = ({ card, t }: { card: any, t: any }) => {
               />
             ) : (
               <img 
-                src={asset((card.imgLight || card.img).startsWith('/') ? (card.imgLight || card.img) : `/Files/Epicare_Landing/Features/${card.imgLight || card.img}`)} 
-                alt={card.title} 
+                src={asset((card.imgLight || card.img).startsWith('/') ? (card.imgLight || card.img) : `/Files/Epicare_Landing/Features/${card.imgLight || card.img}`)}
+                alt={card.title}
+                loading="lazy"
+                decoding="async"
                 className={`absolute inset-0 w-full h-full opacity-90 block dark:hidden ${card.imgClass || "object-contain p-6"}`} 
               />
             )}
@@ -66,8 +68,10 @@ const FlipCard = ({ card, t }: { card: any, t: any }) => {
               />
             ) : (
               <img 
-                src={asset(card.img.startsWith('/') ? card.img : `/Files/Epicare_Landing/Features/${card.img}`)} 
-                alt={card.title} 
+                src={asset(card.img.startsWith('/') ? card.img : `/Files/Epicare_Landing/Features/${card.img}`)}
+                alt={card.title}
+                loading="lazy"
+                decoding="async"
                 className={`absolute inset-0 w-full h-full opacity-90 hidden dark:block ${card.imgClassDark || card.imgClass || "object-contain p-6"}`} 
               />
             )}

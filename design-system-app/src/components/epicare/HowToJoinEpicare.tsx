@@ -58,7 +58,10 @@ function StatusCarousel({ images, id, accentClass }: { images: string[], id: str
         <img
           key={img}
           src={img}
-          alt={`Step visual ${i}`}
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+          decoding="async"
           className={`c-img-${id} absolute inset-0 w-full h-full object-cover object-[75%_center] transition-opacity duration-1000 ease-in-out ${
             i === activeIndex ? "opacity-100 z-10" : "opacity-0 z-0"
           }`}
@@ -208,7 +211,7 @@ export default function HowToJoinEpicare() {
             return (
               <div key={idx} className="relative min-w-[85vw] h-[65vh] snap-center flex flex-col justify-end rounded-3xl overflow-hidden shadow-elevation-3 border border-white/10 dark:border-white/5">
                 {/* Image Background */}
-                <img src={imgSrc} alt={step.title} className="absolute inset-0 w-full h-full object-cover object-[75%_center]" />
+                <img src={imgSrc} alt="" aria-hidden="true" loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover object-[75%_center]" />
                 
                 {/* Vignette / Gradient Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/60 to-transparent"></div>

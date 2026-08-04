@@ -71,9 +71,11 @@ const MobileAccordion = ({ aud, accent, HERO, isOpen, onClick }: any) => {
                style={{ width: '100vw', marginLeft: 'calc(var(--space-gutter-sm) * -1)' }}
              >
                 <div className="fw-mobile-cover absolute inset-0 w-full h-full will-change-transform">
-                   <img 
-                     src={HERO[aud.key]} 
-                     alt={aud.heroAlt} 
+                   <img
+                     src={HERO[aud.key]}
+                     alt={aud.heroAlt}
+                     loading="lazy"
+                     decoding="async"
                      className={`absolute inset-0 w-full h-full object-cover origin-center transition-[transform,opacity] duration-[1s] ease-[cubic-bezier(0.22,1,0.36,1)] ${isOpen ? 'scale-100 opacity-100' : 'scale-[1.15] opacity-0'}`} 
                    />
                 </div>

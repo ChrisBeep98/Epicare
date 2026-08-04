@@ -535,14 +535,14 @@ export default function BentoGridDesktop() {
                         {hasLightVideo ? (
                           <video autoPlay loop muted playsInline src={(card as any).videoLight} className={`absolute inset-0 w-full h-full ${(card as any).videoLightContain ? 'object-contain p-16' : 'object-cover'} object-center transition-transform duration-[800ms] ease-out group-hover:scale-[1.05] ${hasDarkVideo || hasImage ? 'dark:hidden' : ''}`} />
                         ) : hasImage ? (
-                          <img src={card.image} alt={card.title} className={`absolute inset-0 w-full h-full object-cover object-center transition-transform duration-[800ms] ease-out group-hover:scale-[1.05] ${hasDarkVideo ? 'dark:hidden' : ''}`} />
+                          <img src={card.image} alt={card.title} loading="lazy" decoding="async" className={`absolute inset-0 w-full h-full object-cover object-center transition-transform duration-[800ms] ease-out group-hover:scale-[1.05] ${hasDarkVideo ? 'dark:hidden' : ''}`} />
                         ) : null}
 
                         {/* DARK MODE MEDIA */}
                         {hasDarkVideo ? (
                           <video autoPlay loop muted playsInline src={(card as any).videoDark} className={`absolute inset-0 w-full h-full object-cover object-center transition-transform duration-[800ms] ease-out group-hover:scale-[1.05] ${(card as any).videoDarkClassName || ''} ${hasLightVideo || hasImage ? 'hidden dark:block' : ''}`} />
                         ) : (hasImage && hasLightVideo) ? (
-                          <img src={card.image} alt={card.title} className="absolute inset-0 w-full h-full object-cover object-center hidden dark:block transition-transform duration-[800ms] ease-out group-hover:scale-[1.05]" />
+                          <img src={card.image} alt={card.title} loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover object-center hidden dark:block transition-transform duration-[800ms] ease-out group-hover:scale-[1.05]" />
                         ) : null}
                       </>
                     );
