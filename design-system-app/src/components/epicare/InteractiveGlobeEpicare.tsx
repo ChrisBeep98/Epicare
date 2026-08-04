@@ -134,29 +134,71 @@ export default function InteractiveGlobeEpicare() {
   useEffect(() => {
     // Run once data is ready to set initial view
     if (globeEl.current && countriesDataGlobal.length > 0 && dimensions.width > 0) {
-      globeEl.current.pointOfView({ lat: 39.8283, lng: -98.5795, altitude: 1.85 }, 0);
+      // Altitude reducida (de 1.85 a 1.45) para ampliar el planeta significativamente
+      globeEl.current.pointOfView({ lat: 39.8283, lng: -98.5795, altitude: 1.45 }, 0);
     }
 
-    // BULLETPROOF ZOOM PREVENTION:
-    // react-globe.gl can silently reset OrbitControls during internal updates.
-    // Instead of fighting events and breaking Lenis smooth scroll, we use a lightweight 
-    // rAF loop to continuously enforce enableZoom = false.
+    // BULLETPROOF ZOOM & TOUCH PREVENTION:
     let frameId: number;
     const enforceControls = () => {
       if (globeEl.current) {
         const controls = globeEl.current.controls();
         if (controls) {
-          // Only write if necessary to avoid setter overhead
           if (controls.enableZoom !== false) controls.enableZoom = false;
           if (controls.autoRotate !== true) controls.autoRotate = true;
           if (controls.autoRotateSpeed !== 0.5) controls.autoRotateSpeed = 0.5;
+          
+          // Lock vertical rotation (pitch) so the user can only spin it horizontally
+          // The latitude 39.8 (USA) corresponds to a polar angle of roughly 50 degrees (0.87 rads)
+          // We lock it so it doesn't flip up and down.
+          const targetPolar = Math.PI / 2 - (39.8283 * Math.PI / 180);
+          controls.minPolarAngle = targetPolar;
+          controls.maxPolarAngle = targetPolar;
         }
       }
       frameId = requestAnimationFrame(enforceControls);
     };
     enforceControls();
 
-    return () => cancelAnimationFrame(frameId);
+    // SMART TOUCH GESTURE INTERCEPTOR (For Mobile)
+    // If the user swipes Y (up/down), we block OrbitControls so the page scrolls natively.
+    // If the user swipes X (left/right), we let OrbitControls spin the planet.
+    const wrapper = containerRef.current;
+    if (!wrapper) return () => cancelAnimationFrame(frameId);
+
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchDirection = '';
+
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+      touchDirection = '';
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (touchDirection === '') {
+        const dx = Math.abs(e.touches[0].clientX - touchStartX);
+        const dy = Math.abs(e.touches[0].clientY - touchStartY);
+        if (dx > 5 || dy > 5) {
+          touchDirection = dy > dx ? 'y' : 'x';
+        }
+      }
+
+      if (touchDirection === 'y') {
+        // Vertical swipe: block OrbitControls so the browser scrolls the page natively
+        e.stopPropagation();
+      }
+    };
+
+    wrapper.addEventListener('touchstart', handleTouchStart, { capture: true, passive: true });
+    wrapper.addEventListener('touchmove', handleTouchMove, { capture: true, passive: true });
+
+    return () => {
+      cancelAnimationFrame(frameId);
+      wrapper.removeEventListener('touchstart', handleTouchStart, { capture: true });
+      wrapper.removeEventListener('touchmove', handleTouchMove, { capture: true });
+    };
   }, [countriesDataGlobal.length, dimensions.width]); 
 
   // 5. HARDWARE SYMPHONY: GSAP Accessibility & MatchMedia
@@ -278,6 +320,15 @@ export default function InteractiveGlobeEpicare() {
           */
           .marker-wrapper:hover {
             z-index: 999999 !important;
+          }
+
+          /* 
+            MOBILE SCROLL FIX:
+            OrbitControls injects 'touch-action: none' directly into the canvas.
+            We override it here so the browser handles vertical scrolling natively.
+          */
+          .globe-wrapper canvas {
+            touch-action: pan-y !important;
           }
         `}</style>
         {dimensions.width > 0 && (
