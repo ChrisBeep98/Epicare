@@ -130,19 +130,33 @@ export default function InteractiveGlobeEpicare() {
     return () => observer.disconnect();
   }, []);
 
-  // 4. Globe Setup & Zoom Prevention
+  // 4. Globe Setup & Permanent Zoom Prevention
   useEffect(() => {
-    // Run once data is ready and the Globe is physically mounted
+    // Run once data is ready to set initial view
     if (globeEl.current && countriesDataGlobal.length > 0 && dimensions.width > 0) {
       globeEl.current.pointOfView({ lat: 39.8283, lng: -98.5795, altitude: 1.85 }, 0);
-      
-      const controls = globeEl.current.controls();
-      if (controls) {
-        controls.autoRotate = true;
-        controls.autoRotateSpeed = 0.5;
-        controls.enableZoom = false; // Trust the API now that we don't have race conditions
-      }
     }
+
+    // BULLETPROOF ZOOM PREVENTION:
+    // react-globe.gl can silently reset OrbitControls during internal updates.
+    // Instead of fighting events and breaking Lenis smooth scroll, we use a lightweight 
+    // rAF loop to continuously enforce enableZoom = false.
+    let frameId: number;
+    const enforceControls = () => {
+      if (globeEl.current) {
+        const controls = globeEl.current.controls();
+        if (controls) {
+          // Only write if necessary to avoid setter overhead
+          if (controls.enableZoom !== false) controls.enableZoom = false;
+          if (controls.autoRotate !== true) controls.autoRotate = true;
+          if (controls.autoRotateSpeed !== 0.5) controls.autoRotateSpeed = 0.5;
+        }
+      }
+      frameId = requestAnimationFrame(enforceControls);
+    };
+    enforceControls();
+
+    return () => cancelAnimationFrame(frameId);
   }, [countriesDataGlobal.length, dimensions.width]); 
 
   // 5. HARDWARE SYMPHONY: GSAP Accessibility & MatchMedia
