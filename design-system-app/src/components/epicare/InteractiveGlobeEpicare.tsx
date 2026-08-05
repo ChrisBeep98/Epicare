@@ -134,7 +134,8 @@ export default function InteractiveGlobeEpicare() {
   useEffect(() => {
     // Run once data is ready to set initial view
     if (globeEl.current && countriesDataGlobal.length > 0 && dimensions.width > 0) {
-      // Altitude reducida (de 1.85 a 1.45) para ampliar el planeta significativamente
+      // Usamos una altitud base estable. El tamaño final es controlado por GSAP (DOM Scale)
+      // para evitar los reajustes bruscos (clamping) del motor de WebGL.
       globeEl.current.pointOfView({ lat: 39.8283, lng: -98.5795, altitude: 1.45 }, 0);
     }
 
@@ -240,9 +241,9 @@ export default function InteractiveGlobeEpicare() {
         if (containerRef.current) {
           gsap.fromTo(
             containerRef.current,
-            { scale: 0.9, opacity: 0 },
+            { scale: 0.95, opacity: 0 },
             {
-              scale: 1,
+              scale: 1.30, // Visual scale-up to make planet larger
               opacity: 1,
               duration: 1.2,
               ease: "power3.out",
@@ -255,15 +256,16 @@ export default function InteractiveGlobeEpicare() {
         }
       });
       
-      // Mobile: Fade only (Saves GPU calculation on small devices)
+      // Mobile: Scale + Fade
       mm.add("(max-width: 767px)", () => {
         if (containerRef.current) {
           gsap.fromTo(
             containerRef.current,
-            { opacity: 0 },
+            { scale: 1.1, opacity: 0 },
             {
+              scale: 1.20, // Dramatic visual scale-up for mobile
               opacity: 1,
-              duration: 0.8,
+              duration: 1.2,
               ease: "power2.out",
               scrollTrigger: {
                 trigger: sectionRef.current,
