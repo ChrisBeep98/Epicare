@@ -281,12 +281,14 @@ export default function InteractiveGlobeEpicare() {
     return () => ctx.revert();
   }, []);
 
-  // Helper to determine if a polygon is active (US State or PR)
+  // Helper to determine if a polygon is active (USA or PR)
   const isPolygonActive = (d: any) => {
     const props = d.properties || {};
-    const isUSState = !!props.name && props.density !== undefined;
-    const isPR = props.ISO_A2 === 'PR' || props.iso_a2 === 'PR' || props.NAME === 'Puerto Rico';
-    return isUSState || isPR;
+    // Verificamos si es USA o PR (puede venir en diferentes formatos dependiendo del GeoJSON)
+    const isUSA = props.ISO_A3 === 'USA' || props.iso_a3 === 'USA' || props.ISO_A2 === 'US' || props.iso_a2 === 'US' || props.ADMIN === 'United States of America' || props.NAME === 'United States';
+    const isPR = props.ISO_A3 === 'PRI' || props.iso_a3 === 'PRI' || props.ISO_A2 === 'PR' || props.iso_a2 === 'PR' || props.NAME === 'Puerto Rico';
+    
+    return isUSA || isPR;
   };
 
   return (
@@ -340,22 +342,27 @@ export default function InteractiveGlobeEpicare() {
             height={dimensions.height}
             backgroundColor="rgba(0,0,0,0)"
             
+            // --- OCEAN CUSTOMIZATION (Safe Method) ---
+            // Usamos un SVG Data URI de 1x1 para pintar la esfera base sin tener que importar Three.js y crashear el SSR.
+            // Es el azul de la marca (#35BBFD) al 25% de opacidad.
+            globeImageUrl="data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect width='100' height='100' fill='%2335BBFD' fill-opacity='0.25'/%3E%3C/svg%3E"
+            
             // 1. Earth Solid Polygons (Flawless global geometry, USA as a single block)
             polygonsData={countriesDataGlobal}
             polygonAltitude={(d: any) => isPolygonActive(d) ? 0.012 : 0.01} // Elevate active regions
             polygonCapColor={(d: any) => {
               const isDark = document.documentElement.classList.contains('dark');
-              if (isPolygonActive(d)) {
-                return isDark ? '#1A1C1E' : '#E8ECEF'; 
-              }
+              // El usuario prefirió que todos los países (activos e inactivos) compartan el mismo color de fondo
               return isDark ? '#0D0E0F' : '#F4F6F8';
             }}
             polygonSideColor={() => 'rgba(0,0,0,0)'}
             polygonStrokeColor={(d: any) => {
               const isDark = document.documentElement.classList.contains('dark');
               if (isPolygonActive(d)) {
-                return isDark ? '#4A5359' : '#A1ABB3'; 
+                // 25% opacity ('40' in hex) para suavizar los bordes de los países activos
+                return isDark ? '#4A535940' : '#A1ABB340'; 
               }
+              // 100% opacity for inactive countries strokes
               return isDark ? '#171A1C' : '#E0E3E6';
             }}
             
