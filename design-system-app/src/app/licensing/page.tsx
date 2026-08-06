@@ -1,6 +1,7 @@
 import LoaderEpicare from "@/components/epicare/LoaderEpicare";
 import LicensingHeroEpicare from "@/components/epicare/LicensingHeroEpicare";
 import InteractiveGlobeEpicare from "@/components/epicare/InteractiveGlobeEpicare";
+import LicensingGridEpicare from "@/components/epicare/LicensingGridEpicare";
 import FooterEpicare from "@/components/epicare/FooterEpicare";
 import { SITE_URL } from "../layout";
 
@@ -30,10 +31,10 @@ export default function LicensingPage() {
       <div className="w-full order-2"><LicensingHeroEpicare /></div>
       
       {/* ── S02 · Interactive Globe (Map) ── */}
-      <div className="w-full order-3 relative z-10"><InteractiveGlobeEpicare /></div>
+      <div id="interactive-globe" className="w-full order-3 relative z-10"><InteractiveGlobeEpicare /></div>
       
-      {/* ── Placeholder for upcoming sections (Corporate Info, Licensing Grid) ── */}
-      <div id="licensing-grid" className="w-full order-4" />
+      {/* ── S03 · Licensing Grid ── */}
+      <div id="licensing-grid" className="w-full order-4 relative z-10"><LicensingGridEpicare /></div>
       
       {/* ── S04 · Footer ── */}
       <div className="w-full order-[15]"><FooterEpicare /></div>
