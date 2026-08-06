@@ -318,8 +318,8 @@ export default function BentoGridDesktop() {
       title: t('card4Title'),
       desc: t('card4Desc'),
       image: asset("/Files/Features/card_5_image.jpg"),
-      videoLight: asset("/Files/Features/AMS_Light_Final.mp4"),
-      videoDark: asset("/Files/Features/AMS_Dark_Final.mp4#t=2"),
+      videoLight: asset("/Files/Features/CRM_Light_Final.mp4"),
+      videoDark: asset("/Files/Features/CRM_Dark_Final.mp4"),
       videoDarkFullBackground: true,
       mediaClassNameDark: "dark:bg-[#0D0D0E]",
       cardClassNameDark: "dark:bg-[#0D0D0E]",
@@ -329,8 +329,8 @@ export default function BentoGridDesktop() {
       title: t('card1Title'),
       desc: t('card1Desc'),
       image: null,
-      videoLight: asset("/Files/Features/CRM_Light_Final.mp4"),
-      videoDark: asset("/Files/Features/CRM_Dark_Final.mp4"),
+      videoLight: asset("/Files/Features/AMS_Light_Final.mp4"),
+      videoDark: asset("/Files/Features/AMS_Dark_Final.mp4#t=2"),
       videoDarkFullBackground: true,
       mediaClassNameDark: "dark:bg-[#0D0D0E]",
       cardClassNameDark: "dark:bg-[#0D0D0E]",
@@ -349,17 +349,6 @@ export default function BentoGridDesktop() {
       logo: <AcademyIcon className="h-10 w-auto drop-shadow-[0_0_15px_rgba(90,200,250,0.5)]" />
     },
     {
-      title: t('cardEppigoTitle'),
-      desc: t('cardEppigoDesc'),
-      image: null,
-      videoLight: asset("/Files/Features/Eppigo_Light_Final.mp4"),
-      videoDark: asset("/Files/Features/Eppigo_Dark_Final.mp4"),
-      videoDarkFullBackground: true,
-      mediaClassNameDark: "dark:bg-[#0D0D0E]",
-      cardClassNameDark: "dark:bg-[#0D0D0E]",
-      logo: <EppigoIcon className="h-10 w-auto drop-shadow-[0_0_15px_rgba(90,200,250,0.5)]" />
-    },
-    {
       title: t('cardSolutionsTitle'),
       desc: t('cardSolutionsDesc'),
       image: asset("/Files/Features/Diagonal_pipeline_CRM_stages_202606242208.jpeg"),
@@ -369,6 +358,17 @@ export default function BentoGridDesktop() {
       mediaClassNameDark: "dark:bg-[#0D0D0E]",
       cardClassNameDark: "dark:bg-[#0D0D0E]",
       logo: <SolutionsIcon className="h-10 w-auto" />
+    },
+    {
+      title: t('cardEppigoTitle'),
+      desc: t('cardEppigoDesc'),
+      image: null,
+      videoLight: asset("/Files/Features/Eppigo_Light_Final.mp4"),
+      videoDark: asset("/Files/Features/Eppigo_Dark_Final.mp4"),
+      videoDarkFullBackground: true,
+      mediaClassNameDark: "dark:bg-[#0D0D0E]",
+      cardClassNameDark: "dark:bg-[#0D0D0E]",
+      logo: <EppigoIcon className="h-10 w-auto drop-shadow-[0_0_15px_rgba(90,200,250,0.5)]" />
     }
   ];
 
