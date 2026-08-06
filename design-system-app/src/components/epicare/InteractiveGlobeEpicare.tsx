@@ -6,6 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useTranslations } from 'next-intl';
 import dynamic from 'next/dynamic';
 import { EASE, DUR, STAGGER, REVEAL } from '@/lib/motion';
+import { asset } from '@/lib/asset';
 
 // Lazy load the heavy 3D globe strictly on the client
 const Globe = dynamic(() => import('react-globe.gl'), { 
@@ -243,7 +244,7 @@ export default function InteractiveGlobeEpicare() {
             containerRef.current,
             { scale: 0.95, opacity: 0 },
             {
-              scale: 1.30, // Visual scale-up to make planet larger
+              scale: 1.45, // Visual scale-up increased per user request
               opacity: 1,
               duration: 1.2,
               ease: "power3.out",
@@ -387,10 +388,14 @@ export default function InteractiveGlobeEpicare() {
               
               el.innerHTML = `
                 <div class="relative group cursor-pointer pointer-events-auto z-0 hover:z-[9999]" style="transform: translate(-50%, -50%);">
-                  <!-- The pulsing dot -->
-                  <div class="relative flex h-3 w-3">
-                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style="background-color: ${d.color};"></span>
-                    <span class="relative inline-flex rounded-full h-3 w-3 shadow-[0_0_8px_currentColor]" style="background-color: ${d.color}; color: ${d.color};"></span>
+                  <!-- Solid Bimodal SVG Pin with Orange Core -->
+                  <div class="relative flex items-center justify-center w-5 h-5 origin-bottom group-hover:-translate-y-1 group-hover:scale-125 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full text-[var(--color-surface-BG-white)] dark:text-[var(--color-surface-BG-black)] drop-shadow-[0_2px_4px_rgba(0,0,0,0.12)]">
+                      <!-- Solid body that matches the theme's surface color to avoid color pollution -->
+                      <path d="M12 21.5C12 21.5 19.5 14.722 19.5 9.5C19.5 5.35786 16.1421 2 12 2C7.85786 2 4.5 5.35786 4.5 9.5C4.5 14.722 12 21.5 12 21.5Z" fill="currentColor" stroke="rgba(242,96,35,0.3)" stroke-width="0.5"/>
+                      <!-- Tiny solid orange core for the accent -->
+                      <circle cx="12" cy="9.5" r="3" fill="#F26023"/>
+                    </svg>
                   </div>
                   
                   <!-- Hover Tooltip: Two Glassmorphic Pills -->
@@ -404,7 +409,7 @@ export default function InteractiveGlobeEpicare() {
                     <!-- Bottom Pill: License Number + Pointing Arrow -->
                     <div class="relative flex flex-col items-center">
                       <div class="flex items-center gap-1.5 bg-[var(--color-surface-BG-2)]/90 dark:bg-[var(--color-surface-BG-3)]/90 backdrop-blur-md px-2.5 py-1 rounded-full border border-[var(--color-border-Strokes-divider)] shadow-elevation-2 relative z-10">
-                        <div class="w-1.5 h-1.5 rounded-full shadow-[0_0_6px_currentColor]" style="background-color: ${d.color}; color: ${d.color};"></div>
+                        <div class="w-1.5 h-1.5 rounded-sm rotate-45 shadow-[0_0_6px_#F26023] bg-[#F26023]"></div>
                         <span class="text-meta text-[var(--color-text-secondary)] text-[10px] uppercase tracking-wider font-mono">${licenseLabel}</span>
                       </div>
                       <!-- Pointing Arrow (Pestañita) -->
