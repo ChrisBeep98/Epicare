@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useTranslations } from 'next-intl';
@@ -8,109 +8,119 @@ import HeaderEpicare from './HeaderEpicare';
 import { asset } from "@/lib/asset";
 import { EASE, DUR, STAGGER, REVEAL } from '@/lib/motion';
 
-/** Up-right arrow used inside the CTA bubbles. */
-const ArrowDown = ({ className = '' }: { className?: string }) => (
+/** Minimalist Down Arrow for the CTA buttons */
+const ArrowDownMinimal = ({ className = '' }: { className?: string }) => (
   <svg
-    viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}
+    viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}
     strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true"
   >
     <path d="M12 5v14M5 12l7 7 7-7" />
   </svg>
 );
 
+/** Minimalist Info Icon for the secondary button */
+const InfoIcon = ({ className = '' }: { className?: string }) => (
+  <svg 
+    viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}
+    strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true"
+  >
+    <circle cx="12" cy="12" r="10" />
+    <path d="M12 16v-4" />
+    <path d="M12 8h.01" />
+  </svg>
+);
+
+const VISUAL_IMAGES = [
+  asset("/Files/Epicare_Landing/Hero/technology_support.jpg"),
+  asset("/Files/Epicare_Landing/Hero/team_collaboration.jpg"),
+  asset("/Files/Epicare_Landing/Hero/corporate_office.jpg")
+];
+
 export default function LicensingHeroEpicare() {
   const t = useTranslations('landingV2.licensingHero');
   const containerRef = useRef<HTMLDivElement>(null);
-  
-  // Refs for animation targets
-  const textContentRef = useRef<HTMLDivElement>(null);
-  const galleryRef = useRef<HTMLDivElement>(null);
+  const [currentImgIndex, setCurrentImgIndex] = useState(0);
+
+  useEffect(() => {
+    // Crossfade Logic
+    const interval = setInterval(() => {
+      setCurrentImgIndex((prev) => (prev + 1) % VISUAL_IMAGES.length);
+    }, 4000); // Change image every 4 seconds
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
-    
-    // Ignore mobile resize for stable ScrollTrigger (Mobile 100vh bug fix)
     ScrollTrigger.config({ ignoreMobileResize: true });
 
     const ctx = gsap.context(() => {
-      // 1. Initial State Setup
-      // Text Elements: Birth effect (masked from bottom)
-      gsap.set('.licensing-text-reveal', {
+      // 1. Initial State
+      gsap.set('.licensing-title-char', {
         yPercent: REVEAL.birthPercent,
         opacity: 0,
         clipPath: "inset(0% 0% 100% 0%)",
       });
-      
-      // CTA Button: Scale and pop
-      gsap.set('.licensing-cta-reveal', {
-        opacity: 0,
-        y: REVEAL.md,
-        scale: 0.95
-      });
 
-      // Gallery Images: Soft blur & translate
-      gsap.set('.licensing-gallery-item', {
+      gsap.set('.licensing-text', { opacity: 0, y: REVEAL.md });
+
+      gsap.set('.licensing-visual', {
         opacity: 0,
         y: REVEAL.lg,
-        scale: 1.05,
+        scale: 0.96,
         filter: `blur(${REVEAL.blurBase}px)`
       });
+      
+      gsap.set('.licensing-visual-img', { scale: 1.1 });
+      gsap.set('.licensing-btn', { opacity: 0, scale: 0.8, x: -REVEAL.sm });
 
-      // 2. Entrance Animation Timeline
-      const tl = gsap.timeline({ delay: 0.2 });
+      // 2. Entrance Timeline
+      const tl = gsap.timeline({ delay: 0.1 });
 
-      // Layered Unveiling for Text
-      tl.to('.licensing-text-reveal', {
+      tl.to('.licensing-title-char', {
         yPercent: 0,
         opacity: 1,
-        clipPath: "inset(-20% -10% -20% -10%)", // Negative margin for descenders
+        clipPath: "inset(-20% -10% -20% -10%)",
         duration: DUR.birth,
         ease: EASE.dramatic,
-        stagger: STAGGER.base,
-        clearProps: "clipPath" // Clean up to avoid cropping hover states or shadows
+        stagger: STAGGER.tight,
+        clearProps: "clipPath"
       });
 
-      // Reveal CTA
-      tl.to('.licensing-cta-reveal', {
+      tl.to('.licensing-text', {
         opacity: 1,
         y: 0,
-        scale: 1,
         duration: DUR.base,
         ease: EASE.out
-      }, "-=0.9"); // Overlap with text
+      }, "-=1.0");
 
-      // Stagger Gallery Images with a premium feel
-      tl.to('.licensing-gallery-item', {
+      tl.to('.licensing-visual', {
         opacity: 1,
         y: 0,
         scale: 1,
         filter: "blur(0px)",
         duration: DUR.slow,
-        ease: EASE.out,
-        stagger: STAGGER.wave,
-        clearProps: "filter" // GPU performance
-      }, "-=1.1"); // Start while text is still entering
+        ease: EASE.dramatic,
+        clearProps: "filter"
+      }, "-=0.8");
 
-      // 3. Parallax Effect for Gallery on Scroll
-      gsap.to('.licensing-gallery-item[data-speed="slow"]', {
-        yPercent: 15,
+      tl.to('.licensing-btn', {
+        opacity: 1,
+        scale: 1,
+        x: 0,
+        duration: DUR.base,
+        ease: EASE.snap,
+        stagger: STAGGER.base
+      }, "-=1.0");
+
+      // 3. Scroll Interactions
+      gsap.to('.licensing-visual-img', {
+        scale: 1,
         ease: EASE.none,
         scrollTrigger: {
           trigger: containerRef.current,
           start: "top top",
           end: "bottom top",
-          scrub: true
-        }
-      });
-      
-      gsap.to('.licensing-gallery-item[data-speed="fast"]', {
-        yPercent: -15,
-        ease: EASE.none,
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: true
+          scrub: 1
         }
       });
 
@@ -119,7 +129,6 @@ export default function LicensingHeroEpicare() {
     return () => ctx.revert();
   }, []);
 
-  // Smooth scroll logic strictly through Lenis
   const handleScrollToLicenses = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (typeof window !== 'undefined' && (window as any).lenis) {
@@ -127,96 +136,84 @@ export default function LicensingHeroEpicare() {
     }
   };
 
+  const titleText = t('title') || "Licensing";
+  const titleChars = titleText.split('').map((char, index) => (
+    <span key={index} className="licensing-title-char inline-block whitespace-pre">
+      {char}
+    </span>
+  ));
+
   return (
-    <div className="w-full bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] transition-colors duration-500 overflow-hidden">
+    <div className="w-full bg-[var(--color-surface-BG-1)] dark:bg-[var(--color-surface-BG-black)] transition-colors duration-500 overflow-hidden">
       
-      {/* Standard Header */}
       <HeaderEpicare isHeaderPill={false} isHeaderForcedDark={false} />
 
       <section 
         ref={containerRef} 
-        className="relative w-full pt-[140px] md:pt-[180px] pb-section-lg px-gutter-sm md:px-gutter-md lg:px-gutter-xl"
+        className="relative w-full py-section-md px-gutter-md"
       >
-        <div className="grid-layout max-w-section-xl mx-auto w-full items-center">
+        <div className="grid-layout max-w-section-xl mx-auto w-full gap-y-static-2xl md:gap-y-static-md">
           
-          {/* LEFT COLUMN: Typography and Content (7 cols desktop, 12 cols mobile) */}
-          <div ref={textContentRef} className="col-span-12 md:col-span-7 lg:col-span-6 flex flex-col gap-static-xl mb-12 md:mb-0 z-10">
-            
-            <div className="flex flex-col gap-static-md">
-              <h1 className="licensing-text-reveal text-display-xl lg:text-display-2xl text-[var(--color-text-primary)] font-semibold leading-[0.95] tracking-tight">
-                {t('title')}
-              </h1>
-              <p className="licensing-text-reveal text-body-lg text-[var(--color-text-secondary)] font-light max-w-[42rem] mt-2">
-                {t('description')}
-              </p>
-            </div>
-
-            <div className="licensing-cta-reveal pt-2">
-              <button 
-                onClick={handleScrollToLicenses}
-                className="group w-fit h-14 pl-6 pr-2 rounded-full flex items-center gap-4 bg-[var(--color-action-primary-bg)] text-[var(--color-action-primary-text)] shadow-elevation-2 transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:shadow-elevation-4 active:scale-[0.96]"
-              >
-                <span className="text-body-md font-medium tracking-wide">{t('cta')}</span>
-                <span className="relative w-10 h-10 rounded-full bg-[var(--color-action-primary-text)] text-[var(--color-action-primary-bg)] flex items-center justify-center overflow-hidden shrink-0">
-                  <ArrowDown className="absolute w-5 h-5 transition-transform duration-300 ease-out group-hover:translate-y-6" />
-                  <ArrowDown className="absolute w-5 h-5 -translate-y-6 transition-transform duration-300 ease-out group-hover:translate-y-0" />
-                </span>
-              </button>
-            </div>
-            
+          {/* ROW 1: TITLE */}
+          {/* start: 5, span: 9, flexDir: row, justify: flex-start, align: flex-start */}
+          <div className="col-span-12 md:col-start-5 md:col-span-9 md:row-start-1 z-10 flex flex-row justify-start items-start md:pb-8">
+            <h1 className="text-display-2xl md:text-display-3xl text-left text-[var(--color-text-primary)] font-semibold leading-[0.9] tracking-tight">
+              {titleChars}
+            </h1>
           </div>
 
-          {/* RIGHT COLUMN: Institutional Image Gallery (5 cols desktop, 12 cols mobile) */}
-          <div ref={galleryRef} className="col-span-12 md:col-span-5 lg:col-span-6 grid grid-cols-2 gap-fluid-xs md:gap-fluid-sm h-[50vh] md:h-[70vh] lg:h-[80vh] relative z-0">
-            
-            {/* Left Image column (Parallax Slow/Down) */}
-            <div className="flex flex-col gap-fluid-xs md:gap-fluid-sm pt-8 md:pt-16">
-              <div className="licensing-gallery-item relative w-full h-[60%] rounded-2xl overflow-hidden shadow-elevation-2" data-speed="slow">
-                <img 
-                  src={asset("/Files/Epicare_Landing/Hero/team_collaboration.jpg")} 
-                  alt="Epicare agents training" 
-                  loading="lazy"
-                  decoding="async"
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-black/10 mix-blend-multiply pointer-events-none" aria-hidden="true" />
-              </div>
-              <div className="licensing-gallery-item relative w-full h-[40%] rounded-2xl overflow-hidden shadow-elevation-2" data-speed="slow">
-                <img 
-                  src={asset("/Files/Epicare_Landing/Hero/technology_support.jpg")} 
-                  alt="Epicare technology platform" 
-                  loading="lazy"
-                  decoding="async"
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-              </div>
-            </div>
-
-            {/* Right Image column (Parallax Fast/Up) */}
-            <div className="flex flex-col gap-fluid-xs md:gap-fluid-sm pb-8 md:pb-16">
-              <div className="licensing-gallery-item relative w-full h-[40%] rounded-2xl overflow-hidden shadow-elevation-2" data-speed="fast">
-                <img 
-                  src={asset("/Files/Epicare_Landing/Hero/corporate_office.jpg")} 
-                  alt="Epicare corporate headquarters" 
-                  loading="lazy"
-                  decoding="async"
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-              </div>
-              <div className="licensing-gallery-item relative w-full h-[60%] rounded-2xl overflow-hidden shadow-elevation-2" data-speed="fast">
-                <img 
-                  src={asset("/Files/Epicare_Landing/Hero/agent_support.jpg")} 
-                  alt="Agent receiving dedicated support" 
-                  loading="lazy"
-                  decoding="async"
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-brand-blue)]/20 to-transparent mix-blend-overlay pointer-events-none" aria-hidden="true" />
-              </div>
-            </div>
-            
+          {/* ROW 2: TEXT */}
+          {/* start: 1, span: 4, flexDir: row, justify: flex-start, align: flex-end */}
+          <div className="col-span-12 md:col-start-1 md:col-span-4 md:row-start-2 z-10 flex flex-row justify-start items-end pb-4 md:pb-12 md:pr-8">
+            <p className="licensing-text text-subtitle text-left text-[var(--color-text-secondary)] font-light">
+              Epicare Insurance holds the necessary state licenses to conduct insurance business. All insurance transactions are carried out through licensed agents in compliance with state regulations.
+            </p>
           </div>
           
+          {/* ROW 2: BUTTONS */}
+          {/* start: 6, span: 1, flexDir: column, justify: flex-end, align: flex-end */}
+          <div className="col-span-12 md:col-start-6 md:col-span-1 md:row-start-2 z-10 flex flex-col justify-end items-end gap-static-md pb-4 md:pb-12">
+            <button 
+              onClick={handleScrollToLicenses}
+              className="licensing-btn group relative w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center bg-[var(--color-action-primary-bg)] text-[var(--color-action-primary-text)] shadow-elevation-2 transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:shadow-elevation-4 active:scale-95"
+              aria-label="Scroll to Licenses"
+            >
+              <div className="absolute inset-0 rounded-full border border-white/20 scale-100 group-hover:scale-110 opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out"></div>
+              <span className="relative w-full h-full flex items-center justify-center overflow-hidden">
+                <ArrowDownMinimal className="absolute w-5 h-5 transition-transform duration-300 ease-out group-hover:translate-y-6" />
+                <ArrowDownMinimal className="absolute w-5 h-5 -translate-y-6 transition-transform duration-300 ease-out group-hover:translate-y-0" />
+              </span>
+            </button>
+
+            <button 
+              className="licensing-btn group relative w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-2)] border border-[var(--color-border-Strokes-default)] text-[var(--color-text-secondary)] shadow-elevation-1 transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:text-[var(--color-text-primary)] hover:border-[var(--color-border-Strokes-Hover)] hover:-translate-y-1 hover:shadow-elevation-2 active:scale-95"
+              aria-label="More Info"
+            >
+              <InfoIcon className="w-5 h-5 transition-transform duration-500 ease-out group-hover:rotate-12 group-hover:scale-110" />
+            </button>
+          </div>
+
+          {/* ROW 2: VISUAL 3D STAMP */}
+          {/* start: 7, span: 6, flexDir: row, justify: flex-start, align: flex-start */}
+          <div className="col-span-12 md:col-start-7 md:col-span-6 md:row-start-2 z-0 flex flex-row justify-start items-start">
+            <div className="licensing-visual group relative w-full aspect-[4/3] md:aspect-[16/10] overflow-hidden rounded-[2rem] border border-[var(--color-border-Strokes-default)] transition-shadow duration-[700ms] hover:shadow-elevation-5 hover:border-[var(--color-border-Strokes-Hover)] bg-[var(--color-surface-BG-2)] shadow-elevation-3 p-section-xs">
+              <div className="absolute inset-2 border border-[var(--color-border-Strokes-default)]/40 rounded-[1.5rem] pointer-events-none z-20"></div>
+              
+              {VISUAL_IMAGES.map((src, idx) => (
+                <img 
+                  key={idx}
+                  src={src}
+                  alt={`Epicare Licensing ${idx}`} 
+                  loading={idx === 0 ? "eager" : "lazy"}
+                  decoding="async"
+                  className={`licensing-visual-img absolute inset-0 w-full h-full object-cover origin-center transition-opacity duration-1000 ease-in-out z-0 ${currentImgIndex === idx ? 'opacity-100' : 'opacity-0'}`}
+                />
+              ))}
+
+              <div className="absolute inset-0 bg-gradient-to-tr from-black/20 to-transparent mix-blend-overlay pointer-events-none z-10" aria-hidden="true" />
+            </div>
+          </div>
+
         </div>
       </section>
     </div>
