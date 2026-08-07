@@ -19,6 +19,11 @@
       "title": "52 Jurisdicciones.",
       "description": "Licenciados y operando activamente en los 50 estados, Washington DC y Puerto Rico. Un solo acuerdo cubre toda tu operación."
     },
+    "licensingGrid": {
+      "title": "Licencias Estatales",
+      "searchPlaceholder": "Buscar por estado...",
+      "noResults": "No se encontraron licencias para"
+    },
     "metrics": {
       "carriers": "Carrier\nAppointments",
       "years": "Asegurados\nactivos",
@@ -34,7 +39,7 @@
       "itemOmsTitle": "Compliance",
       "itemOmsDesc": "Licencias, E&O y renovaciones con alerta antes del vencimiento, no después.",
       "sectionTitle": "Tu agencia,\nun solo ecosistema",
-      "sectionDesc": "GO AMS, GO CRM, GO CALLS, Eppigo, Academy y Agency Solutions. <b>Software propio</b>, no licencias de terceros con nuestro logo encima.",
+      "sectionDesc": "GO AMS, GO CRM, GO CALLS, Eppigo, Academy y Agency Solutions. <b>Software propio</b>, no licencias de terceros.",
       "card1Title": "GO CRM",
       "card1Desc": "Leads, pipeline y seguimiento en un solo lugar. Sabes a quién llamar hoy y por qué.",
       "card4Title": "GO AMS",
