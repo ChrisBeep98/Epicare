@@ -130,12 +130,12 @@ export default function LicensingGridEpicare() {
   }, [searchTerm]);
 
   return (
-    <section className="w-full pt-0 pb-section-lg px-gutter-md relative z-10">
+    <section className="w-full pt-0 pb-section-lg px-gutter-sm md:px-gutter-md relative z-10">
       <div className="max-w-section-lg mx-auto w-full flex flex-col items-center gap-fluid-xs">
         
         {/* Minimalist Header & Search */}
-        <div className="flex flex-col items-center justify-center text-center w-full max-w-section-sm gap-6">
-          <div className="flex flex-col gap-2">
+        <div className="flex flex-col items-start md:items-center justify-start md:justify-center text-left md:text-center w-full max-w-section-sm gap-6">
+          <div className="flex flex-col gap-2 w-full">
             <h2 className="text-display-lg text-[var(--color-text-primary)] font-semibold tracking-tight">
               {t("title")}
             </h2>
@@ -160,7 +160,7 @@ export default function LicensingGridEpicare() {
         {/* Minimalist Grid (No background, just pure data) */}
         <div 
           ref={gridRef} 
-          className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2"
+          className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-4"
         >
           {filteredData.length > 0 ? (
             filteredData.map((item) => (

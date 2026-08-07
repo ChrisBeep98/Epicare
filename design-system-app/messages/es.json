@@ -20,7 +20,7 @@
       "description": "Licenciados y operando activamente en los 50 estados, Washington DC y Puerto Rico. Un solo acuerdo cubre toda tu operación."
     },
     "licensingGrid": {
-      "title": "Licencias Estatales",
+      "title": "Licencias por estado",
       "searchPlaceholder": "Buscar por estado...",
       "noResults": "No se encontraron licencias para"
     },

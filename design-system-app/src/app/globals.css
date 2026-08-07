@@ -371,11 +371,8 @@ html.lenis body { height: auto; }
 
 
 @layer utilities {
+  /* px-gutter moved to @utility below for variant support */
 
-  .px-gutter-sm { padding-left: var(--space-gutter-sm); padding-right: var(--space-gutter-sm); }
-  .px-gutter-md { padding-left: var(--space-gutter-md); padding-right: var(--space-gutter-md); }
-  .px-gutter-lg { padding-left: var(--space-gutter-lg); padding-right: var(--space-gutter-lg); }
-  .px-gutter-xl { padding-left: var(--space-gutter-xl); padding-right: var(--space-gutter-xl); }
 
   /* SECTION VERTICAL RHYTHM (py/pt/pb-section-*) → moved to top-level `@utility`
      blocks below so responsive prefixes work (`md:py-section-lg`, `lg:pt-section-md`).
@@ -494,6 +491,14 @@ body {
 @utility pb-section-sm { padding-bottom: var(--space-section-sm); }
 @utility pb-section-md { padding-bottom: var(--space-section-md); }
 @utility pb-section-lg { padding-bottom: var(--space-section-lg); }
+
+/* =========================================
+   GUTTER TOKENS (Design System Scale)
+   ========================================= */
+@utility px-gutter-sm { padding-left: var(--space-gutter-sm); padding-right: var(--space-gutter-sm); }
+@utility px-gutter-md { padding-left: var(--space-gutter-md); padding-right: var(--space-gutter-md); }
+@utility px-gutter-lg { padding-left: var(--space-gutter-lg); padding-right: var(--space-gutter-lg); }
+@utility px-gutter-xl { padding-left: var(--space-gutter-xl); padding-right: var(--space-gutter-xl); }
 
 /* =========================================
    TYPOGRAPHY TOKENS (Design System Scale)

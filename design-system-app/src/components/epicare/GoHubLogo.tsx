@@ -5,9 +5,9 @@ import React from 'react';
 //   .gohub-letter = H · U · B (the word clicks into place after)
 // The dark #303439 shapes flip to white in dark mode so the mark never sinks into the bg.
 // Shared by BentoGridDesktop and BentoGridMobile — both drive the reveal via GSAP.
-export default function GoHubLogo({ className }: { className?: string }) {
+export default function GoHubLogo({ className, style }: { className?: string, style?: React.CSSProperties }) {
   return (
-    <svg className={className} viewBox="152 0 530 733" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="GO Hub">
+    <svg className={className} style={style} viewBox="152 0 530 733" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="GO Hub">
       <g clipPath="url(#clip0_20697_10)">
         <path className="gohub-shape" d="M195.079 177.933C203.426 197.318 214.891 214.518 228.614 228.154C240.398 197.31 270.248 175.396 305.232 175.396C332.86 175.396 357.279 189.072 372.138 210.007C379.032 186.958 390.817 166.017 406.281 148.361C379.446 123.058 343.302 107.521 303.506 107.521C263.565 107.521 227.303 123.173 200.437 148.641C199.792 149.371 199.109 150.126 198.354 150.929C190.899 158.849 191.894 168.924 195.079 177.933Z" fill="#54B4E7"/>
         <path className="gohub-shape fill-[#303439] dark:fill-[var(--color-text-White-100)] transition-colors duration-500" d="M676.933 287.86C678.942 278.069 679.998 267.93 679.998 257.545C679.998 174.689 612.83 107.521 529.973 107.521C452.034 107.521 387.991 166.96 380.664 242.979H449.2C456.079 204.596 489.611 175.458 529.972 175.458C575.308 175.458 612.06 212.209 612.06 257.545C612.06 257.879 612.039 258.207 612.035 258.54H647.26C662.325 258.54 674.794 271.271 676.933 287.86Z"/>

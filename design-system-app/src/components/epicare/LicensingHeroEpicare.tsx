@@ -150,7 +150,7 @@ export default function LicensingHeroEpicare() {
 
       <section 
         ref={containerRef} 
-        className="relative w-full py-section-md px-gutter-md"
+        className="relative w-full py-section-md px-gutter-sm md:px-gutter-md"
       >
         <div className="grid-layout max-w-section-xl mx-auto w-full gap-y-static-2xl md:gap-y-static-md">
           
@@ -162,30 +162,31 @@ export default function LicensingHeroEpicare() {
             </h1>
           </div>
 
-          {/* ROW 2: TEXT */}
-          {/* start: 1, span: 4, flexDir: row, justify: flex-start, align: flex-end */}
-          <div className="col-span-12 md:col-start-1 md:col-span-4 md:row-start-2 z-10 flex flex-row justify-start items-end pb-4 md:pb-12 md:pr-8">
-            <p className="licensing-text text-subtitle text-left text-[var(--color-text-secondary)] font-light">
-              Epicare Insurance holds the necessary <span className="font-medium text-[var(--color-action-primary-bg)]">state licenses</span> to conduct insurance business. All insurance transactions are carried out through <span className="font-medium text-[var(--color-action-primary-bg)]">licensed agents</span> in compliance with state regulations.
-            </p>
-          </div>
-          
-          {/* ROW 2: BUTTONS */}
-          {/* start: 6, span: 1, flexDir: column, justify: flex-end, align: flex-end */}
-          <div className="col-span-12 md:col-start-6 md:col-span-1 md:row-start-2 z-10 flex flex-col justify-end items-end gap-static-md pb-4 md:pb-12">
-            <button 
-              onClick={handleScrollToLicenses}
-              className="licensing-btn group relative w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center bg-[var(--color-action-primary-bg)] text-[var(--color-action-primary-text)] shadow-elevation-2 transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:shadow-elevation-4 active:scale-95"
-              aria-label="Scroll to Licenses"
-            >
-              <div className="absolute inset-0 rounded-full border border-white/20 scale-100 group-hover:scale-[1.15] opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out"></div>
-              <span className="relative w-full h-full flex items-center justify-center overflow-hidden rounded-full">
-                {/* Arrow Leaving (Down) */}
-                <ArrowDownMinimal className="absolute w-5 h-5 transition-transform duration-[600ms] ease-[cubic-bezier(0.68,-0.6,0.32,1.6)] group-hover:translate-y-10" />
-                {/* Arrow Entering (From Top) */}
-                <ArrowDownMinimal className="absolute w-5 h-5 -translate-y-10 transition-transform duration-[600ms] ease-[cubic-bezier(0.68,-0.6,0.32,1.6)] group-hover:translate-y-0" />
-              </span>
-            </button>
+          {/* ROW 2: TEXT & BUTTONS (Wrapped for mobile flex, contents for desktop grid) */}
+          <div className="col-span-12 flex flex-row justify-between items-end gap-5 md:contents">
+            {/* TEXT */}
+            <div className="flex-1 md:col-start-1 md:col-span-4 md:row-start-2 z-10 flex flex-row justify-start items-end pb-0 md:pb-12 md:pr-8">
+              <p className="licensing-text text-subtitle text-left text-[var(--color-text-secondary)] font-light">
+                Epicare Insurance holds the necessary <span className="font-medium text-[var(--color-action-primary-bg)]">state licenses</span> to conduct insurance business. All insurance transactions are carried out through <span className="font-medium text-[var(--color-action-primary-bg)]">licensed agents</span> in compliance with state regulations.
+              </p>
+            </div>
+            
+            {/* BUTTONS */}
+            <div className="flex-none md:col-start-6 md:col-span-1 md:row-start-2 z-10 flex flex-col justify-end items-end pb-0 md:pb-12">
+              <button 
+                onClick={handleScrollToLicenses}
+                className="licensing-btn group relative w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center bg-[var(--color-action-primary-bg)] text-[var(--color-action-primary-text)] shadow-elevation-2 transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:shadow-elevation-4 active:scale-95"
+                aria-label="Scroll to Licenses"
+              >
+                <div className="absolute inset-0 rounded-full border border-white/20 scale-100 group-hover:scale-[1.15] opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out"></div>
+                <span className="relative w-full h-full flex items-center justify-center overflow-hidden rounded-full">
+                  {/* Arrow Leaving (Down) */}
+                  <ArrowDownMinimal className="absolute w-5 h-5 transition-transform duration-[600ms] ease-[cubic-bezier(0.68,-0.6,0.32,1.6)] group-hover:translate-y-10" />
+                  {/* Arrow Entering (From Top) */}
+                  <ArrowDownMinimal className="absolute w-5 h-5 -translate-y-10 transition-transform duration-[600ms] ease-[cubic-bezier(0.68,-0.6,0.32,1.6)] group-hover:translate-y-0" />
+                </span>
+              </button>
+            </div>
           </div>
 
           {/* ROW 2: VISUAL (Floating Bento without container) */}

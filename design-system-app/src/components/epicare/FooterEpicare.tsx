@@ -1,205 +1,119 @@
 "use client";
 
 import React, { useRef, useLayoutEffect } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-
-const BrandIsotype = () => (
-  <svg viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-10 h-10 md:w-12 md:h-12 transition-colors duration-300">
-    <path d="M26.9285 2.25869H8.07172C4.86133 2.25869 2.25879 4.86123 2.25879 8.07162V26.9284C2.25879 30.1388 4.86133 32.7413 8.07172 32.7413H26.9285C30.1389 32.7413 32.7414 30.1388 32.7414 26.9284V8.07162C32.7414 4.86123 30.1389 2.25869 26.9285 2.25869Z" fill="currentColor"/>
-    <path d="M15.2695 20.88L26.7871 16.2409C27.1128 16.1098 27.2994 15.762 27.2225 15.4189C26.2319 10.9885 22.2717 7.62417 17.5476 7.62417C15.1324 7.62417 12.7487 8.30639 11.201 9.92566C10.9782 10.1591 10.7943 10.4206 10.7943 10.4206C10.6284 10.7096 10.5569 10.8881 10.5007 11.1249C10.4291 11.4272 10.4331 11.7416 10.5027 12.0446C10.601 12.4706 10.7348 12.8913 10.9053 13.3033C11.2344 14.0966 11.6819 14.8149 12.2263 15.441C13.069 13.3548 15.1592 11.8412 17.547 11.8412C19.1609 11.8412 20.5347 12.4312 21.5701 13.5107L17.7476 15.0537C15.4856 15.9647 14.376 18.5738 15.2695 20.8807V20.88Z" fill="var(--color-surface-BG-base)"/>
-    <path d="M26.8841 20.8399C26.9289 20.7222 26.8667 20.5911 26.7463 20.5543C25.9891 20.3229 24.511 19.8787 24.3919 19.8433C24.1699 19.7824 23.485 19.5122 22.6215 19.9343C21.7313 20.3516 20.8056 22.3461 18.9924 22.8344C15.6381 23.6744 12.9554 21.5221 12.1989 19.1009C11.8805 18.0802 11.9661 16.9151 11.9909 16.6977C10.193 14.6611 9.5108 12.3603 9.45194 12.0064C8.3838 13.5809 7.75977 15.4811 7.75977 17.5278C7.75977 22.9668 12.1688 27.3758 17.6078 27.3758C21.8169 27.3758 25.4721 24.5613 26.8841 20.8399Z" fill="var(--color-surface-BG-base)"/>
-  </svg>
-);
-
-const Sparkle = () => (
-  <svg viewBox="0 0 24 24" fill="currentColor" className="inline-block w-[0.5em] h-[0.5em] mx-[0.4em] -translate-y-[0.15em]">
-    <path d="M12 0C12 6.62742 17.3726 12 24 12C17.3726 12 12 17.3726 12 24C12 17.3726 6.62742 12 0 12C6.62742 12 12 6.62742 12 0Z" />
-  </svg>
-);
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default function FooterEpicare() {
   const t = useTranslations("landingV2.nav");
   const tc = useTranslations("landingV2.footerCta");
+  
   const containerRef = useRef<HTMLElement>(null);
-  const marqueeRef = useRef<HTMLDivElement>(null);
-  const leftColumnRef = useRef<HTMLDivElement>(null);
-  const wrapperRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLHeadingElement>(null);
 
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
-    ScrollTrigger.config({ ignoreMobileResize: true });
-
-    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (prefersReduced || !containerRef.current) return;
-
+    
+    if (!textRef.current || !containerRef.current) return;
+    
+    // Animación Editorial: Suave, prístina y controlada
     const ctx = gsap.context(() => {
-      // 1. KINETIC MARQUEE
-      if (marqueeRef.current) {
-        gsap.to(".marquee-track-vertical", {
-          yPercent: -50,
-          ease: "none",
-          duration: 100, // Ralentizado
-          repeat: -1,
-        });
-        gsap.to(".marquee-track-horizontal", {
-          xPercent: -50,
-          ease: "none",
-          duration: 100,
-          repeat: -1,
-        });
-      }
-
-    }, containerRef);
+      gsap.fromTo(textRef.current, 
+        { y: 50, opacity: 0, clipPath: "inset(100% 0 0 0)" },
+        { 
+          y: 0, 
+          opacity: 1, 
+          clipPath: "inset(0% 0 0 0)", 
+          duration: 1.5, 
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: containerRef.current, // Usamos el footer fijo como trigger
+            start: "top 90%"
+          }
+        }
+      );
+    });
 
     return () => ctx.revert();
   }, []);
 
-  const marqueeContent = Array.from({ length: 8 }).map((_, i) => (
-    <React.Fragment key={i}>
-      EPICARE <Sparkle /> {tc("marquee")} <Sparkle />{" "}
-    </React.Fragment>
-  ));
-
   return (
-    <div 
-      ref={wrapperRef}
-      className="relative w-full h-[100dvh]"
-      style={{ clipPath: "polygon(0% 0, 100% 0%, 100% 100%, 0 100%)" }}
-    >
-      <div className="fixed bottom-0 left-0 w-full h-[100dvh]">
-        <footer
-          ref={containerRef}
-          className="relative w-full h-full bg-[var(--color-surface-BG-base)] text-[var(--color-text-primary)] border-t border-[var(--color-border-Strokes-default)] overflow-hidden z-20 flex flex-col"
-        >
-          {/* 
-            ========================================================================
-            SPLIT-SCREEN EDITORIAL LAYOUT
-            ========================================================================
-          */}
-          {/* CUERPO DEL FOOTER (Marquee + Links) */}
-      <div className="grid grid-cols-1 grid-rows-[1.2fr_0.8fr_1.5fr] md:grid-cols-2 md:grid-rows-[auto_1fr] w-full flex-1 relative z-10 border-b border-[var(--color-border-Strokes-default)] bg-[var(--color-surface-BG-base)]/20 backdrop-blur-3xl">
-         
-         {/* Block 0: CTA Gigante */}
-         <div className="order-1 md:order-1 md:col-start-1 md:row-start-1 py-[var(--space-fluid-sm)] md:py-[var(--space-fluid-md)] px-[var(--space-gutter-sm)] md:pl-[var(--space-fluid-lg)] md:pr-[var(--space-fluid-md)] border-b border-[var(--color-border-Strokes-default)] transition-colors duration-500 flex flex-col justify-center items-start gap-fluid-sm">
-            <p className="text-display xl:text-display-lg text-[var(--color-text-primary)] w-full max-w-none leading-tight">
-               {tc("line1")}<br />{tc("line2")}
-            </p>
-            <div className="flex flex-wrap items-center gap-4 mt-fluid-xs">
-               <button className="group w-fit h-12 pl-6 pr-2 rounded-full flex items-center gap-3 bg-[var(--color-brand-blue)] text-white shadow-elevation-2 transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-elevation-4 active:scale-[0.96] active:opacity-80 active:duration-150">
-                 <span className="text-body-sm font-medium">{tc("primary")}</span>
-                 <span className="relative w-8 h-8 rounded-full bg-white text-[var(--color-brand-blue)] flex items-center justify-center overflow-hidden shrink-0">
-                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="absolute w-4 h-4 transition-transform duration-300 ease-out group-hover:translate-x-5 group-hover:-translate-y-5" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10" /></svg>
-                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="absolute w-4 h-4 -translate-x-5 translate-y-5 transition-transform duration-300 ease-out group-hover:translate-x-0 group-hover:translate-y-0" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10" /></svg>
-                 </span>
-               </button>
-               <button className="group w-fit h-12 px-6 rounded-full flex items-center justify-center border border-[var(--color-border-Strokes-default)] text-[var(--color-text-primary)] hover:border-[var(--color-text-primary)] hover:bg-[var(--color-text-primary)] hover:text-[var(--color-surface-BG-base)] transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:scale-[1.02] active:scale-[0.96]">
-                 <span className="text-body-sm font-medium">{tc("secondary")}</span>
-               </button>
+    <div className="relative w-full h-screen min-h-[900px] md:min-h-[700px]" style={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)" }}>
+      
+      <footer ref={containerRef} className="fixed bottom-0 left-0 w-full h-screen min-h-[900px] md:min-h-[700px] bg-[var(--color-surface-BG-black)] -z-10">
+        
+        <div className="w-full h-full flex flex-col justify-between max-w-[var(--max-w-section-xl)] mx-auto px-gutter-sm md:px-gutter-xl pt-section-lg pb-section-md relative z-10">
+            
+          {/* TOP SECTION: Massive Editorial Typography */}
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end w-full border-b border-white/15 pb-static-xl">
+            <h2 ref={textRef} className="text-[12vw] md:text-[8vw] text-white font-black uppercase tracking-tighter leading-[0.8] m-0">
+              EPICARE
+            </h2>
+            <div className="flex flex-col items-start md:items-end gap-static-sm mt-static-lg md:mt-0">
+              <div className="flex items-center gap-static-sm mb-static-md">
+                <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-status-green-main)]"></span>
+                <p className="text-overline tracking-[0.2em] text-white/50 uppercase">System Online</p>
+              </div>
+              <a href="mailto:contact@epicare.io" className="text-h4 md:text-h3 font-light text-white hover:text-[var(--color-brand-blue)] transition-colors duration-500">
+                contact@epicare.io
+              </a>
             </div>
-         </div>
+          </div>
 
-         {/* MARQUEE */}
-         <div 
-           ref={leftColumnRef} 
-           className="order-2 md:order-2 md:col-start-2 md:row-span-2 w-full h-full py-[var(--space-fluid-sm)] md:py-[var(--space-fluid-md)] px-[var(--space-gutter-sm)] md:px-[var(--space-fluid-md)] border-b md:border-b-0 md:border-l border-[var(--color-border-Strokes-default)] relative flex flex-col justify-center overflow-hidden group"
-         >
-            {/* Kinetic Marquee */}
-            <div ref={marqueeRef} className="absolute inset-0 pointer-events-none opacity-20 overflow-hidden mix-blend-overlay flex items-center justify-center">
-               
-               {/* Mobile: Horizontal */}
-               <div className="marquee-track-horizontal flex md:hidden flex-row text-[16vw] font-black uppercase tracking-tighter leading-none text-[var(--color-text-primary)] w-max whitespace-nowrap">
-                 <div className="flex flex-row items-center">{marqueeContent}</div>
-                 <div className="flex flex-row items-center">{marqueeContent}</div>
-               </div>
-
-               {/* Desktop: Vertical */}
-               <div className="marquee-track-vertical hidden md:flex flex-col gap-fluid-lg text-[12vw] font-black uppercase tracking-tighter leading-none text-[var(--color-text-primary)]">
-                 <div className="text-left">{marqueeContent}</div>
-                 <div className="text-left">{marqueeContent}</div>
-               </div>
-               
+          {/* MIDDLE SECTION: Strict Swiss Grid (Centrada Automáticamente) */}
+          <div className="w-full grid grid-cols-12 gap-x-gutter-md gap-y-static-xl my-auto py-static-xl md:py-static-2xl">
+            
+            {/* Column 1: GoHub */}
+            <div className="col-span-12 md:col-span-4 flex flex-col gap-static-lg">
+              <h4 className="text-meta tracking-[0.2em] text-white/40 border-b border-white/10 pb-static-sm">01 / {t("gohub")}</h4>
+              <div className="flex flex-col gap-static-md">
+                <Link href="#" className="text-body-lg font-light text-white/80 hover:text-white hover:translate-x-2 transition-all duration-300">{t("gohubCrm")}</Link>
+                <Link href="#" className="text-body-lg font-light text-white/80 hover:text-white hover:translate-x-2 transition-all duration-300">{t("gohubAms")}</Link>
+                <Link href="#" className="text-body-lg font-light text-white/80 hover:text-white hover:translate-x-2 transition-all duration-300">{t("gohubCalls")}</Link>
+                <Link href="#" className="text-body-lg font-light text-white/80 hover:text-white hover:translate-x-2 transition-all duration-300">{t("gohubAcademy")}</Link>
+              </div>
             </div>
-         </div>
 
-         {/* Block 1: SITEMAP (GOHUB + SOLUTIONS + COMPANY) */}
-         <div className="order-3 md:order-3 md:col-start-1 md:row-start-2 py-[var(--space-fluid-sm)] md:py-[var(--space-fluid-md)] px-[var(--space-gutter-sm)] md:pl-[var(--space-fluid-lg)] md:pr-[var(--space-fluid-md)] transition-colors duration-500 flex flex-col justify-center">
-            <div className="columns-2 md:columns-3 gap-fluid-sm md:gap-fluid-md w-full">
-               
-               {/* GOHUB */}
-               <div className="break-inside-avoid flex flex-col gap-2 md:gap-fluid-xs mb-2 md:mb-0">
-                  <h4 className="hidden md:block text-meta uppercase font-bold text-[var(--color-text-muted)] tracking-widest mb-1">{t("gohub")}</h4>
-                  <div className="flex flex-col gap-2">
-                    <Link href="#" className="inline-flex items-center gap-1 w-fit border-b border-[var(--color-border-Strokes-default)] pb-0.5 hover:border-[var(--color-text-primary)] active:border-[var(--color-text-primary)] active:text-[var(--color-text-primary)] active:opacity-70 active:scale-[0.98] transition-all group/link text-body-md">
-                      {t("gohubCrm")} <span className="text-[0.8em] opacity-50 group-hover/link:opacity-100 group-active/link:opacity-100 group-hover/link:translate-x-0.5 group-active/link:translate-x-0.5 group-hover/link:-translate-y-0.5 group-active/link:-translate-y-0.5 transition-all">↗</span>
-                    </Link>
-                    <Link href="#" className="inline-flex items-center gap-1 w-fit border-b border-[var(--color-border-Strokes-default)] pb-0.5 hover:border-[var(--color-text-primary)] active:border-[var(--color-text-primary)] active:text-[var(--color-text-primary)] active:opacity-70 active:scale-[0.98] transition-all group/link text-body-md">
-                      {t("gohubAms")} <span className="text-[0.8em] opacity-50 group-hover/link:opacity-100 group-active/link:opacity-100 group-hover/link:translate-x-0.5 group-active/link:translate-x-0.5 group-hover/link:-translate-y-0.5 group-active/link:-translate-y-0.5 transition-all">↗</span>
-                    </Link>
-                    <Link href="#" className="inline-flex items-center gap-1 w-fit border-b border-[var(--color-border-Strokes-default)] pb-0.5 hover:border-[var(--color-text-primary)] active:border-[var(--color-text-primary)] active:text-[var(--color-text-primary)] active:opacity-70 active:scale-[0.98] transition-all group/link text-body-md">
-                      {t("gohubCalls")} <span className="text-[0.8em] opacity-50 group-hover/link:opacity-100 group-active/link:opacity-100 group-hover/link:translate-x-0.5 group-active/link:translate-x-0.5 group-hover/link:-translate-y-0.5 group-active/link:-translate-y-0.5 transition-all">↗</span>
-                    </Link>
-                    <Link href="#" className="inline-flex items-center gap-1 w-fit border-b border-[var(--color-border-Strokes-default)] pb-0.5 hover:border-[var(--color-text-primary)] active:border-[var(--color-text-primary)] active:text-[var(--color-text-primary)] active:opacity-70 active:scale-[0.98] transition-all group/link text-body-md">
-                      {t("gohubAcademy")} <span className="text-[0.8em] opacity-50 group-hover/link:opacity-100 group-active/link:opacity-100 group-hover/link:translate-x-0.5 group-active/link:translate-x-0.5 group-hover/link:-translate-y-0.5 group-active/link:-translate-y-0.5 transition-all">↗</span>
-                    </Link>
-                  </div>
-               </div>
-
-               {/* SOLUTIONS */}
-               <div className="break-inside-avoid flex flex-col gap-2 md:gap-fluid-xs mb-2 md:mb-0">
-                  <h4 className="hidden md:block text-meta uppercase font-bold text-[var(--color-text-muted)] tracking-widest mb-1">{t("solutions")}</h4>
-                  <div className="flex flex-col gap-2">
-                    <Link href="#" className="inline-flex items-center gap-1 w-fit border-b border-[var(--color-border-Strokes-default)] pb-0.5 hover:border-[var(--color-text-primary)] active:border-[var(--color-text-primary)] active:text-[var(--color-text-primary)] active:opacity-70 active:scale-[0.98] transition-all group/link text-body-md">
-                      {t("solMarketing")} <span className="text-[0.8em] opacity-50 group-hover/link:opacity-100 group-active/link:opacity-100 group-hover/link:translate-x-0.5 group-active/link:translate-x-0.5 group-hover/link:-translate-y-0.5 group-active/link:-translate-y-0.5 transition-all">↗</span>
-                    </Link>
-                    <Link href="#" className="inline-flex items-center gap-1 w-fit border-b border-[var(--color-border-Strokes-default)] pb-0.5 hover:border-[var(--color-text-primary)] active:border-[var(--color-text-primary)] active:text-[var(--color-text-primary)] active:opacity-70 active:scale-[0.98] transition-all group/link text-body-md">
-                      {t("solTech")} <span className="text-[0.8em] opacity-50 group-hover/link:opacity-100 group-active/link:opacity-100 group-hover/link:translate-x-0.5 group-active/link:translate-x-0.5 group-hover/link:-translate-y-0.5 group-active/link:-translate-y-0.5 transition-all">↗</span>
-                    </Link>
-                  </div>
-               </div>
-
-               {/* COMPANY */}
-               <div className="break-inside-avoid flex flex-col gap-2 md:gap-fluid-xs">
-                  <h4 className="hidden md:block text-meta uppercase font-bold text-[var(--color-text-muted)] tracking-widest mb-1">{t("about")}</h4>
-                  <div className="flex flex-col gap-2">
-                    <Link href="#" className="inline-flex items-center gap-1 w-fit border-b border-[var(--color-border-Strokes-default)] pb-0.5 hover:border-[var(--color-text-primary)] active:border-[var(--color-text-primary)] active:text-[var(--color-text-primary)] active:opacity-70 active:scale-[0.98] transition-all group/link text-body-md">
-                      {t("aboutCompany")} <span className="text-[0.8em] opacity-50 group-hover/link:opacity-100 group-active/link:opacity-100 group-hover/link:translate-x-0.5 group-active/link:translate-x-0.5 group-hover/link:-translate-y-0.5 group-active/link:-translate-y-0.5 transition-all">↗</span>
-                    </Link>
-                    <Link href="#" className="inline-flex items-center gap-1 w-fit border-b border-[var(--color-border-Strokes-default)] pb-0.5 hover:border-[var(--color-text-primary)] active:border-[var(--color-text-primary)] active:text-[var(--color-text-primary)] active:opacity-70 active:scale-[0.98] transition-all group/link text-body-md">
-                      {t("aboutTeam")} <span className="text-[0.8em] opacity-50 group-hover/link:opacity-100 group-active/link:opacity-100 group-hover/link:translate-x-0.5 group-active/link:translate-x-0.5 group-hover/link:-translate-y-0.5 group-active/link:-translate-y-0.5 transition-all">↗</span>
-                    </Link>
-                    <Link href="#" className="inline-flex items-center gap-1 w-fit border-b border-[var(--color-border-Strokes-default)] pb-0.5 hover:border-[var(--color-text-primary)] active:border-[var(--color-text-primary)] active:text-[var(--color-text-primary)] active:opacity-70 active:scale-[0.98] transition-all group/link text-body-md">
-                      {t("aboutLicensing")} <span className="text-[0.8em] opacity-50 group-hover/link:opacity-100 group-active/link:opacity-100 group-hover/link:translate-x-0.5 group-active/link:translate-x-0.5 group-hover/link:-translate-y-0.5 group-active/link:-translate-y-0.5 transition-all">↗</span>
-                    </Link>
-                  </div>
-               </div>
-
+            {/* Column 2: Solutions */}
+            <div className="col-span-12 md:col-span-4 flex flex-col gap-static-lg">
+              <h4 className="text-meta tracking-[0.2em] text-white/40 border-b border-white/10 pb-static-sm">02 / {t("solutions")}</h4>
+              <div className="flex flex-col gap-static-md">
+                <Link href="#" className="text-body-lg font-light text-white/80 hover:text-white hover:translate-x-2 transition-all duration-300">{t("solMarketing")}</Link>
+                <Link href="#" className="text-body-lg font-light text-white/80 hover:text-white hover:translate-x-2 transition-all duration-300">{t("solTech")}</Link>
+              </div>
             </div>
-         </div>
-      </div>
 
-      {/* 
-        ========================================================================
-        BOTTOM META BAR
-        ========================================================================
-      */}
-      <div className="w-full flex flex-row justify-between items-center text-meta uppercase tracking-widest text-[var(--color-text-muted)] py-static-sm md:py-static-lg px-[var(--space-gutter-sm)] md:px-[var(--space-fluid-lg)] bg-[var(--color-surface-BG-base)]/60 backdrop-blur-2xl relative z-20">
-         <div className="flex items-center gap-2 md:gap-4">
-            <span className="text-[var(--color-text-primary)] hover:text-[var(--color-brand-blue)] active:text-[var(--color-brand-blue)] active:opacity-70 transition-colors cursor-pointer flex-shrink-0 scale-75 md:scale-100 origin-left">
-               <BrandIsotype />
-            </span>
-            <span className="text-meta md:text-body-md font-medium">© {new Date().getFullYear()} Epicare Insurance Corp</span>
-         </div>
-         <div className="flex items-center gap-3 md:gap-fluid-md">
-            <Link href="#" className="hover:text-[var(--color-brand-blue)] hover:underline hover:underline-offset-4 active:text-[var(--color-brand-blue)] active:underline active:underline-offset-4 active:scale-95 active:opacity-70 transition-all">{tc("privacy")}</Link>
-            <Link href="#" className="hover:text-[var(--color-brand-blue)] hover:underline hover:underline-offset-4 active:text-[var(--color-brand-blue)] active:underline active:underline-offset-4 active:scale-95 active:opacity-70 transition-all">{tc("terms")}</Link>
-         </div>
-      </div>
+            {/* Column 3: About & Address */}
+            <div className="col-span-12 md:col-span-4 flex flex-col gap-static-lg">
+              <h4 className="text-meta tracking-[0.2em] text-white/40 border-b border-white/10 pb-static-sm">03 / {t("about")}</h4>
+              <div className="flex flex-col gap-static-md mb-static-xl">
+                <Link href="#" className="text-body-lg font-light text-white/80 hover:text-white hover:translate-x-2 transition-all duration-300">{t("aboutCompany")}</Link>
+                <Link href="#" className="text-body-lg font-light text-white/80 hover:text-white hover:translate-x-2 transition-all duration-300">{t("aboutTeam")}</Link>
+                <Link href="#" className="text-body-lg font-light text-white/80 hover:text-white hover:translate-x-2 transition-all duration-300">{t("aboutLicensing")}</Link>
+              </div>
+              
+              <div className="flex flex-col gap-static-xs mt-auto">
+                <p className="text-meta text-white/40">HEADQUARTERS</p>
+                <p className="text-body-md font-light text-white/60">One World Trade Center<br/>New York, NY 10007</p>
+              </div>
+            </div>
 
-        </footer>
-      </div>
+          </div>
+
+          {/* BOTTOM SECTION: Legal */}
+          <div className="w-full flex flex-col md:flex-row justify-between items-center gap-static-md pt-static-xl border-t border-white/15">
+            <p className="text-meta text-white/40">© {new Date().getFullYear()} EPICARE. ALL RIGHTS RESERVED.</p>
+            <div className="flex gap-static-lg">
+              <Link href="#" className="text-meta text-white/40 hover:text-white transition-colors">{tc("privacy")}</Link>
+              <Link href="#" className="text-meta text-white/40 hover:text-white transition-colors">{tc("terms")}</Link>
+            </div>
+          </div>
+
+        </div>
+
+      </footer>
     </div>
   );
 }

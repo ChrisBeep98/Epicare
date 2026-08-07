@@ -3,7 +3,7 @@
 ## 1. Estado Actual
 - **Componente:** `BentoGridEpicare.tsx` (`src/components/epicare/`)
 - **Estado:** ✅ Completado y "redimido" (2026-07-22). Es el **PICO 2 (pin) del arco narrativo** — posición 6 de 15 (ver `project-context/scrollytelling-map.md` y `landing-blueprint.md` §06).
-- **Descripción:** Cover-flow 3D horizontal pineado (desktop) que presenta el ecosistema GO: title card + 5 productos confirmados **GO AMS (core) → GO CRM → Epicare Academy → Eppigo → Solutions** (GO CALLS fuera de la landing; Marketing vive dentro de Solutions — confirmado por César 2026-07-21). En móvil: stack de scroll libre, sin pin.
+- **Descripción:** Cover-flow 3D horizontal pineado (desktop) que presenta el ecosistema GO: title card + 5 productos confirmados **GO AMS (core) → GO CRM → Epicare Academy → Solutions → Eppigo** (GO CALLS fuera de la landing; Marketing vive dentro de Solutions — confirmado por César 2026-07-21). En móvil: stack de scroll libre, sin pin.
 - **Headline:** "Un portal es una herramienta. Esto es infraestructura." / EN "A portal is a tool. This is infrastructure."
 
 ## 2. Historial de Cambios
@@ -22,6 +22,10 @@
   - Imports `REVEAL` y `TRIGGER` sin usar, y `let mm` → `const mm`.
   - `loading="lazy"` + `decoding="async"` en las `<img>` de las cards.
 
+- **[05/08/2026] · Correcciones visuales del Bento Ecosystem.**
+  - **Cruce de Videos:** Intercambio de los videos de las tarjetas GO AMS y GO CRM (Light y Dark) en las vistas Desktop y Mobile, ya que se encontraban invertidos.
+  - **Reordenamiento:** La tarjeta de **Eppigo** fue desplazada a la última posición de la cuadrícula en ambas versiones, quedando el ecosistema así: GO AMS → GO CRM → Epicare Academy → Solutions → Eppigo.
+
 ## 3. Decisiones de Diseño
 - **"Un pin debe ganarse su costo" (ley 3 del arco):** el cover-flow oculta contenido comparable, así que se le dio arco interno (morph de mood), navegación (snap + scrubber) y se le quitó el peaje en móvil, donde el pulgar manda. Ver teoría en `command-prompts/narrative-arc-protocol.md`.
 - **Orden de cards:** GO AMS primero por ser el core del hub (blueprint S07-IA); Solutions cierra devolviendo el orbe al azul de marca (el viaje "vuelve a casa").
@@ -33,4 +37,4 @@
 - 🟡 `CallsLogo` quedó sin uso en el componente (GO CALLS fuera) — limpiar en el próximo refactor.
 - Deuda menor: casts `(card as any)` heredados del patrón original.
 
-> **Última Actualización:** 4 Agosto 2026
+> **Última Actualización:** 5 Agosto 2026
