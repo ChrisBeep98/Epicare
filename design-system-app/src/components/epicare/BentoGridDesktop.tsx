@@ -145,7 +145,7 @@ export default function BentoGridDesktop() {
       </div>
 
       {/* The 12-Column Spatial Grid */}
-      <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-12 auto-rows-[minmax(350px,auto)] md:auto-rows-[500px] gap-3 relative z-10">
+      <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-12 auto-rows-[minmax(350px,auto)] md:auto-rows-[minmax(500px,auto)] gap-3 relative z-10">
         
         {/* CRM (Large left column) */}
         <SpatialCard className="md:col-span-7 flex flex-col md:flex-row justify-between group" ctaText={t('cardCta')}>
@@ -181,13 +181,13 @@ export default function BentoGridDesktop() {
             <h3 className="text-display-sm font-bold text-[var(--color-text-Black-100)] dark:text-white transition-colors duration-500">GO ACADEMY</h3>
             <p className="text-body-lg text-[var(--color-text-muted)] dark:text-white/70 max-w-md mt-4 transition-colors duration-500">{t('card8Desc')}</p>
           </div>
-          <div className="relative w-full md:w-[60%] h-[300px] md:h-full overflow-hidden rounded-b-[12px] md:rounded-bl-none md:rounded-r-[12px] dark:hidden">
-            <SmartVideo src={asset("/Files/Features/Academy_Light_Final.mp4")} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.5s] ease-out" />
+          <div className="relative w-full md:w-[60%] h-[300px] md:h-full overflow-hidden rounded-b-[12px] md:rounded-bl-none md:rounded-r-[12px] dark:hidden flex items-center justify-center">
+            <SmartVideo src={asset("/Files/Features/Academy_Light_Final.mp4")} className="absolute inset-0 w-full h-full object-contain scale-[0.85] group-hover:scale-95 transition-transform duration-[1.5s] ease-out" />
           </div>
         </SpatialCard>
 
         {/* EPPIGO (Large horizontal) */}
-        <SpatialCard className="md:col-span-8 flex flex-col md:flex-row justify-between group" ctaText={t('cardCta')} ctaClassName="bg-[var(--color-brand-orange)]/90 text-white">
+        <SpatialCard className="md:col-span-8 flex flex-col md:flex-row justify-between group md:min-h-[600px]" ctaText={t('cardCta')} ctaClassName="bg-[var(--color-brand-orange)]/90 text-white">
           <SmartVideo src={asset("/Files/Features/Eppigo_Dark_Final.mp4")} className="hidden dark:block absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.5s] ease-out z-0" />
           <div className="p-10 w-full md:w-[40%] z-20 relative">
             <EppigoIcon className="h-10 text-[var(--color-brand-orange)] mb-6" />
@@ -200,14 +200,14 @@ export default function BentoGridDesktop() {
         </SpatialCard>
 
         {/* SOLUTIONS (Small vertical) */}
-        <SpatialCard className="md:col-span-4 flex flex-col justify-between group" ctaText={t('cardCta')}>
+        <SpatialCard className="md:col-span-4 flex flex-col justify-between group md:min-h-[600px]" ctaText={t('cardCta')}>
           <SmartVideo src={asset("/Files/Features/Solutions_Dark_Final.mp4")} className="hidden dark:block absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.5s] ease-out z-0" />
           <div className="p-8 pb-0 z-20 relative">
             <SolutionsIcon className="h-10 w-auto drop-shadow-[0_0_15px_rgba(90,200,250,0.5)] mb-6 text-[var(--color-brand-blue)] dark:text-[var(--color-brand-cyan)]" />
             <h3 className="text-display-sm font-bold text-[var(--color-text-Black-100)] dark:text-white transition-colors duration-500">SOLUTIONS</h3>
             <p className="text-body-lg text-[var(--color-text-muted)] dark:text-white/70 mt-2 transition-colors duration-500">{t('cardSolutionsDesc')}</p>
           </div>
-          <div className="relative w-full h-[200px] md:h-[320px] mt-6 overflow-hidden rounded-b-[12px] dark:hidden">
+          <div className="relative w-full h-[200px] md:h-[420px] mt-6 overflow-hidden rounded-b-[12px] dark:hidden">
             <SmartVideo src={asset("/Files/Features/Solutions_Light_Final.mp4")} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.5s] ease-out" />
           </div>
         </SpatialCard>

@@ -1,6 +1,5 @@
 import LoaderEpicare from "@/components/epicare/LoaderEpicare";
 import LicensingHeroEpicare from "@/components/epicare/LicensingHeroEpicare";
-import InteractiveGlobeEpicare from "@/components/epicare/InteractiveGlobeEpicare";
 import LicensingGridEpicare from "@/components/epicare/LicensingGridEpicare";
 import FooterEpicare from "@/components/epicare/FooterEpicare";
 import { SITE_URL } from "../layout";
@@ -19,7 +18,7 @@ const structuredData = {
 
 export default function LicensingPage() {
   return (
-    <main className="flex flex-col w-full min-h-screen bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] transition-colors duration-500">
+    <main className="flex flex-col w-full min-h-screen overflow-x-hidden bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] transition-colors duration-500">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
@@ -29,9 +28,6 @@ export default function LicensingPage() {
       
       {/* ── S01 · Licensing Hero ── */}
       <div className="w-full order-2"><LicensingHeroEpicare /></div>
-      
-      {/* ── S02 · Interactive Globe (Map) ── */}
-      <div id="interactive-globe" className="w-full order-3 relative z-10"><InteractiveGlobeEpicare /></div>
       
       {/* ── S03 · Licensing Grid ── */}
       <div id="licensing-grid" className="w-full order-4 relative z-10"><LicensingGridEpicare /></div>

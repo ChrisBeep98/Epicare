@@ -130,7 +130,7 @@ export default function LicensingGridEpicare() {
   }, [searchTerm]);
 
   return (
-    <section className="w-full pt-0 pb-section-lg px-gutter-sm md:px-gutter-md relative z-10">
+    <section className="w-full pt-section-lg md:pt-[250px] pb-section-lg px-gutter-sm md:px-gutter-md relative z-10">
       <div className="max-w-section-lg mx-auto w-full flex flex-col items-center gap-fluid-xs">
         
         {/* Minimalist Header & Search */}

@@ -74,7 +74,7 @@ const PINS = [
   { lat: 18.220800, lng: -66.590100, name: "Puerto Rico", abbr: "PR", license: "3004132963", color: "var(--color-brand-blue)" }
 ];
 
-export default function InteractiveGlobeEpicare() {
+export default function InteractiveGlobeEpicare({ isWidget = false }: { isWidget?: boolean } = {}) {
   const t = useTranslations('landingV2.interactiveMap');
   
   const sectionRef = useRef<HTMLElement>(null);
@@ -135,9 +135,10 @@ export default function InteractiveGlobeEpicare() {
   useEffect(() => {
     // Run once data is ready to set initial view
     if (globeEl.current && countriesDataGlobal.length > 0 && dimensions.width > 0) {
-      // Usamos una altitud base estable. El tamaño final es controlado por GSAP (DOM Scale)
-      // para evitar los reajustes bruscos (clamping) del motor de WebGL.
-      globeEl.current.pointOfView({ lat: 39.8283, lng: -98.5795, altitude: 1.45 }, 0);
+      // SEGÚN EL PROTOCOLO: Ajustamos el tamaño del planeta exclusivamente con altitude
+      // En desktop mantenemos 1.1 masivo. En mobile, al haber subido el canvas a 800px absoluto, necesitamos alejar la cámara (2.8) para que encaje bien en la pantalla sin verse sobredimensionado.
+      const targetAltitude = window.innerWidth < 768 ? 2.8 : 1.1;
+      globeEl.current.pointOfView({ lat: 39.8283, lng: -98.5795, altitude: targetAltitude }, 0);
     }
 
     // BULLETPROOF ZOOM & TOUCH PREVENTION:
@@ -235,17 +236,18 @@ export default function InteractiveGlobeEpicare() {
       });
 
       // Globe Animation (Elegant Degradation via MatchMedia)
+      // PROTOCOLO: NUNCA usar CSS transform: scale en el contenedor de react-globe.gl
       const mm = gsap.matchMedia();
       
-      // Desktop: Scale + Fade
+      // Desktop: Fade Only
       mm.add("(min-width: 768px)", () => {
         if (containerRef.current) {
           gsap.fromTo(
             containerRef.current,
-            { scale: 0.95, opacity: 0 },
+            { opacity: 0, y: 30 },
             {
-              scale: 1.45, // Visual scale-up increased per user request
               opacity: 1,
+              y: 0,
               duration: 1.2,
               ease: "power3.out",
               scrollTrigger: {
@@ -257,15 +259,15 @@ export default function InteractiveGlobeEpicare() {
         }
       });
       
-      // Mobile: Scale + Fade
+      // Mobile: Fade Only
       mm.add("(max-width: 767px)", () => {
         if (containerRef.current) {
           gsap.fromTo(
             containerRef.current,
-            { scale: 1.1, opacity: 0 },
+            { opacity: 0, y: 20 },
             {
-              scale: 1.20, // Dramatic visual scale-up for mobile
               opacity: 1,
+              y: 0,
               duration: 1.2,
               ease: "power2.out",
               scrollTrigger: {
@@ -295,24 +297,26 @@ export default function InteractiveGlobeEpicare() {
   return (
     <section 
       ref={sectionRef} 
-      className="relative w-full pt-0 pb-section-md overflow-hidden bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] transition-colors duration-500"
+      className={`relative w-full transition-colors duration-500 ${isWidget ? 'h-full pt-0 pb-0' : 'overflow-hidden bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] pt-0 pb-section-md'}`}
     >
-      <div className="grid-layout max-w-section-lg mx-auto w-full items-center relative z-30 px-gutter-sm md:px-gutter-md">
-        {/* TEXT OVERLAY (TOP) */}
-        <div className="col-span-12 flex flex-col justify-center items-center text-center gap-static-md pointer-events-none mb-12">
-          <span className="map-reveal text-overline text-[var(--color-brand-blue)]">
-            {t('overline')}
-          </span>
-          <h2 className="map-reveal text-display-lg md:text-display-xl text-[var(--color-text-primary)] font-semibold leading-tight drop-shadow-md">
-            {t('title')}
-          </h2>
+      {!isWidget && (
+        <div className="grid-layout max-w-section-lg mx-auto w-full items-center relative z-30 px-gutter-sm md:px-gutter-md">
+          {/* TEXT OVERLAY (TOP) */}
+          <div className="col-span-12 flex flex-col justify-center items-center text-center gap-static-md pointer-events-none mb-12">
+            <span className="map-reveal text-overline text-[var(--color-brand-blue)]">
+              {t('overline')}
+            </span>
+            <h2 className="map-reveal text-display-lg md:text-display-xl text-[var(--color-text-primary)] font-semibold leading-tight drop-shadow-md">
+              {t('title')}
+            </h2>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* 3D GLOBE CONTAINER */}
       <div 
         ref={containerRef}
-        className="globe-wrapper w-full h-[60vh] md:h-[80vh] relative z-20 flex justify-center items-center mt-[-4vh] md:mt-[-8vh]"
+        className={`globe-wrapper w-full relative z-20 flex justify-center items-center ${isWidget ? 'h-full min-h-[350px]' : 'h-[60vh] md:h-[80vh] mt-[-4vh] md:mt-[-8vh]'}`}
         style={{ perspective: "1000px" }}
       >
         <style>{`
@@ -423,30 +427,33 @@ export default function InteractiveGlobeEpicare() {
             }}
           />
         )}
-        
-        {/* Gradient overlays to blend the globe into the page background */}
-        <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_center,transparent_40%,var(--color-surface-BG-white)_100%)] dark:bg-[radial-gradient(ellipse_at_center,transparent_40%,var(--color-surface-BG-black)_100%)] transition-colors duration-500 z-10" />
+        {/* Gradient overlays to blend the globe into the page background (Only needed in full-page mode) */}
+        {!isWidget && (
+          <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_center,transparent_40%,var(--color-surface-BG-white)_100%)] dark:bg-[radial-gradient(ellipse_at_center,transparent_40%,var(--color-surface-BG-black)_100%)] transition-colors duration-500 z-10" />
+        )}
       </div>
 
-      {/* TEXT OVERLAY (BOTTOM) */}
-      <div className="grid-layout max-w-section-lg mx-auto w-full items-center relative z-30 px-gutter-sm md:px-gutter-md mt-4 md:mt-8 pointer-events-none">
-        <div className="col-span-12 flex flex-col justify-center items-center text-center gap-6">
-          <button className="pointer-events-auto group w-fit h-12 pl-6 pr-2 rounded-full flex items-center gap-3 bg-[var(--color-action-primary-bg)] text-[var(--color-action-primary-text)] shadow-elevation-2 transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-elevation-4 active:scale-[0.96] active:opacity-80 active:duration-150">
-            <span className="text-body-sm font-medium">Get contracted</span>
-            <span className="relative w-8 h-8 rounded-full bg-[var(--color-action-primary-text)] text-[var(--color-action-primary-bg)] flex items-center justify-center overflow-hidden shrink-0">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="absolute w-4 h-4 transition-transform duration-300 ease-out group-hover:translate-x-5 group-hover:-translate-y-5" aria-hidden="true">
-                <path d="M7 17 17 7M7 7h10v10"></path>
-              </svg>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="absolute w-4 h-4 -translate-x-5 translate-y-5 transition-transform duration-300 ease-out group-hover:translate-x-0 group-hover:translate-y-0" aria-hidden="true">
-                <path d="M7 17 17 7M7 7h10v10"></path>
-              </svg>
-            </span>
-          </button>
-          <p className="map-reveal pointer-events-auto text-body-lg text-[var(--color-text-secondary)] font-light max-w-[36rem]">
-            {t('description')}
-          </p>
+      {!isWidget && (
+        <div className="grid-layout max-w-section-lg mx-auto w-full items-center relative z-30 px-gutter-sm md:px-gutter-md mt-4 md:mt-8 pointer-events-none">
+          {/* TEXT OVERLAY (BOTTOM) */}
+          <div className="col-span-12 flex flex-col justify-center items-center text-center gap-6">
+            <button className="pointer-events-auto group w-fit h-12 pl-6 pr-2 rounded-full flex items-center gap-3 bg-[var(--color-action-primary-bg)] text-[var(--color-action-primary-text)] shadow-elevation-2 transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-elevation-4 active:scale-[0.96] active:opacity-80 active:duration-150">
+              <span className="text-body-sm font-medium">Get contracted</span>
+              <span className="relative w-8 h-8 rounded-full bg-[var(--color-action-primary-text)] text-[var(--color-action-primary-bg)] flex items-center justify-center overflow-hidden shrink-0">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="absolute w-4 h-4 transition-transform duration-300 ease-out group-hover:translate-x-5 group-hover:-translate-y-5" aria-hidden="true">
+                  <path d="M7 17 17 7M7 7h10v10"></path>
+                </svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="absolute w-4 h-4 -translate-x-5 translate-y-5 transition-transform duration-300 ease-out group-hover:translate-x-0 group-hover:translate-y-0" aria-hidden="true">
+                  <path d="M7 17 17 7M7 7h10v10"></path>
+                </svg>
+              </span>
+            </button>
+            <p className="map-reveal pointer-events-auto text-body-lg text-[var(--color-text-secondary)] font-light max-w-[36rem]">
+              {t('description')}
+            </p>
+          </div>
         </div>
-      </div>
+      )}
     </section>
   );
 }
