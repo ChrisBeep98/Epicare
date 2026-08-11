@@ -391,9 +391,9 @@ export default function InteractiveGlobeEpicare({ isWidget = false }: { isWidget
               const licenseLabel = d.license ? d.license : 'PENDING';
               
               el.innerHTML = `
-                <div class="relative group cursor-pointer pointer-events-auto z-0 hover:z-[9999]" style="transform: translate(-50%, -50%);">
+                <div class="relative group cursor-pointer pointer-events-auto z-0 md:hover:z-[9999]" style="transform: translate(-50%, -50%);">
                   <!-- Solid Bimodal SVG Pin with Orange Core -->
-                  <div class="relative flex items-center justify-center w-5 h-5 origin-bottom group-hover:-translate-y-1 group-hover:scale-125 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
+                  <div class="pin-anim relative flex items-center justify-center w-5 h-5 origin-bottom md:group-hover:-translate-y-1 md:group-hover:scale-125 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full text-[var(--color-surface-BG-white)] dark:text-[var(--color-surface-BG-black)] drop-shadow-[0_2px_4px_rgba(0,0,0,0.12)]">
                       <!-- Solid body that matches the theme's surface color to avoid color pollution -->
                       <path d="M12 21.5C12 21.5 19.5 14.722 19.5 9.5C19.5 5.35786 16.1421 2 12 2C7.85786 2 4.5 5.35786 4.5 9.5C4.5 14.722 12 21.5 12 21.5Z" fill="currentColor" stroke="rgba(242,96,35,0.3)" stroke-width="0.5"/>
@@ -403,7 +403,7 @@ export default function InteractiveGlobeEpicare({ isWidget = false }: { isWidget
                   </div>
                   
                   <!-- Hover Tooltip: Chat Bubble Card -->
-                  <div class="absolute bottom-full left-1/2 ml-1.5 mb-1.5 w-max opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out pointer-events-none z-50 flex flex-col items-start">
+                  <div class="tooltip-card absolute bottom-full left-1/2 ml-1.5 mb-1.5 w-max opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 ease-out pointer-events-none z-50 flex flex-col items-start">
                     
                     <!-- Glassmorphic Chat Bubble -->
                     <div class="px-3.5 py-1.5 bg-white/70 dark:bg-black/70 backdrop-blur-xl border border-[var(--color-border-Strokes-divider)] rounded-2xl rounded-bl-sm shadow-[0_8px_32px_rgba(0,0,0,0.15),inset_0_1px_1px_rgba(255,255,255,0.8)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.1)] flex items-center justify-center gap-1.5 relative z-10">
@@ -414,6 +414,31 @@ export default function InteractiveGlobeEpicare({ isWidget = false }: { isWidget
                   </div>
                 </div>
               `;
+              
+              // Lógica de tap para mobile (sin hover real)
+              if (window.innerWidth < 768) {
+                let timeoutId: any;
+                el.addEventListener('click', () => {
+                  const tooltip = el.querySelector('.tooltip-card');
+                  const pinAnim = el.querySelector('.pin-anim');
+                  
+                  if (tooltip && pinAnim) {
+                    // Mostrar manualmente
+                    tooltip.classList.remove('opacity-0');
+                    tooltip.classList.add('opacity-100');
+                    pinAnim.classList.add('-translate-y-1', 'scale-125');
+                    
+                    // Ocultar tras 2.5s
+                    if (timeoutId) clearTimeout(timeoutId);
+                    timeoutId = setTimeout(() => {
+                      tooltip.classList.remove('opacity-100');
+                      tooltip.classList.add('opacity-0');
+                      pinAnim.classList.remove('-translate-y-1', 'scale-125');
+                    }, 2500);
+                  }
+                });
+              }
+
               return el;
             }}
           />
