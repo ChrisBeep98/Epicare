@@ -388,7 +388,7 @@ export default function InteractiveGlobeEpicare({ isWidget = false }: { isWidget
             htmlElement={(d: any) => {
               const el = document.createElement('div');
               el.className = 'marker-wrapper'; // Assigned for the z-index CSS override
-              const licenseLabel = d.license ? `LIC-${d.license}` : 'PENDING';
+              const licenseLabel = d.license ? d.license : 'PENDING';
               
               el.innerHTML = `
                 <div class="relative group cursor-pointer pointer-events-auto z-0 hover:z-[9999]" style="transform: translate(-50%, -50%);">
@@ -402,24 +402,15 @@ export default function InteractiveGlobeEpicare({ isWidget = false }: { isWidget
                     </svg>
                   </div>
                   
-                  <!-- Hover Tooltip: Two Glassmorphic Pills -->
-                  <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-max opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] pointer-events-none origin-bottom z-50 flex flex-col items-center gap-1.5">
+                  <!-- Hover Tooltip: Chat Bubble Card -->
+                  <div class="absolute bottom-full left-1/2 ml-1.5 mb-1.5 w-max opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out pointer-events-none z-50 flex flex-col items-start">
                     
-                    <!-- Top Pill: State Name -->
-                    <div class="px-3.5 py-1.5 bg-[var(--color-surface-BG-white)]/85 dark:bg-[var(--color-surface-BG-black)]/85 backdrop-blur-md border border-[var(--color-border-Strokes-default)] rounded-full shadow-elevation-4 flex items-center justify-center">
-                      <span class="text-ui-label text-[var(--color-text-primary)] font-medium tracking-wide">${d.name}</span>
+                    <!-- Glassmorphic Chat Bubble -->
+                    <div class="px-3.5 py-1.5 bg-white/70 dark:bg-black/70 backdrop-blur-xl border border-[var(--color-border-Strokes-divider)] rounded-2xl rounded-bl-sm shadow-[0_8px_32px_rgba(0,0,0,0.15),inset_0_1px_1px_rgba(255,255,255,0.8)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.1)] flex items-center justify-center gap-1.5 relative z-10">
+                      <span class="text-ui-label text-[var(--color-text-primary)] font-semibold tracking-wide drop-shadow-sm">${d.name}</span>
+                      <span class="text-ui-label text-[var(--color-text-muted)] opacity-60">·</span>
+                      <span class="text-ui-label text-[var(--color-text-secondary)] font-medium tracking-wide">${licenseLabel}</span>
                     </div>
-                    
-                    <!-- Bottom Pill: License Number + Pointing Arrow -->
-                    <div class="relative flex flex-col items-center">
-                      <div class="flex items-center gap-1.5 bg-[var(--color-surface-BG-2)]/90 dark:bg-[var(--color-surface-BG-3)]/90 backdrop-blur-md px-2.5 py-1 rounded-full border border-[var(--color-border-Strokes-divider)] shadow-elevation-2 relative z-10">
-                        <div class="w-1.5 h-1.5 rounded-sm rotate-45 shadow-[0_0_6px_#F26023] bg-[#F26023]"></div>
-                        <span class="text-meta text-[var(--color-text-secondary)] text-[10px] uppercase tracking-wider font-mono">${licenseLabel}</span>
-                      </div>
-                      <!-- Pointing Arrow (Pestañita) -->
-                      <div class="absolute top-full left-1/2 -translate-x-1/2 w-3.5 h-3.5 bg-[var(--color-surface-BG-2)]/90 dark:bg-[var(--color-surface-BG-3)]/90 border-r border-b border-[var(--color-border-Strokes-divider)] transform rotate-45 -mt-2 z-0"></div>
-                    </div>
-                    
                   </div>
                 </div>
               `;
