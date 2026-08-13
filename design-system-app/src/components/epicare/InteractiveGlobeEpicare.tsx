@@ -424,11 +424,7 @@ export default function InteractiveGlobeEpicare({ isWidget = false }: { isWidget
             // 1. Earth Solid Polygons (Flawless global geometry, USA as a single block)
             polygonsData={countriesDataGlobal}
             polygonAltitude={(d: any) => isPolygonActive(d) ? 0.012 : 0.01} // Elevate active regions
-            polygonCapColor={(d: any) => {
-              const isDark = document.documentElement.classList.contains('dark');
-              // El usuario prefirió que todos los países (activos e inactivos) compartan el mismo color de fondo
-              return isDark ? '#0D0E0F' : '#F4F6F8';
-            }}
+            polygonCapColor={() => '#FFFFFF'}
             polygonSideColor={() => 'rgba(0,0,0,0)'}
             polygonStrokeColor={(d: any) => {
               const isDark = document.documentElement.classList.contains('dark');
@@ -462,9 +458,9 @@ export default function InteractiveGlobeEpicare({ isWidget = false }: { isWidget
               el.innerHTML = `
                 <div class="relative group cursor-pointer pointer-events-auto z-0 md:hover:z-[9999]" style="transform: translate(-50%, -50%);">
                   <!-- Solid Bimodal SVG Pin with Orange Core -->
-                  <div class="pin-anim relative flex items-center justify-center w-5 h-5 origin-bottom md:group-hover:-translate-y-1 md:group-hover:scale-125 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
-                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full text-[var(--color-surface-BG-white)] dark:text-[var(--color-surface-BG-black)] drop-shadow-[0_2px_4px_rgba(0,0,0,0.12)]">
-                      <!-- Solid body that matches the theme's surface color to avoid color pollution -->
+                  <div class="pin-anim relative flex items-center justify-center w-7 h-7 origin-bottom md:group-hover:-translate-y-1 md:group-hover:scale-125 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full text-[var(--color-surface-BG-white)] drop-shadow-[0_2px_4px_rgba(0,0,0,0.12)]">
+                      <!-- Solid body that stays white in both modes -->
                       <path d="M12 21.5C12 21.5 19.5 14.722 19.5 9.5C19.5 5.35786 16.1421 2 12 2C7.85786 2 4.5 5.35786 4.5 9.5C4.5 14.722 12 21.5 12 21.5Z" fill="currentColor" stroke="rgba(242,96,35,0.3)" stroke-width="0.5"/>
                       <!-- Tiny solid orange core for the accent -->
                       <circle cx="12" cy="9.5" r="3" fill="#F26023"/>

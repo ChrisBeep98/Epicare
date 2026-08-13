@@ -142,14 +142,14 @@ export default function LicensingHeroEpicare() {
           {/* ROW 2: TEXT & BUTTONS (Wrapped for mobile flex, contents for desktop grid) */}
           <div className="col-span-12 flex flex-row justify-between items-end gap-5 md:contents">
             {/* TEXT */}
-            <div className="flex-1 md:col-start-1 md:col-span-4 md:row-start-2 z-10 flex flex-row justify-start items-end pb-0 md:pb-12 md:pr-8">
+            <div className="flex-1 md:col-start-1 md:col-span-4 md:row-start-2 z-10 flex flex-row justify-start items-end md:items-start pb-0 md:pr-8">
               <p className="licensing-text text-subtitle text-left text-[var(--color-text-secondary)] font-light">
                 Epicare Insurance holds the necessary <span className="font-medium text-[var(--color-action-primary-bg)]">state licenses</span> to conduct insurance business. All insurance transactions are carried out through <span className="font-medium text-[var(--color-action-primary-bg)]">licensed agents</span> in compliance with state regulations.
               </p>
             </div>
             
             {/* BUTTONS */}
-            <div className="flex-none md:col-start-5 md:col-span-1 md:row-start-2 z-10 flex flex-col justify-end items-end md:items-start pb-0 md:pb-12">
+            <div className="flex-none md:col-start-5 md:col-span-1 md:row-start-2 z-10 flex flex-col justify-end md:justify-start items-end md:items-start pb-0">
               <button 
                 onClick={handleScrollToLicenses}
                 className="licensing-btn group relative w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center bg-[var(--color-action-primary-bg)] text-[var(--color-action-primary-text)] shadow-elevation-2 transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:shadow-elevation-4 active:scale-95"
