@@ -69,7 +69,35 @@ Este algoritmo verifica los controles 60 veces por segundo y apaga el zoom insta
    }
    ```
    - No usar State (`useState`) para los Hovers: El globo no debe re-renderizarse en React cada vez que el ratón toca un pin (esto destrozaría el rendimiento de WebGL). Los tooltips deben resolverse inyectando HTML puro (`htmlElement`) y controlando la visibilidad puramente con clases de Tailwind (`group-hover:opacity-100`).
-4. **Mobile Scroll Vertical (La Bala de Plata CSS):**
+4. **El tamaño del planeta cambia en cada recarga (carrera de carga):**
+   - **Síntoma:** el globo sale sobredimensionado a veces y bien dimensionado otras, sin patrón.
+   - **Causa:** `Globe` entra por `dynamic()`, así que monta en un commit POSTERIOR al del padre.
+     Si el `pointOfView()` cuelga de un `useEffect` con guarda `if (globeEl.current && ...)`,
+     y sus deps son datos que pueden llegar antes que el chunk de three.js (un fetch de
+     GeoJSON con caché caliente, por ejemplo), la única llamada se pierde: `globeEl.current`
+     es `null` y el effect ya no vuelve a dispararse. El globo se queda en el
+     **`altitude: 2.5` por defecto de globe.gl** y parece "otro diseño".
+   - **Solución:** aplica el POV **desde el bucle rAF**, no desde el cuerpo del effect. El
+     bucle ya corre 60fps, así que fija la cámara en el primer frame en que el globo existe,
+     sin importar quién gane la carrera. Escribe **solo `altitude`** en las correcciones
+     posteriores: `lat`/`lng` los mueven `autoRotate` y el drag del usuario, y pisarlos
+     congelaría la rotación.
+   ```javascript
+   const targetAltitude = targetAltitudeRef.current; // ref, no state: el bucle no se re-crea
+   if (!povInitializedRef.current) {
+     globeEl.current.pointOfView({ ...GLOBE_POV_CENTER, altitude: targetAltitude }, 0);
+     povInitializedRef.current = true;
+   } else if (Math.abs(globeEl.current.pointOfView().altitude - targetAltitude) > 0.02) {
+     globeEl.current.pointOfView({ altitude: targetAltitude }, 0); // solo altitude
+   }
+   ```
+   - **Cómo traducir `altitude` a píxeles:** globe.gl usa el fov vertical de 50° de three.js
+     (nadie lo cambia). La esfera ocupa `tan(asin(1/(1+alt))) / tan(25°)` del ALTO del canvas:
+     `1.1` → 116% (se corta por los bordes) · `1.7` → 85% · `2.5` → 64% · `2.8` → 59%.
+   - **Medición del canvas:** `useLayoutEffect` + `ResizeObserver`, ignorando los cambios de
+     **solo altura** en mobile (los dispara la barra de URL al hacer scroll).
+
+5. **Mobile Scroll Vertical (La Bala de Plata CSS):**
    - `OrbitControls` inyecta automáticamente `touch-action: none` en línea en el `<canvas>`, lo que bloquea por completo el scroll de la página en móviles si intentas deslizar sobre el planeta.
    - **Solución:** SIEMPRE inyecta esta regla CSS con `!important` para obligar al navegador a controlar el scroll vertical de forma nativa, permitiendo que la rotación horizontal (X) la siga manejando el globo:
    ```css

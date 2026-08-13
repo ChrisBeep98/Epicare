@@ -39,7 +39,7 @@
       "itemOmsTitle": "Compliance",
       "itemOmsDesc": "Licensing, E&O, and renewals with alerts before expiration, not after.",
       "sectionTitle": "Your agency,\none ecosystem",
-      "sectionDesc": "GO AMS, GO CRM, GO CALLS, Eppigo, Academy, and Agency Solutions. <b>Our own software</b> — not third-party licenses.",
+      "sectionDesc": "GO AMS, GO CRM, and Epicare Academy. <b>Our own software</b> — not third-party licenses.",
       "card1Title": "GO CRM",
       "card1Desc": "Leads, pipeline, and follow-up in one place. You know who to call today and why.",
       "card4Title": "GO AMS",
@@ -50,11 +50,33 @@
       "card7Desc": "Production, retention, and persistency per agent. The numbers that decide your month.",
       "card8Title": "Academy",
       "card8Desc": "Certifications, product training, and new-agent onboarding. At your own pace.",
-      "cardEppigoTitle": "Eppigo",
-      "cardEppigoDesc": "Quote, build the proposal, and enroll the client without leaving the portal.",
-      "cardSolutionsTitle": "Agency Solutions",
-      "cardSolutionsDesc": "Campaigns, funnels, and sales material ready to use. Not generic templates.",
       "cardCta": "Explore"
+    },
+    "spotlight": {
+      "eppigo": {
+        "name": "Eppigo",
+        "cta": "Join Epicare",
+        "title": "Produce more, faster.",
+        "desc": "Quote, build the proposal, and enroll the client without leaving the portal.",
+        "f1Title": "Multicarrier quoting",
+        "f1Desc": "Only across your active appointments — nothing you can't sell.",
+        "f2Title": "Interactive proposals",
+        "f2Desc": "Web proposals with open tracking: you know when they're read.",
+        "f3Title": "Traceable links and QR",
+        "f3Desc": "Share by link or QR code and follow every interaction."
+      },
+      "solutions": {
+        "name": "Agency Solutions",
+        "cta": "Join Epicare",
+        "title": "Not generic templates.",
+        "desc": "Campaigns, funnels, and sales material ready to use.",
+        "f1Title": "Campaigns",
+        "f1Desc": "Ready to launch, not built from scratch.",
+        "f2Title": "Funnels",
+        "f2Desc": "The prospect journey, already built.",
+        "f3Title": "Sales material",
+        "f3Desc": "Built for insurance, not generic templates."
+      }
     },
     "darkGradient": {
       "sectionTitle": "One single agreement for <span>your entire organization.</span>",

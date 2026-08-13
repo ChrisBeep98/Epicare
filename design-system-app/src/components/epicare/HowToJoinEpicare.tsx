@@ -135,7 +135,10 @@ export default function HowToJoinEpicare() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="w-full relative bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)]">
+    // `unete` es el destino real de los CTA de las secciones de producto
+    // (Eppigo / Agency Solutions). Sin este ancla esos botones serían otro
+    // href="#" muerto de los 22 que ya arrastra la landing.
+    <section id="unete" ref={sectionRef} className="w-full relative bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)]">
       
       {/* ========================================================= */}
       {/* SECTION HEADER                                            */}

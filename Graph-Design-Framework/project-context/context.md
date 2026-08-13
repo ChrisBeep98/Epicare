@@ -215,6 +215,7 @@ Los componentes del nuevo diseño están consolidados en:
 - **137. Nuevas herramientas del framework:** `command-prompts/codebase-architecture-protocol.md` (mapa del código, restricciones del static export, trampas con evidencia, checklist de "limpio y pulido" y tabla de deuda) y `design-system-app/scripts/design-fingerprint.mjs`, que extrae del HTML generado la secuencia de clases, estilos inline, texto, media y head normalizando los hashes de build. Un rebuild sin cambios de código da `TOTAL: 0`, así que sirve como **prueba de que un refactor no movió el diseño**. Los 3 commits de limpieza dieron 0 cambios en clases, estilos inline y texto.
 
 - **138. [NUEVO] Epicare — Correcciones visuales del Bento Ecosystem (5 Ago 2026):** Intercambio de videos cruzados entre GO AMS y GO CRM. La tarjeta de Eppigo fue desplazada a la posición final del ecosistema en ambas versiones (Desktop y Mobile).
+- **139. [NUEVO] Epicare — Sección Licensing (11 Ago 2026):** Construcción del Hero y widget interactivo 3D del globo de licencias. Resoluciones críticas de clipping WebGL en móviles mediante canvas absoluto asimétrico, diseño de tooltips unificados (chat bubble con cristal esmerilado oscuro) con funcionalidad táctil auto-dismiss en móvil, y prevención de brincos (scroll/parallax fixes).
 
 ## 6. Próximos Pasos (To-Do)
 - **Aplicar el mapa de ritmo vertical** (FASE 3 de `vertical-spacing-protocol.md`) a las 8 secciones de la landing.

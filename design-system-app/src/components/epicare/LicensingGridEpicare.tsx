@@ -98,6 +98,7 @@ const LICENSE_DATA = [
 export default function LicensingGridEpicare() {
   const t = useTranslations("landingV2.licensingGrid");
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedLicense, setSelectedLicense] = useState<{ state: string; license: string } | null>(null);
   const gridRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
 
@@ -129,19 +130,30 @@ export default function LicensingGridEpicare() {
     return () => ctx.revert();
   }, [searchTerm]);
 
+  // (Body scroll lock removed as we now use an in-place pop-out interaction instead of a full screen overlay)
+
   return (
     <section className="w-full pt-section-lg md:pt-[250px] pb-section-lg px-gutter-sm md:px-gutter-md relative z-10">
-      <div className="max-w-section-lg mx-auto w-full flex flex-col items-center gap-fluid-xs">
+      {/* AWWWARDS MOTION STYLES */}
+      <style>{`
+        @keyframes smoothExpand { 
+          0% { opacity: 0; transform: translate(-50%, -30%) scale(0.95); } 
+          100% { opacity: 1; transform: translate(-50%, -50%) scale(1); } 
+        }
+        .animate-smooth-expand { animation: smoothExpand 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+      `}</style>
+      
+      <div className="max-w-section-lg mx-auto w-full flex flex-col items-start gap-fluid-sm">
         
         {/* Minimalist Header & Search */}
-        <div className="flex flex-col items-start md:items-center justify-start md:justify-center text-left md:text-center w-full max-w-section-sm gap-6">
+        <div className="flex flex-col items-start justify-start text-left w-full gap-6">
           <div className="flex flex-col gap-2 w-full">
             <h2 className="text-display-lg text-[var(--color-text-primary)] font-semibold tracking-tight">
               {t("title")}
             </h2>
           </div>
 
-          <div className="relative w-full group">
+          <div className="relative w-full max-w-md group">
             {/* Minimalist 8px rounded search input with transparent background */}
             <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
               <SearchIcon className="w-5 h-5 text-[var(--color-text-hint)] group-focus-within:text-[var(--color-brand-blue)] transition-colors duration-300" />
@@ -157,26 +169,29 @@ export default function LicensingGridEpicare() {
           </div>
         </div>
 
-        {/* Minimalist Grid (No background, just pure data) */}
+        {/* Minimalist Grid */}
         <div 
           ref={gridRef} 
-          className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-4"
+          className="w-full grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 relative z-[60] items-start"
         >
           {filteredData.length > 0 ? (
             filteredData.map((item) => (
-              <div
-                key={item.state}
-                className="license-card group relative p-static-md bg-transparent border border-[var(--color-border-Strokes-default)] rounded-lg hover:border-[var(--color-brand-blue)]/50 transition-colors duration-300 flex flex-col gap-2"
-              >
-                <h3 className="text-body-lg font-medium text-[var(--color-text-primary)] group-hover:text-[var(--color-brand-blue)] transition-colors duration-300">
-                  {item.state}
-                </h3>
+              <div key={item.state} className="relative w-full z-10">
                 
-                <div className="flex items-center gap-2">
-                  <LicensePlateIcon className="w-5 h-5 text-[var(--color-brand-orange)] opacity-80" />
-                  <span className="text-meta text-[var(--color-text-secondary)] font-mono tracking-wide">
-                    LIC-{item.license}
-                  </span>
+                {/* STATIC CARD */}
+                <div
+                  className="license-card w-full relative border bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] border-[var(--color-border-Strokes-default)] shadow-elevation-1 hover:shadow-elevation-2 hover:-translate-y-1 hover:border-[var(--color-brand-blue)]/50 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] rounded-lg p-static-md flex flex-col items-start gap-2 overflow-hidden"
+                >
+                  <h3 className="text-body-lg font-medium text-[var(--color-text-primary)]">
+                    {item.state}
+                  </h3>
+                  
+                  <div className="flex items-center gap-2">
+                    <LicensePlateIcon className="w-5 h-5 text-[var(--color-brand-orange)] opacity-80" />
+                    <span className="text-meta text-[var(--color-text-secondary)] font-mono tracking-wide">
+                      {item.license}
+                    </span>
+                  </div>
                 </div>
               </div>
             ))

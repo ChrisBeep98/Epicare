@@ -39,7 +39,7 @@
       "itemOmsTitle": "Compliance",
       "itemOmsDesc": "Licencias, E&O y renovaciones con alerta antes del vencimiento, no después.",
       "sectionTitle": "Tu agencia,\nun solo ecosistema",
-      "sectionDesc": "GO AMS, GO CRM, GO CALLS, Eppigo, Academy y Agency Solutions. <b>Software propio</b>, no licencias de terceros.",
+      "sectionDesc": "GO AMS, GO CRM y Epicare Academy. <b>Software propio</b>, no licencias de terceros.",
       "card1Title": "GO CRM",
       "card1Desc": "Leads, pipeline y seguimiento en un solo lugar. Sabes a quién llamar hoy y por qué.",
       "card4Title": "GO AMS",
@@ -50,11 +50,33 @@
       "card7Desc": "Producción, retención y persistencia por agente. Los números que deciden tu mes.",
       "card8Title": "Academy",
       "card8Desc": "Certificaciones, entrenamiento de producto y onboarding de agentes nuevos. A tu ritmo.",
-      "cardEppigoTitle": "Eppigo",
-      "cardEppigoDesc": "Cotiza, genera la propuesta e inscribe al cliente sin salir del portal.",
-      "cardSolutionsTitle": "Agency Solutions",
-      "cardSolutionsDesc": "Campañas, embudos y material de venta listos para usar. No plantillas genéricas.",
       "cardCta": "Explorar"
+    },
+    "spotlight": {
+      "eppigo": {
+        "name": "Eppigo",
+        "cta": "Únete a Epicare",
+        "title": "Produce más, más rápido.",
+        "desc": "Cotiza, genera la propuesta e inscribe al cliente sin salir del portal.",
+        "f1Title": "Cotización multicarrier",
+        "f1Desc": "Solo sobre tus appointments activos — nada que no puedas vender.",
+        "f2Title": "Propuestas interactivas",
+        "f2Desc": "Propuestas web con tracking de apertura: sabes cuándo las abren.",
+        "f3Title": "Links y QR trazables",
+        "f3Desc": "Comparte por enlace o código QR y sigue cada interacción."
+      },
+      "solutions": {
+        "name": "Agency Solutions",
+        "cta": "Únete a Epicare",
+        "title": "No plantillas genéricas.",
+        "desc": "Campañas, embudos y material de venta listos para usar.",
+        "f1Title": "Campañas",
+        "f1Desc": "Listas para lanzar, sin montarlas desde cero.",
+        "f2Title": "Embudos",
+        "f2Desc": "El recorrido del prospecto, ya construido.",
+        "f3Title": "Material de venta",
+        "f3Desc": "Piezas hechas para seguros, no plantillas genéricas."
+      }
     },
     "darkGradient": {
       "sectionTitle": "Un solo acuerdo para <span>toda tu organización.</span>",

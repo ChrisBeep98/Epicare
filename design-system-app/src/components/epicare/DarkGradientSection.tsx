@@ -188,9 +188,7 @@ export default function DarkGradientSection() {
       img: "Earnings_V3_Dark.mp4",
       imgLight: "Earnings_V3_Ligh.mp4",
       isVideo: true,
-      imgClass: "object-cover",
-      imgClassLight: "object-contain scale-[1.4]",
-      imgClassDark: "object-contain scale-[1.6]"
+      imgClass: "object-contain scale-[1.15]"
     },
     { 
       step: t('feature4_step'), 

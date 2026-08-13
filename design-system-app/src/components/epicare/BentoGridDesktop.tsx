@@ -5,7 +5,7 @@ import gsap from 'gsap';
 import { useTranslations } from 'next-intl';
 import { asset } from "@/lib/asset";
 import GoHubLogo from "./GoHubLogo";
-import { AcademyIcon, EppigoIcon, SolutionsIcon } from "./EcosystemIcons";
+import { AcademyIcon } from "./EcosystemIcons";
 import SmartVideo from "./SmartVideo";
 
 // ----------------------------------------------------------------------
@@ -123,24 +123,26 @@ export default function BentoGridDesktop() {
   return (
     <section className="py-24 px-4 w-full bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] transition-colors duration-500 font-sans relative overflow-hidden">
       
-      {/* Header Redesign: Centered Premium Layout */}
-      <div className="max-w-4xl mx-auto mb-24 flex flex-col items-center relative z-10">
+      {/* Header Redesign: 12-Column Premium Layout */}
+      <div className="max-w-[1400px] mx-auto mb-24 grid-layout items-end gap-y-12 lg:gap-y-0 relative z-10">
         
-        <div className="w-full flex flex-col items-center justify-center gap-0">
+        {/* Left Side: Logo + Title */}
+        <div className="col-span-full lg:col-span-7 flex flex-col justify-start items-start gap-fluid-xs">
            <GoHubLogo 
-             className="h-[165px] text-[var(--color-text-Black-100)] dark:text-white transition-colors duration-500 shrink-0" 
+             className="w-[90px] h-[92px] text-[var(--color-text-Black-100)] dark:text-white transition-colors duration-500 shrink-0" 
            />
-           
-           <div className="flex flex-col items-center text-center relative z-10 w-full">
-             <h2 className="text-display-lg text-[var(--color-text-Black-100)] dark:text-white transition-colors duration-500 max-w-[15ch] capitalize">
-               {t('sectionTitle')}
-             </h2>
-             <p className="text-body-lg text-[var(--color-text-muted)] dark:text-white/60 mt-6 font-light transition-colors duration-500 max-w-[586px]">
-               {t.rich('sectionDesc', {
-                 b: (chunks) => <strong className="font-semibold text-[var(--color-text-Black-100)] dark:text-white transition-colors duration-500">{chunks}</strong>,
-               })}
-             </p>
-           </div>
+           <h2 className="text-display-lg text-[var(--color-text-Black-100)] dark:text-white transition-colors duration-500 max-w-[15ch] capitalize">
+             {t('sectionTitle')}
+           </h2>
+        </div>
+
+        {/* Right Side: Subtitle */}
+        <div className="col-span-full lg:col-span-5 flex flex-col lg:items-end lg:text-right justify-end md:pb-4">
+           <p className="text-body-lg text-[var(--color-text-muted)] dark:text-white/60 font-light transition-colors duration-500 max-w-[500px]">
+             {t.rich('sectionDesc', {
+               b: (chunks) => <strong className="font-semibold text-[var(--color-text-Black-100)] dark:text-white transition-colors duration-500">{chunks}</strong>,
+             })}
+           </p>
         </div>
       </div>
 
@@ -186,35 +188,12 @@ export default function BentoGridDesktop() {
           </div>
         </SpatialCard>
 
-        {/* EPPIGO (Large horizontal) */}
-        <SpatialCard className="md:col-span-8 flex flex-col md:flex-row justify-between group md:min-h-[600px]" ctaText={t('cardCta')} ctaClassName="bg-[var(--color-brand-orange)]/90 text-white">
-          <SmartVideo src={asset("/Files/Features/Eppigo_Dark_Final.mp4")} className="hidden dark:block absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.5s] ease-out z-0" />
-          <div className="p-10 w-full md:w-[40%] z-20 relative">
-            <EppigoIcon className="h-10 text-[var(--color-brand-orange)] mb-6" />
-            <h3 className="text-display-sm font-bold text-[var(--color-text-Black-100)] dark:text-white transition-colors duration-500">EPPIGO</h3>
-            <p className="text-body-lg text-[var(--color-text-muted)] dark:text-white/70 mt-4 transition-colors duration-500">{t('cardEppigoDesc')}</p>
-          </div>
-          <div className="relative w-full md:w-[60%] h-[300px] md:h-full overflow-hidden rounded-b-[12px] md:rounded-bl-none md:rounded-r-[12px] dark:hidden">
-            <SmartVideo src={asset("/Files/Features/Eppigo_Light_Final.mp4")} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.5s] ease-out" />
-          </div>
-        </SpatialCard>
+        {/* Eppigo y Agency Solutions salieron de este grid: cada uno tiene ahora
+            su propia sección (<ProductSpotlightEpicare />), montada justo debajo
+            en page.tsx. El grid queda cerrado en 2 filas exactas de 12 columnas:
+            CRM(7) + AMS(5, dos filas) / Academy(7). */}
 
-        {/* SOLUTIONS (Small vertical) */}
-        <SpatialCard className="md:col-span-4 flex flex-col justify-between group md:min-h-[600px]" ctaText={t('cardCta')}>
-          <SmartVideo src={asset("/Files/Features/Solutions_Dark_Final.mp4")} className="hidden dark:block absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.5s] ease-out z-0" />
-          <div className="p-8 pb-0 z-20 relative">
-            <SolutionsIcon className="h-10 w-auto drop-shadow-[0_0_15px_rgba(90,200,250,0.5)] mb-6 text-[var(--color-brand-blue)] dark:text-[var(--color-brand-cyan)]" />
-            <h3 className="text-display-sm font-bold text-[var(--color-text-Black-100)] dark:text-white transition-colors duration-500">SOLUTIONS</h3>
-            <p className="text-body-lg text-[var(--color-text-muted)] dark:text-white/70 mt-2 transition-colors duration-500">{t('cardSolutionsDesc')}</p>
-          </div>
-          <div className="relative w-full h-[200px] md:h-[420px] mt-6 overflow-hidden rounded-b-[12px] dark:hidden">
-            <SmartVideo src={asset("/Files/Features/Solutions_Light_Final.mp4")} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.5s] ease-out" />
-          </div>
-        </SpatialCard>
-        
       </div>
-
-
 
     </section>
   );

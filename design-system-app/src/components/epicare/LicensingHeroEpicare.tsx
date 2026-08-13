@@ -96,18 +96,6 @@ export default function LicensingHeroEpicare() {
         stagger: STAGGER.base
       }, "-=1.0");
 
-      // 3. Scroll Interactions
-      gsap.to('.licensing-globe-wrap', {
-        y: 80,
-        ease: EASE.none,
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: 1
-        }
-      });
-
     }, containerRef);
 
     return () => ctx.revert();
@@ -140,7 +128,12 @@ export default function LicensingHeroEpicare() {
           
           {/* ROW 1: TITLE */}
           {/* start: 5, span: 9, flexDir: row, justify: flex-start, align: flex-start */}
-          <div className="col-span-12 md:col-start-5 md:col-span-9 md:row-start-1 z-10 flex flex-row justify-start items-start md:pb-8">
+          {/* pb-section-lg: el canvas del globo es un cuadrado absoluto de 1100px centrado
+              en su celda de 500px, así que la esfera (~85% de 1100 = 935px) sobresalía ~60px
+              por encima y se solapaba con el título. Al crecer esta fila baja el ROW 2
+              completo (texto + globo) en bloque, sin alterar su composición interna ni
+              acercar el planeta a la sección siguiente. */}
+          <div className="col-span-12 md:col-start-5 md:col-span-9 md:row-start-1 z-10 flex flex-row justify-start items-start md:pb-section-lg">
             <h1 className="text-display-2xl md:text-display-3xl text-left text-[var(--color-text-primary)] font-semibold leading-[0.9] tracking-tight">
               {titleChars}
             </h1>

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useTranslations } from 'next-intl';
@@ -74,6 +74,28 @@ const PINS = [
   { lat: 18.220800, lng: -66.590100, name: "Puerto Rico", abbr: "PR", license: "3004132963", color: "var(--color-brand-blue)" }
 ];
 
+// ── CONFIGURACIÓN DE CÁMARA ─────────────────────────────────────────────────
+// PROTOCOLO react-globe: el tamaño del planeta se controla EXCLUSIVAMENTE con
+// `altitude`. Nunca con CSS `transform: scale` ni GSAP sobre el canvas.
+
+/** POV inicial: centro geográfico de EE. UU. */
+const GLOBE_POV_CENTER = { lat: 39.8283, lng: -98.5795 };
+
+/**
+ * Altitud de cámara en radios de globo. Ojo, es inversa: más alto = planeta más
+ * pequeño. Con el fov vertical de 50° que usa globe.gl, la esfera ocupa
+ * `tan(asin(1/(1+alt))) / tan(25°)` del alto del canvas:
+ * 1.7 → ~85% (presencia máxima sin que los bordes la recorten),
+ * 2.8 → ~64% del canvas de 800px en mobile.
+ */
+const GLOBE_ALTITUDE_DESKTOP = 1.7;
+const GLOBE_ALTITUDE_MOBILE = 2.8;
+
+const MD_BREAKPOINT_QUERY = '(min-width: 768px)';
+
+/** Desvío de altitud tolerado antes de que el bucle rAF corrija la cámara. */
+const ALTITUDE_EPSILON = 0.02;
+
 export default function InteractiveGlobeEpicare({ isWidget = false }: { isWidget?: boolean } = {}) {
   const t = useTranslations('landingV2.interactiveMap');
   
@@ -84,6 +106,11 @@ export default function InteractiveGlobeEpicare({ isWidget = false }: { isWidget
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const [countriesDataGlobal, setCountriesDataGlobal] = useState<any[]>([]);
   const [usStatesData, setUsStatesData] = useState<any[]>([]);
+
+  /** Altitud vigente en un ref: el bucle rAF la lee sin re-crearse cada frame. */
+  const targetAltitudeRef = useRef(GLOBE_ALTITUDE_DESKTOP);
+  /** false hasta que el POV inicial (lat/lng + altitud) se aplicó una vez. */
+  const povInitializedRef = useRef(false);
 
   // 1. Fetch GeoJSON Data (World + US States separate)
   useEffect(() => {
@@ -97,14 +124,43 @@ export default function InteractiveGlobeEpicare({ isWidget = false }: { isWidget
     }).catch(err => console.error("Error loading GeoJSON", err));
   }, []);
 
-  // 2. Initial Sizing (Run once, ignore height changes to prevent mobile resize bugs)
-  useEffect(() => {
-    if (containerRef.current) {
-      setDimensions({
-        width: containerRef.current.offsetWidth,
-        height: containerRef.current.offsetHeight
+  // 2. Sizing: medimos antes del primer paint y re-medimos con ResizeObserver.
+  // Ignoramos los cambios de SOLO altura en mobile: los dispara la barra de URL del
+  // navegador al hacer scroll y redimensionar el canvas WebGL a media animación
+  // provoca el salto de tamaño que ya conocíamos.
+  useLayoutEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const measure = () => {
+      const width = el.offsetWidth;
+      const height = el.offsetHeight;
+      const isDesktop = window.matchMedia(MD_BREAKPOINT_QUERY).matches;
+
+      setDimensions(prev => {
+        if (width === prev.width && height === prev.height) return prev;
+        if (width === prev.width && !isDesktop) return prev; // solo cambió la altura en mobile
+        return { width, height };
       });
-    }
+    };
+
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  // 2b. Altitud objetivo según breakpoint. Vive en un ref y la corrige el bucle rAF
+  // del punto 4, así que un cambio de breakpoint NO re-monta el globo.
+  useEffect(() => {
+    const mql = window.matchMedia(MD_BREAKPOINT_QUERY);
+    const syncAltitude = () => {
+      targetAltitudeRef.current = mql.matches ? GLOBE_ALTITUDE_DESKTOP : GLOBE_ALTITUDE_MOBILE;
+    };
+
+    syncAltitude();
+    mql.addEventListener('change', syncAltitude);
+    return () => mql.removeEventListener('change', syncAltitude);
   }, []);
 
   // 3. HARDWARE SYMPHONY: Smart Shutdown Protocol
@@ -132,19 +188,30 @@ export default function InteractiveGlobeEpicare({ isWidget = false }: { isWidget
   }, []);
 
   // 4. Globe Setup & Permanent Zoom Prevention
+  //
+  // El POV se aplica DESDE el bucle rAF, no desde el cuerpo del effect. Motivo:
+  // `Globe` entra por `dynamic()` y monta en un commit posterior, así que cuando el
+  // effect corre `globeEl.current` puede ser null todavía. Antes el pointOfView
+  // colgaba de las deps [data, width]; si el GeoJSON llegaba antes que el chunk de
+  // three.js, la única llamada se perdía y el globo se quedaba en el altitude 2.5
+  // por defecto de globe.gl. De ahí que el planeta saliera de un tamaño distinto en
+  // cada recarga según qué recurso ganara la carrera.
   useEffect(() => {
-    // Run once data is ready to set initial view
-    if (globeEl.current && countriesDataGlobal.length > 0 && dimensions.width > 0) {
-      // SEGÚN EL PROTOCOLO: Ajustamos el tamaño del planeta exclusivamente con altitude
-      // En desktop mantenemos 1.1 masivo. En mobile, al haber subido el canvas a 800px absoluto, necesitamos alejar la cámara (2.8) para que encaje bien en la pantalla sin verse sobredimensionado.
-      const targetAltitude = window.innerWidth < 768 ? 2.8 : 1.1;
-      globeEl.current.pointOfView({ lat: 39.8283, lng: -98.5795, altitude: targetAltitude }, 0);
-    }
-
-    // BULLETPROOF ZOOM & TOUCH PREVENTION:
+    // BULLETPROOF CAMERA, ZOOM & TOUCH PREVENTION:
     let frameId: number;
     const enforceControls = () => {
       if (globeEl.current) {
+        // ESCUDO DE CÁMARA: fija el POV en el primer frame en que el globo existe
+        // y corrige la altitud si algo la mueve (incluido un cambio de breakpoint).
+        // Solo escribimos `altitude`: lat/lng los mueven autoRotate y el drag del usuario.
+        const targetAltitude = targetAltitudeRef.current;
+        if (!povInitializedRef.current) {
+          globeEl.current.pointOfView({ ...GLOBE_POV_CENTER, altitude: targetAltitude }, 0);
+          povInitializedRef.current = true;
+        } else if (Math.abs(globeEl.current.pointOfView().altitude - targetAltitude) > ALTITUDE_EPSILON) {
+          globeEl.current.pointOfView({ altitude: targetAltitude }, 0);
+        }
+
         const controls = globeEl.current.controls();
         if (controls) {
           if (controls.enableZoom !== false) controls.enableZoom = false;
@@ -154,7 +221,7 @@ export default function InteractiveGlobeEpicare({ isWidget = false }: { isWidget
           // Lock vertical rotation (pitch) so the user can only spin it horizontally
           // The latitude 39.8 (USA) corresponds to a polar angle of roughly 50 degrees (0.87 rads)
           // We lock it so it doesn't flip up and down.
-          const targetPolar = Math.PI / 2 - (39.8283 * Math.PI / 180);
+          const targetPolar = Math.PI / 2 - (GLOBE_POV_CENTER.lat * Math.PI / 180);
           controls.minPolarAngle = targetPolar;
           controls.maxPolarAngle = targetPolar;
         }
@@ -202,7 +269,9 @@ export default function InteractiveGlobeEpicare({ isWidget = false }: { isWidget
       wrapper.removeEventListener('touchstart', handleTouchStart, { capture: true });
       wrapper.removeEventListener('touchmove', handleTouchMove, { capture: true });
     };
-  }, [countriesDataGlobal.length, dimensions.width]); 
+    // Sin deps: un único bucle y un único par de listeners durante toda la vida del
+    // componente. El POV ya no depende del orden de carga de datos ni del chunk 3D.
+  }, []);
 
   // 5. HARDWARE SYMPHONY: GSAP Accessibility & MatchMedia
   useEffect(() => {

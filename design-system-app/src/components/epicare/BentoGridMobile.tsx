@@ -7,7 +7,7 @@ import { useTranslations } from 'next-intl';
 import { asset } from "@/lib/asset";
 import { EASE, DUR } from "@/lib/motion";
 import GoHubLogo from "./GoHubLogo";
-import { AcademyIcon, EppigoIcon, SolutionsIcon } from "./EcosystemIcons";
+import { AcademyIcon } from "./EcosystemIcons";
 import SmartVideo from "./SmartVideo";
 
 // ── INTERNAL ARC: brand accent per card (title + 5 products). The ambient
@@ -17,9 +17,7 @@ const CARD_ACCENT_VARS = [
   '--color-brand-blue',   // title card
   '--color-brand-blue',   // GO AMS (core)
   '--color-brand-cyan',   // GO CRM
-  '--color-brand-orange', // Epicare Academy
-  '--color-brand-purple', // Eppigo
-  '--color-brand-blue',   // Solutions — closes the loop back to brand base
+  '--color-brand-orange', // Epicare Academy — cierra el arco del hub
 ];
 
 // ----------------------------------------------------------------------
@@ -220,8 +218,10 @@ export default function BentoGridMobile() {
     return () => mm.revert();
   }, []);
 
-  // Confirmed ecosystem (2026-07-22): GO AMS (core) → GO CRM → Epicare Academy → Eppigo → Solutions.
-  // GO CALLS dropped from the landing; Marketing lives inside Solutions.
+  // Hub GO en el bento: GO AMS (core) → GO CRM → Epicare Academy.
+  // GO CALLS está fuera de la landing. Eppigo y Agency Solutions salieron del
+  // bento y viven en su propia sección (<ProductSpotlightEpicare />), montada
+  // justo debajo en page.tsx.
   const ecosytemCards = [
     {
       title: t('card4Title'),
@@ -257,28 +257,6 @@ export default function BentoGridMobile() {
       cardClassNameDark: "dark:bg-[#0D0D0E]",
       logo: <AcademyIcon className="h-10 w-auto drop-shadow-[0_0_15px_rgba(90,200,250,0.5)]" />
     },
-    {
-      title: t('cardSolutionsTitle'),
-      desc: t('cardSolutionsDesc'),
-      image: asset("/Files/Features/Diagonal_pipeline_CRM_stages_202606242208.jpeg"),
-      videoLight: asset("/Files/Features/Solutions_Light_Final.mp4"),
-      videoDark: asset("/Files/Features/Solutions_Dark_Final.mp4"),
-      videoDarkFullBackground: true,
-      mediaClassNameDark: "dark:bg-[#0D0D0E]",
-      cardClassNameDark: "dark:bg-[#0D0D0E]",
-      logo: <SolutionsIcon className="h-10 w-auto" />
-    },
-    {
-      title: t('cardEppigoTitle'),
-      desc: t('cardEppigoDesc'),
-      image: null,
-      videoLight: asset("/Files/Features/Eppigo_Light_Final.mp4"),
-      videoDark: asset("/Files/Features/Eppigo_Dark_Final.mp4"),
-      videoDarkFullBackground: true,
-      mediaClassNameDark: "dark:bg-[#0D0D0E]",
-      cardClassNameDark: "dark:bg-[#0D0D0E]",
-      logo: <EppigoIcon className="h-10 w-auto drop-shadow-[0_0_15px_rgba(90,200,250,0.5)]" />
-    }
   ];
 
   return (
