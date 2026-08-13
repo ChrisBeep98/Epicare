@@ -216,6 +216,7 @@ Los componentes del nuevo diseño están consolidados en:
 
 - **138. [NUEVO] Epicare — Correcciones visuales del Bento Ecosystem (5 Ago 2026):** Intercambio de videos cruzados entre GO AMS y GO CRM. La tarjeta de Eppigo fue desplazada a la posición final del ecosistema en ambas versiones (Desktop y Mobile).
 - **139. [NUEVO] Epicare — Sección Licensing (11 Ago 2026):** Construcción del Hero y widget interactivo 3D del globo de licencias. Resoluciones críticas de clipping WebGL en móviles mediante canvas absoluto asimétrico, diseño de tooltips unificados (chat bubble con cristal esmerilado oscuro) con funcionalidad táctil auto-dismiss en móvil, y prevención de brincos (scroll/parallax fixes).
+- **140. [NUEVO] Epicare — Animaciones de Entrada & Zero JS (13 Ago 2026):** Orquestación con eventos globales del preloader, el Hero y el Globo. Migración masiva de 52 timelines de GSAP a CSS Keyframes nativos (`HARDWARE-SYMPHONY`) más *Smart Shutdown* global para eliminar permanentemente el scroll lag en la página de licencias.
 
 ## 6. Próximos Pasos (To-Do)
 - **Aplicar el mapa de ritmo vertical** (FASE 3 de `vertical-spacing-protocol.md`) a las 8 secciones de la landing.
