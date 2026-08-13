@@ -38,6 +38,8 @@ export default function LicensingHeroEpicare() {
     gsap.registerPlugin(ScrollTrigger);
     ScrollTrigger.config({ ignoreMobileResize: true });
 
+    let tl: gsap.core.Timeline;
+
     const ctx = gsap.context(() => {
       // 1. Initial State
       gsap.set('.licensing-title-char', {
@@ -57,8 +59,8 @@ export default function LicensingHeroEpicare() {
       
       gsap.set('.licensing-btn', { opacity: 0, scale: 0.8, x: -REVEAL.sm });
 
-      // 2. Entrance Timeline
-      const tl = gsap.timeline({ delay: 0.1 });
+      // 2. Entrance Timeline (Synced with Globe & Loader)
+      tl = gsap.timeline({ paused: true });
 
       tl.to('.licensing-title-char', {
         yPercent: 0,
@@ -98,7 +100,24 @@ export default function LicensingHeroEpicare() {
 
     }, containerRef);
 
-    return () => ctx.revert();
+    const playHeroEntrance = () => {
+      if (tl && tl.paused()) tl.play();
+    };
+
+    if ((window as any).epicareGlobeIsReady) {
+      playHeroEntrance();
+    } else {
+      window.addEventListener('epicareGlobeReady', playHeroEntrance, { once: true });
+    }
+
+    // Safety fallback: If something fails, play anyway after 5 seconds
+    const fallbackId = setTimeout(playHeroEntrance, 5000);
+
+    return () => {
+      window.removeEventListener('epicareGlobeReady', playHeroEntrance);
+      clearTimeout(fallbackId);
+      ctx.revert();
+    };
   }, []);
 
   const handleScrollToLicenses = (e: React.MouseEvent<HTMLButtonElement>) => {

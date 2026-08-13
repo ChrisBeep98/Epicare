@@ -197,8 +197,19 @@ export default function InteractiveGlobeEpicare({ isWidget = false }: { isWidget
   // por defecto de globe.gl. De ahí que el planeta saliera de un tamaño distinto en
   // cada recarga según qué recurso ganara la carrera.
   useEffect(() => {
+    // Fallback de seguridad: si el LoaderEpicare no existe o falla, liberar la animación después de 5s
+    const fallbackId = setTimeout(() => {
+      if (typeof window !== 'undefined') {
+        (window as any).epicareLoaderFinished = true;
+      }
+    }, 5000);
+    return () => clearTimeout(fallbackId);
+  }, []);
+
+  useEffect(() => {
     // BULLETPROOF CAMERA, ZOOM & TOUCH PREVENTION:
     let frameId: number;
+    let pinsAnimated = false;
     const enforceControls = () => {
       if (globeEl.current) {
         // ESCUDO DE CÁMARA: fija el POV en el primer frame en que el globo existe
@@ -226,6 +237,60 @@ export default function InteractiveGlobeEpicare({ isWidget = false }: { isWidget
           controls.maxPolarAngle = targetPolar;
         }
       }
+
+      if (!pinsAnimated) {
+        const markers = document.querySelectorAll('.globe-marker-inner');
+        const isLoaderDone = (window as any).epicareLoaderFinished;
+        
+        if (markers.length >= PINS.length && isLoaderDone) {
+          pinsAnimated = true;
+          
+          // Señalizar al Hero que el globo está listo para sincronizar ambas animaciones
+          (window as any).epicareGlobeIsReady = true;
+          window.dispatchEvent(new Event('epicareGlobeReady'));
+          
+          // Animación de revelado del planeta (escala de 0.8 a 1 al cargar)
+          if (containerRef.current) {
+            gsap.fromTo(containerRef.current,
+              { opacity: 0, scale: 0.8 },
+              { opacity: 1, scale: 1, duration: 1.5, ease: "power3.out", clearProps: "opacity,scale" }
+            );
+          }
+
+          const markersArray = gsap.utils.toArray(markers) as HTMLElement[];
+          const shuffled = gsap.utils.shuffle(markersArray.slice());
+          
+          shuffled.forEach((marker, i) => {
+            // Retrasar el inicio para que el planeta tenga tiempo de escalar y mostrarse
+            const delay = 1.0 + (i * 0.08);
+            const tl = gsap.timeline({ delay });
+            
+            gsap.set(marker, { visibility: 'visible' });
+            tl.fromTo(marker, 
+              { opacity: 0, scale: 0 }, 
+              { opacity: 1, scale: 1, duration: 0.8, ease: "back.out(1.5)", clearProps: "opacity,scale" }
+            );
+
+            const initials = marker.querySelector('.pin-initials-anim');
+            if (initials) {
+              gsap.set(initials, { visibility: 'visible' });
+              tl.fromTo(initials,
+                { opacity: 0, scale: 0.5, y: 5 },
+                { opacity: 1, scale: 1, y: -5, duration: 0.4, ease: "back.out(2)" },
+                "-=0.4"
+              )
+              .to(initials, {
+                opacity: 0,
+                scale: 0.5,
+                y: 0,
+                duration: 0.3,
+                ease: "power2.in"
+              }, "+=2.0"); // Se mantiene visible 2.0s para ser legible
+            }
+          });
+        }
+      }
+
       frameId = requestAnimationFrame(enforceControls);
     };
     enforceControls();
@@ -306,47 +371,9 @@ export default function InteractiveGlobeEpicare({ isWidget = false }: { isWidget
 
       // Globe Animation (Elegant Degradation via MatchMedia)
       // PROTOCOLO: NUNCA usar CSS transform: scale en el contenedor de react-globe.gl
+      // NOTA: El contenedor ahora se anima de forma centralizada en el evento de "epicareGlobeReady"
+      // para evitar conflictos de GSAP ScrollTrigger con el evento de carga asíncrona.
       const mm = gsap.matchMedia();
-      
-      // Desktop: Fade Only
-      mm.add("(min-width: 768px)", () => {
-        if (containerRef.current) {
-          gsap.fromTo(
-            containerRef.current,
-            { opacity: 0, y: 30 },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 1.2,
-              ease: "power3.out",
-              scrollTrigger: {
-                trigger: sectionRef.current,
-                start: "top 60%",
-              }
-            }
-          );
-        }
-      });
-      
-      // Mobile: Fade Only
-      mm.add("(max-width: 767px)", () => {
-        if (containerRef.current) {
-          gsap.fromTo(
-            containerRef.current,
-            { opacity: 0, y: 20 },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 1.2,
-              ease: "power2.out",
-              scrollTrigger: {
-                trigger: sectionRef.current,
-                start: "top 70%",
-              }
-            }
-          );
-        }
-      });
 
     }, sectionRef);
 
@@ -457,14 +484,21 @@ export default function InteractiveGlobeEpicare({ isWidget = false }: { isWidget
               
               el.innerHTML = `
                 <div class="relative group cursor-pointer pointer-events-auto z-0 md:hover:z-[9999]" style="transform: translate(-50%, -50%);">
-                  <!-- Solid Bimodal SVG Pin with Orange Core -->
-                  <div class="pin-anim relative flex items-center justify-center w-7 h-7 origin-bottom md:group-hover:-translate-y-1 md:group-hover:scale-125 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
-                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full text-[var(--color-surface-BG-white)] drop-shadow-[0_2px_4px_rgba(0,0,0,0.12)]">
-                      <!-- Solid body that stays white in both modes -->
-                      <path d="M12 21.5C12 21.5 19.5 14.722 19.5 9.5C19.5 5.35786 16.1421 2 12 2C7.85786 2 4.5 5.35786 4.5 9.5C4.5 14.722 12 21.5 12 21.5Z" fill="currentColor" stroke="rgba(242,96,35,0.3)" stroke-width="0.5"/>
-                      <!-- Tiny solid orange core for the accent -->
-                      <circle cx="12" cy="9.5" r="3" fill="#F26023"/>
-                    </svg>
+                  <div class="globe-marker-inner flex flex-col items-center justify-center invisible">
+                    <!-- Initials Pop-up -->
+                    <div class="pin-initials-anim absolute bottom-full mb-1 px-1.5 py-0.5 bg-[var(--color-brand-blue)] text-[var(--color-surface-BG-white)] text-[10px] font-bold tracking-widest rounded shadow-md whitespace-nowrap invisible z-10 pointer-events-none">
+                      ${d.abbr}
+                    </div>
+
+                    <!-- Solid Bimodal SVG Pin with Orange Core -->
+                    <div class="pin-anim relative flex items-center justify-center w-7 h-7 origin-bottom md:group-hover:-translate-y-1 md:group-hover:scale-125 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
+                      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full text-[var(--color-surface-BG-white)] drop-shadow-[0_2px_4px_rgba(0,0,0,0.12)]">
+                        <!-- Solid body that stays white in both modes -->
+                        <path d="M12 21.5C12 21.5 19.5 14.722 19.5 9.5C19.5 5.35786 16.1421 2 12 2C7.85786 2 4.5 5.35786 4.5 9.5C4.5 14.722 12 21.5 12 21.5Z" fill="currentColor" stroke="rgba(242,96,35,0.3)" stroke-width="0.5"/>
+                        <!-- Tiny solid orange core for the accent -->
+                        <circle cx="12" cy="9.5" r="3" fill="#F26023"/>
+                      </svg>
+                    </div>
                   </div>
                   
                   <!-- Hover Tooltip: Chat Bubble Card -->
