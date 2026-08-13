@@ -69,14 +69,17 @@ export default function LicensingHeroEpicare() {
         duration: DUR.birth,
         ease: EASE.dramatic,
         stagger: STAGGER.tight,
-        clearProps: "clipPath"
+        willChange: "transform, opacity, clip-path",
+        clearProps: "clipPath,willChange"
       });
 
       tl.to('.licensing-text', {
         opacity: 1,
         y: 0,
         duration: DUR.base,
-        ease: EASE.out
+        ease: EASE.out,
+        willChange: "transform, opacity",
+        clearProps: "willChange"
       }, "-=1.0");
 
       tl.to('.licensing-globe-wrap', {
@@ -86,7 +89,8 @@ export default function LicensingHeroEpicare() {
         filter: "blur(0px)",
         duration: DUR.slow,
         ease: EASE.dramatic,
-        clearProps: "filter"
+        willChange: "transform, opacity, filter",
+        clearProps: "filter,willChange"
       }, "-=0.8");
 
       tl.to('.licensing-btn', {
@@ -95,7 +99,9 @@ export default function LicensingHeroEpicare() {
         x: 0,
         duration: DUR.base,
         ease: EASE.snap,
-        stagger: STAGGER.base
+        stagger: STAGGER.base,
+        willChange: "transform, opacity",
+        clearProps: "willChange"
       }, "-=1.0");
 
     }, containerRef);

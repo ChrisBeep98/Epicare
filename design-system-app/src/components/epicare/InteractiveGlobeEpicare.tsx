@@ -259,9 +259,9 @@ export default function InteractiveGlobeEpicare({ isWidget = false }: { isWidget
 
           const markersArray = gsap.utils.toArray(markers) as HTMLElement[];
           const shuffled = gsap.utils.shuffle(markersArray.slice());
+          const initialsTimelines: gsap.core.Timeline[] = [];
           
           shuffled.forEach((marker, i) => {
-            // Retrasar el inicio para que el planeta tenga tiempo de escalar y mostrarse
             const delay = 1.0 + (i * 0.08);
             
             // Animación del Pin (ocurre solo una vez)
@@ -269,7 +269,14 @@ export default function InteractiveGlobeEpicare({ isWidget = false }: { isWidget
             gsap.set(marker, { visibility: 'visible' });
             tlPin.fromTo(marker, 
               { opacity: 0, scale: 0 }, 
-              { opacity: 1, scale: 1, duration: 0.8, ease: "back.out(1.5)", clearProps: "opacity,scale" }
+              { 
+                opacity: 1, 
+                scale: 1, 
+                duration: 0.8, 
+                ease: "back.out(1.5)",
+                willChange: "transform, opacity", // HARDWARE SYMPHONY
+                clearProps: "opacity,scale,willChange" 
+              }
             );
 
             const initials = marker.querySelector('.pin-initials-anim');
@@ -278,24 +285,47 @@ export default function InteractiveGlobeEpicare({ isWidget = false }: { isWidget
               
               // Animación de Iniciales (Infinita y suavizada)
               const tlInitials = gsap.timeline({ 
-                delay: delay + 0.4, // Empieza casi al terminar de salir el pin
-                repeat: -1,         // Loop infinito
-                repeatDelay: 3.5    // Pausa entre cada aparición
+                delay: delay + 0.4,
+                repeat: -1,
+                repeatDelay: 3.5
               });
 
               tlInitials.fromTo(initials,
                 { opacity: 0, scale: 0.5, y: 5 },
-                { opacity: 1, scale: 1, y: -5, duration: 0.6, ease: "back.out(1.8)" } // Timing suavizado
+                { 
+                  opacity: 1, 
+                  scale: 1, 
+                  y: -5, 
+                  duration: 0.6, 
+                  ease: "back.out(1.8)",
+                  willChange: "transform, opacity" // HARDWARE SYMPHONY
+                }
               )
               .to(initials, {
                 opacity: 0,
                 scale: 0.5,
                 y: 0,
                 duration: 0.4,
-                ease: "power2.in"
-              }, "+=2.0"); // Se mantiene visible 2.0s
+                ease: "power2.in",
+                clearProps: "willChange" // Smart Cleanup
+              }, "+=2.0");
+              
+              initialsTimelines.push(tlInitials);
             }
           });
+
+          // SMART SHUTDOWN PROTOCOL: Pause infinite animations when out of viewport
+          if (initialsTimelines.length > 0 && containerRef.current) {
+            ScrollTrigger.create({
+              trigger: containerRef.current,
+              start: "top 100%",
+              end: "bottom 0%",
+              onEnter: () => initialsTimelines.forEach(tl => tl.play()),
+              onLeave: () => initialsTimelines.forEach(tl => tl.pause()),
+              onEnterBack: () => initialsTimelines.forEach(tl => tl.play()),
+              onLeaveBack: () => initialsTimelines.forEach(tl => tl.pause()),
+            });
+          }
         }
       }
 
