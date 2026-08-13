@@ -259,7 +259,6 @@ export default function InteractiveGlobeEpicare({ isWidget = false }: { isWidget
 
           const markersArray = gsap.utils.toArray(markers) as HTMLElement[];
           const shuffled = gsap.utils.shuffle(markersArray.slice());
-          const initialsTimelines: gsap.core.Timeline[] = [];
           
           shuffled.forEach((marker, i) => {
             const delay = 1.0 + (i * 0.08);
@@ -279,51 +278,23 @@ export default function InteractiveGlobeEpicare({ isWidget = false }: { isWidget
               }
             );
 
-            const initials = marker.querySelector('.pin-initials-anim');
+            // OPTIMIZACIÓN EXTREMA: Animación infinita movida 100% al GPU (CSS Animations)
+            // Se elimina el overhead de 52 timelines de GSAP calculando ticks en cada frame.
+            const initials = marker.querySelector('.pin-initials-anim') as HTMLElement;
             if (initials) {
-              gsap.set(initials, { visibility: 'visible' });
-              
-              // Animación de Iniciales (Infinita y suavizada)
-              const tlInitials = gsap.timeline({ 
-                delay: delay + 0.4,
-                repeat: -1,
-                repeatDelay: 3.5
-              });
-
-              tlInitials.fromTo(initials,
-                { opacity: 0, scale: 0.5, y: 5 },
-                { 
-                  opacity: 1, 
-                  scale: 1, 
-                  y: -5, 
-                  duration: 0.6, 
-                  ease: "back.out(1.8)",
-                  willChange: "transform, opacity" // HARDWARE SYMPHONY
-                }
-              )
-              .to(initials, {
-                opacity: 0,
-                scale: 0.5,
-                y: 0,
-                duration: 0.4,
-                ease: "power2.in",
-                clearProps: "willChange" // Smart Cleanup
-              }, "+=2.0");
-              
-              initialsTimelines.push(tlInitials);
+              initials.style.visibility = 'visible';
+              initials.style.willChange = 'transform, opacity';
+              initials.style.animationDelay = `${delay + 0.4}s`;
             }
           });
 
-          // SMART SHUTDOWN PROTOCOL: Pause infinite animations when out of viewport
-          if (initialsTimelines.length > 0 && containerRef.current) {
+          // SMART SHUTDOWN PROTOCOL: Pause CSS animations when out of viewport
+          if (containerRef.current) {
             ScrollTrigger.create({
               trigger: containerRef.current,
               start: "top 100%",
               end: "bottom 0%",
-              onEnter: () => initialsTimelines.forEach(tl => tl.play()),
-              onLeave: () => initialsTimelines.forEach(tl => tl.pause()),
-              onEnterBack: () => initialsTimelines.forEach(tl => tl.play()),
-              onLeaveBack: () => initialsTimelines.forEach(tl => tl.pause()),
+              toggleClass: "globe-active"
             });
           }
         }
@@ -454,6 +425,40 @@ export default function InteractiveGlobeEpicare({ isWidget = false }: { isWidget
         style={{ perspective: "1000px" }}
       >
         <style>{`
+          /* 
+            GPU HARDWARE ACCELERATION: CSS Keyframes para animaciones infinitas masivas (52 pines).
+          */
+          @keyframes pinInitialsBounce {
+            0% { 
+              opacity: 0; 
+              transform: scale(0.5) translateY(5px); 
+              animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            }
+            9.23% { 
+              opacity: 1; 
+              transform: scale(1) translateY(-5px); 
+              animation-timing-function: linear;
+            }
+            40% { 
+              opacity: 1; 
+              transform: scale(1) translateY(-5px); 
+              animation-timing-function: cubic-bezier(0.55, 0.085, 0.68, 0.53);
+            }
+            46.15% { 
+              opacity: 0; 
+              transform: scale(0.5) translateY(0px); 
+              animation-timing-function: linear;
+            }
+            100% { 
+              opacity: 0; 
+              transform: scale(0.5) translateY(0px); 
+            }
+          }
+          .globe-active .pin-initials-anim {
+            animation: pinInitialsBounce 6.5s infinite;
+            animation-fill-mode: both;
+          }
+
           /* 
             Z-INDEX OVERRIDE HACK:
             react-globe.gl dynamically injects 'style="z-index: ..."' into our markers every frame 
