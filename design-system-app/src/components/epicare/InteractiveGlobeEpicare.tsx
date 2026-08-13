@@ -263,10 +263,11 @@ export default function InteractiveGlobeEpicare({ isWidget = false }: { isWidget
           shuffled.forEach((marker, i) => {
             // Retrasar el inicio para que el planeta tenga tiempo de escalar y mostrarse
             const delay = 1.0 + (i * 0.08);
-            const tl = gsap.timeline({ delay });
             
+            // Animación del Pin (ocurre solo una vez)
+            const tlPin = gsap.timeline({ delay });
             gsap.set(marker, { visibility: 'visible' });
-            tl.fromTo(marker, 
+            tlPin.fromTo(marker, 
               { opacity: 0, scale: 0 }, 
               { opacity: 1, scale: 1, duration: 0.8, ease: "back.out(1.5)", clearProps: "opacity,scale" }
             );
@@ -274,18 +275,25 @@ export default function InteractiveGlobeEpicare({ isWidget = false }: { isWidget
             const initials = marker.querySelector('.pin-initials-anim');
             if (initials) {
               gsap.set(initials, { visibility: 'visible' });
-              tl.fromTo(initials,
+              
+              // Animación de Iniciales (Infinita y suavizada)
+              const tlInitials = gsap.timeline({ 
+                delay: delay + 0.4, // Empieza casi al terminar de salir el pin
+                repeat: -1,         // Loop infinito
+                repeatDelay: 3.5    // Pausa entre cada aparición
+              });
+
+              tlInitials.fromTo(initials,
                 { opacity: 0, scale: 0.5, y: 5 },
-                { opacity: 1, scale: 1, y: -5, duration: 0.4, ease: "back.out(2)" },
-                "-=0.4"
+                { opacity: 1, scale: 1, y: -5, duration: 0.6, ease: "back.out(1.8)" } // Timing suavizado
               )
               .to(initials, {
                 opacity: 0,
                 scale: 0.5,
                 y: 0,
-                duration: 0.3,
+                duration: 0.4,
                 ease: "power2.in"
-              }, "+=2.0"); // Se mantiene visible 2.0s para ser legible
+              }, "+=2.0"); // Se mantiene visible 2.0s
             }
           });
         }
