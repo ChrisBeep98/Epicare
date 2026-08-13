@@ -132,26 +132,32 @@ export default function BentoGridMobile() {
     // no pin toll on touch; cards reveal with the house physics)
     // ----------------------------------------------------
     mm.add("(max-width: 767px) and (prefers-reduced-motion: no-preference)", () => {
-        // 0. LOGO ENTRANCE — the GO mark draws in shape by shape, then H·U·B click into place.
+        // 0. LOGO ENTRANCE — Professional Awwwards Motion
         const logoShapes = gsap.utils.toArray(section.querySelectorAll('.gohub-shape'));
         const logoLetters = gsap.utils.toArray(section.querySelectorAll('.gohub-letter'));
+        
+        const logoTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: section,
+            start: "top top",
+            end: "+=400",
+            scrub: 1,
+          }
+        });
+
+        // The tag extrudes from the top limit (Pestaña saliendo)
+        logoTl.to(".gohub-tag", { scaleY: 1, autoAlpha: 1, duration: 1, ease: "none" });
+
         if (logoShapes.length && logoLetters.length) {
-          const logoTl = gsap.timeline({
-            scrollTrigger: {
-              trigger: section,
-              start: "top 80%",
-              toggleActions: "play none none reverse",
-            }
-          });
           logoTl
             .from(logoShapes, {
               opacity: 0, scale: 0.55, transformOrigin: '50% 50%',
-              duration: 0.6, ease: "back.out(1.5)", stagger: 0.09,
-            })
+              duration: 0.6, ease: "power2.out", stagger: 0.09,
+            }, "-=0.3")
             .from(logoLetters, {
               opacity: 0, y: 42, scale: 0.5, transformOrigin: '50% 100%',
-              duration: 0.55, ease: "back.out(2)", stagger: 0.12,
-            }, "-=0.25");
+              duration: 0.55, ease: "power2.out", stagger: 0.12,
+            }, "-=0.2");
         }
 
         // 1. SAFE KINETIC TYPOGRAPHY ANIMATION
@@ -168,7 +174,7 @@ export default function BentoGridMobile() {
             }
           }
         );
-        
+
         gsap.fromTo(".anim-head-fade",
           { opacity: 0, y: 26, willChange: 'transform, opacity' },
           { 
@@ -263,7 +269,7 @@ export default function BentoGridMobile() {
       <section
         id="plataforma"
         ref={containerRef}
-        className="relative w-full h-auto md:h-screen overflow-visible md:overflow-hidden bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] z-20"
+        className="relative w-full h-auto md:h-screen overflow-visible md:overflow-hidden bg-[var(--color-brand-blue)] transition-colors duration-500 z-20"
         style={{ perspective: '2000px' }}
       >
         {/* AMBIENT ORB — the journey's mood: morphs to the active product's accent */}
@@ -294,26 +300,29 @@ export default function BentoGridMobile() {
           ref={trackRef}
           className="relative flex flex-col items-center justify-start w-full z-10"
         >
+          {/* Floating Sticky GoHub Logo for Mobile */}
+          <div className="sticky top-0 z-50 flex justify-center w-full pointer-events-none pb-2">
+            <div className="gohub-tag invisible opacity-0 scale-y-0 origin-top bg-white p-3 rounded-none shadow-2xl pointer-events-auto flex items-center justify-center">
+              <GoHubLogo className="w-[50px] h-[52px] text-[var(--color-brand-blue)]" />
+            </div>
+          </div>
+
           {/* CARD 0: THE TITLE COMPOSITION */}
-          <div className="mobile-stack-card sticky top-0 w-full min-h-fit pb-[12vh] flex flex-col justify-start pt-[calc(15vh-24px)] items-start px-[var(--space-gutter-sm)] origin-top transform-gpu will-change-transform [backface-visibility:hidden] z-[10] relative">
-              <div className="mb-6">
-                <GoHubLogo className="h-24 w-auto opacity-90 dark:opacity-100" />
-              </div>
-              <h2 className="text-display-lg text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)] text-left leading-[1.1]">
+          <div className="mobile-stack-card sticky top-0 w-full min-h-fit pb-[12vh] flex flex-col justify-start pt-[calc(10vh)] items-start px-[var(--space-gutter-sm)] origin-top transform-gpu will-change-transform [backface-visibility:hidden] z-[10] relative">
+              <h2 className="text-display-lg text-white text-left leading-[1.1]">
                 {t('sectionTitle').split('\n').map((line, i, arr) => {
-                  const isHighlight = i === arr.length - 1;
                   return (
                     <span key={i} className="block overflow-hidden pb-1 -mb-1">
-                      <span className={`title-line-reveal block ${isHighlight ? 'text-[var(--color-brand-blue)] font-bold tracking-tight' : ''}`}>
+                      <span className="title-line-reveal block">
                         {line}
                       </span>
                     </span>
                   );
                 })}
               </h2>
-              <p className="anim-head-fade text-body-lg text-[var(--color-text-muted)] font-light max-w-[420px] text-left mt-static-md">
+              <p className="anim-head-fade text-body-lg text-white/80 font-light max-w-[420px] text-left mt-static-md">
                 {t.rich('sectionDesc', {
-                  b: (chunks) => <span className="font-semibold text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)]">{chunks}</span>,
+                  b: (chunks) => <span className="font-semibold text-white">{chunks}</span>,
                 })}
               </p>
           </div>

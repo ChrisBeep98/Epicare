@@ -179,13 +179,63 @@ export default function ProductSpotlightEpicare({ variant }: { variant: Spotligh
       // de arriba abajo y la sección crece si hace falta.
       className="relative w-full min-h-dvh overflow-hidden bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] transition-colors duration-500 flex flex-col py-section-xs"
     >
+      {/* ── CABECERA ── reubicada arriba del video según instrucciones del usuario */}
+      <div className="max-w-section-lg px-gutter-sm md:px-gutter-md pb-section-sm flex flex-col lg:flex-row lg:items-end lg:justify-between gap-fluid-sm z-10 relative w-full">
+
+        <div className="min-w-0">
+          <span className="sp-rail flex items-center gap-2 text-meta uppercase text-[var(--color-text-muted)]">
+            <span
+              aria-hidden="true"
+              className="sp-live w-1.5 h-1.5 rounded-full shrink-0"
+              style={{ backgroundColor: `var(${accentVar})` }}
+            />
+            {t('name')}
+          </span>
+
+          <h2 className="mt-static-sm text-display md:text-display-lg text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)] transition-colors duration-500 max-w-[16ch]">
+            {t('title')
+              .split(' ')
+              .map((word, i) => (
+                <span key={i} className="inline-block overflow-hidden pb-[0.08em] align-bottom">
+                  <span className="sp-line inline-block">{word}&nbsp;</span>
+                </span>
+              ))}
+          </h2>
+
+          <ul className="mt-static-md flex flex-wrap items-center gap-x-5 gap-y-2">
+            {SPEC_KEYS.map((key, i) => (
+              <li key={key} className="sp-mark flex items-center gap-2">
+                <span
+                  aria-hidden="true"
+                  className="text-meta tabular-nums"
+                  style={{ color: `var(${accentTextVar})` }}
+                >
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <span className="text-ui-label text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)] transition-colors duration-500">
+                  {t(`${key}Title`)}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* ── CTA ── Azul con icono y burbuja */}
+        <a
+          href="#unete"
+          className="sp-cta group shrink-0 inline-flex items-center gap-2 rounded-full pl-6 pr-2 py-2 bg-[var(--color-brand-blue)] text-white backdrop-blur-md border border-white/20 transition-transform duration-[450ms] hover:scale-[1.04] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+          style={{ transitionTimingFunction: EASE_CSS.ui, outlineColor: `var(${accentVar})` }}
+        >
+          <span className="text-sm font-medium">{t('cta')}</span>
+          <span className="relative w-8 h-8 rounded-full bg-white/20 flex items-center justify-center overflow-hidden shrink-0">
+            <ArrowUR className="absolute w-4 h-4 transition-transform duration-[400ms] group-hover:translate-x-6 group-hover:-translate-y-6" />
+            <ArrowUR className="absolute w-4 h-4 -translate-x-6 translate-y-6 transition-transform duration-[400ms] group-hover:translate-x-0 group-hover:translate-y-0" />
+          </span>
+        </a>
+      </div>
+
       {/* ── BANDA FULL-BLEED ── de borde a borde, sin contenedor ni márgenes */}
-      {/* Banda alta a propósito: cuanto más se acerca la proporción de la banda
-          a la del asset, menos recorta el `object-cover`. A 62vh se comía los
-          tejados; a 72vh la escena entra casi entera. */}
       <div className="sp-band relative w-full h-[54vh] md:h-[66vh] overflow-hidden">
-        {/* Capa con sobreancho mínimo: solo el necesario para que el parallax
-            no descubra borde. Cada punto de escala es recorte extra. */}
         <div className="sp-band-inner absolute inset-0 scale-[1.04]">
           <img
             src={posterLight}
@@ -214,63 +264,6 @@ export default function ProductSpotlightEpicare({ variant }: { variant: Spotligh
             className="absolute inset-0 w-full h-full object-cover object-center hidden dark:block"
           />
         </div>
-      </div>
-
-      {/* ── PIE ── lo mínimo: etiqueta, titular, tres marcas y CTA. Sin párrafos. */}
-      <div className="max-w-section-lg px-gutter-sm md:px-gutter-md pt-section-xs flex flex-col lg:flex-row lg:items-end lg:justify-between gap-fluid-sm">
-
-        <div className="min-w-0">
-          <span className="sp-rail flex items-center gap-2 text-meta uppercase text-[var(--color-text-muted)]">
-            <span
-              aria-hidden="true"
-              className="sp-live w-1.5 h-1.5 rounded-full shrink-0"
-              style={{ backgroundColor: `var(${accentVar})` }}
-            />
-            {t('name')}
-          </span>
-
-          <h2 className="mt-static-sm text-display md:text-display-lg text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)] transition-colors duration-500 max-w-[16ch]">
-            {t('title')
-              .split(' ')
-              .map((word, i) => (
-                <span key={i} className="inline-block overflow-hidden pb-[0.08em] align-bottom">
-                  <span className="sp-line inline-block">{word}&nbsp;</span>
-                </span>
-              ))}
-          </h2>
-
-          {/* Las tres capacidades, reducidas a marcas. Las descripciones largas
-              salieron: en una banda full-bleed compiten con el producto. */}
-          <ul className="mt-static-md flex flex-wrap items-center gap-x-5 gap-y-2">
-            {SPEC_KEYS.map((key, i) => (
-              <li key={key} className="sp-mark flex items-center gap-2">
-                <span
-                  aria-hidden="true"
-                  className="text-meta tabular-nums"
-                  style={{ color: `var(${accentTextVar})` }}
-                >
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                <span className="text-ui-label text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)] transition-colors duration-500">
-                  {t(`${key}Title`)}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* ── CTA ── destino real (#unete) */}
-        <a
-          href="#unete"
-          className="sp-cta group shrink-0 inline-flex items-center gap-3 rounded-full pl-6 pr-2 py-2 bg-[var(--color-text-Black-100)] text-[var(--color-text-White-100)] dark:bg-[var(--color-text-White-100)] dark:text-[var(--color-text-Black-100)] text-ui-label transition-transform duration-[450ms] hover:scale-[1.04] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-          style={{ transitionTimingFunction: EASE_CSS.ui, outlineColor: `var(${accentVar})` }}
-        >
-          {t('cta')}
-          <span className="relative w-8 h-8 rounded-full bg-white/15 dark:bg-black/10 flex items-center justify-center overflow-hidden shrink-0">
-            <ArrowUR className="absolute w-4 h-4 transition-transform duration-[400ms] group-hover:translate-x-6 group-hover:-translate-y-6" />
-            <ArrowUR className="absolute w-4 h-4 -translate-x-6 translate-y-6 transition-transform duration-[400ms] group-hover:translate-x-0 group-hover:translate-y-0" />
-          </span>
-        </a>
       </div>
     </section>
   );

@@ -2,6 +2,7 @@
 
 import React, { useRef, useLayoutEffect } from 'react';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useTranslations } from 'next-intl';
 import { asset } from "@/lib/asset";
 import GoHubLogo from "./GoHubLogo";
@@ -119,28 +120,69 @@ function SpatialCard({ children, className = "", ctaText, ctaClassName }: { chil
 // ----------------------------------------------------------------------
 export default function BentoGridDesktop() {
   const t = useTranslations('landingV2.bento');
+  const sectionRef = useRef<HTMLElement>(null);
+  const tagRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    const ctx = gsap.context(() => {
+      if (tagRef.current && sectionRef.current) {
+        const logoShapes = gsap.utils.toArray(tagRef.current.querySelectorAll('.gohub-shape'));
+        const logoLetters = gsap.utils.toArray(tagRef.current.querySelectorAll('.gohub-letter'));
+
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top top",
+            end: "+=400",
+            scrub: 1,
+          }
+        });
+
+        // 1. Tag extrudes from the top limit (Pestaña saliendo)
+        tl.to(tagRef.current, { scaleY: 1, autoAlpha: 1, duration: 1, ease: "none" });
+
+        // 2. Draw internal shapes
+        if (logoShapes.length && logoLetters.length) {
+          tl.from(logoShapes, {
+            opacity: 0, scale: 0.55, transformOrigin: '50% 50%',
+            duration: 0.6, ease: "power2.out", stagger: 0.09,
+          }, "-=0.3")
+          .from(logoLetters, {
+            opacity: 0, y: 20, scale: 0.5, transformOrigin: '50% 100%',
+            duration: 0.55, ease: "power2.out", stagger: 0.12,
+          }, "-=0.2");
+        }
+      }
+    }, sectionRef);
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <section className="py-24 px-4 w-full bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] transition-colors duration-500 font-sans relative overflow-hidden">
+    <section ref={sectionRef} className="py-24 px-4 w-full bg-[var(--color-brand-blue)] transition-colors duration-500 font-sans relative overflow-visible">
       
+      {/* Floating Sticky GoHub Logo for Desktop */}
+      <div className="sticky top-0 z-50 flex justify-center w-full pointer-events-none -mt-24 mb-12">
+        <div ref={tagRef} className="invisible opacity-0 scale-y-0 origin-top bg-white p-4 rounded-none shadow-2xl pointer-events-auto flex items-center justify-center">
+          <GoHubLogo className="w-[70px] h-[72px] text-[var(--color-brand-blue)]" />
+        </div>
+      </div>
+
       {/* Header Redesign: 12-Column Premium Layout */}
       <div className="max-w-[1400px] mx-auto mb-24 grid-layout items-end gap-y-12 lg:gap-y-0 relative z-10">
         
-        {/* Left Side: Logo + Title */}
+        {/* Left Side: Title */}
         <div className="col-span-full lg:col-span-7 flex flex-col justify-start items-start gap-fluid-xs">
-           <GoHubLogo 
-             className="w-[90px] h-[92px] text-[var(--color-text-Black-100)] dark:text-white transition-colors duration-500 shrink-0" 
-           />
-           <h2 className="text-display-lg text-[var(--color-text-Black-100)] dark:text-white transition-colors duration-500 max-w-[15ch] capitalize">
+           <h2 className="text-display-lg text-white transition-colors duration-500 max-w-[15ch] capitalize">
              {t('sectionTitle')}
            </h2>
         </div>
 
         {/* Right Side: Subtitle */}
         <div className="col-span-full lg:col-span-5 flex flex-col lg:items-end lg:text-right justify-end md:pb-4">
-           <p className="text-body-lg text-[var(--color-text-muted)] dark:text-white/60 font-light transition-colors duration-500 max-w-[500px]">
+           <p className="text-body-lg text-white/80 font-light transition-colors duration-500 max-w-[500px]">
              {t.rich('sectionDesc', {
-               b: (chunks) => <strong className="font-semibold text-[var(--color-text-Black-100)] dark:text-white transition-colors duration-500">{chunks}</strong>,
+               b: (chunks) => <strong className="font-semibold text-white transition-colors duration-500">{chunks}</strong>,
              })}
            </p>
         </div>
