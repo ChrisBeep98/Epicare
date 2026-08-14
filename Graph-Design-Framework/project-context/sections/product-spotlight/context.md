@@ -61,6 +61,13 @@ Sección `min-h-dvh` con el vídeo del producto ocupando el viewport entero como
 
 ⚠️ **Sin verificación visual.** La extensión de Chrome fue declinada, así que esta versión está verificada solo por build, CSS compilado y HTML generado — nunca vista renderizada. Las cuatro versiones de esta sección se han entregado a ciegas; es la causa más probable de los rechazos en cadena.
 
+## Historial de Cambios
+
+- **[14/08/2026] · Agency Solutions Asset & Copy Upgrade:**
+  - El usuario dictaminó la eliminación del copy de plantillas genéricas. Se inyectó copy UX/UI premium ("Marketing que sí cierra pólizas" / "Campañas Plug & Play").
+  - Se cambió el media dinámico por el visual principal estático (`Frame 96.png`) en el spotlight de Solutions.
+  - Se ajustó el override semántico del acento del componente al Brand Blue (`--color-brand-blue`).
+
 ## Territorio virgen disponible (censo `scrollytelling-map.md`)
 
 FLIP · SplitText real por palabra/carácter · parallax multi-capa (3+ planos) · fondo interpolado por scroll (light→dark con scrub) · `ScrollTrigger.batch` · DrawSVG/MotionPath · scroll horizontal editorial (no cover-flow).

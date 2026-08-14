@@ -26,6 +26,11 @@
   - **Cruce de Videos:** Intercambio de los videos de las tarjetas GO AMS y GO CRM (Light y Dark) en las vistas Desktop y Mobile, ya que se encontraban invertidos.
   - **Reordenamiento:** La tarjeta de **Eppigo** fue desplazada a la última posición de la cuadrícula en ambas versiones, quedando el ecosistema así: GO AMS → GO CRM → Epicare Academy → Solutions → Eppigo.
 
+- **[14/08/2026] · Refactor de Scroll Horizontal y Hardware Symphony.**
+  - **Fluididad Nativa:** Se ajustó el GSAP ScrollTrigger a `scrub: true` y velocidad `0.8` para sincronizar perfectamente con la aceleración inercial de MacOS/Trackpads, matando la sensación de "frenado artificial".
+  - **Zero Lag:** Se eliminaron costosas operaciones GPU (`mix-blend-mode`), se disminuyó el blur radiado, y se inyectó `force3D: true` forzando renderizado acelerado puro de 60fps constante.
+  - **Corrección Tipográfica:** Se alineó el peso tipográfico en las tarjetas del Bento (quitando el `font-bold`) para equilibrarse armónicamente con el Header Principal bajo un mismo token (`text-display`). Reemplazo definitivo del componente AcademyLogo por el asset estático SVG.
+
 ## 3. Decisiones de Diseño
 - **"Un pin debe ganarse su costo" (ley 3 del arco):** el cover-flow oculta contenido comparable, así que se le dio arco interno (morph de mood), navegación (snap + scrubber) y se le quitó el peaje en móvil, donde el pulgar manda. Ver teoría en `command-prompts/narrative-arc-protocol.md`.
 - **Orden de cards:** GO AMS primero por ser el core del hub (blueprint S07-IA); Solutions cierra devolviendo el orbe al azul de marca (el viaje "vuelve a casa").
