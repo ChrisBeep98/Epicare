@@ -2,7 +2,7 @@
 
 import React, { useRef, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
-import Image from 'next/image';
+import { asset } from "@/lib/asset";
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -67,15 +67,16 @@ export default function CTABannerEpicare({
           
           {/* BACKGROUND - Experimento con Parallax */}
           <div className="absolute inset-0 z-0 overflow-hidden">
-            <div ref={bgRef} className="absolute -inset-[20%] w-[140%] h-[140%] will-change-transform">
-              <Image
-                src="/banners/cta-bg-dark.jpg"
-                alt="Abstract dark fluid texture"
-                fill
-                className="object-cover object-center scale-[1.02] transition-transform duration-[2s] group-hover:scale-100"
-                sizes="(max-width: 1200px) 100vw, 1200px"
+            <div ref={bgRef} className="absolute -inset-[20%] w-[140%] h-[140%] will-change-transform bg-black">
+              <img
+                src={asset("/Files/cta-aura-bg-3.jpg")}
+                alt=""
+                aria-hidden="true"
+                loading="lazy"
+                decoding="async"
+                className="absolute inset-0 w-full h-full object-cover object-center scale-[1.02] transition-transform duration-[2s] group-hover:scale-100"
               />
-              <div className="absolute inset-0 bg-black/20" />
+              <div className="absolute inset-0 bg-black/10 dark:bg-black/30" />
             </div>
           </div>
 

@@ -87,32 +87,49 @@ export default function PeopleRevealEpicare() {
           }
         );
 
-        // Marquee — driven by scroll (scrub), very subtle drift and heavily smoothed.
-        gsap.fromTo('.pr-marquee-inner',
-          { xPercent: 0 },
-          {
-            xPercent: -12, ease: 'none',
-            scrollTrigger: { trigger: sectionRef.current, start: 'top bottom', end: 'bottom top', scrub: 3 },
-          }
-        );
+        // Infinite Marquee — constant subtle drift
+        const marqueeTween = gsap.to('.pr-marquee-inner', {
+          xPercent: -50,
+          ease: 'none',
+          duration: 60, // Hyper-slow, majestic constant drift
+          repeat: -1,
+        });
 
-        // Velocity skew — barely perceptible, just a touch of life.
-        const proxy = { skew: 0 };
+        // Kinetic Scroll Acceleration & Velocity Skew
+        const proxy = { skew: 0, velocity: 0 };
         const setSkew = gsap.quickSetter('.pr-marquee-inner', 'skewX', 'deg');
-        const clamp = gsap.utils.clamp(-3.5, 3.5);
+        const clampSkew = gsap.utils.clamp(-3.5, 3.5);
+        
         ScrollTrigger.create({
           trigger: sectionRef.current,
           start: 'top bottom',
           end: 'bottom top',
           onUpdate: (self) => {
-            const v = clamp(self.getVelocity() / -1000);
-            if (Math.abs(v) > Math.abs(proxy.skew)) {
-              proxy.skew = v;
+            const v = self.getVelocity();
+            
+            // 1. Skew logic (barely perceptible tilt on fast scroll)
+            const skewV = clampSkew(v / -1000);
+            if (Math.abs(skewV) > Math.abs(proxy.skew)) {
+              proxy.skew = skewV;
               gsap.to(proxy, {
-                skew: 0, duration: 1, ease: 'power3', overwrite: true,
+                skew: 0, duration: 1, ease: 'power3', overwrite: 'auto',
                 onUpdate: () => setSkew(proxy.skew),
               });
             }
+
+            // 2. Acceleration logic: Professional, controlled kinetic push
+            // Math.abs ensures it ALWAYS pushes forward, never reversing abruptly.
+            // Divisor increased to 1500 for an incredibly subtle, premium acceleration.
+            proxy.velocity = Math.abs(v) / 1500;
+            gsap.to(proxy, {
+              velocity: 0, 
+              duration: 2.0, // Extremely buttery deceleration (2 seconds)
+              ease: 'power3.out', 
+              overwrite: 'auto',
+              onUpdate: () => {
+                marqueeTween.timeScale(1 + proxy.velocity);
+              }
+            });
           },
         });
 
