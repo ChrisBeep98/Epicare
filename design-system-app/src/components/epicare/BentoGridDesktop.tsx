@@ -51,10 +51,18 @@ function CinematicPanel({ title, desc, Logo, videoLight, videoDark, ctaText, isA
     <div className="relative w-[85vw] lg:w-[65vw] h-[75vh] shrink-0 rounded-[2.5rem] border border-black/5 dark:border-white/20 shadow-elevation-4 overflow-hidden flex flex-col md:flex-row group">
       
       {/* STATIC BACKGROUND LAYER */}
-      <div className="absolute inset-0 -z-10 rounded-[2.5rem] bg-white dark:bg-[#111]" />
+      <div className="absolute inset-0 -z-10 rounded-[2.5rem] bg-[var(--color-surface-BG-white)] dark:bg-[#111] overflow-hidden">
+        {/* Minimalist Aura Mesh Background */}
+        <img 
+          src={asset('/Files/bento_card_mesh_light.jpg')} 
+          alt="" 
+          className="absolute inset-0 w-full h-full object-cover opacity-80 mix-blend-multiply dark:opacity-30 dark:mix-blend-screen transition-transform duration-1000 group-hover:scale-110 pointer-events-none" 
+          loading="lazy"
+        />
+      </div>
 
       {/* TEXT CONTENT (Left side) */}
-      <div className="p-10 md:p-16 lg:p-20 w-full md:w-5/12 flex flex-col justify-center h-full relative z-10 border-r border-black/5 dark:border-white/10 bg-transparent">
+      <div className="p-10 md:p-16 lg:p-20 w-full md:w-5/12 flex flex-col justify-center h-full relative z-10 bg-transparent">
          <Logo className="h-10 lg:h-12 w-auto self-start mr-auto mb-10 text-[var(--color-brand-blue)] dark:text-white origin-left transform group-hover:scale-105 transition-transform duration-700 ease-out" />
          <h3 className="text-display text-black dark:text-white mb-6 leading-tight">{title}</h3>
          <p className="text-body-lg text-black/60 dark:text-white/80 font-light max-w-sm mb-12 leading-relaxed">{desc}</p>
@@ -71,18 +79,16 @@ function CinematicPanel({ title, desc, Logo, videoLight, videoDark, ctaText, isA
       </div>
 
       {/* MEDIA CONTENT (Right side) */}
-      <div className="w-full md:w-7/12 h-full relative overflow-hidden bg-black/5 dark:bg-black/40">
-         <div className="absolute inset-0 bg-gradient-to-r from-white/40 dark:from-black/20 to-transparent z-10 pointer-events-none" />
-         
-         {/* Light Video */}
+      <div className="w-full md:w-7/12 h-full relative overflow-hidden bg-transparent">
+         {/* Light Video - mix-blend-multiply makes white backgrounds completely transparent! */}
          <SmartVideo 
            src={videoLight} 
-           className={`absolute inset-0 w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105 dark:hidden ${isAcademy ? 'object-contain scale-[0.85] group-hover:scale-95' : ''}`} 
+           className={`absolute inset-0 w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105 mix-blend-multiply dark:hidden ${isAcademy ? 'object-contain scale-[0.85] group-hover:scale-95' : ''}`} 
          />
-         {/* Dark Video */}
+         {/* Dark Video - mix-blend-screen makes black backgrounds completely transparent! */}
          <SmartVideo 
            src={videoDark} 
-           className={`absolute inset-0 w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105 hidden dark:block ${isAcademy ? 'object-contain scale-[0.85] group-hover:scale-95' : ''}`} 
+           className={`absolute inset-0 w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105 mix-blend-screen hidden dark:block ${isAcademy ? 'object-contain scale-[0.85] group-hover:scale-95' : ''}`} 
          />
       </div>
 

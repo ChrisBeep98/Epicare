@@ -67,16 +67,16 @@ export default function CTABannerEpicare({
           
           {/* BACKGROUND - Experimento con Parallax */}
           <div className="absolute inset-0 z-0 overflow-hidden">
-            <div ref={bgRef} className="absolute -inset-[20%] w-[140%] h-[140%] will-change-transform bg-black">
+            <div ref={bgRef} className="absolute -inset-[20%] w-[140%] h-[140%] will-change-transform">
               <img
-                src={asset("/Files/cta-aura-bg-3.jpg")}
+                src={asset("/banners/cta-aura-glow.jpg")}
                 alt=""
                 aria-hidden="true"
                 loading="lazy"
                 decoding="async"
                 className="absolute inset-0 w-full h-full object-cover object-center scale-[1.02] transition-transform duration-[2s] group-hover:scale-100"
               />
-              <div className="absolute inset-0 bg-black/10 dark:bg-black/30" />
+              <div className="absolute inset-0 bg-black/20" />
             </div>
           </div>
 
