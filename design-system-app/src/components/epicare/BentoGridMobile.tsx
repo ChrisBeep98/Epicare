@@ -269,7 +269,7 @@ export default function BentoGridMobile() {
       <section
         id="plataforma"
         ref={containerRef}
-        className="relative w-full h-auto md:h-screen overflow-visible md:overflow-hidden bg-[var(--color-brand-blue)] transition-colors duration-500 z-20"
+        className="relative w-full h-auto md:h-screen overflow-visible md:overflow-hidden bg-[var(--color-brand-blue)] transition-colors duration-500 z-20 rounded-4xl"
         style={{ perspective: '2000px' }}
       >
         {/* AMBIENT ORB — the journey's mood: morphs to the active product's accent */}
@@ -302,7 +302,7 @@ export default function BentoGridMobile() {
         >
           {/* Floating Sticky GoHub Logo for Mobile */}
           <div className="sticky top-0 z-50 flex justify-center w-full pointer-events-none pb-2">
-            <div className="gohub-tag invisible opacity-0 scale-y-0 origin-top bg-white p-3 rounded-none shadow-2xl pointer-events-auto flex items-center justify-center">
+            <div className="gohub-tag invisible opacity-0 scale-y-0 origin-top bg-white/80 dark:bg-white/20 border border-black/10 dark:border-white/10 backdrop-blur-md p-3 rounded-md shadow-2xl pointer-events-auto flex items-center justify-center">
               <GoHubLogo className="w-[50px] h-[52px] text-[var(--color-brand-blue)]" />
             </div>
           </div>

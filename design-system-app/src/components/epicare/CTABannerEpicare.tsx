@@ -1,8 +1,10 @@
 "use client";
 
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 interface CTABannerEpicareProps {
   title?: React.ReactNode;
@@ -19,12 +21,40 @@ export default function CTABannerEpicare({
 }: CTABannerEpicareProps) {
   const t = useTranslations('landingV2.ctaBanner'); // We will mock this or use literal if not in i18n
   const containerRef = useRef<HTMLElement>(null);
+  const bgRef = useRef<HTMLDivElement>(null);
 
   // Defaults if not provided (matching the Licensing page)
   const defaultTitle = (
     <>Ready to scale your <span className="text-[var(--color-brand-blue)]">agency</span>?</>
   );
   const defaultDescription = "Join the network of top-tier insurance professionals and get access to all 52 states.";
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    
+    // Parallax solo en desktop para garantizar 60fps en móviles
+    const mm = gsap.matchMedia();
+    
+    mm.add("(min-width: 768px)", () => {
+      if (!containerRef.current || !bgRef.current) return;
+      
+      gsap.fromTo(bgRef.current,
+        { yPercent: -20 },
+        {
+          yPercent: 20,
+          ease: "none",
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+          }
+        }
+      );
+    });
+
+    return () => mm.revert();
+  }, []);
 
   return (
     <section 
@@ -35,16 +65,18 @@ export default function CTABannerEpicare({
         {/* Contenedor principal de la tarjeta */}
         <div className="relative rounded-[2rem] overflow-hidden group w-full flex flex-col shadow-elevation-3">
           
-          {/* BACKGROUND - Siempre oscuro */}
-          <div className="absolute inset-0 z-0">
-            <Image
-              src="/banners/cta-bg-dark.jpg"
-              alt="Abstract dark fluid texture"
-              fill
-              className="object-cover object-center scale-[1.02] transition-transform duration-[2s] group-hover:scale-100"
-              sizes="(max-width: 1200px) 100vw, 1200px"
-            />
-            <div className="absolute inset-0 bg-black/20" />
+          {/* BACKGROUND - Experimento con Parallax */}
+          <div className="absolute inset-0 z-0 overflow-hidden">
+            <div ref={bgRef} className="absolute -inset-[20%] w-[140%] h-[140%] will-change-transform">
+              <Image
+                src="/banners/cta-bg-experiment.jpg"
+                alt="Experimental texture"
+                fill
+                className="object-cover object-center scale-[1.02] transition-transform duration-[2s] group-hover:scale-100"
+                sizes="(max-width: 1200px) 100vw, 1200px"
+              />
+              <div className="absolute inset-0 bg-black/20" />
+            </div>
           </div>
 
           {/* MARGEN CREATIVO: Bordes sutiles */}

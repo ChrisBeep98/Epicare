@@ -501,6 +501,12 @@ body {
 @utility px-gutter-xl { padding-left: var(--space-gutter-xl); padding-right: var(--space-gutter-xl); }
 
 /* =========================================
+   RADIUS TOKENS
+   ========================================= */
+@utility rounded-4xl { border-radius: 2rem; }
+
+
+/* =========================================
    TYPOGRAPHY TOKENS (Design System Scale)
    Registered as `@utility` so responsive/state variants work:
    `text-display md:text-display-xl`, `hover:text-h3`, `dark:text-body`, etc.

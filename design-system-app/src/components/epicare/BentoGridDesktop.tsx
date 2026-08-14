@@ -164,11 +164,11 @@ export default function BentoGridDesktop() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="pt-section-md pb-section-lg px-4 w-full bg-[var(--color-brand-blue)] transition-colors duration-500 font-sans relative overflow-visible">
+    <section ref={sectionRef} className="pt-section-md pb-section-lg px-4 w-full bg-[var(--color-brand-blue)] transition-colors duration-500 font-sans relative overflow-visible rounded-4xl">
       
       {/* Floating Sticky GoHub Logo for Desktop */}
       <div className="sticky top-0 z-50 flex justify-center w-full pointer-events-none -mt-24 mb-12">
-        <div ref={tagRef} className="invisible opacity-0 scale-y-0 origin-top bg-white p-4 rounded-none shadow-2xl pointer-events-auto flex items-center justify-center">
+        <div ref={tagRef} className="invisible opacity-0 scale-y-0 origin-top bg-white/80 dark:bg-white/20 border border-black/10 dark:border-white/10 backdrop-blur-md p-4 rounded-md shadow-2xl pointer-events-auto flex items-center justify-center">
           <GoHubLogo className="w-[70px] h-[72px] text-[var(--color-brand-blue)]" />
         </div>
       </div>
