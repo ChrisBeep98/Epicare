@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { asset } from "@/lib/asset";
 
 export default function FooterEpicare() {
   const t = useTranslations("landingV2.nav");
@@ -87,9 +88,16 @@ export default function FooterEpicare() {
             
           {/* TOP SECTION: Massive Editorial Typography */}
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end w-full border-b border-white/15 pb-static-xl">
-            <h2 ref={textRef} className="text-[12vw] md:text-[8vw] text-white font-black uppercase tracking-tighter leading-[0.8] m-0">
-              EPICARE
-            </h2>
+            <div className="flex items-center gap-static-md md:gap-static-lg">
+              <img 
+                src={asset("/short_logo.svg")}
+                alt="Epicare Logo" 
+                className="h-[10vw] md:h-[6.5vw] w-auto select-none rounded-2xl md:rounded-[2vw]"
+              />
+              <h2 ref={textRef} className="text-[12vw] md:text-[8vw] text-white font-black uppercase tracking-tighter leading-[0.8] m-0">
+                EPICARE
+              </h2>
+            </div>
             <div className="flex flex-col items-start md:items-end gap-static-sm mt-static-lg md:mt-0">
               <div className="flex items-center gap-static-sm mb-static-md">
                 <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-status-green-main)]"></span>

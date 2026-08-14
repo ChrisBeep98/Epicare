@@ -20,20 +20,30 @@ type SpotlightConfig = {
 
 const SPOTLIGHTS: Record<SpotlightVariant, SpotlightConfig> = {
   eppigo: {
-    accentVar: '--color-brand-orange',
+    accentVar: '--color-brand-blue',
     videoLight: asset('/Files/Features/Eppigo_Light_Final.mp4'),
     videoDark: asset('/Files/Features/Eppigo_Dark_Final.mp4'),
     posterLight: asset('/Files/Features/posters/Eppigo_Light_Final.webp'),
     posterDark: asset('/Files/Features/posters/Eppigo_Dark_Final.webp'),
   },
   solutions: {
-    accentVar: '--color-brand-blue',
+    accentVar: '--color-brand-orange',
     videoLight: asset('/Files/Features/Solutions_Light_Final.mp4'),
     videoDark: asset('/Files/Features/Solutions_Dark_Final.mp4'),
     posterLight: asset('/Files/Features/posters/Solutions_Light_Final.webp'),
     posterDark: asset('/Files/Features/posters/Solutions_Dark_Final.webp'),
   },
 };
+
+/** Up-right arrow used inside the CTA bubbles. */
+const ArrowUR = ({ className = '' }: { className?: string }) => (
+  <svg
+    viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}
+    strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true"
+  >
+    <path d="M7 17 17 7M7 7h10v10" />
+  </svg>
+);
 
 const SPEC_KEYS = ['f1', 'f2', 'f3'] as const;
 
@@ -58,11 +68,12 @@ export default function ProductSpotlightEpicare({ variant }: { variant: Spotligh
     
   const isEppigo = variant === 'eppigo';
   
-  // Debug State (Hidden but kept in memory)
-  const [bgIndex, setBgIndex] = useState(4); // epicare_bg_aura_blue.jpg
-  const [hueRotate, setHueRotate] = useState(34);
+  // Debug State
+  const [bgIndex, setBgIndex] = useState(4);
+  const [hueRotate, setHueRotate] = useState(31);
   const [bgScale, setBgScale] = useState(2);
-  const [bgOpacity, setBgOpacity] = useState(0.7);
+  const [bgOpacity, setBgOpacity] = useState(0.45);
+  const [videoWidth, setVideoWidth] = useState(72);
 
   const sectionRef = useRef<HTMLElement>(null);
   const textColRef = useRef<HTMLDivElement>(null);
@@ -139,19 +150,19 @@ export default function ProductSpotlightEpicare({ variant }: { variant: Spotligh
         FULL BLEED ASYMMETRIC SPLIT LAYOUT. 
         Video touches the absolute edge of the screen. 
       */}
-      <div className={`relative z-10 w-full max-w-full flex flex-col ${isEppigo ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center`}>
+      <div className={`relative z-10 w-full max-w-full flex flex-col ${isEppigo ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center justify-between`}>
         
         {/* TEXT COLUMN (Takes 50% viewport) */}
-        <div ref={textColRef} className={`relative z-20 shrink-0 w-full lg:w-1/2 flex flex-col justify-center py-20 px-6 md:px-8 ${isEppigo ? 'lg:items-end' : 'lg:items-start'}`}>
+        <div ref={textColRef} className={`relative z-20 shrink-0 w-full lg:w-1/2 flex flex-col justify-center py-20 px-6 md:px-8 ${isEppigo ? 'lg:items-end' : 'lg:items-start'} lg:-translate-y-32`}>
           
           {/* Alignment Wrapper (Forces content into the max-w-section-lg boundary) */}
           <div className="w-full px-4 lg:px-8" style={{ maxWidth: 'calc(var(--max-w-section-lg, 1440px) / 2)' }}>
             
             {/* LIQUID GLASS TEXT CARD */}
-            <div className={`relative z-10 w-full max-w-[540px] mx-auto lg:mx-0 ${isEppigo ? 'lg:mr-auto' : 'lg:ml-auto'} rounded-[2.5rem] shadow-[0_40px_80px_rgba(0,0,0,0.05)] transform hover:-translate-y-1 transition-transform duration-500 overflow-hidden`}>
+            <div className={`relative z-10 w-full max-w-[540px] mx-auto lg:mx-0 ${isEppigo ? 'lg:mr-auto' : 'lg:ml-auto'} rounded-[2.5rem] border border-[var(--color-border-Strokes-default)] shadow-[0_40px_80px_rgba(0,0,0,0.05)] transform hover:-translate-y-1 transition-transform duration-500 overflow-hidden`}>
             
             {/* Glassmorphic Background Layer (Static) */}
-            <div className="absolute inset-0 rounded-[2.5rem] overflow-hidden -z-10 border border-[var(--color-border-Strokes-default)]">
+            <div className="absolute inset-0 rounded-[2.5rem] -z-10">
             {/* Pure Background Mesh (Brand Blue) */}
             <img 
               src={asset(DEBUG_BGS[bgIndex])} 
@@ -171,16 +182,19 @@ export default function ProductSpotlightEpicare({ variant }: { variant: Spotligh
             {/* CONTENT (Relative to sit above glass) */}
             <div ref={contentRef} className="relative z-10 flex flex-col items-start gap-8 lg:gap-10 p-10 lg:p-12">
               
-              {/* 1. PRODUCT NAME (Glass Pill) */}
-            <div className="flex items-center gap-3 px-6 py-3 rounded-full bg-white/70 backdrop-blur-md border border-white/80 shadow-[0_8px_16px_rgba(0,0,0,0.03)]">
-              <span className="w-2.5 h-2.5 rounded-full animate-pulse shadow-sm" style={{ backgroundColor: `var(${accentVar})` }} />
-              <span className="text-sm font-bold tracking-[0.2em] uppercase text-gray-900">
+              {/* 1. CHIP / BADGE */}
+              <div className="flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/50 backdrop-blur-sm border border-white/60 shadow-[0_2px_10px_rgba(0,0,0,0.02)]">
+                <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ backgroundColor: `var(${accentVar})` }} />
+                <span className="text-[9px] font-black tracking-[0.25em] uppercase text-gray-500">
+                  {isEppigo ? 'Software de Gestión' : 'Equipamiento Clínico'}
+                </span>
+              </div>
+
+            {/* 2. PRODUCT TITLE */}
+            <h2 className="text-display-lg text-[var(--color-text-primary)] leading-[1.05] tracking-tight">
+              <span className="block" style={{ color: `var(${accentVar})` }}>
                 {t('name')}
               </span>
-            </div>
-
-            {/* 2. THE VISION */}
-            <h2 className="text-display-lg text-[var(--color-text-primary)] leading-[1.05]">
               {t('title')}
             </h2>
 
@@ -201,15 +215,17 @@ export default function ProductSpotlightEpicare({ variant }: { variant: Spotligh
             </div>
 
             {/* 4. CTA */}
-            <div className="mt-2 w-full sm:w-auto">
+            <div className="mt-4 w-full sm:w-auto">
               <a
                 href="#unete"
-                className="inline-flex w-full sm:w-auto items-center justify-center rounded-full px-10 py-5 
-                           bg-gray-900 text-white hover:bg-black
-                           shadow-[0_15px_30px_rgba(0,0,0,0.15)]
-                           transition-all duration-300 hover:scale-[1.03] active:scale-[0.98]"
+                className="group w-fit h-12 pl-6 pr-2 rounded-full flex items-center gap-3 text-white shadow-elevation-2 transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-elevation-4 active:scale-[0.96] active:opacity-80 active:duration-150"
+                style={{ backgroundColor: `var(${accentVar})` }}
               >
-                <span className="text-sm font-bold tracking-[0.2em] uppercase">{t('cta')}</span>
+                <span className="text-xs font-bold tracking-[0.2em] uppercase">{t('cta')}</span>
+                <span className="relative w-8 h-8 rounded-full bg-white flex items-center justify-center overflow-hidden shrink-0" style={{ color: `var(${accentVar})` }}>
+                  <ArrowUR className="absolute w-4 h-4 transition-transform duration-300 ease-out group-hover:translate-x-5 group-hover:-translate-y-5" />
+                  <ArrowUR className="absolute w-4 h-4 -translate-x-5 translate-y-5 transition-transform duration-300 ease-out group-hover:translate-x-0 group-hover:translate-y-0" />
+                </span>
               </a>
             </div>
 
@@ -218,11 +234,15 @@ export default function ProductSpotlightEpicare({ variant }: { variant: Spotligh
         </div>
         </div>
       
-        {/* VIDEO COLUMN - GLUED TO THE EDGE */}
-        <div ref={videoColRef} className={`relative z-10 shrink-0 w-full lg:w-1/2 flex ${isEppigo ? 'justify-end pr-0' : 'justify-start pl-0'} mt-12 lg:mt-0`}>
-          {/* Shadow Container (No overflow-hidden) */}
-          <div className={`relative w-full h-[75vh] lg:h-[90vh] max-h-[1000px] ${isEppigo ? 'rounded-l-[3rem] lg:rounded-l-[4rem] rounded-r-none' : 'rounded-r-[3rem] lg:rounded-r-[4rem] rounded-l-none'} shadow-[0_40px_100px_rgba(0,0,0,0.15)] transform-gpu`}>
-            {/* Mask Container (Overflow-hidden to clip the video, but doesn't clip the outer shadow) */}
+        {/* VIDEO COLUMN - GLUED TO THE EDGE (Absolute positioning allows growing inward) */}
+        <div 
+          ref={videoColRef} 
+          className={`relative z-10 w-full lg:absolute lg:top-1/2 lg:-translate-y-1/2 ${isEppigo ? 'lg:right-0 justify-end pr-0' : 'lg:left-0 justify-start pl-0'} lg:w-[var(--video-w)] flex mt-12 lg:mt-0`}
+          style={{ '--video-w': `${videoWidth}%` } as React.CSSProperties}
+        >
+          {/* Main Container (No shadow) */}
+          <div className={`relative w-full h-[75vh] lg:h-[90vh] max-h-[1000px] ${isEppigo ? 'rounded-l-[3rem] lg:rounded-l-[4rem] rounded-r-none' : 'rounded-r-[3rem] lg:rounded-r-[4rem] rounded-l-none'} transform-gpu`}>
+            {/* Mask Container (Overflow-hidden to clip the video) */}
             <div className={`absolute inset-0 w-full h-full ${isEppigo ? 'rounded-l-[3rem] lg:rounded-l-[4rem] rounded-r-none' : 'rounded-r-[3rem] lg:rounded-r-[4rem] rounded-l-none'} overflow-hidden`}>
               <SmartVideo src={videoLight} poster={posterLight} className="absolute inset-0 w-full h-full object-cover object-center dark:hidden" />
               <SmartVideo src={videoDark} poster={posterDark} className="absolute inset-0 w-full h-full object-cover object-center hidden dark:block" />
@@ -235,7 +255,19 @@ export default function ProductSpotlightEpicare({ variant }: { variant: Spotligh
       {/* DEBUG PANEL (Hidden but kept in memory for quick restoration) */}
       {false && isEppigo && (
         <div className="fixed bottom-6 right-6 z-[9999] bg-gray-900/90 backdrop-blur-xl p-5 rounded-2xl border border-white/10 shadow-2xl flex flex-col gap-4 text-white w-[320px]">
-          <div className="text-xs font-bold uppercase tracking-wider text-gray-400">🔍 Testing de Fondos</div>
+          <div className="text-xs font-bold uppercase tracking-wider text-gray-400">🔍 Testing Panel</div>
+          
+          {/* Video Width Slider */}
+          <div className="flex flex-col gap-2 pb-2 border-b border-white/10">
+             <div className="flex justify-between text-xs items-center">
+                <span className="text-[#35BBFD] font-bold">Ancho del Video (Desktop)</span>
+                <button onClick={() => setVideoWidth(47)} className="text-[#35BBFD] hover:text-white transition-colors bg-[#35BBFD]/10 px-2 py-0.5 rounded">Reset</button>
+             </div>
+             <div className="flex items-center gap-3">
+               <input type="range" min="30" max="75" step="1" value={videoWidth} onChange={(e) => setVideoWidth(Number(e.target.value))} className="w-full accent-[#35BBFD]" />
+               <span className="text-xs font-mono w-10 text-right">{videoWidth}%</span>
+             </div>
+          </div>
           
           {/* Background cycler */}
           <div className="flex items-center justify-between gap-3">
@@ -285,7 +317,7 @@ export default function ProductSpotlightEpicare({ variant }: { variant: Spotligh
           {/* Copy Button */}
           <button 
             onClick={() => {
-              const cfg = `Imagen: ${DEBUG_BGS[bgIndex].split('/').pop()}\nHue: ${hueRotate}deg\nZoom: ${bgScale}x\nOpacidad: ${bgOpacity}`;
+              const cfg = `Imagen: ${DEBUG_BGS[bgIndex].split('/').pop()}\nHue: ${hueRotate}deg\nZoom: ${bgScale}x\nOpacidad: ${bgOpacity}\nAncho de Video: ${videoWidth}%`;
               navigator.clipboard.writeText(cfg);
               alert("¡Configuración copiada al portapapeles!\n\n" + cfg);
             }}
