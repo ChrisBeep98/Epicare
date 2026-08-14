@@ -2,6 +2,7 @@ import LoaderEpicare from "@/components/epicare/LoaderEpicare";
 import LicensingHeroEpicare from "@/components/epicare/LicensingHeroEpicare";
 import LicensingGridEpicare from "@/components/epicare/LicensingGridEpicare";
 import FooterEpicare from "@/components/epicare/FooterEpicare";
+import CTABannerEpicare from "@/components/epicare/CTABannerEpicare";
 import { SITE_URL } from "../layout";
 
 // Note: The rest of the sections (Corporate Info, Map, Grid) will be imported here as they are built.
@@ -31,6 +32,9 @@ export default function LicensingPage() {
       
       {/* ── S03 · Licensing Grid ── */}
       <div id="licensing-grid" className="w-full order-4 relative z-10"><LicensingGridEpicare /></div>
+      
+      {/* ── S03.5 · CTA Banner ── */}
+      <div className="w-full order-[14] relative z-10"><CTABannerEpicare /></div>
       
       {/* ── S04 · Footer ── */}
       <div className="w-full order-[15]"><FooterEpicare /></div>

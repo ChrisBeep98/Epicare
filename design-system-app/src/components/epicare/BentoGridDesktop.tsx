@@ -8,6 +8,7 @@ import { asset } from "@/lib/asset";
 import GoHubLogo from "./GoHubLogo";
 import { AcademyIcon } from "./EcosystemIcons";
 import SmartVideo from "./SmartVideo";
+import { EASE, DUR, STAGGER } from "@/lib/motion";
 
 // ----------------------------------------------------------------------
 // LOGOS 
@@ -133,24 +134,28 @@ export default function BentoGridDesktop() {
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: "top top",
-            end: "+=400",
-            scrub: 1,
+            start: "top top", // Dispara exactamente cuando la SECCIÓN AZUL llega al techo
+            toggleActions: "play none none reverse", // Se mantiene visible mientras bajes
           }
         });
 
         // 1. Tag extrudes from the top limit (Pestaña saliendo)
-        tl.to(tagRef.current, { scaleY: 1, autoAlpha: 1, duration: 1, ease: "none" });
+        tl.fromTo(tagRef.current, 
+          { scaleY: 0, autoAlpha: 0 },
+          { scaleY: 1, autoAlpha: 1, duration: DUR.fast, ease: EASE.out }
+        );
 
         // 2. Draw internal shapes
         if (logoShapes.length && logoLetters.length) {
-          tl.from(logoShapes, {
-            opacity: 0, scale: 0.55, transformOrigin: '50% 50%',
-            duration: 0.6, ease: "power2.out", stagger: 0.09,
+          tl.fromTo(logoShapes, {
+            opacity: 0, scale: 0.55, transformOrigin: '50% 50%'
+          }, {
+            opacity: 1, scale: 1, duration: DUR.fast, ease: EASE.snap, stagger: STAGGER.tight
           }, "-=0.3")
-          .from(logoLetters, {
-            opacity: 0, y: 20, scale: 0.5, transformOrigin: '50% 100%',
-            duration: 0.55, ease: "power2.out", stagger: 0.12,
+          .fromTo(logoLetters, {
+            opacity: 0, y: 20, scale: 0.5, transformOrigin: '50% 100%'
+          }, {
+            opacity: 1, y: 0, scale: 1, duration: DUR.fast, ease: EASE.snap, stagger: STAGGER.tight
           }, "-=0.2");
         }
       }
@@ -159,7 +164,7 @@ export default function BentoGridDesktop() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-24 px-4 w-full bg-[var(--color-brand-blue)] transition-colors duration-500 font-sans relative overflow-visible">
+    <section ref={sectionRef} className="pt-section-md pb-section-lg px-4 w-full bg-[var(--color-brand-blue)] transition-colors duration-500 font-sans relative overflow-visible">
       
       {/* Floating Sticky GoHub Logo for Desktop */}
       <div className="sticky top-0 z-50 flex justify-center w-full pointer-events-none -mt-24 mb-12">

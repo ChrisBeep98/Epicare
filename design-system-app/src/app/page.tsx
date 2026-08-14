@@ -11,6 +11,7 @@ import Coverage52Epicare from "@/components/epicare/Coverage52Epicare";
 import ForWhoEpicare from "@/components/epicare/ForWhoEpicare";
 import HowToJoinEpicare from "@/components/epicare/HowToJoinEpicare";
 import FAQEpicare from "@/components/epicare/FAQEpicare";
+import CTABannerEpicare from "@/components/epicare/CTABannerEpicare";
 import FooterEpicare from "@/components/epicare/FooterEpicare";
 
 import en from "../../messages/en.json";
@@ -106,8 +107,16 @@ export default function EpicareLandingPage() {
       <div className="w-full order-[13]"><HowToJoinEpicare /></div>
       {/* ── S14 · FAQ (objeciones) ── */}
       <div className="w-full order-[14]"><FAQEpicare /></div>
+      {/* ── S14.5 · CTA Banner ── */}
+      <div className="w-full order-[15] relative z-10">
+        <CTABannerEpicare 
+          title={<>Your agency deserves <span className="text-[var(--color-brand-blue)]">premium</span> support.</>}
+          description="Join Epicare and get access to our 52-state network, cutting-edge technology, and top-tier carrier contracts."
+          buttonText="Join the Network"
+        />
+      </div>
       {/* ── S15 · Footer (RESOLUCIÓN) ── */}
-      <div className="w-full order-[15]"><FooterEpicare /></div>
+      <div className="w-full order-[16]"><FooterEpicare /></div>
     </main>
   );
 }
