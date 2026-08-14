@@ -51,20 +51,20 @@ export default function LoaderEpicare() {
         // Detener el loop suavemente
         if (loopTl) loopTl.kill();
 
-        // 3. Salida elegante (zoom in suave + fade con blur)
+        // 3. Salida veloz y elegante (snappy)
         gsap.to(".loader-logo", {
-          scale: 1.08,
+          scale: 1.05,
           opacity: 0,
-          filter: "blur(12px)",
-          duration: 0.7,
-          ease: "power3.inOut"
+          filter: "blur(8px)",
+          duration: 0.3,
+          ease: "power2.inOut"
         });
         
         gsap.to(containerRef.current, {
           opacity: 0,
-          duration: 0.8,
-          ease: "power3.inOut",
-          delay: 0.1,
+          duration: 0.35,
+          ease: "power2.inOut",
+          delay: 0.05,
           onComplete: () => {
             setVisible(false);
             document.body.style.overflow = "";
