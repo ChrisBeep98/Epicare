@@ -50,14 +50,11 @@ function CinematicPanel({ title, desc, Logo, videoLight, videoDark, ctaText, isA
   return (
     <div className="relative w-[85vw] lg:w-[65vw] h-[75vh] shrink-0 rounded-[2.5rem] border border-black/5 dark:border-white/20 shadow-elevation-4 overflow-hidden flex flex-col md:flex-row group">
       
-      {/* STATIC BACKGROUND LAYER (Glassmorphism architecture) */}
-      <div className="absolute inset-0 -z-10 rounded-[2.5rem]">
-        <div className="absolute inset-0 bg-white/60 dark:bg-black/40 backdrop-blur-md" />
-        <div className="absolute inset-0 bg-gradient-to-br from-white/80 to-transparent dark:from-white/15 dark:to-transparent opacity-80 dark:opacity-30 pointer-events-none" />
-      </div>
+      {/* STATIC BACKGROUND LAYER */}
+      <div className="absolute inset-0 -z-10 rounded-[2.5rem] bg-white dark:bg-[#111]" />
 
       {/* TEXT CONTENT (Left side) */}
-      <div className="p-10 md:p-16 lg:p-20 w-full md:w-5/12 flex flex-col justify-center h-full relative z-10 border-r border-black/5 dark:border-white/10 bg-white/30 dark:bg-black/10">
+      <div className="p-10 md:p-16 lg:p-20 w-full md:w-5/12 flex flex-col justify-center h-full relative z-10 border-r border-black/5 dark:border-white/10 bg-transparent">
          <Logo className="h-10 lg:h-12 w-auto self-start mr-auto mb-10 text-[var(--color-brand-blue)] dark:text-white origin-left transform group-hover:scale-105 transition-transform duration-700 ease-out" />
          <h3 className="text-display text-black dark:text-white mb-6 leading-tight">{title}</h3>
          <p className="text-body-lg text-black/60 dark:text-white/80 font-light max-w-sm mb-12 leading-relaxed">{desc}</p>
@@ -137,6 +134,7 @@ export default function BentoGridDesktop() {
         ScrollTrigger.refresh();
         
       }, sectionRef);
+
       return () => ctx.revert();
     }, 100);
 
@@ -149,11 +147,10 @@ export default function BentoGridDesktop() {
       
       <section ref={sectionRef} className="h-screen w-full relative">
         
-        {/* Immersive Aura Glow Background */}
-        <div className="absolute inset-0 -z-20">
-          <img src={asset("/Files/Backgrounds/gohub_aura_bg_light.jpg")} alt="Minimalist Aura background" className="w-full h-full object-cover scale-[1.05] dark:hidden opacity-80" />
-          <img src={asset("/Files/Backgrounds/gohub_aura_bg.jpg")} alt="Aura background" className="w-full h-full object-cover scale-[1.05] hidden dark:block opacity-60" />
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/5 dark:to-black/40" />
+        {/* Immersive Brand Blue Background (Fixed inside sticky container) */}
+        <div className="absolute inset-0 -z-20 bg-[var(--color-brand-blue)]">
+          {/* Subtle light mesh for texture, without darkening the brand color */}
+          <div className="absolute inset-0 bg-white/5" />
         </div>
 
         {/* The Horizontal Scrolling Track */}
@@ -164,13 +161,15 @@ export default function BentoGridDesktop() {
            
            {/* INTRO TITLE PANEL */}
            <div className="w-[70vw] lg:w-[40vw] shrink-0 flex flex-col justify-center">
-              <GoHubLogo className="w-20 h-20 text-[var(--color-brand-blue)] dark:text-white mb-8 drop-shadow-sm dark:drop-shadow-lg" />
-              <h2 className="text-display-lg text-black dark:text-white mb-6 leading-tight capitalize">
+              <div className="w-24 h-24 bg-white rounded-3xl flex items-center justify-center mb-8 shadow-elevation-2 transform transition-transform hover:scale-105">
+                <GoHubLogo className="w-16 h-16 text-[var(--color-brand-blue)]" />
+              </div>
+              <h2 className="text-display-lg text-white mb-6 leading-tight capitalize">
                 {t('sectionTitle')}
               </h2>
-              <p className="text-body-lg text-black/60 dark:text-white/80 font-light max-w-md leading-relaxed">
+              <p className="text-body-lg text-white/90 font-light max-w-md leading-relaxed">
                 {t.rich('sectionDesc', {
-                  b: (chunks) => <strong className="font-semibold text-black dark:text-white">{chunks}</strong>,
+                  b: (chunks) => <strong className="font-semibold text-white">{chunks}</strong>,
                 })}
               </p>
            </div>

@@ -52,68 +52,80 @@ export default function PeopleRevealEpicare() {
   useEffect(() => {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    const ctx = gsap.context(() => {
-      if (reduce) {
-        gsap.set('.pr-slat', { scaleY: 0, opacity: 0 });
-        return;
-      }
-
-      // Full-bleed photo — interlocking slat reveal: bars collapse AND fade out.
-      // Long scroll window + pro bezier + high scrub = slow, buttery, no jumps.
-      const proReveal = CustomEase.create('proReveal', REVEAL_EASE);
-      
-      // Filtrar sólo los cuadritos (slats) visibles para que el cálculo del centro ('from: center') sea perfecto
-      const visibleSlats = gsap.utils.toArray('.pr-slat').filter((el: any) => getComputedStyle(el).display !== 'none');
-
-      gsap.to(visibleSlats, {
-        scaleY: 0,
-        opacity: 0,
-        transformOrigin: (i: number) => (i % 2 === 0 ? 'top center' : 'bottom center'),
-        ease: proReveal,
-        stagger: { each: 0.07, from: 'center', ease: proReveal },
-        scrollTrigger: { trigger: sectionRef.current, start: 'top 88%', end: '+=85%', scrub: 3 },
-      });
-
-      // Photo — very gentle parallax drift, smoothed.
-      gsap.fromTo('.pr-img',
-        { yPercent: -5 },
-        {
-          yPercent: 5, ease: 'none',
-          scrollTrigger: { trigger: sectionRef.current, start: 'top bottom', end: 'bottom top', scrub: 2 },
+    // CRITICAL FIX: Delay trigger creation so upstream sections (like BentoGrid with its 100ms delay)
+    // create their pinned triggers FIRST. If this creates its trigger before the pin is registered,
+    // the mathematical start positions will be completely misaligned.
+    const timer = setTimeout(() => {
+      const ctx = gsap.context(() => {
+        if (reduce) {
+          gsap.set('.pr-slat', { scaleY: 0, opacity: 0 });
+          return;
         }
-      );
 
-      // Marquee — driven by scroll (scrub), very subtle drift and heavily smoothed.
-      gsap.fromTo('.pr-marquee-inner',
-        { xPercent: 0 },
-        {
-          xPercent: -12, ease: 'none',
-          scrollTrigger: { trigger: sectionRef.current, start: 'top bottom', end: 'bottom top', scrub: 3 },
-        }
-      );
+        // Full-bleed photo — interlocking slat reveal: bars collapse AND fade out.
+        // Long scroll window + pro bezier + high scrub = slow, buttery, no jumps.
+        const proReveal = CustomEase.create('proReveal', REVEAL_EASE);
+        
+        // Filtrar sólo los cuadritos (slats) visibles para que el cálculo del centro ('from: center') sea perfecto
+        const visibleSlats = gsap.utils.toArray('.pr-slat').filter((el: any) => getComputedStyle(el).display !== 'none');
 
-      // Velocity skew — barely perceptible, just a touch of life.
-      const proxy = { skew: 0 };
-      const setSkew = gsap.quickSetter('.pr-marquee-inner', 'skewX', 'deg');
-      const clamp = gsap.utils.clamp(-3.5, 3.5);
-      ScrollTrigger.create({
-        trigger: sectionRef.current,
-        start: 'top bottom',
-        end: 'bottom top',
-        onUpdate: (self) => {
-          const v = clamp(self.getVelocity() / -1000);
-          if (Math.abs(v) > Math.abs(proxy.skew)) {
-            proxy.skew = v;
-            gsap.to(proxy, {
-              skew: 0, duration: 1, ease: 'power3', overwrite: true,
-              onUpdate: () => setSkew(proxy.skew),
-            });
+        gsap.to(visibleSlats, {
+          scaleY: 0,
+          opacity: 0,
+          transformOrigin: (i: number) => (i % 2 === 0 ? 'top center' : 'bottom center'),
+          ease: proReveal,
+          stagger: { each: 0.07, from: 'center', ease: proReveal },
+          scrollTrigger: { trigger: sectionRef.current, start: 'top 88%', end: '+=85%', scrub: 3 },
+        });
+
+        // Photo — very gentle parallax drift, smoothed.
+        gsap.fromTo('.pr-img',
+          { yPercent: -5 },
+          {
+            yPercent: 5, ease: 'none',
+            scrollTrigger: { trigger: sectionRef.current, start: 'top bottom', end: 'bottom top', scrub: 2 },
           }
-        },
-      });
-    }, sectionRef);
+        );
 
-    return () => ctx.revert();
+        // Marquee — driven by scroll (scrub), very subtle drift and heavily smoothed.
+        gsap.fromTo('.pr-marquee-inner',
+          { xPercent: 0 },
+          {
+            xPercent: -12, ease: 'none',
+            scrollTrigger: { trigger: sectionRef.current, start: 'top bottom', end: 'bottom top', scrub: 3 },
+          }
+        );
+
+        // Velocity skew — barely perceptible, just a touch of life.
+        const proxy = { skew: 0 };
+        const setSkew = gsap.quickSetter('.pr-marquee-inner', 'skewX', 'deg');
+        const clamp = gsap.utils.clamp(-3.5, 3.5);
+        ScrollTrigger.create({
+          trigger: sectionRef.current,
+          start: 'top bottom',
+          end: 'bottom top',
+          onUpdate: (self) => {
+            const v = clamp(self.getVelocity() / -1000);
+            if (Math.abs(v) > Math.abs(proxy.skew)) {
+              proxy.skew = v;
+              gsap.to(proxy, {
+                skew: 0, duration: 1, ease: 'power3', overwrite: true,
+                onUpdate: () => setSkew(proxy.skew),
+              });
+            }
+          },
+        });
+
+        // Force recalculation in case upstream images (like Product Spotlight) shifted the layout
+        ScrollTrigger.sort();
+        ScrollTrigger.refresh();
+        
+      }, sectionRef);
+
+      return () => ctx.revert();
+    }, 200);
+
+    return () => clearTimeout(timer);
   }, []);
 
   return (
