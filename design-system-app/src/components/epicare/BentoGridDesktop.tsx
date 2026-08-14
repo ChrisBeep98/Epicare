@@ -59,7 +59,7 @@ function CinematicPanel({ title, desc, Logo, videoLight, videoDark, ctaText, isA
       {/* TEXT CONTENT (Left side) */}
       <div className="p-10 md:p-16 lg:p-20 w-full md:w-5/12 flex flex-col justify-center h-full relative z-10 border-r border-black/5 dark:border-white/10 bg-white/30 dark:bg-black/10">
          <Logo className="h-10 lg:h-12 w-auto self-start mr-auto mb-10 text-[var(--color-brand-blue)] dark:text-white origin-left transform group-hover:scale-105 transition-transform duration-700 ease-out" />
-         <h3 className="text-display-lg font-bold text-black dark:text-white mb-6 tracking-tight leading-none">{title}</h3>
+         <h3 className="text-display text-black dark:text-white mb-6 leading-tight">{title}</h3>
          <p className="text-body-lg text-black/60 dark:text-white/80 font-light max-w-sm mb-12 leading-relaxed">{desc}</p>
          
          {/* Minimalist CTA */}
@@ -199,7 +199,7 @@ export default function BentoGridDesktop() {
            <CinematicPanel 
               title="GO ACADEMY" 
               desc={t('card8Desc')} 
-              Logo={AcademyIcon} 
+              Logo={({ className }) => <img src={asset('/academy-icon-knockout-blue 1.svg')} alt="GO Academy" className={className} />}
               videoLight={asset("/Files/Features/Academy_Light_Final.mp4")}
               videoDark={asset("/Files/Features/Academy_Dark_Final.mp4")} 
               ctaText={t('cardCta')} 
