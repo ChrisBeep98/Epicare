@@ -1,4 +1,4 @@
-# Premium UI Tricks & Techniques
+# Video Background Blend Fixer
 
 This document serves as a repository for advanced CSS and UI/UX techniques used in the GO AMS ecosystem to achieve high-end, premium interfaces.
 
