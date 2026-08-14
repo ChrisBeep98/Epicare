@@ -67,15 +67,15 @@
       },
       "solutions": {
         "name": "Agency Solutions",
-        "cta": "Únete a Epicare",
-        "title": "No plantillas genéricas.",
-        "desc": "Campañas, embudos y material de venta listos para usar.",
-        "f1Title": "Campañas",
-        "f1Desc": "Listas para lanzar, sin montarlas desde cero.",
-        "f2Title": "Embudos",
-        "f2Desc": "El recorrido del prospecto, ya construido.",
-        "f3Title": "Material de venta",
-        "f3Desc": "Piezas hechas para seguros, no plantillas genéricas."
+        "cta": "Explorar soluciones",
+        "title": "Marketing que sí cierra pólizas.",
+        "desc": "Olvídate del lienzo en blanco. Despliega campañas, embudos y activos publicitarios diseñados exclusivamente para la industria de seguros.",
+        "f1Title": "Campañas Plug & Play",
+        "f1Desc": "Estrategias de captación completas y listas para activarse en minutos.",
+        "f2Title": "Embudos de Alta Conversión",
+        "f2Desc": "Recorridos testeados para transformar prospectos fríos en clientes reales.",
+        "f3Title": "Activos Premium",
+        "f3Desc": "Material de venta y diseño con la calidad gráfica de una agencia top."
       }
     },
     "darkGradient": {

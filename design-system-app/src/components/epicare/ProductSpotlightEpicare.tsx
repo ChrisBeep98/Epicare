@@ -27,7 +27,7 @@ const SPOTLIGHTS: Record<SpotlightVariant, SpotlightConfig> = {
     posterDark: asset('/Files/Features/posters/Eppigo_Dark_Final.webp'),
   },
   solutions: {
-    accentVar: '--color-brand-orange',
+    accentVar: '--color-brand-blue',
     videoLight: asset('/Files/Features/Solutions_Light_Final.mp4'),
     videoDark: asset('/Files/Features/Solutions_Dark_Final.mp4'),
     posterLight: asset('/Files/Features/posters/Solutions_Light_Final.webp'),
@@ -242,10 +242,16 @@ export default function ProductSpotlightEpicare({ variant }: { variant: Spotligh
         >
           {/* Main Container (No shadow) */}
           <div className={`relative w-full h-[75vh] lg:h-[90vh] max-h-[1000px] ${isEppigo ? 'rounded-l-[3rem] lg:rounded-l-[4rem] rounded-r-none' : 'rounded-r-[3rem] lg:rounded-r-[4rem] rounded-l-none'} transform-gpu`}>
-            {/* Mask Container (Overflow-hidden to clip the video) */}
-            <div className={`absolute inset-0 w-full h-full ${isEppigo ? 'rounded-l-[3rem] lg:rounded-l-[4rem] rounded-r-none' : 'rounded-r-[3rem] lg:rounded-r-[4rem] rounded-l-none'} overflow-hidden`}>
-              <SmartVideo src={videoLight} poster={posterLight} className="absolute inset-0 w-full h-full object-cover object-center dark:hidden" />
-              <SmartVideo src={videoDark} poster={posterDark} className="absolute inset-0 w-full h-full object-cover object-center hidden dark:block" />
+            {/* Mask Container (Overflow-hidden to clip the media) */}
+            <div className={`absolute inset-0 w-full h-full ${isEppigo ? 'rounded-l-[3rem] lg:rounded-l-[4rem] rounded-r-none' : 'rounded-r-[3rem] lg:rounded-r-[4rem] rounded-l-none'} overflow-hidden bg-black/5 dark:bg-white/5`}>
+              {isEppigo ? (
+                <>
+                  <SmartVideo src={videoLight} poster={posterLight} className="absolute inset-0 w-full h-full object-cover object-center dark:hidden" />
+                  <SmartVideo src={videoDark} poster={posterDark} className="absolute inset-0 w-full h-full object-cover object-center hidden dark:block" />
+                </>
+              ) : (
+                <img src={asset('/Files/Frame 96.png')} alt="EpiCare Solutions" className="absolute inset-0 w-full h-full object-cover object-center" />
+              )}
             </div>
           </div>
         </div>
