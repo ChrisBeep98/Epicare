@@ -43,205 +43,175 @@ function AmsLogo({ className }: { className?: string }) {
   );
 }
 
-
 // ----------------------------------------------------------------------
-// SPATIAL CARD WITH 3D HOVER (VisionOS Style)
+// CINEMATIC PANEL (Impeccable Glassmorphism - Hardware Symphony Optimized)
 // ----------------------------------------------------------------------
-function SpatialCard({ children, className = "", ctaText, ctaClassName }: { children: React.ReactNode, className?: string, ctaText?: string, ctaClassName?: string }) {
-  const cardRef = useRef<HTMLDivElement>(null);
-
-  useLayoutEffect(() => {
-    const card = cardRef.current;
-    if (!card) return;
-
-    // Only activate 3D on desktop devices
-    if (window.matchMedia("(max-width: 1024px)").matches) return;
-
-    const onMouseMove = (e: MouseEvent) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-      
-      // Calculate rotation based on cursor position relative to center
-      const rotateX = ((y - centerY) / centerY) * -5;
-      const rotateY = ((x - centerX) / centerX) * 5;
-
-      gsap.to(card, {
-        rotateX,
-        rotateY,
-        transformPerspective: 1200,
-        ease: "power2.out",
-        duration: 0.4
-      });
-    };
-
-    const onMouseLeave = () => {
-      gsap.to(card, { rotateX: 0, rotateY: 0, ease: "power3.out", duration: 0.6 });
-    };
-
-    card.addEventListener('mousemove', onMouseMove);
-    card.addEventListener('mouseleave', onMouseLeave);
-    return () => {
-      card.removeEventListener('mousemove', onMouseMove);
-      card.removeEventListener('mouseleave', onMouseLeave);
-    };
-  }, []);
-
+function CinematicPanel({ title, desc, Logo, videoLight, videoDark, ctaText, isAcademy }: { title: string, desc: string, Logo: any, videoLight: string, videoDark: string, ctaText: string, isAcademy?: boolean }) {
   return (
-    <div 
-      ref={cardRef} 
-      className={`relative overflow-hidden rounded-[12px] border border-[var(--color-border-Strokes-default)] dark:border-white/10 bg-white dark:bg-[var(--color-surface-BG-2)] shadow-[0_20px_40px_rgba(0,0,0,0.05)] dark:shadow-[0_20px_40px_rgba(0,0,0,0.4)] transition-colors duration-500 ${className}`} 
-    >
-      {children}
-      {ctaText && (
-        <div className={`group/pill absolute bottom-6 right-6 z-40 flex items-center gap-2 px-5 py-2.5 rounded-full ${ctaClassName || 'bg-[var(--color-brand-blue)]/90 text-white'} backdrop-blur-md border border-white/20 font-medium text-sm opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0 cursor-pointer hover:scale-105`}>
-          <span>{ctaText}</span>
-          <div className="relative overflow-hidden w-4 h-4 flex items-center justify-center">
-            {/* First Arrow (Leaves to the right) */}
-            <svg className="w-4 h-4 absolute inset-0 transition-transform duration-500 ease-[cubic-bezier(0.7,0,0.3,1)] translate-x-0 group-hover/pill:translate-x-[150%]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-            </svg>
-            {/* Second Arrow (Enters from the left) */}
-            <svg className="w-4 h-4 absolute inset-0 transition-transform duration-500 ease-[cubic-bezier(0.7,0,0.3,1)] -translate-x-[150%] group-hover/pill:translate-x-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-            </svg>
-          </div>
-        </div>
-      )}
+    <div className="relative w-[85vw] lg:w-[65vw] h-[75vh] shrink-0 rounded-[2.5rem] border border-black/5 dark:border-white/20 shadow-elevation-4 overflow-hidden flex flex-col md:flex-row group">
+      
+      {/* STATIC BACKGROUND LAYER (Glassmorphism architecture) */}
+      <div className="absolute inset-0 -z-10 rounded-[2.5rem]">
+        <div className="absolute inset-0 bg-white/60 dark:bg-black/40 backdrop-blur-md" />
+        <div className="absolute inset-0 bg-gradient-to-br from-white/80 to-transparent dark:from-white/15 dark:to-transparent opacity-80 dark:opacity-30 pointer-events-none" />
+      </div>
+
+      {/* TEXT CONTENT (Left side) */}
+      <div className="p-10 md:p-16 lg:p-20 w-full md:w-5/12 flex flex-col justify-center h-full relative z-10 border-r border-black/5 dark:border-white/10 bg-white/30 dark:bg-black/10">
+         <Logo className="h-10 lg:h-12 w-auto self-start mr-auto mb-10 text-[var(--color-brand-blue)] dark:text-white origin-left transform group-hover:scale-105 transition-transform duration-700 ease-out" />
+         <h3 className="text-display-lg font-bold text-black dark:text-white mb-6 tracking-tight leading-none">{title}</h3>
+         <p className="text-body-lg text-black/60 dark:text-white/80 font-light max-w-sm mb-12 leading-relaxed">{desc}</p>
+         
+         {/* Minimalist CTA */}
+         <button className="flex items-center gap-4 text-black dark:text-white hover:text-[var(--color-brand-blue)] dark:hover:text-[var(--color-brand-cyan)] transition-colors duration-300 w-fit group/btn mt-auto md:mt-0">
+            <span className="font-medium tracking-[0.15em] text-xs uppercase">{ctaText}</span>
+            <div className="w-10 h-10 rounded-full border border-black/10 dark:border-white/30 flex items-center justify-center group-hover/btn:border-[var(--color-brand-blue)] dark:group-hover/btn:border-[var(--color-brand-cyan)] group-hover/btn:bg-black/5 dark:group-hover/btn:bg-white/5 transition-all duration-300">
+               <svg className="w-4 h-4 translate-x-0 group-hover/btn:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+               </svg>
+            </div>
+         </button>
+      </div>
+
+      {/* MEDIA CONTENT (Right side) */}
+      <div className="w-full md:w-7/12 h-full relative overflow-hidden bg-black/5 dark:bg-black/40">
+         <div className="absolute inset-0 bg-gradient-to-r from-white/40 dark:from-black/20 to-transparent z-10 pointer-events-none" />
+         
+         {/* Light Video */}
+         <SmartVideo 
+           src={videoLight} 
+           className={`absolute inset-0 w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105 dark:hidden ${isAcademy ? 'object-contain scale-[0.85] group-hover:scale-95' : ''}`} 
+         />
+         {/* Dark Video */}
+         <SmartVideo 
+           src={videoDark} 
+           className={`absolute inset-0 w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105 hidden dark:block ${isAcademy ? 'object-contain scale-[0.85] group-hover:scale-95' : ''}`} 
+         />
+      </div>
+
     </div>
-  );
+  )
 }
 
-
 // ----------------------------------------------------------------------
-// MAIN GRID (The beautiful one)
+// MAIN SECTION (Concept A: True GSAP Horizontal Pin - Flawless Execution)
 // ----------------------------------------------------------------------
 export default function BentoGridDesktop() {
   const t = useTranslations('landingV2.bento');
   const sectionRef = useRef<HTMLElement>(null);
-  const tagRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
-    const ctx = gsap.context(() => {
-      if (tagRef.current && sectionRef.current) {
-        const logoShapes = gsap.utils.toArray(tagRef.current.querySelectorAll('.gohub-shape'));
-        const logoLetters = gsap.utils.toArray(tagRef.current.querySelectorAll('.gohub-letter'));
+    
+    // We use a slight delay so images/fonts load, preventing miscalculation of scrollWidth
+    const timeout = setTimeout(() => {
+      const ctx = gsap.context(() => {
+        const track = trackRef.current;
+        const section = sectionRef.current;
+        if (!track || !section) return;
 
-        const tl = gsap.timeline({
+        // 1. Calculate precise horizontal distance to move the track
+        const getHorizontalDist = () => track.scrollWidth - window.innerWidth;
+        
+        // 2. Calculate vertical scroll duration (How long the pin lasts)
+        const getVerticalScrollDuration = () => getHorizontalDist() * 0.8;
+
+        // TRUE GSAP PIN
+        gsap.to(track, {
+          x: () => -getHorizontalDist(),
+          ease: "none",
+          force3D: true, // HARDWARE SYMPHONY: Force hardware acceleration to prevent compositing lag
           scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top top", // Dispara exactamente cuando la SECCIÓN AZUL llega al techo
-            toggleActions: "play none none reverse", // Se mantiene visible mientras bajes
+            trigger: section,
+            start: "top top",
+            end: () => `+=${getVerticalScrollDuration()}`,
+            pin: true,
+            scrub: true, // CRITICAL FIX: Removed artificial GSAP braking (was 1). Now perfectly syncs with OS native scroll momentum.
+            invalidateOnRefresh: true,
           }
         });
 
-        // 1. Tag extrudes from the top limit (Pestaña saliendo)
-        tl.fromTo(tagRef.current, 
-          { scaleY: 0, autoAlpha: 0 },
-          { scaleY: 1, autoAlpha: 1, duration: DUR.fast, ease: EASE.out }
-        );
+        // CRITICAL FIX: Force ScrollTrigger to recalculate everything after this pin
+        // is created, guaranteeing that sibling sections (reveals) don't break.
+        ScrollTrigger.refresh();
+        
+      }, sectionRef);
+      return () => ctx.revert();
+    }, 100);
 
-        // 2. Draw internal shapes
-        if (logoShapes.length && logoLetters.length) {
-          tl.fromTo(logoShapes, {
-            opacity: 0, scale: 0.55, transformOrigin: '50% 50%'
-          }, {
-            opacity: 1, scale: 1, duration: DUR.fast, ease: EASE.snap, stagger: STAGGER.tight
-          }, "-=0.3")
-          .fromTo(logoLetters, {
-            opacity: 0, y: 20, scale: 0.5, transformOrigin: '50% 100%'
-          }, {
-            opacity: 1, y: 0, scale: 1, duration: DUR.fast, ease: EASE.snap, stagger: STAGGER.tight
-          }, "-=0.2");
-        }
-      }
-    }, sectionRef);
-    return () => ctx.revert();
+    return () => clearTimeout(timeout);
   }, []);
 
   return (
-    <section ref={sectionRef} className="pt-section-md pb-section-lg px-4 w-full bg-[var(--color-brand-blue)] transition-colors duration-500 font-sans relative overflow-visible rounded-4xl">
+    // OUTER WRAPPER: Protects the Next.js DOM tree from GSAP's pin-spacer height injection
+    <div className="relative w-full z-10 bg-white dark:bg-black border-y border-black/5 dark:border-white/10 overflow-hidden">
       
-      {/* Floating Sticky GoHub Logo for Desktop */}
-      <div className="sticky top-0 z-50 flex justify-center w-full pointer-events-none -mt-24 mb-12">
-        <div ref={tagRef} className="invisible opacity-0 scale-y-0 origin-top bg-white/80 dark:bg-white/20 border border-black/10 dark:border-white/10 backdrop-blur-md p-4 rounded-md shadow-2xl pointer-events-auto flex items-center justify-center">
-          <GoHubLogo className="w-[70px] h-[72px] text-[var(--color-brand-blue)]" />
-        </div>
-      </div>
-
-      {/* Header Redesign: 12-Column Premium Layout */}
-      <div className="max-w-[1400px] mx-auto mb-24 grid-layout items-end gap-y-12 lg:gap-y-0 relative z-10">
+      <section ref={sectionRef} className="h-screen w-full relative">
         
-        {/* Left Side: Title */}
-        <div className="col-span-full lg:col-span-7 flex flex-col justify-start items-start gap-fluid-xs">
-           <h2 className="text-display-lg text-white transition-colors duration-500 max-w-[15ch] capitalize">
-             {t('sectionTitle')}
-           </h2>
+        {/* Immersive Aura Glow Background */}
+        <div className="absolute inset-0 -z-20">
+          <img src={asset("/Files/Backgrounds/gohub_aura_bg_light.jpg")} alt="Minimalist Aura background" className="w-full h-full object-cover scale-[1.05] dark:hidden opacity-80" />
+          <img src={asset("/Files/Backgrounds/gohub_aura_bg.jpg")} alt="Aura background" className="w-full h-full object-cover scale-[1.05] hidden dark:block opacity-60" />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/5 dark:to-black/40" />
         </div>
 
-        {/* Right Side: Subtitle */}
-        <div className="col-span-full lg:col-span-5 flex flex-col lg:items-end lg:text-right justify-end md:pb-4">
-           <p className="text-body-lg text-white/80 font-light transition-colors duration-500 max-w-[500px]">
-             {t.rich('sectionDesc', {
-               b: (chunks) => <strong className="font-semibold text-white transition-colors duration-500">{chunks}</strong>,
-             })}
-           </p>
+        {/* The Horizontal Scrolling Track */}
+        {/* CRITICAL FIX: Removed pr-[15vw] because padding collapses in flex containers, 
+            causing the calculation to fall short (the "incomplete" bug). 
+            Using a spacer div at the end instead. */}
+        <div ref={trackRef} className="flex items-center h-full flex-nowrap pl-[15vw] gap-[5vw] lg:gap-[8vw] w-max will-change-transform">
+           
+           {/* INTRO TITLE PANEL */}
+           <div className="w-[70vw] lg:w-[40vw] shrink-0 flex flex-col justify-center">
+              <GoHubLogo className="w-20 h-20 text-[var(--color-brand-blue)] dark:text-white mb-8 drop-shadow-sm dark:drop-shadow-lg" />
+              <h2 className="text-display-lg text-black dark:text-white mb-6 leading-tight capitalize">
+                {t('sectionTitle')}
+              </h2>
+              <p className="text-body-lg text-black/60 dark:text-white/80 font-light max-w-md leading-relaxed">
+                {t.rich('sectionDesc', {
+                  b: (chunks) => <strong className="font-semibold text-black dark:text-white">{chunks}</strong>,
+                })}
+              </p>
+           </div>
+
+           {/* PANEL 1: CRM */}
+           <CinematicPanel 
+              title="GO CRM" 
+              desc={t('card4Desc')} 
+              Logo={CrmLogo} 
+              videoLight={asset("/Files/Features/CRM_Light_Final.mp4")}
+              videoDark={asset("/Files/Features/CRM_Dark_Final.mp4")} 
+              ctaText={t('cardCta')} 
+           />
+
+           {/* PANEL 2: AMS */}
+           <CinematicPanel 
+              title="GO AMS" 
+              desc={t('card1Desc')} 
+              Logo={AmsLogo} 
+              videoLight={asset("/Files/Features/AMS_Light_Final.mp4")}
+              videoDark={asset("/Files/Features/AMS_Dark_Final.mp4")} 
+              ctaText={t('cardCta')} 
+           />
+
+           {/* PANEL 3: ACADEMY */}
+           <CinematicPanel 
+              title="GO ACADEMY" 
+              desc={t('card8Desc')} 
+              Logo={AcademyIcon} 
+              videoLight={asset("/Files/Features/Academy_Light_Final.mp4")}
+              videoDark={asset("/Files/Features/Academy_Dark_Final.mp4")} 
+              ctaText={t('cardCta')} 
+              isAcademy
+           />
+
+           {/* SPACER DIV: Prevents the last card from getting cut off by collapsed padding */}
+           <div className="w-[5vw] lg:w-[15vw] h-full shrink-0" />
+
         </div>
-      </div>
+      </section>
 
-      {/* The 12-Column Spatial Grid */}
-      <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-12 auto-rows-[minmax(350px,auto)] md:auto-rows-[minmax(500px,auto)] gap-3 relative z-10">
-        
-        {/* CRM (Large left column) */}
-        <SpatialCard className="md:col-span-7 flex flex-col md:flex-row justify-between group" ctaText={t('cardCta')}>
-          <SmartVideo src={asset("/Files/Features/CRM_Dark_Final.mp4")} className="hidden dark:block absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.5s] ease-out z-0" />
-          <div className="p-10 w-full md:w-[40%] z-20 relative">
-            <CrmLogo className="h-10 w-auto drop-shadow-[0_0_15px_rgba(90,200,250,0.5)] mb-6 text-[var(--color-brand-blue)] dark:text-[var(--color-brand-cyan)]" />
-            <h3 className="text-display-sm font-bold text-[var(--color-text-Black-100)] dark:text-white transition-colors duration-500">GO CRM</h3>
-            <p className="text-body-lg text-[var(--color-text-muted)] dark:text-white/70 max-w-md mt-4 transition-colors duration-500">{t('card4Desc')}</p>
-          </div>
-          <div className="relative w-full md:w-[60%] h-[300px] md:h-full overflow-hidden rounded-b-[12px] md:rounded-bl-none md:rounded-r-[12px] dark:hidden">
-            <SmartVideo src={asset("/Files/Features/CRM_Light_Final.mp4")} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.5s] ease-out" />
-          </div>
-        </SpatialCard>
-
-        {/* AMS (Tall right column) */}
-        <SpatialCard className="md:col-span-5 md:row-span-2 flex flex-col justify-between group" ctaText={t('cardCta')}>
-          <SmartVideo src={asset("/Files/Features/AMS_Dark_Final.mp4#t=2")} className="hidden dark:block absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.5s] ease-out z-0" />
-          <div className="p-10 pb-0 z-20 relative">
-            <AmsLogo className="h-10 w-auto drop-shadow-[0_0_15px_rgba(90,200,250,0.5)] mb-6 text-[var(--color-brand-blue)] dark:text-[var(--color-brand-cyan)]" />
-            <h3 className="text-display-sm font-bold text-[var(--color-text-Black-100)] dark:text-white transition-colors duration-500">GO AMS</h3>
-            <p className="text-body-lg text-[var(--color-text-muted)] dark:text-white/70 max-w-sm mt-4 transition-colors duration-500">{t('card1Desc')}</p>
-          </div>
-          <div className="relative w-full h-[300px] md:h-[650px] mt-8 overflow-hidden rounded-b-[12px] dark:hidden">
-            <SmartVideo src={asset("/Files/Features/AMS_Light_Final.mp4")} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.5s] ease-out" />
-          </div>
-        </SpatialCard>
-
-        {/* ACADEMY (Medium left) */}
-        <SpatialCard className="md:col-span-7 flex flex-col md:flex-row justify-between group" ctaText={t('cardCta')}>
-          <SmartVideo src={asset("/Files/Features/Academy_Dark_Final.mp4")} className="hidden dark:block absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.5s] ease-out z-0" />
-          <div className="p-10 w-full md:w-[40%] z-20 relative">
-            <AcademyIcon className="h-10 w-auto drop-shadow-[0_0_15px_rgba(90,200,250,0.5)] mb-6 text-[var(--color-brand-blue)] dark:text-[var(--color-brand-cyan)]" />
-            <h3 className="text-display-sm font-bold text-[var(--color-text-Black-100)] dark:text-white transition-colors duration-500">GO ACADEMY</h3>
-            <p className="text-body-lg text-[var(--color-text-muted)] dark:text-white/70 max-w-md mt-4 transition-colors duration-500">{t('card8Desc')}</p>
-          </div>
-          <div className="relative w-full md:w-[60%] h-[300px] md:h-full overflow-hidden rounded-b-[12px] md:rounded-bl-none md:rounded-r-[12px] dark:hidden flex items-center justify-center">
-            <SmartVideo src={asset("/Files/Features/Academy_Light_Final.mp4")} className="absolute inset-0 w-full h-full object-contain scale-[0.85] group-hover:scale-95 transition-transform duration-[1.5s] ease-out" />
-          </div>
-        </SpatialCard>
-
-        {/* Eppigo y Agency Solutions salieron de este grid: cada uno tiene ahora
-            su propia sección (<ProductSpotlightEpicare />), montada justo debajo
-            en page.tsx. El grid queda cerrado en 2 filas exactas de 12 columnas:
-            CRM(7) + AMS(5, dos filas) / Academy(7). */}
-
-      </div>
-
-    </section>
+    </div>
   );
 }
