@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState, useRef } from "react";
+import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useLocale } from "./I18nProviderClient";
 import { asset } from "@/lib/asset";
@@ -68,7 +69,7 @@ export default function HeaderEpicare({
       items: [
         { title: t("aboutCompany"), desc: t("aboutCompanyDesc"), href: "#" },
         { title: t("aboutTeam"), desc: t("aboutTeamDesc"), href: "#" },
-        { title: t("aboutLicensing"), desc: t("aboutLicensingDesc"), href: "#" },
+        { title: t("aboutLicensing"), desc: t("aboutLicensingDesc"), href: "/licensing" },
       ]
     },
     {
@@ -196,11 +197,13 @@ export default function HeaderEpicare({
           id="fixed-navbar-logo" 
           className="flex-shrink-0 flex items-center gap-static-sm"
         >
-          <img 
-            src={asset("/short_logo.svg")}
-            alt="Epicare" 
-            className="h-[36px] md:h-[44px] w-auto select-none pointer-events-none"
-          />
+          <Link href="/" className="transition-transform duration-300 hover:scale-105 active:scale-95 cursor-pointer block">
+            <img 
+              src={asset("/short_logo.svg")}
+              alt="Epicare" 
+              className="h-[36px] md:h-[44px] w-auto select-none"
+            />
+          </Link>
           
           {/* Switch de Lenguaje - Mini Dropdown Liquid Glass */}
           <div 
@@ -286,7 +289,7 @@ export default function HeaderEpicare({
                 className={`absolute top-[100%] left-1/2 -translate-x-1/2 mt-1 z-[1000000] p-static-xs rounded-lg shadow-elevation-2 border flex flex-col w-[340px] transform-gpu transition-[opacity,transform,visibility] duration-200 ease-out ${dropdownBgClass} ${activeMenu === item.key ? 'opacity-100 visible translate-y-0 pointer-events-auto' : 'opacity-0 invisible translate-y-2 pointer-events-none'}`}
               >
                   {item.items.map((subItem, idx) => (
-                    <a href={subItem.href} key={idx} className={`flex flex-col gap-2 p-static-lg rounded-md transition-colors duration-150 ${isHeaderForcedDark ? 'hover:bg-white/[0.08]' : 'hover:bg-black/5 dark:hover:bg-white/[0.08]'}`}>
+                    <Link href={subItem.href} key={idx} className={`flex flex-col gap-2 p-static-lg rounded-md transition-colors duration-150 ${isHeaderForcedDark ? 'hover:bg-white/[0.08]' : 'hover:bg-black/5 dark:hover:bg-white/[0.08]'}`}>
                       <div className="flex flex-col items-start gap-1">
                         <span className={`text-h7 transition-colors duration-200 ${isHeaderForcedDark || isDark ? 'text-white' : 'text-[var(--color-text-primary)]'}`}>
                           {subItem.title}
@@ -295,7 +298,7 @@ export default function HeaderEpicare({
                       <span className={`text-body-xs leading-relaxed ${isHeaderForcedDark || isDark ? 'text-white/70' : 'text-[var(--color-text-Black-100)] opacity-80'}`}>
                         {subItem.desc}
                       </span>
-                    </a>
+                    </Link>
                   ))}
               </div>
             </div>

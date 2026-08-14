@@ -107,7 +107,9 @@ export default function LicensingHeroEpicare() {
     }, containerRef);
 
     const playHeroEntrance = () => {
-      if (tl && tl.paused()) tl.play();
+      requestAnimationFrame(() => {
+        if (tl && tl.paused()) tl.play();
+      });
     };
 
     if ((window as any).epicareGlobeIsReady) {

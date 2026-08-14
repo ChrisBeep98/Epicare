@@ -8,48 +8,107 @@ export default function LoaderEpicare() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // 1. Detección de carga de página
+    const handleLoad = () => {
+      (window as any).__epicarePageLoaded = true;
+      if (typeof (window as any).__epicareTriggerOutro === 'function') {
+        (window as any).__epicareTriggerOutro();
+      }
+    };
+
+    if (document.readyState === 'complete') {
+      // Si es soft-navigation, el DOM ya está listo.
+      handleLoad();
+    } else {
+      window.addEventListener('load', handleLoad);
+    }
+    // Fallback de seguridad (máximo 8 segundos de loop forzado)
+    const fallbackId = setTimeout(handleLoad, 8000);
+
+    return () => {
+      window.removeEventListener('load', handleLoad);
+      clearTimeout(fallbackId);
+    };
+  }, []);
+
+  useEffect(() => {
     if (!visible) return;
 
     // Bloquear scroll al cargar
     document.body.style.overflow = "hidden";
     document.documentElement.classList.remove("show-scrollbar");
+    (window as any).epicareLoaderFinished = false;
+    (window as any).epicareLoaderIntroFinished = false;
 
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        defaults: { ease: "power4.out" }
+      let loopTl: gsap.core.Timeline;
+      let isOutroTriggered = false;
+
+      const triggerOutro = () => {
+        if (isOutroTriggered) return;
+        isOutroTriggered = true;
+        
+        // Detener el loop suavemente
+        if (loopTl) loopTl.kill();
+
+        // 3. Salida elegante (zoom in suave + fade con blur)
+        gsap.to(".loader-logo", {
+          scale: 1.08,
+          opacity: 0,
+          filter: "blur(12px)",
+          duration: 0.7,
+          ease: "power3.inOut"
+        });
+        
+        gsap.to(containerRef.current, {
+          opacity: 0,
+          duration: 0.8,
+          ease: "power3.inOut",
+          delay: 0.1,
+          onComplete: () => {
+            setVisible(false);
+            document.body.style.overflow = "";
+            document.documentElement.classList.add("show-scrollbar");
+            (window as any).epicareLoaderFinished = true;
+            window.dispatchEvent(new Event('epicareLoaderFinished'));
+          }
+        });
+      };
+
+      // 1. Línea de tiempo de Introducción (Más rápida y profesional)
+      const introTl = gsap.timeline({
+        onComplete: () => {
+          // Avisar que la animación inicial (crítica) ya terminó para que WebGL pueda compilar
+          (window as any).epicareLoaderIntroFinished = true;
+          window.dispatchEvent(new Event('epicareLoaderIntroFinished'));
+
+          if ((window as any).__epicarePageLoaded) {
+            triggerOutro();
+          } else {
+            // 2. Loop de espera si la conexión está lenta (Respiración)
+            loopTl = gsap.timeline({ repeat: -1, yoyo: true })
+              .to(".loader-logo", { 
+                scale: 1.03, 
+                opacity: 0.85,
+                duration: 1.2, 
+                ease: "sine.inOut" 
+              });
+            (window as any).__epicareTriggerOutro = triggerOutro;
+          }
+        }
       });
 
-      // 1. Entrada del ícono (con blur y rotación)
-      tl.fromTo(".logo-icon",
-        { opacity: 0, x: 40, rotation: 8, filter: "blur(12px)", transformOrigin: "center" },
-        { opacity: 1, x: 0, rotation: 0, filter: "blur(0px)", duration: 1.6 }
-      )
-      // 2. Cascada de letras (entran desde la derecha, con blur)
-      .fromTo(".logo-letter",
-        { opacity: 0, x: 24, filter: "blur(6px)" },
-        { opacity: 1, x: 0, filter: "blur(0px)", duration: 1.2, stagger: 0.045 },
-        "-=1.35" // Overlap para que las letras empiecen a entrar casi con el ícono
-      )
-      // 3. Salida elegante (zoom out suave + fade con blur)
-      .to(".loader-inner", {
-        scale: 0.95,
-        opacity: 0,
-        filter: "blur(10px)",
-        duration: 0.9,
-        ease: "power3.inOut"
-      })
-      .to(containerRef.current, {
-        opacity: 0,
-        duration: 0.9,
-        ease: "power3.inOut",
-        onComplete: () => {
-          setVisible(false);
-          document.body.style.overflow = "";
-          document.documentElement.classList.add("show-scrollbar");
-          (window as any).epicareLoaderFinished = true;
-          window.dispatchEvent(new Event('epicareLoaderFinished'));
-        }
-      }, "<");
+      introTl
+        .fromTo(".logo-icon",
+          { opacity: 0, x: -30, filter: "blur(15px)", scale: 0.85, transformOrigin: "center" },
+          { opacity: 1, x: 0, filter: "blur(0px)", scale: 1, duration: 1.2, ease: "expo.out", transformOrigin: "center" }
+        )
+        .fromTo(".logo-letter",
+          { opacity: 0, x: -15, filter: "blur(8px)", transformOrigin: "center" },
+          { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.9, stagger: 0.03, ease: "expo.out", transformOrigin: "center" },
+          "-=1.0"
+        );
+        
     }, containerRef);
 
     return () => {

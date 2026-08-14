@@ -5,47 +5,13 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useTranslations } from 'next-intl';
 import { asset } from '@/lib/asset';
-import { EASE, DUR, STAGGER, REVEAL, SCRUB, TRIGGER, EASE_CSS } from '@/lib/motion';
+import { EASE, DUR, EASE_CSS } from '@/lib/motion';
 import SmartVideo from './SmartVideo';
-
-/**
- * PRODUCT SPOTLIGHT — Eppigo · Agency Solutions
- *
- * @description **Banda full-bleed: el vídeo va de borde a borde y ocupa la
- * mayor parte del viewport.** El texto se reduce al mínimo — etiqueta, titular
- * corto, tres marcas en mono y CTA. Ningún párrafo.
- *
- * TÉCNICA-FIRMA: curtain vertical sobre banda full-bleed + capacidades como
- * marcas mono. Libre en el mapa: el Bento usa cover-flow 3D pineado con orbe
- * morph y PeopleReveal usa slats + marquee + velocity skew.
- *
- * SIN PIN. Presupuesto agotado (Hero, BentoGrid, WhyEpicare) y la ley 3 del arco
- * prohíbe pinear una lista de features. Esta sección es un valle.
- *
- * REGLAS DEL ASSET (verificadas abriendo los archivos, no supuestas):
- *  · Ilustraciones isométricas sobre fondo sólido igual al de la página; light
- *    1:1 (1080²), dark 16:9 (1920×1080).
- *  · A full-bleed hay que RECORTAR, así que va `object-cover` con el encuadre
- *    anclado al centro, que es donde vive la escena en los cuatro archivos.
- *  · Nada de tinte detrás ni encima: el arte trae fondo opaco y cualquier color
- *    detrás delata el rectángulo.
- *  · El poster va como `<img>` ansioso debajo del vídeo: SmartVideo arranca en
- *    `preload="none"` y sin él la banda se ve vacía hasta que descargue.
- *  · Ningún tween de entrada toca `opacity` ni hace `immediateRender`: una
- *    animación decorativa no puede dejar la banda invisible si el trigger falla.
- *
- * CTA: apunta a `#unete` (sección Cómo unirse), no a `href="#"`. En neutro de
- * alto contraste porque el naranja como botón está reservado al cierre.
- *
- * @example <ProductSpotlightEpicare variant="eppigo" />
- */
 
 export type SpotlightVariant = 'eppigo' | 'solutions';
 
 type SpotlightConfig = {
-  /** Acento crudo: solo superficies NO-texto (dot, reglas). */
   accentVar: string;
-  /** Única variante apta para texto (bimodal, contraste corregido). */
   accentTextVar: string;
   videoLight: string;
   videoDark: string;
@@ -87,183 +53,175 @@ export default function ProductSpotlightEpicare({ variant }: { variant: Spotligh
   const t = useTranslations(`landingV2.spotlight.${variant}`);
   const { accentVar, accentTextVar, videoLight, videoDark, posterLight, posterDark } =
     SPOTLIGHTS[variant];
+    
   const sectionRef = useRef<HTMLElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const videoWrapperRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
+  const pulseRef = useRef<HTMLSpanElement>(null);
+  const rotatorRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
-
-    const ctx = gsap.context(() => {
-      const mm = gsap.matchMedia();
-
-      // Lenis es global y ya está sincronizado con el ticker de GSAP.
-      mm.add('(prefers-reduced-motion: no-preference)', () => {
-        gsap
-          .timeline({ scrollTrigger: { trigger: sectionRef.current, start: TRIGGER.standard } })
-          // La banda se abre como una cortina vertical + contra-zoom (§3).
-          .from('.sp-band', {
-            clipPath: 'inset(100% 0 0 0)',
-            duration: DUR.slow,
-            ease: EASE.inOut,
-            immediateRender: false,
-          })
-          .from(
-            '.sp-band img, .sp-band video',
-            { scale: 1.1, duration: DUR.slow, ease: EASE.out, immediateRender: false },
-            '<'
-          )
-          .from('.sp-rail', { y: -REVEAL.sm, opacity: 0, duration: DUR.base, ease: EASE.out }, '-=0.9')
-          // El titular nace por palabra (§1).
-          .from(
-            '.sp-line',
-            {
-              yPercent: REVEAL.birthPercent,
-              duration: DUR.birth,
-              ease: EASE.dramatic,
-              stagger: STAGGER.base,
-            },
-            '-=0.8'
-          )
-          .from(
-            '.sp-mark',
-            { y: REVEAL.sm, opacity: 0, duration: DUR.fast, ease: EASE.out, stagger: STAGGER.base },
-            '-=0.9'
-          )
-          .from('.sp-cta', { y: REVEAL.sm, opacity: 0, duration: DUR.base, ease: EASE.out }, '-=0.5');
-
-        // Dos velocidades (§2): la banda deriva más lento que la lectura.
-        gsap.fromTo(
-          '.sp-band-inner',
-          { yPercent: -3 },
+    
+    const timer = setTimeout(() => {
+      const ctx = gsap.context(() => {
+        
+        // EFECTO CINEMÁTICO APPLE (Elegante, Suave, Blur)
+        gsap.fromTo(videoWrapperRef.current,
+          { 
+            scale: 1.15, 
+            opacity: 0,
+            filter: 'blur(20px)'
+          },
           {
-            yPercent: 3,
-            ease: EASE.none,
+            scale: 1, 
+            opacity: 1,
+            filter: 'blur(0px)',
+            duration: 1.8,
+            ease: "power2.out", 
             scrollTrigger: {
               trigger: sectionRef.current,
-              start: TRIGGER.parallaxStart,
-              end: TRIGGER.parallaxEnd,
-              scrub: SCRUB.smooth,
-              invalidateOnRefresh: true,
-            },
+              start: "top 65%",
+              toggleActions: "play none none reverse", 
+            }
           }
         );
 
-        // Vida latente (§4), pausada fuera de viewport.
-        const pulse = gsap.to('.sp-live', {
-          opacity: 0.2,
-          duration: 1.8,
-          ease: EASE.breath,
-          yoyo: true,
-          repeat: -1,
-          paused: true,
+        // Tarjeta Glassmorphic
+        gsap.fromTo(cardRef.current,
+          { 
+            y: '10vh', 
+            opacity: 0, 
+            scale: 0.9 
+          },
+          {
+            y: '0vh', 
+            opacity: 1, 
+            scale: 1,
+            duration: 1.2,
+            delay: 0.2, 
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top 65%",
+              toggleActions: "play none none reverse",
+            }
+          }
+        );
+
+        // Rotador de Features (AWWWARDS MOTION: Birth of Typography)
+        const featureItems = gsap.utils.toArray('.feature-item') as HTMLElement[];
+        if (featureItems.length > 0) {
+          const rotatorTl = gsap.timeline({ repeat: -1 });
+          featureItems.forEach((item) => {
+            rotatorTl
+              // Nace desde abajo (Birth)
+              .fromTo(item, 
+                { yPercent: 100, opacity: 0 }, 
+                { yPercent: 0, opacity: 1, duration: 0.8, ease: "power4.out" }
+              )
+              // Se lee y luego desaparece hacia arriba
+              .to(item, 
+                { yPercent: -100, opacity: 0, duration: 0.6, ease: "power3.in", delay: 2.5 }
+              );
+          });
+        }
+
+        // Pulse animation for the live dot
+        const pulse = gsap.to(pulseRef.current, {
+          opacity: 0.2, duration: 1.8, ease: EASE.breath, yoyo: true, repeat: -1, paused: true
         });
         ScrollTrigger.create({
-          trigger: sectionRef.current,
-          start: TRIGGER.parallaxStart,
-          end: TRIGGER.parallaxEnd,
-          onToggle: (self) => (self.isActive ? pulse.play() : pulse.pause()),
+          trigger: sectionRef.current, start: "top bottom", end: "bottom top",
+          onToggle: (self) => self.isActive ? pulse.play() : pulse.pause()
         });
-      });
 
-      return () => mm.revert();
-    }, sectionRef);
+      }, sectionRef);
 
-    return () => ctx.revert();
+      return () => ctx.revert();
+    }, 100);
+
+    return () => clearTimeout(timer);
   }, []);
 
   return (
-    <section
-      id={variant}
-      ref={sectionRef}
-      // Sin `justify-center`: centrar dentro de un `overflow-hidden` que ya no
-      // da de sí empuja el pie fuera de la caja y lo recorta. El contenido fluye
-      // de arriba abajo y la sección crece si hace falta.
-      className="relative w-full min-h-dvh overflow-hidden bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] transition-colors duration-500 flex flex-col py-section-xs"
-    >
-      {/* ── CABECERA ── reubicada arriba del video según instrucciones del usuario */}
-      <div className="max-w-section-lg px-gutter-sm md:px-gutter-md pb-section-sm flex flex-col lg:flex-row lg:items-end lg:justify-between gap-fluid-sm z-10 relative w-full">
-
-        <div className="min-w-0">
-          <span className="sp-rail flex items-center gap-2 text-meta uppercase text-[var(--color-text-muted)]">
-            <span
-              aria-hidden="true"
-              className="sp-live w-1.5 h-1.5 rounded-full shrink-0"
-              style={{ backgroundColor: `var(${accentVar})` }}
-            />
-            {t('name')}
-          </span>
-
-          <h2 className="mt-static-sm text-display md:text-display-lg text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)] transition-colors duration-500 max-w-[16ch]">
-            {t('title')
-              .split(' ')
-              .map((word, i) => (
-                <span key={i} className="inline-block overflow-hidden pb-[0.08em] align-bottom">
-                  <span className="sp-line inline-block">{word}&nbsp;</span>
-                </span>
-              ))}
-          </h2>
-
-          <ul className="mt-static-md flex flex-wrap items-center gap-x-5 gap-y-2">
-            {SPEC_KEYS.map((key, i) => (
-              <li key={key} className="sp-mark flex items-center gap-2">
-                <span
-                  aria-hidden="true"
-                  className="text-meta tabular-nums"
-                  style={{ color: `var(${accentTextVar})` }}
-                >
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                <span className="text-ui-label text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)] transition-colors duration-500">
-                  {t(`${key}Title`)}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* ── CTA ── Azul con icono y burbuja */}
-        <a
-          href="#unete"
-          className="sp-cta group shrink-0 inline-flex items-center gap-2 rounded-full pl-6 pr-2 py-2 bg-[var(--color-brand-blue)] text-white backdrop-blur-md border border-white/20 transition-transform duration-[450ms] hover:scale-[1.04] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-          style={{ transitionTimingFunction: EASE_CSS.ui, outlineColor: `var(${accentVar})` }}
+    <section ref={sectionRef} id={variant} className="relative w-full bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] transition-colors duration-500">
+      
+      {/* Container Full Viewport */}
+      <div ref={containerRef} className="relative w-full h-[100dvh] md:h-screen flex items-center justify-center overflow-hidden">
+        
+        {/* VIDEO WRAPPER (Protagonist) */}
+        <div 
+          ref={videoWrapperRef} 
+          className="absolute inset-0 z-0 overflow-hidden transform-gpu will-change-transform md:border-none bg-black"
         >
-          <span className="text-sm font-medium">{t('cta')}</span>
-          <span className="relative w-8 h-8 rounded-full bg-white/20 flex items-center justify-center overflow-hidden shrink-0">
-            <ArrowUR className="absolute w-4 h-4 transition-transform duration-[400ms] group-hover:translate-x-6 group-hover:-translate-y-6" />
-            <ArrowUR className="absolute w-4 h-4 -translate-x-6 translate-y-6 transition-transform duration-[400ms] group-hover:translate-x-0 group-hover:translate-y-0" />
-          </span>
-        </a>
-      </div>
-
-      {/* ── BANDA FULL-BLEED ── de borde a borde, sin contenedor ni márgenes */}
-      <div className="sp-band relative w-full h-[54vh] md:h-[66vh] overflow-hidden">
-        <div className="sp-band-inner absolute inset-0 scale-[1.04]">
-          <img
-            src={posterLight}
-            alt=""
-            aria-hidden="true"
-            fetchPriority="high"
-            decoding="sync"
-            className="absolute inset-0 w-full h-full object-cover object-center dark:hidden"
-          />
-          <img
-            src={posterDark}
-            alt=""
-            aria-hidden="true"
-            fetchPriority="high"
-            decoding="sync"
-            className="absolute inset-0 w-full h-full object-cover object-center hidden dark:block"
-          />
-          <SmartVideo
-            src={videoLight}
-            poster={posterLight}
-            className="absolute inset-0 w-full h-full object-cover object-center dark:hidden"
-          />
-          <SmartVideo
-            src={videoDark}
-            poster={posterDark}
-            className="absolute inset-0 w-full h-full object-cover object-center hidden dark:block"
-          />
+          <img src={posterLight} alt="" aria-hidden="true" fetchPriority="high" decoding="sync" className="absolute inset-0 w-full h-full object-cover object-center dark:hidden" />
+          <img src={posterDark} alt="" aria-hidden="true" fetchPriority="high" decoding="sync" className="absolute inset-0 w-full h-full object-cover object-center hidden dark:block" />
+          
+          <SmartVideo src={videoLight} poster={posterLight} className="absolute inset-0 w-full h-full object-cover object-center dark:hidden" />
+          <SmartVideo src={videoDark} poster={posterDark} className="absolute inset-0 w-full h-full object-cover object-center hidden dark:block" />
         </div>
+
+        {/* GLASSMORPHIC FLOATING CARD */}
+        <div className="absolute inset-0 flex items-end justify-center z-20 pb-[8vh] px-gutter-sm pointer-events-none">
+          <div 
+            ref={cardRef} 
+            className="w-full max-w-5xl p-8 md:p-12 rounded-[2rem] md:rounded-[3rem] 
+                       bg-black/20 dark:bg-black/40 backdrop-blur-3xl 
+                       border border-white/10 
+                       shadow-[0_8px_32px_rgba(0,0,0,0.3)]
+                       transform-gpu will-change-transform pointer-events-auto
+                       flex flex-col md:flex-row md:items-end justify-between gap-12"
+          >
+            <div className="flex flex-col min-w-0 flex-1">
+              
+              {/* Dot en vivo */}
+              <div className="flex items-center gap-2 mb-2">
+                <span ref={pulseRef} aria-hidden="true" className="w-2 h-2 rounded-full shrink-0 shadow-[0_0_10px_currentColor]" style={{ backgroundColor: `var(${accentVar})`, color: `var(${accentVar})` }} />
+                <span className="text-meta uppercase text-white/60 tracking-widest">En Vivo</span>
+              </div>
+              
+              {/* Título Masivo (Eppigo / Solutions) */}
+              <h3 className="text-[4rem] md:text-[6rem] lg:text-[7rem] font-bold tracking-tighter text-white leading-[0.85] mb-6">
+                {t('name')}
+              </h3>
+              
+              {/* Título descriptivo original intacto */}
+              <h2 className="text-display-sm md:text-display max-w-[15ch] text-white font-semibold leading-[1.05] tracking-tight mb-8">
+                {t('title')}
+              </h2>
+
+              {/* Rotador Dinámico de Features (AWWWARDS MOTION) */}
+              <div ref={rotatorRef} className="relative h-8 overflow-hidden w-full max-w-[35ch]">
+                {SPEC_KEYS.map((key, i) => (
+                  <div key={key} className="feature-item absolute top-0 left-0 w-full h-full flex items-center gap-3" style={{ opacity: 0 }}>
+                    <span aria-hidden="true" className="text-meta tabular-nums font-mono opacity-80" style={{ color: `var(${accentVar})` }}>
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <span className="text-body-md font-medium text-white">
+                      {t(`${key}Title`)}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* CTA Button */}
+            <a
+              href="#unete"
+              className="group shrink-0 inline-flex items-center gap-2 rounded-full pl-6 pr-2 py-2 bg-white/10 hover:bg-white/20 text-white backdrop-blur-md border border-white/30 transition-all duration-[450ms] hover:scale-[1.04] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+              style={{ transitionTimingFunction: EASE_CSS.ui, outlineColor: `var(${accentVar})` }}
+            >
+              <span className="text-body-md font-medium">{t('cta')}</span>
+              <span className="relative w-10 h-10 rounded-full bg-white text-black flex items-center justify-center overflow-hidden shrink-0">
+                <ArrowUR className="absolute w-5 h-5 transition-transform duration-[400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-6 group-hover:-translate-y-6" />
+                <ArrowUR className="absolute w-5 h-5 -translate-x-6 translate-y-6 transition-transform duration-[400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-0 group-hover:translate-y-0" />
+              </span>
+            </a>
+          </div>
+        </div>
+
       </div>
     </section>
   );

@@ -106,6 +106,21 @@ export default function InteractiveGlobeEpicare({ isWidget = false }: { isWidget
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const [countriesDataGlobal, setCountriesDataGlobal] = useState<any[]>([]);
   const [usStatesData, setUsStatesData] = useState<any[]>([]);
+  const [canLoadGlobe, setCanLoadGlobe] = useState(false);
+
+  const usStatesPathsData = React.useMemo(() => {
+    const paths: any[] = [];
+    usStatesData.forEach(feature => {
+      if (feature.geometry?.type === 'Polygon') {
+        feature.geometry.coordinates.forEach((ring: any) => paths.push(ring));
+      } else if (feature.geometry?.type === 'MultiPolygon') {
+        feature.geometry.coordinates.forEach((poly: any) => {
+          poly.forEach((ring: any) => paths.push(ring));
+        });
+      }
+    });
+    return paths;
+  }, [usStatesData]);
 
   /** Altitud vigente en un ref: el bucle rAF la lee sin re-crearse cada frame. */
   const targetAltitudeRef = useRef(GLOBE_ALTITUDE_DESKTOP);
@@ -114,6 +129,14 @@ export default function InteractiveGlobeEpicare({ isWidget = false }: { isWidget
 
   // 1. Fetch GeoJSON Data (World + US States separate)
   useEffect(() => {
+    // 1.1 Esperar a que la introducción del Loader termine para no bloquear el JS Thread
+    const handleIntroFinished = () => setCanLoadGlobe(true);
+    if ((window as any).epicareLoaderIntroFinished) {
+      handleIntroFinished();
+    } else {
+      window.addEventListener('epicareLoaderIntroFinished', handleIntroFinished, { once: true });
+    }
+
     Promise.all([
       fetch('https://raw.githubusercontent.com/vasturiano/react-globe.gl/master/example/datasets/ne_110m_admin_0_countries.geojson').then(res => res.json()),
       fetch('https://raw.githubusercontent.com/PublicaMundi/MappingAPI/master/data/geojson/us-states.json').then(res => res.json())
@@ -122,6 +145,10 @@ export default function InteractiveGlobeEpicare({ isWidget = false }: { isWidget
       setCountriesDataGlobal(countriesData.features);
       setUsStatesData(statesData.features);
     }).catch(err => console.error("Error loading GeoJSON", err));
+
+    return () => {
+      window.removeEventListener('epicareLoaderIntroFinished', handleIntroFinished);
+    };
   }, []);
 
   // 2. Sizing: medimos antes del primer paint y re-medimos con ResizeObserver.
@@ -363,20 +390,25 @@ export default function InteractiveGlobeEpicare({ isWidget = false }: { isWidget
       }
 
       // Text Reveal (All viewports)
-      gsap.set('.map-reveal', { opacity: 0, y: REVEAL.md });
-      ScrollTrigger.create({
-        trigger: sectionRef.current,
-        start: 'top 75%',
-        onEnter: () => {
-          gsap.to('.map-reveal', {
-            opacity: 1,
-            y: 0,
-            duration: DUR.base,
-            ease: EASE.out,
-            stagger: STAGGER.base,
-          });
-        }
-      });
+      const mapRevealEl = document.querySelectorAll('.map-reveal');
+      if (mapRevealEl.length > 0) {
+        gsap.set('.map-reveal', { opacity: 0, y: REVEAL.md });
+        ScrollTrigger.create({
+          trigger: sectionRef.current,
+          start: 'top 75%',
+          onEnter: () => {
+            gsap.to('.map-reveal', {
+              opacity: 1,
+              y: 0,
+              duration: DUR.slow,
+              ease: EASE.out,
+              stagger: STAGGER.base,
+              willChange: "transform, opacity",
+              clearProps: "willChange"
+            });
+          }
+        });
+      }
 
       // Globe Animation (Elegant Degradation via MatchMedia)
       // PROTOCOLO: NUNCA usar CSS transform: scale en el contenedor de react-globe.gl
@@ -479,7 +511,7 @@ export default function InteractiveGlobeEpicare({ isWidget = false }: { isWidget
             touch-action: pan-y !important;
           }
         `}</style>
-        {dimensions.width > 0 && (
+        {canLoadGlobe && dimensions.width > 0 && (
           <Globe
             ref={globeEl}
             width={dimensions.width}
@@ -507,7 +539,10 @@ export default function InteractiveGlobeEpicare({ isWidget = false }: { isWidget
             }}
             
             // 2. State Borders (Drawn as lines over the USA to prevent 3D surface tearing)
-            pathsData={usStatesData}
+            pathsData={usStatesPathsData}
+            pathPoints={(d: any) => d}
+            pathPointLat={(p: any) => p[1]}
+            pathPointLng={(p: any) => p[0]}
             pathColor={() => document.documentElement.classList.contains('dark') ? '#4A5359' : '#A1ABB3'}
             pathPointAlt={0.013} // Draw slightly above the USA polygon to prevent z-fighting
             pathResolution={2} // Keeps rendering fast
