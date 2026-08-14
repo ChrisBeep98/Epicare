@@ -69,8 +69,8 @@ export default function CTABannerEpicare({
           <div className="absolute inset-0 z-0 overflow-hidden">
             <div ref={bgRef} className="absolute -inset-[20%] w-[140%] h-[140%] will-change-transform">
               <Image
-                src="/banners/cta-bg-experiment.jpg"
-                alt="Experimental texture"
+                src="/banners/cta-bg-dark.jpg"
+                alt="Abstract dark fluid texture"
                 fill
                 className="object-cover object-center scale-[1.02] transition-transform duration-[2s] group-hover:scale-100"
                 sizes="(max-width: 1200px) 100vw, 1200px"

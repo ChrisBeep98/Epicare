@@ -104,8 +104,8 @@ export default function LoaderEpicare() {
           { opacity: 1, x: 0, filter: "blur(0px)", scale: 1, duration: 1.2, ease: "expo.out", transformOrigin: "center" }
         )
         .fromTo(".logo-letter",
-          { opacity: 0, x: -15, filter: "blur(8px)", transformOrigin: "center" },
-          { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.9, stagger: 0.03, ease: "expo.out", transformOrigin: "center" },
+          { opacity: 0, x: -40, filter: "blur(8px)", transformOrigin: "center" },
+          { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.9, stagger: 0.04, ease: "power4.out", transformOrigin: "center" },
           "-=1.0"
         );
         
