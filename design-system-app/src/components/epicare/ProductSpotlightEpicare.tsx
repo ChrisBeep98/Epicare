@@ -144,7 +144,7 @@ export default function ProductSpotlightEpicare({ variant }: { variant: Spotligh
     <section 
       ref={sectionRef} 
       id={variant} 
-      className="relative w-full min-h-[100dvh] bg-white overflow-visible flex items-center justify-center py-20 lg:py-0"
+      className="relative w-full min-h-[100dvh] bg-white overflow-hidden flex items-center justify-center py-20 lg:py-0"
     >
       {/* 
         FULL BLEED ASYMMETRIC SPLIT LAYOUT. 

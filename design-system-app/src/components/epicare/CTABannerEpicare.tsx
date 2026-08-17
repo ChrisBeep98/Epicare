@@ -69,7 +69,7 @@ export default function CTABannerEpicare({
           <div className="absolute inset-0 z-0 overflow-hidden">
             <div ref={bgRef} className="absolute -inset-[20%] w-[140%] h-[140%] will-change-transform">
               <img
-                src={asset("/banners/cta-aura-glow.jpg")}
+                src={asset("/banners/cta-bg-dark.jpg")}
                 alt=""
                 aria-hidden="true"
                 loading="lazy"

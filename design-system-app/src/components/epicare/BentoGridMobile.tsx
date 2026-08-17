@@ -3,6 +3,7 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { asset } from "@/lib/asset";
 import { EASE, DUR } from "@/lib/motion";
@@ -238,7 +239,7 @@ export default function BentoGridMobile() {
       videoDarkFullBackground: true,
       mediaClassNameDark: "dark:bg-[#0D0D0E]",
       cardClassNameDark: "dark:bg-[#0D0D0E]",
-      logo: <AmsLogo className="h-10 w-auto drop-shadow-[0_0_15px_rgba(90,200,250,0.5)]" />
+      logo: <CrmLogo className="h-10 w-auto drop-shadow-[0_0_15px_rgba(90,200,250,0.5)]" />
     },
     {
       title: t('card1Title'),
@@ -249,7 +250,8 @@ export default function BentoGridMobile() {
       videoDarkFullBackground: true,
       mediaClassNameDark: "dark:bg-[#0D0D0E]",
       cardClassNameDark: "dark:bg-[#0D0D0E]",
-      logo: <CrmLogo className="h-10 w-auto drop-shadow-[0_0_15px_rgba(90,200,250,0.5)]" />
+      href: "/go-ams",
+      logo: <AmsLogo className="h-10 w-auto drop-shadow-[0_0_15px_rgba(90,200,250,0.5)]" />
     },
     {
       title: t('card8Title'),
@@ -330,13 +332,20 @@ export default function BentoGridMobile() {
           {/* CARDS 1-5: ECOSYSTEM */}
           {ecosytemCards.map((card, idx) => {
             const isLastCard = idx === ecosytemCards.length - 1;
+            
+            const CardWrapper = (card as any).href ? Link : 'div' as any;
+            const cardProps = (card as any).href ? { href: (card as any).href } : {};
+
             return (
             <div 
               key={idx} 
               className={`mobile-stack-card w-full h-[100vh] flex flex-col justify-center items-center origin-top transform-gpu will-change-transform [backface-visibility:hidden] ${!isLastCard ? 'sticky top-0' : 'relative'}`}
               style={{ zIndex: 11 + idx }}
             >
-                <div className={`group relative w-full h-full rounded-[32px] overflow-hidden shadow-[0_4px_30px_rgba(0,0,0,0.1)] border border-[var(--color-border-Strokes-default)] flex flex-col transition-transform duration-[600ms] cursor-pointer [transform:translateZ(0)] outline outline-1 outline-transparent ${(card as any).cardClassNameDark ? `bg-[var(--color-surface-BG-white)] ${(card as any).cardClassNameDark}` : 'bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)]'}`}>
+                <CardWrapper 
+                  {...cardProps}
+                  className={`group relative w-full h-full rounded-[32px] overflow-hidden shadow-[0_4px_30px_rgba(0,0,0,0.1)] border border-[var(--color-border-Strokes-default)] flex flex-col transition-transform duration-[600ms] cursor-pointer [transform:translateZ(0)] outline outline-1 outline-transparent ${(card as any).cardClassNameDark ? `bg-[var(--color-surface-BG-white)] ${(card as any).cardClassNameDark}` : 'bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)]'}`}
+                >
                   
                   {/* Floating Action Bubble (Hardware Symphony: No backdrop-blur) */}
                   <div className="absolute bottom-6 right-6 h-10 pl-4 pr-1.5 bg-white/95 dark:bg-[#0D0D0E]/95 border border-[var(--color-brand-blue)]/20 dark:border-white/10 text-[var(--color-text-Black-100)] dark:text-white rounded-full flex items-center justify-center gap-2 overflow-hidden shadow-elevation-2 z-50 transition-all duration-[600ms] group-hover:scale-105 group-hover:bg-[var(--color-brand-blue)] group-hover:text-white">
@@ -398,7 +407,7 @@ export default function BentoGridMobile() {
                       );
                     })()}
                   </div>
-                </div>
+                </CardWrapper>
               </div>
             );
           })}

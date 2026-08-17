@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import HeroSection from "@/components/go-ams/HeroSection";
+import LoaderEpicare from "@/components/epicare/LoaderEpicare";
 
 export default function GoAmsPage() {
   // Esta ruta se diseñó solo en dark. No hay estado React asociado: el tema vive
@@ -13,6 +14,7 @@ export default function GoAmsPage() {
 
   return (
     <main className="min-h-screen bg-[var(--color-surface-BG-base)] transition-colors duration-500">
+      <LoaderEpicare />
       <HeroSection />
     </main>
   );

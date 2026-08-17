@@ -137,13 +137,33 @@ export default function InteractiveGlobeEpicare({ isWidget = false }: { isWidget
       window.addEventListener('epicareLoaderIntroFinished', handleIntroFinished, { once: true });
     }
 
+    // 1.2 Carga de GeoJSON local (con fallback resiliente si fuera necesario)
+    const fetchGeoJSON = async (localPath: string, fallbackUrl: string) => {
+      try {
+        const res = await fetch(asset(localPath));
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return await res.json();
+      } catch (err) {
+        console.warn(`GeoJSON local (${localPath}) no disponible, intentando fallback...`, err);
+        const res = await fetch(fallbackUrl);
+        if (!res.ok) throw new Error(`Fallback HTTP ${res.status}`);
+        return await res.json();
+      }
+    };
+
     Promise.all([
-      fetch('https://raw.githubusercontent.com/vasturiano/react-globe.gl/master/example/datasets/ne_110m_admin_0_countries.geojson').then(res => res.json()),
-      fetch('https://raw.githubusercontent.com/PublicaMundi/MappingAPI/master/data/geojson/us-states.json').then(res => res.json())
+      fetchGeoJSON(
+        '/data/ne_110m_admin_0_countries.geojson',
+        'https://unpkg.com/three-globe/example/country-polygons/ne_110m_admin_0_countries.geojson'
+      ),
+      fetchGeoJSON(
+        '/data/us-states.json',
+        'https://cdn.jsdelivr.net/gh/PublicaMundi/MappingAPI/data/geojson/us-states.json'
+      )
     ]).then(([countriesData, statesData]) => {
       // Store them independently to prevent WebGL polygon triangulation tearing
-      setCountriesDataGlobal(countriesData.features);
-      setUsStatesData(statesData.features);
+      setCountriesDataGlobal(countriesData.features || []);
+      setUsStatesData(statesData.features || []);
     }).catch(err => console.error("Error loading GeoJSON", err));
 
     return () => {

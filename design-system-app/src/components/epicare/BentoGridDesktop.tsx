@@ -1,14 +1,13 @@
 "use client";
 
-import React, { useRef, useLayoutEffect } from 'react';
+import React, { useRef, useLayoutEffect, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { asset } from "@/lib/asset";
 import GoHubLogo from "./GoHubLogo";
-import { AcademyIcon } from "./EcosystemIcons";
 import SmartVideo from "./SmartVideo";
-import { EASE, DUR, STAGGER } from "@/lib/motion";
 
 // ----------------------------------------------------------------------
 // LOGOS 
@@ -43,42 +42,128 @@ function AmsLogo({ className }: { className?: string }) {
   );
 }
 
+const ArrowUR = ({ className = '' }: { className?: string }) => (
+  <svg
+    viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}
+    strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true"
+  >
+    <path d="M7 17 17 7M7 7h10v10" />
+  </svg>
+);
+
 // ----------------------------------------------------------------------
 // CINEMATIC PANEL (Impeccable Glassmorphism - Hardware Symphony Optimized)
 // ----------------------------------------------------------------------
-function CinematicPanel({ title, desc, Logo, videoLight, videoDark, ctaText, isAcademy }: { title: string, desc: string, Logo: any, videoLight: string, videoDark: string, ctaText: string, isAcademy?: boolean }) {
+function CinematicPanel({ 
+  title, 
+  desc, 
+  Logo, 
+  videoLight, 
+  videoDark, 
+  ctaText, 
+  isAcademy,
+  href = '#'
+}: { 
+  title: string;
+  desc: string;
+  Logo: React.ComponentType<{ className?: string }>;
+  videoLight: string;
+  videoDark: string;
+  ctaText: string;
+  isAcademy?: boolean;
+  href?: string;
+}) {
+  const cardRef = useRef<HTMLAnchorElement>(null);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [parallax, setParallax] = useState({ x: 0, y: 0 });
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    setMousePos({ x, y });
+
+    // Parallax calculation (range -1 to 1)
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    setParallax({
+      x: (x - centerX) / centerX,
+      y: (y - centerY) / centerY,
+    });
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    setParallax({ x: 0, y: 0 });
+  };
+
   return (
-    <div className="relative w-[85vw] lg:w-[65vw] h-[75vh] shrink-0 rounded-[2.5rem] border border-black/5 dark:border-white/20 shadow-elevation-4 overflow-hidden flex flex-col md:flex-row group">
-      
-      {/* STATIC BACKGROUND LAYER */}
-      <div className="absolute inset-0 -z-10 rounded-[2.5rem] bg-[var(--color-surface-BG-white)] dark:bg-[#111] overflow-hidden">
-        {/* Minimalist Aura Mesh Background */}
-        <img 
-          src={asset('/Files/bento_card_mesh_light.jpg')} 
-          alt="" 
-          className="absolute inset-0 w-full h-full object-cover opacity-80 mix-blend-multiply dark:opacity-30 dark:mix-blend-screen transition-transform duration-1000 group-hover:scale-110 pointer-events-none" 
-          loading="lazy"
+    <Link
+      ref={cardRef}
+      href={href}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={handleMouseLeave}
+      className="relative w-[85vw] lg:w-[65vw] h-[75vh] shrink-0 rounded-[2.5rem] border border-black/5 dark:border-white/10 shadow-elevation-4 hover:shadow-elevation-6 hover:border-[var(--color-brand-blue)]/50 dark:hover:border-[var(--color-brand-blue)]/50 overflow-hidden flex flex-col md:flex-row group cursor-pointer transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
+      style={{
+        transform: isHovered 
+          ? `perspective(1200px) rotateX(${parallax.y * -3}deg) rotateY(${parallax.x * 3}deg) scale3d(1.02, 1.02, 1.02)` 
+          : 'perspective(1200px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)'
+      }}
+    >
+      {/* STATIC BACKGROUND LAYER (Minimalist Texture & Ambient Glow) */}
+      <div className="absolute inset-0 -z-10 rounded-[2.5rem] bg-[var(--color-surface-BG-white)] dark:bg-[#0D0D0E] overflow-hidden">
+        {/* Minimalist Micro-Texture Grid with Radial Fade */}
+        <div 
+          className="absolute inset-0 text-black dark:text-white opacity-[0.12] dark:opacity-[0.05] pointer-events-none transition-opacity duration-500 group-hover:opacity-[0.20] dark:group-hover:opacity-[0.12]"
+          style={{
+            backgroundImage: `radial-gradient(circle at 1.5px 1.5px, currentColor 1.5px, transparent 0)`,
+            backgroundSize: '24px 24px',
+            maskImage: `radial-gradient(ellipse at top left, black 10%, transparent 70%)`,
+            WebkitMaskImage: `radial-gradient(ellipse at top left, black 10%, transparent 70%)`
+          }}
         />
+
+        {/* Ambient Subtle Aura Glow (Mathematically safe for mix-blend-multiply in light & mix-blend-screen in dark) */}
+        <div 
+          className="absolute -top-32 -right-32 w-[32rem] h-[32rem] rounded-full bg-[radial-gradient(circle,rgba(53,187,253,0.07)_0%,transparent_70%)] dark:bg-[radial-gradient(circle,rgba(53,187,253,0.18)_0%,transparent_70%)] pointer-events-none blur-3xl transition-transform duration-700 ease-out group-hover:scale-110" 
+        />
+        <div 
+          className="absolute -bottom-32 -left-32 w-[32rem] h-[32rem] rounded-full bg-[radial-gradient(circle,rgba(242,96,35,0.04)_0%,transparent_70%)] dark:bg-[radial-gradient(circle,rgba(242,96,35,0.09)_0%,transparent_70%)] pointer-events-none blur-3xl transition-transform duration-700 ease-out group-hover:scale-110" 
+        />
+
+        {/* Delicate Glass Highlight */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white/40 to-transparent dark:from-white/[0.04] dark:to-transparent pointer-events-none" />
       </div>
 
       {/* TEXT CONTENT (Left side) */}
-      <div className="p-10 md:p-16 lg:p-20 w-full md:w-5/12 flex flex-col justify-center h-full relative z-10 bg-transparent">
-         <Logo className="h-10 lg:h-12 w-auto self-start mr-auto mb-10 text-[var(--color-brand-blue)] dark:text-white origin-left transform group-hover:scale-105 transition-transform duration-700 ease-out" />
-         <h3 className="text-display text-black dark:text-white mb-6 leading-tight">{title}</h3>
-         <p className="text-body-lg text-black/60 dark:text-white/80 font-light max-w-sm mb-12 leading-relaxed">{desc}</p>
+      <div className="p-10 md:p-16 lg:p-20 w-full md:w-5/12 flex flex-col justify-center h-full relative z-10 bg-transparent pointer-events-none">
+         <Logo 
+           className="h-10 lg:h-12 w-auto self-start mr-auto mb-10 text-[var(--color-brand-blue)] dark:text-white origin-left transform group-hover:scale-105 transition-transform duration-700 ease-out" 
+         />
+         <h3 className="text-display text-black dark:text-white mb-6 leading-tight group-hover:text-[var(--color-brand-blue)] dark:group-hover:text-[var(--color-brand-blue)] transition-colors duration-300">
+           {title}
+         </h3>
+         <p className="text-body-lg text-black/60 dark:text-white/80 font-light max-w-sm mb-12 leading-relaxed">
+           {desc}
+         </p>
          
-         {/* Minimalist CTA */}
-         <button className="flex items-center gap-4 text-black dark:text-white hover:text-[var(--color-brand-blue)] dark:hover:text-[var(--color-brand-cyan)] transition-colors duration-300 w-fit group/btn mt-auto md:mt-0">
-            <span className="font-medium tracking-[0.15em] text-xs uppercase">{ctaText}</span>
-            <div className="w-10 h-10 rounded-full border border-black/10 dark:border-white/30 flex items-center justify-center group-hover/btn:border-[var(--color-brand-blue)] dark:group-hover/btn:border-[var(--color-brand-cyan)] group-hover/btn:bg-black/5 dark:group-hover/btn:bg-white/5 transition-all duration-300">
-               <svg className="w-4 h-4 translate-x-0 group-hover/btn:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-               </svg>
-            </div>
-         </button>
+         {/* Premium Brand-Blue Action CTA with Dual Arrow Motion */}
+         <div className="mt-auto md:mt-0 w-fit pointer-events-auto">
+           <div className="h-12 pl-6 pr-2 rounded-full flex items-center gap-3 bg-[var(--color-brand-blue)] text-white shadow-elevation-2 transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:shadow-[0_10px_25px_rgba(53,187,253,0.4)] group-hover:scale-[1.03] active:scale-[0.96]">
+              <span className="text-xs font-bold tracking-[0.15em] uppercase text-white select-none">{ctaText}</span>
+              <span className="relative w-8 h-8 rounded-full bg-white text-[var(--color-brand-blue)] flex items-center justify-center overflow-hidden shrink-0 shadow-sm">
+                <ArrowUR className="absolute w-4 h-4 transition-transform duration-300 ease-out group-hover:translate-x-5 group-hover:-translate-y-5" />
+                <ArrowUR className="absolute w-4 h-4 -translate-x-5 translate-y-5 transition-transform duration-300 ease-out group-hover:translate-x-0 group-hover:translate-y-0" />
+              </span>
+           </div>
+         </div>
       </div>
 
-      {/* MEDIA CONTENT (Right side) */}
+      {/* MEDIA CONTENT (Right side) - Follows Video-Background-Blend-Fixer */}
       <div className="w-full md:w-7/12 h-full relative overflow-hidden bg-transparent">
          {/* Light Video - mix-blend-multiply makes white backgrounds completely transparent! */}
          <SmartVideo 
@@ -92,8 +177,8 @@ function CinematicPanel({ title, desc, Logo, videoLight, videoDark, ctaText, isA
          />
       </div>
 
-    </div>
-  )
+    </Link>
+  );
 }
 
 // ----------------------------------------------------------------------
@@ -130,13 +215,12 @@ export default function BentoGridDesktop() {
             start: "top top",
             end: () => `+=${getVerticalScrollDuration()}`,
             pin: true,
-            scrub: true, // CRITICAL FIX: Removed artificial GSAP braking (was 1). Now perfectly syncs with OS native scroll momentum.
+            scrub: true, // Syncs with OS native scroll momentum.
             invalidateOnRefresh: true,
           }
         });
 
-        // CRITICAL FIX: Force ScrollTrigger to recalculate everything after this pin
-        // is created, guaranteeing that sibling sections (reveals) don't break.
+        // Force ScrollTrigger to recalculate everything after this pin is created
         ScrollTrigger.refresh();
         
       }, sectionRef);
@@ -160,9 +244,6 @@ export default function BentoGridDesktop() {
         </div>
 
         {/* The Horizontal Scrolling Track */}
-        {/* CRITICAL FIX: Removed pr-[15vw] because padding collapses in flex containers, 
-            causing the calculation to fall short (the "incomplete" bug). 
-            Using a spacer div at the end instead. */}
         <div ref={trackRef} className="flex items-center h-full flex-nowrap pl-[15vw] gap-[5vw] lg:gap-[8vw] w-max will-change-transform">
            
            {/* INTRO TITLE PANEL */}
@@ -198,13 +279,16 @@ export default function BentoGridDesktop() {
               videoLight={asset("/Files/Features/AMS_Light_Final.mp4")}
               videoDark={asset("/Files/Features/AMS_Dark_Final.mp4")} 
               ctaText={t('cardCta')} 
+              href="/go-ams"
            />
 
            {/* PANEL 3: ACADEMY */}
            <CinematicPanel 
               title="GO ACADEMY" 
               desc={t('card8Desc')} 
-              Logo={({ className }) => <img src={asset('/academy-icon-knockout-blue 1.svg')} alt="GO Academy" className={className} />}
+              Logo={({ className }: { className?: string }) => (
+                <img src={asset('/academy-icon-knockout-blue 1.svg')} alt="GO Academy" className={className} />
+              )}
               videoLight={asset("/Files/Features/Academy_Light_Final.mp4")}
               videoDark={asset("/Files/Features/Academy_Dark_Final.mp4")} 
               ctaText={t('cardCta')} 
