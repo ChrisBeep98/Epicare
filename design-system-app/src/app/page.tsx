@@ -96,11 +96,11 @@ export default function EpicareLandingPage() {
       {/* ── S06b · Agency Solutions — material de venta ── */}
       <div className="w-full order-7 pb-section-lg"><ProductSpotlightEpicare variant="solutions" /></div>
       {/* ── S07 · PeopleReveal (respiro humano) ── */}
-      <div className="w-full order-8 pb-section-lg"><PeopleRevealEpicare /></div>
+      {/* <div className="w-full order-8 pb-section-lg"><PeopleRevealEpicare /></div> */}
       {/* ── S08 · ProductLines (portafolio) ── */}
       <div className="w-full order-9"><ProductLinesEpicare /></div>
       {/* ── S09 · Coverage52 (mini-pico visual) ── */}
-      <div className="w-full order-10"><Coverage52Epicare /></div>
+      {/* <div className="w-full order-10"><Coverage52Epicare /></div> */}
       {/* ── S10 · ForWho (decisión) ── */}
       <div className="w-full order-11"><ForWhoEpicare /></div>
       {/* ── S13 · HowToJoin (fricción cero) ── */}

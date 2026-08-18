@@ -262,7 +262,8 @@
     "coverage": {
       "overline": "National reach",
       "title": "52 jurisdictions.",
-      "desc": "50 states, Washington DC and Puerto Rico. Licensed and operating in all of them — not in progress, not coming soon."
+      "desc": "50 states, Washington DC and Puerto Rico. Licensed and operating in all of them — not in progress, not coming soon.",
+      "cta": "Check active licenses"
     },
     "footerCta": {
       "marquee": "EPICARE ✦ REAL OPERATION ✦",

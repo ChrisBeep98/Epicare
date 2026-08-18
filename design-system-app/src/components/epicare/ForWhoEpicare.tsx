@@ -67,7 +67,7 @@ const MobileAccordion = ({ aud, accent, HERO, isOpen, onClick }: any) => {
              </div>
              
              <div 
-               className="relative h-[35vh] overflow-hidden mt-4 shadow-[var(--shadow-elevation-2)] dark:shadow-none bg-[#050505]"
+               className="relative h-[28vh] overflow-hidden mt-4 shadow-[var(--shadow-elevation-2)] dark:shadow-none bg-[#050505]"
                style={{ width: '100vw', marginLeft: 'calc(var(--space-gutter-sm) * -1)' }}
              >
                 <div className="fw-mobile-cover absolute inset-0 w-full h-full will-change-transform">
@@ -141,7 +141,7 @@ const MobileAccordionGroup = ({ audiences, HERO, ACCENT }: any) => {
   };
 
   return (
-    <div className="fw-stage mt-10 flex lg:hidden flex-col w-full border-t border-black/10 dark:border-white/20">
+    <div className="fw-stage mt-6 flex lg:hidden flex-col w-full border-t border-black/10 dark:border-white/20">
       {audiences.map((aud: any) => (
          <MobileAccordion 
             key={aud.key} 
@@ -238,7 +238,7 @@ export default function ForWhoEpicare() {
     >
       {/* ── CENTERED HEADER ── */}
       <div className="max-w-section-lg mx-auto w-full px-[var(--space-gutter-sm)] md:px-[var(--space-gutter-md)] pt-section-sm md:pt-section-md">
-        <header className="text-left md:text-center max-w-4xl mx-auto md:mx-auto">
+        <header className="text-left md:text-center max-w-7xl mx-auto">
           <span className="fw-head block text-overline text-[var(--color-brand-blue)] mb-6">
             {t('overline')}
           </span>
@@ -250,20 +250,17 @@ export default function ForWhoEpicare() {
               <span className="fw-line inline-block text-[var(--color-text-muted)]">{t('titleLine2')}</span>
             </span>
           </h2>
-          <p className="fw-head text-body-lg font-light text-[var(--color-text-Black-100)]/60 dark:text-white/55 mt-8 max-w-2xl mx-0 md:mx-auto">
-            {t('desc')}
-          </p>
         </header>
       </div>
 
       {/* ── DUAL PANELS (DESKTOP: Hover to Expand) ── */}
-      <div className="fw-stage mt-14 md:mt-20 hidden lg:flex flex-row w-full max-w-section-lg mx-auto gap-[var(--spacing-static-sm)] px-[var(--space-gutter-md)]">
+      <div className="fw-stage mt-8 md:mt-10 hidden lg:flex flex-row w-full max-w-section-lg mx-auto gap-[var(--spacing-static-sm)] px-[var(--space-gutter-md)]">
         {audiences.map((aud) => {
           const accent = ACCENT[aud.key];
           return (
             <article
               key={aud.key}
-              className="fw-panel fw-curtain group relative overflow-hidden rounded-3xl h-[82vh] flex flex-col flex-1 grow basis-0 hover:grow-[1.9] transition-[flex-grow] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-[flex-grow]"
+              className="fw-panel fw-curtain group relative overflow-hidden rounded-3xl h-[70vh] flex flex-col flex-1 grow basis-0 hover:grow-[1.9] transition-[flex-grow] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-[flex-grow]"
             >
               {/* Cover image + parallax */}
               <img src={HERO[aud.key]} alt={aud.heroAlt} loading="lazy"

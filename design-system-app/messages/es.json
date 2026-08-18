@@ -262,7 +262,8 @@
     "coverage": {
       "overline": "Alcance nacional",
       "title": "52 jurisdicciones.",
-      "desc": "50 estados, Washington DC y Puerto Rico. Licenciados y operando en todas — no en proceso, no próximamente."
+      "desc": "50 estados, Washington DC y Puerto Rico. Licenciados y operando en todas — no en proceso, no próximamente.",
+      "cta": "Ver licencias activas"
     },
     "footerCta": {
       "marquee": "EPICARE ✦ OPERACIÓN REAL ✦",

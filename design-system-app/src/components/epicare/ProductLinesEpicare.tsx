@@ -46,56 +46,65 @@ export default function ProductLinesEpicare() {
   useEffect(() => {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    const ctx = gsap.context(() => {
-      const blocks = gsap.utils.toArray<HTMLElement>('.pl-block');
+    const timer = setTimeout(() => {
+      const ctx = gsap.context(() => {
+        const blocks = gsap.utils.toArray<HTMLElement>('.pl-block');
 
-      if (reduce) {
-        gsap.set('.pl-head, .pl-line, .pl-pill', { opacity: 1, y: 0, filter: 'none' });
-      } else {
-        // Headline text-birth (Hardware Optimized)
-        gsap.fromTo('.pl-head-line', { yPercent: 118, willChange: 'transform' },
-          { yPercent: 0, duration: 1.15, stagger: 0.12, ease: 'power4.out', clearProps: 'willChange',
-            scrollTrigger: { trigger: sectionRef.current, start: 'top 82%' } });
-        gsap.fromTo('.pl-head', { opacity: 0, y: 26, willChange: 'transform, opacity' },
-          { opacity: 1, y: 0, duration: 0.9, stagger: 0.08, ease: 'power3.out', clearProps: 'willChange',
-            scrollTrigger: { trigger: sectionRef.current, start: 'top 80%' } });
+        if (reduce) {
+          gsap.set('.pl-head, .pl-line, .pl-pill', { opacity: 1, y: 0, filter: 'none' });
+        } else {
+          // Headline text-birth (Hardware Optimized)
+          gsap.fromTo('.pl-head-line', { yPercent: 118, willChange: 'transform' },
+            { yPercent: 0, duration: 1.15, stagger: 0.12, ease: 'power4.out', clearProps: 'willChange',
+              scrollTrigger: { trigger: sectionRef.current, start: 'top 82%' } });
+          gsap.fromTo('.pl-head', { opacity: 0, y: 26, willChange: 'transform, opacity' },
+            { opacity: 1, y: 0, duration: 0.9, stagger: 0.08, ease: 'power3.out', clearProps: 'willChange',
+              scrollTrigger: { trigger: sectionRef.current, start: 'top 80%' } });
 
-        // Per-line scroll-linked "light up" (scrollytelling reading reveal).
-        gsap.utils.toArray<HTMLElement>('.pl-line').forEach((line) => {
-          gsap.fromTo(line,
-            { opacity: 0.18, y: 26 },
-            {
-              opacity: 1, y: 0, ease: 'none',
-              scrollTrigger: { trigger: line, start: 'top 90%', end: 'top 55%', scrub: true },
+          // Per-line scroll-linked "light up" (scrollytelling reading reveal).
+          gsap.utils.toArray<HTMLElement>('.pl-line').forEach((line) => {
+            gsap.fromTo(line,
+              { opacity: 0.18, y: 26 },
+              {
+                opacity: 1, y: 0, ease: 'none',
+                scrollTrigger: { trigger: line, start: 'top 90%', end: 'top 55%', scrub: true },
+              }
+            );
+          });
+
+          // Mobile pills — staggered reveal per category group.
+          gsap.utils.toArray<HTMLElement>('.pl-mgroup').forEach((group) => {
+            gsap.fromTo(group.querySelectorAll('.pl-pill'),
+              { opacity: 0, y: 12 },
+              {
+                opacity: 1, y: 0, duration: 0.5, stagger: 0.03, ease: 'power3.out',
+                scrollTrigger: { trigger: group, start: 'top 85%' },
+              }
+            );
+          });
+        }
+
+        // Active-category tracking drives the giant marker (always runs).
+        blocks.forEach((block, i) => {
+          ScrollTrigger.create({
+            trigger: block,
+            start: 'top center',
+            end: 'bottom center',
+            onToggle: (self) => {
+              if (self.isActive) setActiveIndex(i);
             }
-          );
+          });
         });
 
-        // Mobile pills — staggered reveal per category group.
-        gsap.utils.toArray<HTMLElement>('.pl-mgroup').forEach((group) => {
-          gsap.fromTo(group.querySelectorAll('.pl-pill'),
-            { opacity: 0, y: 12 },
-            {
-              opacity: 1, y: 0, duration: 0.5, stagger: 0.03, ease: 'power3.out',
-              scrollTrigger: { trigger: group, start: 'top 85%' },
-            }
-          );
-        });
-      }
+        // Force recalculation to catch any layout shifts
+        ScrollTrigger.sort();
+        ScrollTrigger.refresh();
+      }, sectionRef);
 
-      // Active-category tracking drives the giant marker (always runs).
-      blocks.forEach((block, i) => {
-        ScrollTrigger.create({
-          trigger: block,
-          start: 'top center',
-          end: 'bottom center',
-          onEnter: () => setActiveIndex(i),
-          onEnterBack: () => setActiveIndex(i),
-        });
-      });
-    }, sectionRef);
+      return () => ctx.revert();
+    }, 200);
 
-    return () => ctx.revert();
+    return () => clearTimeout(timer);
   }, []);
 
   const scrollToBlock = (i: number) => {
@@ -201,7 +210,7 @@ export default function ProductLinesEpicare() {
                 <div
                   key={i}
                   ref={(el) => { blockRefs.current[i] = el; }}
-                  className="pl-block min-h-[68vh] flex flex-col justify-start pt-2 scroll-mt-[14vh]"
+                  className="pl-block min-h-[55vh] flex flex-col justify-start pt-2 scroll-mt-[14vh]"
                 >
                   <ul>
                     {cat.items.map((item, j) => (
@@ -210,7 +219,7 @@ export default function ProductLinesEpicare() {
                         className="pl-line group border-t border-[var(--color-border-Strokes-default)] last:border-b cursor-default"
                       >
                         {/* Row: number + name + toggle */}
-                        <div className="flex items-center justify-between gap-4 py-6">
+                        <div className="flex items-center justify-between gap-4 py-4">
                           <div className="flex items-baseline gap-7">
                             <span className="text-caption tabular-nums text-[var(--color-text-muted)] w-6 shrink-0">
                               {String(j + 1).padStart(2, '0')}
