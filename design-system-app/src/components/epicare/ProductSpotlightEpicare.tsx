@@ -227,19 +227,46 @@ export default function ProductSpotlightEpicare({ variant }: { variant: Spotligh
             </div>
 
             {/* 4. CTA */}
-            <div className="mt-4 w-full sm:w-auto">
-              <a
-                href="#unete"
-                className="group w-fit h-12 pl-6 pr-2 rounded-full flex items-center gap-3 text-white shadow-elevation-2 transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-elevation-4 active:scale-[0.96] active:opacity-80 active:duration-150"
-                style={{ backgroundColor: `var(${accentVar})` }}
-              >
-                <span className="text-xs font-bold tracking-[0.2em] uppercase">{t('cta')}</span>
-                <span className="relative w-8 h-8 rounded-full bg-white flex items-center justify-center overflow-hidden shrink-0" style={{ color: `var(${accentVar})` }}>
-                  <ArrowUR className="absolute w-4 h-4 transition-transform duration-300 ease-out group-hover:translate-x-5 group-hover:-translate-y-5" />
-                  <ArrowUR className="absolute w-4 h-4 -translate-x-5 translate-y-5 transition-transform duration-300 ease-out group-hover:translate-x-0 group-hover:translate-y-0" />
-                </span>
-              </a>
-            </div>
+            {isEppigo ? (
+              <div className="mt-4 w-full sm:w-auto">
+                <a
+                  href="#unete"
+                  className="group w-fit h-12 pl-6 pr-2 rounded-full flex items-center gap-3 text-white shadow-elevation-2 transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-elevation-4 active:scale-[0.96] active:opacity-80 active:duration-150"
+                  style={{ backgroundColor: `var(${accentVar})` }}
+                >
+                  <span className="text-xs font-bold tracking-[0.2em] uppercase">{t('cta')}</span>
+                  <span className="relative w-8 h-8 rounded-full bg-white flex items-center justify-center overflow-hidden shrink-0" style={{ color: `var(${accentVar})` }}>
+                    <ArrowUR className="absolute w-4 h-4 transition-transform duration-300 ease-out group-hover:translate-x-5 group-hover:-translate-y-5" />
+                    <ArrowUR className="absolute w-4 h-4 -translate-x-5 translate-y-5 transition-transform duration-300 ease-out group-hover:translate-x-0 group-hover:translate-y-0" />
+                  </span>
+                </a>
+              </div>
+            ) : (
+              <div className="mt-4 flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
+                <a
+                  href="#marketing"
+                  className="group w-full sm:w-fit h-12 pl-6 pr-2 rounded-full flex items-center justify-between sm:justify-start gap-3 text-white shadow-elevation-2 transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-elevation-4 active:scale-[0.96] active:opacity-80 active:duration-150"
+                  style={{ backgroundColor: `var(${accentVar})` }}
+                >
+                  <span className="text-xs font-bold tracking-[0.2em] uppercase">Marketing</span>
+                  <span className="relative w-8 h-8 rounded-full bg-white flex items-center justify-center overflow-hidden shrink-0" style={{ color: `var(${accentVar})` }}>
+                    <ArrowUR className="absolute w-4 h-4 transition-transform duration-300 ease-out group-hover:translate-x-5 group-hover:-translate-y-5" />
+                    <ArrowUR className="absolute w-4 h-4 -translate-x-5 translate-y-5 transition-transform duration-300 ease-out group-hover:translate-x-0 group-hover:translate-y-0" />
+                  </span>
+                </a>
+                
+                <a
+                  href="#technology"
+                  className="group w-full sm:w-fit h-12 pl-6 pr-2 rounded-full flex items-center justify-between sm:justify-start gap-3 bg-white border border-gray-200 shadow-elevation-1 transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-elevation-3 hover:border-transparent active:scale-[0.96] active:opacity-80 active:duration-150"
+                >
+                  <span className="text-xs font-bold tracking-[0.2em] uppercase" style={{ color: `var(${accentVar})` }}>Technology</span>
+                  <span className="relative w-8 h-8 rounded-full flex items-center justify-center overflow-hidden shrink-0 transition-colors duration-300" style={{ backgroundColor: `var(${accentVar})`, color: 'white' }}>
+                    <ArrowUR className="absolute w-4 h-4 transition-transform duration-300 ease-out group-hover:translate-x-5 group-hover:-translate-y-5" />
+                    <ArrowUR className="absolute w-4 h-4 -translate-x-5 translate-y-5 transition-transform duration-300 ease-out group-hover:translate-x-0 group-hover:translate-y-0" />
+                  </span>
+                </a>
+              </div>
+            )}
 
             </div>
           </div>
