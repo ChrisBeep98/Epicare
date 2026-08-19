@@ -73,7 +73,7 @@ export default function ProductSpotlightEpicare({ variant }: { variant: Spotligh
   const [hueRotate, setHueRotate] = useState(31);
   const [bgScale, setBgScale] = useState(2);
   const [bgOpacity, setBgOpacity] = useState(0.45);
-  const [videoWidth, setVideoWidth] = useState(72);
+  const [videoWidth, setVideoWidth] = useState(65);
 
   const sectionRef = useRef<HTMLElement>(null);
   const textColRef = useRef<HTMLDivElement>(null);
@@ -144,7 +144,7 @@ export default function ProductSpotlightEpicare({ variant }: { variant: Spotligh
     <section 
       ref={sectionRef} 
       id={variant} 
-      className="relative w-full min-h-[100dvh] bg-white overflow-hidden flex items-center justify-center py-20 lg:py-0"
+      className="relative w-full bg-white overflow-visible flex items-center justify-center py-8 lg:py-10"
     >
       {/* 
         FULL BLEED ASYMMETRIC SPLIT LAYOUT. 
@@ -153,7 +153,7 @@ export default function ProductSpotlightEpicare({ variant }: { variant: Spotligh
       <div className={`relative z-10 w-full max-w-full flex flex-col ${isEppigo ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center justify-between`}>
         
         {/* TEXT COLUMN (Takes 50% viewport) */}
-        <div ref={textColRef} className={`relative z-20 shrink-0 w-full lg:w-1/2 flex flex-col justify-center py-20 px-6 md:px-8 ${isEppigo ? 'lg:items-end' : 'lg:items-start'} lg:-translate-y-32`}>
+        <div ref={textColRef} className={`relative z-20 shrink-0 w-full lg:w-1/2 flex flex-col justify-center py-20 px-6 md:px-8 ${isEppigo ? 'lg:items-end -translate-y-8 lg:-translate-y-56' : 'lg:items-start lg:-translate-y-32'}`}>
           
           {/* Alignment Wrapper (Forces content into the max-w-section-lg boundary) */}
           <div className="w-full px-4 lg:px-8" style={{ maxWidth: 'calc(var(--max-w-section-lg, 1440px) / 2)' }}>
@@ -180,7 +180,7 @@ export default function ProductSpotlightEpicare({ variant }: { variant: Spotligh
             </div>
 
             {/* CONTENT (Relative to sit above glass) */}
-            <div ref={contentRef} className="relative z-10 flex flex-col items-start gap-8 lg:gap-10 p-10 lg:p-12">
+            <div ref={contentRef} className="relative z-10 flex flex-col items-start gap-6 lg:gap-8 p-8 lg:p-10">
               
               {/* 1. CHIP / BADGE */}
               <div className="flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/50 backdrop-blur-sm border border-white/60 shadow-[0_2px_10px_rgba(0,0,0,0.02)]">
@@ -191,12 +191,24 @@ export default function ProductSpotlightEpicare({ variant }: { variant: Spotligh
               </div>
 
             {/* 2. PRODUCT TITLE */}
-            <h2 className="text-display-lg text-[var(--color-text-primary)] leading-[1.05] tracking-tight">
-              <span className="block" style={{ color: `var(${accentVar})` }}>
-                {t('name')}
-              </span>
-              {t('title')}
-            </h2>
+            {isEppigo ? (
+              <div className="flex flex-col items-start gap-4">
+                <div className="flex items-center gap-4">
+                  <img src={asset('/epigo.svg')} alt="EpiGo" className="h-12 lg:h-16 w-auto object-contain" />
+                  <span className="text-display leading-none tracking-tight" style={{ color: `var(${accentVar})` }}>EPPIGO</span>
+                </div>
+                <h2 className="text-display text-[var(--color-text-primary)] leading-[1.05] tracking-tight">
+                  {t('title')}
+                </h2>
+              </div>
+            ) : (
+              <h2 className="text-display text-[var(--color-text-primary)] leading-[1.05] tracking-tight">
+                <span className="block" style={{ color: `var(${accentVar})` }}>
+                  {t('name')}
+                </span>
+                {t('title')}
+              </h2>
+            )}
 
             <div className="w-16 h-[2px] rounded-full opacity-50" style={{ backgroundColor: `var(${accentVar})` }} />
 
@@ -234,16 +246,16 @@ export default function ProductSpotlightEpicare({ variant }: { variant: Spotligh
         </div>
         </div>
       
-        {/* VIDEO COLUMN - GLUED TO THE EDGE (Absolute positioning allows growing inward) */}
+        {/* VIDEO COLUMN */}
         <div 
           ref={videoColRef} 
-          className={`relative z-10 w-full lg:absolute lg:top-1/2 lg:-translate-y-1/2 ${isEppigo ? 'lg:right-0 justify-end pr-0' : 'lg:left-0 justify-start pl-0'} lg:w-[var(--video-w)] flex mt-12 lg:mt-0`}
+          className={`relative z-10 w-full lg:absolute lg:top-1/2 lg:-translate-y-1/2 ${isEppigo ? 'lg:right-[var(--space-gutter-md)] justify-end px-4 lg:px-0' : 'lg:left-[var(--space-gutter-md)] justify-start px-4 lg:px-0'} lg:w-[var(--video-w)] flex mt-12 lg:mt-0`}
           style={{ '--video-w': `${videoWidth}%` } as React.CSSProperties}
         >
           {/* Main Container (No shadow) */}
-          <div className={`relative w-full h-[75vh] lg:h-[90vh] max-h-[1000px] ${isEppigo ? 'rounded-l-[3rem] lg:rounded-l-[4rem] rounded-r-none' : 'rounded-r-[3rem] lg:rounded-r-[4rem] rounded-l-none'} transform-gpu`}>
+          <div className={`relative w-full h-[60vh] lg:h-[75vh] max-h-[1000px] rounded-none transform-gpu`}>
             {/* Mask Container (Overflow-hidden to clip the media) */}
-            <div className={`absolute inset-0 w-full h-full ${isEppigo ? 'rounded-l-[3rem] lg:rounded-l-[4rem] rounded-r-none' : 'rounded-r-[3rem] lg:rounded-r-[4rem] rounded-l-none'} overflow-hidden bg-black/5 dark:bg-white/5`}>
+            <div className={`absolute inset-0 w-full h-full rounded-none overflow-hidden`}>
               {isEppigo ? (
                 <>
                   <SmartVideo src={videoLight} poster={posterLight} className="absolute inset-0 w-full h-full object-cover object-center dark:hidden" />

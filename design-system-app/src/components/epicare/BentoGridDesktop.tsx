@@ -142,22 +142,23 @@ function CinematicPanel({
       {/* TEXT CONTENT (Left side) */}
       <div className="p-10 md:p-16 lg:p-20 w-full md:w-5/12 flex flex-col justify-center h-full relative z-10 bg-transparent pointer-events-none">
          <Logo 
-           className="h-10 lg:h-12 w-auto self-start mr-auto mb-10 text-[var(--color-brand-blue)] dark:text-white origin-left transform group-hover:scale-105 transition-transform duration-700 ease-out" 
+           className={`${isAcademy ? 'h-[64px] lg:h-[80px]' : 'h-[52px] lg:h-[68px]'} w-auto self-start mr-auto mb-8 text-[var(--color-brand-blue)] dark:text-white origin-left transform group-hover:scale-105 transition-transform duration-700 ease-out`} 
          />
-         <h3 className="text-display text-black dark:text-white mb-6 leading-tight group-hover:text-[var(--color-brand-blue)] dark:group-hover:text-[var(--color-brand-blue)] transition-colors duration-300">
-           {title}
-         </h3>
          <p className="text-body-lg text-black/60 dark:text-white/80 font-light max-w-sm mb-12 leading-relaxed">
            {desc}
          </p>
          
          {/* Premium Brand-Blue Action CTA with Dual Arrow Motion */}
          <div className="mt-auto md:mt-0 w-fit pointer-events-auto">
-           <div className="h-12 pl-6 pr-2 rounded-full flex items-center gap-3 bg-[var(--color-brand-blue)] text-white shadow-elevation-2 transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:shadow-[0_10px_25px_rgba(53,187,253,0.4)] group-hover:scale-[1.03] active:scale-[0.96]">
-              <span className="text-xs font-bold tracking-[0.15em] uppercase text-white select-none">{ctaText}</span>
-              <span className="relative w-8 h-8 rounded-full bg-white text-[var(--color-brand-blue)] flex items-center justify-center overflow-hidden shrink-0 shadow-sm">
-                <ArrowUR className="absolute w-4 h-4 transition-transform duration-300 ease-out group-hover:translate-x-5 group-hover:-translate-y-5" />
-                <ArrowUR className="absolute w-4 h-4 -translate-x-5 translate-y-5 transition-transform duration-300 ease-out group-hover:translate-x-0 group-hover:translate-y-0" />
+           <div className="group/btn h-12 pl-6 pr-2 rounded-full flex items-center gap-3 bg-[var(--color-brand-blue)] text-white shadow-elevation-2 transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:shadow-[0_10px_25px_rgba(53,187,253,0.4)] hover:scale-110 hover:shadow-[0_15px_35px_rgba(53,187,253,0.6)] active:scale-[0.96] overflow-hidden relative">
+              
+              {/* Liquid Wave Hover Background */}
+              <div className="absolute inset-0 bg-white/20 translate-y-full rounded-full transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/btn:translate-y-0" />
+              
+              <span className="relative z-10 text-xs font-bold tracking-[0.15em] uppercase text-white select-none transition-transform duration-300 group-hover/btn:-translate-x-1">{ctaText}</span>
+              <span className="relative z-10 w-8 h-8 rounded-full bg-white text-[var(--color-brand-blue)] flex items-center justify-center overflow-hidden shrink-0 shadow-sm transition-transform duration-500 group-hover/btn:rotate-45 group-hover/btn:scale-110">
+                <ArrowUR className="absolute w-4 h-4 transition-transform duration-300 ease-out group-hover/btn:translate-x-5 group-hover/btn:-translate-y-5" />
+                <ArrowUR className="absolute w-4 h-4 -translate-x-5 translate-y-5 transition-transform duration-300 ease-out group-hover/btn:translate-x-0 group-hover/btn:translate-y-0" />
               </span>
            </div>
          </div>

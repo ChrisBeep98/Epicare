@@ -263,7 +263,7 @@ export default function BentoGridMobile() {
       videoDarkFullBackground: true,
       mediaClassNameDark: "dark:bg-[#0D0D0E]",
       cardClassNameDark: "dark:bg-[#0D0D0E]",
-      logo: <AcademyIcon className="h-10 w-auto drop-shadow-[0_0_15px_rgba(90,200,250,0.5)]" />
+      logo: <AcademyIcon className="h-[50px] w-auto drop-shadow-[0_0_15px_rgba(90,200,250,0.5)]" />
     },
   ];
 
@@ -348,11 +348,15 @@ export default function BentoGridMobile() {
                 >
                   
                   {/* Floating Action Bubble (Hardware Symphony: No backdrop-blur) */}
-                  <div className="absolute bottom-6 right-6 h-10 pl-4 pr-1.5 bg-white/95 dark:bg-[#0D0D0E]/95 border border-[var(--color-brand-blue)]/20 dark:border-white/10 text-[var(--color-text-Black-100)] dark:text-white rounded-full flex items-center justify-center gap-2 overflow-hidden shadow-elevation-2 z-50 transition-all duration-[600ms] group-hover:scale-105 group-hover:bg-[var(--color-brand-blue)] group-hover:text-white">
-                    <span className="text-body-sm font-medium tracking-wide">{t('cardCta')}</span>
-                    <div className="relative w-7 h-7 rounded-full bg-[var(--color-brand-blue)]/10 dark:bg-[var(--color-brand-cyan)]/10 text-[var(--color-brand-blue)] dark:text-[var(--color-brand-cyan)] flex items-center justify-center overflow-hidden shrink-0 group-hover:bg-white/20 group-hover:text-white">
-                      <ArrowUR className="absolute w-4 h-4 transition-transform duration-[400ms] group-hover:translate-x-6 group-hover:-translate-y-6" />
-                      <ArrowUR className="absolute w-4 h-4 -translate-x-6 translate-y-6 transition-transform duration-[400ms] group-hover:translate-x-0 group-hover:translate-y-0" />
+                  <div className="group/btn absolute bottom-6 right-6 h-10 pl-4 pr-1.5 bg-white/95 dark:bg-[#0D0D0E]/95 border border-[var(--color-brand-blue)]/20 dark:border-white/10 text-[var(--color-text-Black-100)] dark:text-white rounded-full flex items-center justify-center gap-2 overflow-hidden shadow-elevation-2 z-50 transition-all duration-[600ms] group-hover:scale-105 hover:!scale-110 group-hover:bg-[var(--color-brand-blue)] group-hover:text-white hover:shadow-[0_15px_30px_rgba(53,187,253,0.4)] cursor-pointer">
+                    
+                    {/* Liquid Wave Hover Background */}
+                    <div className="absolute inset-0 bg-white/20 translate-y-full rounded-full transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/btn:translate-y-0" />
+                    
+                    <span className="relative z-10 text-body-sm font-medium tracking-wide transition-transform duration-300 group-hover/btn:-translate-x-1">{t('cardCta')}</span>
+                    <div className="relative z-10 w-7 h-7 rounded-full bg-[var(--color-brand-blue)]/10 dark:bg-[var(--color-brand-cyan)]/10 text-[var(--color-brand-blue)] dark:text-[var(--color-brand-cyan)] flex items-center justify-center overflow-hidden shrink-0 group-hover:bg-white/20 group-hover:text-white transition-transform duration-500 group-hover/btn:rotate-45 group-hover/btn:scale-110">
+                      <ArrowUR className="absolute w-4 h-4 transition-transform duration-[400ms] group-hover/btn:translate-x-6 group-hover/btn:-translate-y-6" />
+                      <ArrowUR className="absolute w-4 h-4 -translate-x-6 translate-y-6 transition-transform duration-[400ms] group-hover/btn:translate-x-0 group-hover/btn:translate-y-0" />
                     </div>
                   </div>
 
@@ -366,15 +370,12 @@ export default function BentoGridMobile() {
 
                   {/* Text Container (Top) */}
                   <div className="w-full p-6 flex flex-col justify-start relative z-10 pointer-events-none">
-                    <div className="flex items-center gap-3 mb-2">
+                    <div className="flex items-center gap-3 mb-4">
                       {card.logo && (
-                         <div className="shrink-0 text-[var(--color-brand-blue)] dark:text-[var(--color-brand-cyan)]">
+                         <div className="shrink-0 text-[var(--color-brand-blue)] dark:text-[var(--color-brand-cyan)] scale-125 origin-left">
                             {card.logo}
                          </div>
                       )}
-                      <h3 className="text-display text-[var(--color-text-Black-100)] dark:text-[var(--color-text-White-100)]">
-                        {card.title}
-                      </h3>
                     </div>
                     <p className="text-body-md text-[var(--color-text-muted)] font-normal leading-relaxed max-w-[95%]">
                       {card.desc}
