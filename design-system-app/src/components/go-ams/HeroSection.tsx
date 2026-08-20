@@ -61,38 +61,9 @@ export default function HeroSection() {
   return (
     <div className="w-full flex flex-col bg-[var(--color-surface-BG-base)] min-h-screen text-[var(--color-text-primary)] relative overflow-x-hidden">
       
-      {/* 1. Navbar */}
-      <nav className="h-16 w-full bg-[var(--color-surface-BG-base)] border-b border-[var(--color-border-Strokes-default)] px-gutter-md flex justify-between items-center relative z-[9999]">
-        <div className="flex items-center gap-1">
-          <span className="font-bold text-subtitle tracking-tight bg-[var(--color-text-primary)] text-[var(--color-surface-BG-base)] px-1.5 py-0.5 rounded-md leading-none">GO</span>
-          <span className="font-normal text-subtitle tracking-widest text-[var(--color-text-secondary)]">AMS</span>
-        </div>
-        <div className="flex items-center gap-4">
-          <button type="button" onClick={toggleTheme} className="bg-[var(--color-surface-BG-2)] rounded-full p-1 flex items-center shadow-inner cursor-pointer border border-[var(--color-border-Strokes-default)] relative z-50 touch-manipulation">
-            <div className={`w-5 h-5 rounded-full shadow-sm transition-colors ${!isDark ? 'bg-[var(--color-text-primary)]' : 'bg-transparent'}`}></div>
-            <div className={`w-5 h-5 rounded-full shadow-sm transition-colors ${isDark ? 'bg-[var(--color-text-primary)]' : 'bg-transparent'}`}></div>
-          </button>
-          <button type="button" className="text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors relative z-50">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-            </svg>
-          </button>
-          <div className="flex items-center gap-3 pl-2 border-l border-[var(--color-border-Strokes-default)]">
-            <div className="w-10 h-10 rounded-full border border-[var(--color-border-Strokes-strong)] overflow-hidden bg-[var(--color-surface-BG-1)] flex items-center justify-center">
-              <span className="text-caption text-[var(--color-text-secondary)]">MD</span>
-            </div>
-            <div className="flex flex-col hidden sm:flex">
-              <span className="text-body-sm font-bold leading-tight">Manuel Depool</span>
-              <span className="text-caption text-[var(--color-brand-blue)] leading-tight">Admin</span>
-            </div>
-          </div>
-        </div>
-      </nav>
-
       {/* 2. Unified Hero Grid */}
-      <section id="hero-main-section" className="relative w-full bg-[var(--color-surface-BG-base)] flex-1 px-[var(--space-gutter-sm)] lg:px-[var(--space-gutter-md)]">
-        <div className="mx-auto max-w-section-xl w-full grid-layout min-h-[calc(100vh-64px)] grid-rows-[auto_auto_1fr] pb-0">
+      <section id="hero-main-section" className="relative w-full bg-[var(--color-surface-BG-base)] flex-1 px-gutter-sm lg:px-gutter-md pt-[100px] md:pt-[140px]">
+        <div className="mx-auto max-w-section-xl w-full grid-layout min-h-[100vh] grid-rows-[auto_auto_1fr] pb-section-md">
           
         {/* Row 1: Eyebrow / Subtitle */}
         <div id="hero-eyebrow" className="max-lg:col-start-1 max-lg:col-span-6 max-lg:row-start-1 max-lg:row-span-1 lg:col-start-1 lg:col-span-6 lg:row-start-1 lg:row-span-1 flex items-end pb-0 lg:pb-4 pt-[var(--space-fluid-md)]">
@@ -126,7 +97,7 @@ export default function HeroSection() {
               {/* Bullet 1 - Top Left (Desktop Only) */}
               <div className="absolute top-[36px] left-[44px] gap-3 items-start z-10 hidden lg:flex">
                 <div className="w-2 h-2 rounded-full bg-[var(--color-brand-blue)] mt-1.5 flex-shrink-0"></div>
-                <p className="text-[13px] text-[var(--color-text-muted)] leading-relaxed max-w-[220px]">
+                <p className="text-body-xs text-[var(--color-text-muted)] leading-relaxed max-w-[220px]">
                   Respaldado por 5 años de operación, 130+ carriers, 52 jurisdicciones
                 </p>
               </div>
@@ -134,7 +105,7 @@ export default function HeroSection() {
               {/* Bullet 2 - Bottom Left (Desktop Only) */}
               <div className="absolute bottom-[36px] left-[44px] gap-3 items-start z-10 hidden lg:flex">
                 <div className="w-2 h-2 rounded-full bg-[var(--color-brand-blue)] mt-1.5 flex-shrink-0"></div>
-                <p className="text-[13px] text-[var(--color-text-muted)] leading-relaxed max-w-[220px]">
+                <p className="text-body-xs text-[var(--color-text-muted)] leading-relaxed max-w-[220px]">
                   Procesa millones en primas de manera automática
                 </p>
               </div>
@@ -157,13 +128,13 @@ export default function HeroSection() {
         <div id="mobile-bullets" className="max-lg:col-start-1 max-lg:col-span-6 max-lg:row-start-5 max-lg:row-span-1 lg:col-start-1 lg:col-span-12 lg:row-start-4 lg:row-span-1 flex lg:hidden flex-row items-start justify-between gap-4 mt-6 pb-24">
           <div className="flex gap-2 items-start w-1/2">
             <div className="w-2 h-2 rounded-full bg-[var(--color-brand-blue)] mt-1.5 flex-shrink-0"></div>
-            <p className="text-[12px] text-[var(--color-text-muted)] leading-relaxed">
+            <p className="text-caption text-[var(--color-text-muted)] leading-relaxed">
               Respaldado por 5 años, 130+ carriers, 52 juris.
             </p>
           </div>
           <div className="flex gap-2 items-start w-1/2">
             <div className="w-2 h-2 rounded-full bg-[var(--color-brand-blue)] mt-1.5 flex-shrink-0"></div>
-            <p className="text-[12px] text-[var(--color-text-muted)] leading-relaxed">
+            <p className="text-caption text-[var(--color-text-muted)] leading-relaxed">
               Procesa millones en primas de manera automática
             </p>
           </div>
