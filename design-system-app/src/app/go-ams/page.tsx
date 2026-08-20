@@ -7,6 +7,8 @@ import BrokenDaySection from "@/components/go-ams/BrokenDaySection";
 import PlatformRevealSection from "@/components/go-ams/PlatformRevealSection";
 import BackOfficeTour from "@/components/go-ams/BackOfficeTour";
 import QuoteEnroll from "@/components/go-ams/QuoteEnroll";
+import AgentAgencySection from "@/components/go-ams/AgentAgencySection";
+import DownlineSection from "@/components/go-ams/DownlineSection";
 import LoaderEpicare from "@/components/epicare/LoaderEpicare";
 import HeaderEpicare from "@/components/epicare/HeaderEpicare";
 
@@ -40,6 +42,10 @@ export default function GoAmsPage() {
       {/* Acto II: Demostración (Core Pins) */}
       <BackOfficeTour />
       <QuoteEnroll />
+
+      {/* Acto III: Audiencia & Adaptabilidad */}
+      <AgentAgencySection />
+      <DownlineSection />
     </main>
   );
 }
