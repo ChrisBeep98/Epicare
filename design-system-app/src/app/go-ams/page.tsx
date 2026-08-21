@@ -11,6 +11,7 @@ import AgentAgencySection from "@/components/go-ams/AgentAgencySection";
 import DownlineSection from "@/components/go-ams/DownlineSection";
 import DelegateUsersSection from "@/components/go-ams/DelegateUsersSection";
 import ArchitectureSection from "@/components/go-ams/ArchitectureSection";
+import HowToJoinSection from "@/components/go-ams/HowToJoinSection";
 import LoaderEpicare from "@/components/epicare/LoaderEpicare";
 import HeaderEpicare from "@/components/epicare/HeaderEpicare";
 
@@ -50,6 +51,7 @@ export default function GoAmsPage() {
       <DownlineSection />
       <DelegateUsersSection />
       <ArchitectureSection />
+      <HowToJoinSection />
     </main>
   );
 }

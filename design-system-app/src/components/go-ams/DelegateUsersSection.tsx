@@ -34,8 +34,8 @@ export default function DelegateUsersSection() {
     const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
     if (!isDesktop) return;
 
-    const xTo = gsap.quickTo(sceneRef.current, "rotateY", { duration: 0.8, ease: "power3" });
-    const yTo = gsap.quickTo(sceneRef.current, "rotateX", { duration: 0.8, ease: "power3" });
+    const xTo = gsap.quickTo(sceneRef.current, "rotationY", { duration: 0.8, ease: "power3" });
+    const yTo = gsap.quickTo(sceneRef.current, "rotationX", { duration: 0.8, ease: "power3" });
 
     const handleMouseMove = (e: MouseEvent) => {
       const { clientX, clientY } = e;
@@ -56,7 +56,7 @@ export default function DelegateUsersSection() {
       if (prefersReducedMotion) return;
 
       // Breathing Canvas pasivo
-      gsap.to(".glass-matrix", { y: "-=10px", rotateZ: "0.5deg", repeat: -1, yoyo: true, duration: 5, ease: "sine.inOut" });
+      gsap.to(".glass-matrix", { y: "-=10px", rotationZ: "0.5deg", repeat: -1, yoyo: true, duration: 5, ease: "sine.inOut" });
 
       const tl = gsap.timeline({
         scrollTrigger: {

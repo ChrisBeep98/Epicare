@@ -71,7 +71,7 @@ export default function BackOfficeTourC() {
 
               gsap.set(card, {
                 z: zOffset,
-                rotateX: rotationX,
+                rotationX: rotationX,
                 opacity: opacity,
                 transformOrigin: "center center",
               });

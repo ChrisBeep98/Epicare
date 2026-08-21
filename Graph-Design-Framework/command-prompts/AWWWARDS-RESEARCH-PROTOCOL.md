@@ -47,18 +47,16 @@ Antes de presentarle una idea al usuario, la IA debe someter la referencia a est
 
 ---
 
-## 📝 FASE 4 — ENTREGABLE DEL REPORTE (Lo que ve el usuario)
+## 📝 FASE 4 — INYECCIÓN DE PROTOTIPOS Y DEBUG PANEL
 
-Una vez terminada la investigación, la IA NO debe vomitar código de inmediato. Debe presentar un reporte con **3 Hallazgos Exóticos**:
-Por cada hallazgo, entregar:
-1. **Nombre de la Técnica:** (Ej. *The Elastic Horizon*).
-2. **La Física Explicada:** (Cómo funciona matemáticamente, qué hace GSAP).
-3. **Aplicación al Proyecto:** (Cómo encajaría en la sección que el usuario quiere rediseñar, respetando los colores y tipografías del Design System de GO AMS).
-
-> ⛔ **STOP OBLIGATORIO:** Esperar a que el usuario elija uno de los 3 hallazgos antes de escribir una sola línea de código.
+Una vez terminada la investigación y seleccionados los **3 Hallazgos Exóticos**:
+1. **Reporte:** Presenta un breve reporte nombrando y explicando la física de cada uno.
+2. **ACCIÓN INMEDIATA (Cero esperas):** Programa e inyecta las 3 opciones en el componente solicitado en ese mismo instante. 
+3. **Debug Panel:** Integra obligatoriamente un panel de control flotante (generalmente en la esquina inferior derecha) para que el usuario pueda alternar y evaluar los 3 conceptos en vivo en su navegador.
+4. **Prohibido pedir permiso:** No le pidas al usuario que elija antes de programar. El usuario elegirá *usando* el software en vivo.
 
 ---
 
 ## 🚀 PROMPT PARA EJECUTAR ESTE PROTOCOLO
 
-> "Activa el **Awwwards Research Director** (`AWWWARDS-RESEARCH-PROTOCOL.md`). Sal a la web e investiga mecánicas exóticas para **[ELEMENTO A DISEÑAR, ej: el menú de navegación]**. Aplica el filtro Anti-Slop y preséntame el reporte de la Fase 4 con 3 hallazgos exóticos. No escribas código hasta que yo elija una mecánica."
+> "Activa el **Awwwards Research Director** (`AWWWARDS-RESEARCH-PROTOCOL.md`). Sal a la web e investiga mecánicas exóticas para **[ELEMENTO A DISEÑAR, ej: el menú de navegación]**. Aplica el filtro Anti-Slop, preséntame el reporte de la Fase 4 e inyecta INMEDIATAMENTE las 3 opciones en el código mediante un Debug Panel flotante para que pueda evaluarlas en vivo."
