@@ -1,115 +1,101 @@
 "use client";
 
-import React from "react";
-import { Cloud, ShoppingCart, ShieldCheck } from "@phosphor-icons/react";
+import React, { useState } from "react";
+import { Cloud, ShoppingCart, ShieldCheck, Database } from "@phosphor-icons/react";
 
 export default function ArchitectureSection() {
-  
-  // Custom CSS for infinite hardware-accelerated marquee
-  const marqueeStyle = `
-    @keyframes marquee {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const panels = [
+    {
+      id: "01",
+      title: "GO AMS CORE",
+      subtitle: "El motor principal.",
+      desc: "Lee y escribe datos en la operación real sin fricción ni lag. Sincronización 100% nativa con Epicare.",
+      icon: <Database weight="duotone" className="w-10 h-10 md:w-16 md:h-16 mb-4 md:mb-8 text-[var(--color-brand-blue)]" />,
+      color: "bg-white dark:bg-[#0A0E17]",
+      textColor: "text-gray-900 dark:text-white"
+    },
+    {
+      id: "02",
+      title: "CONTRATOS",
+      subtitle: "Sync Bidireccional.",
+      desc: "Los contratos y licencias viven en Epicare y se sincronizan en tiempo real. Lo que firmas aparece instantáneamente.",
+      icon: <Cloud weight="duotone" className="w-10 h-10 md:w-16 md:h-16 mb-4 md:mb-8 text-gray-900 dark:text-gray-300" />,
+      color: "bg-gray-50 dark:bg-[#111827]",
+      textColor: "text-gray-900 dark:text-white"
+    },
+    {
+      id: "03",
+      title: "COTIZACIONES",
+      subtitle: "Precios 1:1.",
+      desc: "El mismo catálogo y los mismos precios. La arquitectura garantiza que veas exactamente lo mismo que el cliente.",
+      icon: <ShoppingCart weight="duotone" className="w-10 h-10 md:w-16 md:h-16 mb-4 md:mb-8 text-[var(--color-brand-blue)]" />,
+      color: "bg-gray-100 dark:bg-[#1F2937]",
+      textColor: "text-gray-900 dark:text-white"
+    },
+    {
+      id: "04",
+      title: "SEGURIDAD",
+      subtitle: "Cero Retención.",
+      desc: "SSN y pagos viajan directo al carrier mediante túneles cifrados. GO AMS nunca guarda tus datos sensibles.",
+      icon: <ShieldCheck weight="duotone" className="w-10 h-10 md:w-16 md:h-16 mb-4 md:mb-8 text-white" />,
+      color: "bg-[#1A1E21] dark:bg-[#F26023]",
+      textColor: "text-white dark:text-white"
     }
-    .animate-marquee {
-      animation: marquee 30s linear infinite;
-      will-change: transform;
-    }
-    .group:hover .animate-marquee {
-      animation-play-state: paused;
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .animate-marquee {
-        animation: none;
-        transform: translateX(0);
-      }
-    }
-  `;
+  ];
 
   return (
-    <section id="architecture" className="w-full bg-[var(--color-surface-BG-base)] py-section-xl flex flex-col gap-4 overflow-hidden relative transition-colors duration-500">
-      <style dangerouslySetInnerHTML={{__html: marqueeStyle}} />
-      
-      <div className="px-gutter-md mb-8 md:mb-12">
-        <span className="text-ui-label text-[var(--color-brand-blue)] tracking-[0.2em] mb-4 block">
-          ARQUITECTURA DEL SISTEMA
-        </span>
-      </div>
+    <section id="architecture" className="w-full h-[90vh] min-h-[600px] flex flex-col md:flex-row overflow-hidden bg-white dark:bg-[#0A0E17]">
+      {panels.map((panel, idx) => {
+        const isActive = activeIndex === idx;
+        return (
+          <div
+            key={panel.id}
+            onMouseEnter={() => setActiveIndex(idx)}
+            onClick={() => setActiveIndex(idx)}
+            className={`relative flex flex-col justify-between transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] cursor-pointer overflow-hidden border-b md:border-b-0 md:border-r border-gray-200 dark:border-white/5 ${panel.color} ${panel.textColor}`}
+            style={{ 
+              flexGrow: isActive ? 6 : 1,
+              flexShrink: 1,
+              flexBasis: 0
+            }}
+          >
+            {/* Number Indicator */}
+            <div className="absolute top-4 md:top-8 left-4 md:left-0 w-full flex justify-start md:justify-between md:px-8 z-20">
+              <span className="font-mono text-xs md:text-sm tracking-widest opacity-40">{panel.id}</span>
+              <div className={`hidden md:block w-2 h-2 rounded-full transition-all duration-500 ${isActive ? 'bg-[var(--color-brand-blue)] dark:bg-white scale-100' : 'bg-transparent scale-0'}`} />
+            </div>
 
-      {/* Row 1: Contratos */}
-      <div className="group w-full h-[120px] md:h-[160px] hover:h-[300px] md:hover:h-[450px] bg-gray-50 dark:bg-[#1A1E21] hover:bg-white dark:hover:bg-gray-50 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] relative overflow-hidden flex items-center cursor-pointer border-t border-b border-gray-200 dark:border-white/5 hover:border-gray-300 dark:hover:border-white">
-        
-        {/* Marquee Text (Hides on hover) */}
-        <div className="absolute inset-0 flex items-center whitespace-nowrap opacity-100 group-hover:opacity-0 transition-opacity duration-500">
-          <div className="animate-marquee flex gap-12 md:gap-16 font-display text-[12vw] md:text-[100px] font-bold text-gray-900 dark:text-white tracking-tighter uppercase pointer-events-none transition-colors">
-            <span>CONTRATOS Y LICENCIAS</span><span>—</span><span>CONTRATOS Y LICENCIAS</span><span>—</span><span>CONTRATOS Y LICENCIAS</span><span>—</span>
-          </div>
-        </div>
-        
-        {/* Expanded Content (Reveals on hover) */}
-        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100 translate-y-10 group-hover:translate-y-0">
-          <div className="max-w-5xl px-gutter-md flex flex-col md:flex-row items-center gap-8 md:gap-16 w-full">
-            <div className="w-24 h-24 md:w-32 md:h-32 bg-gray-100 rounded-2xl md:rounded-[32px] flex items-center justify-center shrink-0 shadow-inner">
-              <Cloud weight="duotone" className="w-12 h-12 md:w-16 md:h-16 text-gray-900" />
+            {/* Physical Rotating Title */}
+            <div 
+              className={`absolute transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] whitespace-nowrap origin-left z-30 ${
+                isActive 
+                  ? 'bottom-[40%] md:bottom-1/2 left-8 md:left-16 rotate-0 opacity-100 translate-y-[-4vw]' 
+                  : 'bottom-4 md:bottom-8 left-4 md:left-1/2 md:-translate-x-[2.5vw] md:-rotate-90 opacity-40 dark:opacity-20'
+              }`}
+            >
+              <h2 className={`font-display font-bold leading-none tracking-tighter transition-all duration-[800ms] ${isActive ? 'text-[10vw] md:text-[6vw]' : 'text-[8vw] md:text-[5vw]'}`}>
+                {panel.title}
+              </h2>
             </div>
-            <div className="text-center md:text-left">
-              <h3 className="text-display-xs md:text-display-sm font-bold text-gray-900 mb-2 md:mb-4">Sincronización Total.</h3>
-              <p className="text-body-lg md:text-body-xl text-gray-600 leading-relaxed max-w-2xl">
-                Tus contratos viven en Epicare. GO AMS simplemente crea un túnel transparente para que puedas gestionarlos sin latencia y sin bases de datos separadas.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      {/* Row 2: Cotizaciones */}
-      <div className="group w-full h-[120px] md:h-[160px] hover:h-[300px] md:hover:h-[450px] bg-gray-50 dark:bg-[#1A1E21] hover:bg-[#2F3437] dark:hover:bg-[#2F3437] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] relative overflow-hidden flex items-center cursor-pointer border-b border-gray-200 dark:border-white/5 hover:border-[#2F3437] dark:hover:border-[#2F3437]">
-        
-        <div className="absolute inset-0 flex items-center whitespace-nowrap opacity-100 group-hover:opacity-0 transition-opacity duration-500">
-          <div className="animate-marquee flex gap-12 md:gap-16 font-display text-[12vw] md:text-[100px] font-bold text-[var(--color-brand-blue)] dark:text-[var(--color-brand-blue)] tracking-tighter uppercase pointer-events-none transition-colors" style={{ animationDirection: "reverse" }}>
-            <span>COTIZACIONES EXACTAS 1:1</span><span>—</span><span>COTIZACIONES EXACTAS 1:1</span><span>—</span><span>COTIZACIONES EXACTAS 1:1</span><span>—</span>
-          </div>
-        </div>
-        
-        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100 translate-y-10 group-hover:translate-y-0">
-          <div className="max-w-5xl px-gutter-md flex flex-col md:flex-row items-center gap-8 md:gap-16 w-full">
-            <div className="w-24 h-24 md:w-32 md:h-32 bg-white/10 rounded-2xl md:rounded-[32px] flex items-center justify-center shrink-0 shadow-inner">
-              <ShoppingCart weight="duotone" className="w-12 h-12 md:w-16 md:h-16 text-[var(--color-brand-blue)]" />
+            {/* Active State: Revealed Content (without title) */}
+            <div 
+              className={`absolute top-1/2 md:top-1/2 left-0 w-full flex flex-col justify-start px-8 md:px-16 transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${isActive ? 'opacity-100 translate-y-0 md:translate-x-0' : 'opacity-0 translate-y-8 md:translate-y-0 md:translate-x-12 pointer-events-none'}`}
+            >
+              <div className="max-w-md mt-4 md:mt-[2vw]">
+                {panel.icon}
+                <h3 className="text-lg md:text-2xl font-bold mb-2 md:mb-4 opacity-90">{panel.subtitle}</h3>
+                <p className={`text-sm md:text-lg font-light leading-relaxed opacity-70`}>
+                  {panel.desc}
+                </p>
+              </div>
             </div>
-            <div className="text-center md:text-left">
-              <h3 className="text-display-xs md:text-display-sm font-bold text-white mb-2 md:mb-4">El mismo catálogo.</h3>
-              <p className="text-body-lg md:text-body-xl text-white/80 leading-relaxed max-w-2xl">
-                No hay discrepancias. Lo que tú ves en GO AMS es matemáticamente lo mismo que procesa Epicare. Mismos planes, mismos precios, misma exactitud.
-              </p>
-            </div>
+            
           </div>
-        </div>
-      </div>
-
-      {/* Row 3: Seguridad */}
-      <div className="group w-full h-[120px] md:h-[160px] hover:h-[300px] md:hover:h-[450px] bg-gray-50 dark:bg-[#1A1E21] hover:bg-[var(--color-brand-blue)] dark:hover:bg-[var(--color-brand-blue)] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] relative overflow-hidden flex items-center cursor-pointer border-b border-gray-200 dark:border-white/5 hover:border-[var(--color-brand-blue)] dark:hover:border-[var(--color-brand-blue)]">
-        
-        <div className="absolute inset-0 flex items-center whitespace-nowrap opacity-100 group-hover:opacity-0 transition-opacity duration-500">
-          <div className="animate-marquee flex gap-12 md:gap-16 font-display text-[12vw] md:text-[100px] font-bold text-gray-900 dark:text-white tracking-tighter uppercase pointer-events-none transition-colors">
-            <span>CIFRADO A NIVEL DE DATO</span><span>—</span><span>CIFRADO A NIVEL DE DATO</span><span>—</span><span>CIFRADO A NIVEL DE DATO</span><span>—</span>
-          </div>
-        </div>
-        
-        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100 translate-y-10 group-hover:translate-y-0">
-          <div className="max-w-5xl px-gutter-md flex flex-col md:flex-row items-center gap-8 md:gap-16 w-full">
-            <div className="w-24 h-24 md:w-32 md:h-32 bg-black/20 rounded-2xl md:rounded-[32px] flex items-center justify-center shrink-0 shadow-inner">
-              <ShieldCheck weight="duotone" className="w-12 h-12 md:w-16 md:h-16 text-white" />
-            </div>
-            <div className="text-center md:text-left">
-              <h3 className="text-display-xs md:text-display-sm font-bold text-white mb-2 md:mb-4">Cero Retención.</h3>
-              <p className="text-body-lg md:text-body-xl text-white/90 leading-relaxed max-w-2xl">
-                Datos de pago y números de seguro social se transmiten directamente al carrier mediante túneles cifrados. GO AMS jamás almacena información sensible.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
+        );
+      })}
     </section>
   );
 }
