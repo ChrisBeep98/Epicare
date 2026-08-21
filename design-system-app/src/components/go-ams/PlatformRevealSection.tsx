@@ -88,18 +88,18 @@ export default function PlatformRevealSection() {
           </p>
         </div>
 
-        {/* 2 Screenshots Gigantes (Más altos: aspect 4/3 o 1/1) */}
-        <div className="w-[130vw] md:w-[120vw] flex flex-col md:flex-row justify-center gap-fluid-md transform-style-preserve-3d">
+        {/* 2 Screenshots Gigantes (Reducidos en altura a proporcin 16:9 para que encajen en pantalla) */}
+        <div className="w-full flex flex-col md:flex-row justify-between gap-[2vw] transform-style-preserve-3d">
           
           {/* Screenshot Back Office */}
-          <div className="shot-bo w-full md:w-[55vw] bg-[var(--color-surface-BG-1)] border border-[var(--color-border-Strokes-default)] overflow-hidden flex flex-col aspect-[1/1] relative rounded-3xl will-change-transform shrink-0">
+          <div className="shot-bo w-full md:w-[49vw] aspect-[4/3] md:aspect-video bg-[var(--color-surface-BG-1)] border border-[var(--color-border-Strokes-default)] overflow-hidden relative rounded-3xl will-change-transform shrink-0">
             
-            {/* Contenedor de máscara */}
+            {/* Contenedor de mscara */}
             <div className="w-full h-full relative overflow-hidden bg-[var(--color-surface-BG-black)]">
               {/* Imagen con leve margen vertical para permitir parallax interno sin recortar mucho */}
               <div className="bg-parallax-inner absolute top-[-10%] left-0 w-full h-[120%] bg-[url('/Files/Go_AMS/go-ams-backoffice.jpeg')] bg-cover bg-center opacity-100" />
               
-              {/* Pestaña flotante sobre la imagen */}
+              {/* Pestaa flotante sobre la imagen */}
               <div className="absolute top-0 left-1/2 -translate-x-1/2 flex items-center justify-center bg-[var(--color-surface-BG-1)]/90 backdrop-blur-md border border-t-0 border-[var(--color-border-Strokes-default)] rounded-none px-8 py-3 w-auto min-w-[180px] text-body-md font-semibold text-[var(--color-text-primary)] shadow-md z-20">
                 Back Office
               </div>
@@ -107,14 +107,14 @@ export default function PlatformRevealSection() {
           </div>
 
           {/* Screenshot Quote & Enroll */}
-          <div className="shot-qe w-full md:w-[55vw] bg-[var(--color-surface-BG-1)] border border-[var(--color-border-Strokes-default)] overflow-hidden flex flex-col aspect-[1/1] relative rounded-3xl will-change-transform shrink-0">
+          <div className="shot-qe w-full md:w-[49vw] aspect-[4/3] md:aspect-video bg-[var(--color-surface-BG-1)] border border-[var(--color-border-Strokes-default)] overflow-hidden relative rounded-3xl will-change-transform shrink-0">
             
-            {/* Contenedor de máscara */}
+            {/* Contenedor de mscara */}
             <div className="w-full h-full relative overflow-hidden bg-[var(--color-surface-BG-black)]">
               {/* Imagen con leve margen vertical para permitir parallax interno sin recortar mucho */}
               <div className="bg-parallax-inner absolute top-[-10%] left-0 w-full h-[120%] bg-[url('/Files/Go_AMS/go-ams-quote.jpeg')] bg-cover bg-center opacity-100" />
               
-              {/* Pestaña flotante sobre la imagen */}
+              {/* Pestaa flotante sobre la imagen */}
               <div className="absolute top-0 left-1/2 -translate-x-1/2 flex items-center justify-center bg-[var(--color-surface-BG-1)]/90 backdrop-blur-md border border-t-0 border-[var(--color-border-Strokes-default)] rounded-none px-8 py-3 w-auto min-w-[180px] text-body-md font-semibold text-[var(--color-text-primary)] shadow-md z-20">
                 Quote & Enroll
               </div>
