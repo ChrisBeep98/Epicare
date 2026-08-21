@@ -59,30 +59,31 @@ export default function HeroSection() {
   };
 
   return (
-    <div className="w-full flex flex-col bg-[var(--color-surface-BG-base)] min-h-screen text-[var(--color-text-primary)] relative overflow-x-hidden">
+    <div id="hero-wrapper" className="w-full flex flex-col bg-[var(--color-surface-BG-base)] min-h-screen text-[var(--color-text-primary)] relative overflow-x-hidden">
       
       {/* 2. Unified Hero Grid */}
-      <section id="hero-main-section" className="relative w-full bg-[var(--color-surface-BG-base)] flex-1 px-gutter-sm lg:px-gutter-md pt-[100px] md:pt-[140px]">
+      <section id="hero-main-section" className="relative w-full bg-[var(--color-surface-BG-base)] flex-1 px-gutter-sm lg:px-gutter-md pt-[48px] md:pt-[88px]">
         <div className="mx-auto max-w-section-xl w-full grid-layout min-h-[100vh] grid-rows-[auto_auto_1fr] pb-section-md">
           
         {/* Row 1: Eyebrow / Subtitle */}
         <div id="hero-eyebrow" className="max-lg:col-start-1 max-lg:col-span-6 max-lg:row-start-1 max-lg:row-span-1 lg:col-start-1 lg:col-span-6 lg:row-start-1 lg:row-span-1 flex items-end pb-0 lg:pb-4 pt-[var(--space-fluid-md)]">
           <p id="eyebrow-text" className="text-ui-label text-[var(--color-text-secondary)] uppercase tracking-widest">
-            El broker portal de Epicare Insurance Corp®
+            Portal de Epicare<span className="inline-block -translate-y-[4px]">&trade;</span>
           </p>
         </div>
 
         {/* Row 2-3: Heading */}
-        <div id="hero-heading" className="max-lg:col-start-1 max-lg:col-span-6 max-lg:row-start-2 max-lg:row-span-1 lg:col-start-1 lg:col-span-6 lg:row-start-2 lg:row-span-2 flex items-start max-lg:!py-section-sm lg:pr-10">
-          <h1 id="hero-title" className="text-display-xl text-[var(--color-text-primary)]">
-            Una plataforma<br />para todo tu negocio<br />de seguros.
+        <div id="hero-heading" className="max-lg:col-start-1 max-lg:col-span-6 max-lg:row-start-2 max-lg:row-span-1 lg:col-start-1 lg:col-span-6 lg:row-start-2 lg:row-span-1 flex items-start max-lg:!py-section-sm lg:pr-10">
+          <h1 id="hero-title" className="text-display-xl text-[var(--color-text-primary)] leading-[1.05] tracking-tight">
+            <span className="text-[var(--color-brand-blue)]">GO AMS.</span><br />
+            Tu negocio de seguros.
           </h1>
         </div>
 
         {/* Row 2: CTA Block */}
         <div id="hero-cta" className="max-lg:col-start-1 max-lg:col-span-6 max-lg:row-start-3 max-lg:row-span-1 lg:col-start-8 lg:col-span-4 lg:row-start-2 lg:row-span-1 flex flex-col items-start justify-start gap-5 mt-4 lg:mt-0">
-          <p id="cta-subtitle" className="text-body-sm text-[var(--color-text-secondary)] leading-relaxed">
-            GO AMS es el portal operacional para agentes y agencias — donde gestionas contratos, clientes, producción y pagos, todo bajo una misma interfaz.
+          <p id="cta-subtitle" className="text-body-md text-[var(--color-text-secondary)] leading-relaxed">
+            GO AMS es el <strong className="font-semibold text-[var(--color-text-primary)]">portal operacional</strong> para agentes y agencias — donde gestionas <strong className="font-semibold text-[var(--color-text-primary)]">contratos, clientes, producción y pagos</strong>, todo bajo una <strong className="font-semibold text-[var(--color-text-primary)]">misma interfaz</strong>.
           </p>
           <button className="bg-[var(--color-brand-blue)] text-[var(--color-surface-BG-base)] px-8 py-3 rounded-xl font-medium w-[150px] hover:bg-opacity-90 transition-all flex justify-center items-center">
             Opera Ya
@@ -90,33 +91,41 @@ export default function HeroSection() {
         </div>
 
         {/* Row 3: Dark Panel */}
-        <div id="visual-panel-wrapper" className="max-lg:col-start-1 max-lg:col-span-6 max-lg:row-start-4 max-lg:row-span-1 lg:col-start-6 lg:col-span-7 lg:row-start-3 lg:row-span-1 w-full h-full relative mt-8 lg:mt-12 max-lg:h-[360px] max-lg:min-h-[360px] lg:h-auto lg:min-h-[420px]">
-          <BleedRight className="absolute top-0 bottom-0 left-0 mobile-bleed overflow-hidden">
+        <div id="visual-panel-wrapper" className="max-lg:col-start-1 max-lg:col-span-6 max-lg:row-start-4 max-lg:row-span-1 lg:col-start-4 lg:col-span-9 lg:row-start-3 lg:row-span-1 w-full h-auto relative mt-8 lg:mt-12 lg:-translate-y-[104px]">
+          
+          <BleedRight className="relative w-full h-full mobile-bleed">
+            
+            {/* Scroll Down Button - Separacion de 20px exacta */}
+            <div className="absolute top-[124px] left-[-20px] -translate-x-full z-20 hidden lg:flex">
+              <button 
+                onClick={() => {
+                  const nextSection = document.getElementById("hero-wrapper")?.nextElementSibling;
+                  if (nextSection) {
+                    const top = nextSection.getBoundingClientRect().top + window.scrollY;
+                    window.scrollTo({ top, behavior: 'smooth' });
+                  }
+                }}
+                className="group relative w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center bg-[var(--color-brand-blue)] text-white shadow-elevation-2 transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:shadow-elevation-4 active:scale-95"
+                aria-label="Scroll down"
+              >
+                <div className="absolute inset-0 rounded-full border border-white/20 scale-100 group-hover:scale-[1.15] opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out"></div>
+                <span className="relative w-full h-full flex items-center justify-center overflow-hidden rounded-full">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" className="absolute w-5 h-5 transition-transform duration-[600ms] ease-[cubic-bezier(0.68,-0.6,0.32,1.6)] group-hover:translate-y-10" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7" /></svg>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" className="absolute w-5 h-5 -translate-y-10 transition-transform duration-[600ms] ease-[cubic-bezier(0.68,-0.6,0.32,1.6)] group-hover:translate-y-0" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7" /></svg>
+                </span>
+              </button>
+            </div>
+
             <div id="visual-panel" className="relative bg-[var(--color-surface-BG-1)] shadow-elevation-2 w-full h-full flex items-center justify-center rounded-tl-[20px] rounded-bl-none rounded-br-none rounded-tr-none max-lg:!bg-transparent overflow-hidden !p-0">
               
-              {/* Bullet 1 - Top Left (Desktop Only) */}
-              <div className="absolute top-[36px] left-[44px] gap-3 items-start z-10 hidden lg:flex">
-                <div className="w-2 h-2 rounded-full bg-[var(--color-brand-blue)] mt-1.5 flex-shrink-0"></div>
-                <p className="text-body-xs text-[var(--color-text-muted)] leading-relaxed max-w-[220px]">
-                  Respaldado por 5 años de operación, 130+ carriers, 52 jurisdicciones
-                </p>
-              </div>
-
-              {/* Bullet 2 - Bottom Left (Desktop Only) */}
-              <div className="absolute bottom-[36px] left-[44px] gap-3 items-start z-10 hidden lg:flex">
-                <div className="w-2 h-2 rounded-full bg-[var(--color-brand-blue)] mt-1.5 flex-shrink-0"></div>
-                <p className="text-body-xs text-[var(--color-text-muted)] leading-relaxed max-w-[220px]">
-                  Procesa millones en primas de manera automática
-                </p>
-              </div>
-
-              {/* Media Editor (Video) */}
-              <div id="hero-video" className="relative z-0 flex items-center justify-center max-lg:!h-full max-lg:!w-full max-lg:!rounded-[24px] overflow-hidden w-full h-[110%]">
-                <video autoPlay loop muted playsInline className="absolute top-0 left-0 w-full h-full object-cover max-lg:!rounded-[24px]">
-                  <source src={asset("/Files/Hero/Isometric_wireframe_illustration…_202606181624.mp4")} type="video/mp4" />
-                  Tu navegador no soporta el video.
-                </video>
-                {/* Textura de ruido optimizada sobre el video */}
+              {/* Media Editor (Image) */}
+              <div id="hero-video" className="relative z-0 flex items-center justify-center max-lg:!w-full max-lg:!rounded-[24px] overflow-hidden w-full h-auto">
+                <img 
+                  src={asset("/Files/Go_AMS/comparison Agent_Agency/Agent_Policies.png")} 
+                  alt="Agent Policies Interface" 
+                  className="w-full h-auto block object-top max-lg:!rounded-[24px]"
+                />
+                {/* Textura de ruido optimizada sobre la imagen */}
                 <div className="absolute inset-0 bg-noise pointer-events-none z-10 mix-blend-overlay opacity-80 max-lg:!rounded-[24px]" />
               </div>
 

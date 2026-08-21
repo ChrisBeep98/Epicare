@@ -88,11 +88,11 @@ export default function PlatformRevealSection() {
           </p>
         </div>
 
-        {/* 2 Screenshots Gigantes (Reducidos en altura a proporcin 16:9 para que encajen en pantalla) */}
-        <div className="w-full flex flex-col md:flex-row justify-between gap-[2vw] transform-style-preserve-3d">
+        {/* 2 Screenshots Gigantes (Strictly Squares touching the edges) */}
+        <div className="w-full flex flex-col md:flex-row justify-between transform-style-preserve-3d">
           
           {/* Screenshot Back Office */}
-          <div className="shot-bo w-full md:w-[49vw] aspect-[4/3] md:aspect-video bg-[var(--color-surface-BG-1)] border border-[var(--color-border-Strokes-default)] overflow-hidden relative rounded-3xl will-change-transform shrink-0">
+          <div className="shot-bo w-full md:w-[calc(50vw-0.5rem)] aspect-square bg-[var(--color-surface-BG-1)] border border-[var(--color-border-Strokes-default)] overflow-hidden relative rounded-3xl will-change-transform shrink-0">
             
             {/* Contenedor de mscara */}
             <div className="w-full h-full relative overflow-hidden bg-[var(--color-surface-BG-black)]">
@@ -107,7 +107,7 @@ export default function PlatformRevealSection() {
           </div>
 
           {/* Screenshot Quote & Enroll */}
-          <div className="shot-qe w-full md:w-[49vw] aspect-[4/3] md:aspect-video bg-[var(--color-surface-BG-1)] border border-[var(--color-border-Strokes-default)] overflow-hidden relative rounded-3xl will-change-transform shrink-0">
+          <div className="shot-qe w-full md:w-[calc(50vw-0.5rem)] aspect-square bg-[var(--color-surface-BG-1)] border border-[var(--color-border-Strokes-default)] overflow-hidden relative rounded-3xl will-change-transform shrink-0">
             
             {/* Contenedor de mscara */}
             <div className="w-full h-full relative overflow-hidden bg-[var(--color-surface-BG-black)]">
