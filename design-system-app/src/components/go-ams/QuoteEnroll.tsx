@@ -91,7 +91,7 @@ export default function QuoteEnroll() {
   return (
     <section 
       ref={sectionRef} 
-      className="relative w-full pt-section-md md:pt-section-lg pb-section-lg overflow-hidden z-10 border-t border-[var(--color-border-Strokes-base)]/20"
+      className="relative w-full pt-0 pb-section-md overflow-hidden z-10 border-t border-[var(--color-border-Strokes-base)]/20"
     >
       {/* LAYER 0: IMMERSIVE BACKGROUND (Aura Glow Background) */}
       <div className="absolute inset-0 z-0">

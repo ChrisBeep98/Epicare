@@ -46,7 +46,7 @@ export default function ArchitectureSection() {
   ];
 
   return (
-    <section id="architecture" className="w-full h-[90vh] min-h-[600px] flex flex-col md:flex-row overflow-hidden bg-white dark:bg-[#0A0E17]">
+    <section id="architecture" className="w-full h-[90vh] min-h-[600px] flex flex-col md:flex-row overflow-hidden bg-white dark:bg-[#0A0E17] mb-section-md">
       {panels.map((panel, idx) => {
         const isActive = activeIndex === idx;
         return (

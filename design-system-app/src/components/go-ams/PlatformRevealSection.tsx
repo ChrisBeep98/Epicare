@@ -76,11 +76,11 @@ export default function PlatformRevealSection() {
       ref={sectionRef}
       className="s04 w-full pt-0 pb-section-md flex justify-center bg-[var(--color-surface-BG-base)] relative z-10 overflow-hidden perspective-[2500px]"
     >
-      <div className="w-full flex flex-col gap-fluid-xl items-center">
+      <div className="w-full flex flex-col gap-static-2xl items-center">
         
         {/* Copy del Reveal */}
         <div className="text-center w-full px-gutter-md max-w-section-sm flex flex-col gap-3 relative z-20">
-          <h2 className="text-display-xl font-semibold text-[var(--color-text-primary)] leading-[1.1] tracking-tight drop-shadow-2xl">
+          <h2 className="text-display-lg font-semibold text-[var(--color-text-primary)] leading-[1.1] tracking-tight drop-shadow-2xl">
             Un sistema.<br/>
             <span className="text-[var(--color-text-accent-blue)]">Dos modos de trabajo.</span>
           </h2>
@@ -90,7 +90,7 @@ export default function PlatformRevealSection() {
         </div>
 
         {/* 2 Screenshots Gigantes (Más altos: aspect 4/3 o 1/1) */}
-        <div className="w-[130vw] md:w-[120vw] flex flex-col md:flex-row justify-center gap-fluid-md mt-[100px] md:mt-[180px] transform-style-preserve-3d">
+        <div className="w-[130vw] md:w-[120vw] flex flex-col md:flex-row justify-center gap-fluid-md transform-style-preserve-3d">
           
           {/* Screenshot Back Office */}
           <div className="shot-bo w-full md:w-[55vw] bg-[var(--color-surface-BG-1)] border border-[var(--color-border-Strokes-default)] overflow-hidden shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)] flex flex-col aspect-[4/5] md:aspect-video relative rounded-3xl will-change-transform">

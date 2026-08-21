@@ -119,7 +119,7 @@ export default function DownlineSection() {
     <div 
       ref={containerRef} 
       id="s08-downline" 
-      className="w-full bg-[var(--color-surface-BG-base)] relative z-10"
+      className="w-full bg-[var(--color-surface-BG-base)] relative z-10 mb-section-md"
     >
       {/* ── SECCIÓN PINEADA CON SCROLL HORIZONTAL (Desktop / Tablet) ── */}
       <section

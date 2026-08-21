@@ -67,8 +67,8 @@ export default function FaqSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="w-full py-24 md:py-32 bg-[var(--color-surface-BG-1)] relative border-t border-[var(--color-border-Strokes-strong)]">
-      <div className="w-full max-w-4xl mx-auto px-gutter-md">
+    <section ref={sectionRef} className="w-full pt-0 pb-section-md bg-[var(--color-surface-BG-1)] relative border-t border-[var(--color-border-Strokes-strong)]">
+      <div className="w-full max-w-4xl mx-auto px-gutter-md pt-24 md:pt-32">
         
         {/* CABECERA */}
         <div className="mb-16 md:mb-24 flex flex-col md:flex-row md:items-end justify-between gap-6">

@@ -105,7 +105,7 @@ export default function DelegateUsersSection() {
     <section
       ref={sectionRef}
       id="delegate-users"
-      className="w-full bg-[var(--color-surface-BG-base)] relative z-10 py-section-2xl overflow-hidden"
+      className="w-full bg-[var(--color-surface-BG-base)] relative z-10 pt-0 pb-section-md overflow-hidden"
     >
       <div className="w-full max-w-section-lg mx-auto px-gutter-md">
         <div className="grid-layout items-center gap-fluid-lg">

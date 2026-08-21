@@ -11,7 +11,7 @@ const steps = [
 
 export default function HowToJoinSection() {
   return (
-    <section className="w-full bg-[var(--color-surface-BG-1)] relative pb-16 md:pb-32">
+    <section className="w-full bg-[var(--color-surface-BG-1)] relative pt-0 pb-section-md">
       
       {/* CABECERA */}
       <div className="w-full max-w-section-lg mx-auto px-gutter-md pt-24 pb-8 md:text-left relative z-20">

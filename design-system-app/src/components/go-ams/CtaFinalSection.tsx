@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export default function CtaFinalSection() {
   return (
-    <section className="w-full relative bg-[var(--color-surface-BG-1)] pb-16 md:pb-24">
+    <section className="w-full relative bg-[var(--color-surface-BG-1)] pt-0 pb-section-lg">
       {/* 
         Center Monolith Concept 
         Aumentamos el width a max-w-5xl (antes 4xl) para mayor presencia 
