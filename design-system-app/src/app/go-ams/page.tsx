@@ -9,6 +9,7 @@ import BackOfficeTour from "@/components/go-ams/BackOfficeTour";
 import QuoteEnroll from "@/components/go-ams/QuoteEnroll";
 import AgentAgencySection from "@/components/go-ams/AgentAgencySection";
 import DownlineSection from "@/components/go-ams/DownlineSection";
+import DelegateUsersSection from "@/components/go-ams/DelegateUsersSection";
 import LoaderEpicare from "@/components/epicare/LoaderEpicare";
 import HeaderEpicare from "@/components/epicare/HeaderEpicare";
 
@@ -46,6 +47,7 @@ export default function GoAmsPage() {
       {/* Acto III: Audiencia & Adaptabilidad */}
       <AgentAgencySection />
       <DownlineSection />
+      <DelegateUsersSection />
     </main>
   );
 }

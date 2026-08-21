@@ -218,15 +218,6 @@ export default function AgentAgencySection() {
         <div className="grid-layout items-end gap-y-fluid-md">
           
           <div className="col-span-6 md:col-span-8 lg:col-span-7 flex flex-col gap-3">
-            <div className="role-reveal-elem flex items-center gap-2">
-              <span className={`w-2 h-2 rounded-full animate-pulse ${
-                isAgent ? "bg-[var(--color-brand-blue)]" : "bg-[var(--color-brand-orange)]"
-              }`} />
-              <span className="text-overline text-[var(--color-text-accent-dark)] dark:text-[var(--color-text-secondary)]">
-                Vistas Adaptables por Rol · GO AMS
-              </span>
-            </div>
-
             <h2 className="role-reveal-elem text-display-lg text-[var(--color-text-primary)] leading-[1.08] tracking-tight">
               Si tienes agencia,<br />
               <span className={isAgent ? "text-[var(--color-text-accent-blue)]" : "text-[var(--color-accent-main)]"}>
