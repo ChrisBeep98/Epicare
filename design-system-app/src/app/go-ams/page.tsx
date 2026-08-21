@@ -12,8 +12,11 @@ import DownlineSection from "@/components/go-ams/DownlineSection";
 import DelegateUsersSection from "@/components/go-ams/DelegateUsersSection";
 import ArchitectureSection from "@/components/go-ams/ArchitectureSection";
 import HowToJoinSection from "@/components/go-ams/HowToJoinSection";
+import FaqSection from "@/components/go-ams/FaqSection";
+import CtaFinalSection from "@/components/go-ams/CtaFinalSection";
 import LoaderEpicare from "@/components/epicare/LoaderEpicare";
 import HeaderEpicare from "@/components/epicare/HeaderEpicare";
+import FooterEpicare from "@/components/epicare/FooterEpicare";
 
 export default function GoAmsPage() {
   const [isHeaderPill, setIsHeaderPill] = useState(false);
@@ -52,6 +55,9 @@ export default function GoAmsPage() {
       <DelegateUsersSection />
       <ArchitectureSection />
       <HowToJoinSection />
+      <FaqSection />
+      <CtaFinalSection />
+      <FooterEpicare />
     </main>
   );
 }
