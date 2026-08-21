@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import HeroSection from "@/components/go-ams/HeroSection";
-import ContextSection from "@/components/go-ams/ContextSection";
 import PlatformRevealSection from "@/components/go-ams/PlatformRevealSection";
 import BackOfficeTour from "@/components/go-ams/BackOfficeTour";
 import QuoteEnroll from "@/components/go-ams/QuoteEnroll";
@@ -54,7 +53,6 @@ export default function GoAmsPage() {
       <QuoteEnroll />
       <DownlineSection />
       <DelegateUsersSection />
-      <ContextSection />
       <BackOfficeTour />
       <HowToJoinSection />
       <ArchitectureSection />
