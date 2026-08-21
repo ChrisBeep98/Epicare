@@ -39,6 +39,9 @@ Cada vez que el usuario te pida generar una textura, debes construir el prompt e
 ### 4. Vibrant Chromatic Aura (Energético)
 > "Vibrant chromatic mesh gradient background, blending cyan blue (#35BBFD) and energetic orange (#F26023), smooth liquid color transitions, frosted glass effect, modern tech brand, 4k resolution, clean empty space for typography, no text."
 
+### 5. Swiss Corporate Gradient (Limpio y Elegante)
+> "Abstract minimalist banner background, extremely high quality, 4k, smooth gradient blending vibrant cyan blue (#35BBFD) and deep corporate navy blue (#0A2540). Clean Swiss design aesthetic, subtle frosted glass texture, no harsh shadows, ultra-modern SaaS brand background, smooth color transitions, soft grain, no text."
+
 ---
 
 ## 🚀 CÓMO EJECUTAR ESTE COMANDO
