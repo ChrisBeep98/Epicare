@@ -37,27 +37,37 @@ export default function GoAmsPage() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-[var(--color-surface-BG-base)] transition-colors duration-500 overflow-x-hidden">
+    <main className="min-h-screen bg-[var(--color-surface-BG-base)] transition-colors duration-500 overflow-x-hidden relative">
+      
+      {/* ======================= */}
+      {/*   GLOBAL COMPONENTS     */}
+      {/* ======================= */}
       <LoaderEpicare />
       <HeaderEpicare isHeaderPill={isHeaderPill} />
-      <HeroSection />
-      <ContextSection />
-      <BrokenDaySection />
-      <PlatformRevealSection />
       
-      {/* Acto II: Demostración (Core Pins) */}
-      <BackOfficeTour />
-      <QuoteEnroll />
-
-      {/* Acto III: Audiencia & Adaptabilidad */}
+      {/* ======================= */}
+      {/*   LANDING SECTIONS      */}
+      {/* ======================= */}
+      
+      <HeroSection />
+      <PlatformRevealSection />
       <AgentAgencySection />
+      <QuoteEnroll />
       <DownlineSection />
       <DelegateUsersSection />
-      <ArchitectureSection />
+      <ContextSection />
+      <BrokenDaySection />
+      <BackOfficeTour />
       <HowToJoinSection />
+      <ArchitectureSection />
       <FaqSection />
       <CtaFinalSection />
+
+      {/* ======================= */}
+      {/*   GLOBAL FOOTER         */}
+      {/* ======================= */}
       <FooterEpicare />
+
     </main>
   );
 }
