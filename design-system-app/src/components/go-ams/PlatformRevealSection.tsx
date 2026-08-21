@@ -92,10 +92,10 @@ export default function PlatformRevealSection() {
         <div className="w-[130vw] md:w-[120vw] flex flex-col md:flex-row justify-center gap-fluid-md transform-style-preserve-3d">
           
           {/* Screenshot Back Office */}
-          <div className="shot-bo w-full md:w-[55vw] bg-[var(--color-surface-BG-1)] border border-[var(--color-border-Strokes-default)] overflow-hidden shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)] flex flex-col aspect-[4/5] md:aspect-video relative rounded-3xl will-change-transform">
+          <div className="shot-bo w-full md:w-[55vw] bg-[var(--color-surface-BG-1)] border border-[var(--color-border-Strokes-default)] overflow-hidden flex flex-col aspect-[1/1] relative rounded-3xl will-change-transform shrink-0">
             
             {/* Contenedor de máscara */}
-            <div className="flex-1 relative overflow-hidden bg-[var(--color-surface-BG-black)]">
+            <div className="w-full h-full relative overflow-hidden bg-[var(--color-surface-BG-black)]">
               {/* Imagen con leve margen vertical para permitir parallax interno sin recortar mucho */}
               <div className="bg-parallax-inner absolute top-[-10%] left-0 w-full h-[120%] bg-[url('/Files/Go_AMS/go-ams-backoffice.jpeg')] bg-cover bg-center opacity-100" />
               
@@ -107,10 +107,10 @@ export default function PlatformRevealSection() {
           </div>
 
           {/* Screenshot Quote & Enroll */}
-          <div className="shot-qe w-full md:w-[55vw] bg-[var(--color-surface-BG-1)] border border-[var(--color-border-Strokes-default)] overflow-hidden shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)] flex flex-col aspect-[4/5] md:aspect-video relative rounded-3xl will-change-transform">
+          <div className="shot-qe w-full md:w-[55vw] bg-[var(--color-surface-BG-1)] border border-[var(--color-border-Strokes-default)] overflow-hidden flex flex-col aspect-[1/1] relative rounded-3xl will-change-transform shrink-0">
             
             {/* Contenedor de máscara */}
-            <div className="flex-1 relative overflow-hidden bg-[var(--color-surface-BG-black)]">
+            <div className="w-full h-full relative overflow-hidden bg-[var(--color-surface-BG-black)]">
               {/* Imagen con leve margen vertical para permitir parallax interno sin recortar mucho */}
               <div className="bg-parallax-inner absolute top-[-10%] left-0 w-full h-[120%] bg-[url('/Files/Go_AMS/go-ams-quote.jpeg')] bg-cover bg-center opacity-100" />
               
