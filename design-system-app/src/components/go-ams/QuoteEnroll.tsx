@@ -91,21 +91,8 @@ export default function QuoteEnroll() {
   return (
     <section 
       ref={sectionRef} 
-      className="relative w-full pt-0 pb-section-md overflow-hidden z-10"
+      className="relative w-full pt-0 pb-section-md overflow-hidden z-10 bg-[var(--color-surface-BG-base)]"
     >
-      {/* LAYER 0: IMMERSIVE BACKGROUND (Aura Glow Background) */}
-      <div className="absolute inset-0 z-0">
-        <Image 
-          src="/images/go-ams/quote-enroll-aura.jpg"
-          alt="Aura Glow Background"
-          fill
-          className="object-cover opacity-60"
-          quality={90}
-        />
-        {/* Overlay required by Aura Glow SKILL for text legibility in Dark Mode */}
-        <div className="absolute inset-0 bg-[var(--color-surface-BG-base)]/80 backdrop-blur-[2px]" />
-      </div>
-
       {/* LAYER 1: TEXT CONTENT & GLASS CARD WRAPPER */}
       <div className="relative z-20 mx-auto w-full px-gutter-md" style={{ maxWidth: 'var(--max-w-section-xl)' }}>
         
