@@ -91,7 +91,7 @@ export default function QuoteEnroll() {
   return (
     <section 
       ref={sectionRef} 
-      className="relative w-full pt-0 pb-section-md overflow-hidden z-10 border-t border-[var(--color-border-Strokes-base)]/20"
+      className="relative w-full pt-0 pb-section-md overflow-hidden z-10"
     >
       {/* LAYER 0: IMMERSIVE BACKGROUND (Aura Glow Background) */}
       <div className="absolute inset-0 z-0">
@@ -111,7 +111,7 @@ export default function QuoteEnroll() {
         
         {/* Título Monumental & Compacto (Strictly Tokenized) */}
         <div ref={titleRef} className="flex flex-col md:flex-row justify-between items-end mb-static-xl gap-fluid-md">
-          <h2 className="text-display-xl font-semibold text-[var(--color-text-primary)] tracking-tight leading-[1.05] max-w-2xl">
+          <h2 className="text-display-lg font-semibold text-[var(--color-text-primary)] tracking-tight leading-[1.05] max-w-2xl">
             <span className="block reveal-text pb-2">
               Cuatro formas de <span className="text-[var(--color-text-accent-blue)]">cerrar una venta.</span>
             </span>

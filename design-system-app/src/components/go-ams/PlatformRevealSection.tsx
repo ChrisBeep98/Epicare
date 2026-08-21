@@ -79,10 +79,9 @@ export default function PlatformRevealSection() {
       <div className="w-full flex flex-col gap-static-2xl items-center">
         
         {/* Copy del Reveal */}
-        <div className="text-center w-full px-gutter-md max-w-section-sm flex flex-col gap-3 relative z-20">
+        <div className="text-center w-full px-gutter-md max-w-4xl flex flex-col gap-3 relative z-20">
           <h2 className="text-display-lg font-semibold text-[var(--color-text-primary)] leading-[1.1] tracking-tight drop-shadow-2xl">
-            Un sistema.<br/>
-            <span className="text-[var(--color-text-accent-blue)]">Dos modos de trabajo.</span>
+            Un sistema. <span className="text-[var(--color-text-accent-blue)]">Dos modos de trabajo.</span>
           </h2>
           <p className="text-body-lg text-[var(--color-text-secondary)] mx-auto max-w-[500px]">
             GO AMS separa lo que administras de lo que vendes. Cada modo tiene su propio espacio, su propia navegación, y un botón para cambiar entre ellos.

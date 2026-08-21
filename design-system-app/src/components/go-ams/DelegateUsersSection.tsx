@@ -111,8 +111,8 @@ export default function DelegateUsersSection() {
         <div className="grid-layout items-center gap-fluid-lg">
           
           {/* ── LADO IZQUIERDO: Copy Simple ── */}
-          <div className="col-span-12 lg:col-span-5 flex flex-col justify-center gap-fluid-sm relative z-20">
-            <h2 className="text-display-lg text-[var(--color-text-primary)] leading-[1.1] tracking-tight mb-space-static-sm">
+          <div className="col-span-12 lg:col-span-6 flex flex-col justify-center gap-fluid-sm relative z-20">
+            <h2 className="text-display-lg text-[var(--color-text-primary)] leading-[1.1] tracking-tight mb-space-static-sm max-w-xl">
               Tu equipo entra <span className="text-[var(--color-text-accent-blue)]">con su propia cuenta.</span>
             </h2>
             
@@ -122,7 +122,7 @@ export default function DelegateUsersSection() {
           </div>
 
           {/* ── LADO DERECHO: The Storytelling Matrix (6 Squares) ── */}
-          <div className="col-span-12 lg:col-span-7 relative flex justify-center items-center h-[600px] perspective-[1500px]">
+          <div className="col-span-12 lg:col-span-6 relative flex justify-center items-center h-[600px] perspective-[1500px]">
             
             <div ref={sceneRef} className="relative w-full h-full flex justify-center items-center transform-style-3d">
               
