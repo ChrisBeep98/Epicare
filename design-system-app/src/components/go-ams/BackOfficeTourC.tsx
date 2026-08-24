@@ -23,6 +23,9 @@ export default function BackOfficeTourC() {
     const isReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (isReduced) return;
 
+    const el = containerRef.current;
+    if (!el) return;
+
     const ctx = gsap.context(() => {
       if (!trackRef.current) return;
 
@@ -35,7 +38,7 @@ export default function BackOfficeTourC() {
         y: getScrollAmount,
         ease: "none",
         scrollTrigger: {
-          trigger: containerRef.current,
+          trigger: el,
           start: "top top",
           end: "+=350%",
           pin: true,
@@ -79,7 +82,7 @@ export default function BackOfficeTourC() {
           },
         },
       });
-    }, containerRef);
+    }, el);
 
     return () => ctx.revert();
   }, []);

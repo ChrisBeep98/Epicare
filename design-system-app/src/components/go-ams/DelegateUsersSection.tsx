@@ -50,6 +50,9 @@ export default function DelegateUsersSection() {
   }, []);
 
   useLayoutEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     const ctx = gsap.context(() => {
@@ -60,7 +63,7 @@ export default function DelegateUsersSection() {
 
       const tl = gsap.timeline({
         scrollTrigger: {
-          trigger: sectionRef.current,
+          trigger: el,
           start: "top 60%",
         },
         repeat: -1,
@@ -96,7 +99,7 @@ export default function DelegateUsersSection() {
         .to(".glass-matrix", { opacity: 0, y: -40, scale: 0.9, duration: 0.8, ease: "power3.in" }, "end")
         .to(".subtitle-content", { opacity: 0, duration: 0.3 }, "end");
 
-    }, sectionRef);
+    }, el);
 
     return () => ctx.revert();
   }, []);

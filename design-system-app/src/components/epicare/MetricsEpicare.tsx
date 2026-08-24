@@ -65,6 +65,8 @@ export default function MetricsEpicare() {
 
   // ── GSAP: The Blur Reveal & Title Animation ──
   useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
     const ctx = gsap.context(() => {
       
       // 1. Unified Title Reveal is now handled by <AnimatedTitle>
@@ -122,7 +124,7 @@ export default function MetricsEpicare() {
         });
       });
 
-    }, sectionRef);
+    }, el);
     return () => ctx.revert();
   }, []);
 

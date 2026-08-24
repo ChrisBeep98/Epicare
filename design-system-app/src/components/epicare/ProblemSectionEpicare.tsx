@@ -31,19 +31,23 @@ export default function ProblemSectionEpicare() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const elDesc = descRef.current;
+    if (!elDesc) return;
     const ctx = gsap.context(() => {
       gsap.fromTo(
         descRef.current,
         { opacity: 0, y: 15, filter: "blur(4px)" },
         { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6, ease: "power3.out" }
       );
-    }, descRef);
+    }, elDesc);
     return () => ctx.revert();
   }, [activeIndex]);
 
   useEffect(() => {
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+    const elContainer = containerRef.current;
+    if (!elContainer) return;
     const ctx = gsap.context((self) => {
       const q = self.selector!;
 
@@ -129,7 +133,7 @@ export default function ProblemSectionEpicare() {
           },
         }
       );
-    }, containerRef);
+    }, elContainer);
     return () => ctx.revert();
   }, []);
 

@@ -64,6 +64,9 @@ export default function ContextSection() {
   ];
 
   useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+
     const ctx = gsap.context(() => {
       
       // Desktop Bento Reveal
@@ -119,7 +122,7 @@ export default function ContextSection() {
         });
       });
 
-    }, sectionRef);
+    }, el);
     return () => ctx.revert();
   }, []);
 

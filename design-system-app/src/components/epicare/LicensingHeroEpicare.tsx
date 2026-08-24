@@ -40,6 +40,9 @@ export default function LicensingHeroEpicare() {
 
     let tl: gsap.core.Timeline;
 
+    const el = containerRef.current;
+    if (!el) return;
+
     const ctx = gsap.context(() => {
       // 1. Initial State
       gsap.set('.licensing-title-char', {
@@ -104,7 +107,7 @@ export default function LicensingHeroEpicare() {
         clearProps: "willChange"
       }, "-=1.0");
 
-    }, containerRef);
+    }, el);
 
     const playHeroEntrance = () => {
       requestAnimationFrame(() => {

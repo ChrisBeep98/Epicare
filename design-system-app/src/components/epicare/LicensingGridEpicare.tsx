@@ -108,7 +108,8 @@ export default function LicensingGridEpicare() {
 
   // Animate items on mount and on search
   useEffect(() => {
-    if (!gridRef.current) return;
+    const el = gridRef.current;
+    if (!el) return;
     
     const ctx = gsap.context(() => {
       // Layered Unveiling style animation for the grid items
@@ -125,7 +126,7 @@ export default function LicensingGridEpicare() {
           clearProps: "all"
         }
       );
-    }, gridRef);
+    }, el);
 
     return () => ctx.revert();
   }, [searchTerm]);

@@ -49,6 +49,9 @@ export default function FaqSection() {
 
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
+    const el = sectionRef.current;
+    if (!el) return;
+
     const ctx = gsap.context(() => {
       // Entrada en cascada elegante para las filas del acordeón
       gsap.from(".faq-row", {
@@ -58,11 +61,11 @@ export default function FaqSection() {
         stagger: 0.08,
         ease: "power3.out",
         scrollTrigger: {
-          trigger: sectionRef.current,
+          trigger: el,
           start: "top 75%",
         }
       });
-    }, sectionRef);
+    }, el);
     return () => ctx.revert();
   }, []);
 

@@ -14,3 +14,7 @@
 El usuario rechazó 8 paradigmas distintos en dos rondas. Las opciones presentadas se sienten "genéricas y feas". 
 Anteriormente el usuario había pedido: "imágenes más grandes, pegadas a los bordes... imágenes más altas, dales parallax y animación de revelado gsap".
 Las últimas propuestas ignoraron ese requirement visual por intentar buscar "nuevos paradigmas". El problema no es el paradigma, es el CUBRIMIENTO VISUAL (escala de las imágenes) y el NIVEL DE CRAFT (parallax, revelado).
+
+## Hardening de Animaciones (24 Ago 2026)
+- Se corrigieron todos los subcomponentes conceptuales (`BackOfficeTourA`, `B`, `C`, `Command`, `Crisis`, `Oscilloscope`) para capturar el elemento DOM directo en `gsap.context()` y se eliminó el dependency array loop `[activeIndex]` en el concepto B, eliminando errores de invalid scope en navegación SPA.
+

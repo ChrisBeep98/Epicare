@@ -402,6 +402,9 @@ export default function InteractiveGlobeEpicare({ isWidget = false }: { isWidget
     // Accessibility check: Reduced Motion
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+    const el = sectionRef.current;
+    if (!el) return;
+
     const ctx = gsap.context(() => {
       if (prefersReducedMotion) {
         gsap.set('.map-reveal', { opacity: 1, y: 0 });
@@ -414,7 +417,7 @@ export default function InteractiveGlobeEpicare({ isWidget = false }: { isWidget
       if (mapRevealEl.length > 0) {
         gsap.set('.map-reveal', { opacity: 0, y: REVEAL.md });
         ScrollTrigger.create({
-          trigger: sectionRef.current,
+          trigger: el,
           start: 'top 75%',
           onEnter: () => {
             gsap.to('.map-reveal', {
@@ -436,7 +439,7 @@ export default function InteractiveGlobeEpicare({ isWidget = false }: { isWidget
       // para evitar conflictos de GSAP ScrollTrigger con el evento de carga asíncrona.
       const mm = gsap.matchMedia();
 
-    }, sectionRef);
+    }, el);
 
     return () => ctx.revert();
   }, []);

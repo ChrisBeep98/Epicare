@@ -4,7 +4,13 @@ import React, { useEffect, useState, useRef } from "react";
 import gsap from "gsap";
 
 export default function LoaderEpicare() {
-  const [visible, setVisible] = useState(true);
+  // En soft-navigation (client-side routing) el Loader ya corrió en la primera carga.
+  // Lo saltamos completamente para evitar el flash negro + la race condition de GSAP.
+  const [visible, setVisible] = useState(() => {
+    if (typeof window === "undefined") return true; // SSR: siempre visible (no aplica)
+    // Si el loader ya finalizó en una visita anterior de esta sesión, no mostrarlo
+    return !(window as any).epicareLoaderFinished;
+  });
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -60,6 +66,17 @@ export default function LoaderEpicare() {
           ease: "power2.inOut"
         });
         
+        // Guard: en soft-navigation el readyState ya es 'complete' y setVisible(false)
+        // puede haberse ejecutado antes de que este tween dispare, dejando containerRef.current = null.
+        if (!containerRef.current) {
+          // Si el nodo ya no existe, ejecutar el callback de limpieza directamente
+          document.body.style.overflow = "";
+          document.documentElement.classList.add("show-scrollbar");
+          (window as any).epicareLoaderFinished = true;
+          window.dispatchEvent(new Event('epicareLoaderFinished'));
+          return;
+        }
+
         gsap.to(containerRef.current, {
           opacity: 0,
           duration: 0.35,

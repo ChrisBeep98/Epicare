@@ -20,10 +20,13 @@ export default function BackOfficeTourA() {
     const isReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (isReduced) return;
 
+    const el = containerRef.current;
+    if (!el) return;
+
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
         scrollTrigger: {
-          trigger: containerRef.current,
+          trigger: el,
           start: "top top",
           end: "+=400%",
           pin: true,
@@ -69,7 +72,7 @@ export default function BackOfficeTourA() {
           );
         }
       });
-    }, containerRef);
+    }, el);
 
     return () => ctx.revert();
   }, []);

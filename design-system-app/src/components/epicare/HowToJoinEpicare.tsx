@@ -100,6 +100,9 @@ export default function HowToJoinEpicare() {
   };
 
   useLayoutEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+
     const ctx = gsap.context(() => {
       // Standardized text-block animation (Hardware Optimized)
       gsap.utils.toArray<HTMLElement>(".c-text-block").forEach(block => {
@@ -130,7 +133,7 @@ export default function HowToJoinEpicare() {
         scrollTrigger: { trigger: ".c-zone-2", scrub: true, start: "top top", end: "bottom top" }
       });
 
-    }, sectionRef);
+    }, el);
     return () => ctx.revert();
   }, []);
 

@@ -136,6 +136,9 @@ export default function AgentAgencySection() {
   const imageContainerRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     const ctx = gsap.context(() => {
@@ -155,13 +158,13 @@ export default function AgentAgencySection() {
           stagger: 0.08,
           ease: EASE.out,
           scrollTrigger: {
-            trigger: sectionRef.current,
+            trigger: el,
             start: "top 78%",
             once: true,
           }
         }
       );
-    }, sectionRef);
+    }, el);
 
     return () => ctx.revert();
   }, []);

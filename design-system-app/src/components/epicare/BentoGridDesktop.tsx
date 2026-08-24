@@ -193,12 +193,15 @@ export default function BentoGridDesktop() {
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
     
+    let ctx: gsap.Context | undefined;
+    const section = sectionRef.current;
+    if (!section) return;
+
     // We use a slight delay so images/fonts load, preventing miscalculation of scrollWidth
     const timeout = setTimeout(() => {
-      const ctx = gsap.context(() => {
+      ctx = gsap.context(() => {
         const track = trackRef.current;
-        const section = sectionRef.current;
-        if (!track || !section) return;
+        if (!track) return;
 
         // 1. Calculate precise horizontal distance to move the track
         const getHorizontalDist = () => track.scrollWidth - window.innerWidth;
@@ -224,12 +227,13 @@ export default function BentoGridDesktop() {
         // Force ScrollTrigger to recalculate everything after this pin is created
         ScrollTrigger.refresh();
         
-      }, sectionRef);
-
-      return () => ctx.revert();
+      }, section);
     }, 100);
 
-    return () => clearTimeout(timeout);
+    return () => {
+      clearTimeout(timeout);
+      ctx?.revert();
+    };
   }, []);
 
   return (

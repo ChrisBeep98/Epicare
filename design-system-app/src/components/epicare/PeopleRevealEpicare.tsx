@@ -51,12 +51,16 @@ export default function PeopleRevealEpicare() {
 
   useEffect(() => {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const el = sectionRef.current;
+    if (!el) return;
+
+    let ctx: gsap.Context | undefined;
 
     // CRITICAL FIX: Delay trigger creation so upstream sections (like BentoGrid with its 100ms delay)
     // create their pinned triggers FIRST. If this creates its trigger before the pin is registered,
     // the mathematical start positions will be completely misaligned.
     const timer = setTimeout(() => {
-      const ctx = gsap.context(() => {
+      ctx = gsap.context(() => {
         if (reduce) {
           gsap.set('.pr-slat', { scaleY: 0, opacity: 0 });
           return;
@@ -75,7 +79,7 @@ export default function PeopleRevealEpicare() {
           transformOrigin: (i: number) => (i % 2 === 0 ? 'top center' : 'bottom center'),
           ease: proReveal,
           stagger: { each: 0.07, from: 'center', ease: proReveal },
-          scrollTrigger: { trigger: sectionRef.current, start: 'top 88%', end: '+=85%', scrub: 3 },
+          scrollTrigger: { trigger: el, start: 'top 88%', end: '+=85%', scrub: 3 },
         });
 
         // Photo — very gentle parallax drift, smoothed.
@@ -83,7 +87,7 @@ export default function PeopleRevealEpicare() {
           { yPercent: -5 },
           {
             yPercent: 5, ease: 'none',
-            scrollTrigger: { trigger: sectionRef.current, start: 'top bottom', end: 'bottom top', scrub: 2 },
+            scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: 2 },
           }
         );
 
@@ -101,7 +105,7 @@ export default function PeopleRevealEpicare() {
         const clampSkew = gsap.utils.clamp(-3.5, 3.5);
         
         ScrollTrigger.create({
-          trigger: sectionRef.current,
+          trigger: el,
           start: 'top bottom',
           end: 'bottom top',
           onUpdate: (self) => {
@@ -137,12 +141,13 @@ export default function PeopleRevealEpicare() {
         ScrollTrigger.sort();
         ScrollTrigger.refresh();
         
-      }, sectionRef);
-
-      return () => ctx.revert();
+      }, el);
     }, 200);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      ctx?.revert();
+    };
   }, []);
 
   return (

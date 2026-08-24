@@ -171,7 +171,9 @@ export default function ForWhoEpicare() {
 
   useEffect(() => {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const mm = gsap.matchMedia(sectionRef);
+    const el = sectionRef.current;
+    if (!el) return;
+    const mm = gsap.matchMedia(el);
 
     mm.add({
       isDesktop: "(min-width: 1024px)",
@@ -186,10 +188,10 @@ export default function ForWhoEpicare() {
       // Headline text-birth (All screens)
       gsap.fromTo('.fw-line', { yPercent: 118, willChange: 'transform' },
         { yPercent: 0, duration: 1.15, stagger: 0.12, ease: 'power4.out', clearProps: 'willChange',
-          scrollTrigger: { trigger: sectionRef.current, start: 'top 82%' } });
+          scrollTrigger: { trigger: el, start: 'top 82%' } });
       gsap.fromTo('.fw-head', { opacity: 0, y: 26, willChange: 'transform, opacity' },
         { opacity: 1, y: 0, duration: 0.9, stagger: 0.08, ease: 'power3.out', clearProps: 'willChange',
-          scrollTrigger: { trigger: sectionRef.current, start: 'top 80%' } });
+          scrollTrigger: { trigger: el, start: 'top 80%' } });
 
       // Giant numerals — parallax (All screens)
       gsap.utils.toArray<HTMLElement>('.fw-num').forEach((num) => {

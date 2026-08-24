@@ -52,6 +52,9 @@ export default function DownlineSection() {
   }, []);
 
   useLayoutEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     const ctx = gsap.context(() => {
@@ -102,7 +105,7 @@ export default function DownlineSection() {
             stagger: 0.15,
             ease: EASE.out,
             scrollTrigger: {
-              trigger: containerRef.current,
+              trigger: el,
               start: "top 75%",
               once: true,
             }
@@ -110,7 +113,7 @@ export default function DownlineSection() {
         );
       });
 
-    }, containerRef);
+    }, el);
 
     return () => ctx.revert();
   }, [leftOffset]);

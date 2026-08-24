@@ -84,8 +84,13 @@ export default function ProductSpotlightEpicare({ variant }: { variant: Spotligh
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
     
+    const el = sectionRef.current;
+    if (!el) return;
+
+    let ctx: gsap.Context | undefined;
+    
     const timer = setTimeout(() => {
-      const ctx = gsap.context(() => {
+      ctx = gsap.context(() => {
         
         // 1. Video Reveal
         gsap.fromTo(videoColRef.current,
@@ -94,7 +99,7 @@ export default function ProductSpotlightEpicare({ variant }: { variant: Spotligh
             opacity: 1, x: '0vw',
             duration: 1.5, ease: "power3.out", 
             scrollTrigger: {
-              trigger: sectionRef.current,
+              trigger: el,
               start: "top 70%",
               toggleActions: "play none none reverse", 
             }
@@ -110,9 +115,9 @@ export default function ProductSpotlightEpicare({ variant }: { variant: Spotligh
               opacity: 1, y: '0vh',
               duration: 1.2, stagger: 0.15, ease: "power2.out", delay: 0.2,
               scrollTrigger: {
-                trigger: sectionRef.current,
+                trigger: el,
                 start: "top 70%",
-                toggleActions: "play none none reverse",
+                toggleActions: "play none none reverse", 
               }
             }
           );
@@ -133,11 +138,13 @@ export default function ProductSpotlightEpicare({ variant }: { variant: Spotligh
               );
           });
         }
-      }, sectionRef);
-      return () => ctx.revert();
+      }, el);
     }, 100);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      ctx?.revert();
+    };
   }, [isEppigo]);
 
   return (

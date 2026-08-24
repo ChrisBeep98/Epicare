@@ -14,11 +14,12 @@ export function AnimatedTitle({ children, className = "" }: AnimatedTitleProps) 
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
-    if (!containerRef.current) return;
+    const el = containerRef.current;
+    if (!el) return;
     
     const ctx = gsap.context(() => {
       // Target elements inside this container safely
-      const lines = gsap.utils.toArray(".title-fill-line", containerRef.current);
+      const lines = gsap.utils.toArray(".title-fill-line", el);
       
       gsap.to(lines, {
         backgroundPosition: "0% 0%",
@@ -26,13 +27,13 @@ export function AnimatedTitle({ children, className = "" }: AnimatedTitleProps) 
         stagger: 1,  // Wait exactly 1 second before starting the next segment
         ease: "none",
         scrollTrigger: {
-          trigger: containerRef.current,
+          trigger: el,
           start: "top 85%",
           end: "top 20%", // Massively expanded scroll distance to naturally slow down the scrub speed
           scrub: 1
         }
       });
-    }, containerRef);
+    }, el);
 
     return () => ctx.revert();
   }, [children]);

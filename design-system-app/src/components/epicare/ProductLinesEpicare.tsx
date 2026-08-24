@@ -45,9 +45,13 @@ export default function ProductLinesEpicare() {
   // ── GSAP: header reveal + scroll-linked line light-up + active tracking ──
   useEffect(() => {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const el = sectionRef.current;
+    if (!el) return;
+
+    let ctx: gsap.Context | undefined;
 
     const timer = setTimeout(() => {
-      const ctx = gsap.context(() => {
+      ctx = gsap.context(() => {
         const blocks = gsap.utils.toArray<HTMLElement>('.pl-block');
 
         if (reduce) {
@@ -56,10 +60,10 @@ export default function ProductLinesEpicare() {
           // Headline text-birth (Hardware Optimized)
           gsap.fromTo('.pl-head-line', { yPercent: 118, willChange: 'transform' },
             { yPercent: 0, duration: 1.15, stagger: 0.12, ease: 'power4.out', clearProps: 'willChange',
-              scrollTrigger: { trigger: sectionRef.current, start: 'top 82%' } });
+              scrollTrigger: { trigger: el, start: 'top 82%' } });
           gsap.fromTo('.pl-head', { opacity: 0, y: 26, willChange: 'transform, opacity' },
             { opacity: 1, y: 0, duration: 0.9, stagger: 0.08, ease: 'power3.out', clearProps: 'willChange',
-              scrollTrigger: { trigger: sectionRef.current, start: 'top 80%' } });
+              scrollTrigger: { trigger: el, start: 'top 80%' } });
 
           // Per-line scroll-linked "light up" (scrollytelling reading reveal).
           gsap.utils.toArray<HTMLElement>('.pl-line').forEach((line) => {
@@ -99,12 +103,13 @@ export default function ProductLinesEpicare() {
         // Force recalculation to catch any layout shifts
         ScrollTrigger.sort();
         ScrollTrigger.refresh();
-      }, sectionRef);
-
-      return () => ctx.revert();
+      }, el);
     }, 200);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      ctx?.revert();
+    };
   }, []);
 
   const scrollToBlock = (i: number) => {

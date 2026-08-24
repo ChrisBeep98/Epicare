@@ -16,9 +16,12 @@ export default function BackOfficeTourOscilloscope() {
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
+    const el = containerRef.current;
+    if (!el) return;
+
     const ctx = gsap.context(() => {
       ScrollTrigger.create({
-        trigger: containerRef.current,
+        trigger: el,
         start: "top top",
         end: "+=200%",
         pin: true,
@@ -27,7 +30,7 @@ export default function BackOfficeTourOscilloscope() {
           setActive(Math.floor(self.progress * 2.99));
         },
       });
-    }, containerRef);
+    }, el);
     return () => ctx.revert();
   }, []);
 

@@ -42,6 +42,9 @@ export default function QuoteEnroll() {
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   useLayoutEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+
     const ctx = gsap.context(() => {
       // 1. Reveal Monumental para el Título (Curtain effect + y)
       if (titleRef.current) {
@@ -56,7 +59,7 @@ export default function QuoteEnroll() {
             stagger: 0.1,
             ease: "power4.out",
             scrollTrigger: {
-              trigger: sectionRef.current,
+              trigger: el,
               start: "top 80%",
               toggleActions: "play none none reverse"
             }
@@ -65,25 +68,28 @@ export default function QuoteEnroll() {
       }
 
       // 2. Subtle Reveal para las tarjetas (Faster and smoother)
-      gsap.fromTo(cardsRef.current,
-        { 
-          y: 40, 
-          opacity: 0
-        },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.7,
-          stagger: 0.08,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 80%",
-            toggleActions: "play none none reverse"
+      const validCards = cardsRef.current.filter(Boolean);
+      if (validCards.length > 0) {
+        gsap.fromTo(validCards,
+          { 
+            y: 40, 
+            opacity: 0
+          },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.7,
+            stagger: 0.08,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: el,
+              start: "top 80%",
+              toggleActions: "play none none reverse"
+            }
           }
-        }
-      );
-    }, sectionRef);
+        );
+      }
+    }, el);
 
     return () => ctx.revert();
   }, []);

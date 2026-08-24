@@ -21,6 +21,9 @@ export default function Coverage52Epicare() {
   const elementsRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+
     const ctx = gsap.context(() => {
       // 1. Reveal del Header y CTA en cascada
       if (elementsRef.current) {
@@ -37,14 +40,14 @@ export default function Coverage52Epicare() {
             ease: EASE.out,
             stagger: STAGGER.base,
             scrollTrigger: {
-              trigger: sectionRef.current,
+              trigger: el,
               start: TRIGGER.standard,
               toggleActions: "play none none reverse",
             },
           }
         );
       }
-    }, sectionRef);
+    }, el);
 
     return () => ctx.revert();
   }, []);

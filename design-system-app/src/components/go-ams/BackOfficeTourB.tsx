@@ -22,10 +22,13 @@ export default function BackOfficeTourB() {
     const isReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (isReduced) return;
 
+    const el = containerRef.current;
+    if (!el) return;
+
     const ctx = gsap.context(() => {
       // Pin the section
       ScrollTrigger.create({
-        trigger: containerRef.current,
+        trigger: el,
         start: "top top",
         end: "+=300%",
         pin: true,
@@ -37,22 +40,24 @@ export default function BackOfficeTourB() {
             Math.floor(progress * PANELS.length),
             PANELS.length - 1
           );
-          if (newIndex !== activeIndex) {
-            setActiveIndex(newIndex);
-            
-            // Crossfade right side image
-            gsap.fromTo(
-              rightImageRef.current,
-              { opacity: 0, scale: 0.98 },
-              { opacity: 1, scale: 1, duration: 0.5, ease: "power2.out" }
-            );
-          }
+          setActiveIndex((prev) => {
+            if (newIndex !== prev) {
+              // Crossfade right side image
+              gsap.fromTo(
+                rightImageRef.current,
+                { opacity: 0, scale: 0.98 },
+                { opacity: 1, scale: 1, duration: 0.5, ease: "power2.out" }
+              );
+              return newIndex;
+            }
+            return prev;
+          });
         },
       });
-    }, containerRef);
+    }, el);
 
     return () => ctx.revert();
-  }, [activeIndex]);
+  }, []);
 
   return (
     <section

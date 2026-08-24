@@ -22,10 +22,13 @@ export default function BackOfficeTourCommand() {
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
+    const el = containerRef.current;
+    if (!el) return;
+
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
         scrollTrigger: {
-          trigger: containerRef.current,
+          trigger: el,
           start: "top top",
           end: "+=300%",
           pin: true,
@@ -56,7 +59,7 @@ export default function BackOfficeTourCommand() {
           i * 0.3 + 0.8 // Se vuelve a apagar un poco después
         );
       });
-    }, containerRef);
+    }, el);
 
     return () => ctx.revert();
   }, []);

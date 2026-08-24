@@ -41,6 +41,8 @@ export default function HeroEpicare() {
     const isDarkTheme = document.documentElement.classList.contains('dark');
     setIsDark(isDarkTheme);
 
+    const el = containerRef.current;
+    if (!el) return;
     const ctx = gsap.context(() => {
       // Animación infinita de la línea de scroll
       gsap.fromTo(scrollLineRef.current, 
@@ -193,7 +195,7 @@ export default function HeroEpicare() {
         tl.to({}, { duration: 0.8 });
       });
 
-    }, containerRef);
+    }, el);
 
     return () => ctx.revert();
   }, []);

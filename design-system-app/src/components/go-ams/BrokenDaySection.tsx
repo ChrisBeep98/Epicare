@@ -22,6 +22,9 @@ function Concept13PrintExhibition() {
 
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
+    const el = containerRef.current;
+    if (!el) return;
+
     let ctx = gsap.context(() => {
       const track = trackRef.current;
       if (!track) return;
@@ -32,17 +35,16 @@ function Concept13PrintExhibition() {
         x: getScrollAmount,
         ease: "none",
         scrollTrigger: {
-          trigger: containerRef.current,
+          trigger: el,
           start: "top top",
           end: () => `+=${track.scrollWidth}`,
           pin: true,
-          animation: gsap.to(track, { x: getScrollAmount, ease: "none" }),
           scrub: 1,
           invalidateOnRefresh: true
         }
       });
 
-    }, containerRef);
+    }, el);
     return () => ctx.revert();
   }, []);
 
@@ -86,12 +88,15 @@ function Concept14ArchitectLedger() {
 
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
+    const el = containerRef.current;
+    if (!el) return;
+
     let ctx = gsap.context(() => {
       
-      // Animacin de las lneas divisorias
+      // Animación de las líneas divisorias
       gsap.fromTo(".ledger-line", 
         { scaleX: 0 }, 
-        { scaleX: 1, stagger: 0.1, ease: "expo.out", duration: 1.5, scrollTrigger: { trigger: containerRef.current, start: "top 75%" } }
+        { scaleX: 1, stagger: 0.1, ease: "expo.out", duration: 1.5, scrollTrigger: { trigger: el, start: "top 75%" } }
       );
 
       // Curtain Reveal para el texto
@@ -113,7 +118,7 @@ function Concept14ArchitectLedger() {
         );
       });
 
-    }, containerRef);
+    }, el);
     return () => ctx.revert();
   }, []);
 
@@ -171,21 +176,24 @@ function Concept15TypographicAnchor() {
 
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
+    const el = containerRef.current;
+    if (!el) return;
+
     let ctx = gsap.context(() => {
       
       ScrollTrigger.create({
-        trigger: containerRef.current,
+        trigger: el,
         start: "top top",
         end: "bottom bottom",
         pin: leftRef.current,
         pinSpacing: false,
       });
 
-      // Parallax en los nmeros de fondo de cada item
+      // Parallax en los números de fondo de cada item
       const numbers = gsap.utils.toArray<HTMLElement>(".bg-number");
       numbers.forEach(num => {
         gsap.to(num, {
-          y: -100, // Se mueven un poco ms rpido que el scroll normal
+          y: -100, // Se mueven un poco más rápido que el scroll normal
           ease: "none",
           scrollTrigger: {
             trigger: num.parentElement,
@@ -196,7 +204,7 @@ function Concept15TypographicAnchor() {
         });
       });
 
-    }, containerRef);
+    }, el);
     return () => ctx.revert();
   }, []);
 

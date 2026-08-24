@@ -79,13 +79,16 @@ export default function LicensingSection() {
     gsap.registerPlugin(ScrollTrigger);
     ScrollTrigger.config({ ignoreMobileResize: true });
 
+    const el = sectionRef.current;
+    if (!el) return;
+
     const ctx = gsap.context(() => {
       gsap.fromTo('.lgs-reveal',
         { opacity: 0, y: 40 },
         {
           opacity: 1, y: 0,
           duration: DUR.base, ease: EASE.out, stagger: STAGGER.base,
-          scrollTrigger: { trigger: sectionRef.current, start: TRIGGER.late, once: true },
+          scrollTrigger: { trigger: el, start: TRIGGER.late, once: true },
         }
       );
       gsap.fromTo('.lgs-globe-wrap',
@@ -93,7 +96,7 @@ export default function LicensingSection() {
         {
           opacity: 1, scale: 1,
           duration: DUR.cinematic, ease: EASE.dramatic,
-          scrollTrigger: { trigger: sectionRef.current, start: TRIGGER.standard, once: true },
+          scrollTrigger: { trigger: el, start: TRIGGER.standard, once: true },
         }
       );
       gsap.fromTo('.lgs-row',
@@ -105,7 +108,7 @@ export default function LicensingSection() {
           scrollTrigger: { trigger: '.lgs-table', start: TRIGGER.standard, once: true },
         }
       );
-    }, sectionRef);
+    }, el);
 
     return () => ctx.revert();
   }, []);

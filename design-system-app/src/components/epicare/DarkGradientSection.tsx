@@ -121,6 +121,8 @@ export default function DarkGradientSection() {
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
     const ctx = gsap.context(() => {
       // Standard Header Entrance (Hardware Optimized)
       gsap.fromTo('.dg-head-line', { yPercent: 118, willChange: 'transform' },
@@ -149,7 +151,7 @@ export default function DarkGradientSection() {
           }
         }
       );
-    }, sectionRef);
+    }, el);
 
     return () => ctx.revert();
   }, []);

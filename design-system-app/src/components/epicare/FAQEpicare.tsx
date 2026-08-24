@@ -28,6 +28,9 @@ export default function FAQEpicare() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   useLayoutEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+
     const ctx = gsap.context(() => {
       if (listRef.current) {
         const items = listRef.current.querySelectorAll(".faq-item");
@@ -41,7 +44,7 @@ export default function FAQEpicare() {
             ease: EASE.out,
             stagger: STAGGER.base,
             scrollTrigger: {
-              trigger: sectionRef.current,
+              trigger: el,
               start: TRIGGER.standard,
               toggleActions: "play none none reverse",
             },
@@ -52,11 +55,11 @@ export default function FAQEpicare() {
       // Header standardization (Hardware Optimized)
       gsap.fromTo('.anim-head-line', { yPercent: 118, willChange: 'transform' },
         { yPercent: 0, duration: 1.15, stagger: 0.12, ease: 'power4.out', clearProps: 'willChange',
-          scrollTrigger: { trigger: sectionRef.current, start: 'top 82%' } });
+          scrollTrigger: { trigger: el, start: 'top 82%' } });
       gsap.fromTo('.anim-head-fade', { opacity: 0, y: 26, willChange: 'transform, opacity' },
         { opacity: 1, y: 0, duration: 0.9, stagger: 0.08, ease: 'power3.out', clearProps: 'willChange',
-          scrollTrigger: { trigger: sectionRef.current, start: 'top 80%' } });
-    }, sectionRef);
+          scrollTrigger: { trigger: el, start: 'top 80%' } });
+    }, el);
 
     return () => ctx.revert();
   }, []);

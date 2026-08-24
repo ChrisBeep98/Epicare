@@ -17,6 +17,8 @@ export default function WhyEpicare() {
   const elementsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
+    const el = container.current;
+    if (!el) return;
     let ctx = gsap.context(() => {
       
       elementsRef.current.forEach((el, i) => {
@@ -45,7 +47,7 @@ export default function WhyEpicare() {
         );
       });
 
-    }, container);
+    }, el);
     return () => ctx.revert();
   }, []);
 

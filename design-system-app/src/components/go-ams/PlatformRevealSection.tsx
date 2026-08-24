@@ -10,6 +10,9 @@ export default function PlatformRevealSection() {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
+    const el = sectionRef.current;
+    if (!el) return;
+
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     const ctx = gsap.context(() => {
@@ -28,7 +31,7 @@ export default function PlatformRevealSection() {
           duration: 1.2,
           ease: "power3.out",
           scrollTrigger: {
-            trigger: sectionRef.current,
+            trigger: el,
             start: "top 75%",
           }
         }
@@ -44,7 +47,7 @@ export default function PlatformRevealSection() {
           ease: "power3.out",
           delay: 0.15,
           scrollTrigger: {
-            trigger: sectionRef.current,
+            trigger: el,
             start: "top 75%",
           }
         }
@@ -58,7 +61,7 @@ export default function PlatformRevealSection() {
           scale: 1,
           ease: "none",
           scrollTrigger: {
-            trigger: sectionRef.current,
+            trigger: el,
             start: "top bottom",
             end: "bottom top",
             scrub: true
@@ -66,7 +69,7 @@ export default function PlatformRevealSection() {
         }
       );
 
-    }, sectionRef);
+    }, el);
 
     return () => ctx.revert();
   }, []);
