@@ -97,12 +97,12 @@ export default function EpicareLandingPage() {
       <div className="w-full order-7 pb-section-sm"><ProductSpotlightEpicare variant="solutions" /></div>
       {/* ── S07 · PeopleReveal (respiro humano) ── */}
       {/* <div className="w-full order-8 pb-section-lg"><PeopleRevealEpicare /></div> */}
-      {/* ── S08 · ProductLines (portafolio) ── */}
-      <div className="w-full order-9"><ProductLinesEpicare /></div>
-      {/* ── S09 · Coverage52 (mini-pico visual) ── */}
-      {/* <div className="w-full order-10"><Coverage52Epicare /></div> */}
-      {/* ── S10 · AgentAgency (Audiencias y Rol) ── */}
-      <div className="w-full order-11"><AgentAgencySection /></div>
+      {/* ── S08 · AgentAgency (Audiencias y Rol) ── */}
+      <div className="w-full order-9"><AgentAgencySection /></div>
+      {/* ── S09 · ProductLines (portafolio) ── */}
+      <div className="w-full order-10"><ProductLinesEpicare /></div>
+      {/* ── S10 · Coverage52 (mini-pico visual) ── */}
+      {/* <div className="w-full order-11"><Coverage52Epicare /></div> */}
       {/* ── S13 · HowToJoin (fricción cero) ── */}
       <div className="w-full order-[13]"><HowToJoinEpicare /></div>
       {/* ── S14 · FAQ (objeciones) ── */}

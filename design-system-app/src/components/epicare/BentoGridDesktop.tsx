@@ -299,7 +299,7 @@ export default function BentoGridDesktop() {
               Logo={({ className }: { className?: string }) => (
                 <img src={asset('/academy-icon-knockout-blue 1.svg')} alt="GO Academy" className={className} />
               )}
-              videoLight={asset("/Files/Features/Academy_Light_Final.mp4")}
+              videoLight={asset("/Files/Features/Academy_V2_Light.mp4")}
               videoDark={asset("/Files/Features/Academy_Dark_Final.mp4")} 
               ctaText={t('cardCta')} 
               isAcademy

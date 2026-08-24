@@ -258,7 +258,7 @@ export default function BentoGridMobile() {
       title: t('card8Title'),
       desc: t('card8Desc'),
       image: asset("/Files/Features/Wireframe_monitor_with_headset.jpeg"),
-      videoLight: asset("/Files/Features/Academy_Light_Final.mp4"),
+      videoLight: asset("/Files/Features/Academy_V2_Light.mp4"),
       videoLightContain: true,
       videoDark: asset("/Files/Features/Academy_Dark_Final.mp4"),
       videoDarkFullBackground: true,
