@@ -116,17 +116,22 @@ export default function HeroSection() {
               </button>
             </div>
 
-            <div id="visual-panel" className="relative bg-[var(--color-surface-BG-1)] shadow-elevation-2 w-full h-full flex items-center justify-center rounded-tl-[20px] rounded-bl-none rounded-br-none rounded-tr-none max-lg:!bg-transparent overflow-hidden !p-0">
+            <div id="visual-panel" className="relative bg-[var(--color-surface-BG-1)] shadow-elevation-2 w-full h-full flex items-center justify-center rounded-l-[12px] rounded-r-none max-lg:!bg-transparent overflow-hidden !p-0">
               
-              {/* Media Editor (Image) */}
-              <div id="hero-video" className="relative z-0 flex items-center justify-center max-lg:!w-full max-lg:!rounded-[24px] overflow-hidden w-full h-auto">
-                <img 
-                  src={asset("/Files/Go_AMS/comparison Agent_Agency/Agent_Policies.png")} 
-                  alt="Agent Policies Interface" 
-                  className="w-full h-auto block object-top max-lg:!rounded-[24px]"
-                />
+              {/* Media Editor (Video) */}
+              <div id="hero-video" className="relative z-0 flex items-center justify-center max-lg:!w-full overflow-hidden rounded-l-[12px] rounded-r-none w-full h-auto">
+                <video 
+                  autoPlay 
+                  muted 
+                  loop 
+                  playsInline
+                  preload="auto"
+                  className="w-full h-auto block object-top rounded-l-[12px] rounded-r-none"
+                >
+                  <source src={asset("/Files/Go_AMS/Hero/go_ams_hero.mp4")} type="video/mp4" />
+                </video>
                 {/* Textura de ruido optimizada sobre la imagen */}
-                <div className="absolute inset-0 bg-noise pointer-events-none z-10 mix-blend-overlay opacity-80 max-lg:!rounded-[24px]" />
+                <div className="absolute inset-0 bg-noise pointer-events-none z-10 mix-blend-overlay opacity-80 rounded-l-[12px] rounded-r-none" />
               </div>
 
             </div>
