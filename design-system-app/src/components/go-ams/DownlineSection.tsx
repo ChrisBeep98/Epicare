@@ -137,29 +137,29 @@ export default function DownlineSection() {
           {/* Bloque de Título (Desplazado 2 columnas: col-start-3 en 12 cols) */}
           <div className="col-span-6 md:col-span-6 lg:col-start-3 lg:col-span-7 flex flex-col items-start gap-1.5 text-left">
             <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[var(--color-brand-orange)] animate-pulse" />
-              <span className="text-overline text-[var(--color-brand-orange)]">
+              <span className="w-2 h-2 rounded-full bg-[var(--color-brand-blue)] animate-pulse" />
+              <span className="text-overline text-[var(--color-brand-blue)]">
                 Agency Downline & Ecosystem
               </span>
             </div>
             
             <h2 className="text-display-lg text-[var(--color-text-primary)] leading-[1.08] tracking-tight">
               Ves a tu equipo sin<br />
-              <span className="text-[var(--color-accent-main)]">tener que preguntarle.</span>
+              <span className="text-[var(--color-text-accent-blue)]">tener que preguntarle.</span>
             </h2>
           </div>
 
           {/* Indicador de Desplazamiento Horizontal (Flujo natural a la derecha) */}
           <div className="col-span-6 md:col-span-2 lg:col-start-11 lg:col-span-2 flex flex-col items-start md:items-end gap-2 shrink-0 pb-1">
             <div className="flex items-center gap-2 text-meta text-[var(--color-text-muted)] font-mono">
-              <Sparkle weight="fill" className="w-3.5 h-3.5 text-[var(--color-brand-orange)]" />
+              <Sparkle weight="fill" className="w-3.5 h-3.5 text-[var(--color-brand-blue)]" />
               <span>Scroll down</span>
             </div>
             {/* Barra de Progreso */}
             <div className="w-40 sm:w-48 h-1 rounded-full bg-[var(--color-surface-BG-1)] border border-[var(--color-border-Strokes-default)] overflow-hidden">
               <div 
                 ref={progressBarRef} 
-                className="w-full h-full bg-[var(--color-brand-orange)] origin-left scale-x-0 transition-transform duration-75"
+                className="w-full h-full bg-[var(--color-brand-blue)] origin-left scale-x-0 transition-transform duration-75"
               />
             </div>
           </div>
@@ -179,7 +179,7 @@ export default function DownlineSection() {
               {/* Header de Tarjeta */}
               <div className="p-4 sm:p-5 md:p-6 flex items-center justify-between border-b border-[var(--color-border-Strokes-default)] bg-[var(--color-surface-BG-1)]/95 backdrop-blur-md shrink-0">
                 <div className="flex items-center gap-3">
-                  <div className="p-2.5 rounded-2xl bg-[var(--color-brand-orange)]/10 text-[var(--color-accent-main)] border border-[var(--color-brand-orange)]/20">
+                  <div className="p-2.5 rounded-2xl bg-[var(--color-brand-blue)]/10 text-[var(--color-text-accent-blue)] border border-[var(--color-brand-blue)]/20">
                     <TreeStructure weight="duotone" className="w-5 h-5" />
                   </div>
                   <h3 className="text-h4 text-[var(--color-text-primary)] font-semibold">Downline en Tiempo Real</h3>
@@ -215,7 +215,7 @@ export default function DownlineSection() {
                   <h3 className="text-h4 text-[var(--color-text-primary)] font-semibold">Licencias & Continuing Education</h3>
                 </div>
 
-                <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--color-surface-BG-base)] border border-[var(--color-border-Strokes-default)] text-meta text-[var(--color-accent-main)] font-mono text-[11px]">
+                <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--color-surface-BG-base)] border border-[var(--color-border-Strokes-default)] text-meta text-[var(--color-text-accent-blue)] font-mono text-[11px]">
                   <ShieldStar weight="fill" className="w-3.5 h-3.5" />
                   <span>NIPR Sincronizado</span>
                 </div>
@@ -239,13 +239,13 @@ export default function DownlineSection() {
               {/* Header */}
               <div className="p-4 sm:p-5 md:p-6 flex items-center justify-between border-b border-[var(--color-border-Strokes-default)] bg-[var(--color-surface-BG-1)]/95 backdrop-blur-md shrink-0">
                 <div className="flex items-center gap-3">
-                  <div className="p-2.5 rounded-2xl bg-[var(--color-text-accent-dark)]/10 text-[var(--color-text-primary)] border border-[var(--color-border-Strokes-default)]">
-                    <UserPlus weight="duotone" className="w-5 h-5 text-[var(--color-brand-orange)]" />
+                  <div className="p-2.5 rounded-2xl bg-[var(--color-brand-blue)]/10 text-[var(--color-text-accent-blue)] border border-[var(--color-brand-blue)]/20">
+                    <UserPlus weight="duotone" className="w-5 h-5 text-[var(--color-brand-blue)]" />
                   </div>
                   <h3 className="text-h4 text-[var(--color-text-primary)] font-semibold">Onboarding de Nuevos Agentes</h3>
                 </div>
 
-                <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--color-brand-orange)]/10 border border-[var(--color-brand-orange)]/20 text-meta text-[var(--color-accent-main)] font-mono text-[11px]">
+                <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--color-brand-blue)]/10 border border-[var(--color-brand-blue)]/20 text-meta text-[var(--color-text-accent-blue)] font-mono text-[11px]">
                   <Lightning weight="fill" className="w-3.5 h-3.5" />
                   <span>Invitación en 1 Clic</span>
                 </div>

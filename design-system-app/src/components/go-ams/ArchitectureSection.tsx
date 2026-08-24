@@ -39,8 +39,8 @@ export default function ArchitectureSection() {
       title: "SEGURIDAD",
       subtitle: "Cero Retención.",
       desc: "SSN y pagos viajan directo al carrier mediante túneles cifrados. GO AMS nunca guarda tus datos sensibles.",
-      icon: <ShieldCheck weight="duotone" className="w-10 h-10 md:w-16 md:h-16 mb-4 md:mb-8 text-white" />,
-      color: "bg-[#1A1E21] dark:bg-[#F26023]",
+      icon: <ShieldCheck weight="duotone" className="w-10 h-10 md:w-16 md:h-16 mb-4 md:mb-8 text-[var(--color-brand-blue)]" />,
+      color: "bg-[#1A1E21] dark:bg-[#0c1524]",
       textColor: "text-white dark:text-white"
     }
   ];

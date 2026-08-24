@@ -77,44 +77,32 @@ const AGENCY_FEATURES: FeaturePill[] = [
 ];
 
 /**
- * @description Helper para que el contenedor de imagen sangre hacia el borde derecho del viewport (BleedRight)
+ * @description Helper para que el contenedor de imagen sangre hacia el borde izquierdo del viewport (BleedLeft)
  */
-function BleedRight({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+function BleedLeft({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const [offset, setOffset] = useState(0);
   
-  useEffect(() => {
+  useLayoutEffect(() => {
     const update = () => {
-      if (ref.current && window.innerWidth >= 1024) {
-        const originalRight = ref.current.style.right;
-        ref.current.style.right = "0px";
-        const rect = ref.current.getBoundingClientRect();
-        const dist = document.documentElement.clientWidth - rect.right;
-        ref.current.style.right = originalRight;
-        setOffset(dist > 0 ? dist : 0);
-      } else {
-        setOffset(0);
+      if (ref.current && ref.current.parentElement) {
+        const rect = ref.current.parentElement.getBoundingClientRect();
+        setOffset(rect.left > 0 ? rect.left : 0);
       }
     };
     
     update();
-    window.addEventListener("load", update);
     window.addEventListener("resize", update);
-    
-    const observer = new MutationObserver(update);
-    observer.observe(document.body, { childList: true, subtree: true });
-    
-    return () => {
-      window.removeEventListener("load", update);
-      window.removeEventListener("resize", update);
-      observer.disconnect();
-    };
+    return () => window.removeEventListener("resize", update);
   }, []);
 
   return (
     <div 
       ref={ref} 
-      style={{ right: offset > 0 ? `-${offset}px` : "0px" }} 
+      style={{ 
+        marginLeft: offset > 0 ? `-${offset}px` : "0px",
+        width: offset > 0 ? `calc(100% + ${offset}px)` : "100%"
+      }} 
       className={className}
     >
       {children}
@@ -125,7 +113,7 @@ function BleedRight({ children, className = "" }: { children: React.ReactNode; c
 /**
  * @description S07/S08 · Agente y Agencia (Audiencias y Vistas de Rol)
  * Conmutador interactivo de alta fidelidad, 12 columnas arquitectónicas,
- * showcase Bleed-Right al borde del body con timer visual minimalista.
+ * showcase Bleed-Left al borde del body con tabs a la izquierda y mini cards interactivas a la derecha.
  */
 export default function AgentAgencySection() {
   const [activeRole, setActiveRole] = useState<RoleMode>("agent");
@@ -220,10 +208,11 @@ export default function AgentAgencySection() {
         {/* ── 1. Cabecera Editorial & Selector de Rol (12 Columnas) ── */}
         <div className="grid-layout items-end gap-y-fluid-md">
           
+          {/* Título y Subtítulo Principal (Izquierda, Cols 1-7) */}
           <div className="col-span-6 md:col-span-8 lg:col-span-7 flex flex-col gap-3">
             <h2 className="role-reveal-elem text-display-lg text-[var(--color-text-primary)] leading-[1.08] tracking-tight">
               Si tienes agencia,<br />
-              <span className={isAgent ? "text-[var(--color-text-accent-blue)]" : "text-[var(--color-accent-main)]"}>
+              <span className="text-[var(--color-text-accent-blue)]">
                 el portal cambia contigo.
               </span>
             </h2>
@@ -233,7 +222,7 @@ export default function AgentAgencySection() {
             </p>
           </div>
 
-          {/* Selector de Pestañas Interactivo */}
+          {/* Selector de Pestañas Interactivo (Derecha, Cols 8-12) */}
           <div className="role-reveal-elem col-span-6 md:col-span-8 lg:col-span-5 flex lg:justify-end">
             <div className="p-1.5 rounded-2xl bg-[var(--color-surface-BG-1)] border border-[var(--color-border-Strokes-default)] flex items-center gap-1.5 shadow-elevation-1 w-full sm:w-auto">
               
@@ -257,7 +246,7 @@ export default function AgentAgencySection() {
                 aria-pressed={!isAgent}
                 className={`flex-1 sm:flex-initial flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl text-ui-label transition-all duration-300 cursor-pointer ${
                   !isAgent
-                    ? "bg-[var(--color-brand-orange)] text-white shadow-elevation-2 font-semibold"
+                    ? "bg-[var(--color-brand-blue)] text-white shadow-elevation-2 font-semibold"
                     : "text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-surface-BG-2)]"
                 }`}
               >
@@ -270,22 +259,64 @@ export default function AgentAgencySection() {
 
         </div>
 
-        {/* ── 2. Panel Principal Dinámico Asimétrico (Sin fondo/sombra de tarjeta) ── */}
+        {/* ── 2. Panel Principal Dinámico Asimétrico ── */}
         <div
           ref={interactivePanelRef}
           className="w-full grid-layout gap-fluid-lg items-center relative"
         >
           
-          {/* Columna Izquierda: Manifiesto de Rol & Capacidades (Cols 1-6) */}
-          <div className="col-span-6 md:col-span-8 lg:col-span-6 flex flex-col justify-between gap-6 py-2">
+          {/* Columna Izquierda: Imagen Bleed-Left 100% limpia (Cols 1-6) */}
+          <div 
+            className="col-span-6 md:col-span-8 lg:col-span-6 w-full h-[400px] sm:h-[480px] lg:h-full lg:min-h-[580px] xl:min-h-[640px] relative order-2 lg:order-1"
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+          >
+            <BleedLeft className="w-full h-full">
+              <div 
+                ref={imageContainerRef}
+                style={{
+                  borderTopLeftRadius: 0,
+                  borderBottomLeftRadius: 0,
+                  borderTopRightRadius: "1.75rem",
+                  borderBottomRightRadius: "1.75rem"
+                }}
+                className="relative w-full h-full overflow-hidden bg-[#151718] border-y border-r border-l-0 transition-colors duration-500 shadow-elevation-2 flex items-center justify-center border-[var(--color-brand-blue)]/20 !rounded-tl-none !rounded-bl-none !rounded-tr-[1.75rem] !rounded-br-[1.75rem]"
+              >
+                {/* Imágenes Bleed-Left: recortando el radio embebido del PNG para que la izquierda sea 100% recta y plana contra el borde */}
+                {COMPARISON_IMAGES.map((img, idx) => {
+                  const isActive = idx === activeSlide;
+                  if (!isActive) return null;
+                  return (
+                    <div 
+                      key={img.id} 
+                      style={{
+                        borderTopLeftRadius: 0,
+                        borderBottomLeftRadius: 0,
+                        borderTopRightRadius: "1.75rem",
+                        borderBottomRightRadius: "1.75rem"
+                      }}
+                      className="active-screen-img absolute inset-0 w-full h-full overflow-hidden bg-[#151718] !rounded-tl-none !rounded-bl-none !rounded-tr-[1.75rem] !rounded-br-[1.75rem]"
+                    >
+                      <img
+                        src={img.src}
+                        alt={img.alt}
+                        loading="lazy"
+                        decoding="async"
+                        className="w-[calc(100%+24px)] max-w-none h-full object-cover object-left-top -translate-x-4"
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+            </BleedLeft>
+          </div>
+
+          {/* Columna Derecha: Manifiesto de Rol & Mini Cards (Cols 7-12) */}
+          <div className="col-span-6 md:col-span-8 lg:col-span-6 flex flex-col justify-between gap-6 py-2 order-1 lg:order-2">
             
             <div className="flex flex-col gap-4">
               <div className="flex items-center gap-3">
-                <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-meta font-mono ${
-                  isAgent
-                    ? "bg-[var(--color-brand-blue)]/10 text-[var(--color-text-accent-blue)] border border-[var(--color-brand-blue)]/20"
-                    : "bg-[var(--color-brand-orange)]/10 text-[var(--color-accent-main)] border border-[var(--color-brand-orange)]/20"
-                }`}>
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-meta font-mono bg-[var(--color-brand-blue)]/10 text-[var(--color-text-accent-blue)] border border-[var(--color-brand-blue)]/20">
                   <Sparkle weight="fill" className="w-3.5 h-3.5" />
                   <span>{isAgent ? "Modo: Producción Directa" : "Modo: Gestión de Downline"}</span>
                 </span>
@@ -309,9 +340,7 @@ export default function AgentAgencySection() {
                     onClick={() => setActiveSlide(idx)}
                     className={`p-3.5 rounded-2xl text-left flex flex-col justify-between gap-3 transition-all duration-300 min-h-[165px] cursor-pointer relative overflow-hidden ${
                       isActive
-                        ? isAgent
-                          ? "bg-[var(--color-surface-BG-2)] border-2 border-[var(--color-brand-blue)] shadow-elevation-2"
-                          : "bg-[var(--color-surface-BG-2)] border-2 border-[var(--color-brand-orange)] shadow-elevation-2"
+                        ? "bg-[var(--color-surface-BG-2)] border-2 border-[var(--color-brand-blue)] shadow-elevation-2"
                         : "bg-[var(--color-surface-BG-1)] border border-[var(--color-border-Strokes-default)] hover:border-[var(--color-border-Strokes-strong)] hover:bg-[var(--color-surface-BG-2)]"
                     }`}
                   >
@@ -320,15 +349,13 @@ export default function AgentAgencySection() {
                         weight="fill"
                         className={`w-5 h-5 flex-shrink-0 transition-colors ${
                           isActive
-                            ? isAgent ? "text-[var(--color-brand-blue)]" : "text-[var(--color-brand-orange)]"
+                            ? "text-[var(--color-brand-blue)]"
                             : "text-[var(--color-text-muted)]"
                         }`}
                       />
                       <span className={`text-meta font-mono px-2 py-0.5 rounded transition-colors ${
                         isActive
-                          ? isAgent
-                            ? "bg-[var(--color-brand-blue)]/10 text-[var(--color-text-accent-blue)] border border-[var(--color-brand-blue)]/30"
-                            : "bg-[var(--color-brand-orange)]/10 text-[var(--color-accent-main)] border border-[var(--color-brand-orange)]/30"
+                          ? "bg-[var(--color-brand-blue)]/10 text-[var(--color-text-accent-blue)] border border-[var(--color-brand-blue)]/30"
                           : "bg-[var(--color-surface-BG-base)] text-[var(--color-text-muted)] border border-[var(--color-border-Strokes-default)]"
                       }`}>
                         {f.badge}
@@ -349,9 +376,7 @@ export default function AgentAgencySection() {
                     {/* Barra de Progreso Minimalista Integrada al Fondo de la Card */}
                     <div className="w-full h-[2px] rounded-full bg-[var(--color-border-Strokes-default)] overflow-hidden mt-1">
                       <div
-                        className={`h-full rounded-full ${
-                          isAgent ? "bg-[var(--color-brand-blue)]" : "bg-[var(--color-brand-orange)]"
-                        }`}
+                        className="h-full rounded-full bg-[var(--color-brand-blue)]"
                         style={{
                           width: isActive ? "100%" : "0%",
                           transition: isActive && !isPaused ? "width 4500ms linear" : "none"
@@ -363,39 +388,6 @@ export default function AgentAgencySection() {
               })}
             </div>
 
-          </div>
-
-          {/* Columna Derecha: Imagen Bleed-Right 100% limpia (Cols 7-12) */}
-          <div 
-            className="col-span-6 md:col-span-8 lg:col-span-6 w-full h-[400px] sm:h-[480px] lg:h-full lg:min-h-[580px] xl:min-h-[640px] relative"
-            onMouseEnter={() => setIsPaused(true)}
-            onMouseLeave={() => setIsPaused(false)}
-          >
-            <BleedRight className="w-full h-full lg:w-auto lg:absolute lg:top-0 lg:bottom-0 lg:left-0 overflow-hidden">
-              <div 
-                ref={imageContainerRef}
-                className={`relative w-full h-full rounded-2xl lg:rounded-r-none lg:rounded-l-3xl overflow-hidden bg-[var(--color-surface-BG-1)] border-y border-l border-r lg:border-r-0 transition-colors duration-500 shadow-elevation-2 flex items-center justify-center ${
-                  isAgent ? "border-[var(--color-brand-blue)]/20" : "border-[var(--color-brand-orange)]/20"
-                }`}
-              >
-                {/* Imágenes Bleed-Right a gran escala sin overlays */}
-                {COMPARISON_IMAGES.map((img, idx) => {
-                  const isActive = idx === activeSlide;
-                  if (!isActive) return null;
-                  return (
-                    <div key={img.id} className="active-screen-img absolute inset-0 w-full h-full">
-                      <img
-                        src={img.src}
-                        alt={img.alt}
-                        loading="lazy"
-                        decoding="async"
-                        className="w-full h-full object-cover object-left-top"
-                      />
-                    </div>
-                  );
-                })}
-              </div>
-            </BleedRight>
           </div>
 
         </div>

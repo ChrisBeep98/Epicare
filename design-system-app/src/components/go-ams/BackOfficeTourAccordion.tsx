@@ -37,7 +37,7 @@ export default function BackOfficeTourAccordion() {
               
               {/* Content */}
               <div className={`relative z-20 transition-all duration-500 ${isActive ? "opacity-100 translate-y-0 delay-200" : "opacity-0 translate-y-8"}`}>
-                <div className="w-8 h-8 rounded-full bg-[var(--color-brand-blue)]/20 text-[var(--color-accent-main)] flex items-center justify-center font-bold mb-3">
+                <div className="w-8 h-8 rounded-full bg-[var(--color-brand-blue)]/20 text-[var(--color-text-accent-blue)] flex items-center justify-center font-bold mb-3">
                   {panel.id}
                 </div>
                 <h3 className="text-h3 font-bold text-white whitespace-nowrap">{panel.title}</h3>

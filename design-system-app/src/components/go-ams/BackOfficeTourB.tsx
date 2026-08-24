@@ -80,7 +80,7 @@ export default function BackOfficeTourB() {
             }}
             className={`transition-all duration-500 transform ${
               activeIndex === i
-                ? "opacity-100 translate-x-4 border-l-4 border-[var(--color-accent-main)] pl-static-md"
+                ? "opacity-100 translate-x-4 border-l-4 border-[var(--color-brand-blue)] pl-static-md"
                 : "opacity-30 translate-x-0 border-l-0 pl-0"
             }`}
           >
@@ -103,7 +103,7 @@ export default function BackOfficeTourB() {
           {/* Glassmorphic Backdrop */}
           <div className="absolute inset-0 -z-10 rounded-[3rem]">
             <div className="absolute inset-0 bg-[var(--color-surface-Surface-2)]/60 backdrop-blur-[30px]" />
-            <div className="absolute inset-0 bg-[var(--color-brand-orange)]/5 backdrop-blur-[20px] saturate-[2]" />
+            <div className="absolute inset-0 bg-[var(--color-brand-blue)]/5 backdrop-blur-[20px] saturate-[2]" />
           </div>
 
           <h4 className="text-display-sm text-[var(--color-text-accent-blue)]">

@@ -245,12 +245,13 @@ export default function BentoGridMobile() {
       title: t('card1Title'),
       desc: t('card1Desc'),
       image: null,
-      videoLight: asset("/Files/Features/AMS_Light_Final.mp4"),
-      videoDark: asset("/Files/Features/AMS_Dark_Final.mp4#t=2"),
+      videoLight: asset("/Files/Go_AMS/Hero/go_ams_hero.mp4"),
+      videoDark: asset("/Files/Go_AMS/Hero/go_ams_hero.mp4"),
       videoDarkFullBackground: true,
       mediaClassNameDark: "dark:bg-[#0D0D0E]",
       cardClassNameDark: "dark:bg-[#0D0D0E]",
       href: "/go-ams",
+      isAms: true,
       logo: <AmsLogo className="h-10 w-auto drop-shadow-[0_0_15px_rgba(90,200,250,0.5)]" />
     },
     {
@@ -393,14 +394,22 @@ export default function BentoGridMobile() {
                         <>
                           {/* LIGHT MODE MEDIA */}
                           {hasLightVideo ? (
-                            <SmartVideo src={(card as any).videoLight} className={`absolute inset-0 w-full h-full object-contain object-center transition-transform duration-[800ms] ease-out group-hover:scale-[1.05] ${hasDarkVideo || hasImage ? 'dark:hidden' : ''}`} />
+                            <SmartVideo 
+                              src={(card as any).videoLight} 
+                              className={`absolute inset-0 w-full h-full transition-transform duration-[800ms] ease-out ${(card as any).isAms ? 'object-contain object-right' : 'object-contain object-center group-hover:scale-[1.05]'} ${hasDarkVideo || hasImage ? 'dark:hidden' : ''}`}
+                              style={(card as any).isAms ? { transform: 'scale(1.46) translate(205px, 10px)', borderRadius: '12px', transformOrigin: 'right center' } : undefined}
+                            />
                           ) : hasImage ? (
                             <img src={card.image} alt={card.title} loading="lazy" decoding="async" className={`absolute inset-0 w-full h-full object-cover object-center transition-transform duration-[800ms] ease-out group-hover:scale-[1.05] ${hasDarkVideo ? 'dark:hidden' : ''}`} />
                           ) : null}
 
                           {/* DARK MODE MEDIA */}
                           {hasDarkVideo ? (
-                            <SmartVideo src={(card as any).videoDark} className={`absolute inset-0 w-full h-full object-contain object-center transition-transform duration-[800ms] ease-out group-hover:scale-[1.05] ${(card as any).videoDarkClassName || ''} ${hasLightVideo || hasImage ? 'hidden dark:block' : ''}`} />
+                            <SmartVideo 
+                              src={(card as any).videoDark} 
+                              className={`absolute inset-0 w-full h-full transition-transform duration-[800ms] ease-out ${(card as any).isAms ? 'object-contain object-right' : 'object-contain object-center group-hover:scale-[1.05]'} ${(card as any).videoDarkClassName || ''} ${hasLightVideo || hasImage ? 'hidden dark:block' : ''}`}
+                              style={(card as any).isAms ? { transform: 'scale(1.46) translate(205px, 10px)', borderRadius: '12px', transformOrigin: 'right center' } : undefined}
+                            />
                           ) : (hasImage && hasLightVideo) ? (
                             <img src={card.image} alt={card.title} loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover object-center hidden dark:block transition-transform duration-[800ms] ease-out group-hover:scale-[1.05]" />
                           ) : null}

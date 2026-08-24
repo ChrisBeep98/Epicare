@@ -62,6 +62,7 @@ function CinematicPanel({
   videoDark, 
   ctaText, 
   isAcademy,
+  isAms,
   href = '#'
 }: { 
   title: string;
@@ -71,6 +72,7 @@ function CinematicPanel({
   videoDark: string;
   ctaText: string;
   isAcademy?: boolean;
+  isAms?: boolean;
   href?: string;
 }) {
   const cardRef = useRef<HTMLAnchorElement>(null);
@@ -165,18 +167,20 @@ function CinematicPanel({
       </div>
 
       {/* MEDIA CONTENT (Right side) - Follows Video-Background-Blend-Fixer */}
-      <div className="w-full md:w-7/12 h-full relative overflow-hidden bg-transparent">
-         {/* Light Video - mix-blend-multiply makes white backgrounds completely transparent! */}
-         <SmartVideo 
-           src={videoLight} 
-           className={`absolute inset-0 w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105 mix-blend-multiply dark:hidden ${isAcademy ? 'object-contain scale-[0.85] group-hover:scale-95' : ''}`} 
-         />
-         {/* Dark Video - mix-blend-screen makes black backgrounds completely transparent! */}
-         <SmartVideo 
-           src={videoDark} 
-           className={`absolute inset-0 w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-105 mix-blend-screen hidden dark:block ${isAcademy ? 'object-contain scale-[0.85] group-hover:scale-95' : ''}`} 
-         />
-      </div>
+        <div className="w-full md:w-7/12 h-full relative overflow-hidden bg-transparent">
+           {/* Light Video - mix-blend-multiply makes white backgrounds completely transparent! */}
+           <SmartVideo 
+             src={videoLight} 
+             className={`absolute inset-0 w-full h-full transition-transform duration-[2s] ease-out mix-blend-multiply dark:hidden ${isAcademy ? 'object-contain scale-[0.85] group-hover:scale-95' : isAms ? 'object-contain object-right' : 'object-cover group-hover:scale-105'}`}
+             style={isAms ? { transform: 'scale(1.46) translate(205px, 10px)', borderRadius: '12px', transformOrigin: 'right center' } : undefined}
+           />
+           {/* Dark Video - mix-blend-screen makes black backgrounds completely transparent! */}
+           <SmartVideo 
+             src={videoDark} 
+             className={`absolute inset-0 w-full h-full transition-transform duration-[2s] ease-out mix-blend-screen hidden dark:block ${isAcademy ? 'object-contain scale-[0.85] group-hover:scale-95' : isAms ? 'object-contain object-right' : 'object-cover group-hover:scale-105'}`}
+             style={isAms ? { transform: 'scale(1.46) translate(205px, 10px)', borderRadius: '12px', transformOrigin: 'right center' } : undefined}
+           />
+        </div>
 
     </Link>
   );
@@ -281,10 +285,11 @@ export default function BentoGridDesktop() {
               title="GO AMS" 
               desc={t('card1Desc')} 
               Logo={AmsLogo} 
-              videoLight={asset("/Files/Features/AMS_Light_Final.mp4")}
-              videoDark={asset("/Files/Features/AMS_Dark_Final.mp4")} 
+              videoLight={asset("/Files/Go_AMS/Hero/go_ams_hero.mp4")}
+              videoDark={asset("/Files/Go_AMS/Hero/go_ams_hero.mp4")} 
               ctaText={t('cardCta')} 
               href="/go-ams"
+              isAms
            />
 
            {/* PANEL 3: ACADEMY */}
