@@ -100,7 +100,10 @@ export default function PlatformRevealSection() {
             {/* Contenedor de máscara */}
             <div className="w-full h-full relative overflow-hidden bg-[var(--color-surface-BG-black)]">
               {/* Imagen con leve margen vertical para permitir parallax interno sin recortar mucho */}
-              <div className="bg-parallax-inner absolute top-[-10%] left-0 w-full h-[120%] bg-[url('/Files/Go_AMS/go-ams-backoffice.jpeg')] bg-cover bg-center opacity-100" />
+              <div 
+                className="bg-parallax-inner absolute top-[-10%] left-0 w-full h-[120%] bg-cover bg-center opacity-100" 
+                style={{ backgroundImage: "url('/Files/Go_AMS/go-ams-backoffice.jpeg')" }}
+              />
               
               {/* Pestaña flotante sobre la imagen */}
               <div className="absolute top-0 left-1/2 -translate-x-1/2 flex items-center justify-center bg-[var(--color-surface-BG-1)]/90 backdrop-blur-md border border-t-0 border-[var(--color-border-Strokes-default)] rounded-none px-8 py-3 w-auto min-w-[180px] text-body-md font-semibold text-[var(--color-text-primary)] shadow-md z-20 transition-transform duration-500 group-hover:-translate-y-full">
@@ -163,7 +166,10 @@ export default function PlatformRevealSection() {
             {/* Contenedor de máscara */}
             <div className="w-full h-full relative overflow-hidden bg-[var(--color-surface-BG-black)]">
               {/* Imagen con leve margen vertical para permitir parallax interno sin recortar mucho */}
-              <div className="bg-parallax-inner absolute top-[-10%] left-0 w-full h-[120%] bg-[url('/Files/Go_AMS/go-ams-quote.jpeg')] bg-cover bg-center opacity-100" />
+              <div 
+                className="bg-parallax-inner absolute top-[-10%] left-0 w-full h-[120%] bg-cover bg-center opacity-100" 
+                style={{ backgroundImage: "url('/Files/Go_AMS/go-ams-quote.jpeg')" }}
+              />
               
               {/* Pestaña flotante sobre la imagen */}
               <div className="absolute top-0 left-1/2 -translate-x-1/2 flex items-center justify-center bg-[var(--color-surface-BG-1)]/90 backdrop-blur-md border border-t-0 border-[var(--color-border-Strokes-default)] rounded-none px-8 py-3 w-auto min-w-[180px] text-body-md font-semibold text-[var(--color-text-primary)] shadow-md z-20 transition-transform duration-500 group-hover:-translate-y-full">
