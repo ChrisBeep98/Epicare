@@ -274,5 +274,16 @@
       "privacy": "Privacy",
       "terms": "Terms"
     }
+  },
+  "goAms": {
+    "hero": {
+      "overline": "Epicare Portal",
+      "title1": "GO AMS.",
+      "title2": "Your insurance business.",
+      "description": "GO AMS is the <bold>operational portal</bold> for agents and agencies — where you manage <bold>contracts, clients, production, and payments</bold>, all under the <bold>same interface</bold>.",
+      "cta": "Start Operating",
+      "bullet1": "Backed by 5 years, 130+ carriers, 52 juris.",
+      "bullet2": "Processes millions in premium automatically"
+    }
   }
 }

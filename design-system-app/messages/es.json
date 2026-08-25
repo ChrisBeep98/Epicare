@@ -274,5 +274,16 @@
       "privacy": "Privacidad",
       "terms": "Términos"
     }
+  },
+  "goAms": {
+    "hero": {
+      "overline": "Portal de Epicare",
+      "title1": "GO AMS.",
+      "title2": "Tu negocio de seguros.",
+      "description": "GO AMS es el <bold>portal operacional</bold> para agentes y agencias — donde gestionas <bold>contratos, clientes, producción y pagos</bold>, todo bajo una <bold>misma interfaz</bold>.",
+      "cta": "Opera Ya",
+      "bullet1": "Respaldado por 5 años, 130+ carriers, 52 juris.",
+      "bullet2": "Procesa millones en primas de manera automática"
+    }
   }
 }

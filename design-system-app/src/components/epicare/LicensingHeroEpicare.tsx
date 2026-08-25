@@ -45,7 +45,7 @@ export default function LicensingHeroEpicare() {
 
     const ctx = gsap.context(() => {
       // 1. Initial State
-      gsap.set('.licensing-title-char', {
+      gsap.set('.licensing-title-line', {
         yPercent: REVEAL.birthPercent,
         opacity: 0,
         clipPath: "inset(0% 0% 100% 0%)",
@@ -65,13 +65,12 @@ export default function LicensingHeroEpicare() {
       // 2. Entrance Timeline (Synced with Globe & Loader)
       tl = gsap.timeline({ paused: true });
 
-      tl.to('.licensing-title-char', {
+      tl.to('.licensing-title-line', {
         yPercent: 0,
         opacity: 1,
         clipPath: "inset(-20% -10% -20% -10%)",
-        duration: DUR.birth,
+        duration: 0.8,
         ease: EASE.dramatic,
-        stagger: STAGGER.tight,
         willChange: "transform, opacity, clip-path",
         clearProps: "clipPath,willChange"
       });
@@ -83,7 +82,7 @@ export default function LicensingHeroEpicare() {
         ease: EASE.out,
         willChange: "transform, opacity",
         clearProps: "willChange"
-      }, "-=1.0");
+      }, "-=0.6");
 
       tl.to('.licensing-globe-wrap', {
         opacity: 1,
@@ -105,7 +104,7 @@ export default function LicensingHeroEpicare() {
         stagger: STAGGER.base,
         willChange: "transform, opacity",
         clearProps: "willChange"
-      }, "-=1.0");
+      }, "-=0.8");
 
     }, el);
 
@@ -138,13 +137,6 @@ export default function LicensingHeroEpicare() {
     }
   };
 
-  const titleText = t('title') || "Licensing";
-  const titleChars = titleText.split('').map((char, index) => (
-    <span key={index} className="licensing-title-char inline-block whitespace-pre">
-      {char}
-    </span>
-  ));
-
   return (
     <div className="w-full bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] transition-colors duration-500">
       
@@ -157,15 +149,9 @@ export default function LicensingHeroEpicare() {
         <div className="grid-layout max-w-section-xl mx-auto w-full gap-y-static-2xl md:gap-y-static-md">
           
           {/* ROW 1: TITLE */}
-          {/* start: 5, span: 9, flexDir: row, justify: flex-start, align: flex-start */}
-          {/* pb-section-lg: el canvas del globo es un cuadrado absoluto de 1100px centrado
-              en su celda de 500px, así que la esfera (~85% de 1100 = 935px) sobresalía ~60px
-              por encima y se solapaba con el título. Al crecer esta fila baja el ROW 2
-              completo (texto + globo) en bloque, sin alterar su composición interna ni
-              acercar el planeta a la sección siguiente. */}
           <div className="col-span-12 md:col-start-5 md:col-span-9 md:row-start-1 z-10 flex flex-row justify-start items-start md:pb-section-lg">
-            <h1 className="text-display-2xl md:text-display-3xl text-left text-[var(--color-text-primary)] font-semibold leading-[0.9] tracking-tight">
-              {titleChars}
+            <h1 className="licensing-title-line text-display-2xl md:text-display-3xl text-left text-[var(--color-text-primary)] font-semibold leading-[0.9] tracking-tight">
+              {t('title')}
             </h1>
           </div>
 

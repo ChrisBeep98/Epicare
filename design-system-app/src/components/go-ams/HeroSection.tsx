@@ -1,6 +1,10 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useTranslations } from 'next-intl';
+import { EASE, DUR, STAGGER, REVEAL } from '@/lib/motion';
 import { asset } from "@/lib/asset";
 
 // Helper to make a container break out of the right side of the grid and touch the viewport edge
@@ -41,61 +45,172 @@ function BleedRight({ children, className = "" }: { children: React.ReactNode, c
 }
 
 export default function HeroSection() {
-  const [isDark, setIsDark] = useState(true);
+  const t = useTranslations('goAms.hero');
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Sync state with DOM on mount
-    setIsDark(document.documentElement.classList.contains('dark'));
+    gsap.registerPlugin(ScrollTrigger);
+    ScrollTrigger.config({ ignoreMobileResize: true });
+
+    let tl: gsap.core.Timeline;
+
+    const el = containerRef.current;
+    if (!el) return;
+
+    const ctx = gsap.context(() => {
+      // 1. Initial State (Line-by-line reveal)
+      gsap.set('.hero-title-line', {
+        yPercent: REVEAL.birthPercent,
+        opacity: 0,
+        clipPath: "inset(0% 0% 100% 0%)",
+      });
+
+      gsap.set('.hero-eyebrow-text', { opacity: 0, y: REVEAL.sm });
+      gsap.set('.hero-text', { opacity: 0, y: REVEAL.md });
+      gsap.set('.hero-btn', { opacity: 0, scale: 0.8, x: -REVEAL.sm });
+      gsap.set('.hero-bullets', { opacity: 0, y: REVEAL.sm });
+
+      gsap.set('.hero-video-wrap', {
+        opacity: 0,
+        y: REVEAL.lg,
+        scale: 0.96,
+        filter: `blur(${REVEAL.blurBase}px)`
+      });
+
+      // 2. Entrance Timeline (Paused on mount, played via trigger)
+      tl = gsap.timeline({ paused: true });
+
+      tl.to('.hero-eyebrow-text', {
+        opacity: 1,
+        y: 0,
+        duration: DUR.fast,
+        ease: EASE.out,
+        clearProps: "willChange"
+      });
+
+      tl.to('.hero-title-line', {
+        yPercent: 0,
+        opacity: 1,
+        clipPath: "inset(-20% -10% -20% -10%)",
+        duration: 0.8,
+        ease: EASE.dramatic,
+        stagger: STAGGER.base,
+        willChange: "transform, opacity, clip-path",
+        clearProps: "clipPath,willChange"
+      }, "-=0.3");
+
+      tl.to('.hero-text', {
+        opacity: 1,
+        y: 0,
+        duration: DUR.base,
+        ease: EASE.out,
+        willChange: "transform, opacity",
+        clearProps: "willChange"
+      }, "-=0.6");
+
+      tl.to('.hero-btn', {
+        opacity: 1,
+        scale: 1,
+        x: 0,
+        duration: DUR.base,
+        ease: EASE.snap,
+        stagger: STAGGER.base,
+        willChange: "transform, opacity",
+        clearProps: "willChange"
+      }, "-=0.8");
+
+      tl.to('.hero-video-wrap', {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        filter: "blur(0px)",
+        duration: DUR.slow,
+        ease: EASE.dramatic,
+        willChange: "transform, opacity, filter",
+        clearProps: "filter,willChange"
+      }, "-=0.8");
+
+      tl.to('.hero-bullets', {
+        opacity: 1,
+        y: 0,
+        duration: DUR.base,
+        ease: EASE.out,
+        stagger: STAGGER.base,
+        clearProps: "willChange"
+      }, "-=0.6");
+
+    }, el);
+
+    const playHeroEntrance = () => {
+      requestAnimationFrame(() => {
+        if (tl && tl.paused()) tl.play();
+      });
+    };
+
+    if ((window as any).epicareLoaderFinished) {
+      playHeroEntrance();
+    } else {
+      window.addEventListener('epicareLoaderFinished', playHeroEntrance, { once: true });
+    }
+
+    // Safety fallback: if something fails or loader takes long, play after 5s
+    const fallbackId = setTimeout(playHeroEntrance, 5000);
+
+    return () => {
+      window.removeEventListener('epicareLoaderFinished', playHeroEntrance);
+      clearTimeout(fallbackId);
+      ctx.revert();
+    };
   }, []);
 
-  const toggleTheme = () => {
-    const nextDark = !isDark;
-    setIsDark(nextDark);
-    if (nextDark) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  };
-
   return (
-    <div id="hero-wrapper" className="w-full flex flex-col bg-[var(--color-surface-BG-base)] min-h-screen text-[var(--color-text-primary)] relative overflow-x-hidden">
+    <div id="hero-wrapper" className="w-full flex flex-col bg-[var(--color-surface-BG-base)] min-h-dvh text-[var(--color-text-primary)] relative overflow-x-hidden">
       
       {/* 2. Unified Hero Grid */}
-      <section id="hero-main-section" className="relative w-full bg-[var(--color-surface-BG-base)] flex-1 px-gutter-sm lg:px-gutter-md pt-[48px] md:pt-[88px]">
-        <div className="mx-auto max-w-section-xl w-full grid-layout min-h-[100vh] grid-rows-[auto_auto_1fr] pb-section-md">
+      <section 
+        ref={containerRef}
+        id="hero-main-section" 
+        className="relative w-full bg-[var(--color-surface-BG-base)] flex-1 px-gutter-sm lg:px-gutter-md pt-section-sm md:pt-section-md"
+      >
+        <div className="mx-auto max-w-section-xl w-full grid-layout min-h-dvh grid-rows-[auto_auto_1fr] pb-section-md">
           
         {/* Row 1: Eyebrow / Subtitle */}
-        <div id="hero-eyebrow" className="max-lg:col-start-1 max-lg:col-span-6 max-lg:row-start-1 max-lg:row-span-1 lg:col-start-1 lg:col-span-6 lg:row-start-1 lg:row-span-1 flex items-end pb-0 lg:pb-4 pt-[var(--space-fluid-md)]">
-          <p id="eyebrow-text" className="text-ui-label text-[var(--color-text-secondary)] uppercase tracking-widest">
-            Portal de Epicare<span className="inline-block -translate-y-[4px]">&trade;</span>
+        <div id="hero-eyebrow" className="max-lg:col-start-1 max-lg:col-span-6 max-lg:row-start-1 max-lg:row-span-1 lg:col-start-1 lg:col-span-6 lg:row-start-1 lg:row-span-1 flex items-end pb-0 lg:pb-4 pt-0">
+          <p id="eyebrow-text" className="hero-eyebrow-text text-ui-label text-[var(--color-text-secondary)]">
+            {t('overline')}<span className="inline-block -translate-y-[4px]">&trade;</span>
           </p>
         </div>
 
         {/* Row 2-3: Heading */}
         <div id="hero-heading" className="max-lg:col-start-1 max-lg:col-span-6 max-lg:row-start-2 max-lg:row-span-1 lg:col-start-1 lg:col-span-6 lg:row-start-2 lg:row-span-1 flex items-start max-lg:!py-section-sm lg:pr-10">
-          <h1 id="hero-title" className="text-display-xl text-[var(--color-text-primary)] leading-[1.05] tracking-tight">
-            <span className="text-[var(--color-brand-blue)]">GO AMS.</span><br />
-            Tu negocio de seguros.
+          <h1 id="hero-title" className="text-display-xl text-[var(--color-text-primary)]">
+            <span className="hero-title-line block text-[var(--color-text-accent-blue)]">
+              {t('title1')}
+            </span>
+            <span className="hero-title-line block">
+              {t('title2')}
+            </span>
           </h1>
         </div>
 
         {/* Row 2: CTA Block */}
-        <div id="hero-cta" className="max-lg:col-start-1 max-lg:col-span-6 max-lg:row-start-3 max-lg:row-span-1 lg:col-start-8 lg:col-span-4 lg:row-start-2 lg:row-span-1 flex flex-col items-start justify-start gap-5 mt-4 lg:mt-0">
-          <p id="cta-subtitle" className="text-body-md text-[var(--color-text-secondary)] leading-relaxed">
-            GO AMS es el <strong className="font-semibold text-[var(--color-text-primary)]">portal operacional</strong> para agentes y agencias — donde gestionas <strong className="font-semibold text-[var(--color-text-primary)]">contratos, clientes, producción y pagos</strong>, todo bajo una <strong className="font-semibold text-[var(--color-text-primary)]">misma interfaz</strong>.
+        <div id="hero-cta" className="max-lg:col-start-1 max-lg:col-span-6 max-lg:row-start-3 max-lg:row-span-1 lg:col-start-8 lg:col-span-4 lg:row-start-2 lg:row-span-1 flex flex-col items-start justify-start gap-fluid-xs mt-4 lg:mt-0">
+          <p id="cta-subtitle" className="hero-text text-body-md text-[var(--color-text-secondary)]">
+            {t.rich('description', {
+              bold: (chunks) => <strong className="font-semibold text-[var(--color-text-primary)]">{chunks}</strong>
+            })}
           </p>
-          <button className="bg-[var(--color-brand-blue)] text-[var(--color-surface-BG-base)] px-8 py-3 rounded-xl font-medium w-[150px] hover:bg-opacity-90 transition-all flex justify-center items-center">
-            Opera Ya
+          <button className="hero-btn bg-[var(--color-brand-blue)] text-[var(--color-surface-BG-base)] px-static-xl py-static-md rounded-xl text-ui-label w-fit hover:bg-opacity-90 transition-all flex justify-center items-center">
+            {t('cta')}
           </button>
         </div>
 
         {/* Row 3: Dark Panel */}
-        <div id="visual-panel-wrapper" className="max-lg:col-start-1 max-lg:col-span-6 max-lg:row-start-4 max-lg:row-span-1 lg:col-start-4 lg:col-span-9 lg:row-start-3 lg:row-span-1 w-full h-auto relative mt-8 lg:mt-12 lg:-translate-y-[104px]">
+        <div id="visual-panel-wrapper" className="hero-video-wrap max-lg:col-start-1 max-lg:col-span-6 max-lg:row-start-4 max-lg:row-span-1 lg:col-start-4 lg:col-span-9 lg:row-start-3 lg:row-span-1 w-full h-auto relative mt-8 lg:mt-12 lg:-translate-y-[104px]">
           
           <BleedRight className="relative w-full h-full mobile-bleed">
             
-            {/* Scroll Down Button - Separacion de 20px exacta */}
+            {/* Scroll Down Button */}
             <div className="absolute top-[124px] left-[-20px] -translate-x-full z-20 hidden lg:flex">
               <button 
                 onClick={() => {
@@ -139,17 +254,17 @@ export default function HeroSection() {
         </div>
 
         {/* Row 4: Mobile Bullets (Mobile Only) */}
-        <div id="mobile-bullets" className="max-lg:col-start-1 max-lg:col-span-6 max-lg:row-start-5 max-lg:row-span-1 lg:col-start-1 lg:col-span-12 lg:row-start-4 lg:row-span-1 flex lg:hidden flex-row items-start justify-between gap-4 mt-6 pb-24">
-          <div className="flex gap-2 items-start w-1/2">
+        <div id="mobile-bullets" className="max-lg:col-start-1 max-lg:col-span-6 max-lg:row-start-5 max-lg:row-span-1 lg:col-start-1 lg:col-span-12 lg:row-start-4 lg:row-span-1 flex lg:hidden flex-row items-start justify-between gap-fluid-sm mt-6 pb-section-md">
+          <div className="hero-bullets flex gap-2 items-start w-1/2">
             <div className="w-2 h-2 rounded-full bg-[var(--color-brand-blue)] mt-1.5 flex-shrink-0"></div>
-            <p className="text-caption text-[var(--color-text-muted)] leading-relaxed">
-              Respaldado por 5 años, 130+ carriers, 52 juris.
+            <p className="text-caption text-[var(--color-text-muted)]">
+              {t('bullet1')}
             </p>
           </div>
-          <div className="flex gap-2 items-start w-1/2">
+          <div className="hero-bullets flex gap-2 items-start w-1/2">
             <div className="w-2 h-2 rounded-full bg-[var(--color-brand-blue)] mt-1.5 flex-shrink-0"></div>
-            <p className="text-caption text-[var(--color-text-muted)] leading-relaxed">
-              Procesa millones en primas de manera automática
+            <p className="text-caption text-[var(--color-text-muted)]">
+              {t('bullet2')}
             </p>
           </div>
         </div>
