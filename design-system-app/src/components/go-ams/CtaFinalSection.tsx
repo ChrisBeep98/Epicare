@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
 
 export default function CtaFinalSection() {
   return (
@@ -14,12 +13,10 @@ export default function CtaFinalSection() {
         <div className="relative w-full rounded-[2.5rem] overflow-hidden shadow-elevation-4 border border-white/10">
           
           <div className="absolute inset-0 z-0">
-            <Image 
+            <img 
               src="/Files/S14_cta_swiss_blue.jpg"
               alt="GO AMS Background"
-              fill
-              className="object-cover"
-              priority
+              className="absolute inset-0 w-full h-full object-cover"
             />
             {/* Ligero oscurecimiento para maximizar el contraste de la tipografía blanca */}
             <div className="absolute inset-0 bg-black/15" />
