@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import { asset } from "@/lib/asset";
 
 export default function CtaFinalSection() {
   return (
@@ -14,7 +14,7 @@ export default function CtaFinalSection() {
           
           <div className="absolute inset-0 z-0">
             <img 
-              src="/Files/S14_cta_swiss_blue.jpg"
+              src={asset("/Files/S14_cta_swiss_blue.jpg")}
               alt="GO AMS Background"
               className="absolute inset-0 w-full h-full object-cover"
             />

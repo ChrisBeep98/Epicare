@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { asset } from "@/lib/asset";
 
 export default function PlatformRevealSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -102,7 +103,7 @@ export default function PlatformRevealSection() {
               {/* Imagen con leve margen vertical para permitir parallax interno sin recortar mucho */}
               <div 
                 className="bg-parallax-inner absolute top-[-10%] left-0 w-full h-[120%] bg-cover bg-center opacity-100" 
-                style={{ backgroundImage: "url('/Files/Go_AMS/go-ams-backoffice.jpeg')" }}
+                style={{ backgroundImage: `url('${asset('/Files/Go_AMS/go-ams-backoffice.jpeg')}')` }}
               />
               
               {/* Pestaña flotante sobre la imagen */}
@@ -168,7 +169,7 @@ export default function PlatformRevealSection() {
               {/* Imagen con leve margen vertical para permitir parallax interno sin recortar mucho */}
               <div 
                 className="bg-parallax-inner absolute top-[-10%] left-0 w-full h-[120%] bg-cover bg-center opacity-100" 
-                style={{ backgroundImage: "url('/Files/Go_AMS/go-ams-quote.jpeg')" }}
+                style={{ backgroundImage: `url('${asset('/Files/Go_AMS/go-ams-quote.jpeg')}')` }}
               />
               
               {/* Pestaña flotante sobre la imagen */}
