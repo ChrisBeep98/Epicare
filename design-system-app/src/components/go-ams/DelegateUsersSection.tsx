@@ -16,7 +16,7 @@ import {
   ShieldCheck,
   ArrowRight
 } from "@phosphor-icons/react";
-import { EASE, DUR, STAGGER, REVEAL } from "@/lib/motion";
+import { EASE, DUR, STAGGER, REVEAL, TRIGGER } from "@/lib/motion";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -55,7 +55,7 @@ export default function DelegateUsersSection() {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
 
@@ -64,18 +64,58 @@ export default function DelegateUsersSection() {
     const ctx = gsap.context(() => {
       if (prefersReducedMotion) return;
 
-      // ── ENTRADA PERMANENTE DEL COPY IZQUIERDO (UNA SOLA VEZ, NUNCA DESAPARECE) ──
-      gsap.from(".copy-column", {
+      // ── ENTRADA DEL COPY IZQUIERDO (Timeline directa con trigger en el bloque de texto) ──
+      const copyTl = gsap.timeline({
         scrollTrigger: {
-          trigger: el,
-          start: "top 75%",
-          once: true
-        },
-        opacity: 0,
-        y: 25,
-        duration: 0.8,
-        ease: "power2.out"
+          trigger: ".copy-column",
+          start: "top 85%",
+          toggleActions: "play none none reverse"
+        }
       });
+
+      copyTl
+        .fromTo(
+          ".delegate-eyebrow",
+          { opacity: 0, y: REVEAL.sm, willChange: "transform, opacity" },
+          {
+            opacity: 1,
+            y: 0,
+            duration: DUR.fast,
+            ease: EASE.out,
+            clearProps: "willChange"
+          }
+        )
+        .fromTo(
+          ".delegate-title-line",
+          {
+            yPercent: 120,
+            opacity: 0,
+            clipPath: "inset(0% 0% 100% 0%)",
+            willChange: "transform, opacity, clip-path"
+          },
+          {
+            yPercent: 0,
+            opacity: 1,
+            clipPath: "inset(-20% -10% -20% -10%)",
+            duration: DUR.base,
+            stagger: STAGGER.base,
+            ease: EASE.dramatic,
+            clearProps: "clipPath,willChange"
+          },
+          "-=0.2"
+        )
+        .fromTo(
+          ".delegate-subtitle",
+          { opacity: 0, y: REVEAL.md, willChange: "transform, opacity" },
+          {
+            opacity: 1,
+            y: 0,
+            duration: DUR.base,
+            ease: EASE.out,
+            clearProps: "willChange"
+          },
+          "-=0.4"
+        );
 
       // Breathing Canvas pasivo suave
       gsap.to(".glass-scene-wrapper", { y: "-=8px", rotationZ: "0.4deg", repeat: -1, yoyo: true, duration: 4.5, ease: "sine.inOut" });
@@ -164,13 +204,24 @@ export default function DelegateUsersSection() {
         <div className="grid-layout items-center gap-y-8 md:gap-fluid-lg">
           
           {/* ── LADO IZQUIERDO: Copy Simple Permanente ── */}
-          <div className="copy-column col-span-12 lg:col-span-6 flex flex-col justify-center gap-fluid-sm relative z-20 text-left">
-            <h2 className="text-display-lg font-semibold text-[var(--color-text-primary)] leading-[1.1] tracking-tight mb-space-static-sm max-w-xl">
-              <span>{t('title1')} </span>
-              <span className="text-[var(--color-text-accent-blue)]">{t('title2')}</span>
+          <div className="copy-column col-span-12 lg:col-span-6 flex flex-col justify-center relative z-20 text-left">
+            <div className="delegate-eyebrow flex items-center gap-2 mb-space-static-xs">
+              <span className="w-2 h-2 rounded-full bg-[var(--color-brand-blue)] animate-pulse" />
+              <span className="text-overline text-[var(--color-brand-blue)]">
+                {t('overline')}
+              </span>
+            </div>
+
+            <h2 className="text-display-sm sm:text-display md:text-display-lg font-semibold text-[var(--color-text-primary)] leading-[1.1] tracking-tight mb-space-static-sm max-w-xl">
+              <span className="block overflow-hidden pb-1">
+                <span className="delegate-title-line block">{t('title1')}</span>
+              </span>
+              <span className="block overflow-hidden pb-1">
+                <span className="delegate-title-line block text-[var(--color-text-accent-blue)]">{t('title2')}</span>
+              </span>
             </h2>
             
-            <p className="text-body-lg text-[var(--color-text-secondary)] leading-relaxed max-w-[400px]">
+            <p className="delegate-subtitle text-body-sm sm:text-body-md md:text-body-lg text-[var(--color-text-secondary)] leading-relaxed max-w-[420px]">
               {t.rich('subtitle', {
                 bold: (chunks) => <strong className="text-[var(--color-text-primary)] font-semibold">{chunks}</strong>
               })}

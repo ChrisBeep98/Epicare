@@ -2,20 +2,22 @@
 
 import { useState, useRef, useEffect } from "react";
 import gsap from "gsap";
+import { useTranslations } from "next-intl";
 
 const PANELS = [
-  { id: 1, title: "DASHBOARD", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop", desc: "Métricas globales en tiempo real. Control centralizado de toda tu agencia." },
-  { id: 2, title: "CRM", img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop", desc: "Gestión inteligente de pólizas. El núcleo de retención de tu negocio." },
-  { id: 3, title: "COTIZADOR", img: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?q=80&w=2076&auto=format&fit=crop", desc: "Multi-carrier pricing instantáneo. Cierra más tratos en segundos." },
-  { id: 4, title: "COMISIONES", img: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=2070&auto=format&fit=crop", desc: "Trazabilidad financiera absoluta y proyecciones de ingresos." },
-  { id: 5, title: "MARKETING", img: "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?q=80&w=2074&auto=format&fit=crop", desc: "Campañas automáticas y embudos de conversión integrados." },
-  { id: 6, title: "SOPORTE", img: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?q=80&w=2072&auto=format&fit=crop", desc: "Resolución de tickets y asistencia continua para tus agentes." },
-  { id: 7, title: "REPORTES", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop", desc: "Business Intelligence y exportación avanzada de datos." },
-  { id: 8, title: "AGENTES", img: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop", desc: "Métricas de rendimiento y gestión estructural de equipos." },
-  { id: 9, title: "SISTEMA", img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=2034&auto=format&fit=crop", desc: "Configuraciones globales y control absoluto de permisos." },
+  { id: 1, titleKey: "panel1Title", descKey: "panel1Desc", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop" },
+  { id: 2, titleKey: "panel2Title", descKey: "panel2Desc", img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop" },
+  { id: 3, titleKey: "panel3Title", descKey: "panel3Desc", img: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?q=80&w=2076&auto=format&fit=crop" },
+  { id: 4, titleKey: "panel4Title", descKey: "panel4Desc", img: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=2070&auto=format&fit=crop" },
+  { id: 5, titleKey: "panel5Title", descKey: "panel5Desc", img: "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?q=80&w=2074&auto=format&fit=crop" },
+  { id: 6, titleKey: "panel6Title", descKey: "panel6Desc", img: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?q=80&w=2072&auto=format&fit=crop" },
+  { id: 7, titleKey: "panel7Title", descKey: "panel7Desc", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop" },
+  { id: 8, titleKey: "panel8Title", descKey: "panel8Desc", img: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop" },
+  { id: 9, titleKey: "panel9Title", descKey: "panel9Desc", img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=2034&auto=format&fit=crop" },
 ];
 
 export default function BackOfficeTour() {
+  const t = useTranslations('goAms.backOfficeTour');
   const [idx, setIdx] = useState(0);
 
   const magnetRef = useRef<HTMLDivElement>(null);
@@ -138,10 +140,10 @@ export default function BackOfficeTour() {
                 0{panel.id}.
               </span>
               <h2 className="text-display-sm sm:text-display md:text-display-lg lg:text-display-xl font-black uppercase tracking-tighter text-white mb-2 sm:mb-4 lg:mb-6 leading-[1.05]">
-                {panel.title}
+                {t(panel.titleKey as any)}
               </h2>
               <p className="text-body-sm sm:text-body md:text-body-lg lg:text-body-xl font-medium text-white/70 max-w-lg leading-relaxed">
-                {panel.desc}
+                {t(panel.descKey as any)}
               </p>
             </div>
           ))}

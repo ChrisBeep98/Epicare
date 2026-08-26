@@ -374,6 +374,26 @@
       "restricted": "Restricted",
       "off": "OFF"
     },
+    "backOfficeTour": {
+      "panel1Title": "DASHBOARD",
+      "panel1Desc": "Real-time global metrics. Centralized control across your entire agency.",
+      "panel2Title": "CRM",
+      "panel2Desc": "Intelligent policy management. The retention core of your business.",
+      "panel3Title": "QUOTER",
+      "panel3Desc": "Instant multi-carrier pricing. Close more deals in seconds.",
+      "panel4Title": "COMMISSIONS",
+      "panel4Desc": "Absolute financial traceability and revenue projections.",
+      "panel5Title": "MARKETING",
+      "panel5Desc": "Automated campaigns and integrated conversion funnels.",
+      "panel6Title": "SUPPORT",
+      "panel6Desc": "Ticket resolution and continuous assistance for your agents.",
+      "panel7Title": "REPORTS",
+      "panel7Desc": "Business Intelligence and advanced data export.",
+      "panel8Title": "AGENTS",
+      "panel8Desc": "Performance metrics and structural team management.",
+      "panel9Title": "SYSTEM",
+      "panel9Desc": "Global configurations and absolute permission control."
+    },
     "howToJoin": {
       "overline": "Activation",
       "title": "How to get it.",
@@ -385,6 +405,44 @@
       "step3Desc": "Receive your invite, create your password, and log in automatically.",
       "step4Title": "PRODUCE",
       "step4Desc": "With your appointments, licenses, and book of business already loaded."
+    },
+    "architecture": {
+      "panel1Title": "GO AMS CORE",
+      "panel1Subtitle": "The primary engine.",
+      "panel1Desc": "Read and write data in real operations without friction or lag. 100% native synchronization with Epicare.",
+      "panel2Title": "CONTRACTS",
+      "panel2Subtitle": "Bi-directional Sync.",
+      "panel2Desc": "Contracts and licenses live in Epicare and sync in real time. What you sign appears instantly.",
+      "panel3Title": "QUOTES",
+      "panel3Subtitle": "1:1 Pricing.",
+      "panel3Desc": "The same catalog and the exact same pricing. The architecture ensures you see exactly what the client sees.",
+      "panel4Title": "SECURITY",
+      "panel4Subtitle": "Zero Retention.",
+      "panel4Desc": "SSNs and payments travel directly to carriers via encrypted tunnels. GO AMS never stores sensitive data."
+    },
+    "faq": {
+      "title": "FAQ",
+      "subtitle": "Six specific product questions.",
+      "q1": "How much does GO AMS cost?",
+      "a1": "Zero. It is included in your producer contract with Epicare.",
+      "q2": "Is there a mobile app?",
+      "a2": "At launch it runs in the browser across all devices. A native mobile app is planned for a subsequent phase.",
+      "q3": "Can I quote with all 130+ carriers?",
+      "a3": "Appointments with all 130+ carriers are managed in GO AMS. Direct quoting inside the portal is available with API-integrated carriers — currently five, and growing.",
+      "q4": "What happens to my existing book of business?",
+      "a4": "Your existing policies are imported from your upline reports. You start with your history, not from scratch.",
+      "q5": "Can my assistant have access?",
+      "a5": "Yes, with their own dedicated account and granular permissions defined by you.",
+      "q6": "Can anyone from Epicare access my account?",
+      "a6": "Only authorized staff when resolving a support ticket requested by you. Every action is logged and fully visible to you."
+    },
+    "ctaFinal": {
+      "eyebrow": "Epicare Insurance Corp™",
+      "title1": "One single portal.",
+      "title2": "Your entire business.",
+      "desc": "The contracting process takes days, not hours. Apply now to have your GO AMS account ready from day one, with zero platform fees.",
+      "btnPrimary": "Apply Now",
+      "btnSecondary": "Contact Us"
     }
   }
 }
