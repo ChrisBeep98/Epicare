@@ -3,6 +3,7 @@
 import React, { useRef, useLayoutEffect, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useTranslations } from "next-intl";
 import { 
   Calculator, 
   Users, 
@@ -10,25 +11,30 @@ import {
   CurrencyDollar,
   UsersThree,
   Gear,
-  CheckCircle
+  CheckCircle,
+  LockKey,
+  ShieldCheck,
+  ArrowRight
 } from "@phosphor-icons/react";
+import { EASE, DUR, STAGGER, REVEAL } from "@/lib/motion";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const MODULES = [
-  { id: 1, name: "Quote", icon: Calculator },
-  { id: 2, name: "Customers", icon: Users },
-  { id: 3, name: "Contracts", icon: FileText },
-  { id: 4, name: "Commissions", icon: CurrencyDollar },
-  { id: 5, name: "Downline", icon: UsersThree },
-  { id: 6, name: "Settings", icon: Gear },
-];
-
 export default function DelegateUsersSection() {
+  const t = useTranslations('goAms.delegateUsers');
   const sectionRef = useRef<HTMLElement>(null);
   const sceneRef = useRef<HTMLDivElement>(null);
 
-  // Cinematic Architect Tilt
+  const modules = [
+    { id: 1, nameKey: "modQuote", icon: Calculator },
+    { id: 2, nameKey: "modCustomers", icon: Users },
+    { id: 3, nameKey: "modContracts", icon: FileText },
+    { id: 4, nameKey: "modCommissions", icon: CurrencyDollar },
+    { id: 5, nameKey: "modDownline", icon: UsersThree },
+    { id: 6, nameKey: "modSettings", icon: Gear },
+  ];
+
+  // Cinematic Architect Tilt (Desktop)
   useEffect(() => {
     if (!sceneRef.current) return;
     const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
@@ -58,8 +64,21 @@ export default function DelegateUsersSection() {
     const ctx = gsap.context(() => {
       if (prefersReducedMotion) return;
 
-      // Breathing Canvas pasivo
-      gsap.to(".glass-matrix", { y: "-=10px", rotationZ: "0.5deg", repeat: -1, yoyo: true, duration: 5, ease: "sine.inOut" });
+      // ── ENTRADA PERMANENTE DEL COPY IZQUIERDO (UNA SOLA VEZ, NUNCA DESAPARECE) ──
+      gsap.from(".copy-column", {
+        scrollTrigger: {
+          trigger: el,
+          start: "top 75%",
+          once: true
+        },
+        opacity: 0,
+        y: 25,
+        duration: 0.8,
+        ease: "power2.out"
+      });
+
+      // Breathing Canvas pasivo suave
+      gsap.to(".glass-scene-wrapper", { y: "-=8px", rotationZ: "0.4deg", repeat: -1, yoyo: true, duration: 4.5, ease: "sine.inOut" });
 
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -67,37 +86,68 @@ export default function DelegateUsersSection() {
           start: "top 60%",
         },
         repeat: -1,
-        repeatDelay: 1.5 
+        repeatDelay: 0.2 
       });
 
-      // ── RESET MAESTRO PARA EL LOOP ──
+      // ── RESET MAESTRO INICIAL (SOLO PARA LA TARJETA VISUAL) ──
       tl.addLabel("reset")
-        .set(".subtitle-content", { opacity: 0, y: 10 })
-        .set(".glass-matrix", { opacity: 0, y: 60, scale: 0.95 })
-        .set(".module-card", { opacity: 0, y: 30, scale: 0.8 }) 
+        .set(".glass-matrix", { opacity: 0, y: REVEAL.md, scale: 0.96, rotateY: 0 })
+        .set(".scene-act-1", { opacity: 0, pointerEvents: "auto" })
+        .set(".scene-act-2", { opacity: 0, pointerEvents: "none" })
+        .set(".act2-item", { opacity: 0, y: 15, scale: 0.95 })
+        .set(".scene-act-3", { opacity: 0, pointerEvents: "none" })
+        .set(".module-card", { opacity: 0, y: REVEAL.sm, scale: 0.88 }) 
         .set(".toggle-knob", { x: 0 })
         .set(".toggle-bg", { backgroundColor: "var(--color-surface-BG-3)", borderColor: "var(--color-border-Strokes-default)" })
-        .set(".check-icon", { scale: 0, opacity: 0 });
+        .set(".check-icon", { scale: 0, opacity: 0 })
+        .set(".pulse-center-icon", { scale: 0.85, opacity: 0 });
 
-      // ── ACTO 1: El Lienzo Seguro ──
-      tl.addLabel("acto1", "+=0.2")
-        .to(".subtitle-content", { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, "acto1")
-        .to(".glass-matrix", { opacity: 1, y: 0, scale: 1, duration: 1.2, ease: "power4.out" }, "acto1")
-        .to(".module-card", { opacity: 1, y: 0, scale: 1, duration: 0.8, stagger: 0.15, ease: "back.out(1.2)" }, "acto1+=0.3");
+      // ── ENTRADA DEL LIENZO DE CRISTAL ──
+      tl.addLabel("enter", "+=0.05")
+        .to(".glass-matrix", { opacity: 1, y: 0, scale: 1, duration: DUR.base, ease: EASE.dramatic, force3D: true }, "enter");
 
-      // ── ACTO 2: Delegación Quirúrgica ──
-      tl.addLabel("acto2", "+=1.2")
-        // Enciende Quote(1), Customers(2), Downline(5)
-        .to([".toggle-knob-1", ".toggle-knob-2", ".toggle-knob-5"], { x: 16, duration: 0.4, stagger: 0.1, ease: "back.out(2)" }, "acto2")
-        .to([".toggle-bg-1", ".toggle-bg-2", ".toggle-bg-5"], { backgroundColor: "rgba(53,187,253,0.15)", borderColor: "rgba(53,187,253,0.5)", duration: 0.4, stagger: 0.1 }, "acto2")
-        .to([".check-1", ".check-2", ".check-5"], { scale: 1, opacity: 1, duration: 0.4, stagger: 0.1, ease: "back.out(2)" }, "acto2+=0.1")
-        .to([".module-1", ".module-2", ".module-5"], { scale: 1.05, boxShadow: "0 10px 20px rgba(53,187,253,0.1)", duration: 0.4, stagger: 0.1, ease: "power2.out" }, "acto2");
+      // ════════════════════════════════════════════════════════════════════════
+      // ── ACTO 1: LA MATRIZ DE 6 MÓDULOS (Rápido y Secuencial) ──
+      // ════════════════════════════════════════════════════════════════════════
+      tl.addLabel("acto1", "+=0.05")
+        .to(".scene-act-1", { opacity: 1, duration: DUR.fast }, "acto1")
+        .to(".module-card", { opacity: 1, y: 0, scale: 1, duration: DUR.fast, stagger: STAGGER.tight, ease: EASE.snap, force3D: true }, "acto1")
+        .to([".toggle-knob-1", ".toggle-knob-2", ".toggle-knob-5"], { x: 16, duration: DUR.fast, stagger: STAGGER.tight, ease: EASE.snap }, "acto1+=0.3")
+        .to([".toggle-bg-1", ".toggle-bg-2", ".toggle-bg-5"], { backgroundColor: "rgba(53,187,253,0.15)", borderColor: "rgba(53,187,253,0.5)", duration: DUR.fast, stagger: STAGGER.tight }, "acto1+=0.3")
+        .to([".check-1", ".check-2", ".check-5"], { scale: 1, opacity: 1, duration: DUR.fast, stagger: STAGGER.tight, ease: EASE.snap }, "acto1+=0.4")
+        .to([".module-1", ".module-2", ".module-5"], { scale: 1.04, borderColor: "rgba(53,187,253,0.4)", duration: DUR.fast, stagger: STAGGER.tight, ease: EASE.out }, "acto1+=0.4");
 
-      // ── CIERRE ──
-      tl.addLabel("end", "+=3") 
-        .to([".module-1", ".module-2", ".module-5"], { scale: 1, boxShadow: "0 1px 2px rgba(0,0,0,0.05)", duration: 0.3 }, "end") 
-        .to(".glass-matrix", { opacity: 0, y: -40, scale: 0.9, duration: 0.8, ease: "power3.in" }, "end")
-        .to(".subtitle-content", { opacity: 0, duration: 0.3 }, "end");
+      // ════════════════════════════════════════════════════════════════════════
+      // ── GIRO 3D FLIP COMPLETO: ACTO 1 ➔ ACTO 2 ──
+      // ════════════════════════════════════════════════════════════════════════
+      tl.addLabel("flip1_2", "+=2.4")
+        .to(".glass-matrix", { rotateY: 90, scale: 0.93, duration: 0.4, ease: "power2.in", force3D: true }, "flip1_2")
+        .set(".scene-act-1", { opacity: 0, pointerEvents: "none" }, "flip1_2+=0.4")
+        .set(".scene-act-2", { opacity: 1, pointerEvents: "auto" }, "flip1_2+=0.4")
+        .fromTo(".glass-matrix", 
+          { rotateY: -90 }, 
+          { rotateY: 0, scale: 1, duration: 0.5, ease: "power2.out", force3D: true }, 
+          "flip1_2+=0.4"
+        )
+        .to(".act2-item", { opacity: 1, y: 0, scale: 1, duration: DUR.fast, stagger: STAGGER.tight, ease: EASE.out, force3D: true }, "flip1_2+=0.6");
+
+      // ════════════════════════════════════════════════════════════════════════
+      // ── GIRO 3D FLIP COMPLETO: ACTO 2 ➔ ACTO 3 ──
+      // ════════════════════════════════════════════════════════════════════════
+      tl.addLabel("flip2_3", "+=2.6")
+        .to(".glass-matrix", { rotateY: 90, scale: 0.93, duration: 0.4, ease: "power2.in", force3D: true }, "flip2_3")
+        .set(".scene-act-2", { opacity: 0, pointerEvents: "none" }, "flip2_3+=0.4")
+        .set(".scene-act-3", { opacity: 1, pointerEvents: "auto" }, "flip2_3+=0.4")
+        .fromTo(".glass-matrix", 
+          { rotateY: -90 }, 
+          { rotateY: 0, scale: 1, duration: 0.5, ease: "power2.out", force3D: true }, 
+          "flip2_3+=0.4"
+        )
+        .to(".pulse-center-icon", { scale: 1, opacity: 1, duration: DUR.fast, ease: EASE.snap }, "flip2_3+=0.55");
+
+      // ── CIERRE DEL CICLO & REINICIO (SOLO DE LA MATRIZ DE CRISTAL) ──
+      tl.addLabel("end", "+=2.2")
+        .to(".glass-matrix", { opacity: 0, y: -REVEAL.sm, scale: 0.96, duration: DUR.fast, ease: EASE.out }, "end");
 
     }, el);
 
@@ -108,53 +158,171 @@ export default function DelegateUsersSection() {
     <section
       ref={sectionRef}
       id="delegate-users"
-      className="w-full bg-[var(--color-surface-BG-base)] relative z-10 pt-0 pb-section-md overflow-hidden"
+      className="w-full bg-[var(--color-surface-BG-base)] relative z-10 py-section-sm md:py-section-md overflow-hidden"
     >
-      <div className="w-full max-w-section-lg mx-auto px-gutter-md">
-        <div className="grid-layout items-center gap-fluid-lg">
+      <div className="w-full max-w-section-lg mx-auto px-gutter-sm md:px-gutter-md">
+        <div className="grid-layout items-center gap-y-8 md:gap-fluid-lg">
           
-          {/* ── LADO IZQUIERDO: Copy Simple ── */}
-          <div className="col-span-12 lg:col-span-6 flex flex-col justify-center gap-fluid-sm relative z-20">
-            <h2 className="text-display-lg text-[var(--color-text-primary)] leading-[1.1] tracking-tight mb-space-static-sm max-w-xl">
-              Tu equipo entra <span className="text-[var(--color-text-accent-blue)]">con su propia cuenta.</span>
+          {/* ── LADO IZQUIERDO: Copy Simple Permanente ── */}
+          <div className="copy-column col-span-12 lg:col-span-6 flex flex-col justify-center gap-fluid-sm relative z-20 text-left">
+            <h2 className="text-display-lg font-semibold text-[var(--color-text-primary)] leading-[1.1] tracking-tight mb-space-static-sm max-w-xl">
+              <span>{t('title1')} </span>
+              <span className="text-[var(--color-text-accent-blue)]">{t('title2')}</span>
             </h2>
             
-            <p className="subtitle-content text-body-lg text-[var(--color-text-secondary)] leading-relaxed max-w-[400px]">
-              Otorga permisos granulares a tu asistente. Mantén la <strong className="text-[var(--color-text-primary)] font-semibold">seguridad total</strong> de tu agencia eligiendo <strong className="text-[var(--color-text-primary)] font-semibold">exactamente a qué herramientas</strong> pueden acceder.
+            <p className="text-body-lg text-[var(--color-text-secondary)] leading-relaxed max-w-[400px]">
+              {t.rich('subtitle', {
+                bold: (chunks) => <strong className="text-[var(--color-text-primary)] font-semibold">{chunks}</strong>
+              })}
             </p>
           </div>
 
-          {/* ── LADO DERECHO: The Storytelling Matrix (6 Squares) ── */}
-          <div className="col-span-12 lg:col-span-6 relative flex justify-center items-center h-[600px] perspective-[1500px]">
+          {/* ── LADO DERECHO: Tarjeta 3D Completa con Giro 100% Fluido ── */}
+          <div className="col-span-12 lg:col-span-6 relative flex justify-center items-center h-[420px] sm:h-[480px] lg:h-[600px] perspective-[1500px]">
             
             <div ref={sceneRef} className="relative w-full h-full flex justify-center items-center transform-style-3d">
               
-              {/* MIDDLE LAYER: Glass Matrix */}
-              <div className="glass-matrix absolute transform translate-z-[0px] w-[340px] flex flex-col gap-4">
+              {/* MIDDLE LAYER: Glass Matrix Container (340px ancho, más alto para parecer teléfono) */}
+              <div className="glass-scene-wrapper relative w-[320px] sm:w-[340px] h-[420px] sm:h-[460px]">
                 
-                <div className="bg-white/50 backdrop-blur-3xl border border-white/60 rounded-[32px] shadow-[0_30px_60px_rgba(0,0,0,0.05)] p-5 relative overflow-hidden h-[340px]">
+                <div className="glass-matrix w-full h-full bg-white/50 backdrop-blur-3xl border border-white/60 rounded-[32px] sm:rounded-[40px] shadow-[0_30px_60px_rgba(0,0,0,0.05)] p-5 relative overflow-hidden will-change-transform">
                   
-                  {/* Grid de 6 Cuadros */}
-                  <div className="grid grid-cols-2 grid-rows-3 gap-3 w-full h-full relative z-10">
-                    {MODULES.map((mod) => {
+                  {/* ══════════════════════════════════════════════════════════
+                      HARDWARE: MOBILE NOTCH (Persistente)
+                     ══════════════════════════════════════════════════════════ */}
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 z-50 pointer-events-none drop-shadow-md">
+                    <svg width="130" height="24" viewBox="0 0 130 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M0 0 H130 C130 0 126 0 122 0 C114 0 110 6 110 14 C110 19.5228 105.523 24 100 24 H30 C24.4772 24 20 19.5228 20 14 C20 6 16 0 8 0 C4 0 0 0 0 0 Z" fill="#171717"/>
+                      <rect x="52" y="9" width="26" height="4" rx="2" fill="#0A0A0A" />
+                      <circle cx="90" cy="11" r="4" fill="#050505" />
+                      <circle cx="90" cy="11" r="1.5" fill="#14143a" />
+                      <circle cx="90.5" cy="10.5" r="0.5" fill="#ffffff" opacity="0.4" />
+                    </svg>
+                  </div>
+
+                  {/* ══════════════════════════════════════════════════════════
+                      ACTO 1: Matriz de 6 Módulos (Rápido y Secuencial)
+                     ══════════════════════════════════════════════════════════ */}
+                  <div className="scene-act-1 absolute inset-0 p-5 pt-8 grid grid-cols-2 gap-3 content-center w-full h-full z-10 will-change-transform">
+                    {modules.map((mod) => {
                       const Icon = mod.icon;
                       return (
-                        <div key={mod.id} className={`module-card module-${mod.id} bg-white/90 rounded-2xl p-4 flex flex-col justify-between border border-white/50 h-[92px] relative overflow-hidden shadow-sm`}>
-                          
+                        <div 
+                          key={mod.id} 
+                          className={`module-card module-${mod.id} bg-white/90 rounded-2xl p-3 flex flex-col justify-between border border-white/50 h-[92px] relative overflow-hidden shadow-sm select-none`}
+                        >
                           <div className={`check-icon check-${mod.id} absolute top-2 right-2 text-emerald-500`}>
                              <CheckCircle weight="fill" className="w-4 h-4" />
                           </div>
                           
                           <Icon weight="fill" className="w-5 h-5 text-[var(--color-brand-blue)]" />
-                          <div>
-                            <div className="text-sm font-semibold text-[var(--color-text-primary)] leading-none">{mod.name}</div>
-                            <div className={`toggle-bg toggle-bg-${mod.id} w-9 h-5 mt-2.5 rounded-full border border-[var(--color-border-Strokes-default)] bg-[var(--color-surface-BG-3)] flex items-center px-0.5`}>
+                          <div className="flex flex-col justify-end gap-2.5">
+                            <div className="text-[0.8125rem] font-semibold text-[var(--color-text-primary)] leading-none truncate tracking-tight">{t(mod.nameKey as any)}</div>
+                            <div className={`toggle-bg toggle-bg-${mod.id} w-9 h-5 rounded-full border border-[var(--color-border-Strokes-default)] bg-[var(--color-surface-BG-3)] flex items-center px-0.5`}>
                               <div className={`toggle-knob toggle-knob-${mod.id} w-4 h-4 rounded-full bg-white shadow-sm`} />
                             </div>
                           </div>
                         </div>
                       );
                     })}
+
+                    {/* Mobile Home Indicator (Bottom Mark) */}
+                    <div className="absolute bottom-3 left-1/2 -translate-x-1/2 pointer-events-none">
+                      <div className="w-24 h-[3px] rounded-full bg-black/15" />
+                    </div>
+                  </div>
+
+                  {/* ══════════════════════════════════════════════════════════
+                      ACTO 2: Perfil Asignado & Separación (Cara 2)
+                     ══════════════════════════════════════════════════════════ */}
+                  <div className="scene-act-2 absolute inset-0 p-5 flex flex-col justify-center gap-6 w-full h-full z-10 will-change-transform pt-8">
+                    
+                    {/* Tarjeta 1: Perfil del Asistente */}
+                    <div className="act2-item bg-white/90 rounded-2xl p-3 sm:p-3.5 flex items-center justify-between border border-white/50 shadow-sm h-[72px]">
+                      <div className="flex items-center gap-3">
+                        <div className="w-9 h-9 rounded-xl bg-[var(--color-brand-blue)]/15 border border-[var(--color-brand-blue)]/30 flex items-center justify-center text-caption font-bold text-[var(--color-text-accent-blue)] shrink-0">
+                          SR
+                        </div>
+                        <div className="flex flex-col truncate">
+                          <span className="text-body-sm font-semibold text-[var(--color-text-primary)] leading-none">{t('act1Name')}</span>
+                          <span className="text-[0.6875rem] text-[var(--color-text-muted)] mt-1 truncate">{t('act1Email')}</span>
+                        </div>
+                      </div>
+                      <span className="text-[0.5625rem] font-mono font-bold text-emerald-600 bg-emerald-500/10 px-2 py-1 rounded-lg uppercase">
+                        {t('statusActive')}
+                      </span>
+                    </div>
+
+                    {/* Grid de 2 Tarjetas: Autorizados vs Protegidos */}
+                    <div className="grid grid-cols-2 gap-3 h-[210px]">
+                      
+                      {/* Tarjeta Autorizados */}
+                      <div className="act2-item bg-white/90 rounded-2xl p-3.5 flex flex-col justify-between border border-white/50 shadow-sm relative overflow-hidden">
+                        <div className="flex justify-between items-start">
+                          <ShieldCheck weight="fill" className="w-5 h-5 text-[var(--color-brand-blue)]" />
+                          <CheckCircle weight="fill" className="w-4 h-4 text-emerald-500" />
+                        </div>
+                        
+                        <div className="flex flex-col gap-1.5 my-auto">
+                          <span className="text-[0.625rem] font-mono text-emerald-600 font-semibold bg-emerald-500/10 px-2 py-0.5 rounded w-fit">{t('modQuote')}</span>
+                          <span className="text-[0.625rem] font-mono text-emerald-600 font-semibold bg-emerald-500/10 px-2 py-0.5 rounded w-fit">{t('modCustomers')}</span>
+                          <span className="text-[0.625rem] font-mono text-emerald-600 font-semibold bg-emerald-500/10 px-2 py-0.5 rounded w-fit">{t('modDownline')}</span>
+                        </div>
+
+                        <div className="text-caption font-semibold text-[var(--color-text-primary)] leading-none">
+                          {t('threeModules')}
+                        </div>
+                      </div>
+
+                      {/* Tarjeta Protegidos */}
+                      <div className="act2-item bg-white/90 rounded-2xl p-3.5 flex flex-col justify-between border border-white/50 shadow-sm relative overflow-hidden opacity-75">
+                        <div className="flex justify-between items-start">
+                          <LockKey weight="fill" className="w-5 h-5 text-rose-500" />
+                          <span className="text-[0.5rem] font-mono text-rose-600 bg-rose-500/10 px-1.5 py-0.5 rounded font-bold">{t('off')}</span>
+                        </div>
+                        
+                        <div className="flex flex-col gap-1.5 my-auto">
+                          <span className="text-[0.625rem] font-mono text-rose-600 line-through bg-rose-50/50 px-2 py-0.5 rounded w-fit">{t('modCommissions')}</span>
+                          <span className="text-[0.625rem] font-mono text-rose-600 line-through bg-rose-50/50 px-2 py-0.5 rounded w-fit">{t('modContracts')}</span>
+                          <span className="text-[0.625rem] font-mono text-rose-600 line-through bg-rose-50/50 px-2 py-0.5 rounded w-fit">{t('modSettings')}</span>
+                        </div>
+
+                        <div className="text-caption font-semibold text-rose-600 leading-none">
+                          {t('restricted')}
+                        </div>
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                  {/* ══════════════════════════════════════════════════════════
+                      ACTO 3: CIRCULAR PULSE WAVE (Cara 3)
+                     ══════════════════════════════════════════════════════════ */}
+                  <div className="scene-act-3 absolute inset-0 p-5 flex items-center justify-center text-center w-full h-full z-10 overflow-hidden will-change-transform">
+                    
+                    {/* Ondas Circulares de Pulso */}
+                    <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
+                      
+                      {/* Onda 3 Expansiva (Grande) */}
+                      <div className="absolute w-56 h-56 rounded-full border border-emerald-500/25 bg-emerald-500/[0.03] animate-[ping_3.2s_cubic-bezier(0,0,0.2,1)_infinite_1.6s] pointer-events-none" />
+                      
+                      {/* Onda 2 Expansiva (Media) */}
+                      <div className="absolute w-40 h-40 rounded-full border border-[var(--color-brand-blue)]/35 bg-[var(--color-brand-blue)]/[0.04] animate-[ping_3.2s_cubic-bezier(0,0,0.2,1)_infinite_0.8s] pointer-events-none" />
+                      
+                      {/* Onda 1 Expansiva (Cercana) */}
+                      <div className="absolute w-24 h-24 rounded-full border border-[var(--color-brand-blue)]/50 bg-[var(--color-brand-blue)]/[0.08] animate-[ping_3.2s_cubic-bezier(0,0,0.2,1)_infinite] pointer-events-none" />
+
+                      {/* Anillo Fijo de Cristal Hairline */}
+                      <div className="absolute w-48 h-48 rounded-full border border-white/60 pointer-events-none" />
+                      <div className="absolute w-32 h-32 rounded-full border border-[var(--color-brand-blue)]/20 pointer-events-none" />
+
+                      {/* Icono Central Emisor del Pulso */}
+                      <div className="pulse-center-icon relative z-20 w-16 h-16 rounded-3xl bg-white/95 border border-white shadow-[0_12px_32px_rgba(53,187,253,0.25)] flex items-center justify-center text-emerald-600">
+                        <ShieldCheck weight="fill" className="w-9 h-9 text-[var(--color-brand-blue)]" />
+                      </div>
+                    </div>
+
                   </div>
 
                 </div>

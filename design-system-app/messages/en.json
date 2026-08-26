@@ -353,6 +353,33 @@
       "card3Desc": "Total control. Fill every field manually while steering the live consultation call.",
       "card4Title": "In-Person QR",
       "card4Desc": "Display a QR on your tablet. Perfect for live seminars, walk-ins, or physical agency branches."
+    },
+    "delegateUsers": {
+      "overline": "Access Control & Delegation",
+      "title1": "Your team logs in",
+      "title2": "with their own account.",
+      "subtitle": "Grant granular permissions to your assistants or agents. Maintain <bold>complete security</bold> over your agency by deciding <bold>exactly which modules</bold> they can access.",
+      "modQuote": "Quote & Enroll",
+      "modCustomers": "Customers",
+      "modContracts": "Contracts",
+      "modCommissions": "Commissions",
+      "modDownline": "Downline",
+      "modSettings": "Settings",
+      "act1Badge": "Assistant Invitation",
+      "act1Name": "Sofia Ramirez",
+      "act1Role": "Operations Assistant",
+      "act1Email": "sofia@youragency.com",
+      "act1Status": "Account Assigned ✓",
+      "act2Badge": "Granular Permissions",
+      "act2Allowed": "Allowed",
+      "act2Blocked": "Restricted",
+      "act3Badge": "Assistant Live View",
+      "act3Session": "Active Session: Sofia",
+      "act3Safe": "Your commissions and bank accounts remain 100% protected",
+      "statusActive": "Active",
+      "threeModules": "3 Modules",
+      "restricted": "Restricted",
+      "off": "OFF"
     }
   }
 }

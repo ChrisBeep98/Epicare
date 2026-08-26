@@ -45,21 +45,27 @@ export default function DownlineSection() {
   const trackRef = useRef<HTMLDivElement>(null);
   const progressBarRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
-  const [leftOffset, setLeftOffset] = useState<number>(24);
   const [activeMobileIndex, setActiveMobileIndex] = useState(0);
 
-  // Calcular la alineación fija en desktop
+  // Calcular la alineación fija en desktop sin forzar re-renders (evita hydration mismatch)
   useEffect(() => {
     const updateOffset = () => {
-      if (headerRef.current) {
+      if (headerRef.current && trackRef.current) {
         const rect = headerRef.current.getBoundingClientRect();
         const computedStyle = window.getComputedStyle(headerRef.current);
         const paddingLeft = parseFloat(computedStyle.paddingLeft) || 24;
-        setLeftOffset(rect.left + paddingLeft > 0 ? rect.left + paddingLeft : 24);
+        const offset = rect.left + paddingLeft > 0 ? rect.left + paddingLeft : 24;
+        
+        if (window.innerWidth >= 768) {
+          trackRef.current.style.paddingLeft = `${offset}px`;
+        } else {
+          trackRef.current.style.paddingLeft = '';
+        }
       }
     };
 
-    updateOffset();
+    // Usar requestAnimationFrame para asegurar que el DOM ya está pintado
+    requestAnimationFrame(updateOffset);
     window.addEventListener("resize", updateOffset);
     window.addEventListener("load", updateOffset);
 
@@ -155,7 +161,8 @@ export default function DownlineSection() {
         if (!track || !pinSec) return;
 
         const getScrollDistance = () => {
-          return track.scrollWidth - window.innerWidth + leftOffset + 80;
+          const offset = parseFloat(track.style.paddingLeft) || 24;
+          return track.scrollWidth - window.innerWidth + offset + 80;
         };
 
         const horizontalTl = gsap.timeline({
@@ -212,7 +219,7 @@ export default function DownlineSection() {
     }, el);
 
     return () => ctx.revert();
-  }, [leftOffset]);
+  }, []);
 
   return (
     <div 
@@ -266,9 +273,6 @@ export default function DownlineSection() {
           <div
             ref={trackRef}
             onScroll={handleMobileScroll}
-            style={{ 
-              paddingLeft: typeof window !== 'undefined' && window.innerWidth >= 768 ? `${leftOffset}px` : undefined 
-            }}
             className="flex items-start gap-4 sm:gap-6 lg:gap-8 overflow-x-auto md:overflow-visible snap-x snap-mandatory scrollbar-none -mx-gutter-sm px-gutter-sm md:mx-0 md:px-0 md:pr-[20vw] will-change-transform w-full"
           >
             

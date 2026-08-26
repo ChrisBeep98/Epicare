@@ -353,6 +353,33 @@
       "card3Desc": "Control total. Llena cada campo manualmente mientras lideras la llamada.",
       "card4Title": "In-Person QR",
       "card4Desc": "Muestra un QR en tu tablet. Ideal para eventos o agencias físicas."
+    },
+    "delegateUsers": {
+      "overline": "Control de Acceso & Delegación",
+      "title1": "Tu equipo entra",
+      "title2": "con su propia cuenta.",
+      "subtitle": "Otorga permisos granulares a tus asistentes o agentes. Mantén la <bold>seguridad total</bold> de tu agencia decidiendo <bold>exactamente a qué módulos</bold> pueden acceder.",
+      "modQuote": "Quote & Enroll",
+      "modCustomers": "Clientes",
+      "modContracts": "Contratos",
+      "modCommissions": "Comisiones",
+      "modDownline": "Downline",
+      "modSettings": "Configuración",
+      "act1Badge": "Invitación de Asistente",
+      "act1Name": "Sofía Ramírez",
+      "act1Role": "Asistente de Operaciones",
+      "act1Email": "sofia@tuagencia.com",
+      "act1Status": "Cuenta Asignada ✓",
+      "act2Badge": "Permisos Granulares",
+      "act2Allowed": "Permitido",
+      "act2Blocked": "Bloqueado",
+      "act3Badge": "Vista del Asistente",
+      "act3Session": "Sesión Activa: Sofía",
+      "act3Safe": "Tus comisiones y cuentas bancarias están 100% blindadas",
+      "statusActive": "Activo",
+      "threeModules": "3 Módulos",
+      "restricted": "Restringidos",
+      "off": "OFF"
     }
   }
 }
