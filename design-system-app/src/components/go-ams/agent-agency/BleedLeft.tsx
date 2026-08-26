@@ -25,20 +25,49 @@ export function BleedLeft({ children, className = "" }: BleedLeftProps) {
     };
 
     update();
+    // Fix: GSAP animations on parent cause getBoundingClientRect to be wrong initially.
+    // Recalculate after the entrance animations finish.
+    const t1 = setTimeout(update, 100);
+    const t2 = setTimeout(update, 800);
+    const t3 = setTimeout(update, 1500);
+
     window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+      clearTimeout(t3);
+      window.removeEventListener("resize", update);
+    };
   }, []);
 
   return (
-    <div
-      ref={ref}
-      style={{
-        marginLeft: offset > 0 ? `-${offset}px` : "0px",
-        width: offset > 0 ? `calc(100% + ${offset}px)` : "100%",
-      }}
-      className={className}
-    >
-      {children}
-    </div>
+    <>
+      <style dangerouslySetInnerHTML={{
+        __html: `
+        /* Mobile: Pure CSS to offset exactly the container's gutter padding */
+        @media (max-width: 1023px) {
+          .bleed-left-responsive {
+            margin-left: calc(-1 * var(--space-gutter-sm, 16px)) !important;
+            width: calc(100% + var(--space-gutter-sm, 16px)) !important;
+          }
+        }
+        /* Desktop: Uses the JS calculated offset */
+        @media (min-width: 1024px) {
+          .bleed-left-responsive {
+            margin-left: calc(-1 * var(--bleed-offset, 0px)) !important;
+            width: calc(100% + var(--bleed-offset, 0px)) !important;
+          }
+        }
+      `}} />
+      <div
+        ref={ref}
+        style={{
+          "--bleed-offset": offset > 0 ? `${offset}px` : "0px",
+        } as React.CSSProperties}
+        className={`bleed-left-responsive ${className}`}
+      >
+        {children}
+      </div>
+    </>
   );
 }

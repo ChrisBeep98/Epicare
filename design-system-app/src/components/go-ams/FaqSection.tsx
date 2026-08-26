@@ -163,7 +163,7 @@ export default function FaqSection() {
                   className="w-full py-6 md:py-10 flex items-center justify-between gap-6 md:gap-8 text-left outline-none cursor-pointer select-none"
                   aria-expanded={isOpen}
                 >
-                  <h3 className={`text-h5 md:text-h4 font-display uppercase tracking-tight transition-colors duration-300 ${isOpen ? 'text-[var(--color-brand-blue)]' : 'text-[var(--color-text-primary)] group-hover:text-[var(--color-brand-blue)]'}`}>
+                  <h3 className={`text-h5 md:text-h4 font-display tracking-tight transition-colors duration-300 ${isOpen ? 'text-[var(--color-brand-blue)]' : 'text-[var(--color-text-primary)] group-hover:text-[var(--color-brand-blue)]'}`}>
                     {t(faq.qKey as any)}
                   </h3>
                   

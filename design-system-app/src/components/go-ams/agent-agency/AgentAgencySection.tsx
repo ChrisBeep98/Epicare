@@ -263,7 +263,7 @@ export function AgentAgencySection({
         {/* ── 2. Panel Principal Dinámico Asimétrico ── */}
         <div
           ref={interactivePanelRef}
-          className="w-full grid-layout gap-fluid-lg items-center relative"
+          className="w-full grid-layout gap-y-10 lg:gap-fluid-lg items-center relative"
         >
           {/* Columna Izquierda: Imagen Bleed-Left (Cols 1-6) */}
           <AgentAgencyImageShowcase

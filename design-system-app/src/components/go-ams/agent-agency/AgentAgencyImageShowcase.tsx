@@ -48,7 +48,7 @@ export function AgentAgencyImageShowcase({
                   alt={img.alt}
                   loading="lazy"
                   decoding="async"
-                  className="w-[calc(100%+24px)] max-w-none h-full object-cover object-left-top -translate-x-4"
+                  className="w-full md:w-[calc(100%+24px)] max-w-none h-full object-cover object-left-top md:-translate-x-4"
                 />
               </div>
             );
