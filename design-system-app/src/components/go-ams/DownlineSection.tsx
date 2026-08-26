@@ -9,17 +9,34 @@ import {
   Sparkle,
   Certificate,
   UserPlus,
-  ShieldStar,
-  Lightning,
 } from "@phosphor-icons/react";
 import { asset } from "@/lib/asset";
 import { EASE, DUR, STAGGER, REVEAL, TRIGGER, SCRUB } from "@/lib/motion";
 
-/**
- * @description S08 / S09 · Agency Downline Experience
- * Paradigma: Pinned Horizontal Scrollytelling (Arquetipo 4) con Hardware Symphony,
- * Line-by-Line Header Reveal y adaptación responsive fluida.
- */
+const CARDS_DATA = [
+  {
+    id: 1,
+    titleKey: "card1Title",
+    altKey: "card1Alt",
+    image: "/Files/Go_AMS/downline_and ecosystem/downline 1.png",
+    icon: <TreeStructure weight="duotone" className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
+  },
+  {
+    id: 2,
+    titleKey: "card2Title",
+    altKey: "card2Alt",
+    image: "/Files/Go_AMS/downline_and ecosystem/locense_details.png",
+    icon: <Certificate weight="duotone" className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
+  },
+  {
+    id: 3,
+    titleKey: "card3Title",
+    altKey: "card3Alt",
+    image: "/Files/Go_AMS/downline_and ecosystem/Invite to downline.png",
+    icon: <UserPlus weight="duotone" className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-[var(--color-brand-blue)]" />
+  }
+];
+
 export default function DownlineSection() {
   const t = useTranslations('goAms.downline');
   const containerRef = useRef<HTMLDivElement>(null);
@@ -27,9 +44,11 @@ export default function DownlineSection() {
   const headerRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const progressBarRef = useRef<HTMLDivElement>(null);
+  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
   const [leftOffset, setLeftOffset] = useState<number>(24);
+  const [activeMobileIndex, setActiveMobileIndex] = useState(0);
 
-  // Calcular la alineación fija de las imágenes al contenedor base
+  // Calcular la alineación fija en desktop
   useEffect(() => {
     const updateOffset = () => {
       if (headerRef.current) {
@@ -50,6 +69,24 @@ export default function DownlineSection() {
     };
   }, []);
 
+  // Scroll handler para carrusel táctil en mobile
+  const handleMobileScroll = () => {
+    const track = trackRef.current;
+    if (!track || window.innerWidth >= 768) return;
+    const scrollLeft = track.scrollLeft;
+    const firstCard = cardsRef.current[0];
+    const cardWidth = firstCard ? firstCard.offsetWidth + 16 : track.clientWidth * 0.88;
+    const index = Math.round(scrollLeft / cardWidth);
+    setActiveMobileIndex(Math.min(Math.max(index, 0), CARDS_DATA.length - 1));
+  };
+
+  const scrollToMobileCard = (index: number) => {
+    const card = cardsRef.current[index];
+    if (card) {
+      card.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+    }
+  };
+
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
     ScrollTrigger.config({ ignoreMobileResize: true });
@@ -61,7 +98,7 @@ export default function DownlineSection() {
 
     const ctx = gsap.context(() => {
       if (prefersReducedMotion) {
-        gsap.set(".dl-title-line, .dl-eyebrow, .dl-hint, .mobile-downline-card", {
+        gsap.set(".dl-title-line, .dl-eyebrow, .dl-hint, .downline-card", {
           opacity: 1,
           y: 0,
           yPercent: 0,
@@ -111,10 +148,11 @@ export default function DownlineSection() {
 
       const mm = gsap.matchMedia();
 
-      // ── 2. DESKTOP & TABLET: Pinned Horizontal Scrollytelling (Arquetipo 4) ──
+      // ── 2. DESKTOP & TABLET (≥ 768px): Pinned Horizontal Scrollytelling ──
       mm.add("(min-width: 768px)", () => {
         const track = trackRef.current;
-        if (!track || !pinSectionRef.current) return;
+        const pinSec = pinSectionRef.current;
+        if (!track || !pinSec) return;
 
         const getScrollDistance = () => {
           return track.scrollWidth - window.innerWidth + leftOffset + 80;
@@ -122,11 +160,12 @@ export default function DownlineSection() {
 
         const horizontalTl = gsap.timeline({
           scrollTrigger: {
-            trigger: pinSectionRef.current,
+            trigger: pinSec,
             start: "top top",
             end: () => `+=${getScrollDistance()}`,
             pin: true,
-            scrub: SCRUB.crisp, // 1.0 para respuesta inmediata al dedo
+            anticipatePin: 1,
+            scrub: SCRUB.crisp,
             invalidateOnRefresh: true,
             onUpdate: (self) => {
               if (progressBarRef.current) {
@@ -145,27 +184,29 @@ export default function DownlineSection() {
         });
       });
 
-      // ── 3. MOBILE: Entrada Vertical en Cascada (Arquetipo 3 Wave Stagger) ──
+      // ── 3. MOBILE (< 768px): Revelado suave de tarjetas ──
       mm.add("(max-width: 767px)", () => {
-        gsap.fromTo(
-          ".mobile-downline-card",
-          { opacity: 0, y: REVEAL.md, scale: 0.97, willChange: "transform, opacity" },
-          {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            duration: DUR.base,
-            stagger: STAGGER.wave,
-            ease: EASE.out,
-            force3D: true,
-            clearProps: "willChange",
-            scrollTrigger: {
-              trigger: el,
-              start: TRIGGER.standard,
-              toggleActions: "play none none reverse",
+        const validCards = cardsRef.current.filter(Boolean);
+        if (validCards.length > 0) {
+          gsap.fromTo(
+            validCards,
+            { opacity: 0, y: REVEAL.md, scale: 0.96 },
+            {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              duration: DUR.base,
+              stagger: STAGGER.wave,
+              ease: EASE.out,
+              force3D: true,
+              scrollTrigger: {
+                trigger: el,
+                start: TRIGGER.standard,
+                toggleActions: "play none none reverse"
+              }
             }
-          }
-        );
+          );
+        }
       });
 
     }, el);
@@ -177,20 +218,19 @@ export default function DownlineSection() {
     <div 
       ref={containerRef} 
       id="s08-downline" 
-      className="w-full bg-[var(--color-surface-BG-base)] relative z-10 mb-section-md"
+      className="w-full bg-[var(--color-surface-BG-base)] relative z-10 py-section-xs md:py-0 mb-section-sm md:mb-section-md"
     >
-      {/* ── SECCIÓN PINEADA CON SCROLL HORIZONTAL (Desktop / Tablet) ── */}
       <section
         ref={pinSectionRef}
-        className="w-full min-h-dvh flex flex-col justify-between overflow-hidden relative pt-6 pb-8"
+        className="w-full md:h-dvh md:min-h-dvh flex flex-col justify-between overflow-hidden relative pt-2 md:pt-6 pb-4 md:pb-8"
       >
-        {/* ── 1. Top Bar de Control & Progreso ── */}
+        {/* ── 1. Top Bar de Control & Título ── */}
         <div 
           ref={headerRef}
-          className="w-full max-w-section-xl mx-auto px-gutter-sm lg:px-gutter-md grid-layout items-end relative z-20 shrink-0 pb-4"
+          className="w-full max-w-section-xl mx-auto px-gutter-sm md:px-gutter-md flex flex-col md:flex-row justify-between items-start md:items-end relative z-20 shrink-0 pb-3 md:pb-4 gap-3 md:gap-fluid-md"
         >
-          {/* Bloque de Título */}
-          <div className="col-span-6 md:col-span-8 lg:col-span-8 flex flex-col items-start gap-1.5 text-left">
+          {/* Título Principal */}
+          <div className="flex flex-col items-start gap-1.5 text-left">
             <div className="dl-eyebrow flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-[var(--color-brand-blue)] animate-pulse" />
               <span className="text-overline text-[var(--color-brand-blue)]">
@@ -198,7 +238,7 @@ export default function DownlineSection() {
               </span>
             </div>
             
-            <h2 className="text-display-lg text-[var(--color-text-primary)]">
+            <h2 className="text-display-lg font-semibold text-[var(--color-text-primary)] leading-[1.05]">
               <span className="dl-title-line block">{t('title1')}</span>
               <span className="dl-title-line block text-[var(--color-text-accent-blue)]">
                 {t('title2')}
@@ -206,14 +246,13 @@ export default function DownlineSection() {
             </h2>
           </div>
 
-          {/* Indicador de Desplazamiento Horizontal */}
-          <div className="dl-hint col-span-6 md:col-span-4 lg:col-span-4 flex flex-col items-start md:items-end gap-2 shrink-0 pb-1">
+          {/* Indicador de Desplazamiento (Desktop) */}
+          <div className="dl-hint hidden md:flex flex-col items-end gap-2 shrink-0 pb-1">
             <div className="flex items-center gap-2 text-meta text-[var(--color-text-muted)] font-mono">
               <Sparkle weight="fill" className="w-3.5 h-3.5 text-[var(--color-brand-blue)]" />
               <span>{t('scrollHint')}</span>
             </div>
-            {/* Barra de Progreso */}
-            <div className="w-40 sm:w-48 h-1 rounded-full bg-[var(--color-surface-BG-1)] border border-[var(--color-border-Strokes-default)] overflow-hidden">
+            <div className="w-40 lg:w-48 h-1 rounded-full bg-[var(--color-surface-BG-1)] border border-[var(--color-border-Strokes-default)] overflow-hidden">
               <div 
                 ref={progressBarRef} 
                 className="w-full h-full bg-[var(--color-brand-blue)] origin-left scale-x-0 transition-transform duration-75"
@@ -222,102 +261,65 @@ export default function DownlineSection() {
           </div>
         </div>
 
-        {/* ── 2. Track de Scroll Horizontal Alineado con el Título ── */}
-        <div className="w-full flex-1 flex items-center relative z-20 overflow-visible">
+        {/* ── 2. Track de Tarjetas con Título Encima y Formato Natural de Imagen ── */}
+        <div className="w-full flex-1 flex items-center relative z-20 overflow-visible py-2 sm:py-4">
           <div
             ref={trackRef}
-            style={{ paddingLeft: `${leftOffset}px` }}
-            className="flex items-center gap-6 lg:gap-8 pr-[20vw] will-change-transform"
+            onScroll={handleMobileScroll}
+            style={{ 
+              paddingLeft: typeof window !== 'undefined' && window.innerWidth >= 768 ? `${leftOffset}px` : undefined 
+            }}
+            className="flex items-start gap-4 sm:gap-6 lg:gap-8 overflow-x-auto md:overflow-visible snap-x snap-mandatory scrollbar-none -mx-gutter-sm px-gutter-sm md:mx-0 md:px-0 md:pr-[20vw] will-change-transform w-full"
           >
             
-            {/* ════ TARJETA 01: DOWNLINE EN TIEMPO REAL ════ */}
-            <div className="mobile-downline-card relative w-[90vw] sm:w-[80vw] md:w-[68vw] lg:w-[58vw] max-w-[840px] aspect-[16/10] rounded-[2rem] border border-[var(--color-border-Strokes-default)] shadow-elevation-3 overflow-hidden flex flex-col shrink-0 bg-[var(--color-surface-BG-1)] group">
-              
-              {/* Header de Tarjeta Compacto */}
-              <div className="py-2.5 px-4 sm:py-3 sm:px-5 flex items-center justify-between border-b border-[var(--color-border-Strokes-default)] bg-[var(--color-surface-BG-1)]/95 backdrop-blur-md shrink-0">
-                <div className="flex items-center gap-2.5">
-                  <div className="p-1.5 rounded-xl bg-[var(--color-brand-blue)]/10 text-[var(--color-text-accent-blue)] border border-[var(--color-brand-blue)]/20">
-                    <TreeStructure weight="duotone" className="w-4 h-4" />
+            {CARDS_DATA.map((card, idx) => (
+              <div
+                key={card.id}
+                ref={(el) => { cardsRef.current[idx] = el; }}
+                className="downline-card relative w-[88vw] sm:w-[78vw] md:w-[68vw] lg:w-[58vw] max-w-[840px] flex flex-col shrink-0 snap-center select-none group"
+              >
+                {/* Nombre con icono encima de la imagen */}
+                <div className="flex items-center gap-2.5 sm:gap-3.5 pb-2.5 sm:pb-4 px-1">
+                  <div className="p-1.5 sm:p-2.5 rounded-xl sm:rounded-2xl bg-[var(--color-brand-blue)]/10 text-[var(--color-text-accent-blue)] border border-[var(--color-brand-blue)]/20 shrink-0">
+                    {card.icon}
                   </div>
-                  <h3 className="text-body-md text-[var(--color-text-primary)] font-semibold">{t('card1Title')}</h3>
+                  <span className="text-body-md sm:text-h5 md:text-h4 font-semibold text-[var(--color-text-primary)] tracking-tight">
+                    {t(card.titleKey as any)}
+                  </span>
                 </div>
 
-                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[var(--color-surface-BG-base)] border border-[var(--color-border-Strokes-default)] text-meta text-[var(--color-text-accent-blue)] font-mono">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-brand-blue)] animate-ping" />
-                  <span>{t('card1Badge')}</span>
+                {/* Screenshot en su formato natural */}
+                <div className="relative w-full rounded-2xl md:rounded-[2rem] border border-[var(--color-border-Strokes-default)] shadow-elevation-3 overflow-hidden bg-[var(--color-surface-BG-1)]">
+                  <img
+                    src={asset(card.image)}
+                    alt={t(card.altKey as any)}
+                    className="w-full h-auto object-contain block transition-transform duration-500 group-hover:scale-[1.01]"
+                    loading="lazy"
+                  />
                 </div>
               </div>
-
-              {/* Screenshot Real */}
-              <div className="relative w-full flex-1 overflow-hidden bg-[var(--color-surface-BG-base)]">
-                <img
-                  src={asset("/Files/Go_AMS/downline_and ecosystem/downline 1.png")}
-                  alt={t('card1Alt')}
-                  className="w-full h-full object-cover object-top"
-                  loading="lazy"
-                />
-              </div>
-            </div>
-
-            {/* ════ TARJETA 02: LICENCIAS & COMPLIANCE ════ */}
-            <div className="mobile-downline-card relative w-[90vw] sm:w-[80vw] md:w-[68vw] lg:w-[58vw] max-w-[840px] aspect-[16/10] rounded-[2rem] border border-[var(--color-border-Strokes-default)] shadow-elevation-3 overflow-hidden flex flex-col shrink-0 bg-[var(--color-surface-BG-1)] group">
-              
-              {/* Header de Tarjeta Compacto */}
-              <div className="py-2.5 px-4 sm:py-3 sm:px-5 flex items-center justify-between border-b border-[var(--color-border-Strokes-default)] bg-[var(--color-surface-BG-1)]/95 backdrop-blur-md shrink-0">
-                <div className="flex items-center gap-2.5">
-                  <div className="p-1.5 rounded-xl bg-[var(--color-brand-blue)]/10 text-[var(--color-text-accent-blue)] border border-[var(--color-brand-blue)]/20">
-                    <Certificate weight="duotone" className="w-4 h-4" />
-                  </div>
-                  <h3 className="text-body-md text-[var(--color-text-primary)] font-semibold">{t('card2Title')}</h3>
-                </div>
-
-                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[var(--color-surface-BG-base)] border border-[var(--color-border-Strokes-default)] text-meta text-[var(--color-text-accent-blue)] font-mono">
-                  <ShieldStar weight="fill" className="w-3.5 h-3.5" />
-                  <span>{t('card2Badge')}</span>
-                </div>
-              </div>
-
-              {/* Screenshot Real */}
-              <div className="relative w-full flex-1 overflow-hidden bg-[var(--color-surface-BG-base)]">
-                <img
-                  src={asset("/Files/Go_AMS/downline_and ecosystem/locense_details.png")}
-                  alt={t('card2Alt')}
-                  className="w-full h-full object-cover object-top"
-                  loading="lazy"
-                />
-              </div>
-            </div>
-
-            {/* ════ TARJETA 03: ONBOARDING DIGITAL DE AGENTES ════ */}
-            <div className="mobile-downline-card relative w-[90vw] sm:w-[80vw] md:w-[68vw] lg:w-[58vw] max-w-[840px] aspect-[16/10] rounded-[2rem] border border-[var(--color-border-Strokes-default)] shadow-elevation-3 overflow-hidden flex flex-col shrink-0 bg-[var(--color-surface-BG-1)] group">
-              
-              {/* Header de Tarjeta Compacto */}
-              <div className="py-2.5 px-4 sm:py-3 sm:px-5 flex items-center justify-between border-b border-[var(--color-border-Strokes-default)] bg-[var(--color-surface-BG-1)]/95 backdrop-blur-md shrink-0">
-                <div className="flex items-center gap-2.5">
-                  <div className="p-1.5 rounded-xl bg-[var(--color-brand-blue)]/10 text-[var(--color-text-accent-blue)] border border-[var(--color-brand-blue)]/20">
-                    <UserPlus weight="duotone" className="w-4 h-4 text-[var(--color-brand-blue)]" />
-                  </div>
-                  <h3 className="text-body-md text-[var(--color-text-primary)] font-semibold">{t('card3Title')}</h3>
-                </div>
-
-                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[var(--color-brand-blue)]/10 border border-[var(--color-brand-blue)]/20 text-meta text-[var(--color-text-accent-blue)] font-mono">
-                  <Lightning weight="fill" className="w-3.5 h-3.5" />
-                  <span>{t('card3Badge')}</span>
-                </div>
-              </div>
-
-              {/* Screenshot Real */}
-              <div className="relative w-full flex-1 overflow-hidden bg-[var(--color-surface-BG-base)]">
-                <img
-                  src={asset("/Files/Go_AMS/downline_and ecosystem/Invite to downline.png")}
-                  alt={t('card3Alt')}
-                  className="w-full h-full object-cover object-top"
-                  loading="lazy"
-                />
-              </div>
-            </div>
+            ))}
 
           </div>
+        </div>
+
+        {/* ── 3. Puntos de Paginación Táctil (Solo Mobile) ── */}
+        <div className="flex md:hidden items-center justify-center gap-2 mt-4">
+          {CARDS_DATA.map((_, idx) => {
+            const isActive = idx === activeMobileIndex;
+            return (
+              <button
+                key={idx}
+                onClick={() => scrollToMobileCard(idx)}
+                aria-label={`Slide ${idx + 1}`}
+                className={`transition-all duration-300 rounded-full cursor-pointer ${
+                  isActive
+                    ? "w-6 h-1.5 bg-[var(--color-brand-blue)] shadow-[0_0_8px_rgba(53,187,253,0.6)]"
+                    : "w-1.5 h-1.5 bg-[var(--color-border-Strokes-strong)]/40 hover:bg-[var(--color-border-Strokes-strong)]"
+                }`}
+              />
+            );
+          })}
         </div>
 
       </section>
