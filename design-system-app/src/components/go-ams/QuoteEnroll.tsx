@@ -121,30 +121,58 @@ export default function QuoteEnroll() {
       // 3. Tarjetas con Wave Stagger (Arquetipo 3: Cards)
       const validCards = cardsRef.current.filter(Boolean);
       if (validCards.length > 0) {
-        gsap.fromTo(
-          validCards,
-          {
-            opacity: 0,
-            y: REVEAL.md,
-            scale: 0.98,
-            willChange: "transform, opacity"
-          },
-          {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            duration: DUR.base,
-            stagger: STAGGER.wave,
-            ease: EASE.out,
-            force3D: true,
-            clearProps: "willChange",
-            scrollTrigger: {
-              trigger: el,
-              start: "top 70%",
-              toggleActions: "play none none reverse"
+        const mm = gsap.matchMedia(el);
+
+        // Desktop: Stagger individual cards with scale (safe because grid has no snap scroll)
+        mm.add("(min-width: 768px)", () => {
+          gsap.fromTo(
+            validCards,
+            {
+              opacity: 0,
+              y: REVEAL.md,
+              scale: 0.98,
+              willChange: "transform, opacity"
+            },
+            {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              duration: DUR.base,
+              stagger: STAGGER.wave,
+              ease: EASE.out,
+              force3D: true,
+              clearProps: "willChange",
+              scrollTrigger: {
+                trigger: el,
+                start: "top 70%",
+                toggleActions: "play none none reverse"
+              }
             }
+          );
+        });
+
+        // Mobile: Animate the ENTIRE scroll wrapper to avoid breaking native CSS snap physics
+        mm.add("(max-width: 767px)", () => {
+          if (scrollContainerRef.current) {
+            gsap.fromTo(
+              scrollContainerRef.current,
+              { opacity: 0, y: 15, willChange: "transform, opacity" },
+              {
+                opacity: 1,
+                y: 0,
+                duration: DUR.base,
+                ease: EASE.out,
+                force3D: true,
+                clearProps: "all",
+                scrollTrigger: {
+                  trigger: el,
+                  start: "top 75%",
+                  toggleActions: "play none none reverse"
+                }
+              }
+            );
           }
-        );
+        });
       }
     }, el);
 

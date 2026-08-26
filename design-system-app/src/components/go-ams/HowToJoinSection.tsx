@@ -88,30 +88,57 @@ export default function HowToJoinSection() {
 
       // ── 2. Entrada de la Tabla / Carrusel (Wave Stagger) ──
       if (tableRef.current) {
-        gsap.fromTo(
-          ".join-step-card",
-          { 
-            opacity: 0, 
-            y: 25, 
-            scale: 0.97,
-            willChange: "transform, opacity" 
-          },
-          {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            duration: 0.6,
-            stagger: 0.08,
-            ease: EASE.out,
-            force3D: true,
-            clearProps: "all",
-            scrollTrigger: {
-              trigger: tableRef.current,
-              start: "top 92%",
-              toggleActions: "play none none reverse"
+        const mm = gsap.matchMedia(el);
+        
+        // Desktop: Animación en cascada con escala (no afecta scroll porque no es touch-swipe)
+        mm.add("(min-width: 768px)", () => {
+          gsap.fromTo(
+            ".join-step-card-desktop",
+            { 
+              opacity: 0, 
+              y: 25, 
+              scale: 0.97,
+              willChange: "transform, opacity" 
+            },
+            {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              duration: 0.6,
+              stagger: 0.08,
+              ease: EASE.out,
+              force3D: true,
+              clearProps: "all",
+              scrollTrigger: {
+                trigger: tableRef.current,
+                start: "top 92%",
+                toggleActions: "play none none reverse"
+              }
             }
-          }
-        );
+          );
+        });
+
+        // Mobile: Animamos solo el contenedor completo (mobileTrackRef) con opacidad. 
+        // Intervenir 'scale' en los hijos rompe la física de CSS snap-mandatory causando un frenón de scroll.
+        mm.add("(max-width: 767px)", () => {
+          gsap.fromTo(
+            mobileTrackRef.current,
+            { opacity: 0, y: 15, willChange: "transform, opacity" },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.6,
+              ease: EASE.out,
+              force3D: true,
+              clearProps: "all",
+              scrollTrigger: {
+                trigger: tableRef.current,
+                start: "top 95%",
+                toggleActions: "play none none reverse"
+              }
+            }
+          );
+        });
       }
 
     }, el);
@@ -161,7 +188,7 @@ export default function HowToJoinSection() {
             <div 
               key={step.id}
               ref={(el) => { cardsRef.current[idx] = el; }}
-              className="join-step-card shrink-0 w-[78vw] sm:w-[300px] aspect-square snap-center p-6 rounded-2xl border border-[var(--color-border-Strokes-default)] bg-[var(--color-surface-BG-base)] shadow-elevation-2 flex flex-col justify-start select-none relative overflow-hidden"
+              className="shrink-0 w-[78vw] sm:w-[300px] aspect-square snap-center p-6 rounded-2xl border border-[var(--color-border-Strokes-default)] bg-[var(--color-surface-BG-base)] shadow-elevation-2 flex flex-col justify-start select-none relative overflow-hidden"
             >
               <span className="text-data font-mono text-[var(--color-brand-blue)] mb-3 block select-none">
                 {step.id}
@@ -205,7 +232,7 @@ export default function HowToJoinSection() {
           {STEPS.map((step) => (
             <div 
               key={step.id} 
-              className="join-step-card group relative p-6 md:p-8 flex flex-col justify-between border-r last:border-r-0 border-[var(--color-border-Strokes-default)] hover:bg-[var(--color-surface-BG-2)] transition-colors duration-300 select-none"
+              className="join-step-card-desktop group relative p-6 md:p-8 flex flex-col justify-between border-r last:border-r-0 border-[var(--color-border-Strokes-default)] hover:bg-[var(--color-surface-BG-2)] transition-colors duration-300 select-none"
             >
               {/* Animación de barra superior al hacer hover */}
               <div className="absolute top-0 left-0 w-full h-[2px] bg-[var(--color-brand-blue)] scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 ease-out" />
