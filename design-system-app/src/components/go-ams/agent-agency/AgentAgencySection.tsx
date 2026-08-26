@@ -46,7 +46,7 @@ export function AgentAgencySection({
 
     const ctx = gsap.context(() => {
       if (prefersReducedMotion) {
-        gsap.set(".aa-title-line, .aa-header-elem, .aa-image-showcase, .aa-feature-badge, .aa-feature-headline, .aa-feature-card", { 
+        gsap.set(".aa-title-line, .aa-header-elem, .aa-image-showcase, .aa-feature-headline, .aa-feature-card", { 
           opacity: 1, 
           y: 0, 
           yPercent: 0, 
@@ -117,25 +117,7 @@ export function AgentAgencySection({
         }
       );
 
-      // Columna Derecha: Badges & Headline
-      gsap.fromTo(
-        ".aa-feature-badge",
-        { opacity: 0, scale: 0.9, y: REVEAL.sm, willChange: "transform, opacity" },
-        {
-          opacity: 1,
-          scale: 1,
-          y: 0,
-          duration: DUR.fast,
-          ease: EASE.snap,
-          clearProps: "willChange",
-          scrollTrigger: {
-            trigger: panelEl || el,
-            start: "top 72%",
-            toggleActions: "play none none reverse",
-          },
-        }
-      );
-
+      // Columna Derecha: Headline
       gsap.fromTo(
         ".aa-feature-headline",
         { opacity: 0, y: REVEAL.sm, willChange: "transform, opacity" },
@@ -218,10 +200,10 @@ export function AgentAgencySection({
     if (newRole === activeRole) return;
     setActiveRole(newRole);
 
-    // Micro-animación de transición al cambiar de pestaña (Badges + Headline + Cards)
+    // Micro-animación de transición al cambiar de pestaña (Headline + Cards)
     if (interactivePanelRef.current) {
       gsap.fromTo(
-        interactivePanelRef.current.querySelectorAll(".aa-feature-card, .aa-feature-headline, .aa-feature-badge"),
+        interactivePanelRef.current.querySelectorAll(".aa-feature-card, .aa-feature-headline"),
         { opacity: 0, y: 12, scale: 0.98 },
         { opacity: 1, y: 0, scale: 1, duration: DUR.fast, stagger: 0.04, ease: EASE.snap, force3D: true, clearProps: "willChange" }
       );

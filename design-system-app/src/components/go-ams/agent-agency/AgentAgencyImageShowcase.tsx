@@ -13,7 +13,7 @@ export function AgentAgencyImageShowcase({
 }: AgentAgencyImageShowcaseProps) {
   return (
     <div
-      className="aa-image-showcase col-span-6 md:col-span-8 lg:col-span-6 w-full h-[400px] sm:h-[480px] lg:h-full lg:min-h-[580px] xl:min-h-[640px] relative order-2 lg:order-1"
+      className="aa-image-showcase col-span-6 md:col-span-8 lg:col-span-6 w-full h-[320px] sm:h-[440px] lg:h-full lg:min-h-[580px] xl:min-h-[640px] relative order-2 lg:order-1"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >

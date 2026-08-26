@@ -302,9 +302,9 @@
       "tiltLabel": "Tilt"
     },
     "agentAgency": {
-      "title1": "If you lead an agency,",
+      "title1": "With an agency,",
       "title2": "the portal evolves with you.",
-      "subtitle": "A dedicated toggle in the top bar switches seamlessly between your individual producer account and your full agency view. Two purpose-built environments on one unified platform.",
+      "subtitle": "Switch between your <bold>personal account</bold> and <bold>agency view</bold> in a single click.",
       "tabAgent": "Agent Account",
       "tabAgency": "Agency Account",
       "agentBadge1": "Mode: Direct Production",
@@ -340,6 +340,19 @@
       "card3Title": "Digital Agent Onboarding",
       "card3Badge": "1-Click Direct Invite",
       "card3Alt": "Digital Onboarding and Producer Invitation Workflow"
+    },
+    "quoteWays": {
+      "title1": "Four ways to",
+      "title2": "close a sale.",
+      "subtitle": "Engineered for the modern agency. Choose the perfect closing workflow for every client and reclaim your time.",
+      "card1Title": "Smart Flow",
+      "card1Desc": "Enter the phone number. Epicare autofills the rest from our verified national database.",
+      "card2Title": "Send Link",
+      "card2Desc": "Send an SMS. The client completes their details directly on their smartphone with zero pressure.",
+      "card3Title": "Data Entry",
+      "card3Desc": "Total control. Fill every field manually while steering the live consultation call.",
+      "card4Title": "In-Person QR",
+      "card4Desc": "Display a QR on your tablet. Perfect for live seminars, walk-ins, or physical agency branches."
     }
   }
 }

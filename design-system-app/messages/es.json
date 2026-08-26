@@ -302,9 +302,9 @@
       "tiltLabel": "Girar"
     },
     "agentAgency": {
-      "title1": "Si tienes agencia,",
+      "title1": "Con agencia,",
       "title2": "el portal cambia contigo.",
-      "subtitle": "Un botón permanente en la barra superior alterna entre tu cuenta de productor individual y tu vista de agencia. Dos espacios optimizados dentro de la misma plataforma.",
+      "subtitle": "Alterna entre tu <bold>cuenta personal</bold> y tu <bold>vista de agencia</bold> con un solo clic.",
       "tabAgent": "Cuenta de Agente",
       "tabAgency": "Cuenta de Agencia",
       "agentBadge1": "Modo: Producción Directa",
@@ -340,6 +340,19 @@
       "card3Title": "Onboarding de Nuevos Agentes",
       "card3Badge": "Invitación en 1 Clic",
       "card3Alt": "Onboarding e Invitación de Nuevos Productores a la Agencia"
+    },
+    "quoteWays": {
+      "title1": "Cuatro formas de",
+      "title2": "cerrar una venta.",
+      "subtitle": "Diseñado para la agencia moderna. Escoge el flujo perfecto para cada cliente y recupera tu tiempo.",
+      "card1Title": "Smart Flow",
+      "card1Desc": "Ingresa el teléfono. Epicare autocompleta el resto con nuestra base nacional.",
+      "card2Title": "Send Link",
+      "card2Desc": "Envía un SMS. El cliente completa sus datos desde su celular sin presión.",
+      "card3Title": "Data Entry",
+      "card3Desc": "Control total. Llena cada campo manualmente mientras lideras la llamada.",
+      "card4Title": "In-Person QR",
+      "card4Desc": "Muestra un QR en tu tablet. Ideal para eventos o agencias físicas."
     }
   }
 }
