@@ -2,39 +2,34 @@
 
 import React from "react";
 import { User, Buildings } from "@phosphor-icons/react";
+import { useTranslations } from "next-intl";
 import { AgentAgencyHeaderProps } from "./types";
 
 export function AgentAgencyHeader({
   activeRole,
   onRoleChange,
-  title,
-  description = "Un botón permanente en la barra superior alterna entre tu cuenta de productor individual y tu vista de agencia. Dos espacios optimizados dentro de la misma plataforma.",
 }: AgentAgencyHeaderProps) {
+  const t = useTranslations('goAms.agentAgency');
   const isAgent = activeRole === "agent";
 
   return (
     <div className="grid-layout items-end gap-y-fluid-md">
       {/* Título y Subtítulo Principal (Izquierda, Cols 1-7) */}
       <div className="col-span-6 md:col-span-8 lg:col-span-7 flex flex-col gap-3">
-        <h2 className="role-reveal-elem text-display-lg text-[var(--color-text-primary)] leading-[1.08] tracking-tight">
-          {title || (
-            <>
-              Si tienes agencia,
-              <br />
-              <span className="text-[var(--color-text-accent-blue)]">
-                el portal cambia contigo.
-              </span>
-            </>
-          )}
+        <h2 className="text-display-lg text-[var(--color-text-primary)]">
+          <span className="aa-title-line block">{t('title1')}</span>
+          <span className="aa-title-line block text-[var(--color-text-accent-blue)]">
+            {t('title2')}
+          </span>
         </h2>
 
-        <p className="role-reveal-elem text-body-lg text-[var(--color-text-secondary)] leading-relaxed max-w-[620px]">
-          {description}
+        <p className="aa-header-elem text-body-lg text-[var(--color-text-secondary)] max-w-section-xs">
+          {t('subtitle')}
         </p>
       </div>
 
       {/* Selector de Pestañas Interactivo (Derecha, Cols 8-12) */}
-      <div className="role-reveal-elem col-span-6 md:col-span-8 lg:col-span-5 flex lg:justify-end">
+      <div className="aa-header-elem col-span-6 md:col-span-8 lg:col-span-5 flex lg:justify-end">
         <div className="p-1.5 rounded-2xl bg-[var(--color-surface-BG-1)] border border-[var(--color-border-Strokes-default)] flex items-center gap-1.5 shadow-elevation-1 w-full sm:w-auto">
           {/* Botón Agente */}
           <button
@@ -47,7 +42,7 @@ export function AgentAgencyHeader({
             }`}
           >
             <User weight={isAgent ? "fill" : "bold"} className="w-4 h-4" />
-            <span>Cuenta de Agente</span>
+            <span>{t('tabAgent')}</span>
           </button>
 
           {/* Botón Agencia */}
@@ -61,7 +56,7 @@ export function AgentAgencyHeader({
             }`}
           >
             <Buildings weight={!isAgent ? "fill" : "bold"} className="w-4 h-4" />
-            <span>Cuenta de Agencia</span>
+            <span>{t('tabAgency')}</span>
           </button>
         </div>
       </div>

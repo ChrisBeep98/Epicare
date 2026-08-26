@@ -13,7 +13,7 @@ export function AgentAgencyImageShowcase({
 }: AgentAgencyImageShowcaseProps) {
   return (
     <div
-      className="col-span-6 md:col-span-8 lg:col-span-6 w-full h-[400px] sm:h-[480px] lg:h-full lg:min-h-[580px] xl:min-h-[640px] relative order-2 lg:order-1"
+      className="aa-image-showcase col-span-6 md:col-span-8 lg:col-span-6 w-full h-[400px] sm:h-[480px] lg:h-full lg:min-h-[580px] xl:min-h-[640px] relative order-2 lg:order-1"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
@@ -26,7 +26,7 @@ export function AgentAgencyImageShowcase({
             borderTopRightRadius: "1.75rem",
             borderBottomRightRadius: "1.75rem",
           }}
-          className="relative w-full h-full overflow-hidden bg-[#151718] border-y border-r border-l-0 transition-colors duration-500 shadow-elevation-2 flex items-center justify-center border-[var(--color-brand-blue)]/20 !rounded-tl-none !rounded-bl-none !rounded-tr-[1.75rem] !rounded-br-[1.75rem]"
+          className="relative w-full h-full overflow-hidden bg-[var(--color-surface-BG-black)] border-y border-r border-l-0 transition-colors duration-500 shadow-elevation-2 flex items-center justify-center border-[var(--color-brand-blue)]/20 !rounded-tl-none !rounded-bl-none !rounded-tr-[1.75rem] !rounded-br-[1.75rem]"
         >
           {/* Imágenes Bleed-Left: recortando el radio embebido del PNG para que la izquierda sea 100% recta y plana contra el borde */}
           {images.map((img, idx) => {
@@ -41,7 +41,7 @@ export function AgentAgencyImageShowcase({
                   borderTopRightRadius: "1.75rem",
                   borderBottomRightRadius: "1.75rem",
                 }}
-                className="active-screen-img absolute inset-0 w-full h-full overflow-hidden bg-[#151718] !rounded-tl-none !rounded-bl-none !rounded-tr-[1.75rem] !rounded-br-[1.75rem]"
+                className="active-screen-img absolute inset-0 w-full h-full overflow-hidden bg-[var(--color-surface-BG-black)] !rounded-tl-none !rounded-bl-none !rounded-tr-[1.75rem] !rounded-br-[1.75rem]"
               >
                 <img
                   src={img.src}

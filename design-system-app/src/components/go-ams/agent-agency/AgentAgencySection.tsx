@@ -1,43 +1,44 @@
 "use client";
 
-import React, { useState, useRef, useLayoutEffect, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { EASE, DUR } from "@/lib/motion";
-import { RoleMode } from "./types";
-import { COMPARISON_IMAGES, AGENT_FEATURES, AGENCY_FEATURES } from "./data";
+import { useTranslations } from "next-intl";
+import { EASE, DUR, STAGGER, REVEAL, TRIGGER } from "@/lib/motion";
+import { RoleMode, FeaturePill } from "./types";
+import { COMPARISON_IMAGES } from "./data";
 import { AgentAgencyHeader } from "./AgentAgencyHeader";
 import { AgentAgencyImageShowcase } from "./AgentAgencyImageShowcase";
 import { AgentAgencyFeatureCards } from "./AgentAgencyFeatureCards";
 
-gsap.registerPlugin(ScrollTrigger);
-
 export interface AgentAgencySectionProps {
   id?: string;
-  title?: React.ReactNode;
-  description?: string;
   className?: string;
 }
 
 /**
  * @description S07/S08 · Agente y Agencia (Audiencias y Vistas de Rol)
  * Conmutador interactivo de alta fidelidad, 12 columnas arquitectónicas,
- * showcase Bleed-Left al borde del body con tabs a la izquierda y mini cards interactivas a la derecha.
+ * showcase Bleed-Left con Hardware Symphony, Smart Shutdown y Wave Stagger Cards.
  */
 export function AgentAgencySection({
   id = "s07-agent-agency",
-  title,
-  description,
   className = "",
 }: AgentAgencySectionProps) {
+  const t = useTranslations('goAms.agentAgency');
   const [activeRole, setActiveRole] = useState<RoleMode>("agent");
   const [activeSlide, setActiveSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [isInViewport, setIsInViewport] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const interactivePanelRef = useRef<HTMLDivElement>(null);
   const imageContainerRef = useRef<HTMLDivElement>(null);
 
-  useLayoutEffect(() => {
+  // 1. Core Reveal con Motion Tokenizer & Hardware Symphony
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    ScrollTrigger.config({ ignoreMobileResize: true });
+
     const el = sectionRef.current;
     if (!el) return;
 
@@ -45,52 +46,170 @@ export function AgentAgencySection({
 
     const ctx = gsap.context(() => {
       if (prefersReducedMotion) {
-        gsap.set(".role-reveal-elem", { opacity: 1, y: 0 });
+        gsap.set(".aa-title-line, .aa-header-elem, .aa-image-showcase, .aa-feature-badge, .aa-feature-headline, .aa-feature-card", { 
+          opacity: 1, 
+          y: 0, 
+          yPercent: 0, 
+          scale: 1, 
+          clipPath: "inset(0% 0% 0% 0%)" 
+        });
         return;
       }
 
-      // Reveal inicial al entrar en viewport
+      // Título con Line-by-Line Clip
       gsap.fromTo(
-        ".role-reveal-elem",
-        { opacity: 0, y: 32 },
+        ".aa-title-line",
+        { yPercent: REVEAL.birthPercent, opacity: 0, clipPath: "inset(0% 0% 100% 0%)", willChange: "transform, opacity, clip-path" },
+        {
+          yPercent: 0,
+          opacity: 1,
+          clipPath: "inset(-20% -10% -20% -10%)",
+          duration: 0.8,
+          stagger: STAGGER.base,
+          ease: EASE.dramatic,
+          clearProps: "clipPath,willChange",
+          scrollTrigger: {
+            trigger: el,
+            start: TRIGGER.standard,
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+
+      // Subtítulo y Tabs
+      gsap.fromTo(
+        ".aa-header-elem",
+        { opacity: 0, y: REVEAL.md, willChange: "transform, opacity" },
         {
           opacity: 1,
           y: 0,
           duration: DUR.base,
-          stagger: 0.08,
+          stagger: STAGGER.base,
           ease: EASE.out,
+          clearProps: "willChange",
           scrollTrigger: {
             trigger: el,
-            start: "top 78%",
-            once: true,
+            start: TRIGGER.standard,
+            toggleActions: "play none none reverse",
           },
         }
       );
+
+      // Imagen Showcase (Entrada lateral desde la izquierda con aceleración GPU)
+      const panelEl = interactivePanelRef.current;
+
+      gsap.fromTo(
+        ".aa-image-showcase",
+        { opacity: 0, x: -120, scale: 0.96, willChange: "transform, opacity" },
+        {
+          opacity: 1,
+          x: 0,
+          scale: 1,
+          duration: DUR.slow,
+          ease: EASE.dramatic,
+          force3D: true,
+          clearProps: "transform,willChange",
+          scrollTrigger: {
+            trigger: panelEl || el,
+            start: "top 72%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+
+      // Columna Derecha: Badges & Headline
+      gsap.fromTo(
+        ".aa-feature-badge",
+        { opacity: 0, scale: 0.9, y: REVEAL.sm, willChange: "transform, opacity" },
+        {
+          opacity: 1,
+          scale: 1,
+          y: 0,
+          duration: DUR.fast,
+          ease: EASE.snap,
+          clearProps: "willChange",
+          scrollTrigger: {
+            trigger: panelEl || el,
+            start: "top 72%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+
+      gsap.fromTo(
+        ".aa-feature-headline",
+        { opacity: 0, y: REVEAL.sm, willChange: "transform, opacity" },
+        {
+          opacity: 1,
+          y: 0,
+          duration: DUR.base,
+          ease: EASE.out,
+          clearProps: "willChange",
+          scrollTrigger: {
+            trigger: panelEl || el,
+            start: "top 72%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+
+      // Columna Derecha: 3 Cards con Wave Stagger (Arquetipo 3)
+      gsap.fromTo(
+        ".aa-feature-card",
+        { opacity: 0, y: REVEAL.md, scale: 0.97, willChange: "transform, opacity" },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: DUR.base,
+          stagger: STAGGER.wave, // 0.15s ola fluida
+          ease: EASE.out,
+          force3D: true,
+          clearProps: "willChange",
+          scrollTrigger: {
+            trigger: panelEl || el,
+            start: "top 70%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+
+      // Smart Shutdown Protocol: Pausar timers cuando el elemento está fuera de pantalla
+      ScrollTrigger.create({
+        trigger: el,
+        start: "top 100%",
+        end: "bottom 0%",
+        onEnter: () => setIsInViewport(true),
+        onLeave: () => setIsInViewport(false),
+        onEnterBack: () => setIsInViewport(true),
+        onLeaveBack: () => setIsInViewport(false),
+      });
+
     }, el);
 
     return () => ctx.revert();
   }, []);
 
-  // Timer automático de transición de imágenes (4.5 segundos)
+  // 2. Smart Shutdown Timer (Solo corre cuando el usuario está viendo la sección)
   useEffect(() => {
-    if (isPaused) return;
+    if (isPaused || !isInViewport) return;
 
     const timer = setInterval(() => {
       setActiveSlide((prev) => (prev + 1) % COMPARISON_IMAGES.length);
     }, 4500);
 
     return () => clearInterval(timer);
-  }, [isPaused, activeSlide]);
+  }, [isPaused, isInViewport, activeSlide]);
 
-  // Transición visual suave entre imágenes
+  // 3. Transición visual suave entre imágenes con GPU Compositor
   useEffect(() => {
     if (!imageContainerRef.current) return;
     const activeImg = imageContainerRef.current.querySelector(".active-screen-img");
     if (activeImg) {
       gsap.fromTo(
         activeImg,
-        { opacity: 0, scale: 1.02, filter: "blur(4px)" },
-        { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.6, ease: EASE.out }
+        { opacity: 0, scale: 1.02 },
+        { opacity: 1, scale: 1, duration: 0.5, ease: EASE.out, force3D: true }
       );
     }
   }, [activeSlide]);
@@ -99,18 +218,53 @@ export function AgentAgencySection({
     if (newRole === activeRole) return;
     setActiveRole(newRole);
 
-    // Micro-animación de transición al cambiar de pestaña
+    // Micro-animación de transición al cambiar de pestaña (Badges + Headline + Cards)
     if (interactivePanelRef.current) {
       gsap.fromTo(
-        interactivePanelRef.current,
-        { opacity: 0.3, y: 12, scale: 0.985 },
-        { opacity: 1, y: 0, scale: 1, duration: DUR.fast, ease: EASE.snap }
+        interactivePanelRef.current.querySelectorAll(".aa-feature-card, .aa-feature-headline, .aa-feature-badge"),
+        { opacity: 0, y: 12, scale: 0.98 },
+        { opacity: 1, y: 0, scale: 1, duration: DUR.fast, stagger: 0.04, ease: EASE.snap, force3D: true, clearProps: "willChange" }
       );
     }
   };
 
   const isAgent = activeRole === "agent";
-  const currentFeatures = isAgent ? AGENT_FEATURES : AGENCY_FEATURES;
+
+  const currentFeatures: FeaturePill[] = isAgent
+    ? [
+        {
+          title: t('agentFeature1Title'),
+          description: t('agentFeature1Desc'),
+          badge: "Policies",
+        },
+        {
+          title: t('agentFeature2Title'),
+          description: t('agentFeature2Desc'),
+          badge: "Details",
+        },
+        {
+          title: t('agentFeature3Title'),
+          description: t('agentFeature3Desc'),
+          badge: "Quote & Enroll",
+        },
+      ]
+    : [
+        {
+          title: t('agencyFeature1Title'),
+          description: t('agencyFeature1Desc'),
+          badge: "Policies",
+        },
+        {
+          title: t('agencyFeature2Title'),
+          description: t('agencyFeature2Desc'),
+          badge: "Details",
+        },
+        {
+          title: t('agencyFeature3Title'),
+          description: t('agencyFeature3Desc'),
+          badge: "Contracts",
+        },
+      ];
 
   return (
     <section
@@ -123,8 +277,6 @@ export function AgentAgencySection({
         <AgentAgencyHeader
           activeRole={activeRole}
           onRoleChange={handleRoleSwitch}
-          title={title}
-          description={description}
         />
 
         {/* ── 2. Panel Principal Dinámico Asimétrico ── */}

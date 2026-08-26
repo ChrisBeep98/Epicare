@@ -57,7 +57,21 @@ export default function HeroSection() {
     const el = containerRef.current;
     if (!el) return;
 
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
     const ctx = gsap.context(() => {
+      if (prefersReducedMotion) {
+        gsap.set('.hero-title-line, .hero-eyebrow-text, .hero-text, .hero-btn, .hero-bullets, .hero-video-wrap', {
+          opacity: 1,
+          y: 0,
+          yPercent: 0,
+          scale: 1,
+          clipPath: "inset(0% 0% 0% 0%)",
+          filter: "none"
+        });
+        return;
+      }
+
       // 1. Initial State (Line-by-line reveal)
       gsap.set('.hero-title-line', {
         yPercent: REVEAL.birthPercent,
@@ -126,6 +140,7 @@ export default function HeroSection() {
         filter: "blur(0px)",
         duration: DUR.slow,
         ease: EASE.dramatic,
+        force3D: true,
         willChange: "transform, opacity, filter",
         clearProps: "filter,willChange"
       }, "-=0.8");
@@ -164,110 +179,110 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <div id="hero-wrapper" className="w-full flex flex-col bg-[var(--color-surface-BG-base)] min-h-dvh text-[var(--color-text-primary)] relative overflow-x-hidden">
+    <div id="hero-wrapper" className="w-full flex flex-col bg-[var(--color-surface-BG-base)] text-[var(--color-text-primary)] relative overflow-x-hidden">
       
       {/* 2. Unified Hero Grid */}
       <section 
         ref={containerRef}
         id="hero-main-section" 
-        className="relative w-full bg-[var(--color-surface-BG-base)] flex-1 px-gutter-sm lg:px-gutter-md pt-section-sm md:pt-section-md"
+        className="relative w-full bg-[var(--color-surface-BG-base)] flex-1 px-gutter-sm lg:px-gutter-md pt-[calc(var(--space-section-md)+16px)] lg:pt-section-md pb-section-sm lg:pb-section-md"
       >
-        <div className="mx-auto max-w-section-xl w-full grid-layout min-h-dvh grid-rows-[auto_auto_1fr] pb-section-md">
+        <div className="mx-auto max-w-section-xl w-full grid-layout lg:min-h-[calc(100dvh-120px)] lg:grid-rows-[auto_auto_1fr] gap-y-static-md lg:gap-y-0">
           
-        {/* Row 1: Eyebrow / Subtitle */}
-        <div id="hero-eyebrow" className="max-lg:col-start-1 max-lg:col-span-6 max-lg:row-start-1 max-lg:row-span-1 lg:col-start-1 lg:col-span-6 lg:row-start-1 lg:row-span-1 flex items-end pb-0 lg:pb-4 pt-0">
-          <p id="eyebrow-text" className="hero-eyebrow-text text-ui-label text-[var(--color-text-secondary)]">
-            {t('overline')}<span className="inline-block -translate-y-[4px]">&trade;</span>
-          </p>
-        </div>
+          {/* Row 1: Eyebrow / Subtitle */}
+          <div id="hero-eyebrow" className="col-span-12 lg:col-start-1 lg:col-span-6 lg:row-start-1 lg:row-span-1 flex items-end pb-0 lg:pb-4 pt-0">
+            <p id="eyebrow-text" className="hero-eyebrow-text text-ui-label text-[var(--color-text-secondary)]">
+              {t('overline')}<span className="inline-block -translate-y-[4px]">&trade;</span>
+            </p>
+          </div>
 
-        {/* Row 2-3: Heading */}
-        <div id="hero-heading" className="max-lg:col-start-1 max-lg:col-span-6 max-lg:row-start-2 max-lg:row-span-1 lg:col-start-1 lg:col-span-6 lg:row-start-2 lg:row-span-1 flex items-start max-lg:!py-section-sm lg:pr-10">
-          <h1 id="hero-title" className="text-display-xl text-[var(--color-text-primary)]">
-            <span className="hero-title-line block text-[var(--color-text-accent-blue)]">
-              {t('title1')}
-            </span>
-            <span className="hero-title-line block">
-              {t('title2')}
-            </span>
-          </h1>
-        </div>
+          {/* Row 2: Heading */}
+          <div id="hero-heading" className="col-span-12 lg:col-start-1 lg:col-span-6 lg:row-start-2 lg:row-span-1 flex items-start lg:pr-10">
+            <h1 id="hero-title" className="text-display-xl text-[var(--color-text-primary)]">
+              <span className="hero-title-line block text-[var(--color-text-accent-blue)]">
+                {t('title1')}
+              </span>
+              <span className="hero-title-line block">
+                {t('title2')}
+              </span>
+            </h1>
+          </div>
 
-        {/* Row 2: CTA Block */}
-        <div id="hero-cta" className="max-lg:col-start-1 max-lg:col-span-6 max-lg:row-start-3 max-lg:row-span-1 lg:col-start-8 lg:col-span-4 lg:row-start-2 lg:row-span-1 flex flex-col items-start justify-start gap-fluid-xs mt-4 lg:mt-0">
-          <p id="cta-subtitle" className="hero-text text-body-md text-[var(--color-text-secondary)]">
-            {t.rich('description', {
-              bold: (chunks) => <strong className="font-semibold text-[var(--color-text-primary)]">{chunks}</strong>
-            })}
-          </p>
-          <button className="hero-btn bg-[var(--color-brand-blue)] text-[var(--color-surface-BG-base)] px-static-xl py-static-md rounded-xl text-ui-label w-fit hover:bg-opacity-90 transition-all flex justify-center items-center">
-            {t('cta')}
-          </button>
-        </div>
+          {/* Row 3 (Desktop Row 2 Right): CTA Block */}
+          <div id="hero-cta" className="col-span-12 lg:col-start-8 lg:col-span-4 lg:row-start-2 lg:row-span-1 flex flex-col items-start justify-start gap-fluid-xs">
+            <p id="cta-subtitle" className="hero-text text-body-md text-[var(--color-text-secondary)]">
+              {t.rich('description', {
+                bold: (chunks) => <strong className="font-semibold text-[var(--color-text-primary)]">{chunks}</strong>
+              })}
+            </p>
+            <button className="hero-btn bg-[var(--color-brand-blue)] text-[var(--color-surface-BG-base)] px-static-xl py-static-md rounded-xl text-ui-label w-fit hover:bg-opacity-90 transition-all flex justify-center items-center cursor-pointer">
+              {t('cta')}
+            </button>
+          </div>
 
-        {/* Row 3: Dark Panel */}
-        <div id="visual-panel-wrapper" className="hero-video-wrap max-lg:col-start-1 max-lg:col-span-6 max-lg:row-start-4 max-lg:row-span-1 lg:col-start-4 lg:col-span-9 lg:row-start-3 lg:row-span-1 w-full h-auto relative mt-8 lg:mt-12 lg:-translate-y-[104px]">
-          
-          <BleedRight className="relative w-full h-full mobile-bleed">
+          {/* Row 4 (Desktop Row 3): Dark Panel / Video Showcase */}
+          <div id="visual-panel-wrapper" className="hero-video-wrap col-span-12 lg:col-start-3 lg:col-span-10 lg:row-start-3 lg:row-span-1 w-full h-auto relative mt-6 lg:mt-0 lg:-translate-y-[148px] pl-12 sm:pl-20 md:pl-28 lg:pl-0">
             
-            {/* Scroll Down Button */}
-            <div className="absolute top-[124px] left-[-20px] -translate-x-full z-20 hidden lg:flex">
-              <button 
-                onClick={() => {
-                  const nextSection = document.getElementById("hero-wrapper")?.nextElementSibling;
-                  if (nextSection) {
-                    const top = nextSection.getBoundingClientRect().top + window.scrollY;
-                    window.scrollTo({ top, behavior: 'smooth' });
-                  }
-                }}
-                className="group relative w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center bg-[var(--color-brand-blue)] text-white shadow-elevation-2 transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:shadow-elevation-4 active:scale-95"
-                aria-label="Scroll down"
-              >
-                <div className="absolute inset-0 rounded-full border border-white/20 scale-100 group-hover:scale-[1.15] opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out"></div>
-                <span className="relative w-full h-full flex items-center justify-center overflow-hidden rounded-full">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" className="absolute w-5 h-5 transition-transform duration-[600ms] ease-[cubic-bezier(0.68,-0.6,0.32,1.6)] group-hover:translate-y-10" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7" /></svg>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" className="absolute w-5 h-5 -translate-y-10 transition-transform duration-[600ms] ease-[cubic-bezier(0.68,-0.6,0.32,1.6)] group-hover:translate-y-0" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7" /></svg>
-                </span>
-              </button>
-            </div>
-
-            <div id="visual-panel" className="relative bg-[var(--color-surface-BG-1)] shadow-elevation-2 w-full h-full flex items-center justify-center rounded-l-[12px] rounded-r-none max-lg:!bg-transparent overflow-hidden !p-0">
+            <BleedRight className="relative w-full h-full mobile-bleed">
               
-              {/* Media Editor (Video) */}
-              <div id="hero-video" className="relative z-0 flex items-center justify-center max-lg:!w-full overflow-hidden rounded-l-[12px] rounded-r-none w-full h-auto">
-                <video 
-                  autoPlay 
-                  muted 
-                  loop 
-                  playsInline
-                  preload="auto"
-                  className="w-full h-auto block object-top rounded-l-[12px] rounded-r-none"
+              {/* Scroll Down Button (Desktop Only) */}
+              <div className="absolute top-[140px] left-[-24px] -translate-x-full z-20 hidden lg:flex">
+                <button 
+                  onClick={() => {
+                    const nextSection = document.getElementById("hero-wrapper")?.nextElementSibling;
+                    if (nextSection) {
+                      const top = nextSection.getBoundingClientRect().top + window.scrollY;
+                      window.scrollTo({ top, behavior: 'smooth' });
+                    }
+                  }}
+                  className="group relative w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center bg-[var(--color-brand-blue)] text-white shadow-elevation-2 transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:shadow-elevation-4 active:scale-95 cursor-pointer"
+                  aria-label="Scroll down"
                 >
-                  <source src={asset("/Files/Go_AMS/Hero/go_ams_hero.mp4")} type="video/mp4" />
-                </video>
-                {/* Textura de ruido optimizada sobre la imagen */}
-                <div className="absolute inset-0 bg-noise pointer-events-none z-10 mix-blend-overlay opacity-80 rounded-l-[12px] rounded-r-none" />
+                  <div className="absolute inset-0 rounded-full border border-white/20 scale-100 group-hover:scale-[1.15] opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out"></div>
+                  <span className="relative w-full h-full flex items-center justify-center overflow-hidden rounded-full">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" className="absolute w-5 h-5 transition-transform duration-[600ms] ease-[cubic-bezier(0.68,-0.6,0.32,1.6)] group-hover:translate-y-10" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7" /></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" className="absolute w-5 h-5 -translate-y-10 transition-transform duration-[600ms] ease-[cubic-bezier(0.68,-0.6,0.32,1.6)] group-hover:translate-y-0" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7" /></svg>
+                  </span>
+                </button>
               </div>
 
-            </div>
-          </BleedRight>
-        </div>
+              <div id="visual-panel" className="relative bg-[var(--color-surface-BG-1)] shadow-elevation-3 w-[145%] sm:w-[130%] max-w-none lg:w-full lg:max-w-full h-auto flex items-center justify-center rounded-l-2xl rounded-r-none lg:rounded-l-[12px] lg:rounded-r-none border border-r-0 border-[var(--color-border-Strokes-default)]/60 overflow-hidden p-0">
+                
+                {/* Media Editor (Video) */}
+                <div id="hero-video" className="relative z-0 flex items-center justify-center w-full overflow-hidden rounded-l-2xl rounded-r-none lg:rounded-l-[12px] lg:rounded-r-none h-auto">
+                  <video 
+                    autoPlay 
+                    muted 
+                    loop 
+                    playsInline
+                    preload="auto"
+                    className="w-full h-auto block object-contain rounded-l-2xl rounded-r-none lg:rounded-l-[12px] lg:rounded-r-none"
+                  >
+                    <source src={asset("/Files/Go_AMS/Hero/go_ams_hero.mp4")} type="video/mp4" />
+                  </video>
+                  {/* Textura de ruido optimizada */}
+                  <div className="absolute inset-0 bg-noise pointer-events-none z-10 mix-blend-overlay opacity-80 rounded-l-2xl rounded-r-none lg:rounded-l-[12px] lg:rounded-r-none" />
+                </div>
 
-        {/* Row 4: Mobile Bullets (Mobile Only) */}
-        <div id="mobile-bullets" className="max-lg:col-start-1 max-lg:col-span-6 max-lg:row-start-5 max-lg:row-span-1 lg:col-start-1 lg:col-span-12 lg:row-start-4 lg:row-span-1 flex lg:hidden flex-row items-start justify-between gap-fluid-sm mt-6 pb-section-md">
-          <div className="hero-bullets flex gap-2 items-start w-1/2">
-            <div className="w-2 h-2 rounded-full bg-[var(--color-brand-blue)] mt-1.5 flex-shrink-0"></div>
-            <p className="text-caption text-[var(--color-text-muted)]">
-              {t('bullet1')}
-            </p>
+              </div>
+            </BleedRight>
           </div>
-          <div className="hero-bullets flex gap-2 items-start w-1/2">
-            <div className="w-2 h-2 rounded-full bg-[var(--color-brand-blue)] mt-1.5 flex-shrink-0"></div>
-            <p className="text-caption text-[var(--color-text-muted)]">
-              {t('bullet2')}
-            </p>
+
+          {/* Row 5: Mobile Bullets (Mobile Only) */}
+          <div id="mobile-bullets" className="col-span-12 flex lg:hidden flex-row items-start justify-between gap-fluid-sm pt-2">
+            <div className="hero-bullets flex gap-2 items-start w-1/2">
+              <div className="w-2 h-2 rounded-full bg-[var(--color-brand-blue)] mt-1.5 flex-shrink-0"></div>
+              <p className="text-caption text-[var(--color-text-muted)]">
+                {t('bullet1')}
+              </p>
+            </div>
+            <div className="hero-bullets flex gap-2 items-start w-1/2">
+              <div className="w-2 h-2 rounded-full bg-[var(--color-brand-blue)] mt-1.5 flex-shrink-0"></div>
+              <p className="text-caption text-[var(--color-text-muted)]">
+                {t('bullet2')}
+              </p>
+            </div>
           </div>
-        </div>
 
         </div>
       </section>

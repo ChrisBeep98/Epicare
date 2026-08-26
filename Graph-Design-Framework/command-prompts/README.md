@@ -11,6 +11,7 @@ Protocolos **invocables** del framework Epicare. Son `.md` planos: cualquier cha
 | [`creative-motion-protocol.md`](./creative-motion-protocol.md) | **CREAR secciones de alto impacto** (hero, narrativas, reveals). Carga scrollytelling-map + MOTION-BIBLE + arquetipos + recetario + Token-Live + RUBRIC en una llamada. |
 | [`redesign-section-protocol.md`](./redesign-section-protocol.md) | **REDISEÑAR una sección existente.** Censo → autopsia → 3 conceptos de paradigmas distintos (Motion Scores) → STOP para elegir → implementar → RUBRIC. Con reglas anti-loop. |
 | [`tokenized-design-protocol.md`](./tokenized-design-protocol.md) | **Token-Live Mode.** Diseño/refactor rápido sin hardcodear; margen creativo declarado. |
+| [`motion-audit-protocol.md`](./motion-audit-protocol.md) | **Motion Tokenizer & Auditoría.** Auditar, corregir y tokenizar animaciones con la firma Epicare (`motion.ts`), Hardware Symphony y Line-by-Line Clip. |
 | [`update-design-system-protocol.md`](./update-design-system-protocol.md) | Añadir/modificar tokens del DS (CSS + página interactiva + docs). |
 | [`vertical-spacing-protocol.md`](./vertical-spacing-protocol.md) | Auditar/estandarizar el ritmo vertical entre secciones (single-owner). |
 | [`live-editing-protocol.md`](./live-editing-protocol.md) | Edición visual en vivo / debug panel. |

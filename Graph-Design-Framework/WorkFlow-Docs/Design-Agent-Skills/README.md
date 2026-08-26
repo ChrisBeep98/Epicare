@@ -16,8 +16,9 @@ description: Índice y orden de carga de las Design Agent Skills de Epicare, mar
 | 3 | **Section Archetypes** | [`SECTION-ARCHETYPES.md`](./SECTION-ARCHETYPES.md) | 🎯 dirección | Coreografía mínima obligatoria + paradigmas de layout por tipo de sección. |
 | 4 | **Awwwards Rubric** | [`AWWWARDS-RUBRIC.md`](./AWWWARDS-RUBRIC.md) | ✅ examen | Checklist binario 15 puntos. Umbral 12/15 para entregar. |
 | 5 | **Tokenizer** | [`Tokenizer.md`](./Tokenizer.md) | 🛡️ guardián | Enforcement Zero-Px del Design System. |
-| 6 | **Cognitive Typographer** | [`COGNITIVE-TYPOGRAPHER.md`](./COGNITIVE-TYPOGRAPHER.md) | ⚙️ receta | Tracking, text-wrap, medida de línea. |
-| 7 | **Hardware Symphony** | [`HARDWARE-SYMPHONY.md`](./HARDWARE-SYMPHONY.md) | 🛡️ guardián | 60fps: qué animar y qué no, smart shutdown, degradación. |
+| 6 | **Motion Tokenizer** | [`Motion-Tokenizer.md`](./Motion-Tokenizer.md) | 🛡️ guardián | Enforcement de tokens cinemáticos (`motion.ts`), 4 arquetipos y Line-by-Line Clip. |
+| 7 | **Cognitive Typographer** | [`COGNITIVE-TYPOGRAPHER.md`](./COGNITIVE-TYPOGRAPHER.md) | ⚙️ receta | Tracking, text-wrap, medida de línea. |
+| 8 | **Hardware Symphony** | [`HARDWARE-SYMPHONY.md`](./HARDWARE-SYMPHONY.md) | 🛡️ guardián | 60fps: qué animar y qué no, smart shutdown, degradación. |
 
 ## 🧰 Skills de workflow (bajo demanda)
 
