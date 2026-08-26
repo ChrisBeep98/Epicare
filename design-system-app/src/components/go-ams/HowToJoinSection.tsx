@@ -1,47 +1,158 @@
 "use client";
 
-import React from "react";
+import React, { useRef, useEffect } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useTranslations } from "next-intl";
+import { EASE, DUR, STAGGER, REVEAL, TRIGGER } from "@/lib/motion";
 
-const steps = [
-  { id: "01", title: "APLICAS", desc: "Contracting te contacta en 24-48 horas hábiles." },
-  { id: "02", title: "FIRMAS", desc: "Digitalmente, desde el mismo portal tu acuerdo de productor." },
-  { id: "03", title: "CUENTA", desc: "Recibes la invitación, creas tu contraseña y entras automáticamente." },
-  { id: "04", title: "PRODUCES", desc: "Con tus appointments, tus licencias y tu book ya cargados." }
+const STEPS = [
+  { id: "01", titleKey: "step1Title", descKey: "step1Desc" },
+  { id: "02", titleKey: "step2Title", descKey: "step2Desc" },
+  { id: "03", titleKey: "step3Title", descKey: "step3Desc" },
+  { id: "04", titleKey: "step4Title", descKey: "step4Desc" }
 ];
 
 export default function HowToJoinSection() {
+  const t = useTranslations('goAms.howToJoin');
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    ScrollTrigger.config({ ignoreMobileResize: true });
+
+    const el = containerRef.current;
+    if (!el) return;
+
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const ctx = gsap.context(() => {
+      if (prefersReducedMotion) {
+        gsap.set(".join-eyebrow, .join-title-line, .join-step-card", {
+          opacity: 1,
+          y: 0,
+          yPercent: 0,
+          scale: 1,
+          clipPath: "inset(0% 0% 0% 0%)"
+        });
+        return;
+      }
+
+      // ── 1. Entrada del Título y Eyebrow (Line-by-Line Clip) ──
+      gsap.fromTo(
+        ".join-title-line",
+        { 
+          yPercent: REVEAL.birthPercent, 
+          opacity: 0, 
+          clipPath: "inset(0% 0% 100% 0%)", 
+          willChange: "transform, opacity, clip-path" 
+        },
+        {
+          yPercent: 0,
+          opacity: 1,
+          clipPath: "inset(-20% -10% -20% -10%)",
+          duration: DUR.base,
+          ease: EASE.dramatic,
+          clearProps: "clipPath,willChange",
+          scrollTrigger: {
+            trigger: el,
+            start: TRIGGER.standard,
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+
+      gsap.fromTo(
+        ".join-eyebrow",
+        { opacity: 0, y: REVEAL.sm, willChange: "transform, opacity" },
+        {
+          opacity: 1,
+          y: 0,
+          duration: DUR.fast,
+          ease: EASE.out,
+          clearProps: "willChange",
+          scrollTrigger: {
+            trigger: el,
+            start: TRIGGER.standard,
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+
+      // ── 2. Entrada Escalonada de las Tarjetas Suizas (Staggered Wave) ──
+      gsap.fromTo(
+        ".join-step-card",
+        { 
+          opacity: 0, 
+          y: REVEAL.md, 
+          scale: 0.96,
+          willChange: "transform, opacity" 
+        },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: DUR.base,
+          stagger: STAGGER.base,
+          ease: EASE.out,
+          force3D: true,
+          clearProps: "willChange",
+          scrollTrigger: {
+            trigger: el,
+            start: TRIGGER.standard,
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+
+    }, el);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="w-full bg-[var(--color-surface-BG-1)] relative pt-0 pb-section-md">
+    <section 
+      ref={containerRef}
+      id="how-to-join"
+      className="w-full bg-[var(--color-surface-BG-1)] relative py-section-sm md:py-section-md overflow-hidden"
+    >
       
-      {/* CABECERA */}
-      <div className="w-full max-w-section-lg mx-auto px-gutter-md pt-24 pb-8 md:text-left relative z-20">
-        <h2 className="text-overline uppercase tracking-widest text-[var(--color-brand-blue)] mb-4 inline-block border-b border-[var(--color-brand-blue)]/30 pb-4">
-          Activación Inmediata
+      {/* ── CABECERA ── */}
+      <div className="w-full max-w-section-lg mx-auto px-gutter-sm md:px-gutter-md pb-7 md:pb-14 text-left relative z-20">
+        <div className="join-eyebrow flex items-center gap-2 mb-space-static-xs">
+          <span className="w-2 h-2 rounded-full bg-[var(--color-brand-blue)] animate-pulse" />
+          <span className="text-overline text-[var(--color-brand-blue)]">
+            {t('overline')}
+          </span>
+        </div>
+        
+        <h2 className="text-display-sm sm:text-display md:text-display-lg font-semibold text-[var(--color-text-primary)] leading-[1.1] tracking-tight">
+          <span className="join-title-line block">{t('title')}</span>
         </h2>
-        <h3 className="text-display-lg text-[var(--color-text-primary)] leading-[1.1] tracking-tight mb-space-static-sm">
-          Cómo lo obtienes.
-        </h3>
       </div>
 
-      {/* DATA TABLE (Estilo Suizo) */}
-      <div className="w-full max-w-section-lg mx-auto px-4 md:px-8 relative z-10">
-        <div className="border border-[var(--color-border-Strokes-strong)] grid grid-cols-1 md:grid-cols-4 bg-[var(--color-surface-BG-base)] shadow-elevation-2 rounded-lg overflow-hidden">
-          {steps.map((step) => (
+      {/* ── DATA TABLE (Estilo Suizo Minimalista) ── */}
+      <div className="w-full max-w-section-lg mx-auto px-gutter-sm md:px-gutter-md relative z-10">
+        <div className="border border-[var(--color-border-Strokes-strong)] grid grid-cols-1 md:grid-cols-4 bg-[var(--color-surface-BG-base)] shadow-elevation-2 rounded-2xl md:rounded-3xl overflow-hidden">
+          {STEPS.map((step) => (
             <div 
               key={step.id} 
-              className="group relative border-b md:border-b-0 md:border-r border-[var(--color-border-Strokes-strong)] last:border-0 p-8 flex flex-col hover:bg-[var(--color-surface-BG-2)] transition-colors duration-300"
+              className="join-step-card group relative p-3.5 sm:p-6 md:p-8 flex flex-col justify-between border-b last:border-b-0 md:border-b-0 md:border-r md:last:border-r-0 border-[var(--color-border-Strokes-strong)] hover:bg-[var(--color-surface-BG-2)] transition-colors duration-300 select-none"
             >
               {/* Animación de barra superior al hacer hover */}
-              <div className="absolute top-0 left-0 w-full h-1 bg-[var(--color-brand-blue)] scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 ease-out" />
+              <div className="absolute top-0 left-0 w-full h-[2px] bg-[var(--color-brand-blue)] scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 ease-out" />
               
-              <span className="text-meta font-mono text-[var(--color-text-muted)] group-hover:text-[var(--color-brand-blue)] transition-colors mb-12">
-                {step.id}
-              </span>
-              <h3 className="text-h4 font-display uppercase tracking-tight text-[var(--color-text-primary)] mb-4">
-                {step.title}
-              </h3>
+              <div>
+                <span className="text-data font-mono text-[var(--color-text-muted)] group-hover:text-[var(--color-brand-blue)] transition-colors mb-4 sm:mb-6 md:mb-12 block select-none">
+                  {step.id}
+                </span>
+                <h3 className="text-h4 font-display uppercase tracking-tight text-[var(--color-text-primary)] mb-2 sm:mb-3 md:mb-4">
+                  {t(step.titleKey as any)}
+                </h3>
+              </div>
+              
               <p className="text-body-sm text-[var(--color-text-secondary)] leading-relaxed">
-                {step.desc}
+                {t(step.descKey as any)}
               </p>
             </div>
           ))}

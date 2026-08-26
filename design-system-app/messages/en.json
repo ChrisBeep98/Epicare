@@ -223,23 +223,16 @@
       "agencyImg2Alt": "Aggregated agency composition"
     },
     "howToJoin": {
-      "overline": "Onboarding",
-      "titleLine1": "From application",
-      "titleLine2": "to first enrollment.",
-      "steps": {
-        "step1Title": "Application",
-        "step1Desc": "You fill in your details, licenses, and NPN. Ten minutes.",
-        "step2Title": "Background Check",
-        "step2Desc": "Standard industry verification against federal and state databases. We run it — you don't chase anything.",
-        "step3Title": "E-signature",
-        "step3Desc": "Producer contract signed digitally, with auditable evidence. No paper, no fax.",
-        "step4Title": "Provisioning",
-        "step4Desc": "Your GO AMS, GO CRM, and Eppigo access is generated automatically on signature.",
-        "step5Title": "Training",
-        "step5Desc": "Product training and carrier certifications. Start with the line you already know.",
-        "step6Title": "Go live",
-        "step6Desc": "Contract active, appointments in motion, system ready. You can start quoting."
-      }
+      "overline": "Instant Activation",
+      "title": "How to get it.",
+      "step1Title": "APPLY",
+      "step1Desc": "Contracting contacts you within 24-48 business hours.",
+      "step2Title": "SIGN",
+      "step2Desc": "Digitally sign your producer agreement directly from the portal.",
+      "step3Title": "ACCOUNT",
+      "step3Desc": "Receive your invite, create your password, and log in automatically.",
+      "step4Title": "PRODUCE",
+      "step4Desc": "With your appointments, licenses, and book of business already loaded."
     },
     "faq": {
       "overline": "F.A.Q.",
@@ -380,6 +373,18 @@
       "threeModules": "3 Modules",
       "restricted": "Restricted",
       "off": "OFF"
+    },
+    "howToJoin": {
+      "overline": "Activation",
+      "title": "How to get it.",
+      "step1Title": "APPLY",
+      "step1Desc": "Contracting contacts you within 24-48 business hours.",
+      "step2Title": "SIGN",
+      "step2Desc": "Digitally sign your producer agreement directly from the portal.",
+      "step3Title": "ACCOUNT",
+      "step3Desc": "Receive your invite, create your password, and log in automatically.",
+      "step4Title": "PRODUCE",
+      "step4Desc": "With your appointments, licenses, and book of business already loaded."
     }
   }
 }

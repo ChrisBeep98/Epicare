@@ -20,8 +20,10 @@ export default function BackOfficeTour() {
 
   const magnetRef = useRef<HTMLDivElement>(null);
   const btnRef = useRef<HTMLDivElement>(null);
+  const touchStartY = useRef<number | null>(null);
 
   const handleNext = () => setIdx((prev) => (prev + 1) % PANELS.length);
+  const handlePrev = () => setIdx((prev) => (prev - 1 + PANELS.length) % PANELS.length);
 
   // Auto-Play optimizado (5 segundos por slide) que se reinicia si el usuario interactúa
   useEffect(() => {
@@ -31,32 +33,43 @@ export default function BackOfficeTour() {
     return () => clearInterval(timer);
   }, [idx]);
 
+  // Touch Swipe para Mobile
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartY.current = e.touches[0].clientY;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartY.current === null) return;
+    const diffY = touchStartY.current - e.changedTouches[0].clientY;
+    if (Math.abs(diffY) > 40) {
+      if (diffY > 0) {
+        handleNext();
+      } else {
+        handlePrev();
+      }
+    }
+    touchStartY.current = null;
+  };
+
   useEffect(() => {
     if (!magnetRef.current || !btnRef.current) return;
     
     // GSAP quickTo para rendimiento a 60fps constantes
-    // Usamos una curva elástica para ese "bounce" magnético característico de Awwwards
     const xTo = gsap.quickTo(btnRef.current, "x", { duration: 0.8, ease: "elastic.out(1, 0.3)" });
     const yTo = gsap.quickTo(btnRef.current, "y", { duration: 0.8, ease: "elastic.out(1, 0.3)" });
 
     const handleMouseMove = (e: MouseEvent) => {
       const rect = magnetRef.current!.getBoundingClientRect();
-      
-      // Calcular el centro exacto de la zona magnética (el contenedor grande)
       const centerX = rect.left + rect.width / 2;
       const centerY = rect.top + rect.height / 2;
-      
-      // Distancia del ratón al centro
       const distanceX = e.clientX - centerX;
       const distanceY = e.clientY - centerY;
       
-      // Movemos el botón físico una fracción de esa distancia (fuerza magnética)
-      xTo(distanceX * 0.4);
-      yTo(distanceY * 0.4);
+      xTo(distanceX * 0.35);
+      yTo(distanceY * 0.35);
     };
 
     const handleMouseLeave = () => {
-      // Al salir de la zona, el botón regresa violentamente al centro (efecto muelle)
       xTo(0);
       yTo(0);
     };
@@ -72,23 +85,28 @@ export default function BackOfficeTour() {
   }, []);
 
   return (
-    <section className="relative w-full h-[90vh] bg-[#050505] text-white flex overflow-hidden border-y border-white/20 mb-section-lg">
+    <section 
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+      className="relative w-full h-[85dvh] sm:h-[90dvh] md:h-[90vh] bg-[#050505] text-white flex flex-col md:flex-row overflow-hidden border-y border-white/20 mb-section-lg select-none"
+    >
       
       {/* ── BOTÓN CENTRAL MAGNÉTICO (Awwwards Style) ── */}
       <div className="absolute inset-0 z-50 pointer-events-none flex items-center justify-center">
         
-        {/* Zona Magnética (El Área de Trigger - más grande que el botón) */}
+        {/* Zona Magnética (Trigger interactivo) */}
         <div 
            ref={magnetRef}
-           className="w-48 h-48 pointer-events-auto cursor-pointer flex items-center justify-center rounded-full group"
+           className="w-28 h-28 sm:w-36 sm:h-36 md:w-48 md:h-48 pointer-events-auto cursor-pointer flex items-center justify-center rounded-full group"
            onClick={handleNext}
+           aria-label="Next slide"
         >
-           {/* El Botón Físico (El que se mueve con GSAP) */}
+           {/* El Botón Físico */}
            <div 
              ref={btnRef}
-             className="w-20 h-20 rounded-full border border-white/30 flex items-center justify-center bg-black/60 backdrop-blur-xl shadow-[0_0_30px_rgba(0,0,0,0.5)] transition-colors duration-300 group-hover:bg-white group-hover:text-black group-hover:border-white text-white"
+             className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-full border border-white/30 flex items-center justify-center bg-black/70 backdrop-blur-xl shadow-[0_0_30px_rgba(0,0,0,0.6)] transition-colors duration-300 group-hover:bg-white group-hover:text-black group-hover:border-white text-white"
            >
-             <span className="text-2xl font-bold transition-transform duration-300 group-hover:scale-125 group-hover:translate-x-1">→</span>
+             <span className="text-lg sm:text-2xl font-bold transition-transform duration-300 group-hover:scale-125 group-hover:translate-x-1">→</span>
            </div>
         </div>
       </div>
@@ -101,21 +119,28 @@ export default function BackOfficeTour() {
          />
       </div>
 
-      {/* ── LADO IZQUIERDO (TEXTO) - SE MUEVE HACIA ARRIBA ── */}
-      <div className="w-1/2 h-full relative overflow-hidden bg-black border-r border-white/10">
+      {/* ── SECCIÓN TEXTO: Arriba en Mobile, Izquierda en Desktop (Sube) ── */}
+      <div className="w-full h-1/2 md:w-1/2 md:h-full relative overflow-hidden bg-black border-b md:border-b-0 md:border-r border-white/10">
         <div 
-          className="absolute inset-x-0 transition-transform duration-[1.2s] ease-[cubic-bezier(0.85,0,0.15,1)] flex flex-col"
-          style={{ transform: `translateY(-${idx * 90}vh)` }}
+          className="absolute inset-0 transition-transform duration-[1.2s] ease-[cubic-bezier(0.85,0,0.15,1)] flex flex-col will-change-transform"
+          style={{ 
+            height: `${PANELS.length * 100}%`,
+            transform: `translateY(-${(idx * 100) / PANELS.length}%)` 
+          }}
         >
           {PANELS.map((panel) => (
-            <div key={panel.id} className="w-full h-[90vh] flex-shrink-0 flex flex-col justify-center p-12 lg:p-24">
-              <span className="text-h2 font-bold text-white/60 mb-2 block select-none tracking-widest">
+            <div 
+              key={panel.id} 
+              className="w-full flex-shrink-0 flex flex-col justify-center p-3.5 sm:p-8 md:p-12 lg:p-20"
+              style={{ height: `${100 / PANELS.length}%` }}
+            >
+              <span className="text-h5 sm:text-h4 md:text-h2 font-bold text-white/50 mb-1 sm:mb-2 block select-none tracking-widest font-mono">
                 0{panel.id}.
               </span>
-              <h2 className="text-display-xl font-black uppercase tracking-tighter text-white mb-6">
+              <h2 className="text-display-sm sm:text-display md:text-display-lg lg:text-display-xl font-black uppercase tracking-tighter text-white mb-2 sm:mb-4 lg:mb-6 leading-[1.05]">
                 {panel.title}
               </h2>
-              <p className="text-body-xl font-medium text-white/70 max-w-lg leading-relaxed">
+              <p className="text-body-sm sm:text-body md:text-body-lg lg:text-body-xl font-medium text-white/70 max-w-lg leading-relaxed">
                 {panel.desc}
               </p>
             </div>
@@ -123,14 +148,21 @@ export default function BackOfficeTour() {
         </div>
       </div>
 
-      {/* ── LADO DERECHO (IMÁGENES) - SE MUEVE HACIA ABAJO ── */}
-      <div className="w-1/2 h-full relative overflow-hidden bg-[#0A0A0A]">
+      {/* ── SECCIÓN IMÁGENES: Abajo en Mobile, Derecha en Desktop (Baja) ── */}
+      <div className="w-full h-1/2 md:w-1/2 md:h-full relative overflow-hidden bg-[#0A0A0A]">
         <div 
-          className="absolute inset-x-0 transition-transform duration-[1.2s] ease-[cubic-bezier(0.85,0,0.15,1)] flex flex-col"
-          style={{ transform: `translateY(-${(PANELS.length - 1 - idx) * 90}vh)` }}
+          className="absolute inset-0 transition-transform duration-[1.2s] ease-[cubic-bezier(0.85,0,0.15,1)] flex flex-col will-change-transform"
+          style={{ 
+            height: `${PANELS.length * 100}%`,
+            transform: `translateY(-${((PANELS.length - 1 - idx) * 100) / PANELS.length}%)` 
+          }}
         >
           {[...PANELS].reverse().map((panel) => (
-            <div key={`img-${panel.id}`} className="w-full h-[90vh] flex-shrink-0 relative overflow-hidden group">
+            <div 
+              key={`img-${panel.id}`} 
+              className="w-full flex-shrink-0 relative overflow-hidden group"
+              style={{ height: `${100 / PANELS.length}%` }}
+            >
                <div 
                  className="absolute inset-0 bg-cover bg-center transition-transform duration-[2s] group-hover:scale-105"
                  style={{ backgroundImage: `url('${panel.img}')` }}

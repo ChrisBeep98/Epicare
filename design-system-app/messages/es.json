@@ -223,23 +223,16 @@
       "agencyImg2Alt": "Composición agregada de la agencia"
     },
     "howToJoin": {
-      "overline": "Onboarding",
-      "titleLine1": "De la solicitud",
-      "titleLine2": "al primer enrollment.",
-      "steps": {
-        "step1Title": "Solicitud",
-        "step1Desc": "Completas el formulario con tus datos, licencias y NPN. Diez minutos.",
-        "step2Title": "Background check",
-        "step2Desc": "Verificación estándar de la industria contra bases federales y estatales. La corremos nosotros; tú no persigues nada.",
-        "step3Title": "Firma electrónica",
-        "step3Desc": "Contrato de productor firmado digitalmente, con evidencia auditable. Sin papel, sin fax.",
-        "step4Title": "Aprovisionamiento",
-        "step4Desc": "Tus accesos a GO AMS, GO CRM y Eppigo se generan automáticamente al firmar.",
-        "step5Title": "Academy",
-        "step5Desc": "Entrenamiento de producto y certificaciones de carrier. Empiezas por la línea que ya conoces.",
-        "step6Title": "Go live",
-        "step6Desc": "Contrato activo, appointments en curso y sistema listo. Ya puedes cotizar."
-      }
+      "overline": "Activación Inmediata",
+      "title": "Cómo lo obtienes.",
+      "step1Title": "APLICAS",
+      "step1Desc": "Contracting te contacta en 24-48 horas hábiles.",
+      "step2Title": "FIRMAS",
+      "step2Desc": "Digitalmente, desde el mismo portal tu acuerdo de productor.",
+      "step3Title": "CUENTA",
+      "step3Desc": "Recibes la invitación, creas tu contraseña y entras automáticamente.",
+      "step4Title": "PRODUCES",
+      "step4Desc": "Con tus appointments, tus licencias y tu book ya cargados."
     },
     "faq": {
       "overline": "F.A.Q.",
@@ -380,6 +373,18 @@
       "threeModules": "3 Módulos",
       "restricted": "Restringidos",
       "off": "OFF"
+    },
+    "howToJoin": {
+      "overline": "Activación",
+      "title": "Cómo lo obtienes.",
+      "step1Title": "APLICAS",
+      "step1Desc": "Contracting te contacta en 24-48 horas hábiles.",
+      "step2Title": "FIRMAS",
+      "step2Desc": "Digitalmente, desde el mismo portal tu acuerdo de productor.",
+      "step3Title": "CUENTA",
+      "step3Desc": "Recibes la invitación, creas tu contraseña y entras automáticamente.",
+      "step4Title": "PRODUCES",
+      "step4Desc": "Con tus appointments, tus licencias y tu book ya cargados."
     }
   }
 }
