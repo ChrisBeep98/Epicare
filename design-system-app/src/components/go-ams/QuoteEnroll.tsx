@@ -75,24 +75,23 @@ export default function QuoteEnroll() {
           opacity: 1,
           y: 0,
           yPercent: 0,
-          scale: 1,
-          clipPath: "inset(0% 0% 0% 0%)"
+          scale: 1
         });
         return;
       }
 
-      // 1. Título con Line-by-Line Clip (Arquetipo 2: Section Reveal)
+      // 1. Título con GPU Transform Reveal (Arquetipo 2: Section Reveal)
       gsap.fromTo(
         ".qw-title-line",
-        { yPercent: REVEAL.birthPercent, opacity: 0, clipPath: "inset(0% 0% 100% 0%)", willChange: "transform, opacity, clip-path" },
+        { yPercent: 120, opacity: 0, willChange: "transform, opacity" },
         {
           yPercent: 0,
           opacity: 1,
-          clipPath: "inset(-20% -10% -20% -10%)",
           duration: 0.8,
           stagger: STAGGER.base,
           ease: EASE.dramatic,
-          clearProps: "clipPath,willChange",
+          force3D: true,
+          clearProps: "all",
           scrollTrigger: {
             trigger: el,
             start: TRIGGER.standard,
@@ -124,15 +123,15 @@ export default function QuoteEnroll() {
       if (validCards.length > 0) {
         gsap.fromTo(
           validCards,
-          { 
-            y: REVEAL.md, 
+          {
             opacity: 0,
-            scale: 0.97,
+            y: REVEAL.md,
+            scale: 0.98,
             willChange: "transform, opacity"
           },
           {
-            y: 0,
             opacity: 1,
+            y: 0,
             scale: 1,
             duration: DUR.base,
             stagger: STAGGER.wave,
@@ -141,7 +140,7 @@ export default function QuoteEnroll() {
             clearProps: "willChange",
             scrollTrigger: {
               trigger: el,
-              start: TRIGGER.standard,
+              start: "top 70%",
               toggleActions: "play none none reverse"
             }
           }
@@ -163,9 +162,13 @@ export default function QuoteEnroll() {
         {/* Título & Subtítulo Alineados */}
         <div ref={titleRef} className="flex flex-col md:flex-row justify-between items-start md:items-end mb-static-lg md:mb-static-xl gap-4 md:gap-fluid-md">
           <h2 className="text-display-lg font-semibold text-[var(--color-text-primary)] tracking-tight leading-[1.05] max-w-2xl text-left">
-            <span className="qw-title-line block">{t('title1')}</span>
-            <span className="qw-title-line block text-[var(--color-text-accent-blue)]">
-              {t('title2')}
+            <span className="block overflow-hidden pb-1">
+              <span className="qw-title-line block">{t('title1')}</span>
+            </span>
+            <span className="block overflow-hidden pb-1">
+              <span className="qw-title-line block text-[var(--color-text-accent-blue)]">
+                {t('title2')}
+              </span>
             </span>
           </h2>
           <p className="qw-subtitle text-body-md md:text-body-lg text-[var(--color-text-secondary)] max-w-sm text-left">

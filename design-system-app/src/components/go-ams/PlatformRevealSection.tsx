@@ -28,24 +28,23 @@ export default function PlatformRevealSection() {
           opacity: 1, 
           y: 0, 
           yPercent: 0, 
-          scale: 1, 
-          clipPath: "inset(0% 0% 0% 0%)" 
+          scale: 1
         });
         return;
       }
 
-      // 1. Título con Line-by-Line Clip Reveal (Arquetipo 2: Section Reveal)
+      // 1. Título con GPU transform reveal (Arquetipo 2: Section Reveal)
       gsap.fromTo(
         ".pr-title-line",
-        { yPercent: REVEAL.birthPercent, opacity: 0, clipPath: "inset(0% 0% 100% 0%)", willChange: "transform, opacity, clip-path" },
+        { yPercent: 120, opacity: 0, willChange: "transform, opacity" },
         {
           yPercent: 0,
           opacity: 1,
-          clipPath: "inset(-20% -10% -20% -10%)",
           duration: 0.8,
           stagger: STAGGER.base,
           ease: EASE.dramatic,
-          clearProps: "clipPath,willChange",
+          force3D: true,
+          clearProps: "all",
           scrollTrigger: {
             trigger: el,
             start: TRIGGER.standard,
@@ -143,8 +142,12 @@ export default function PlatformRevealSection() {
         {/* Copy del Reveal */}
         <div className="text-left md:text-center w-full px-gutter-sm md:px-gutter-md max-w-section-lg flex flex-col gap-3 relative z-20">
           <h2 className="text-display-lg font-semibold text-[var(--color-text-primary)] drop-shadow-2xl">
-            <span className="pr-title-line block">{t('title1')}</span>
-            <span className="pr-title-line block text-[var(--color-text-accent-blue)]">{t('title2')}</span>
+            <span className="block overflow-hidden pb-1">
+              <span className="pr-title-line block">{t('title1')}</span>
+            </span>
+            <span className="block overflow-hidden pb-1">
+              <span className="pr-title-line block text-[var(--color-text-accent-blue)]">{t('title2')}</span>
+            </span>
           </h2>
           <p className="pr-subtitle text-body-lg text-[var(--color-text-secondary)] mr-auto md:mx-auto max-w-section-xs">
             {t.rich('subtitle', {

@@ -90,17 +90,16 @@ export default function DelegateUsersSection() {
           {
             yPercent: 120,
             opacity: 0,
-            clipPath: "inset(0% 0% 100% 0%)",
-            willChange: "transform, opacity, clip-path"
+            willChange: "transform, opacity"
           },
           {
             yPercent: 0,
             opacity: 1,
-            clipPath: "inset(-20% -10% -20% -10%)",
             duration: DUR.base,
             stagger: STAGGER.base,
             ease: EASE.dramatic,
-            clearProps: "clipPath,willChange"
+            force3D: true,
+            clearProps: "all"
           },
           "-=0.2"
         )
@@ -117,13 +116,13 @@ export default function DelegateUsersSection() {
           "-=0.4"
         );
 
-      // Breathing Canvas pasivo suave
-      gsap.to(".glass-scene-wrapper", { y: "-=8px", rotationZ: "0.4deg", repeat: -1, yoyo: true, duration: 4.5, ease: "sine.inOut" });
-
+      // Smart Shutdown: Solo correr animación infinita si está visible en viewport
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: el,
-          start: "top 60%",
+          start: "top 80%",
+          end: "bottom 0%",
+          toggleActions: "play pause resume pause"
         },
         repeat: -1,
         repeatDelay: 0.2 

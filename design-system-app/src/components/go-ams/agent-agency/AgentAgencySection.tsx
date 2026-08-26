@@ -50,24 +50,23 @@ export function AgentAgencySection({
           opacity: 1, 
           y: 0, 
           yPercent: 0, 
-          scale: 1, 
-          clipPath: "inset(0% 0% 0% 0%)" 
+          scale: 1
         });
         return;
       }
 
-      // Título con Line-by-Line Clip
+      // Título con GPU transform reveal
       gsap.fromTo(
         ".aa-title-line",
-        { yPercent: REVEAL.birthPercent, opacity: 0, clipPath: "inset(0% 0% 100% 0%)", willChange: "transform, opacity, clip-path" },
+        { yPercent: 120, opacity: 0, willChange: "transform, opacity" },
         {
           yPercent: 0,
           opacity: 1,
-          clipPath: "inset(-20% -10% -20% -10%)",
           duration: 0.8,
           stagger: STAGGER.base,
           ease: EASE.dramatic,
-          clearProps: "clipPath,willChange",
+          force3D: true,
+          clearProps: "all",
           scrollTrigger: {
             trigger: el,
             start: TRIGGER.standard,

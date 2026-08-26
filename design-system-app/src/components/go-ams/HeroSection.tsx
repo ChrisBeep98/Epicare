@@ -61,22 +61,20 @@ export default function HeroSection() {
 
     const ctx = gsap.context(() => {
       if (prefersReducedMotion) {
-        gsap.set('.hero-title-line, .hero-eyebrow-text, .hero-text, .hero-btn, .hero-bullets, .hero-video-wrap', {
+        gsap.set('.hero-eyebrow-text, .hero-title-line, .hero-text, .hero-btn, .hero-video-wrap, .hero-bullets', {
           opacity: 1,
           y: 0,
           yPercent: 0,
           scale: 1,
-          clipPath: "inset(0% 0% 0% 0%)",
           filter: "none"
         });
         return;
       }
 
-      // 1. Initial State (Line-by-line reveal)
+      // 1. Initial State (Line-by-line reveal via GPU transform)
       gsap.set('.hero-title-line', {
-        yPercent: REVEAL.birthPercent,
-        opacity: 0,
-        clipPath: "inset(0% 0% 100% 0%)",
+        yPercent: 120,
+        opacity: 0
       });
 
       gsap.set('.hero-eyebrow-text', { opacity: 0, y: REVEAL.sm });
@@ -84,11 +82,10 @@ export default function HeroSection() {
       gsap.set('.hero-btn', { opacity: 0, scale: 0.8, x: -REVEAL.sm });
       gsap.set('.hero-bullets', { opacity: 0, y: REVEAL.sm });
 
-      gsap.set('.hero-video-wrap', {
+      gsap.set('.hero-video-card', {
         opacity: 0,
-        y: REVEAL.lg,
-        scale: 0.96,
-        filter: `blur(${REVEAL.blurBase}px)`
+        y: 30,
+        scale: 0.98
       });
 
       // 2. Entrance Timeline (Paused on mount, played via trigger)
@@ -105,12 +102,11 @@ export default function HeroSection() {
       tl.to('.hero-title-line', {
         yPercent: 0,
         opacity: 1,
-        clipPath: "inset(-20% -10% -20% -10%)",
         duration: 0.8,
         ease: EASE.dramatic,
         stagger: STAGGER.base,
-        willChange: "transform, opacity, clip-path",
-        clearProps: "clipPath,willChange"
+        force3D: true,
+        clearProps: "all"
       }, "-=0.3");
 
       tl.to('.hero-text', {
@@ -133,29 +129,29 @@ export default function HeroSection() {
         clearProps: "willChange"
       }, "-=0.8");
 
-      tl.to('.hero-video-wrap', {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        filter: "blur(0px)",
-        duration: DUR.slow,
-        ease: EASE.dramatic,
-        force3D: true,
-        willChange: "transform, opacity, filter",
-        clearProps: "filter,willChange"
-      }, "-=0.8");
-
       tl.to('.hero-bullets', {
         opacity: 1,
         y: 0,
         duration: DUR.base,
         ease: EASE.out,
-        stagger: STAGGER.base,
+        stagger: STAGGER.tight,
         clearProps: "willChange"
       }, "-=0.6");
 
+      tl.to('.hero-video-card', {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: DUR.slow,
+        ease: EASE.dramatic,
+        force3D: true,
+        willChange: "transform, opacity",
+        clearProps: "all"
+      }, "-=0.8");
+
     }, el);
 
+    // 3. Ultra-safe cinematic trigger
     const playHeroEntrance = () => {
       requestAnimationFrame(() => {
         if (tl && tl.paused()) tl.play();
@@ -199,11 +195,15 @@ export default function HeroSection() {
           {/* Row 2: Heading */}
           <div id="hero-heading" className="col-span-12 lg:col-start-1 lg:col-span-6 lg:row-start-2 lg:row-span-1 flex items-start lg:pr-10">
             <h1 id="hero-title" className="text-display-xl text-[var(--color-text-primary)]">
-              <span className="hero-title-line block text-[var(--color-text-accent-blue)]">
-                {t('title1')}
+              <span className="block overflow-hidden pb-1">
+                <span className="hero-title-line block text-[var(--color-text-accent-blue)]">
+                  {t('title1')}
+                </span>
               </span>
-              <span className="hero-title-line block">
-                {t('title2')}
+              <span className="block overflow-hidden pb-1">
+                <span className="hero-title-line block">
+                  {t('title2')}
+                </span>
               </span>
             </h1>
           </div>
@@ -221,9 +221,9 @@ export default function HeroSection() {
           </div>
 
           {/* Row 4 (Desktop Row 3): Dark Panel / Video Showcase */}
-          <div id="visual-panel-wrapper" className="hero-video-wrap col-span-12 lg:col-start-3 lg:col-span-10 lg:row-start-3 lg:row-span-1 w-full h-auto relative mt-6 lg:mt-0 lg:-translate-y-[148px] pl-12 sm:pl-20 md:pl-28 lg:pl-0">
+          <div id="visual-panel-wrapper" className="col-span-12 lg:col-start-2 lg:col-span-11 lg:row-start-3 lg:row-span-1 w-full h-auto relative mt-6 lg:mt-6">
             
-            <BleedRight className="relative w-full h-full mobile-bleed">
+            <BleedRight className="relative w-full h-full">
               
               {/* Scroll Down Button (Desktop Only) */}
               <div className="absolute top-[140px] left-[-24px] -translate-x-full z-20 hidden lg:flex">
@@ -246,22 +246,22 @@ export default function HeroSection() {
                 </button>
               </div>
 
-              <div id="visual-panel" className="relative bg-[var(--color-surface-BG-1)] shadow-elevation-3 w-[145%] sm:w-[130%] max-w-none lg:w-full lg:max-w-full h-auto flex items-center justify-center rounded-l-2xl rounded-r-none lg:rounded-l-[12px] lg:rounded-r-none border border-r-0 border-[var(--color-border-Strokes-default)]/60 overflow-hidden p-0">
+              <div id="visual-panel" className="hero-video-card relative bg-[var(--color-surface-BG-1)] shadow-elevation-3 w-full h-auto flex items-center justify-center rounded-2xl lg:rounded-l-[16px] lg:rounded-r-none border border-[var(--color-border-Strokes-default)]/60 overflow-hidden p-0">
                 
                 {/* Media Editor (Video) */}
-                <div id="hero-video" className="relative z-0 flex items-center justify-center w-full overflow-hidden rounded-l-2xl rounded-r-none lg:rounded-l-[12px] lg:rounded-r-none h-auto">
+                <div id="hero-video" className="relative z-0 flex items-center justify-center w-full overflow-hidden rounded-2xl lg:rounded-l-[16px] lg:rounded-r-none h-auto">
                   <video 
                     autoPlay 
                     muted 
                     loop 
                     playsInline
                     preload="auto"
-                    className="w-full h-auto block object-contain rounded-l-2xl rounded-r-none lg:rounded-l-[12px] lg:rounded-r-none"
+                    className="w-full h-auto block object-contain rounded-2xl lg:rounded-l-[16px] lg:rounded-r-none"
                   >
                     <source src={asset("/Files/Go_AMS/Hero/go_ams_hero.mp4")} type="video/mp4" />
                   </video>
                   {/* Textura de ruido optimizada */}
-                  <div className="absolute inset-0 bg-noise pointer-events-none z-10 mix-blend-overlay opacity-80 rounded-l-2xl rounded-r-none lg:rounded-l-[12px] lg:rounded-r-none" />
+                  <div className="absolute inset-0 bg-noise pointer-events-none z-10 mix-blend-overlay opacity-80 rounded-2xl lg:rounded-l-[16px] lg:rounded-r-none" />
                 </div>
 
               </div>

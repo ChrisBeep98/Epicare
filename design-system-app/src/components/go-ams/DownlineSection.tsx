@@ -108,24 +108,23 @@ export default function DownlineSection() {
           opacity: 1,
           y: 0,
           yPercent: 0,
-          scale: 1,
-          clipPath: "inset(0% 0% 0% 0%)"
+          scale: 1
         });
         return;
       }
 
-      // ── 1. Entrada del Header (Line-by-Line Clip + Eyebrow) ──
+      // ── 1. Entrada del Header (GPU transform + Eyebrow) ──
       gsap.fromTo(
         ".dl-title-line",
-        { yPercent: REVEAL.birthPercent, opacity: 0, clipPath: "inset(0% 0% 100% 0%)", willChange: "transform, opacity, clip-path" },
+        { yPercent: 120, opacity: 0, willChange: "transform, opacity" },
         {
           yPercent: 0,
           opacity: 1,
-          clipPath: "inset(-20% -10% -20% -10%)",
           duration: 0.8,
           stagger: STAGGER.base,
           ease: EASE.dramatic,
-          clearProps: "clipPath,willChange",
+          force3D: true,
+          clearProps: "all",
           scrollTrigger: {
             trigger: el,
             start: TRIGGER.standard,
@@ -178,34 +177,50 @@ export default function DownlineSection() {
               if (progressBarRef.current) {
                 gsap.set(progressBarRef.current, { scaleX: self.progress });
               }
-            }
+            },
           }
         });
 
         horizontalTl.to(track, {
           x: () => -getScrollDistance(),
-          ease: EASE.none,
-          force3D: true,
-          willChange: "transform",
-          clearProps: "willChange"
+          ease: "none",
         });
+
+        // Entrada sutil de las cards durante el scrub horizontal
+        gsap.fromTo(
+          ".downline-card",
+          { opacity: 0.85, scale: 0.98 },
+          {
+            opacity: 1,
+            scale: 1,
+            duration: 0.4,
+            stagger: 0.05,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: pinSec,
+              start: "top 80%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
       });
 
-      // ── 3. MOBILE (< 768px): Revelado suave de tarjetas ──
+      // ── 3. MOBILE (< 768px): Entrada de Cards ──
       mm.add("(max-width: 767px)", () => {
         const validCards = cardsRef.current.filter(Boolean);
         if (validCards.length > 0) {
           gsap.fromTo(
             validCards,
-            { opacity: 0, y: REVEAL.md, scale: 0.96 },
+            { opacity: 0, y: 20, scale: 0.98 },
             {
               opacity: 1,
               y: 0,
               scale: 1,
-              duration: DUR.base,
-              stagger: STAGGER.wave,
+              duration: 0.5,
+              stagger: 0.08,
               ease: EASE.out,
               force3D: true,
+              clearProps: "willChange",
               scrollTrigger: {
                 trigger: el,
                 start: TRIGGER.standard,
@@ -246,9 +261,13 @@ export default function DownlineSection() {
             </div>
             
             <h2 className="text-display-lg font-semibold text-[var(--color-text-primary)] leading-[1.05]">
-              <span className="dl-title-line block">{t('title1')}</span>
-              <span className="dl-title-line block text-[var(--color-text-accent-blue)]">
-                {t('title2')}
+              <span className="block overflow-hidden pb-1">
+                <span className="dl-title-line block">{t('title1')}</span>
+              </span>
+              <span className="block overflow-hidden pb-1">
+                <span className="dl-title-line block text-[var(--color-text-accent-blue)]">
+                  {t('title2')}
+                </span>
               </span>
             </h2>
           </div>

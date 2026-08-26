@@ -398,13 +398,13 @@
       "overline": "Activación",
       "title": "Cómo lo obtienes.",
       "step1Title": "APLICAS",
-      "step1Desc": "Contracting te contacta en 24-48 horas hábiles.",
+      "step1Desc": "Contracting te contacta en <b>24-48 horas hábiles</b>.",
       "step2Title": "FIRMAS",
-      "step2Desc": "Digitalmente, desde el mismo portal tu acuerdo de productor.",
+      "step2Desc": "Digitalmente, desde el mismo portal tu <b>acuerdo de productor</b>.",
       "step3Title": "CUENTA",
-      "step3Desc": "Recibes la invitación, creas tu contraseña y entras automáticamente.",
+      "step3Desc": "Recibes la invitación, <b>creas tu contraseña</b> y entras automáticamente.",
       "step4Title": "PRODUCES",
-      "step4Desc": "Con tus appointments, tus licencias y tu book ya cargados."
+      "step4Desc": "Con tus appointments, tus licencias y <b>tu book ya cargados</b>."
     },
     "architecture": {
       "panel1Title": "GO AMS CORE",

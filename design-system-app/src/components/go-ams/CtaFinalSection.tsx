@@ -26,8 +26,7 @@ export default function CtaFinalSection() {
           opacity: 1,
           y: 0,
           yPercent: 0,
-          scale: 1,
-          clipPath: "inset(0% 0% 0% 0%)"
+          scale: 1
         });
         return;
       }
@@ -83,23 +82,22 @@ export default function CtaFinalSection() {
         "-=0.5"
       );
 
-      // 4. Título con Line-by-Line Clip Reveal
+      // 4. Título con GPU transform reveal
       tl.fromTo(
         ".cta-title-line",
         {
           yPercent: 120,
           opacity: 0,
-          clipPath: "inset(0% 0% 100% 0%)",
-          willChange: "transform, opacity, clip-path"
+          willChange: "transform, opacity"
         },
         {
           yPercent: 0,
           opacity: 1,
-          clipPath: "inset(-20% -10% -20% -10%)",
           duration: DUR.base,
           stagger: STAGGER.base,
           ease: EASE.dramatic,
-          clearProps: "clipPath,willChange"
+          force3D: true,
+          clearProps: "all"
         },
         "-=0.3"
       );

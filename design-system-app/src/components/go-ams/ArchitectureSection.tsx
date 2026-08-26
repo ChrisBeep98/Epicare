@@ -1,8 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Cloud, ShoppingCart, ShieldCheck, Database } from "@phosphor-icons/react";
 import { useTranslations } from "next-intl";
+import { EASE, DUR, STAGGER, REVEAL } from "@/lib/motion";
 
 const PANELS = [
   {
@@ -46,9 +49,63 @@ const PANELS = [
 export default function ArchitectureSection() {
   const t = useTranslations('goAms.architecture');
   const [activeIndex, setActiveIndex] = useState(0);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    ScrollTrigger.config({ ignoreMobileResize: true });
+
+    const el = sectionRef.current;
+    if (!el) return;
+
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const ctx = gsap.context(() => {
+      if (prefersReducedMotion) {
+        gsap.set(".arch-panel", { opacity: 1, y: 0, scale: 1 });
+        return;
+      }
+
+      gsap.fromTo(
+        ".arch-panel",
+        {
+          opacity: 0,
+          y: 25,
+          scale: 0.98,
+          willChange: "transform, opacity"
+        },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.65,
+          stagger: 0.08,
+          ease: EASE.out,
+          force3D: true,
+          clearProps: "willChange",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 90%",
+            toggleActions: "play reverse play reverse"
+          }
+        }
+      );
+    }, el);
+
+    const timer = setTimeout(() => ScrollTrigger.refresh(), 200);
+
+    return () => {
+      clearTimeout(timer);
+      ctx.revert();
+    };
+  }, []);
 
   return (
-    <section id="architecture" className="w-full h-[85dvh] sm:h-[90dvh] min-h-[580px] md:h-[90vh] md:min-h-[600px] flex flex-col md:flex-row overflow-hidden bg-white dark:bg-[#0A0E17] mb-section-md select-none">
+    <section 
+      ref={sectionRef}
+      id="architecture" 
+      className="w-full h-[85dvh] sm:h-[90dvh] min-h-[580px] md:h-[90vh] md:min-h-[600px] flex flex-col md:flex-row overflow-hidden bg-white dark:bg-[#0A0E17] mb-section-md select-none"
+    >
       {PANELS.map((panel, idx) => {
         const isActive = activeIndex === idx;
         const Icon = panel.icon;
@@ -57,7 +114,7 @@ export default function ArchitectureSection() {
             key={panel.id}
             onMouseEnter={() => setActiveIndex(idx)}
             onClick={() => setActiveIndex(idx)}
-            className={`relative flex flex-col justify-between transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] cursor-pointer overflow-hidden border-b md:border-b-0 md:border-r border-gray-200 dark:border-white/5 ${panel.color} ${panel.textColor}`}
+            className={`arch-panel relative flex flex-col justify-between transition-all duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] cursor-pointer overflow-hidden border-b md:border-b-0 md:border-r border-gray-200 dark:border-white/5 ${panel.color} ${panel.textColor}`}
             style={{ 
               flexGrow: isActive ? 6 : 1,
               flexShrink: 1,

@@ -17,9 +17,13 @@ export function AgentAgencyHeader({
       {/* Título y Subtítulo Principal (Izquierda, Cols 1-7) */}
       <div className="col-span-6 md:col-span-8 lg:col-span-7 flex flex-col gap-3">
         <h2 className="text-display-lg font-semibold text-[var(--color-text-primary)]">
-          <span className="aa-title-line block">{t('title1')}</span>
-          <span className="aa-title-line block text-[var(--color-text-accent-blue)]">
-            {t('title2')}
+          <span className="block overflow-hidden pb-1">
+            <span className="aa-title-line block">{t('title1')}</span>
+          </span>
+          <span className="block overflow-hidden pb-1">
+            <span className="aa-title-line block text-[var(--color-text-accent-blue)]">
+              {t('title2')}
+            </span>
           </span>
         </h2>
 

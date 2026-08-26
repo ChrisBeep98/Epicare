@@ -90,11 +90,10 @@ export default function CanonicalHero() {
         return;
       }
 
-      // 1. Estado Inicial (Oculto)
+      // 1. Estado Inicial (Oculto - GPU Compositor only)
       gsap.set('.hero-title-line', {
-        yPercent: REVEAL.birthPercent, // 120
-        opacity: 0,
-        clipPath: "inset(0% 0% 100% 0%)",
+        yPercent: 120,
+        opacity: 0
       });
       gsap.set('.hero-eyebrow', { opacity: 0, y: REVEAL.sm });
       gsap.set('.hero-subtitle', { opacity: 0, y: REVEAL.md });
@@ -112,16 +111,15 @@ export default function CanonicalHero() {
         clearProps: "willChange"
       });
 
-      // Line-by-Line Clip Reveal (GPU Friendly)
+      // Line-by-Line GPU Transform Reveal (100% Compositor Thread - Cero Repaint)
       tl.to('.hero-title-line', {
         yPercent: 0,
         opacity: 1,
-        clipPath: "inset(-20% -10% -20% -10%)",
         duration: 0.8,
         ease: EASE.dramatic,
         stagger: STAGGER.base, // 0.08s entre líneas
-        willChange: "transform, opacity, clip-path",
-        clearProps: "clipPath,willChange"
+        force3D: true,
+        clearProps: "all"
       }, "-=0.3");
 
       tl.to('.hero-subtitle', {
@@ -152,7 +150,7 @@ export default function CanonicalHero() {
         ease: EASE.dramatic,
         force3D: true,
         willChange: "transform, opacity",
-        clearProps: "willChange"
+        clearProps: "all"
       }, "-=0.8");
 
     }, el);
@@ -184,8 +182,12 @@ export default function CanonicalHero() {
     <section ref={containerRef} className="relative w-full py-section-md px-gutter-md">
       <p className="hero-eyebrow text-ui-label text-[var(--color-text-secondary)]">PORTAL EPICARE</p>
       <h1 className="text-display-xl text-[var(--color-text-primary)]">
-        <span className="hero-title-line block text-[var(--color-text-accent-blue)]">GO AMS.</span>
-        <span className="hero-title-line block">Tu negocio de seguros.</span>
+        <span className="block overflow-hidden pb-1">
+          <span className="hero-title-line block text-[var(--color-text-accent-blue)]">GO AMS.</span>
+        </span>
+        <span className="block overflow-hidden pb-1">
+          <span className="hero-title-line block">Tu negocio de seguros.</span>
+        </span>
       </h1>
       <p className="hero-subtitle text-body-md text-[var(--color-text-secondary)]">Descripción...</p>
       <button className="hero-cta btn-primary">Empezar</button>
@@ -213,17 +215,17 @@ useEffect(() => {
   const ctx = gsap.context(() => {
     if (prefersReducedMotion) return;
 
-    // 1. Título de Sección con Line-by-Line Clip
+    // 1. Título de Sección con GPU Transform Reveal (Requiere wrapper overflow-hidden en JSX)
     gsap.fromTo('.section-title-line', 
-      { yPercent: REVEAL.birthPercent, opacity: 0, clipPath: "inset(0% 0% 100% 0%)", willChange: 'transform, opacity, clip-path' },
+      { yPercent: 120, opacity: 0, willChange: 'transform, opacity' },
       { 
         yPercent: 0, 
         opacity: 1,
-        clipPath: "inset(-20% -10% -20% -10%)",
         duration: 0.8, 
         stagger: STAGGER.base, 
         ease: EASE.dramatic, 
-        clearProps: 'clipPath,willChange',
+        force3D: true,
+        clearProps: 'all',
         scrollTrigger: { trigger: el, start: TRIGGER.standard, toggleActions: 'play none none reverse' } 
       }
     );

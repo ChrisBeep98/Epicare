@@ -19,6 +19,8 @@ export default function FaqSection() {
   const t = useTranslations('goAms.faq');
   const [openIndex, setOpenIndex] = useState<number | null>(0);
   const sectionRef = useRef<HTMLElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
 
   const toggleFaq = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -39,77 +41,86 @@ export default function FaqSection() {
           opacity: 1,
           y: 0,
           yPercent: 0,
-          scale: 1,
-          clipPath: "inset(0% 0% 0% 0%)"
+          scale: 1
         });
         return;
       }
 
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: el,
-          start: TRIGGER.standard,
-          toggleActions: "play none none reverse"
-        }
+      // ── 1. Entrada y Salida de Cabecera (Trigger directo sobre el nodo) ──
+      if (headerRef.current) {
+        const headerTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: headerRef.current,
+            start: "top 92%",
+            toggleActions: "play reverse play reverse"
+          }
+        });
+
+        headerTl
+          .fromTo(
+            ".faq-title-line",
+            {
+              yPercent: 120,
+              opacity: 0,
+              willChange: "transform, opacity"
+            },
+            {
+              yPercent: 0,
+              opacity: 1,
+              duration: DUR.base,
+              ease: EASE.dramatic,
+              clearProps: "willChange"
+            }
+          )
+          .fromTo(
+            ".faq-subtitle",
+            { opacity: 0, y: REVEAL.sm, willChange: "transform, opacity" },
+            {
+              opacity: 1,
+              y: 0,
+              duration: DUR.fast,
+              ease: EASE.out,
+              clearProps: "willChange"
+            },
+            "-=0.3"
+          );
+      }
+
+      // ── 2. Entrada y Salida INDIVIDUAL para CADA FILA del Acordeón ──
+      const rows = gsap.utils.toArray<HTMLElement>(".faq-row", el);
+      rows.forEach((row) => {
+        gsap.fromTo(
+          row,
+          { 
+            opacity: 0, 
+            y: 30, 
+            scale: 0.97,
+            willChange: "transform, opacity" 
+          },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.6,
+            ease: EASE.out,
+            force3D: true,
+            clearProps: "willChange",
+            scrollTrigger: {
+              trigger: row,
+              start: "top 92%",
+              toggleActions: "play reverse play reverse"
+            }
+          }
+        );
       });
-
-      // 1. Título de Sección con Line-by-Line Clip
-      tl.fromTo(
-        ".faq-title-line",
-        {
-          yPercent: REVEAL.birthPercent,
-          opacity: 0,
-          clipPath: "inset(0% 0% 100% 0%)",
-          willChange: "transform, opacity, clip-path"
-        },
-        {
-          yPercent: 0,
-          opacity: 1,
-          clipPath: "inset(-20% -10% -20% -10%)",
-          duration: DUR.base,
-          ease: EASE.dramatic,
-          clearProps: "clipPath,willChange"
-        }
-      );
-
-      // 2. Subtítulo
-      tl.fromTo(
-        ".faq-subtitle",
-        { opacity: 0, y: REVEAL.sm, willChange: "transform, opacity" },
-        {
-          opacity: 1,
-          y: 0,
-          duration: DUR.fast,
-          ease: EASE.out,
-          clearProps: "willChange"
-        },
-        "-=0.4"
-      );
-
-      // 3. Entrada en Cascada Escalonada para las Filas del Acordeón
-      tl.fromTo(
-        ".faq-row",
-        { 
-          opacity: 0, 
-          y: REVEAL.md, 
-          scale: 0.98,
-          willChange: "transform, opacity" 
-        },
-        {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          duration: DUR.base,
-          stagger: STAGGER.tight,
-          ease: EASE.out,
-          force3D: true,
-          clearProps: "willChange"
-        },
-        "-=0.3"
-      );
     }, el);
 
-    return () => ctx.revert();
+    const timer = setTimeout(() => ScrollTrigger.refresh(), 200);
+
+    return () => {
+      clearTimeout(timer);
+      ctx.revert();
+    };
   }, []);
 
   return (
@@ -121,10 +132,15 @@ export default function FaqSection() {
       <div className="w-full max-w-4xl mx-auto px-3.5 sm:px-gutter-sm md:px-gutter-md">
         
         {/* ── CABECERA ── */}
-        <div className="mb-12 sm:mb-16 md:mb-24 flex flex-col md:flex-row md:items-end justify-between gap-6 text-left">
+        <div 
+          ref={headerRef}
+          className="faq-header-wrapper mb-12 sm:mb-16 md:mb-24 flex flex-col md:flex-row md:items-end justify-between gap-6 text-left"
+        >
           <div>
             <h2 className="text-display-lg font-display uppercase tracking-tighter text-[var(--color-text-primary)] leading-[0.9]">
-              <span className="faq-title-line block">{t('title')}</span>
+              <span className="block overflow-hidden pb-1">
+                <span className="faq-title-line block">{t('title')}</span>
+              </span>
             </h2>
           </div>
           <p className="faq-subtitle text-body-md sm:text-body-lg text-[var(--color-text-secondary)] max-w-sm md:max-w-[200px] text-left md:text-right pb-2">
@@ -133,7 +149,10 @@ export default function FaqSection() {
         </div>
 
         {/* ── LISTA DE ACORDEÓN ── */}
-        <div className="border-t border-[var(--color-border-Strokes-default)]">
+        <div 
+          ref={listRef}
+          className="faq-list-wrapper border-t border-[var(--color-border-Strokes-default)]"
+        >
           {FAQ_ITEMS.map((faq, i) => {
             const isOpen = openIndex === i;
             return (

@@ -2,7 +2,9 @@
 
 import { useState, useRef, useEffect } from "react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useTranslations } from "next-intl";
+import { EASE, DUR, STAGGER, REVEAL, TRIGGER } from "@/lib/motion";
 
 const PANELS = [
   { id: 1, titleKey: "panel1Title", descKey: "panel1Desc", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop" },
@@ -20,20 +22,24 @@ export default function BackOfficeTour() {
   const t = useTranslations('goAms.backOfficeTour');
   const [idx, setIdx] = useState(0);
 
+  const sectionRef = useRef<HTMLElement>(null);
   const magnetRef = useRef<HTMLDivElement>(null);
   const btnRef = useRef<HTMLDivElement>(null);
   const touchStartY = useRef<number | null>(null);
 
+  const [isInViewport, setIsInViewport] = useState(false);
+
   const handleNext = () => setIdx((prev) => (prev + 1) % PANELS.length);
   const handlePrev = () => setIdx((prev) => (prev - 1 + PANELS.length) % PANELS.length);
 
-  // Auto-Play optimizado (5 segundos por slide) que se reinicia si el usuario interactúa
+  // Auto-Play optimizado (5 segundos por slide) que se ejecuta SOLO si está en viewport
   useEffect(() => {
+    if (!isInViewport) return;
     const timer = setInterval(() => {
       setIdx((prev) => (prev + 1) % PANELS.length);
     }, 5000);
     return () => clearInterval(timer);
-  }, [idx]);
+  }, [idx, isInViewport]);
 
   // Touch Swipe para Mobile
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -53,6 +59,122 @@ export default function BackOfficeTour() {
     touchStartY.current = null;
   };
 
+  // ── ENTRADA CINEMÁTICA CON SCROLLTRIGGER ──
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    ScrollTrigger.config({ ignoreMobileResize: true });
+
+    const el = sectionRef.current;
+    if (!el) return;
+
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const ctx = gsap.context(() => {
+      if (prefersReducedMotion) {
+        gsap.set(".tour-text-side, .tour-img-side, .tour-magnet-wrap, .tour-progress-bar", {
+          opacity: 1,
+          x: 0,
+          y: 0,
+          scale: 1
+        });
+        return;
+      }
+
+      const isDesktop = window.matchMedia("(min-width: 768px)").matches;
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: el,
+          start: TRIGGER.standard,
+          toggleActions: "play none none reverse"
+        }
+      });
+
+      // 1. Entrada de Paneles Divididos
+      tl.fromTo(
+        ".tour-text-side",
+        {
+          opacity: 0,
+          x: isDesktop ? -REVEAL.lg : 0,
+          y: isDesktop ? 0 : -REVEAL.md,
+          willChange: "transform, opacity"
+        },
+        {
+          opacity: 1,
+          x: 0,
+          y: 0,
+          duration: DUR.slow,
+          ease: EASE.dramatic,
+          force3D: true,
+          clearProps: "willChange"
+        }
+      );
+
+      tl.fromTo(
+        ".tour-img-side",
+        {
+          opacity: 0,
+          x: isDesktop ? REVEAL.lg : 0,
+          y: isDesktop ? 0 : REVEAL.md,
+          scale: 0.97,
+          willChange: "transform, opacity"
+        },
+        {
+          opacity: 1,
+          x: 0,
+          y: 0,
+          scale: 1,
+          duration: DUR.slow,
+          ease: EASE.dramatic,
+          force3D: true,
+          clearProps: "willChange"
+        },
+        "<"
+      );
+
+      // 2. Botón Magnético Central (Pop In elástico)
+      tl.fromTo(
+        ".tour-magnet-wrap",
+        {
+          scale: 0,
+          opacity: 0,
+          willChange: "transform, opacity"
+        },
+        {
+          scale: 1,
+          opacity: 1,
+          duration: DUR.base,
+          ease: EASE.snap,
+          force3D: true,
+          clearProps: "willChange"
+        },
+        "-=0.4"
+      );
+
+      // 3. Barra de Progreso
+      tl.fromTo(
+        ".tour-progress-bar",
+        { opacity: 0 },
+        { opacity: 1, duration: DUR.fast, ease: EASE.out },
+        "-=0.2"
+      );
+
+      // Smart Shutdown Protocol: Solo auto-play cuando la sección está visible
+      ScrollTrigger.create({
+        trigger: el,
+        start: "top 100%",
+        end: "bottom 0%",
+        onEnter: () => setIsInViewport(true),
+        onLeave: () => setIsInViewport(false),
+        onEnterBack: () => setIsInViewport(true),
+        onLeaveBack: () => setIsInViewport(false),
+      });
+    }, el);
+
+    return () => ctx.revert();
+  }, []);
+
+  // ── QUICKTO PARA BOTÓN MAGNÉTICO (Awwwards Style) ──
   useEffect(() => {
     if (!magnetRef.current || !btnRef.current) return;
     
@@ -88,13 +210,14 @@ export default function BackOfficeTour() {
 
   return (
     <section 
+      ref={sectionRef}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
       className="relative w-full h-[85dvh] sm:h-[90dvh] md:h-[90vh] bg-[#050505] text-white flex flex-col md:flex-row overflow-hidden border-y border-white/20 mb-section-lg select-none"
     >
       
       {/* ── BOTÓN CENTRAL MAGNÉTICO (Awwwards Style) ── */}
-      <div className="absolute inset-0 z-50 pointer-events-none flex items-center justify-center">
+      <div className="tour-magnet-wrap absolute inset-0 z-50 pointer-events-none flex items-center justify-center">
         
         {/* Zona Magnética (Trigger interactivo) */}
         <div 
@@ -114,7 +237,7 @@ export default function BackOfficeTour() {
       </div>
 
       {/* ── BARRA DE PROGRESO INFERIOR ── */}
-      <div className="absolute bottom-0 left-0 w-full h-[2px] bg-white/10 z-50">
+      <div className="tour-progress-bar absolute bottom-0 left-0 w-full h-[2px] bg-white/10 z-50">
          <div 
            className="h-full bg-[var(--color-brand-blue)] transition-all duration-[1.2s] ease-[cubic-bezier(0.85,0,0.15,1)]"
            style={{ width: `${((idx + 1) / PANELS.length) * 100}%` }}
@@ -122,7 +245,7 @@ export default function BackOfficeTour() {
       </div>
 
       {/* ── SECCIÓN TEXTO: Arriba en Mobile, Izquierda en Desktop (Sube) ── */}
-      <div className="w-full h-1/2 md:w-1/2 md:h-full relative overflow-hidden bg-black border-b md:border-b-0 md:border-r border-white/10">
+      <div className="tour-text-side w-full h-1/2 md:w-1/2 md:h-full relative overflow-hidden bg-black border-b md:border-b-0 md:border-r border-white/10">
         <div 
           className="absolute inset-0 transition-transform duration-[1.2s] ease-[cubic-bezier(0.85,0,0.15,1)] flex flex-col will-change-transform"
           style={{ 
@@ -151,7 +274,7 @@ export default function BackOfficeTour() {
       </div>
 
       {/* ── SECCIÓN IMÁGENES: Abajo en Mobile, Derecha en Desktop (Baja) ── */}
-      <div className="w-full h-1/2 md:w-1/2 md:h-full relative overflow-hidden bg-[#0A0A0A]">
+      <div className="tour-img-side w-full h-1/2 md:w-1/2 md:h-full relative overflow-hidden bg-[#0A0A0A]">
         <div 
           className="absolute inset-0 transition-transform duration-[1.2s] ease-[cubic-bezier(0.85,0,0.15,1)] flex flex-col will-change-transform"
           style={{ 
