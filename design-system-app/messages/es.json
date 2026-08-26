@@ -320,9 +320,9 @@
       "agencyFeature3Desc": "Resumen centralizado de appointments, acuerdos y cotización de grupo."
     },
     "downline": {
-      "overline": "Agency Downline & Ecosystem",
-      "title1": "Ves a tu equipo sin",
-      "title2": "tener que preguntarle.",
+      "overline": "Agency Downline",
+      "title1": "Ves a tu equipo",
+      "title2": "sin tener que preguntarle.",
       "scrollHint": "Desliza hacia abajo",
       "card1Title": "Downline en Tiempo Real",
       "card1Badge": "8 Agentes Activos · Salesforce",
@@ -348,7 +348,7 @@
       "card4Desc": "Muestra un QR en tu tablet. Ideal para eventos o agencias físicas."
     },
     "delegateUsers": {
-      "overline": "Control de Acceso & Delegación",
+      "overline": "Control de Acceso",
       "title1": "Tu equipo entra",
       "title2": "con su propia cuenta.",
       "subtitle": "Otorga permisos granulares a tus asistentes o agentes. Mantén la <bold>seguridad total</bold> de tu agencia decidiendo <bold>exactamente a qué módulos</bold> pueden acceder.",
@@ -395,8 +395,8 @@
       "panel9Desc": "Configuraciones globales y control absoluto de permisos."
     },
     "howToJoin": {
-      "overline": "Activación",
-      "title": "Cómo lo obtienes.",
+      "title1": "De la firma a",
+      "title2": "tu primera póliza.",
       "step1Title": "APLICAS",
       "step1Desc": "Contracting te contacta en <b>24-48 horas hábiles</b>.",
       "step2Title": "FIRMAS",

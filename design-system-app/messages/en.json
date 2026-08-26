@@ -320,7 +320,7 @@
       "agencyFeature3Desc": "Centralized oversight of carrier appointments, commission schedules, and group setups."
     },
     "downline": {
-      "overline": "Agency Downline & Ecosystem",
+      "overline": "Agency Downline",
       "title1": "Oversee your team",
       "title2": "without having to ask.",
       "scrollHint": "Scroll down",
@@ -348,7 +348,7 @@
       "card4Desc": "Display a QR on your tablet. Perfect for live seminars, walk-ins, or physical agency branches."
     },
     "delegateUsers": {
-      "overline": "Access Control & Delegation",
+      "overline": "Access Control",
       "title1": "Your team logs in",
       "title2": "with their own account.",
       "subtitle": "Grant granular permissions to your assistants or agents. Maintain <bold>complete security</bold> over your agency by deciding <bold>exactly which modules</bold> they can access.",
@@ -395,8 +395,8 @@
       "panel9Desc": "Global configurations and absolute permission control."
     },
     "howToJoin": {
-      "overline": "Activation",
-      "title": "How to get it.",
+      "title1": "From signature to",
+      "title2": "your first policy.",
       "step1Title": "APPLY",
       "step1Desc": "Contracting reaches out in <b>24-48 business hours</b>.",
       "step2Title": "SIGN",

@@ -62,43 +62,28 @@ export default function HowToJoinSection() {
 
       // ── 1. Entrada de Cabecera (Trigger directo sobre el nodo ref) ──
       if (headerRef.current) {
-        const headerTl = gsap.timeline({
-          scrollTrigger: {
-            trigger: headerRef.current,
-            start: "top 92%",
-            toggleActions: "play none none reverse"
-          }
-        });
-
-        headerTl
-          .fromTo(
-            ".join-eyebrow",
-            { opacity: 0, y: REVEAL.sm, willChange: "transform, opacity" },
-            {
-              opacity: 1,
-              y: 0,
-              duration: DUR.fast,
-              ease: EASE.out,
-              clearProps: "willChange"
+        gsap.fromTo(
+          ".join-title-line",
+          { 
+            yPercent: 120, 
+            opacity: 0,
+            willChange: "transform, opacity" 
+          },
+          {
+            yPercent: 0,
+            opacity: 1,
+            duration: DUR.base,
+            ease: EASE.dramatic,
+            stagger: 0.1,
+            force3D: true,
+            clearProps: "all",
+            scrollTrigger: {
+              trigger: headerRef.current,
+              start: "top 92%",
+              toggleActions: "play none none reverse"
             }
-          )
-          .fromTo(
-            ".join-title-line",
-            { 
-              yPercent: 120, 
-              opacity: 0,
-              willChange: "transform, opacity" 
-            },
-            {
-              yPercent: 0,
-              opacity: 1,
-              duration: DUR.base,
-              ease: EASE.dramatic,
-              force3D: true,
-              clearProps: "all"
-            },
-            "-=0.2"
-          );
+          }
+        );
       }
 
       // ── 2. Entrada de la Tabla / Carrusel (Wave Stagger) ──
@@ -151,16 +136,11 @@ export default function HowToJoinSection() {
         ref={headerRef}
         className="w-full max-w-section-lg mx-auto px-3.5 sm:px-gutter-sm md:px-gutter-md pb-7 md:pb-14 text-left relative z-20"
       >
-        <div className="join-eyebrow flex items-center gap-2 mb-space-static-xs">
-          <span className="w-2 h-2 rounded-full bg-[var(--color-brand-blue)] animate-pulse" />
-          <span className="text-overline text-[var(--color-brand-blue)]">
-            {t('overline')}
-          </span>
-        </div>
-        
-        <h2 className="text-display-sm sm:text-display md:text-display-lg font-semibold text-[var(--color-text-primary)] leading-[1.1] tracking-tight">
-          <span className="block overflow-hidden pb-1">
-            <span className="join-title-line block">{t('title')}</span>
+        <h2 className="text-display-lg md:text-display-xl font-semibold text-[var(--color-text-primary)] leading-[1.05] tracking-tight">
+          <span className="block overflow-hidden pb-2">
+            <span className="join-title-line block">
+              {t('title1')} <span className="text-[var(--color-text-accent-blue)]">{t('title2')}</span>
+            </span>
           </span>
         </h2>
       </div>

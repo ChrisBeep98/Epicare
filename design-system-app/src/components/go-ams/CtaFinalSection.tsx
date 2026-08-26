@@ -79,7 +79,7 @@ export default function CtaFinalSection() {
           ease: EASE.out,
           clearProps: "willChange"
         },
-        "-=0.5"
+        "<0.3" // Inicia 0.3s después de que empiece el fondo, cortando el delay
       );
 
       // 4. Título con GPU transform reveal
@@ -99,7 +99,7 @@ export default function CtaFinalSection() {
           force3D: true,
           clearProps: "all"
         },
-        "-=0.3"
+        "<0.15" // Mucho más rápido, casi pegado al eyebrow
       );
 
       // 5. Descripción
@@ -113,7 +113,7 @@ export default function CtaFinalSection() {
           ease: EASE.out,
           clearProps: "willChange"
         },
-        "-=0.4"
+        "<0.15"
       );
 
       // 6. Botones de Acción
@@ -130,7 +130,7 @@ export default function CtaFinalSection() {
           force3D: true,
           clearProps: "willChange"
         },
-        "-=0.3"
+        "<0.2"
       );
     }, el);
 
@@ -141,9 +141,9 @@ export default function CtaFinalSection() {
     <section 
       ref={sectionRef} 
       id="cta-final"
-      className="w-full relative bg-[var(--color-surface-BG-1)] pt-0 pb-section-lg overflow-hidden"
+      className="w-full relative bg-[var(--color-surface-BG-1)] pt-0 pb-section-xs md:pb-section-sm overflow-hidden"
     >
-      <div className="w-full max-w-6xl mx-auto pt-8 pb-16 px-3.5 sm:px-4 md:px-8">
+      <div className="w-full max-w-6xl mx-auto pt-8 pb-8 md:pb-12 px-3.5 sm:px-4 md:px-8">
         <div className="cta-monolith relative w-full rounded-[2rem] sm:rounded-[2.5rem] overflow-hidden shadow-elevation-4 border border-white/10">
           
           {/* Fondo de Imagen con Parallax / Zoom Cinemático */}
@@ -157,19 +157,18 @@ export default function CtaFinalSection() {
             <div className="absolute inset-0 bg-black/15" />
           </div>
 
-          <div className="relative z-10 text-center px-3.5 py-10 sm:px-6 sm:py-12 md:py-16 flex flex-col items-center">
+          <div className="relative z-10 text-left md:text-center px-3.5 py-10 sm:px-6 sm:py-12 md:py-16 flex flex-col items-start md:items-center">
             
             <span className="cta-eyebrow text-meta font-mono tracking-widest text-white/60 mb-4 uppercase border-b border-white/20 pb-1">
               {t('eyebrow')}
             </span>
             
             {/* Título Line-by-Line */}
-            <h2 className="text-display-md sm:text-display-lg md:text-display-xl font-display font-bold text-white leading-[0.92] tracking-tighter mb-4 drop-shadow-sm">
-              <span className="block overflow-hidden pb-1">
-                <span className="cta-title-line block">{t('title1')}</span>
-              </span>
-              <span className="block overflow-hidden pb-1">
-                <span className="cta-title-line block">{t('title2')}</span>
+            <h2 className="text-display-lg md:text-display-xl font-display font-bold text-white leading-[0.92] tracking-tighter mb-4 drop-shadow-sm">
+              <span className="block overflow-hidden pb-2">
+                <span className="cta-title-line block">
+                  {t('title1')} {t('title2')}
+                </span>
               </span>
             </h2>
             
@@ -177,9 +176,9 @@ export default function CtaFinalSection() {
               {t('desc')}
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-static-md md:gap-fluid-xs w-full justify-center max-w-md">
+            <div className="flex flex-col sm:flex-row gap-static-md md:gap-fluid-xs w-full justify-start md:justify-center max-w-md">
               {/* Primary CTA (Epicare Hero Style) */}
-              <button className="cta-btn group w-fit mx-auto sm:mx-0 h-12 pl-6 pr-2 rounded-full flex items-center gap-3 bg-[var(--color-brand-blue)] text-[var(--color-surface-BG-base)] shadow-elevation-2 transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-elevation-4 active:scale-[0.96] active:opacity-80 active:duration-150">
+              <button className="cta-btn group w-full md:w-fit mr-auto md:mx-0 h-12 pl-6 pr-2 rounded-full flex items-center justify-between md:justify-start gap-3 bg-[var(--color-brand-blue)] text-[var(--color-surface-BG-base)] shadow-elevation-2 transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-elevation-4 active:scale-[0.96] active:opacity-80 active:duration-150">
                 <span className="text-body-sm font-medium">{t('btnPrimary')}</span>
                 <span className="relative w-8 h-8 rounded-full bg-[var(--color-surface-BG-base)] text-[var(--color-brand-blue)] flex items-center justify-center overflow-hidden shrink-0">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="absolute w-4 h-4 transition-transform duration-300 ease-out group-hover:translate-x-5 group-hover:-translate-y-5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
@@ -188,7 +187,7 @@ export default function CtaFinalSection() {
               </button>
 
               {/* Secondary CTA (Epicare Hero Style) */}
-              <button className="cta-btn group w-fit mx-auto sm:mx-0 h-12 pl-6 pr-2 rounded-full flex items-center gap-3 bg-white/10 border border-white/20 text-white shadow-elevation-1 md:backdrop-blur-sm transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:bg-white/20 hover:-translate-y-0.5 hover:scale-[1.02] active:scale-[0.96] active:opacity-80 active:duration-150">
+              <button className="cta-btn group w-full md:w-fit mr-auto md:mx-0 h-12 pl-6 pr-2 rounded-full flex items-center justify-between md:justify-start gap-3 bg-white/10 border border-white/20 text-white shadow-elevation-1 md:backdrop-blur-sm transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:bg-white/20 hover:-translate-y-0.5 hover:scale-[1.02] active:scale-[0.96] active:opacity-80 active:duration-150">
                 <span className="text-body-sm font-medium">{t('btnSecondary')}</span>
                 <span className="relative w-8 h-8 rounded-full bg-white/20 text-white flex items-center justify-center overflow-hidden shrink-0">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="absolute w-4 h-4 transition-transform duration-300 ease-out group-hover:translate-x-5 group-hover:-translate-y-5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>

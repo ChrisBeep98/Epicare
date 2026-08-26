@@ -260,13 +260,10 @@ export default function DownlineSection() {
               </span>
             </div>
             
-            <h2 className="text-display-lg font-semibold text-[var(--color-text-primary)] leading-[1.05]">
-              <span className="block overflow-hidden pb-1">
-                <span className="dl-title-line block">{t('title1')}</span>
-              </span>
-              <span className="block overflow-hidden pb-1">
-                <span className="dl-title-line block text-[var(--color-text-accent-blue)]">
-                  {t('title2')}
+            <h2 className="text-display-lg font-semibold text-[var(--color-text-primary)] leading-[1.05] tracking-tight max-w-[800px]">
+              <span className="block overflow-hidden pb-2">
+                <span className="dl-title-line block">
+                  {t('title1')} <span className="text-[var(--color-text-accent-blue)]">{t('title2')}</span>
                 </span>
               </span>
             </h2>

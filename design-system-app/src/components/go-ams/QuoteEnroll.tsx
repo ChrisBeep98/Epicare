@@ -162,12 +162,9 @@ export default function QuoteEnroll() {
         {/* Título & Subtítulo Alineados */}
         <div ref={titleRef} className="flex flex-col md:flex-row justify-between items-start md:items-end mb-static-lg md:mb-static-xl gap-4 md:gap-fluid-md">
           <h2 className="text-display-lg font-semibold text-[var(--color-text-primary)] tracking-tight leading-[1.05] max-w-2xl text-left">
-            <span className="block overflow-hidden pb-1">
-              <span className="qw-title-line block">{t('title1')}</span>
-            </span>
-            <span className="block overflow-hidden pb-1">
-              <span className="qw-title-line block text-[var(--color-text-accent-blue)]">
-                {t('title2')}
+            <span className="block overflow-hidden pb-2">
+              <span className="qw-title-line block">
+                {t('title1')} <span className="text-[var(--color-text-accent-blue)]">{t('title2')}</span>
               </span>
             </span>
           </h2>

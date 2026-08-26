@@ -8,7 +8,6 @@ import QuoteEnroll from "@/components/go-ams/QuoteEnroll";
 import AgentAgencySection from "@/components/go-ams/AgentAgencySection";
 import DownlineSection from "@/components/go-ams/DownlineSection";
 import DelegateUsersSection from "@/components/go-ams/DelegateUsersSection";
-import ArchitectureSection from "@/components/go-ams/ArchitectureSection";
 import HowToJoinSection from "@/components/go-ams/HowToJoinSection";
 import FaqSection from "@/components/go-ams/FaqSection";
 import CtaFinalSection from "@/components/go-ams/CtaFinalSection";
@@ -55,7 +54,6 @@ export default function GoAmsPage() {
       <DelegateUsersSection />
       <BackOfficeTour />
       <HowToJoinSection />
-      <ArchitectureSection />
       <FaqSection />
       <CtaFinalSection />
 
