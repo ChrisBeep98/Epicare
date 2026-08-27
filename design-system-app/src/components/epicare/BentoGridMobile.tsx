@@ -216,7 +216,7 @@ export default function BentoGridMobile() {
       cardClassNameDark: "dark:bg-[#0D0D0E]",
       href: "/go-ams",
       isCrm: true,
-      logo: <CrmLogo className="h-10 w-auto drop-shadow-[0_0_15px_rgba(90,200,250,0.5)]" />
+      logo: <CrmLogo className="h-10 w-auto drop-shadow-[0_2px_6px_rgba(53,187,253,0.12)]" />
     },
     {
       title: t('card1Title'),
@@ -229,7 +229,7 @@ export default function BentoGridMobile() {
       cardClassNameDark: "dark:bg-[#0D0D0E]",
       href: "/go-ams",
       isAms: true,
-      logo: <AmsLogo className="h-10 w-auto drop-shadow-[0_0_15px_rgba(90,200,250,0.5)]" />
+      logo: <AmsLogo className="h-10 w-auto drop-shadow-[0_2px_6px_rgba(53,187,253,0.12)]" />
     },
     {
       title: t('card8Title'),
@@ -241,7 +241,7 @@ export default function BentoGridMobile() {
       videoDarkFullBackground: true,
       mediaClassNameDark: "dark:bg-[#0D0D0E]",
       cardClassNameDark: "dark:bg-[#0D0D0E]",
-      logo: <AcademyIcon className="h-[50px] w-auto drop-shadow-[0_0_15px_rgba(90,200,250,0.5)]" />
+      logo: <img src={asset('/academy-icon-knockout-blue 1.svg')} alt="GO Academy" className="h-10 w-auto object-contain drop-shadow-[0_2px_6px_rgba(53,187,253,0.12)]" />
     },
   ];
 
@@ -349,7 +349,7 @@ export default function BentoGridMobile() {
                          </div>
                       )}
                     </div>
-                    <p className="text-body-sm sm:text-body-md text-[var(--color-text-muted)] font-normal leading-relaxed max-w-[95%]">
+                    <p className="text-body-md sm:text-body-lg text-[var(--color-text-muted)] font-normal leading-relaxed max-w-[95%]">
                       {card.desc}
                     </p>
                   </div>
