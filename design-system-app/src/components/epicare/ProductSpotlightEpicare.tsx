@@ -94,10 +94,10 @@ export default function ProductSpotlightEpicare({ variant }: { variant: Spotligh
         
         // 1. Video Reveal
         gsap.fromTo(videoColRef.current,
-          { opacity: 0, x: isEppigo ? '3vw' : '-3vw' },
+          { opacity: 0, y: 30 },
           { 
-            opacity: 1, x: '0vw',
-            duration: 1.5, ease: "power3.out", 
+            opacity: 1, y: 0,
+            duration: 1.2, ease: "power3.out", 
             scrollTrigger: {
               trigger: el,
               start: "top 70%",
@@ -110,10 +110,10 @@ export default function ProductSpotlightEpicare({ variant }: { variant: Spotligh
         const textElements = contentRef.current?.children;
         if (textElements) {
           gsap.fromTo(textElements,
-            { opacity: 0, y: '3vh' },
+            { opacity: 0, y: 24 },
             { 
-              opacity: 1, y: '0vh',
-              duration: 1.2, stagger: 0.15, ease: "power2.out", delay: 0.2,
+              opacity: 1, y: 0,
+              duration: 1.0, stagger: 0.12, ease: "power2.out", delay: 0.2,
               scrollTrigger: {
                 trigger: el,
                 start: "top 70%",
@@ -151,7 +151,7 @@ export default function ProductSpotlightEpicare({ variant }: { variant: Spotligh
     <section 
       ref={sectionRef} 
       id={variant} 
-      className="relative w-full bg-white overflow-visible flex items-center justify-center py-8 lg:py-10"
+      className="relative w-full overflow-x-clip md:overflow-visible flex items-center justify-center py-8 lg:py-10 max-w-full"
     >
       {/* 
         FULL BLEED ASYMMETRIC SPLIT LAYOUT. 
@@ -160,13 +160,13 @@ export default function ProductSpotlightEpicare({ variant }: { variant: Spotligh
       <div className={`relative z-10 w-full max-w-full flex flex-col ${isEppigo ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center justify-between`}>
         
         {/* TEXT COLUMN (Takes 50% viewport) */}
-        <div ref={textColRef} className={`relative z-20 shrink-0 w-full lg:w-1/2 flex flex-col justify-center py-20 px-6 md:px-8 ${isEppigo ? 'lg:items-end -translate-y-8 lg:-translate-y-56' : 'lg:items-start lg:-translate-y-32'}`}>
+        <div ref={textColRef} className={`relative z-20 shrink-0 w-full lg:w-1/2 flex flex-col justify-center py-10 lg:py-20 px-4 md:px-8 ${isEppigo ? 'lg:items-end lg:-translate-y-56' : 'lg:items-start lg:-translate-y-32'}`}>
           
           {/* Alignment Wrapper (Forces content into the max-w-section-lg boundary) */}
-          <div className="w-full px-4 lg:px-8" style={{ maxWidth: 'calc(var(--max-w-section-lg, 1440px) / 2)' }}>
+          <div className="w-full px-2 sm:px-4 lg:px-8" style={{ maxWidth: 'calc(var(--max-w-section-lg, 1440px) / 2)' }}>
             
             {/* LIQUID GLASS TEXT CARD */}
-            <div className={`relative z-10 w-full max-w-[540px] mx-auto lg:mx-0 ${isEppigo ? 'lg:mr-auto' : 'lg:ml-auto'} rounded-[2.5rem] border border-[var(--color-border-Strokes-default)] shadow-[0_40px_80px_rgba(0,0,0,0.05)] transform hover:-translate-y-1 transition-transform duration-500 overflow-hidden`}>
+            <div className={`relative z-10 w-full max-w-[540px] mx-auto lg:mx-0 ${isEppigo ? 'lg:mr-auto' : 'lg:ml-auto'} rounded-[2rem] lg:rounded-[2.5rem] border border-[var(--color-border-Strokes-default)] shadow-[0_40px_80px_rgba(0,0,0,0.05)] transform hover:-translate-y-1 transition-transform duration-500 overflow-hidden`}>
             
             {/* Glassmorphic Background Layer (Static) */}
             <div className="absolute inset-0 rounded-[2.5rem] -z-10">

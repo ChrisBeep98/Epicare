@@ -133,61 +133,30 @@ export default function BentoGridMobile() {
     // no pin toll on touch; cards reveal with the house physics)
     // ----------------------------------------------------
     mm.add("(max-width: 767px) and (prefers-reduced-motion: no-preference)", () => {
-        // 0. LOGO ENTRANCE — Professional Awwwards Motion
-        const logoShapes = gsap.utils.toArray(section.querySelectorAll('.gohub-shape'));
-        const logoLetters = gsap.utils.toArray(section.querySelectorAll('.gohub-letter'));
-        
-        const logoTl = gsap.timeline({
+        // 1. Header Entrance Timeline (Logo Badge + Title + Subtitle)
+        const headerTl = gsap.timeline({
           scrollTrigger: {
             trigger: section,
-            start: "top top",
-            end: "+=400",
-            scrub: 1,
+            start: "top 80%",
+            toggleActions: "play none none reverse"
           }
         });
 
-        // The tag extrudes from the top limit (Pestaña saliendo)
-        logoTl.to(".gohub-tag", { scaleY: 1, autoAlpha: 1, duration: 1, ease: "none" });
-
-        if (logoShapes.length && logoLetters.length) {
-          logoTl
-            .from(logoShapes, {
-              opacity: 0, scale: 0.55, transformOrigin: '50% 50%',
-              duration: 0.6, ease: "power2.out", stagger: 0.09,
-            }, "-=0.3")
-            .from(logoLetters, {
-              opacity: 0, y: 42, scale: 0.5, transformOrigin: '50% 100%',
-              duration: 0.55, ease: "power2.out", stagger: 0.12,
-            }, "-=0.2");
-        }
-
-        // 1. SAFE KINETIC TYPOGRAPHY ANIMATION
-        gsap.fromTo(".title-line-reveal",
-          { yPercent: 120, willChange: 'transform' },
-          { 
-            yPercent: 0, 
-            duration: 1.2, ease: "power4.out", stagger: 0.15,
-            clearProps: 'willChange',
-            scrollTrigger: {
-              trigger: section,
-              start: "top 80%",
-              toggleActions: "play none none reverse"
-            }
-          }
-        );
-
-        gsap.fromTo(".anim-head-fade",
-          { opacity: 0, y: 26, willChange: 'transform, opacity' },
-          { 
-            opacity: 1, y: 0, duration: 0.9, stagger: 0.08, ease: "power3.out",
-            clearProps: 'willChange',
-            scrollTrigger: {
-              trigger: section,
-              start: "top 80%",
-              toggleActions: "play none none reverse"
-            }
-          }
-        );
+        headerTl
+          .fromTo(".gohub-logo-badge",
+            { opacity: 0, scale: 0.85, y: 20, willChange: 'transform, opacity' },
+            { opacity: 1, scale: 1, y: 0, duration: 0.6, ease: "power3.out", clearProps: 'willChange' }
+          )
+          .fromTo(".title-line-reveal",
+            { yPercent: 120, willChange: 'transform' },
+            { yPercent: 0, duration: 1.0, ease: "power4.out", stagger: 0.1, force3D: true, clearProps: 'all' },
+            "-=0.4"
+          )
+          .fromTo(".anim-head-fade",
+            { opacity: 0, y: 24, willChange: 'transform, opacity' },
+            { opacity: 1, y: 0, duration: 0.8, ease: "power3.out", clearProps: 'willChange' },
+            "-=0.5"
+          );
 
         // 2. STACKING CARDS EFFECT (Native CSS Sticky + GSAP 3D Shrink)
         // Arquitectura 100% fluida, elimina el gap falso en la parte inferior de la página.
@@ -218,11 +187,16 @@ export default function BentoGridMobile() {
               ease: "none"
             }, 0);
 
+            // Morph the ambient orb to match this card's brand accent
+            tl.call(() => morphOrb(i + 1), undefined, 0.2);
           }
         });
     });
 
-    return () => mm.revert();
+    return () => {
+      mm.revert();
+      stRef.current?.kill();
+    };
   }, []);
 
   // Hub GO en el bento: GO AMS (core) → GO CRM → Epicare Academy.
@@ -233,20 +207,24 @@ export default function BentoGridMobile() {
     {
       title: t('card4Title'),
       desc: t('card4Desc'),
-      image: asset("/Files/Features/card_5_image.jpg"),
+      image: asset("/Files/Features/MacBook_Pro_16_Front.jpeg"),
       videoLight: asset("/Files/Features/CRM_Light_Final.mp4"),
+      videoLightContain: true,
       videoDark: asset("/Files/Features/CRM_Dark_Final.mp4"),
       videoDarkFullBackground: true,
       mediaClassNameDark: "dark:bg-[#0D0D0E]",
       cardClassNameDark: "dark:bg-[#0D0D0E]",
+      href: "/go-ams",
+      isCrm: true,
       logo: <CrmLogo className="h-10 w-auto drop-shadow-[0_0_15px_rgba(90,200,250,0.5)]" />
     },
     {
       title: t('card1Title'),
       desc: t('card1Desc'),
-      image: null,
-      videoLight: asset("/Files/Go_AMS/Hero/go_ams_hero.mp4"),
-      videoDark: asset("/Files/Go_AMS/Hero/go_ams_hero.mp4"),
+      image: asset("/Files/Features/MacBook_Pro_16_Space_Black_Front.jpeg"),
+      videoLight: asset("/Files/Features/AMS_Light_Final.mp4"),
+      videoLightContain: true,
+      videoDark: asset("/Files/Features/AMS_Dark_Final.mp4"),
       videoDarkFullBackground: true,
       mediaClassNameDark: "dark:bg-[#0D0D0E]",
       cardClassNameDark: "dark:bg-[#0D0D0E]",
@@ -272,7 +250,7 @@ export default function BentoGridMobile() {
       <section
         id="plataforma"
         ref={containerRef}
-        className="relative w-full h-auto md:h-screen overflow-visible md:overflow-hidden bg-[var(--color-brand-blue)] transition-colors duration-500 z-20 rounded-4xl"
+        className="relative w-full h-auto md:h-screen overflow-x-clip md:overflow-hidden bg-[var(--color-brand-blue)] transition-colors duration-500 z-20 rounded-t-none rounded-b-4xl md:rounded-4xl max-w-full"
         style={{ perspective: '2000px' }}
       >
         {/* AMBIENT ORB — the journey's mood: morphs to the active product's accent */}
@@ -303,15 +281,13 @@ export default function BentoGridMobile() {
           ref={trackRef}
           className="relative flex flex-col items-center justify-start w-full z-10"
         >
-          {/* Floating Sticky GoHub Logo for Mobile */}
-          <div className="sticky top-0 z-50 flex justify-center w-full pointer-events-none pb-2">
-            <div className="gohub-tag invisible opacity-0 scale-y-0 origin-top bg-white/80 dark:bg-white/20 border border-black/10 dark:border-white/10 backdrop-blur-md p-3 rounded-md shadow-2xl pointer-events-auto flex items-center justify-center">
-              <GoHubLogo className="w-[50px] h-[52px] text-[var(--color-brand-blue)]" />
-            </div>
-          </div>
-
           {/* CARD 0: THE TITLE COMPOSITION */}
-          <div className="mobile-stack-card sticky top-0 w-full min-h-fit pb-[12vh] flex flex-col justify-start pt-[calc(10vh)] items-start px-[var(--space-gutter-sm)] origin-top transform-gpu will-change-transform [backface-visibility:hidden] z-[10] relative">
+          <div className="mobile-stack-card sticky top-0 w-full min-h-fit pb-8 sm:pb-[6vh] flex flex-col justify-start pt-static-xl sm:pt-[calc(6vh)] items-start px-gutter-sm origin-top transform-gpu will-change-transform [backface-visibility:hidden] z-[10] relative">
+              {/* GoHub Logo Badge above the title */}
+              <div className="gohub-logo-badge w-14 h-14 bg-white rounded-2xl flex items-center justify-center mb-5 shadow-elevation-2">
+                <GoHubLogo className="w-9 h-9 text-[var(--color-brand-blue)]" />
+              </div>
+
               <h2 className="text-display-lg text-white text-left leading-[1.1]">
                 {t('sectionTitle').split('\n').map((line, i, arr) => {
                   return (
@@ -340,24 +316,24 @@ export default function BentoGridMobile() {
             return (
             <div 
               key={idx} 
-              className={`mobile-stack-card w-full h-[100vh] flex flex-col justify-center items-center origin-top transform-gpu will-change-transform [backface-visibility:hidden] ${!isLastCard ? 'sticky top-0' : 'relative'}`}
+              className={`mobile-stack-card w-full h-[78dvh] max-h-[620px] px-gutter-sm flex flex-col justify-center items-center origin-top transform-gpu will-change-transform [backface-visibility:hidden] ${!isLastCard ? 'sticky top-3' : 'relative pb-6'}`}
               style={{ zIndex: 11 + idx }}
             >
                 <CardWrapper 
                   {...cardProps}
-                  className={`group relative w-full h-full rounded-[32px] overflow-hidden shadow-[0_4px_30px_rgba(0,0,0,0.1)] border border-[var(--color-border-Strokes-default)] flex flex-col transition-transform duration-[600ms] cursor-pointer [transform:translateZ(0)] outline outline-1 outline-transparent ${(card as any).cardClassNameDark ? `bg-[var(--color-surface-BG-white)] ${(card as any).cardClassNameDark}` : 'bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)]'}`}
+                  className={`group relative w-full h-full rounded-[24px] sm:rounded-[32px] overflow-hidden shadow-[0_4px_30px_rgba(0,0,0,0.1)] border border-[var(--color-border-Strokes-default)] flex flex-col transition-transform duration-[600ms] cursor-pointer [transform:translateZ(0)] ${(card as any).cardClassNameDark ? `bg-[var(--color-surface-BG-white)] ${(card as any).cardClassNameDark}` : 'bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)]'}`}
                 >
                   
                   {/* Floating Action Bubble (Hardware Symphony: No backdrop-blur) */}
-                  <div className="group/btn absolute bottom-6 right-6 h-10 pl-4 pr-1.5 bg-white/95 dark:bg-[#0D0D0E]/95 border border-[var(--color-brand-blue)]/20 dark:border-white/10 text-[var(--color-text-Black-100)] dark:text-white rounded-full flex items-center justify-center gap-2 overflow-hidden shadow-elevation-2 z-50 transition-all duration-[600ms] group-hover:scale-105 hover:!scale-110 group-hover:bg-[var(--color-brand-blue)] group-hover:text-white hover:shadow-[0_15px_30px_rgba(53,187,253,0.4)] cursor-pointer">
+                  <div className="group/btn absolute bottom-5 right-5 sm:bottom-6 sm:right-6 h-9 sm:h-10 pl-3.5 sm:pl-4 pr-1.5 bg-white/95 dark:bg-[#0D0D0E]/95 border border-[var(--color-brand-blue)]/20 dark:border-white/10 text-[var(--color-text-Black-100)] dark:text-white rounded-full flex items-center justify-center gap-2 overflow-hidden shadow-elevation-2 z-50 transition-all duration-[600ms] group-hover:scale-105 hover:!scale-110 group-hover:bg-[var(--color-brand-blue)] group-hover:text-white hover:shadow-[0_15px_30px_rgba(53,187,253,0.4)] cursor-pointer">
                     
                     {/* Liquid Wave Hover Background */}
                     <div className="absolute inset-0 bg-white/20 translate-y-full rounded-full transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/btn:translate-y-0" />
                     
-                    <span className="relative z-10 text-body-sm font-medium tracking-wide transition-transform duration-300 group-hover/btn:-translate-x-1">{t('cardCta')}</span>
-                    <div className="relative z-10 w-7 h-7 rounded-full bg-[var(--color-brand-blue)]/10 dark:bg-[var(--color-brand-cyan)]/10 text-[var(--color-brand-blue)] dark:text-[var(--color-brand-cyan)] flex items-center justify-center overflow-hidden shrink-0 group-hover:bg-white/20 group-hover:text-white transition-transform duration-500 group-hover/btn:rotate-45 group-hover/btn:scale-110">
-                      <ArrowUR className="absolute w-4 h-4 transition-transform duration-[400ms] group-hover/btn:translate-x-6 group-hover/btn:-translate-y-6" />
-                      <ArrowUR className="absolute w-4 h-4 -translate-x-6 translate-y-6 transition-transform duration-[400ms] group-hover/btn:translate-x-0 group-hover/btn:translate-y-0" />
+                    <span className="relative z-10 text-body-xs sm:text-body-sm font-medium tracking-wide transition-transform duration-300 group-hover/btn:-translate-x-1">{t('cardCta')}</span>
+                    <div className="relative z-10 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[var(--color-brand-blue)]/10 dark:bg-[var(--color-brand-cyan)]/10 text-[var(--color-brand-blue)] dark:text-[var(--color-brand-cyan)] flex items-center justify-center overflow-hidden shrink-0 group-hover:bg-white/20 group-hover:text-white transition-transform duration-500 group-hover/btn:rotate-45 group-hover/btn:scale-110">
+                      <ArrowUR className="absolute w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform duration-[400ms] group-hover/btn:translate-x-6 group-hover/btn:-translate-y-6" />
+                      <ArrowUR className="absolute w-3.5 h-3.5 sm:w-4 sm:h-4 -translate-x-6 translate-y-6 transition-transform duration-[400ms] group-hover/btn:translate-x-0 group-hover/btn:translate-y-0" />
                     </div>
                   </div>
 
@@ -370,15 +346,15 @@ export default function BentoGridMobile() {
                   )}
 
                   {/* Text Container (Top) */}
-                  <div className="w-full p-6 flex flex-col justify-start relative z-10 pointer-events-none">
-                    <div className="flex items-center gap-3 mb-4">
+                  <div className="w-full p-5 sm:p-6 flex flex-col justify-start relative z-10 pointer-events-none">
+                    <div className="flex items-center gap-3 mb-3 sm:mb-4">
                       {card.logo && (
-                         <div className="shrink-0 text-[var(--color-brand-blue)] dark:text-[var(--color-brand-cyan)] scale-125 origin-left">
+                         <div className="shrink-0 text-[var(--color-brand-blue)] dark:text-[var(--color-brand-cyan)] scale-110 sm:scale-125 origin-left">
                             {card.logo}
                          </div>
                       )}
                     </div>
-                    <p className="text-body-md text-[var(--color-text-muted)] font-normal leading-relaxed max-w-[95%]">
+                    <p className="text-body-sm sm:text-body-md text-[var(--color-text-muted)] font-normal leading-relaxed max-w-[95%]">
                       {card.desc}
                     </p>
                   </div>
@@ -397,7 +373,7 @@ export default function BentoGridMobile() {
                             <SmartVideo 
                               src={(card as any).videoLight} 
                               className={`absolute inset-0 w-full h-full transition-transform duration-[800ms] ease-out ${(card as any).isAms ? 'object-contain object-right' : 'object-contain object-center group-hover:scale-[1.05]'} ${hasDarkVideo || hasImage ? 'dark:hidden' : ''}`}
-                              style={(card as any).isAms ? { transform: 'scale(1.46) translate(205px, 10px)', borderRadius: '12px', transformOrigin: 'right center' } : undefined}
+                              style={(card as any).isAms ? { transform: 'scale(1.2) translate(10%, 5%)', borderRadius: '12px', transformOrigin: 'right center' } : undefined}
                             />
                           ) : hasImage ? (
                             <img src={card.image} alt={card.title} loading="lazy" decoding="async" className={`absolute inset-0 w-full h-full object-cover object-center transition-transform duration-[800ms] ease-out group-hover:scale-[1.05] ${hasDarkVideo ? 'dark:hidden' : ''}`} />
@@ -408,7 +384,7 @@ export default function BentoGridMobile() {
                             <SmartVideo 
                               src={(card as any).videoDark} 
                               className={`absolute inset-0 w-full h-full transition-transform duration-[800ms] ease-out ${(card as any).isAms ? 'object-contain object-right' : 'object-contain object-center group-hover:scale-[1.05]'} ${(card as any).videoDarkClassName || ''} ${hasLightVideo || hasImage ? 'hidden dark:block' : ''}`}
-                              style={(card as any).isAms ? { transform: 'scale(1.46) translate(205px, 10px)', borderRadius: '12px', transformOrigin: 'right center' } : undefined}
+                              style={(card as any).isAms ? { transform: 'scale(1.2) translate(10%, 5%)', borderRadius: '12px', transformOrigin: 'right center' } : undefined}
                             />
                           ) : (hasImage && hasLightVideo) ? (
                             <img src={card.image} alt={card.title} loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover object-center hidden dark:block transition-transform duration-[800ms] ease-out group-hover:scale-[1.05]" />

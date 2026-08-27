@@ -2,6 +2,11 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* ── LENIS SMOOTH SCROLL (synced with GSAP ticker in SmoothScrollProvider) ── */
+html,
+body {
+  overflow-x: clip;
+  max-width: 100%;
+}
 html.lenis,
 html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }

@@ -311,14 +311,14 @@ export default function HeroEpicare() {
               <div className="grid-layout flex-1 max-w-section-xl w-full mx-auto pointer-events-auto">
                 
                 {/* Fila 2: Titular Principal */}
-                <div className="col-start-1 col-span-12 md:col-start-1 md:col-span-7 lg:col-span-9 row-start-2 md:row-start-5 row-span-1 flex flex-row justify-start items-end pb-8">
+                <div className="col-start-1 col-span-full md:col-start-1 md:col-span-7 lg:col-span-9 row-start-2 md:row-start-5 row-span-1 flex flex-row justify-start items-end pb-8">
                   <h1 className="hero-anim-item text-display-lg md:text-display-xl text-white md:drop-shadow-lg leading-none mb-4">
                     {t('title1')}<br/>{t('title2')}
                   </h1>
                 </div>
 
                 {/* Fila 3: Subtítulo y CTA */}
-                <div className="col-start-1 col-span-12 md:col-start-1 md:col-span-5 row-start-3 md:row-start-6 row-span-1 flex flex-col justify-start items-start gap-fluid-sm">
+                <div className="col-start-1 col-span-full md:col-start-1 md:col-span-5 row-start-3 md:row-start-6 row-span-1 flex flex-col justify-start items-start gap-fluid-sm">
                   <p className="hero-anim-item hidden md:block text-body-lg text-[var(--color-text-White-100)] leading-relaxed font-light">
                     {t('description')}
                   </p>
