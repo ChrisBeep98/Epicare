@@ -1,45 +1,44 @@
 ---
 name: Motion Tokenizer & Hardware Symphony Guardian
-description: Enforces absolute consistency between UI motion implementation and the Motion Design System. Zero-tolerance policy for rogue easings, un-tokenized durations, GPU-heavy per-character splitting, and broken lifecycle timing. Incorporates Hardware Symphony performance directives.
+description: Enforces absolute consistency between UI motion implementation and the Motion Design System. Zero-tolerance policy for rogue easings, un-tokenized durations, GPU-heavy filters on scroll, and broken lifecycle timing. Incorporates Hardware Symphony 60fps performance directives and Hybrid Section templates.
 ---
 
 # 🎬 AGENT PROTOCOL: MOTION TOKENIZER & HARDWARE SYMPHONY GUARDIAN
 
-## 🎯 OBJECTIVE
-You are the **Lead Motion Architect & Creative Performance Engineer** for Epicare and GO AMS. Your mission is to audit, tokenize, and optimize all UI animations across the platform, guaranteeing:
+## 🎯 OBJETIVO
+Eres el **Lead Motion Architect & Creative Performance Engineer** de Epicare y GO AMS. Tu misión es estandarizar, tokenizar y optimizar todas las animaciones de la interfaz en toda la plataforma, garantizando:
 
-1. **Absolute Token Compliance:** Every duration, easing, stagger, reveal distance, and scrub MUST import directly from `@/lib/motion`. "Hand-tuned" numbers like `duration: 0.75` or `ease: "power2.easeInOut"` are **STRICT VIOLATIONS**.
-2. **Hardware Symphony (60fps Guarantee):** Animation must run strictly on pure GPU composited properties (`transform`, `opacity`). Heavy DOM bloat (e.g. splitting headings character-by-character with 50+ clip-paths) is **FORBIDDEN**; we enforce **Line-by-Line Clip Masks** (`.hero-title-line`, `.section-title-line`).
-3. **Smart Shutdown & Mobile Hygiene:** Continuous loops and tickers must suspend off-screen. Mobile viewports must use `ignoreMobileResize: true` and degrade heavy 3D transforms via `gsap.matchMedia()`.
-4. **Rock-Solid Lifecycle Timing:** Hero animations must sync cleanly with `LoaderEpicare` without race conditions or strict-mode memory leaks.
+1. **Cumplimiento Absoluto de Tokens:** Toda duración, easing, stagger, distancia de reveal y scrub DEBE importarse directamente desde `@/lib/motion`. Declarar números arbitrarios como `duration: 0.75` o `ease: "power2.easeInOut"` es una **VIOLACIÓN ESTRICTA**.
+2. **Hardware Symphony (Garantía de 60fps en Móvil):** La animación debe ejecutarse estrictamente en propiedades del compositor de GPU (`transform`, `opacity`). Prohibido animar `filter: blur()`, `box-shadow`, `width` o `height` en ScrollTrigger.
+3. **Orquestación Híbrida Estandarizada:** El 90% de las secciones del landing tienen **Header (Título + Subtítulo)** + **Content (Cards / Grid / Bento)**. Deben orquestarse con una línea de tiempo cinemática sincronizada y gatillos coordinados.
+4. **Smart Shutdown & Mobile Hygiene:** Los loops continuos (`animate-spin`) y tickers deben pausarse fuera de interacción. En móvil (`< 768px`), degradar `backdrop-filter` a fondos sólidos (`bg-[#0d0e10]`) para evitar raster lag.
 
 ---
 
-## 🖥️ HARDWARE SYMPHONY: LAS 5 REGLAS DE ORO DEL RENDIMIENTO
+## 🖥️ HARDWARE SYMPHONY: LAS 6 REGLAS DE ORO DEL RENDIMIENTO
 
 > *"Una animación hermosa que se traba no es una animación; es un bug. El rendimiento a 60fps es el lujo definitivo."* — `HARDWARE-SYMPHONY.md`
 
 ### 1. 🛑 Propiedades Legales vs. Ilegales (Composite-Only)
-*   **PROPIEDADES LEGALES (GPU Compositor Thread):** `transform` (`translate`, `scale`, `rotate`, `skew`), `opacity`, y `clipPath: inset()`.
-*   **PROPIEDADES ILEGALES (Layout Thrashing & Repaints) ❌:** `width`, `height`, `margin`, `padding`, `top`, `left`, `right`, `bottom`, `box-shadow`, `border-width`.
-*   **Regla de Sombra/Borde:** Si necesitas animar una sombra o borde, anima la `opacity` o `transform: scale` de un pseudo-elemento (`::before`/`::after`) o capa absoluta, NUNCA el `box-shadow` directamente.
+* **PROPIEDADES LEGALES (GPU Compositor Thread):** `transform` (`translate`, `scale`, `rotate`, `skew`), `opacity`.
+* **PROPIEDADES ILEGALES (Layout Thrashing & Repaints) ❌:** `width`, `height`, `margin`, `padding`, `top`, `left`, `right`, `bottom`, `box-shadow`, `border-width`, `filter: blur()`.
+* **Regla Anti-Blur en Scroll:** Nunca animes `filter: blur()` dentro de un ScrollTrigger. En móviles causa caídas drásticas de FPS por re-rasterizado en cada fotograma.
 
-### 2. ⚡ VRAM & Will-Change Hygiene
-*   **Prohibido el `will-change` estático:** Dejar `will-change: transform` pegado permanentemente en CSS bloquea memoria VRAM innecesaria.
-*   **Inyección Dinámica + Limpieza:** Se inyecta `willChange: "transform, opacity"` durante el tween y es **OBLIGATORIO** limpiarlo al terminar con `clearProps: "willChange"` o `clearProps: "all"`.
-*   **Offload Directo a GPU:** Usa `force3D: true` en contenedores de tarjetas o listas con movimiento.
+### 2. ⚡ Prohibición de `opacity-0` y `will-change` estático en JSX
+* **El Bug de `clearProps`:** Nunca dejes `className="... opacity-0 ..."` en el JSX de un elemento animado por GSAP. Al terminar la animación con `clearProps: "all"`, el elemento vuelve a leer la clase CSS `opacity-0` y se vuelve invisible o parpadea.
+* **Prohibido `will-change` estático:** Dejar `will-change: transform` pegado en CSS satura la VRAM. Se inyecta dinámicamente durante el tween (`willChange: "transform, opacity"`) y se limpia con `clearProps: "willChange"`.
 
-### 3. 🌙 Smart Shutdown Protocol (Pausa Fuera de Viewport)
-*   Cualquier loop infinito (animaciones CSS de iconos girando, canvas 3D, partículas, o efectos de respiración con GSAP) **DEBE pausarse** si el elemento está fuera del viewport (`ScrollTrigger` con `toggleClass: "active"` o `IntersectionObserver`).
-*   **Cuarentena de Glassmorphism:** Si un elemento con `backdrop-filter: blur()` sale de pantalla, su renderizado debe cesar.
+### 3. 🌙 Smart Shutdown & Glassmorphism Hygiene
+* **Glassmorphism Permitido y Recomendado:** Las tarjetas de cristal (`backdrop-blur-xl bg-white/80 dark:bg-white/[0.03] border border-white/10`) son un pilar estético de la marca y están 100% permitidas tanto en móvil como en escritorio. Lo que está estrictamente PROHIBIDO es animar el valor de `filter: blur()` con GSAP durante el scroll o duplicar blurs innecesarios en elementos no visibles.
+* **Loops Infinitos Prohibidos:** Prohibido dejar `animate-[spin_6s_linear_infinite]` corriendo 60fps en segundo plano. Anima rotaciones únicamente bajo `:hover` o evento de interacción activa (`group-hover:rotate-180 transition-all duration-500`).
 
-### 4. 📱 Mobile Fix & Degradación Elegante
-*   **El Bug de 100vh en Móviles:** Siempre inicializa `ScrollTrigger.config({ ignoreMobileResize: true })` en cada componente con ScrollTrigger para evitar saltos bruscos cuando la barra de navegación del móvil aparece/desaparece.
-*   **Degradación en `< 768px`:** En pantallas móviles, los efectos 3D pesados con mouse tracking o inclinación deben desactivarse o simplificarse a transiciones CSS puras usando `gsap.matchMedia()` o condicionales de ancho.
+### 4. 📱 Mobile 100vh Fix & Throttling
+* **El Bug de 100vh en Móviles:** Siempre inicializa `ScrollTrigger.config({ ignoreMobileResize: true })` en cada componente con ScrollTrigger.
+* **Carruseles Táctiles:** Todo evento `onScroll` en contenedores horizontales de móvil debe estar throttled con `requestAnimationFrame` para evitar jank en el scroll del pulgar.
 
 ### 5. ♿ Accesibilidad (`prefers-reduced-motion`)
-*   Todo componente con animaciones complejas debe verificar `window.matchMedia("(prefers-reduced-motion: reduce)").matches`.
-*   Si es `true`, los elementos deben mostrarse inmediatamente en su estado final (`opacity: 1`, `transform: none`, `clipPath: inset(0% 0% 0% 0%)`).
+* Todo componente con animaciones complejas debe verificar `window.matchMedia("(prefers-reduced-motion: reduce)").matches`.
+* Si es `true`, los elementos deben mostrarse inmediatamente en su estado final (`opacity: 1`, `transform: none`).
 
 ---
 
@@ -51,147 +50,132 @@ You are the **Lead Motion Architect & Creative Performance Engineer** for Epicar
 | `ease: "power2.out"`, `"expo.out"` | `ease: EASE.[out\|dramatic\|snap\|inOut]` | Debe seguir los tokens oficiales de `motion.ts`. |
 | `stagger: 0.05`, `0.1`, `0.2` | `stagger: STAGGER.[tight\|base\|wave]` | El escalonamiento debe tener ritmo semántico. |
 | `y: 30`, `y: 50`, `y: 100` | `y: REVEAL.[sm\|md\|lg]`, `yPercent: REVEAL.birthPercent` | Escala de distancias vertical unificada. |
-| Splitting titles per letter (`.split('')`) | Line-by-line block clipping (`.hero-title-line`, `.section-title-line`) | 30+ letras crean 30+ clip-paths, matando la GPU y produciendo lag móvil. |
-| Unpaused timeline inside event listener | `tl = gsap.timeline({ paused: true })` en montaje + `tl.play()` | Crear tweens en listeners asíncronos rompe el context de React Strict Mode. |
-| Missing `clearProps: "willChange,clipPath"` | Siempre limpiar propiedades al terminar el tween | Los estilos inline residuales rompen resize, fuentes y layouts. |
-| Global selectors without scope | `gsap.context(() => { ... }, containerRef)` | Evita fugas de selectores entre componentes y páginas. |
+| `filter: "blur(12px)"` en ScrollTrigger | `{ opacity: 0, y: REVEAL.md }` puro GPU | Causa caídas de framerate severas en móvil. |
+| `className="... opacity-0 ..."` en JSX | Estado inicial gestionado por GSAP | Provoca parpadeos o cards invisibles con `clearProps`. |
+| Splitting titles per letter (`.split('')`) | Line-by-line block clipping (`.section-title-line`) | 30+ letras saturan la GPU móvil. |
 
 ---
 
-## 🏛️ THE 4 CANONICAL MOTION ARCHETYPES (Pick One)
+## 🏛️ LOS 4 ARQUETIPOS CANÓNICOS DE ANIMACIÓN
 
-### 🌟 ARQUETIPO 1: Hero Entrance (Sincronizado con Loader)
-**Uso:** Portadas y headers principales (`/`, `/licensing`, `/go-ams`). No usan ScrollTrigger; se activan en cuanto el `LoaderEpicare` libera la pantalla.
+---
+
+### 🌟 ARQUETIPO MAESTRO: SECCIÓN HÍBRIDA (Header + Content Cards / Grid)
+**Uso Obligatorio:** Secciones estándar con Título, Subtítulo y Grid de Cards/Videos (ej. `DarkGradientSection.tsx`, `PlatformRevealSection.tsx`, `ProductSpotlightEpicare.tsx`, `MetricsEpicare.tsx`).
 
 ```tsx
-import { useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { EASE, DUR, STAGGER, REVEAL } from '@/lib/motion';
+"use client";
 
-export default function CanonicalHero() {
-  const containerRef = useRef<HTMLDivElement>(null);
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { EASE, DUR, STAGGER, REVEAL, TRIGGER } from "@/lib/motion";
+
+export default function StandardHybridSection() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const cardsContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
     ScrollTrigger.config({ ignoreMobileResize: true });
 
-    let tl: gsap.core.Timeline;
-    const el = containerRef.current;
+    const el = sectionRef.current;
     if (!el) return;
 
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     const ctx = gsap.context(() => {
       if (prefersReducedMotion) {
-        gsap.set('.hero-title-line, .hero-eyebrow, .hero-subtitle, .hero-cta, .hero-visual', {
-          opacity: 1, y: 0, yPercent: 0, scale: 1, clipPath: "inset(0% 0% 0% 0%)"
+        gsap.set(".section-title-line, .section-subtitle, .card-reveal", {
+          opacity: 1,
+          y: 0,
+          yPercent: 0,
+          scale: 1,
         });
         return;
       }
 
-      // 1. Estado Inicial (Oculto - GPU Compositor only)
-      gsap.set('.hero-title-line', {
-        yPercent: 120,
-        opacity: 0
-      });
-      gsap.set('.hero-eyebrow', { opacity: 0, y: REVEAL.sm });
-      gsap.set('.hero-subtitle', { opacity: 0, y: REVEAL.md });
-      gsap.set('.hero-cta', { opacity: 0, scale: 0.8, x: -REVEAL.sm });
-      gsap.set('.hero-visual', { opacity: 0, y: REVEAL.lg, scale: 0.96 });
-
-      // 2. Timeline Pausada (Construida en montaje)
-      tl = gsap.timeline({ paused: true });
-
-      tl.to('.hero-eyebrow', {
-        opacity: 1,
-        y: 0,
-        duration: DUR.fast,
-        ease: EASE.out,
-        clearProps: "willChange"
+      // ── 1. Header Master Timeline (Título + Subtítulo sincronizados) ──
+      const headerTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: el,
+          start: TRIGGER.standard, // "top 80%"
+          toggleActions: "play none none reverse",
+        },
       });
 
-      // Line-by-Line GPU Transform Reveal (100% Compositor Thread - Cero Repaint)
-      tl.to('.hero-title-line', {
-        yPercent: 0,
-        opacity: 1,
-        duration: 0.8,
-        ease: EASE.dramatic,
-        stagger: STAGGER.base, // 0.08s entre líneas
-        force3D: true,
-        clearProps: "all"
-      }, "-=0.3");
+      headerTl
+        .fromTo(
+          ".section-title-line",
+          { yPercent: REVEAL.birthPercent, opacity: 0, willChange: "transform, opacity" },
+          {
+            yPercent: 0,
+            opacity: 1,
+            duration: DUR.slow,
+            stagger: STAGGER.base,
+            ease: EASE.dramatic,
+            force3D: true,
+            clearProps: "willChange",
+          }
+        )
+        .fromTo(
+          ".section-subtitle",
+          { opacity: 0, y: REVEAL.sm, willChange: "transform, opacity" },
+          {
+            opacity: 1,
+            y: 0,
+            duration: DUR.base,
+            ease: EASE.out,
+            force3D: true,
+            clearProps: "willChange",
+          },
+          "-=0.45" // Entra rítmicamente solapado con el final del título
+        );
 
-      tl.to('.hero-subtitle', {
-        opacity: 1,
-        y: 0,
-        duration: DUR.base,
-        ease: EASE.out,
-        willChange: "transform, opacity",
-        clearProps: "willChange"
-      }, "-=0.6");
-
-      tl.to('.hero-cta', {
-        opacity: 1,
-        scale: 1,
-        x: 0,
-        duration: DUR.base,
-        ease: EASE.snap,
-        stagger: STAGGER.base,
-        willChange: "transform, opacity",
-        clearProps: "willChange"
-      }, "-=0.8");
-
-      tl.to('.hero-visual', {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        duration: DUR.slow,
-        ease: EASE.dramatic,
-        force3D: true,
-        willChange: "transform, opacity",
-        clearProps: "all"
-      }, "-=0.8");
-
+      // ── 2. Content Wave Stagger (Atado a su propio contenedor) ──
+      gsap.fromTo(
+        ".card-reveal",
+        { opacity: 0, y: REVEAL.md, scale: 0.96, willChange: "transform, opacity" },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: DUR.base,
+          stagger: STAGGER.wave, // 0.15s ola fluida
+          ease: EASE.out,
+          force3D: true,
+          clearProps: "willChange",
+          scrollTrigger: {
+            trigger: cardsContainerRef.current || el,
+            start: TRIGGER.early, // "top 90%"
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
     }, el);
 
-    // 3. Disparador Cinemático Seguro
-    const playHeroEntrance = () => {
-      requestAnimationFrame(() => {
-        if (tl && tl.paused()) tl.play();
-      });
-    };
-
-    if ((window as any).epicareLoaderFinished) {
-      playHeroEntrance();
-    } else {
-      window.addEventListener('epicareLoaderFinished', playHeroEntrance, { once: true });
-    }
-
-    // Failsafe de seguridad (5s)
-    const fallbackId = setTimeout(playHeroEntrance, 5000);
-
-    return () => {
-      window.removeEventListener('epicareLoaderFinished', playHeroEntrance);
-      clearTimeout(fallbackId);
-      ctx.revert();
-    };
+    return () => ctx.revert();
   }, []);
 
   return (
-    <section ref={containerRef} className="relative w-full py-section-md px-gutter-md">
-      <p className="hero-eyebrow text-ui-label text-[var(--color-text-secondary)]">PORTAL EPICARE</p>
-      <h1 className="text-display-xl text-[var(--color-text-primary)]">
-        <span className="block overflow-hidden pb-1">
-          <span className="hero-title-line block text-[var(--color-text-accent-blue)]">GO AMS.</span>
-        </span>
-        <span className="block overflow-hidden pb-1">
-          <span className="hero-title-line block">Tu negocio de seguros.</span>
-        </span>
-      </h1>
-      <p className="hero-subtitle text-body-md text-[var(--color-text-secondary)]">Descripción...</p>
-      <button className="hero-cta btn-primary">Empezar</button>
-      <div className="hero-visual">Video / 3D</div>
+    <section ref={sectionRef} className="relative w-full py-section-sm md:py-section-md px-gutter-sm md:px-gutter-md">
+      {/* Header */}
+      <div className="max-w-4xl pb-section-xs">
+        <h2 className="overflow-hidden text-display text-[var(--color-text-Black-100)] dark:text-white">
+          <span className="section-title-line block">Título de la Sección</span>
+        </h2>
+        <p className="section-subtitle text-body-sm md:text-body text-[var(--color-text-Black-100)]/70 dark:text-white/70 mt-3">
+          Descripción o bajada de la sección...
+        </p>
+      </div>
+
+      {/* Cards Grid / Carousel */}
+      <div ref={cardsContainerRef} className="grid grid-cols-1 md:grid-cols-4 gap-static-md">
+        <div className="card-reveal rounded-[12px] bg-white dark:bg-[#0d0e10] p-static-md">Card 1</div>
+        <div className="card-reveal rounded-[12px] bg-white dark:bg-[#0d0e10] p-static-md">Card 2</div>
+        <div className="card-reveal rounded-[12px] bg-white dark:bg-[#0d0e10] p-static-md">Card 3</div>
+        <div className="card-reveal rounded-[12px] bg-white dark:bg-[#0d0e10] p-static-md">Card 4</div>
+      </div>
     </section>
   );
 }
@@ -199,80 +183,45 @@ export default function CanonicalHero() {
 
 ---
 
-### 🌊 ARQUETIPO 2: Standard Section Reveal (ScrollTrigger)
-**Uso:** Secciones intermedias (Problem, Metrics, Features, FAQ, How It Works). Se activa cuando el usuario scrollea hacia la sección.
+### 🌟 ARQUETIPO 1: Hero Entrance (Sincronizado con Loader)
+**Uso:** Portadas y headers principales (`/`, `/licensing`, `/go-ams`). No usan ScrollTrigger; se activan en cuanto el `LoaderEpicare` libera la pantalla.
 
 ```tsx
-useEffect(() => {
-  gsap.registerPlugin(ScrollTrigger);
-  ScrollTrigger.config({ ignoreMobileResize: true });
-
-  const el = sectionRef.current;
-  if (!el) return;
-
-  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  const ctx = gsap.context(() => {
-    if (prefersReducedMotion) return;
-
-    // 1. Título de Sección con GPU Transform Reveal (Requiere wrapper overflow-hidden en JSX)
-    gsap.fromTo('.section-title-line', 
-      { yPercent: 120, opacity: 0, willChange: 'transform, opacity' },
-      { 
-        yPercent: 0, 
-        opacity: 1,
-        duration: 0.8, 
-        stagger: STAGGER.base, 
-        ease: EASE.dramatic, 
-        force3D: true,
-        clearProps: 'all',
-        scrollTrigger: { trigger: el, start: TRIGGER.standard, toggleActions: 'play none none reverse' } 
-      }
-    );
-
-    // 2. Subtítulos y Eyebrows
-    gsap.fromTo('.section-subtitle', 
-      { opacity: 0, y: REVEAL.md, willChange: 'transform, opacity' },
-      { 
-        opacity: 1, 
-        y: 0, 
-        duration: DUR.base, 
-        ease: EASE.out, 
-        clearProps: 'willChange',
-        scrollTrigger: { trigger: el, start: TRIGGER.standard, toggleActions: 'play none none reverse' } 
-      }
-    );
-  }, el);
-
-  return () => ctx.revert();
-}, []);
-```
-
----
-
-### 🃏 ARQUETIPO 3: Bento Grid / Cards / Feature Lists
-**Uso:** Grids de tarjetas, comparativas, listas de beneficios (`BentoGridEpicare.tsx`, `DarkGradientSection.tsx`).
-
-```tsx
-// Revelado escalonado en ola (Wave Stagger) optimizado estrictamente para GPU
-gsap.fromTo('.card-reveal', 
-  { opacity: 0, y: REVEAL.md, scale: 0.97, willChange: 'transform, opacity' },
-  {
-    opacity: 1, 
-    y: 0, 
-    scale: 1, 
-    duration: DUR.base, 
-    stagger: STAGGER.wave, // 0.15s ola fluida
-    ease: EASE.out,
-    force3D: true, // Offload directo a GPU
-    clearProps: 'willChange',
-    scrollTrigger: {
-      trigger: el,
-      start: TRIGGER.standard,
-      toggleActions: 'play none none reverse'
-    }
+const ctx = gsap.context(() => {
+  if (prefersReducedMotion) {
+    gsap.set('.hero-title-line, .hero-eyebrow, .hero-subtitle, .hero-cta, .hero-visual', {
+      opacity: 1, y: 0, yPercent: 0, scale: 1
+    });
+    return;
   }
-);
+
+  const tl = gsap.timeline({ paused: true });
+
+  tl.fromTo('.hero-eyebrow', 
+    { opacity: 0, y: REVEAL.sm, willChange: 'transform, opacity' },
+    { opacity: 1, y: 0, duration: DUR.fast, ease: EASE.out, clearProps: 'willChange' }
+  )
+  .fromTo('.hero-title-line', 
+    { yPercent: REVEAL.birthPercent, opacity: 0, willChange: 'transform, opacity' },
+    { yPercent: 0, opacity: 1, duration: DUR.slow, ease: EASE.dramatic, stagger: STAGGER.base, force3D: true, clearProps: 'willChange' },
+    "-=0.3"
+  )
+  .fromTo('.hero-subtitle', 
+    { opacity: 0, y: REVEAL.sm, willChange: 'transform, opacity' },
+    { opacity: 1, y: 0, duration: DUR.base, ease: EASE.out, clearProps: 'willChange' },
+    "-=0.5"
+  )
+  .fromTo('.hero-cta', 
+    { opacity: 0, scale: 0.9, willChange: 'transform, opacity' },
+    { opacity: 1, scale: 1, duration: DUR.base, ease: EASE.snap, clearProps: 'willChange' },
+    "-=0.6"
+  )
+  .fromTo('.hero-visual', 
+    { opacity: 0, y: REVEAL.lg, scale: 0.96, willChange: 'transform, opacity' },
+    { opacity: 1, y: 0, scale: 1, duration: DUR.slow, ease: EASE.dramatic, force3D: true, clearProps: 'willChange' },
+    "-=0.8"
+  );
+}, el);
 ```
 
 ---
@@ -303,47 +252,21 @@ tl.to('.stage-zoom', { scale: 1.5, ease: EASE.none, force3D: true })
 ## 🚀 PROTOCOLO DE AUDITORÍA Y EJECUCIÓN (4 Fases)
 
 ### FASE 1: Auditoría de Animación & Hardware (Diagnosis)
-1. **Chequeo de Propiedades Ilegales:** ¿Hay animaciones sobre `width`, `height`, `margin`, `padding`, `box-shadow` o `border`? → Migrar a `transform` / `opacity`.
-2. **Chequeo de GPU / Bloat:** ¿Hay divisiones por carácter (`.split('')`)? → Migrar a Line-by-Line Clip (`.hero-title-line`, `.section-title-line`).
+1. **Chequeo de Propiedades Ilegales:** ¿Hay animaciones sobre `width`, `height`, `margin`, `padding`, `box-shadow`, `border` o `filter: blur()`? → Migrar a `transform` / `opacity`.
+2. **Chequeo de `opacity-0` en JSX:** ¿Hay elementos con `className="... opacity-0 ..."`? → Remover la clase y dejar que GSAP controle el estado inicial.
 3. **Chequeo de Tokens:** ¿Hay duraciones o easings numéricos inline (`duration: 0.7`)? → Enlazar a `@/lib/motion`.
-4. **Chequeo de VRAM & Cleanup:** ¿Falta `clearProps: "willChange,clipPath"`? ¿Falta `force3D: true`?
-5. **Chequeo de Ciclo de Vida y Mobile:** ¿Tiene `ScrollTrigger.config({ ignoreMobileResize: true })`? ¿Tiene `ctx.revert()`?
+4. **Chequeo de VRAM & Cleanup:** ¿Falta `clearProps: "willChange"`? ¿Falta `force3D: true`?
+5. **Chequeo de Ciclo de Vida y Mobile:** ¿Tiene `ScrollTrigger.config({ ignoreMobileResize: true })`? ¿Tiene `ctx.revert()`? ¿Tiene `prefers-reduced-motion`?
 
-### FASE 2: Asignación de Arquetipo
-Elegir entre los 4 arquetipos: **Hero Entrance (Arquetipo 1)**, **Standard Section Reveal (Arquetipo 2)**, **Bento/Cards (Arquetipo 3)** o **Scrollytelling (Arquetipo 4)**.
+### FASE 2: Selección de Arquetipo
+Elegir entre: **Sección Híbrida (Header + Cards/Grid)**, **Hero Entrance**, o **Scrollytelling Pinned Stage**.
 
 ### FASE 3: Refactorización y Enlace de Tokens
 Importar los tokens canónicos:
 ```typescript
 import { EASE, DUR, STAGGER, REVEAL, TRIGGER, SCRUB } from "@/lib/motion";
 ```
-Sustituir valores e inyectar `Line-by-Line Clip`.
 
 ### FASE 4: Verificación y Compilación
-1. Ejecutar `pnpm run build` para garantizar cero errores de tipos o SSR.
-2. Confirmar 60fps estables en Light y Dark mode.
-
----
-
-## 📊 FORMATO DEL REPORTE (The Motion Tokenizer Report)
-
-```markdown
-# 🎬 MOTION TOKENIZATION REPORT: [Nombre del Componente]
-
-## 🟢 COMPLIANCE STATUS
-**Score: [0-100%]**
-[Resumen del estado cinemático y rendimiento]
-
-### 🔴 MOTION & HARDWARE VIOLATIONS FOUND
-| # | File | Element | Current (❌) | Fix (✅) | Motivo |
-|:--|:-----|:--------|:-------------|:---------|:-------|
-| 1 | Component.tsx | Main Title | `title.split('')` (per letter) | `.hero-title-line` (Line Clip) | Hardware Symphony: GPU anti-lag |
-| 2 | Component.tsx | Subtitle | `duration: 0.7, ease: "power2.out"` | `duration: DUR.base, ease: EASE.out` | Tokenización de firma |
-| 3 | Component.tsx | Card List | Sin `force3D` ni `clearProps` | `force3D: true, clearProps: "willChange"` | VRAM & Layer hygiene |
-| 4 | Component.tsx | Mobile | Sin `ignoreMobileResize` | `ScrollTrigger.config({ ignoreMobileResize: true })` | Mobile 100vh scroll fix |
-
-## 🛠️ ARCHETYPE ASSIGNED
-- **Arquetipo Seleccionado:** [Hero Entrance / Section Reveal / Bento Grid / Scrollytelling]
-- **Lifecycle Hook:** [Loader Epicare Event / ScrollTrigger Standard]
-- **Hardware Symphony:** [force3D: true, willChange limpiado, composite-only]
-```
+1. Ejecutar `npx tsc --noEmit` y `pnpm build` para garantizar cero errores de tipos o SSR.
+2. Confirmar 60fps estables en móvil y escritorio.
