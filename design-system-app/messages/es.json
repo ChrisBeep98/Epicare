@@ -224,7 +224,8 @@
     },
     "howToJoin": {
       "overline": "Activación Inmediata",
-      "title": "Cómo lo obtienes.",
+      "title1": "De la firma a",
+      "title2": "tu primera póliza.",
       "step1Title": "APLICAS",
       "step1Desc": "Contracting te contacta en 24-48 horas hábiles.",
       "step2Title": "FIRMAS",
@@ -395,6 +396,7 @@
       "panel9Desc": "Configuraciones globales y control absoluto de permisos."
     },
     "howToJoin": {
+      "overline": "Activación Inmediata",
       "title1": "De la firma a",
       "title2": "tu primera póliza.",
       "step1Title": "APLICAS",

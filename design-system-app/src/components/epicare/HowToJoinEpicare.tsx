@@ -79,10 +79,10 @@ function StatusCarousel({ images, id, accentClass }: { images: string[], id: str
 export default function HowToJoinEpicare() {
   const t = useTranslations("landingV2.howToJoin");
   
-  const STEPS = Array.from({ length: 6 }).map((_, i) => ({
+  const STEPS = Array.from({ length: 4 }).map((_, i) => ({
     num: `0${i + 1}`,
-    title: t(`steps.step${i + 1}Title`),
-    desc: t(`steps.step${i + 1}Desc`),
+    title: t(`step${i + 1}Title`),
+    desc: t(`step${i + 1}Desc`),
   }));
   
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -152,8 +152,8 @@ export default function HowToJoinEpicare() {
         </span>
         <h2 className="overflow-hidden pb-static-xs text-display-xl font-semibold tracking-tight leading-[1] text-[var(--color-text-Black-100)] dark:text-white">
           <span className="block">
-            <span className="inline md:block">{t("titleLine1")} </span>
-            <span className="inline md:block text-[var(--color-text-muted)]">{t("titleLine2")}</span>
+            <span className="inline md:block">{t("title1")} </span>
+            <span className="inline md:block text-[var(--color-text-muted)]">{t("title2")}</span>
           </span>
         </h2>
       </header>

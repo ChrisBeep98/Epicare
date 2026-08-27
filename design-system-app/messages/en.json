@@ -224,7 +224,8 @@
     },
     "howToJoin": {
       "overline": "Instant Activation",
-      "title": "How to get it.",
+      "title1": "From signature to",
+      "title2": "your first policy.",
       "step1Title": "APPLY",
       "step1Desc": "Contracting contacts you within 24-48 business hours.",
       "step2Title": "SIGN",
@@ -395,6 +396,7 @@
       "panel9Desc": "Global configurations and absolute permission control."
     },
     "howToJoin": {
+      "overline": "Instant Activation",
       "title1": "From signature to",
       "title2": "your first policy.",
       "step1Title": "APPLY",
