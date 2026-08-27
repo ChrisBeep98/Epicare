@@ -51,7 +51,7 @@ export default function HowToJoinSection() {
 
     const ctx = gsap.context(() => {
       if (prefersReducedMotion) {
-        gsap.set(".join-eyebrow, .join-title-line, .join-step-card", {
+        gsap.set(".join-title-line, .join-step-card-desktop", {
           opacity: 1,
           y: 0,
           yPercent: 0,

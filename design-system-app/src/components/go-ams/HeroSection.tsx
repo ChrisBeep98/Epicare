@@ -82,7 +82,7 @@ export default function HeroSection() {
 
     const ctx = gsap.context(() => {
       if (prefersReducedMotion) {
-        gsap.set('.hero-eyebrow-text, .hero-title-line, .hero-text, .hero-btn, .hero-video-wrap, .hero-bullets', {
+        gsap.set('.hero-eyebrow-text, .hero-title-line, .hero-text, .hero-btn, .hero-video-card, .hero-bullets', {
           opacity: 1,
           y: 0,
           yPercent: 0,
