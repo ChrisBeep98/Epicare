@@ -7,6 +7,16 @@ import { useTranslations } from 'next-intl';
 import { EASE, DUR, STAGGER, REVEAL } from '@/lib/motion';
 import { asset } from "@/lib/asset";
 
+/** Up-right arrow used inside the CTA bubbles. */
+const ArrowUR = ({ className = '' }: { className?: string }) => (
+  <svg
+    viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}
+    strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true"
+  >
+    <path d="M7 17 17 7M7 7h10v10" />
+  </svg>
+);
+
 // Helper to make a container break out of the right side of the grid and touch the viewport edge
 function BleedRight({ children, className = "" }: { children: React.ReactNode, className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -14,20 +24,23 @@ function BleedRight({ children, className = "" }: { children: React.ReactNode, c
   
   useEffect(() => {
     const update = () => {
-      if (ref.current) {
+      // Pilar 2: Limita el uso de offsets vía JavaScript únicamente a resoluciones de escritorio
+      if (window.innerWidth >= 1024 && ref.current) {
         const originalRight = ref.current.style.right;
         ref.current.style.right = '0px';
         const rect = ref.current.getBoundingClientRect();
         const dist = document.documentElement.clientWidth - rect.right;
         ref.current.style.right = originalRight;
         setOffset(dist > 0 ? dist : 0);
+      } else {
+        setOffset(0);
       }
     };
     
     // Initial calculate
     update();
     
-    // Recalculate on load (for fonts/images) and resize
+    // Recalculate on load and resize
     window.addEventListener('load', update);
     window.addEventListener('resize', update);
     
@@ -41,7 +54,15 @@ function BleedRight({ children, className = "" }: { children: React.ReactNode, c
     };
   }, []);
 
-  return <div ref={ref} style={{ right: offset > 0 ? `-${offset}px` : '0px' }} className={className}>{children}</div>;
+  return (
+    <div 
+      ref={ref} 
+      style={{ right: offset > 0 ? `-${offset}px` : undefined }} 
+      className={`${className} min-w-[180%] w-[180%] -mr-[80%] lg:min-w-0 lg:w-full lg:mr-0`}
+    >
+      {children}
+    </div>
+  );
 }
 
 export default function HeroSection() {
@@ -215,8 +236,12 @@ export default function HeroSection() {
                 bold: (chunks) => <strong className="font-semibold text-[var(--color-text-primary)]">{chunks}</strong>
               })}
             </p>
-            <button className="hero-btn bg-[var(--color-brand-blue)] text-[var(--color-surface-BG-base)] px-static-xl py-static-md rounded-xl text-ui-label w-fit hover:bg-opacity-90 transition-all flex justify-center items-center cursor-pointer">
-              {t('cta')}
+            <button className="hero-btn group w-fit min-w-[220px] md:min-w-0 h-12 pl-8 md:pl-6 pr-3 md:pr-2 rounded-full flex justify-between md:justify-start items-center gap-3 bg-[var(--color-brand-blue)] text-[var(--color-surface-BG-base)] shadow-elevation-2 transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-elevation-4 active:scale-[0.96] active:opacity-80 active:duration-150 cursor-pointer">
+              <span className="text-body-sm font-medium">{t('cta')}</span>
+              <span className="relative w-8 h-8 rounded-full bg-[var(--color-surface-BG-base)] text-[var(--color-brand-blue)] flex items-center justify-center overflow-hidden shrink-0">
+                <ArrowUR className="absolute w-4 h-4 transition-transform duration-300 ease-out group-hover:translate-x-5 group-hover:-translate-y-5" />
+                <ArrowUR className="absolute w-4 h-4 -translate-x-5 translate-y-5 transition-transform duration-300 ease-out group-hover:translate-x-0 group-hover:translate-y-0" />
+              </span>
             </button>
           </div>
 
