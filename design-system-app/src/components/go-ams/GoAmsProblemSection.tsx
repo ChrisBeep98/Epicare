@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { EASE, DUR, STAGGER, REVEAL, TRIGGER } from "@/lib/motion";
+import { asset } from "@/lib/asset";
 
 const cn = (...classes: (string | undefined | null | false)[]) => classes.filter(Boolean).join(" ");
 
@@ -111,19 +112,6 @@ export function GoAmsProblemSection() {
         );
       }
 
-      // 4. Vida Latente (B3): Un destello aleatorio en las celdas
-      if (cells.length > 0) {
-        const tl = gsap.timeline({ repeat: -1, repeatDelay: 3 });
-        tl.to(cells, {
-          backgroundColor: "rgba(53, 187, 253, 0.02)",
-          duration: 0.5,
-          stagger: { amount: 1, from: "random" },
-          ease: EASE.inOut,
-          yoyo: true,
-          repeat: 1
-        });
-      }
-
     }, el);
 
     return () => ctx.revert();
@@ -152,23 +140,42 @@ export function GoAmsProblemSection() {
         <div className="blueprint-grid grid grid-cols-1 md:grid-cols-5 md:grid-rows-2 border-t border-l border-[var(--color-text-Black-100)]/10 dark:border-white/10">
           
           {/* CELL 0: Context Header (Left, spans 2 cols and 2 rows) */}
-          <div className="blueprint-cell md:col-start-1 md:col-span-2 md:row-start-1 md:row-span-2 border-r border-b border-[var(--color-text-Black-100)]/10 dark:border-white/10 p-3.5 md:p-10 flex flex-col justify-between bg-[var(--color-brand-blue)]/5 dark:bg-white/[0.02] relative overflow-hidden">
-             <div className="bp-content">
-               {/* Oculto en mobile a petición del usuario */}
-               <h2 className="hidden md:block section-eyebrow text-overline text-[var(--color-text-accent-blue)] mb-8 opacity-80">
-                 {t("title")}
-               </h2>
-               {/* Mismo token masivo en mobile y desktop */}
-               <h3 className="section-subtitle text-display-sm font-medium text-[var(--color-text-primary)] dark:text-white leading-tight tracking-tight">
-                 {t.rich("subtitle", {
-                   blue: (chunks) => <span className="text-[var(--color-text-accent-blue)]">{chunks}</span>
-                 })}
-               </h3>
-             </div>
-             
-             {/* Decoración técnica */}
-             <div className="absolute top-4 right-4 w-2 h-2 border border-[var(--color-brand-blue)] opacity-50"></div>
-             <div className="absolute bottom-4 right-4 w-2 h-2 border border-[var(--color-brand-blue)] opacity-50"></div>
+          <div className="blueprint-cell md:col-start-1 md:col-span-2 md:row-start-1 md:row-span-2 border-r border-b border-[var(--color-text-Black-100)]/10 dark:border-white/10 p-3.5 md:p-10 flex flex-col justify-between relative overflow-hidden">
+            
+            {/* Glassmorphic Background Layer (Static, Eppigo configuration) */}
+            <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
+              {/* Pure Background Mesh (Brand Blue) */}
+              <img 
+                src={asset('/Files/Backgrounds/epicare_bg_aura_blue.jpg')} 
+                alt="" 
+                className="absolute inset-0 w-full h-full object-cover pointer-events-none transition-all duration-300"
+                style={{ 
+                  opacity: 0.45,
+                  filter: 'hue-rotate(31deg)',
+                  transform: 'scale(2)'
+                }}
+              />
+              
+              {/* Clean Frosted Glass Refraction */}
+              <div className="absolute inset-0 bg-white/20 dark:bg-white/[0.04] backdrop-blur-[20px] saturate-[1.5] pointer-events-none" />
+            </div>
+
+            <div className="bp-content relative z-10">
+              {/* Oculto en mobile a petición del usuario */}
+              <h2 className="hidden md:block section-eyebrow text-overline text-[var(--color-text-accent-blue)] mb-8 opacity-80">
+                {t("title")}
+              </h2>
+              {/* Mismo token masivo en mobile y desktop */}
+              <h3 className="section-subtitle text-display-sm font-medium text-[var(--color-text-primary)] dark:text-white leading-tight tracking-tight">
+                {t.rich("subtitle", {
+                  blue: (chunks) => <span className="text-[var(--color-text-accent-blue)]">{chunks}</span>
+                })}
+              </h3>
+            </div>
+            
+            {/* Decoración técnica */}
+            <div className="absolute top-4 right-4 w-2 h-2 border border-[var(--color-brand-blue)] opacity-50 z-10 pointer-events-none"></div>
+            <div className="absolute bottom-4 right-4 w-2 h-2 border border-[var(--color-brand-blue)] opacity-50 z-10 pointer-events-none"></div>
           </div>
 
           {/* PAIN CELLS 1-6 */}

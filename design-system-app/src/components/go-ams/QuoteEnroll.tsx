@@ -1,11 +1,12 @@
 "use client";
 
 import React, { useRef, useState, useLayoutEffect } from "react";
-import { DeviceMobile, Link, Mouse, QrCode, ArrowUpRight } from "@phosphor-icons/react";
+import { DeviceMobile, Link, Mouse, QrCode } from "@phosphor-icons/react";
 import { useTranslations } from "next-intl";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { EASE, DUR, STAGGER, REVEAL, TRIGGER } from "@/lib/motion";
+import { asset } from "@/lib/asset";
 
 // --- ANIMATED SCENE ARCHITECT: Ultra Minimalist Illustrations ---
 
@@ -261,7 +262,7 @@ export default function QuoteEnroll() {
           </p>
         </div>
 
-        {/* CARDS: SCROLL HORIZONTAL EN MOBILE / GRID EN DESKTOP */}
+        {/* CARDS: SCROLL HORIZONTAL EN MOBILE / GRID EN DESKTOP (TILES CON AURA PANORÁMICA INTERNA) */}
         <div 
           ref={scrollContainerRef}
           onScroll={handleScroll}
@@ -271,15 +272,27 @@ export default function QuoteEnroll() {
             <div 
               key={feature.id}
               ref={(el) => { cardsRef.current[idx] = el; }}
-              className="qw-card group relative z-10 flex flex-col justify-between p-5 sm:p-static-lg min-h-[300px] sm:min-h-[320px] w-[82vw] max-w-[340px] md:w-auto shrink-0 snap-center md:shrink rounded-[2rem] border border-[var(--color-border-Strokes-strong)]/20 shadow-elevation-3 overflow-hidden transform md:hover:-translate-y-2 transition-transform duration-300 cursor-pointer select-none"
+              className="qw-card relative z-10 flex flex-col justify-between p-5 sm:p-static-lg min-h-[300px] sm:min-h-[320px] w-[82vw] max-w-[340px] md:w-auto shrink-0 snap-center md:shrink rounded-[2rem] border border-[var(--color-border-Strokes-strong)]/20 shadow-elevation-2 overflow-hidden select-none"
             >
-              {/* STATIC BACKGROUND LAYER (Glassmorphism) */}
-              <div className="absolute inset-0 -z-10 rounded-[2rem]">
-                <div className="absolute inset-0 bg-[var(--color-surface-BG-1)]/40 backdrop-blur-[24px]" />
-                <div className="absolute inset-0 bg-[var(--color-surface-BG-2)]/20 backdrop-blur-[20px] saturate-[1.5]" />
-                <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-brand-blue)]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              {/* STATIC BACKGROUND LAYER (Panoramic Aura Slice - Estricto dentro de la card) */}
+              <div className="absolute inset-0 -z-10 rounded-[2rem] overflow-hidden pointer-events-none">
+                {/* Sliced slice of the shared panoramic aura (Desktop: 4-column span, Mobile: standalone) */}
+                <img 
+                  src={asset('/Files/Backgrounds/epicare_bg_aura_blue.jpg')} 
+                  alt="" 
+                  className="absolute top-0 left-0 md:left-[var(--tile-offset)] h-full w-full md:w-[400%] max-w-none object-cover pointer-events-none"
+                  style={{ 
+                    '--tile-offset': `${-idx * 100}%`,
+                    opacity: 0.30,
+                    filter: 'hue-rotate(31deg)',
+                    transform: 'scale(1.22)'
+                  } as React.CSSProperties}
+                />
+                
+                {/* Clean Frosted Glass Refraction */}
+                <div className="absolute inset-0 bg-white/30 dark:bg-black/30 backdrop-blur-[24px] saturate-[1.4] pointer-events-none" />
               </div>
-              
+
               {/* CONTENT LAYER */}
               <div className="relative z-10 flex flex-col h-full justify-between">
                 <div>
@@ -296,14 +309,6 @@ export default function QuoteEnroll() {
                   <p className="text-body-sm text-[var(--color-text-secondary)] leading-relaxed">
                     {feature.desc}
                   </p>
-                </div>
-
-                {/* Interaction Element */}
-                <div className="flex w-full justify-end mt-4 sm:mt-static-md">
-                  <ArrowUpRight 
-                    weight="bold" 
-                    className="text-[var(--color-text-primary)] w-5 h-5 sm:w-6 sm:h-6 opacity-30 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-[var(--color-text-accent-blue)]" 
-                  />
                 </div>
               </div>
             </div>
