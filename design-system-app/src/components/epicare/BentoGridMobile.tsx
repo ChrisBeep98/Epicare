@@ -221,11 +221,10 @@ export default function BentoGridMobile() {
     {
       title: t('card1Title'),
       desc: t('card1Desc'),
-      image: asset("/Files/Features/MacBook_Pro_16_Space_Black_Front.jpeg"),
-      videoLight: asset("/Files/Features/AMS_Light_Final.mp4"),
-      videoLightContain: true,
-      videoDark: asset("/Files/Features/AMS_Dark_Final.mp4"),
-      videoDarkFullBackground: true,
+      image: null,
+      videoLight: asset("/Files/Go_AMS/Hero/go_ams_hero.mp4"),
+      videoDark: asset("/Files/Go_AMS/Hero/go_ams_hero.mp4"),
+      videoDarkFullBackground: false,
       mediaClassNameDark: "dark:bg-[#0D0D0E]",
       cardClassNameDark: "dark:bg-[#0D0D0E]",
       href: "/go-ams",
@@ -316,25 +315,21 @@ export default function BentoGridMobile() {
             return (
             <div 
               key={idx} 
-              className={`mobile-stack-card w-full h-[78dvh] max-h-[620px] px-gutter-sm flex flex-col justify-center items-center origin-top transform-gpu will-change-transform [backface-visibility:hidden] ${!isLastCard ? 'sticky top-3' : 'relative pb-6'}`}
+              className={`mobile-stack-card w-full h-[72dvh] max-h-[560px] px-gutter-sm flex flex-col justify-center items-center origin-top transform-gpu will-change-transform [backface-visibility:hidden] mt-static-sm mb-static-md ${!isLastCard ? 'sticky top-5' : 'relative pb-static-xl'}`}
               style={{ zIndex: 11 + idx }}
             >
                 <CardWrapper 
                   {...cardProps}
-                  className={`group relative w-full h-full rounded-[24px] sm:rounded-[32px] overflow-hidden shadow-[0_4px_30px_rgba(0,0,0,0.1)] border border-[var(--color-border-Strokes-default)] flex flex-col transition-transform duration-[600ms] cursor-pointer [transform:translateZ(0)] ${(card as any).cardClassNameDark ? `bg-[var(--color-surface-BG-white)] ${(card as any).cardClassNameDark}` : 'bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)]'}`}
+                  className={`group relative w-full h-full rounded-[24px] sm:rounded-[28px] overflow-hidden shadow-[0_4px_30px_rgba(0,0,0,0.1)] border border-[var(--color-border-Strokes-default)] flex flex-col pb-static-sm transition-transform duration-[600ms] cursor-pointer [transform:translateZ(0)] ${(card as any).cardClassNameDark ? `bg-[var(--color-surface-BG-white)] ${(card as any).cardClassNameDark}` : 'bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)]'}`}
                 >
                   
-                  {/* Floating Action Bubble (Hardware Symphony: No backdrop-blur) */}
-                  <div className="group/btn absolute bottom-5 right-5 sm:bottom-6 sm:right-6 h-9 sm:h-10 pl-3.5 sm:pl-4 pr-1.5 bg-white/95 dark:bg-[#0D0D0E]/95 border border-[var(--color-brand-blue)]/20 dark:border-white/10 text-[var(--color-text-Black-100)] dark:text-white rounded-full flex items-center justify-center gap-2 overflow-hidden shadow-elevation-2 z-50 transition-all duration-[600ms] group-hover:scale-105 hover:!scale-110 group-hover:bg-[var(--color-brand-blue)] group-hover:text-white hover:shadow-[0_15px_30px_rgba(53,187,253,0.4)] cursor-pointer">
-                    
-                    {/* Liquid Wave Hover Background */}
-                    <div className="absolute inset-0 bg-white/20 translate-y-full rounded-full transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/btn:translate-y-0" />
-                    
-                    <span className="relative z-10 text-body-xs sm:text-body-sm font-medium tracking-wide transition-transform duration-300 group-hover/btn:-translate-x-1">{t('cardCta')}</span>
-                    <div className="relative z-10 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[var(--color-brand-blue)]/10 dark:bg-[var(--color-brand-cyan)]/10 text-[var(--color-brand-blue)] dark:text-[var(--color-brand-cyan)] flex items-center justify-center overflow-hidden shrink-0 group-hover:bg-white/20 group-hover:text-white transition-transform duration-500 group-hover/btn:rotate-45 group-hover/btn:scale-110">
-                      <ArrowUR className="absolute w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform duration-[400ms] group-hover/btn:translate-x-6 group-hover/btn:-translate-y-6" />
-                      <ArrowUR className="absolute w-3.5 h-3.5 sm:w-4 sm:h-4 -translate-x-6 translate-y-6 transition-transform duration-[400ms] group-hover/btn:translate-x-0 group-hover/btn:translate-y-0" />
-                    </div>
+                  {/* Brand Blue Action CTA with White Bubble (40px height) */}
+                  <div className="group/btn absolute bottom-4 right-4 sm:bottom-5 sm:right-5 h-10 pl-4 pr-1.5 rounded-full flex items-center gap-2.5 bg-[var(--color-brand-blue)] text-white shadow-elevation-2 z-50 transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-elevation-4 active:scale-[0.96] active:opacity-80 cursor-pointer">
+                    <span className="relative z-10 text-body-xs font-semibold tracking-wide capitalize">{t('cardCta')}</span>
+                    <span className="relative z-10 w-7 h-7 rounded-full bg-white text-[var(--color-brand-blue)] flex items-center justify-center overflow-hidden shrink-0 shadow-sm transition-transform duration-300 group-hover/btn:scale-105">
+                      <ArrowUR className="absolute w-3.5 h-3.5 transition-transform duration-300 ease-out group-hover/btn:translate-x-5 group-hover/btn:-translate-y-5" />
+                      <ArrowUR className="absolute w-3.5 h-3.5 -translate-x-5 translate-y-5 transition-transform duration-300 ease-out group-hover/btn:translate-x-0 group-hover/btn:translate-y-0" />
+                    </span>
                   </div>
 
                   {/* Dark Mode Video BG */}
@@ -346,10 +341,10 @@ export default function BentoGridMobile() {
                   )}
 
                   {/* Text Container (Top) */}
-                  <div className="w-full p-5 sm:p-6 flex flex-col justify-start relative z-10 pointer-events-none">
-                    <div className="flex items-center gap-3 mb-3 sm:mb-4">
+                  <div className="w-full pt-static-lg px-static-md pb-static-md flex flex-col justify-start relative z-10 pointer-events-none">
+                    <div className="flex items-center gap-2.5 mb-2.5 sm:mb-3">
                       {card.logo && (
-                         <div className="shrink-0 text-[var(--color-brand-blue)] dark:text-[var(--color-brand-cyan)] scale-110 sm:scale-125 origin-left">
+                         <div className="shrink-0 text-[var(--color-brand-blue)] dark:text-[var(--color-brand-cyan)] scale-105 sm:scale-115 origin-left">
                             {card.logo}
                          </div>
                       )}
@@ -360,8 +355,18 @@ export default function BentoGridMobile() {
                   </div>
 
                   {/* Media Container (Bottom) */}
-                  <div className={`w-full flex-1 relative overflow-hidden pointer-events-none ${(card as any).mediaClassNameDark ? (card as any).mediaClassNameDark : 'bg-black/5 dark:bg-white/5'} ${((card as any).videoDark && (card as any).videoDarkFullBackground) ? 'dark:hidden' : ''}`}>
+                  <div className={`w-full flex-1 relative overflow-hidden pointer-events-none mx-auto rounded-b-[20px] sm:rounded-b-[24px] ${(card as any).isAms ? 'bg-transparent' : (card as any).mediaClassNameDark ? (card as any).mediaClassNameDark : 'bg-black/5 dark:bg-white/5'} ${((card as any).videoDark && (card as any).videoDarkFullBackground) ? 'dark:hidden' : ''}`}>
                     {(() => {
+                      // Custom Bleed-Right Layout for GO AMS (Bottom-Aligned & Spaced from Subtitle)
+                      if ((card as any).isAms) {
+                        return (
+                          <SmartVideo 
+                            src={(card as any).videoLight} 
+                            className="absolute bottom-0 left-3.5 w-[132%] max-w-none h-[88%] object-cover object-left rounded-tl-2xl shadow-elevation-3 transition-transform duration-[800ms] ease-out"
+                          />
+                        );
+                      }
+
                       const hasLightVideo = !!(card as any).videoLight;
                       const hasDarkVideo = !!(card as any).videoDark && !(card as any).videoDarkFullBackground;
                       const hasImage = !!card.image;
@@ -372,8 +377,7 @@ export default function BentoGridMobile() {
                           {hasLightVideo ? (
                             <SmartVideo 
                               src={(card as any).videoLight} 
-                              className={`absolute inset-0 w-full h-full transition-transform duration-[800ms] ease-out ${(card as any).isAms ? 'object-contain object-right' : 'object-contain object-center group-hover:scale-[1.05]'} ${hasDarkVideo || hasImage ? 'dark:hidden' : ''}`}
-                              style={(card as any).isAms ? { transform: 'scale(1.2) translate(10%, 5%)', borderRadius: '12px', transformOrigin: 'right center' } : undefined}
+                              className={`absolute inset-0 w-full h-full transition-transform duration-[800ms] ease-out object-contain object-center group-hover:scale-[1.05] ${hasDarkVideo || hasImage ? 'dark:hidden' : ''}`}
                             />
                           ) : hasImage ? (
                             <img src={card.image} alt={card.title} loading="lazy" decoding="async" className={`absolute inset-0 w-full h-full object-cover object-center transition-transform duration-[800ms] ease-out group-hover:scale-[1.05] ${hasDarkVideo ? 'dark:hidden' : ''}`} />
@@ -383,8 +387,7 @@ export default function BentoGridMobile() {
                           {hasDarkVideo ? (
                             <SmartVideo 
                               src={(card as any).videoDark} 
-                              className={`absolute inset-0 w-full h-full transition-transform duration-[800ms] ease-out ${(card as any).isAms ? 'object-contain object-right' : 'object-contain object-center group-hover:scale-[1.05]'} ${(card as any).videoDarkClassName || ''} ${hasLightVideo || hasImage ? 'hidden dark:block' : ''}`}
-                              style={(card as any).isAms ? { transform: 'scale(1.2) translate(10%, 5%)', borderRadius: '12px', transformOrigin: 'right center' } : undefined}
+                              className={`absolute inset-0 w-full h-full transition-transform duration-[800ms] ease-out object-contain object-center group-hover:scale-[1.05] ${(card as any).videoDarkClassName || ''} ${hasLightVideo || hasImage ? 'hidden dark:block' : ''}`}
                             />
                           ) : (hasImage && hasLightVideo) ? (
                             <img src={card.image} alt={card.title} loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover object-center hidden dark:block transition-transform duration-[800ms] ease-out group-hover:scale-[1.05]" />

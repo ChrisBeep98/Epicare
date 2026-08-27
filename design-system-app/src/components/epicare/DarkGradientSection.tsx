@@ -288,7 +288,7 @@ export default function DarkGradientSection() {
               </span>
             </h2>
 
-            <p className="dg-head-fade text-body md:text-body-lg text-left md:text-center text-[var(--color-text-Black-100)]/70 dark:text-white/70 max-w-2xl font-light transition-colors duration-500">
+            <p className="hidden md:block dg-head-fade text-body md:text-body-lg text-left md:text-center text-[var(--color-text-Black-100)]/70 dark:text-white/70 max-w-2xl font-light transition-colors duration-500">
               {t('sectionDesc')}
             </p>
 
