@@ -279,6 +279,36 @@
       "bullet1": "Backed by 5 years, 130+ carriers, 52 juris.",
       "bullet2": "Processes millions in premium automatically"
     },
+    "problemSection": {
+      "title": "Operational Chaos",
+      "subtitle": "You know the drill. Scaling your production means multiplying your <blue>admin load</blue>. More carriers, more passwords, and more <blue>spreadsheets</blue> just to keep your operation afloat.",
+      "pains": [
+        {
+          "title": "Fragmented portals",
+          "description": "You jump between multiple carrier portals every day just to track down a client or policy status."
+        },
+        {
+          "title": "Manual tracking",
+          "description": "You manage your book of business and upcoming renewals in a spreadsheet that requires constant manual updates."
+        },
+        {
+          "title": "Opaque commissions",
+          "description": "You receive payouts without clear visibility into when you get paid, for which policies, or if a chargeback was applied."
+        },
+        {
+          "title": "Downline blind spot",
+          "description": "If you manage a downline, the only way to know what your agency is actually producing is to ask them directly."
+        },
+        {
+          "title": "Compromised access",
+          "description": "Your administrative support team has to operate using your personal usernames and passwords."
+        },
+        {
+          "title": "We have the solution",
+          "description": "We unify your entire ecosystem in a single portal."
+        }
+      ]
+    },
     "platformReveal": {
       "title1": "One system.",
       "title2": "Two operating modes.",

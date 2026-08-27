@@ -279,6 +279,36 @@
       "bullet1": "Respaldado por 5 años, 130+ carriers, 52 juris.",
       "bullet2": "Procesa millones en primas de manera automática"
     },
+    "problemSection": {
+      "title": "Caos Operativo",
+      "subtitle": "Conoces la rutina. Escalar tu producción significa multiplicar tu <blue>carga administrativa</blue>. Más carriers, más contraseñas y más <blue>hojas de cálculo</blue> solo para mantener la operación a flote.",
+      "pains": [
+        {
+          "title": "Portales fragmentados",
+          "description": "Saltas entre múltiples portales de carrier todos los días solo para rastrear el estatus de un cliente o una póliza."
+        },
+        {
+          "title": "Seguimiento manual",
+          "description": "Llevas el control de tu book of business y tus renovaciones en un Excel que tienes que actualizar a mano."
+        },
+        {
+          "title": "Comisiones opacas",
+          "description": "Recibes pagos en tu cuenta sin tener visibilidad clara de cuándo te pagan, por qué pólizas, o si te aplicaron un chargeback."
+        },
+        {
+          "title": "Ceguera de equipo",
+          "description": "Si tienes un downline, la única forma de saber qué está produciendo tu agencia es preguntándoles directamente."
+        },
+        {
+          "title": "Accesos comprometidos",
+          "description": "Tu equipo de soporte administrativo tiene que operar usando tus usuarios y contraseñas personales."
+        },
+        {
+          "title": "Tenemos la solución",
+          "description": "Unificamos todo tu ecosistema en un solo portal."
+        }
+      ]
+    },
     "platformReveal": {
       "title1": "Un sistema.",
       "title2": "Dos modos de trabajo.",

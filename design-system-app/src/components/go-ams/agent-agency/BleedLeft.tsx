@@ -18,25 +18,35 @@ export function BleedLeft({ children, className = "" }: BleedLeftProps) {
 
   useLayoutEffect(() => {
     const update = () => {
-      if (ref.current && ref.current.parentElement) {
-        const rect = ref.current.parentElement.getBoundingClientRect();
-        setOffset(rect.left > 0 ? rect.left : 0);
+      if (ref.current) {
+        if (window.innerWidth >= 1024) {
+          // En desktop medimos el anclaje del grid layout no transformado por GSAP
+          const anchor = ref.current.closest(".grid-layout") || ref.current.closest("section");
+          if (anchor) {
+            const rect = anchor.getBoundingClientRect();
+            setOffset(rect.left > 0 ? rect.left : 0);
+            return;
+          }
+          if (ref.current.parentElement) {
+            const rect = ref.current.parentElement.getBoundingClientRect();
+            setOffset(rect.left > 0 ? rect.left : 0);
+          }
+        } else {
+          setOffset(0);
+        }
       }
     };
 
     update();
-    // Fix: GSAP animations on parent cause getBoundingClientRect to be wrong initially.
-    // Recalculate after the entrance animations finish.
-    const t1 = setTimeout(update, 100);
-    const t2 = setTimeout(update, 800);
-    const t3 = setTimeout(update, 1500);
 
     window.addEventListener("resize", update);
+    window.addEventListener("orientationchange", update);
+    window.addEventListener("load", update);
+
     return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
-      clearTimeout(t3);
       window.removeEventListener("resize", update);
+      window.removeEventListener("orientationchange", update);
+      window.removeEventListener("load", update);
     };
   }, []);
 

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import HeroSection from "@/components/go-ams/HeroSection";
+import { GoAmsProblemSection } from "@/components/go-ams/GoAmsProblemSection";
 import PlatformRevealSection from "@/components/go-ams/PlatformRevealSection";
 import BackOfficeTour from "@/components/go-ams/BackOfficeTour";
 import QuoteEnroll from "@/components/go-ams/QuoteEnroll";
@@ -47,6 +48,7 @@ export default function GoAmsPage() {
       {/* ======================= */}
       
       <HeroSection />
+      <GoAmsProblemSection />
       <PlatformRevealSection />
       <AgentAgencySection />
       <QuoteEnroll />
