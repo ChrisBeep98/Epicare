@@ -5,11 +5,20 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useLocale } from "./I18nProviderClient";
 import { asset } from "@/lib/asset";
+import gsap from "gsap";
+import { DUR, EASE, STAGGER, REVEAL } from "@/lib/motion";
 
 interface HeaderEpicareProps {
   isHeaderPill?: boolean;
   isHeaderForcedDark?: boolean;
 }
+
+const ArrowUR = ({ className = '' }: { className?: string }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <line x1="7" y1="17" x2="17" y2="7"></line>
+    <polyline points="7 7 17 7 17 17"></polyline>
+  </svg>
+);
 
 export default function HeaderEpicare({
   isHeaderPill = false,
@@ -24,6 +33,9 @@ export default function HeaderEpicare({
   const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   
   const [isHidden, setIsHidden] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [openAccordion, setOpenAccordion] = useState<string | null>(null);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
   const lastScrollY = useRef(0);
   const lastScrollDirection = useRef<'up'|'down'>('up');
   const scrollDistance = useRef(0);
@@ -96,6 +108,62 @@ export default function HeaderEpicare({
     const isDarkTheme = document.documentElement.classList.contains("dark");
     setIsDark(isDarkTheme);
   }, []);
+
+  const tlRef = useRef<gsap.core.Timeline | null>(null);
+
+  useEffect(() => {
+    const el = mobileMenuRef.current;
+    if (!el) return;
+
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({ paused: true });
+      tlRef.current = tl;
+
+      if (prefersReducedMotion) {
+        tl.to(el, { opacity: 1, duration: 0.1 });
+        tl.to('.mobile-nav-item', { opacity: 1, duration: 0.1 }, "<");
+        return;
+      }
+
+      tl.fromTo(el, 
+        { clipPath: "circle(0% at 88% 40px)", opacity: 0 },
+        {
+          clipPath: "circle(150% at 88% 40px)",
+          opacity: 1,
+          duration: 0.8,
+          ease: "power3.inOut"
+        }
+      );
+
+      tl.fromTo('.mobile-nav-item',
+        { y: REVEAL.md, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: DUR.base,
+          stagger: STAGGER.tight,
+          ease: EASE.out,
+          force3D: true
+        },
+        "-=0.4"
+      );
+    }, mobileMenuRef);
+
+    return () => ctx.revert();
+  }, []); // Creado una sola vez
+
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+      tlRef.current?.timeScale(1).play();
+    } else {
+      document.body.style.overflow = '';
+      tlRef.current?.timeScale(1.5).reverse();
+      setTimeout(() => setOpenAccordion(null), 600);
+    }
+  }, [isMobileMenuOpen]);
 
   // El timeout de cierre del menú solo se limpiaba en el siguiente hover: si el
   // usuario sale del nav y navega, quedaba pendiente un setState sobre un
@@ -185,7 +253,7 @@ export default function HeaderEpicare({
     <>
       {/* Background Pill Layer */}
       <div 
-        className={`${navPositionClass} ${visibilityClass} pointer-events-none ${navLayoutClass} ${navBgClass} z-[999998]`}
+        className={`${navPositionClass} ${visibilityClass} pointer-events-none ${navLayoutClass} ${navBgClass} z-[999998] ${isMobileMenuOpen ? '!opacity-0 !backdrop-blur-none' : ''}`}
       />
 
       {/* Controls & Logo Layer */}
@@ -334,26 +402,130 @@ export default function HeaderEpicare({
           <button 
             id="header-menu-button"
             type="button" 
-            className="md:hidden w-10 h-10 flex items-center justify-center cursor-pointer relative z-50 transition-opacity hover:opacity-70"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="md:hidden w-10 h-10 flex items-center justify-center cursor-pointer relative z-[1000000] transition-opacity hover:opacity-70"
+            aria-label="Toggle mobile menu"
+            aria-expanded={isMobileMenuOpen}
           >
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-              <line x1="4" x2="20" y1="12" y2="12"/>
-              <line x1="4" x2="20" y1="6" y2="6"/>
-              <line x1="4" x2="20" y1="18" y2="18"/>
-            </svg>
+            {isMobileMenuOpen ? (
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            ) : (
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="4" x2="20" y1="12" y2="12"/>
+                <line x1="4" x2="20" y1="6" y2="6"/>
+                <line x1="4" x2="20" y1="18" y2="18"/>
+              </svg>
+            )}
           </button>
           
           {/* Botón de Login */}
-          <button className="hidden md:flex h-[44px] px-static-md rounded-full bg-brand-blue text-white text-body-sm font-semibold normal-case transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] items-center justify-center shadow-elevation-1 hover:brightness-105 hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-elevation-3 active:scale-95 cursor-pointer">
-            {t('login')}
+          <button className="group hidden md:flex h-[44px] pl-5 pr-1.5 rounded-full flex justify-between items-center gap-3 bg-[var(--color-brand-blue)] text-white text-body-sm font-semibold normal-case transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] shadow-elevation-1 hover:brightness-105 hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-elevation-3 active:scale-95 cursor-pointer">
+            <span>{t('login')}</span>
+            <span className="relative w-8 h-8 rounded-full bg-white text-[var(--color-brand-blue)] flex items-center justify-center overflow-hidden shrink-0">
+              <ArrowUR className="absolute w-4 h-4 transition-transform duration-300 ease-out group-hover:translate-x-5 group-hover:-translate-y-5" />
+              <ArrowUR className="absolute w-4 h-4 -translate-x-5 translate-y-5 transition-transform duration-300 ease-out group-hover:translate-x-0 group-hover:translate-y-0" />
+            </span>
           </button>
           
           {/* CTA Desktop Secundario */}
-          <button className={`hidden md:flex h-[44px] px-static-md rounded-full border text-body-sm font-medium normal-case transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] items-center justify-center shadow-elevation-1 backdrop-blur-md hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-elevation-3 active:scale-95 ${secondaryCtaClass} cursor-pointer`}>
-            {t('moreFromEpicare')}
+          <button className={`group hidden md:flex h-[44px] pl-5 pr-1.5 rounded-full flex justify-between items-center gap-3 border text-body-sm font-medium normal-case shadow-elevation-1 backdrop-blur-md transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-elevation-3 active:scale-95 ${secondaryCtaClass} cursor-pointer`}>
+            <span>{t('moreFromEpicare')}</span>
+            <span className={`relative w-8 h-8 rounded-full flex items-center justify-center overflow-hidden shrink-0 ${
+              isHeaderForcedDark || isDark ? 'bg-white/10 text-white' : 'bg-black/5 text-[var(--color-text-primary)]'
+            }`}>
+              <ArrowUR className="absolute w-4 h-4 transition-transform duration-300 ease-out group-hover:translate-x-5 group-hover:-translate-y-5" />
+              <ArrowUR className="absolute w-4 h-4 -translate-x-5 translate-y-5 transition-transform duration-300 ease-out group-hover:translate-x-0 group-hover:translate-y-0" />
+            </span>
           </button>
         </div>
       </nav>
+
+      {/* --- MOBILE MENU --- */}
+      <div 
+        className={`fixed inset-0 w-full h-full overflow-hidden z-[999997] md:hidden ${isMobileMenuOpen ? 'pointer-events-auto' : 'pointer-events-none'}`}
+      >
+        {/* Full Bleed Mobile Menu Panel with Clip-Path Circular Reveal */}
+        <div 
+          ref={mobileMenuRef}
+          className={`absolute inset-0 opacity-0 overflow-hidden flex flex-col pt-28 px-6 pb-8 ${
+            isHeaderForcedDark || isDark
+              ? 'bg-black/60 border-white/10 backdrop-blur-[40px]' 
+              : 'bg-white/70 border-black/10 backdrop-blur-[40px]'
+          }`}
+          style={{ clipPath: "circle(0% at 88% 40px)" }}
+        >
+          <div className="flex-1 overflow-y-auto flex flex-col gap-2 pb-4" style={{ scrollbarWidth: 'none' }}>
+            {navItems.map((item) => (
+              <div key={item.key} className="mobile-nav-item flex flex-col gap-0 opacity-0 border-b border-[var(--color-border-border)]/10">
+                <button 
+                  onClick={() => setOpenAccordion(openAccordion === item.key ? null : item.key)}
+                  className={`w-full flex items-center justify-between py-6 text-left ${isHeaderForcedDark || isDark ? 'text-white' : 'text-[var(--color-text-primary)]'}`}
+                >
+                  <span className="text-display-sm">{item.label}</span>
+                  <svg 
+                    xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" 
+                    className={`transition-transform duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${openAccordion === item.key ? 'rotate-180' : ''}`}
+                  >
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+                <div 
+                  className="overflow-hidden transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
+                  style={{ maxHeight: openAccordion === item.key ? '600px' : '0px', opacity: openAccordion === item.key ? 1 : 0 }}
+                >
+                  <div className="flex flex-col gap-5 pb-6 pt-2 pl-2">
+                    {item.items.map((sub, j) => (
+                      <Link 
+                        key={j} 
+                        href={sub.href}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className={`flex items-center gap-3 text-body-xl transition-colors ${
+                          isHeaderForcedDark || isDark ? 'text-white/80 hover:text-white' : 'text-[var(--color-text-Black-100)]/80 hover:text-[var(--color-text-Black-100)]'
+                        }`}
+                      >
+                        <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-brand-blue)] opacity-80 shrink-0"></span>
+                        {sub.title}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mobile-nav-item mt-auto flex flex-col gap-3 pt-6 opacity-0">
+            <Link 
+              href="#"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="group w-full flex items-center justify-between h-[56px] pl-8 pr-2 rounded-full bg-[var(--color-brand-blue)] text-white text-body-lg font-semibold transition-transform active:scale-95 shadow-elevation-2"
+            >
+              <span>{t('login')}</span>
+              <span className="relative w-10 h-10 rounded-full bg-white text-[var(--color-brand-blue)] flex items-center justify-center overflow-hidden shrink-0">
+                <ArrowUR className="absolute w-5 h-5 transition-transform duration-300 ease-out group-hover:translate-x-6 group-hover:-translate-y-6" />
+                <ArrowUR className="absolute w-5 h-5 -translate-x-6 translate-y-6 transition-transform duration-300 ease-out group-hover:translate-x-0 group-hover:translate-y-0" />
+              </span>
+            </Link>
+            <Link 
+              href="#"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className={`group w-full flex items-center justify-between h-[56px] pl-8 pr-2 rounded-full border text-body-lg font-semibold transition-transform active:scale-95 shadow-elevation-1 ${
+                isHeaderForcedDark || isDark ? 'bg-white/5 border-white/20 text-white' : 'bg-white/50 border-black/10 text-[var(--color-text-primary)]'
+              }`}
+            >
+              <span>{t('moreFromEpicare')}</span>
+              <span className={`relative w-10 h-10 rounded-full flex items-center justify-center overflow-hidden shrink-0 ${
+                isHeaderForcedDark || isDark ? 'bg-white/10 text-white' : 'bg-black/5 text-[var(--color-text-primary)]'
+              }`}>
+                <ArrowUR className="absolute w-5 h-5 transition-transform duration-300 ease-out group-hover:translate-x-6 group-hover:-translate-y-6" />
+                <ArrowUR className="absolute w-5 h-5 -translate-x-6 translate-y-6 transition-transform duration-300 ease-out group-hover:translate-x-0 group-hover:translate-y-0" />
+              </span>
+            </Link>
+          </div>
+        </div>
+      </div>
     </>
   );
 }
