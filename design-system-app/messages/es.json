@@ -281,7 +281,7 @@
     },
     "problemSection": {
       "title": "Caos Operativo",
-      "subtitle": "Conoces la rutina. Escalar tu producción significa multiplicar tu <blue>carga administrativa</blue>. Más carriers, más contraseñas y más <blue>hojas de cálculo</blue> solo para mantener la operación a flote.",
+      "subtitle": "Conoces la rutina: más producción significa más <blue>carga administrativa</blue>, contraseñas y <blue>hojas de cálculo</blue>.",
       "pains": [
         {
           "title": "Portales fragmentados",
@@ -406,24 +406,20 @@
       "off": "OFF"
     },
     "backOfficeTour": {
-      "panel1Title": "DASHBOARD",
-      "panel1Desc": "Métricas globales en tiempo real. Control centralizado de toda tu agencia.",
-      "panel2Title": "CRM",
-      "panel2Desc": "Gestión inteligente de pólizas. El núcleo de retención de tu negocio.",
-      "panel3Title": "COTIZADOR",
-      "panel3Desc": "Multi-carrier pricing instantáneo. Cierra más tratos en segundos.",
-      "panel4Title": "COMISIONES",
-      "panel4Desc": "Trazabilidad financiera absoluta y proyecciones de ingresos.",
-      "panel5Title": "MARKETING",
-      "panel5Desc": "Campañas automáticas y embudos de conversión integrados.",
-      "panel6Title": "SOPORTE",
-      "panel6Desc": "Resolución de tickets y asistencia continua para tus agentes.",
-      "panel7Title": "REPORTES",
-      "panel7Desc": "Business Intelligence y exportación avanzada de datos.",
-      "panel8Title": "AGENTES",
-      "panel8Desc": "Métricas de rendimiento y gestión estructural de equipos.",
-      "panel9Title": "SISTEMA",
-      "panel9Desc": "Configuraciones globales y control absoluto de permisos."
+      "panel1Title": "APPOINTMENTS",
+      "panel1Desc": "Gestiona y rastrea todos tus contratos, solicitudes y nombramientos activos con aseguradoras en un solo lugar.",
+      "panel2Title": "MEMBER SUPPORT",
+      "panel2Desc": "Sistema de tickets directo y asistencia dedicada para resolver consultas operativas y casos de pólizas con rapidez.",
+      "panel3Title": "DOCUMENTS",
+      "panel3Desc": "Repositorio centralizado y seguro para expedientes de clientes, archivos de pólizas y acuerdos firmados.",
+      "panel4Title": "DELEGATE USERS",
+      "panel4Desc": "Control granular de accesos y roles para delegar tareas a tu equipo y asistentes sin comprometer datos confidenciales.",
+      "panel5Title": "RESOURCES",
+      "panel5Desc": "Biblioteca de guías de aseguradoras, materiales comerciales, manuales y herramientas operativas listas para usar.",
+      "panel6Title": "NOTIFICATIONS",
+      "panel6Desc": "Alertas en tiempo real sobre vencimiento de licencias, estatus de pólizas, renovaciones y pagos de comisiones.",
+      "panel7Title": "REPORTING",
+      "panel7Desc": "Business intelligence completo, analíticas de producción, seguimiento de volumen de equipo y exportación de datos."
     },
     "howToJoin": {
       "overline": "Activación Inmediata",

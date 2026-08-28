@@ -5,17 +5,16 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useTranslations } from "next-intl";
 import { EASE, DUR, STAGGER, REVEAL, TRIGGER } from "@/lib/motion";
+import { asset } from "@/lib/asset";
 
 const PANELS = [
-  { id: 1, titleKey: "panel1Title", descKey: "panel1Desc", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop" },
-  { id: 2, titleKey: "panel2Title", descKey: "panel2Desc", img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop" },
-  { id: 3, titleKey: "panel3Title", descKey: "panel3Desc", img: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?q=80&w=2076&auto=format&fit=crop" },
-  { id: 4, titleKey: "panel4Title", descKey: "panel4Desc", img: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=2070&auto=format&fit=crop" },
-  { id: 5, titleKey: "panel5Title", descKey: "panel5Desc", img: "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?q=80&w=2074&auto=format&fit=crop" },
-  { id: 6, titleKey: "panel6Title", descKey: "panel6Desc", img: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?q=80&w=2072&auto=format&fit=crop" },
-  { id: 7, titleKey: "panel7Title", descKey: "panel7Desc", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop" },
-  { id: 8, titleKey: "panel8Title", descKey: "panel8Desc", img: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop" },
-  { id: 9, titleKey: "panel9Title", descKey: "panel9Desc", img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=2034&auto=format&fit=crop" },
+  { id: 1, titleKey: "panel1Title", descKey: "panel1Desc", img: "/Files/Go_AMS/Tour/01.jpeg" },
+  { id: 2, titleKey: "panel2Title", descKey: "panel2Desc", img: "/Files/Go_AMS/Tour/02.jpeg" },
+  { id: 3, titleKey: "panel3Title", descKey: "panel3Desc", img: "/Files/Go_AMS/Tour/03.jpeg" },
+  { id: 4, titleKey: "panel4Title", descKey: "panel4Desc", img: "/Files/Go_AMS/Tour/04.jpeg" },
+  { id: 5, titleKey: "panel5Title", descKey: "panel5Desc", img: "/Files/Go_AMS/Tour/05.jpeg" },
+  { id: 6, titleKey: "panel6Title", descKey: "panel6Desc", img: "/Files/Go_AMS/Tour/06.jpeg" },
+  { id: 7, titleKey: "panel7Title", descKey: "panel7Desc", img: "/Files/Go_AMS/Tour/07.jpeg" },
 ];
 
 export default function BackOfficeTour() {
@@ -28,20 +27,28 @@ export default function BackOfficeTour() {
   const touchStartY = useRef<number | null>(null);
 
   const [isInViewport, setIsInViewport] = useState(false);
+  const [hasInteracted, setHasInteracted] = useState(false);
 
-  const handleNext = () => setIdx((prev) => (prev + 1) % PANELS.length);
-  const handlePrev = () => setIdx((prev) => (prev - 1 + PANELS.length) % PANELS.length);
+  const handleNext = () => {
+    setHasInteracted(true);
+    setIdx((prev) => (prev + 1) % PANELS.length);
+  };
 
-  // Auto-Play optimizado (5 segundos por slide) que se ejecuta SOLO si está en viewport
+  const handlePrev = () => {
+    setHasInteracted(true);
+    setIdx((prev) => (prev - 1 + PANELS.length) % PANELS.length);
+  };
+
+  // Auto-Play: corre automáticamente cada 5s mientras está en viewport HASTA que el usuario interactúe por primera vez
   useEffect(() => {
-    if (!isInViewport) return;
+    if (!isInViewport || hasInteracted) return;
     const timer = setInterval(() => {
       setIdx((prev) => (prev + 1) % PANELS.length);
     }, 5000);
     return () => clearInterval(timer);
-  }, [idx, isInViewport]);
+  }, [isInViewport, hasInteracted]);
 
-  // Touch Swipe para Mobile
+  // Touch Swipe para Mobile (también desactiva el autoplay al interactuar)
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartY.current = e.touches[0].clientY;
   };
@@ -50,10 +57,11 @@ export default function BackOfficeTour() {
     if (touchStartY.current === null) return;
     const diffY = touchStartY.current - e.changedTouches[0].clientY;
     if (Math.abs(diffY) > 40) {
+      setHasInteracted(true);
       if (diffY > 0) {
-        handleNext();
+        setIdx((prev) => (prev + 1) % PANELS.length);
       } else {
-        handlePrev();
+        setIdx((prev) => (prev - 1 + PANELS.length) % PANELS.length);
       }
     }
     touchStartY.current = null;
@@ -290,7 +298,7 @@ export default function BackOfficeTour() {
             >
                <div 
                  className="absolute inset-0 bg-cover bg-center transition-transform duration-[2s] group-hover:scale-105"
-                 style={{ backgroundImage: `url('${panel.img}')` }}
+                 style={{ backgroundImage: `url('${panel.img.startsWith('http') ? panel.img : asset(panel.img)}')` }}
                />
                <div className="absolute inset-0 bg-gradient-to-tr from-black/40 via-transparent to-transparent pointer-events-none" />
             </div>

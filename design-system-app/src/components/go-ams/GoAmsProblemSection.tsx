@@ -166,7 +166,7 @@ export function GoAmsProblemSection() {
                 {t("title")}
               </h2>
               {/* Mismo token masivo en mobile y desktop */}
-              <h3 className="section-subtitle text-display-sm font-medium text-[var(--color-text-primary)] dark:text-white leading-tight tracking-tight">
+              <h3 className="section-subtitle text-display font-medium text-[var(--color-text-primary)] dark:text-white leading-tight tracking-tight">
                 {t.rich("subtitle", {
                   blue: (chunks) => <span className="text-[var(--color-text-accent-blue)]">{chunks}</span>
                 })}

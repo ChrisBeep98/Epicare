@@ -274,24 +274,8 @@ export default function QuoteEnroll() {
               ref={(el) => { cardsRef.current[idx] = el; }}
               className="qw-card relative z-10 flex flex-col justify-between p-5 sm:p-static-lg min-h-[300px] sm:min-h-[320px] w-[82vw] max-w-[340px] md:w-auto shrink-0 snap-center md:shrink rounded-[2rem] border border-[var(--color-border-Strokes-strong)]/20 shadow-elevation-2 overflow-hidden select-none"
             >
-              {/* STATIC BACKGROUND LAYER (Panoramic Aura Slice - Estricto dentro de la card) */}
-              <div className="absolute inset-0 -z-10 rounded-[2rem] overflow-hidden pointer-events-none">
-                {/* Sliced slice of the shared panoramic aura (Desktop: 4-column span, Mobile: standalone) */}
-                <img 
-                  src={asset('/Files/Backgrounds/epicare_bg_aura_blue.jpg')} 
-                  alt="" 
-                  className="absolute top-0 left-0 md:left-[var(--tile-offset)] h-full w-full md:w-[400%] max-w-none object-cover pointer-events-none"
-                  style={{ 
-                    '--tile-offset': `${-idx * 100}%`,
-                    opacity: 0.30,
-                    filter: 'hue-rotate(31deg)',
-                    transform: 'scale(1.22)'
-                  } as React.CSSProperties}
-                />
-                
-                {/* Clean Frosted Glass Refraction */}
-                <div className="absolute inset-0 bg-white/30 dark:bg-black/30 backdrop-blur-[24px] saturate-[1.4] pointer-events-none" />
-              </div>
+              {/* STATIC BACKGROUND LAYER (Clean Frosted Glassmorphism) */}
+              <div className="absolute inset-0 -z-10 rounded-[2rem] bg-[var(--color-surface-BG-1)]/60 dark:bg-white/[0.03] backdrop-blur-[24px] saturate-[1.2]" />
 
               {/* CONTENT LAYER */}
               <div className="relative z-10 flex flex-col h-full justify-between">

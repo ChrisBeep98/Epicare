@@ -281,7 +281,7 @@
     },
     "problemSection": {
       "title": "Operational Chaos",
-      "subtitle": "You know the drill. Scaling your production means multiplying your <blue>admin load</blue>. More carriers, more passwords, and more <blue>spreadsheets</blue> just to keep your operation afloat.",
+      "subtitle": "You know the drill: scaling production means more <blue>admin load</blue>, passwords, and <blue>spreadsheets</blue>.",
       "pains": [
         {
           "title": "Fragmented portals",
@@ -406,24 +406,20 @@
       "off": "OFF"
     },
     "backOfficeTour": {
-      "panel1Title": "DASHBOARD",
-      "panel1Desc": "Real-time global metrics. Centralized control across your entire agency.",
-      "panel2Title": "CRM",
-      "panel2Desc": "Intelligent policy management. The retention core of your business.",
-      "panel3Title": "QUOTER",
-      "panel3Desc": "Instant multi-carrier pricing. Close more deals in seconds.",
-      "panel4Title": "COMMISSIONS",
-      "panel4Desc": "Absolute financial traceability and revenue projections.",
-      "panel5Title": "MARKETING",
-      "panel5Desc": "Automated campaigns and integrated conversion funnels.",
-      "panel6Title": "SUPPORT",
-      "panel6Desc": "Ticket resolution and continuous assistance for your agents.",
-      "panel7Title": "REPORTS",
-      "panel7Desc": "Business Intelligence and advanced data export.",
-      "panel8Title": "AGENTS",
-      "panel8Desc": "Performance metrics and structural team management.",
-      "panel9Title": "SYSTEM",
-      "panel9Desc": "Global configurations and absolute permission control."
+      "panel1Title": "APPOINTMENTS",
+      "panel1Desc": "Manage and track all your carrier contracts, requests, and active appointments in one centralized hub.",
+      "panel2Title": "MEMBER SUPPORT",
+      "panel2Desc": "Direct ticketing system and dedicated assistance to resolve agent inquiries and policy issues with speed.",
+      "panel3Title": "DOCUMENTS",
+      "panel3Desc": "Centralized, secure repository for client dossiers, policy files, and signed carrier agreements.",
+      "panel4Title": "DELEGATE USERS",
+      "panel4Desc": "Granular role-based access control to delegate operational tasks to assistants without compromising sensitive data.",
+      "panel5Title": "RESOURCES",
+      "panel5Desc": "Curated library of carrier guides, sales playbooks, marketing collateral, and operational toolkits.",
+      "panel6Title": "NOTIFICATIONS",
+      "panel6Desc": "Real-time alerts for license expirations, policy status changes, renewals, and commission payments.",
+      "panel7Title": "REPORTING",
+      "panel7Desc": "Comprehensive business intelligence, production analytics, downline volume tracking, and exportable financial data."
     },
     "howToJoin": {
       "overline": "Instant Activation",
