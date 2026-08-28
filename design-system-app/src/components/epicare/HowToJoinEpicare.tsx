@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { asset } from "@/lib/asset";
+import { EASE, DUR, STAGGER, REVEAL, TRIGGER } from "@/lib/motion";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -100,37 +101,107 @@ export default function HowToJoinEpicare() {
   };
 
   useLayoutEffect(() => {
+    ScrollTrigger.config({ ignoreMobileResize: true });
     const el = sectionRef.current;
     if (!el) return;
 
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
     const ctx = gsap.context(() => {
-      // Standardized text-block animation (Hardware Optimized)
-      gsap.utils.toArray<HTMLElement>(".c-text-block").forEach(block => {
-        gsap.fromTo(block.children, 
-          { opacity: 0, y: 26, willChange: 'transform, opacity' },
+      if (prefersReducedMotion) {
+        gsap.set(".htj-head, .htj-head-line, .htj-card, .c-text-block", {
+          opacity: 1, y: 0, yPercent: 0, scale: 1
+        });
+        return;
+      }
+
+      const mm = gsap.matchMedia();
+
+      // ── 1. Header Timeline (Sincronizado Título + Subtítulo) ──
+      const headerTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: el,
+          start: TRIGGER.standard,
+          toggleActions: "play none none reverse",
+        }
+      });
+
+      headerTl
+        .fromTo(".htj-head-line",
+          { yPercent: REVEAL.birthPercent, opacity: 0, willChange: "transform, opacity" },
           {
-            opacity: 1, 
+            yPercent: 0,
+            opacity: 1,
+            duration: DUR.slow,
+            ease: EASE.dramatic,
+            force3D: true,
+            clearProps: "willChange",
+          }
+        )
+        .fromTo(".htj-head",
+          { opacity: 0, y: REVEAL.sm, willChange: "transform, opacity" },
+          {
+            opacity: 1,
             y: 0,
-            duration: 0.9,
-            stagger: 0.1,
-            ease: "power3.out",
+            duration: DUR.base,
+            ease: EASE.out,
+            force3D: true,
+            clearProps: "willChange",
+          },
+          "-=0.5"
+        );
+
+      // ── 2. Desktop Layout Animation ──
+      mm.add("(min-width: 768px)", () => {
+        gsap.utils.toArray<HTMLElement>(".c-text-block").forEach((block) => {
+          gsap.fromTo(block.children, 
+            { opacity: 0, y: REVEAL.sm, willChange: 'transform, opacity' },
+            {
+              opacity: 1, 
+              y: 0,
+              duration: DUR.base,
+              stagger: STAGGER.base,
+              ease: EASE.out,
+              clearProps: "willChange",
+              scrollTrigger: {
+                trigger: block,
+                start: TRIGGER.standard,
+                toggleActions: "play none none reverse",
+              }
+            }
+          );
+        });
+
+        gsap.to(".c-img-1", {
+          scale: 1.1,
+          scrollTrigger: { trigger: ".c-zone-1", scrub: true, start: "top top", end: "bottom top" }
+        });
+        gsap.to(".c-img-2", {
+          scale: 1.1,
+          scrollTrigger: { trigger: ".c-zone-2", scrub: true, start: "top top", end: "bottom top" }
+        });
+      });
+
+      // ── 3. Mobile Layout: Staggered Cards Entrance ──
+      mm.add("(max-width: 767px)", () => {
+        gsap.fromTo(".htj-card",
+          { opacity: 0, y: REVEAL.md, scale: 0.95, willChange: "transform, opacity" },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: DUR.base,
+            stagger: STAGGER.wave,
+            ease: EASE.out,
+            force3D: true,
             clearProps: "willChange",
             scrollTrigger: {
-              trigger: block,
-              start: "top 80%", // Standard trigger point
+              trigger: scrollContainerRef.current || el,
+              start: TRIGGER.early,
+              toggleActions: "play none none reverse",
             }
           }
         );
-      });
-
-      // Animación sutil de las imágenes sticky (Diegetic effect)
-      gsap.to(".c-img-1", {
-        scale: 1.1,
-        scrollTrigger: { trigger: ".c-zone-1", scrub: true, start: "top top", end: "bottom top" }
-      });
-      gsap.to(".c-img-2", {
-        scale: 1.1,
-        scrollTrigger: { trigger: ".c-zone-2", scrub: true, start: "top top", end: "bottom top" }
       });
 
     }, el);
@@ -146,12 +217,12 @@ export default function HowToJoinEpicare() {
       {/* ========================================================= */}
       {/* SECTION HEADER                                            */}
       {/* ========================================================= */}
-      <header className="c-text-block relative z-10 max-w-section-lg mx-auto w-full flex flex-col mb-8 md:mb-24 px-[var(--space-gutter-sm)] md:px-[clamp(1.5rem,4vw,3.5rem)] pt-section-sm md:pt-section-md">
-        <span className="block text-overline text-[var(--color-brand-blue)] mb-4 md:mb-6">
+      <header className="relative z-10 max-w-section-lg mx-auto w-full flex flex-col mb-8 md:mb-24 px-[var(--space-gutter-sm)] md:px-[clamp(1.5rem,4vw,3.5rem)] pt-section-sm md:pt-section-md">
+        <span className="htj-head block text-overline text-[var(--color-brand-blue)] mb-4 md:mb-6">
           {t("overline")}
         </span>
         <h2 className="overflow-hidden pb-static-xs text-display-xl font-semibold tracking-tight leading-[1] text-[var(--color-text-Black-100)] dark:text-white">
-          <span className="block">
+          <span className="htj-head-line block">
             <span className="inline md:block">{t("title1")} </span>
             <span className="inline md:block text-[var(--color-brand-blue)]">{t("title2")}</span>
           </span>
@@ -215,7 +286,7 @@ export default function HowToJoinEpicare() {
             const imgSrc = idx < 3 ? ZONE1_IMAGES[idx] : ZONE2_IMAGES[idx - 3];
             const isOrange = idx >= 3;
             return (
-              <div key={idx} className="relative min-w-[85vw] h-[48dvh] max-h-[460px] snap-center flex flex-col justify-end rounded-3xl overflow-hidden shadow-elevation-3 border border-white/10 dark:border-white/5">
+              <div key={idx} className="htj-card relative min-w-[85vw] h-[48dvh] max-h-[460px] snap-center flex flex-col justify-end rounded-3xl overflow-hidden shadow-elevation-3 border border-white/10 dark:border-white/5">
                 {/* Image Background */}
                 <img src={imgSrc} alt="" aria-hidden="true" loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover object-[75%_center]" />
                 

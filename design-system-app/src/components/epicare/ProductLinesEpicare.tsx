@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { EASE, DUR, STAGGER, REVEAL, TRIGGER } from '@/lib/motion';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -42,8 +43,9 @@ export default function ProductLinesEpicare() {
     descs: t.raw(`${key}_descs`) as string[],
   }));
 
-  // ── GSAP: header reveal + scroll-linked line light-up + active tracking ──
+  // ── GSAP: header reveal + mobile pills one by one + active tracking ──
   useEffect(() => {
+    ScrollTrigger.config({ ignoreMobileResize: true });
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const el = sectionRef.current;
     if (!el) return;
@@ -55,36 +57,110 @@ export default function ProductLinesEpicare() {
         const blocks = gsap.utils.toArray<HTMLElement>('.pl-block');
 
         if (reduce) {
-          gsap.set('.pl-head, .pl-line, .pl-pill', { opacity: 1, y: 0, filter: 'none' });
+          gsap.set('.pl-head, .pl-head-line, .pl-line, .pl-mcat-head, .pl-pill', { opacity: 1, y: 0, yPercent: 0, scale: 1 });
         } else {
-          // Headline text-birth (Hardware Optimized)
-          gsap.fromTo('.pl-head-line', { yPercent: 118, willChange: 'transform' },
-            { yPercent: 0, duration: 1.15, stagger: 0.12, ease: 'power4.out', clearProps: 'willChange',
-              scrollTrigger: { trigger: el, start: 'top 82%' } });
-          gsap.fromTo('.pl-head', { opacity: 0, y: 26, willChange: 'transform, opacity' },
-            { opacity: 1, y: 0, duration: 0.9, stagger: 0.08, ease: 'power3.out', clearProps: 'willChange',
-              scrollTrigger: { trigger: el, start: 'top 80%' } });
+          const mm = gsap.matchMedia();
 
-          // Per-line scroll-linked "light up" (scrollytelling reading reveal).
-          gsap.utils.toArray<HTMLElement>('.pl-line').forEach((line) => {
-            gsap.fromTo(line,
-              { opacity: 0.18, y: 26 },
-              {
-                opacity: 1, y: 0, ease: 'none',
-                scrollTrigger: { trigger: line, start: 'top 90%', end: 'top 55%', scrub: true },
-              }
-            );
+          // ── 1. Header Timeline (Sincronizado Título + Subtítulo) ──
+          const headerTl = gsap.timeline({
+            scrollTrigger: {
+              trigger: el,
+              start: TRIGGER.standard,
+              toggleActions: 'play none none reverse',
+            },
           });
 
-          // Mobile pills — staggered reveal per category group.
-          gsap.utils.toArray<HTMLElement>('.pl-mgroup').forEach((group) => {
-            gsap.fromTo(group.querySelectorAll('.pl-pill'),
-              { opacity: 0, y: 12 },
+          headerTl
+            .fromTo('.pl-head-line',
+              { yPercent: REVEAL.birthPercent, opacity: 0, willChange: 'transform, opacity' },
               {
-                opacity: 1, y: 0, duration: 0.5, stagger: 0.03, ease: 'power3.out',
-                scrollTrigger: { trigger: group, start: 'top 85%' },
+                yPercent: 0,
+                opacity: 1,
+                duration: DUR.slow,
+                ease: EASE.dramatic,
+                force3D: true,
+                clearProps: 'willChange',
               }
+            )
+            .fromTo('.pl-head',
+              { opacity: 0, y: REVEAL.sm, willChange: 'transform, opacity' },
+              {
+                opacity: 1,
+                y: 0,
+                duration: DUR.base,
+                stagger: STAGGER.base,
+                ease: EASE.out,
+                force3D: true,
+                clearProps: 'willChange',
+              },
+              '-=0.5'
             );
+
+          // ── 2. Desktop: Scrollytelling reading reveal ──
+          mm.add('(min-width: 1024px)', () => {
+            gsap.utils.toArray<HTMLElement>('.pl-line').forEach((line) => {
+              gsap.fromTo(line,
+                { opacity: 0.18, y: REVEAL.sm },
+                {
+                  opacity: 1,
+                  y: 0,
+                  ease: EASE.none,
+                  scrollTrigger: {
+                    trigger: line,
+                    start: 'top 90%',
+                    end: 'top 55%',
+                    scrub: true,
+                  },
+                }
+              );
+            });
+          });
+
+          // ── 3. Mobile: Categorías y Pills entrando uno por uno (Crisp Stagger) ──
+          mm.add('(max-width: 1023px)', () => {
+            gsap.utils.toArray<HTMLElement>('.pl-mgroup').forEach((group) => {
+              const mcatHead = group.querySelector('.pl-mcat-head');
+              const pills = group.querySelectorAll('.pl-pill');
+
+              const groupTl = gsap.timeline({
+                scrollTrigger: {
+                  trigger: group,
+                  start: TRIGGER.early,
+                  toggleActions: 'play none none reverse',
+                },
+              });
+
+              if (mcatHead) {
+                groupTl.fromTo(mcatHead,
+                  { opacity: 0, y: REVEAL.sm, willChange: 'transform, opacity' },
+                  {
+                    opacity: 1,
+                    y: 0,
+                    duration: DUR.base,
+                    ease: EASE.out,
+                    force3D: true,
+                    clearProps: 'willChange',
+                  }
+                );
+              }
+
+              if (pills.length > 0) {
+                groupTl.fromTo(pills,
+                  { opacity: 0, y: 16, scale: 0.92, willChange: 'transform, opacity' },
+                  {
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                    duration: DUR.fast,
+                    stagger: 0.045, // uno por uno
+                    ease: EASE.out,
+                    force3D: true,
+                    clearProps: 'willChange',
+                  },
+                  '-=0.3'
+                );
+              }
+            });
           });
         }
 
@@ -104,7 +180,7 @@ export default function ProductLinesEpicare() {
         ScrollTrigger.sort();
         ScrollTrigger.refresh();
       }, el);
-    }, 200);
+    }, 150);
 
     return () => {
       clearTimeout(timer);
@@ -187,7 +263,7 @@ export default function ProductLinesEpicare() {
             <div className="lg:hidden flex flex-col gap-10">
               {categories.map((cat, i) => (
                 <div key={i} className="pl-mgroup">
-                  <div className="flex items-baseline gap-2.5 mb-4">
+                  <div className="pl-mcat-head flex items-baseline gap-2.5 mb-4">
                     <span className="text-caption tabular-nums text-[var(--color-brand-blue)] font-medium">
                       0{i + 1}
                     </span>
