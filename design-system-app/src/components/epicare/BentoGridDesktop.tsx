@@ -166,21 +166,34 @@ function CinematicPanel({
          </div>
       </div>
 
-      {/* MEDIA CONTENT (Right side) - Follows Video-Background-Blend-Fixer */}
-        <div className="w-full md:w-7/12 h-full relative overflow-hidden bg-transparent">
-           {/* Light Video - mix-blend-multiply makes white backgrounds completely transparent! */}
-           <SmartVideo 
-             src={videoLight} 
-             className={`absolute inset-0 w-full h-full transition-transform duration-[2s] ease-out mix-blend-multiply dark:hidden ${isAcademy ? 'object-contain scale-[0.85] group-hover:scale-95' : isAms ? 'object-contain object-right' : 'object-cover group-hover:scale-105'}`}
-             style={isAms ? { transform: 'scale(1.46) translate(205px, 10px)', borderRadius: '12px', transformOrigin: 'right center' } : undefined}
-           />
-           {/* Dark Video - mix-blend-screen makes black backgrounds completely transparent! */}
-           <SmartVideo 
-             src={videoDark} 
-             className={`absolute inset-0 w-full h-full transition-transform duration-[2s] ease-out mix-blend-screen hidden dark:block ${isAcademy ? 'object-contain scale-[0.85] group-hover:scale-95' : isAms ? 'object-contain object-right' : 'object-cover group-hover:scale-105'}`}
-             style={isAms ? { transform: 'scale(1.46) translate(205px, 10px)', borderRadius: '12px', transformOrigin: 'right center' } : undefined}
-           />
-        </div>
+      {/* MEDIA CONTENT (Right side) */}
+      <div className="w-full md:w-7/12 h-full relative overflow-hidden bg-transparent flex items-center justify-end">
+        {isAms ? (
+          <div className="relative w-full h-[78%] rounded-l-xl md:rounded-l-[18px] border-l border-y border-black/10 dark:border-white/15 overflow-hidden shadow-elevation-3 bg-[var(--color-surface-BG-1)]">
+            <SmartVideo 
+              src={videoLight} 
+              className="w-full h-full object-cover object-left dark:hidden rounded-l-xl md:rounded-l-[18px]" 
+            />
+            <SmartVideo 
+              src={videoDark} 
+              className="w-full h-full object-cover object-left hidden dark:block rounded-l-xl md:rounded-l-[18px]" 
+            />
+          </div>
+        ) : (
+          <>
+            {/* Light Video - mix-blend-multiply makes white backgrounds completely transparent! */}
+            <SmartVideo 
+              src={videoLight} 
+              className={`absolute inset-0 w-full h-full transition-transform duration-[2s] ease-out mix-blend-multiply dark:hidden ${isAcademy ? 'object-contain scale-[0.85] group-hover:scale-95' : 'object-cover group-hover:scale-105'}`}
+            />
+            {/* Dark Video - mix-blend-screen makes black backgrounds completely transparent! */}
+            <SmartVideo 
+              src={videoDark} 
+              className={`absolute inset-0 w-full h-full transition-transform duration-[2s] ease-out mix-blend-screen hidden dark:block ${isAcademy ? 'object-contain scale-[0.85] group-hover:scale-95' : 'object-cover group-hover:scale-105'}`}
+            />
+          </>
+        )}
+      </div>
 
     </Link>
   );

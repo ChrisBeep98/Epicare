@@ -362,7 +362,7 @@ export default function BentoGridMobile() {
                         return (
                           <SmartVideo 
                             src={(card as any).videoLight} 
-                            className="absolute bottom-0 left-3.5 w-[132%] max-w-none h-[88%] object-cover object-left rounded-tl-2xl shadow-elevation-3 transition-transform duration-[800ms] ease-out"
+                            className="absolute bottom-0 left-3.5 w-[132%] max-w-none h-[88%] object-cover object-left rounded-l-2xl shadow-elevation-3 transition-transform duration-[800ms] ease-out"
                           />
                         );
                       }
