@@ -289,7 +289,7 @@ export default function DelegateUsersSection() {
                     {/* Tarjeta 1: Perfil del Asistente */}
                     <div className="act2-item bg-white/90 rounded-2xl p-3 sm:p-3.5 flex items-center justify-between border border-white/50 shadow-sm h-[72px]">
                       <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 rounded-xl bg-[var(--color-brand-blue)]/15 border border-[var(--color-brand-blue)]/30 flex items-center justify-center text-caption font-bold text-[var(--color-text-accent-blue)] shrink-0">
+                        <div className="w-9 h-9 rounded-xl bg-[var(--color-brand-blue)]/15 border border-[var(--color-brand-blue)]/30 flex items-center justify-center text-caption font-bold text-[var(--color-brand-blue)] shrink-0">
                           SR
                         </div>
                         <div className="flex flex-col truncate">

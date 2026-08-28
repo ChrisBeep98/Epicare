@@ -33,7 +33,7 @@ const CARDS_DATA = [
     titleKey: "card3Title",
     altKey: "card3Alt",
     image: "/Files/Go_AMS/downline_and ecosystem/Invite to downline.png",
-    icon: <UserPlus weight="duotone" className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-[var(--color-brand-blue)]" />
+    icon: <UserPlus weight="duotone" className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
   }
 ];
 
@@ -300,7 +300,7 @@ export default function DownlineSection() {
               >
                 {/* Nombre con icono encima de la imagen */}
                 <div className="flex items-center gap-2.5 sm:gap-3.5 pb-2.5 sm:pb-4 px-1">
-                  <div className="p-1.5 sm:p-2.5 rounded-xl sm:rounded-2xl bg-[var(--color-brand-blue)]/10 text-[var(--color-text-accent-blue)] border border-[var(--color-brand-blue)]/20 shrink-0">
+                  <div className="p-1.5 sm:p-2.5 rounded-xl sm:rounded-2xl bg-[var(--color-brand-blue)]/10 text-[var(--color-brand-blue)] border border-[var(--color-brand-blue)]/20 shrink-0">
                     {card.icon}
                   </div>
                   <span className="text-body-md sm:text-h5 md:text-h4 font-semibold text-[var(--color-text-primary)] tracking-tight">

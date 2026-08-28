@@ -47,7 +47,7 @@ export function AgentAgencyFeatureCards({
                 <span
                   className={`text-[10px] sm:text-meta font-mono px-1 sm:px-2 py-0.5 rounded transition-colors ${
                     isActive
-                      ? "bg-[var(--color-brand-blue)]/10 text-[var(--color-text-accent-blue)] border border-[var(--color-brand-blue)]/30"
+                      ? "bg-[var(--color-brand-blue)]/10 text-[var(--color-brand-blue)] border border-[var(--color-brand-blue)]/30"
                       : "bg-[var(--color-surface-BG-base)] text-[var(--color-text-muted)] border border-[var(--color-border-Strokes-default)]"
                   }`}
                 >

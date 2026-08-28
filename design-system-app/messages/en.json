@@ -281,7 +281,7 @@
     },
     "problemSection": {
       "title": "Operational Chaos",
-      "subtitle": "You know the drill: scaling production means more <blue>admin load</blue>, passwords, and <blue>spreadsheets</blue>.",
+      "subtitle": "You know the drill, scaling production means more <blue>admin load</blue>, passwords, and <blue>spreadsheets</blue>.",
       "pains": [
         {
           "title": "Fragmented portals",
