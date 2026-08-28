@@ -608,4 +608,13 @@ body {
   will-change: transform, opacity, filter;
 }
 
+/* Utility: Hide Scrollbar completely */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 /* --- End of File --- */

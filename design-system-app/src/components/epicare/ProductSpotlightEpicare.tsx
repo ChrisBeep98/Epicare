@@ -151,7 +151,7 @@ export default function ProductSpotlightEpicare({ variant }: { variant: Spotligh
     <section 
       ref={sectionRef} 
       id={variant} 
-      className="relative w-full overflow-x-clip md:overflow-visible flex items-center justify-center py-8 lg:py-10 max-w-full"
+      className="relative w-full overflow-x-clip md:overflow-visible flex items-center justify-center py-2 sm:py-4 lg:py-10 max-w-full"
     >
       {/* 
         FULL BLEED ASYMMETRIC SPLIT LAYOUT. 
@@ -160,16 +160,16 @@ export default function ProductSpotlightEpicare({ variant }: { variant: Spotligh
       <div className={`relative z-10 w-full max-w-full flex flex-col ${isEppigo ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center justify-between`}>
         
         {/* TEXT COLUMN (Takes 50% viewport) */}
-        <div ref={textColRef} className={`relative z-20 shrink-0 w-full lg:w-1/2 flex flex-col justify-center py-10 lg:py-20 px-4 md:px-8 ${isEppigo ? 'lg:items-end lg:-translate-y-56' : 'lg:items-start lg:-translate-y-32'}`}>
+        <div ref={textColRef} className={`relative z-20 shrink-0 w-full lg:w-1/2 flex flex-col justify-center py-2 sm:py-4 lg:py-20 px-3 sm:px-4 md:px-8 ${isEppigo ? 'lg:items-end lg:-translate-y-56' : 'lg:items-start lg:-translate-y-32'}`}>
           
           {/* Alignment Wrapper (Forces content into the max-w-section-lg boundary) */}
-          <div className="w-full px-2 sm:px-4 lg:px-8" style={{ maxWidth: 'calc(var(--max-w-section-lg, 1440px) / 2)' }}>
+          <div className="w-full px-1 sm:px-4 lg:px-8" style={{ maxWidth: 'calc(var(--max-w-section-lg, 1440px) / 2)' }}>
             
             {/* LIQUID GLASS TEXT CARD */}
-            <div className={`relative z-10 w-full max-w-[540px] mx-auto lg:mx-0 ${isEppigo ? 'lg:mr-auto' : 'lg:ml-auto'} rounded-[2rem] lg:rounded-[2.5rem] border border-[var(--color-border-Strokes-default)] shadow-[0_40px_80px_rgba(0,0,0,0.05)] transform hover:-translate-y-1 transition-transform duration-500 overflow-hidden`}>
+            <div className={`relative z-10 w-full max-w-[540px] mx-auto lg:mx-0 ${isEppigo ? 'lg:mr-auto' : 'lg:ml-auto'} rounded-[1.5rem] sm:rounded-[2rem] lg:rounded-[2.5rem] border border-[var(--color-border-Strokes-default)] shadow-[0_40px_80px_rgba(0,0,0,0.05)] transform hover:-translate-y-1 transition-transform duration-500 overflow-hidden`}>
             
             {/* Glassmorphic Background Layer (Static) */}
-            <div className="absolute inset-0 rounded-[2.5rem] -z-10">
+            <div className="absolute inset-0 rounded-[1.5rem] sm:rounded-[2rem] lg:rounded-[2.5rem] -z-10">
             {/* Pure Background Mesh (Brand Blue) */}
             <img 
               src={asset(DEBUG_BGS[bgIndex])} 
@@ -187,10 +187,10 @@ export default function ProductSpotlightEpicare({ variant }: { variant: Spotligh
             </div>
 
             {/* CONTENT (Relative to sit above glass) */}
-            <div ref={contentRef} className="relative z-10 flex flex-col items-start gap-6 lg:gap-8 p-8 lg:p-10">
+            <div ref={contentRef} className="relative z-10 flex flex-col items-start gap-3.5 sm:gap-6 lg:gap-8 p-4 sm:p-6 lg:p-10">
               
               {/* 1. CHIP / BADGE */}
-              <div className="flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/50 backdrop-blur-sm border border-white/60 shadow-[0_2px_10px_rgba(0,0,0,0.02)]">
+              <div className="flex items-center gap-2.5 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-white/50 backdrop-blur-sm border border-white/60 shadow-[0_2px_10px_rgba(0,0,0,0.02)]">
                 <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ backgroundColor: `var(${accentVar})` }} />
                 <span className="text-[9px] font-black tracking-[0.25em] uppercase text-gray-500">
                   {isEppigo ? 'Software de Gestión' : 'Equipamiento Clínico'}
@@ -235,7 +235,7 @@ export default function ProductSpotlightEpicare({ variant }: { variant: Spotligh
 
             {/* 4. CTA */}
             {isEppigo ? (
-              <div className="mt-4 w-full sm:w-auto">
+              <div className="mt-2 sm:mt-4 w-full sm:w-auto">
                 <a
                   href="#unete"
                   className="group w-fit h-12 pl-6 pr-2 rounded-full flex items-center gap-3 text-white shadow-elevation-2 transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-elevation-4 active:scale-[0.96] active:opacity-80 active:duration-150"
@@ -249,7 +249,7 @@ export default function ProductSpotlightEpicare({ variant }: { variant: Spotligh
                 </a>
               </div>
             ) : (
-              <div className="mt-4 flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
+              <div className="mt-2 sm:mt-4 flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
                 <a
                   href="#marketing"
                   className="group w-full sm:w-fit h-12 pl-6 pr-2 rounded-full flex items-center justify-between sm:justify-start gap-3 text-white shadow-elevation-2 transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-elevation-4 active:scale-[0.96] active:opacity-80 active:duration-150"
@@ -280,14 +280,14 @@ export default function ProductSpotlightEpicare({ variant }: { variant: Spotligh
         </div>
         </div>
       
-        {/* VIDEO COLUMN */}
+        {/* VIDEO COLUMN (En mobile sube por debajo de la tarjeta glassmórfica) */}
         <div 
           ref={videoColRef} 
-          className={`relative z-10 w-full lg:absolute lg:top-1/2 lg:-translate-y-1/2 ${isEppigo ? 'lg:right-[var(--space-gutter-md)] justify-end px-4 lg:px-0' : 'lg:left-[var(--space-gutter-md)] justify-start px-4 lg:px-0'} lg:w-[var(--video-w)] flex mt-12 lg:mt-0`}
+          className={`relative z-0 lg:z-10 w-full lg:absolute lg:top-1/2 lg:-translate-y-1/2 ${isEppigo ? 'lg:right-[var(--space-gutter-md)] justify-end px-2 sm:px-4 lg:px-0' : 'lg:left-[var(--space-gutter-md)] justify-start px-2 sm:px-4 lg:px-0'} lg:w-[var(--video-w)] flex -mt-28 sm:-mt-36 lg:mt-0`}
           style={{ '--video-w': `${videoWidth}%` } as React.CSSProperties}
         >
           {/* Main Container (No shadow) */}
-          <div className={`relative w-full h-[60vh] lg:h-[75vh] max-h-[1000px] rounded-none transform-gpu`}>
+          <div className={`relative w-full h-[50vh] sm:h-[60vh] lg:h-[75vh] max-h-[1000px] rounded-none transform-gpu`}>
             {/* Mask Container (Overflow-hidden to clip the media) */}
             <div className={`absolute inset-0 w-full h-full rounded-none overflow-hidden`}>
               {isEppigo ? (

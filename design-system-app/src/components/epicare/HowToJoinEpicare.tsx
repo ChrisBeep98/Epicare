@@ -153,7 +153,7 @@ export default function HowToJoinEpicare() {
         <h2 className="overflow-hidden pb-static-xs text-display-xl font-semibold tracking-tight leading-[1] text-[var(--color-text-Black-100)] dark:text-white">
           <span className="block">
             <span className="inline md:block">{t("title1")} </span>
-            <span className="inline md:block text-[var(--color-text-muted)]">{t("title2")}</span>
+            <span className="inline md:block text-[var(--color-brand-blue)]">{t("title2")}</span>
           </span>
         </h2>
       </header>
@@ -209,13 +209,13 @@ export default function HowToJoinEpicare() {
         <div 
           ref={scrollContainerRef}
           onScroll={handleMobileScroll}
-          className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar px-[var(--space-gutter-sm)] gap-[var(--space-gutter-sm)] pb-8"
+          className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden px-[var(--space-gutter-sm)] gap-[var(--space-gutter-sm)] pb-4"
         >
           {STEPS.map((step, idx) => {
             const imgSrc = idx < 3 ? ZONE1_IMAGES[idx] : ZONE2_IMAGES[idx - 3];
             const isOrange = idx >= 3;
             return (
-              <div key={idx} className="relative min-w-[85vw] h-[65vh] snap-center flex flex-col justify-end rounded-3xl overflow-hidden shadow-elevation-3 border border-white/10 dark:border-white/5">
+              <div key={idx} className="relative min-w-[85vw] h-[48dvh] max-h-[460px] snap-center flex flex-col justify-end rounded-3xl overflow-hidden shadow-elevation-3 border border-white/10 dark:border-white/5">
                 {/* Image Background */}
                 <img src={imgSrc} alt="" aria-hidden="true" loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover object-[75%_center]" />
                 
@@ -224,14 +224,14 @@ export default function HowToJoinEpicare() {
                 <div className="absolute inset-0 bg-black/20"></div> {/* Extra global darkening for contrast */}
                 
                 {/* Text Overlay */}
-                <div className="relative z-10 px-[var(--space-gutter-sm)] pt-[var(--space-gutter-sm)] pb-10 md:pb-12 flex flex-col gap-3">
-                  <span className={`text-display-md drop-shadow-md opacity-90 ${isOrange ? 'text-[var(--color-brand-orange)]' : 'text-[var(--color-brand-blue)]'}`}>
+                <div className="relative z-10 px-static-md pt-static-md pb-6 flex flex-col gap-2.5">
+                  <span className={`text-display-sm drop-shadow-md opacity-90 ${isOrange ? 'text-[var(--color-brand-orange)]' : 'text-[var(--color-brand-blue)]'}`}>
                     {step.num}
                   </span>
-                  <h3 className="text-display-sm font-semibold text-white drop-shadow-lg leading-tight">
+                  <h3 className="text-h3 font-semibold text-white drop-shadow-lg leading-tight">
                     {step.title}
                   </h3>
-                  <p className="text-body-md font-light text-white/90 leading-relaxed drop-shadow-md">
+                  <p className="text-body-sm font-light text-white/90 leading-relaxed drop-shadow-md">
                     {step.desc}
                   </p>
                 </div>

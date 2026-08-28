@@ -141,7 +141,7 @@ export default function ProductLinesEpicare() {
             </span>
             <h2 className="overflow-hidden pb-static-xs text-display-xl font-semibold tracking-tight leading-[1] text-[var(--color-text-Black-100)] dark:text-white">
               <span className="pl-head-line block">
-                {t('titleLine1')} <span className="text-[var(--color-text-muted)]">{t('titleLine2')}</span>
+                {t('titleLine1')} <span className="text-[var(--color-brand-blue)]">{t('titleLine2')}</span>
               </span>
             </h2>
           </div>

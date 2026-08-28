@@ -241,7 +241,7 @@ export default function BentoGridMobile() {
       videoDarkFullBackground: true,
       mediaClassNameDark: "dark:bg-[#0D0D0E]",
       cardClassNameDark: "dark:bg-[#0D0D0E]",
-      logo: <img src={asset('/academy-icon-knockout-blue 1.svg')} alt="GO Academy" className="h-10 w-auto object-contain drop-shadow-[0_2px_6px_rgba(53,187,253,0.12)]" />
+      logo: <img src={asset('/academy-icon-knockout-blue 1.svg')} alt="GO Academy" className="h-12 w-auto object-contain drop-shadow-[0_2px_6px_rgba(53,187,253,0.12)]" />
     },
   ];
 
