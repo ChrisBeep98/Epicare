@@ -53,12 +53,13 @@ export default function FAQEpicare() {
       }
 
       // Header standardization (Hardware Optimized)
-      gsap.fromTo('.anim-head-line', { yPercent: 118, willChange: 'transform' },
-        { yPercent: 0, duration: 1.15, stagger: 0.12, ease: 'power4.out', clearProps: 'willChange',
-          scrollTrigger: { trigger: el, start: 'top 82%' } });
-      gsap.fromTo('.anim-head-fade', { opacity: 0, y: 26, willChange: 'transform, opacity' },
-        { opacity: 1, y: 0, duration: 0.9, stagger: 0.08, ease: 'power3.out', clearProps: 'willChange',
-          scrollTrigger: { trigger: el, start: 'top 80%' } });
+      ScrollTrigger.config({ ignoreMobileResize: true });
+      gsap.fromTo('.anim-head-line', { yPercent: REVEAL.birthPercent, willChange: 'transform' },
+        { yPercent: 0, duration: DUR.slow, ease: EASE.dramatic, clearProps: 'willChange',
+          scrollTrigger: { trigger: el, start: TRIGGER.standard } });
+      gsap.fromTo('.anim-head-fade', { opacity: 0, y: REVEAL.sm, willChange: 'transform, opacity' },
+        { opacity: 1, y: 0, duration: DUR.base, ease: EASE.out, clearProps: 'willChange',
+          scrollTrigger: { trigger: el, start: TRIGGER.standard } });
     }, el);
 
     return () => ctx.revert();
@@ -71,12 +72,12 @@ export default function FAQEpicare() {
   return (
     <section
       ref={sectionRef}
-      className="w-full py-section-lg relative bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] transition-colors duration-500 overflow-hidden"
+      className="w-full pt-6 pb-section-md md:py-section-lg relative bg-[var(--color-surface-BG-white)] dark:bg-[var(--color-surface-BG-black)] transition-colors duration-500 overflow-hidden"
     >
       <div className="mx-auto max-w-section-md px-[0.875rem] md:px-gutter-md">
         
-        {/* Header */}
-        <div className="flex flex-col items-center text-center mb-static-2xl">
+        {/* Header (Left-aligned on mobile, centered on desktop) */}
+        <div className="flex flex-col items-start text-left md:items-center md:text-center mb-8 md:mb-static-2xl">
           <span className="anim-head-fade text-overline text-[var(--color-brand-blue)] dark:text-[var(--color-brand-cyan)] mb-static-md block">
             {t("overline")}
           </span>
