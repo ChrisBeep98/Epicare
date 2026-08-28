@@ -36,7 +36,7 @@ export default function FAQEpicare() {
 
     const ctx = gsap.context(() => {
       if (prefersReducedMotion) {
-        gsap.set(".faq-item, .anim-head-line, .anim-head-fade", { opacity: 1, y: 0, yPercent: 0 });
+        gsap.set(".faq-item, .anim-head-line, .anim-head-fade", { opacity: 1, x: 0, y: 0, yPercent: 0 });
         return;
       }
 
@@ -74,30 +74,34 @@ export default function FAQEpicare() {
           "-=0.5"
         );
 
-      // 2. FAQ Items: Animación de entrada y salida optimizada (ScrollTrigger bidireccional)
+      // 2. FAQ Items: Animación de entrada diagonal (Horizontal X + Vertical Y) con latencia perceptible
       if (listRef.current) {
         const items = gsap.utils.toArray<HTMLElement>(listRef.current.querySelectorAll(".faq-item"));
         items.forEach((item) => {
-          gsap.set(item, { opacity: 0, y: REVEAL.sm });
+          gsap.set(item, { opacity: 0, x: -36, y: 20, willChange: "transform, opacity" });
 
           ScrollTrigger.create({
             trigger: item,
-            start: "top 92%",
+            start: "top 86%", // Dispara a una altura óptima para apreciar el movimiento
             end: "bottom top",
             onEnter: () => {
               gsap.to(item, {
                 opacity: 1,
+                x: 0,
                 y: 0,
-                duration: DUR.base,
-                ease: EASE.out,
+                duration: 0.95,
+                delay: 0.06, // 60ms de latencia
+                ease: "power3.out",
                 force3D: true,
+                clearProps: "willChange",
                 overwrite: "auto",
               });
             },
             onLeaveBack: () => {
               gsap.to(item, {
                 opacity: 0,
-                y: REVEAL.sm,
+                x: -36,
+                y: 20,
                 duration: 0.45,
                 ease: EASE.snap,
                 force3D: true,

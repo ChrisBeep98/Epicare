@@ -39,6 +39,7 @@ export default function FaqSection() {
       if (prefersReducedMotion) {
         gsap.set(".faq-title-line, .faq-subtitle, .faq-row", {
           opacity: 1,
+          x: 0,
           y: 0,
           yPercent: 0,
           scale: 1
@@ -86,32 +87,40 @@ export default function FaqSection() {
           );
       }
 
-      // ── 2. Entrada y Salida INDIVIDUAL para CADA FILA del Acordeón ──
+      // ── 2. Entrada y Salida INDIVIDUAL para CADA FILA (Desplazamiento Diagonal + Latencia 60ms) ──
       const rows = gsap.utils.toArray<HTMLElement>(".faq-row", el);
       rows.forEach((row) => {
-        gsap.fromTo(
-          row,
-          { 
-            opacity: 0, 
-            y: 30, 
-            scale: 0.97,
-            willChange: "transform, opacity" 
+        gsap.set(row, { opacity: 0, x: -36, y: 20, willChange: "transform, opacity" });
+
+        ScrollTrigger.create({
+          trigger: row,
+          start: "top 86%",
+          end: "bottom top",
+          onEnter: () => {
+            gsap.to(row, {
+              opacity: 1,
+              x: 0,
+              y: 0,
+              duration: 0.95,
+              delay: 0.06, // 60ms de latencia
+              ease: "power3.out",
+              force3D: true,
+              clearProps: "willChange",
+              overwrite: "auto",
+            });
           },
-          {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            duration: 0.6,
-            ease: EASE.out,
-            force3D: true,
-            clearProps: "willChange",
-            scrollTrigger: {
-              trigger: row,
-              start: "top 92%",
-              toggleActions: "play reverse play reverse"
-            }
-          }
-        );
+          onLeaveBack: () => {
+            gsap.to(row, {
+              opacity: 0,
+              x: -36,
+              y: 20,
+              duration: 0.45,
+              ease: EASE.snap,
+              force3D: true,
+              overwrite: "auto",
+            });
+          },
+        });
       });
     }, el);
 
