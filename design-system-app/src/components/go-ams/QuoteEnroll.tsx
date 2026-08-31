@@ -1,23 +1,44 @@
 "use client";
 
-import React, { useRef, useState, useLayoutEffect } from "react";
-import { DeviceMobile, Link, Mouse, QrCode } from "@phosphor-icons/react";
+import React, { useRef, useLayoutEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { EASE, DUR, STAGGER, REVEAL, TRIGGER } from "@/lib/motion";
+import { EASE, DUR, STAGGER, TRIGGER } from "@/lib/motion";
 import { asset } from "@/lib/asset";
 
 // --- ANIMATED SCENE ARCHITECT: Ultra Minimalist Illustrations ---
+const IllusLink = () => (
+  <div className="relative w-16 h-16 rounded-2xl bg-[var(--color-surface-BG-3)]/60 border border-[var(--color-border-Strokes-base)]/30 flex items-center justify-center overflow-hidden transition-all duration-500 shadow-elevation-1 group-hover:border-[var(--color-brand-blue)]/40">
+    <div className="absolute inset-0 bg-gradient-to-tl from-[var(--color-brand-blue)]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+    <div className="relative flex items-center justify-center rotate-45 transition-transform duration-700 group-hover:scale-110">
+      <div className="w-6 h-3.5 border-[1.5px] border-[var(--color-text-primary)]/30 rounded-full -mr-2 transition-all duration-500 group-hover:-translate-x-1 group-hover:border-[var(--color-text-primary)]/50" />
+      <div className="w-6 h-3.5 border-[1.5px] border-[var(--color-brand-blue)]/80 rounded-full -ml-2 transition-all duration-500 group-hover:translate-x-1" />
+    </div>
+  </div>
+);
 
-// 1. App/Mobile (DeviceMobile)
+const IllusDesktop = () => (
+  <div className="relative w-16 h-16 rounded-2xl bg-[var(--color-surface-BG-3)]/60 border border-[var(--color-border-Strokes-base)]/30 flex items-center justify-center overflow-hidden transition-all duration-500 shadow-elevation-1 group-hover:border-[var(--color-brand-blue)]/40">
+    <div className="absolute inset-0 bg-gradient-to-bl from-[var(--color-brand-blue)]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+    <div className="relative w-10 h-10 flex items-center justify-center">
+      <div className="absolute inset-0 grid grid-cols-3 grid-rows-3 gap-[2px] opacity-10">
+         {[...Array(9)].map((_, i) => <div key={i} className="bg-[var(--color-text-primary)] rounded-[1px]" />)}
+      </div>
+      <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6 text-[var(--color-text-primary)]/40 group-hover:text-[var(--color-text-primary)] transition-all duration-700 -translate-x-1 translate-y-1 group-hover:translate-x-0 group-hover:translate-y-0 relative z-10">
+        <path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" fill="var(--color-brand-blue)" fillOpacity="0.2"/>
+      </svg>
+    </div>
+  </div>
+);
+
 const IllusMobile = () => (
-  <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-[var(--color-surface-BG-3)]/60 border border-[var(--color-border-Strokes-base)]/30 flex flex-col items-center justify-center overflow-hidden transition-all duration-500 shadow-elevation-1 group-hover:border-[var(--color-brand-blue)]/40">
+  <div className="relative w-16 h-16 rounded-2xl bg-[var(--color-surface-BG-3)]/60 border border-[var(--color-border-Strokes-base)]/30 flex flex-col items-center justify-center overflow-hidden transition-all duration-500 shadow-elevation-1 group-hover:border-[var(--color-brand-blue)]/40">
     <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-brand-blue)]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-    <div className="relative w-6 h-9 border-[1px] border-[var(--color-text-primary)]/30 rounded-md flex flex-col items-center justify-between py-[3px] transition-transform duration-700 group-hover:-translate-y-0.5">
-      <div className="w-2.5 h-[1px] bg-[var(--color-text-primary)]/30 rounded-full" />
-      <div className="flex items-end gap-[1.5px] mb-px">
-        {[4, 7, 3, 6, 4].map((h, i) => (
+    <div className="relative w-7 h-10 border-[1.5px] border-[var(--color-text-primary)]/30 rounded-md flex flex-col items-center justify-between py-[4px] transition-transform duration-700 group-hover:-translate-y-1">
+      <div className="w-3 h-[1px] bg-[var(--color-text-primary)]/30 rounded-full" />
+      <div className="flex items-end gap-[2px] mb-px">
+        {[5, 9, 4, 7, 5].map((h, i) => (
           <div key={i} className="w-[1.5px] bg-[var(--color-brand-blue)]/80 rounded-full animate-pulse" style={{ height: `${h}px`, animationDelay: `${i * 0.15}s` }} />
         ))}
       </div>
@@ -25,45 +46,14 @@ const IllusMobile = () => (
   </div>
 );
 
-// 2. Shareable Link (Link)
-const IllusLink = () => (
-  <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-[var(--color-surface-BG-3)]/60 border border-[var(--color-border-Strokes-base)]/30 flex items-center justify-center overflow-hidden transition-all duration-500 shadow-elevation-1 group-hover:border-[var(--color-brand-blue)]/40">
-    <div className="absolute inset-0 bg-gradient-to-tl from-[var(--color-brand-blue)]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-    <div className="relative flex items-center justify-center rotate-45 transition-transform duration-700 group-hover:scale-105">
-      <div className="w-5 h-3 border-[1.5px] border-[var(--color-text-primary)]/30 rounded-full -mr-1.5 transition-all duration-500 group-hover:-translate-x-0.5 group-hover:border-[var(--color-text-primary)]/50" />
-      <div className="w-5 h-3 border-[1.5px] border-[var(--color-brand-blue)]/80 rounded-full -ml-1.5 transition-all duration-500 group-hover:translate-x-0.5" />
-    </div>
-  </div>
-);
-
-// 3. Web Portal (Mouse)
-const IllusDesktop = () => (
-  <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-[var(--color-surface-BG-3)]/60 border border-[var(--color-border-Strokes-base)]/30 flex items-center justify-center overflow-hidden transition-all duration-500 shadow-elevation-1 group-hover:border-[var(--color-brand-blue)]/40">
-    <div className="absolute inset-0 bg-gradient-to-bl from-[var(--color-brand-blue)]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-    <div className="relative w-10 h-10 flex items-center justify-center">
-      <div className="absolute inset-0 grid grid-cols-3 grid-rows-3 gap-[1.5px] opacity-5">
-         {[...Array(9)].map((_, i) => <div key={i} className="bg-[var(--color-text-primary)] rounded-[1px]" />)}
-      </div>
-      <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5 sm:w-6 sm:h-6 text-[var(--color-text-primary)]/40 group-hover:text-[var(--color-text-primary)] transition-all duration-700 -translate-x-1.5 translate-y-1.5 group-hover:-translate-x-0 group-hover:translate-y-0 relative z-10">
-        <path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" fill="var(--color-brand-blue)" fillOpacity="0.2"/>
-      </svg>
-      <div className="absolute bottom-2.5 left-2.5 w-1.5 h-[1.5px] bg-[var(--color-brand-blue)]/60 -rotate-45 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-150" />
-    </div>
-  </div>
-);
-
-// 4. QR Scan (QrCode)
-const IllusQR = () => (
-  <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-[var(--color-surface-BG-3)]/60 border border-[var(--color-border-Strokes-base)]/30 flex items-center justify-center overflow-hidden transition-all duration-500 shadow-elevation-1 group-hover:border-[var(--color-brand-blue)]/40">
+const IllusSalesforce = () => (
+  <div className="relative w-16 h-16 rounded-2xl bg-[var(--color-surface-BG-3)]/60 border border-[var(--color-border-Strokes-base)]/30 flex items-center justify-center overflow-hidden transition-all duration-500 shadow-elevation-1 group-hover:border-[var(--color-brand-blue)]/40">
     <div className="absolute inset-0 bg-gradient-to-tr from-[var(--color-brand-blue)]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-    <div className="relative w-6 h-6 sm:w-7 sm:h-7 transition-transform duration-700 group-hover:scale-105">
-      <div className="absolute top-0 left-0 w-2 h-2 border-t-[1.5px] border-l-[1.5px] border-[var(--color-text-primary)]/30 rounded-tl-[2px]" />
-      <div className="absolute top-0 right-0 w-2 h-2 border-t-[1.5px] border-r-[1.5px] border-[var(--color-text-primary)]/30 rounded-tr-[2px]" />
-      <div className="absolute bottom-0 left-0 w-2 h-2 border-b-[1.5px] border-l-[1.5px] border-[var(--color-text-primary)]/30 rounded-bl-[2px]" />
-      <div className="absolute bottom-0 right-0 w-2 h-2 border-b-[1.5px] border-r-[1.5px] border-[var(--color-text-primary)]/30 rounded-br-[2px]" />
-      <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-[var(--color-brand-blue)] shadow-[0_0_8px_var(--color-brand-blue)] animate-[ping_2.5s_ease-in-out_infinite] opacity-30 group-hover:opacity-100 group-hover:animate-none group-hover:translate-y-6 transition-all duration-1000" />
-      <div className="absolute top-1.5 left-1.5 w-[3px] h-[3px] bg-[var(--color-brand-blue)]/70 rounded-[1px]" />
-      <div className="absolute bottom-1.5 right-1.5 w-[3px] h-[3px] bg-[var(--color-text-primary)]/20 rounded-[1px]" />
+    <div className="relative w-8 h-8 flex items-center justify-center transition-transform duration-700 group-hover:scale-110">
+        <svg viewBox="0 0 24 24" fill="none" className="w-full h-full text-[var(--color-text-primary)]/40 group-hover:text-[var(--color-brand-blue)] transition-colors duration-500">
+            <path d="M7 16a4 4 0 0 1-.88-7.9c.41-4.04 4.54-5.95 7.6-3.8 2.37-1.63 5.42-.51 5.92 2.7A4 4 0 0 1 17 16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="currentColor" fillOpacity="0.1"/>
+            <path d="M12 12v9m0 0l-3-3m3 3l3-3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
     </div>
   </div>
 );
@@ -71,253 +61,248 @@ const IllusQR = () => (
 export default function QuoteEnroll() {
   const t = useTranslations('goAms.quoteWays');
   const sectionRef = useRef<HTMLElement>(null);
-  const titleRef = useRef<HTMLDivElement>(null);
-  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
-
+  const pinWrapperRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  
   const features = [
-    {
-      id: "01",
-      title: t('card1Title'),
-      desc: t('card1Desc'),
-      icon: <IllusMobile />
-    },
-    {
-      id: "02",
-      title: t('card2Title'),
-      desc: t('card2Desc'),
-      icon: <IllusLink />
-    },
-    {
-      id: "03",
-      title: t('card3Title'),
-      desc: t('card3Desc'),
-      icon: <IllusDesktop />
-    },
-    {
-      id: "04",
-      title: t('card4Title'),
-      desc: t('card4Desc'),
-      icon: <IllusQR />
-    }
+    { id: "01", title: t('card1Title'), desc: t('card1Desc'), icon: <IllusLink /> },
+    { id: "02", title: t('card2Title'), desc: t('card2Desc'), icon: <IllusDesktop /> },
+    { id: "03", title: t('card3Title'), desc: t('card3Desc'), icon: <IllusMobile /> },
+    { id: "04", title: t('card4Title'), desc: t('card4Desc'), icon: <IllusSalesforce /> }
   ];
-
-  // Listener para el scroll horizontal en mobile
-  const handleScroll = () => {
-    const container = scrollContainerRef.current;
-    if (!container) return;
-    const scrollLeft = container.scrollLeft;
-    const firstCard = cardsRef.current[0];
-    const cardWidth = firstCard ? firstCard.offsetWidth + 14 : container.clientWidth * 0.82;
-    const index = Math.round(scrollLeft / cardWidth);
-    setActiveIndex(Math.min(Math.max(index, 0), features.length - 1));
-  };
-
-  const scrollToCard = (index: number) => {
-    const card = cardsRef.current[index];
-    if (card) {
-      card.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
-    }
-  };
 
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
     ScrollTrigger.config({ ignoreMobileResize: true });
 
     const el = sectionRef.current;
-    if (!el) return;
+    const pinWrapper = pinWrapperRef.current;
+    const track = trackRef.current;
+    if (!el || !pinWrapper || !track) return;
 
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     const ctx = gsap.context(() => {
       if (prefersReducedMotion) {
-        gsap.set(".qw-title-line, .qw-subtitle, .qw-card", {
-          opacity: 1,
-          y: 0,
-          yPercent: 0,
-          scale: 1
-        });
+        gsap.set(".qw-reveal, .qw-card, .qw-aura", { opacity: 1, y: 0, yPercent: 0, scale: 1 });
         return;
       }
 
-      // 1. Título con GPU Transform Reveal (Arquetipo 2: Section Reveal)
+      // 1. Initial Reveal of Centered Text Content
       gsap.fromTo(
-        ".qw-title-line",
-        { yPercent: 120, opacity: 0, willChange: "transform, opacity" },
+        ".qw-reveal",
+        { yPercent: 60, opacity: 0 },
         {
           yPercent: 0,
           opacity: 1,
-          duration: 0.8,
-          stagger: STAGGER.base,
-          ease: EASE.dramatic,
-          force3D: true,
-          clearProps: "all",
-          scrollTrigger: {
-            trigger: el,
-            start: TRIGGER.standard,
-            toggleActions: "play none none reverse"
-          }
-        }
-      );
-
-      // 2. Subtítulo suave
-      gsap.fromTo(
-        ".qw-subtitle",
-        { opacity: 0, y: REVEAL.md, willChange: "transform, opacity" },
-        {
-          opacity: 1,
-          y: 0,
           duration: DUR.base,
+          stagger: STAGGER.base,
           ease: EASE.out,
-          clearProps: "willChange",
           scrollTrigger: {
-            trigger: el,
+            trigger: pinWrapper,
             start: TRIGGER.standard,
             toggleActions: "play none none reverse"
           }
         }
       );
 
-      // 3. Tarjetas con Wave Stagger (Arquetipo 3: Cards)
-      const validCards = cardsRef.current.filter(Boolean);
-      if (validCards.length > 0) {
-        const mm = gsap.matchMedia(el);
+      // 2. Aura Parallax
+      gsap.to(".qw-aura", {
+        yPercent: 15,
+        scale: 1.05,
+        ease: "none",
+        scrollTrigger: {
+          trigger: el,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 1.5,
+        }
+      });
 
-        // Desktop: Stagger individual cards with scale (safe because grid has no snap scroll)
-        mm.add("(min-width: 768px)", () => {
-          gsap.fromTo(
-            validCards,
-            {
-              opacity: 0,
-              y: REVEAL.md,
-              scale: 0.98,
-              willChange: "transform, opacity"
-            },
-            {
-              opacity: 1,
-              y: 0,
-              scale: 1,
-              duration: DUR.base,
-              stagger: STAGGER.wave,
-              ease: EASE.out,
-              force3D: true,
-              clearProps: "willChange",
-              scrollTrigger: {
-                trigger: el,
-                start: "top 70%",
-                toggleActions: "play none none reverse"
-              }
+      const mm = gsap.matchMedia(el);
+
+      // DESKTOP: PIN & HORIZONTAL SCROLL OVER CENTERED TEXT
+      mm.add("(min-width: 1024px)", () => {
+        // Track width relative to viewport
+        const scrollWidth = track.scrollWidth;
+        
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: pinWrapper,
+            start: "center center",
+            end: () => `+=${scrollWidth}`, 
+            pin: true,
+            scrub: 1,
+            invalidateOnRefresh: true,
+            onUpdate: (self) => {
+              const progress = self.progress;
+              const total = features.length;
+              
+              // Parallax on the giant numbers inside cards for memorable detail
+              gsap.utils.toArray('.card-bg-number').forEach((num: any, i) => {
+                 const cardProgress = (progress * total) - i;
+                 gsap.set(num, { x: cardProgress * -30 }); 
+              });
+              
+              // Fade out the title slightly as the cards cover it
+              gsap.to(".qw-center-content", {
+                 opacity: 1 - (progress * 1.5),
+                 scale: 1 - (progress * 0.05),
+                 ease: "none",
+                 duration: 0.1
+              });
             }
-          );
-        });
-
-        // Mobile: Animate the ENTIRE scroll wrapper to avoid breaking native CSS snap physics
-        mm.add("(max-width: 767px)", () => {
-          if (scrollContainerRef.current) {
-            gsap.fromTo(
-              scrollContainerRef.current,
-              { opacity: 0, y: 15, willChange: "transform, opacity" },
-              {
-                opacity: 1,
-                y: 0,
-                duration: DUR.base,
-                ease: EASE.out,
-                force3D: true,
-                clearProps: "all",
-                scrollTrigger: {
-                  trigger: el,
-                  start: "top 75%",
-                  toggleActions: "play none none reverse"
-                }
-              }
-            );
           }
         });
-      }
+
+        // The horizontal move. Move from left: 85vw all the way to off-screen left.
+        // We move exactly the track's scrollWidth + 20vw to ensure it clears the screen.
+        tl.to(track, {
+          x: () => -(scrollWidth + window.innerWidth * 0.2), 
+          ease: "none"
+        });
+
+        // Cards entrance animation
+        gsap.fromTo(
+          ".qw-card",
+          { opacity: 0, x: 50, scale: 0.95 },
+          {
+            opacity: 1,
+            x: 0,
+            scale: 1,
+            duration: 0.8,
+            stagger: 0.15,
+            ease: EASE.out,
+            scrollTrigger: {
+              trigger: pinWrapper,
+              start: "top 60%",
+            }
+          }
+        );
+      });
+
+      // MOBILE: NATIVE SNAP SCROLL
+      mm.add("(max-width: 1023px)", () => {
+        gsap.fromTo(
+          ".qw-card",
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: DUR.base,
+            stagger: STAGGER.wave,
+            ease: EASE.out,
+            scrollTrigger: {
+              trigger: track,
+              start: "top 80%",
+              toggleActions: "play none none reverse"
+            }
+          }
+        );
+      });
+
     }, el);
 
     return () => ctx.revert();
-  }, []);
+  }, [features.length]);
 
   return (
-    <section 
-      ref={sectionRef} 
-      className="relative w-full pt-0 pb-section-md overflow-hidden z-10 bg-[var(--color-surface-BG-base)]"
-    >
-      {/* WRAPPER CON MARGEN RESPONSIVE UNIFICADO */}
-      <div className="relative z-20 mx-auto w-full px-gutter-sm md:px-gutter-md max-w-section-xl">
+    <section ref={sectionRef} className="relative w-full bg-[var(--color-surface-BG-base)]">
+      
+      {/* PIN WRAPPER */}
+      <div 
+        ref={pinWrapperRef} 
+        className="w-full flex flex-col items-center justify-center relative overflow-hidden lg:h-screen lg:py-0 py-section-md"
+      >
         
-        {/* Título & Subtítulo Alineados */}
-        <div ref={titleRef} className="flex flex-col md:flex-row justify-between items-start md:items-end mb-static-lg md:mb-static-xl gap-4 md:gap-fluid-md">
-          <h2 className="text-display-lg font-semibold text-[var(--color-text-primary)] tracking-tight leading-[1.05] max-w-2xl text-left">
-            <span className="block overflow-hidden pb-2">
-              <span className="qw-title-line block">
-                {t('title1')} <span className="text-[var(--color-text-accent-blue)]">{t('title2')}</span>
-              </span>
-            </span>
-          </h2>
-          <p className="qw-subtitle text-body-md md:text-body-lg text-[var(--color-text-secondary)] max-w-sm text-left">
-            {t('subtitle')}
-          </p>
+        {/* LAYER 0: IMMERSIVE BACKGROUND */}
+        <div className="absolute inset-0 z-0 pointer-events-none bg-[var(--color-surface-BG-base)]">
+          <div className="qw-aura absolute inset-0 w-full h-full opacity-60 dark:opacity-40 mix-blend-screen dark:mix-blend-plus-lighter transform scale-110 origin-bottom">
+            <img 
+              src={asset("/landing/go-ams/quote_enroll_aura.jpg")} 
+              alt="Abstract Aura Background" 
+              className="w-full h-full object-cover"
+            />
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-surface-BG-base)] via-transparent to-[var(--color-surface-BG-base)]" />
         </div>
 
-        {/* CARDS: SCROLL HORIZONTAL EN MOBILE / GRID EN DESKTOP (TILES CON AURA PANORÁMICA INTERNA) */}
-        <div 
-          ref={scrollContainerRef}
-          onScroll={handleScroll}
-          className="flex md:grid md:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4 md:gap-[var(--spacing-static-sm)] overflow-x-auto md:overflow-visible snap-x snap-mandatory scrollbar-none -mx-gutter-sm px-gutter-sm md:mx-0 md:px-0 py-2"
-        >
-          {features.map((feature, idx) => (
-            <div 
-              key={feature.id}
-              ref={(el) => { cardsRef.current[idx] = el; }}
-              className="qw-card relative z-10 flex flex-col justify-between p-5 sm:p-static-lg min-h-[300px] sm:min-h-[320px] w-[82vw] max-w-[340px] md:w-auto shrink-0 snap-center md:shrink rounded-[2rem] border border-[var(--color-border-Strokes-strong)]/20 shadow-elevation-2 overflow-hidden select-none"
-            >
-              {/* STATIC BACKGROUND LAYER (Clean Frosted Glassmorphism) */}
-              <div className="absolute inset-0 -z-10 rounded-[2rem] bg-[var(--color-surface-BG-1)]/60 dark:bg-white/[0.03] backdrop-blur-[24px] saturate-[1.2]" />
+        {/* CENTERED CONTENT (Title & Subtitle) */}
+        <div className="qw-center-content w-full px-gutter-sm md:px-gutter-md z-10 flex flex-col items-center text-center lg:absolute lg:top-1/2 lg:-translate-y-1/2 pointer-events-none">
+          
+          <div className="overflow-hidden mb-6">
+            <div className="qw-reveal inline-flex items-center gap-3 px-4 py-1.5 rounded-full border border-[var(--color-brand-blue)]/20 bg-[var(--color-brand-blue)]/5 backdrop-blur-md">
+               <div className="w-2 h-2 rounded-full bg-[var(--color-brand-blue)] animate-pulse" />
+               <span className="text-body-sm font-bold tracking-widest uppercase text-[var(--color-brand-blue)]">
+                 Plataforma Unificada
+               </span>
+            </div>
+          </div>
 
-              {/* CONTENT LAYER */}
-              <div className="relative z-10 flex flex-col h-full justify-between">
-                <div>
-                  <div className="flex justify-between items-start mb-4 sm:mb-static-lg">
-                    {feature.icon}
-                    <span className="text-h3 text-[var(--color-text-muted)] opacity-35 font-mono font-medium">
-                      {feature.id}
-                    </span>
+          <div className="overflow-hidden mt-6">
+            <h2 className="qw-reveal text-h2 md:text-display lg:text-display-lg font-bold tracking-tight leading-[1.05] max-w-6xl mx-auto">
+              <span className="text-[var(--color-text-primary)]">{t('title1')}</span>
+              <span className="text-[var(--color-text-secondary)]">{t('title2')}</span>
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-[var(--color-brand-blue)] to-blue-400">
+                {t('title3')}
+              </span>
+            </h2>
+          </div>
+        </div>
+
+        {/* SCROLLING TRACK (Cards) */}
+        {/* On Desktop: Positioned absolute starting at 80vw so only the tip of card 1 is visible initially */}
+        <div className="w-full lg:w-max h-auto lg:h-[70vh] relative lg:absolute lg:left-[80vw] flex items-center mt-10 lg:mt-0 z-20">
+          
+          <div 
+            ref={trackRef} 
+            className="flex gap-4 md:gap-fluid-sm lg:gap-fluid-md items-stretch lg:items-center w-full lg:w-max px-gutter-sm md:px-gutter-md lg:px-0 overflow-x-auto lg:overflow-visible snap-x snap-mandatory lg:snap-none scrollbar-none py-6 lg:py-0"
+          >
+            {features.map((feature, idx) => (
+              <div 
+                key={feature.id}
+                className="qw-card relative w-[85vw] max-w-[360px] lg:w-[420px] shrink-0 snap-center rounded-[2.5rem] border border-[var(--color-border-Strokes-strong)]/20 shadow-elevation-3 hover:shadow-elevation-5 overflow-hidden group select-none transition-transform duration-700 hover:-translate-y-4"
+              >
+                {/* GLASS BACKGROUND LAYER */}
+                <div className="absolute inset-0 -z-10 bg-[var(--color-surface-BG-1)]/50 dark:bg-black/40 backdrop-blur-[24px]" />
+                <div className="absolute inset-0 -z-10 bg-white/30 dark:bg-white/5 backdrop-blur-[16px] saturate-[1.5]" />
+                <div className="absolute inset-0 -z-10 rounded-[2.5rem] bg-gradient-to-b from-white/40 to-transparent dark:from-white/10 opacity-70 pointer-events-none" />
+
+                {/* HUGE NUMBER */}
+                <div className="card-bg-number absolute -bottom-10 -right-8 text-[14rem] leading-none font-display font-bold text-[var(--color-text-primary)] opacity-[0.03] dark:opacity-[0.05] pointer-events-none select-none z-0 transition-colors duration-500 group-hover:text-[var(--color-brand-blue)]">
+                  {feature.id}
+                </div>
+
+                {/* HOVER AURA */}
+                <div className="absolute bottom-0 right-0 w-64 h-64 bg-[var(--color-brand-blue)]/15 blur-[50px] rounded-full translate-x-1/2 translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+
+                {/* CONTENT */}
+                <div className="relative z-10 flex flex-col h-full justify-between p-8 lg:p-12 min-h-[400px] lg:min-h-[500px]">
+                  <div>
+                    <div className="flex justify-between items-start mb-10">
+                      {feature.icon}
+                      <div className="flex gap-1.5 mt-2">
+                        <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-border-Strokes-strong)]/40 group-hover:bg-[var(--color-brand-blue)]/40 transition-colors duration-500 delay-100" />
+                        <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-border-Strokes-strong)]/40 group-hover:bg-[var(--color-brand-blue)]/70 transition-colors duration-500 delay-200" />
+                        <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-border-Strokes-strong)]/40 group-hover:bg-[var(--color-brand-blue)] transition-colors duration-500 delay-300" />
+                      </div>
+                    </div>
+                    <h3 className="text-h2 text-[var(--color-text-primary)] mb-4 font-semibold tracking-tight leading-tight">
+                      {feature.title}
+                    </h3>
                   </div>
-                  
-                  <h3 className="text-h4 text-[var(--color-text-primary)] mb-2 sm:mb-static-sm font-semibold">
-                    {feature.title}
-                  </h3>
-                  <p className="text-body-sm text-[var(--color-text-secondary)] leading-relaxed">
+                  <p className="text-body-md text-[var(--color-text-secondary)] leading-relaxed relative">
+                    <span className="absolute -left-4 lg:-left-6 top-1 bottom-1 w-[2px] bg-[var(--color-border-Strokes-strong)]/20 rounded-full overflow-hidden">
+                       <span className="absolute inset-0 bg-[var(--color-brand-blue)] origin-top scale-y-0 group-hover:scale-y-100 transition-transform duration-700 ease-out" />
+                    </span>
                     {feature.desc}
                   </p>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
 
-        {/* MOBILE PAGINATION DOTS */}
-        <div className="flex md:hidden items-center justify-center gap-2 mt-5">
-          {features.map((_, idx) => {
-            const isActive = idx === activeIndex;
-            return (
-              <button
-                key={idx}
-                onClick={() => scrollToCard(idx)}
-                aria-label={`Slide ${idx + 1}`}
-                className={`transition-all duration-300 rounded-full cursor-pointer ${
-                  isActive
-                    ? "w-6 h-1.5 bg-[var(--color-brand-blue)] shadow-[0_0_8px_rgba(53,187,253,0.6)]"
-                    : "w-1.5 h-1.5 bg-[var(--color-border-Strokes-strong)]/40 hover:bg-[var(--color-border-Strokes-strong)]"
-                }`}
-              />
-            );
-          })}
-        </div>
-        
       </div>
     </section>
   );

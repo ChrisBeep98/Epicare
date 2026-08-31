@@ -366,17 +366,17 @@
       "card3Alt": "Digital Onboarding and Producer Invitation Workflow"
     },
     "quoteWays": {
-      "title1": "Four ways to",
-      "title2": "close a sale.",
-      "subtitle": "Engineered for the modern agency. Choose the perfect closing workflow for every client and reclaim your time.",
-      "card1Title": "Smart Flow",
-      "card1Desc": "Enter the phone number. Epicare autofills the rest from our verified national database.",
-      "card2Title": "Send Link",
-      "card2Desc": "Send an SMS. The client completes their details directly on their smartphone with zero pressure.",
-      "card3Title": "Data Entry",
-      "card3Desc": "Total control. Fill every field manually while steering the live consultation call.",
-      "card4Title": "In-Person QR",
-      "card4Desc": "Display a QR on your tablet. Perfect for live seminars, walk-ins, or physical agency branches."
+      "title1": "We unify all carriers and services into a single place. ",
+      "title2": "Your clients see their portfolio on a single screen. ",
+      "title3": "And you master the sale with four perfect closing workflows.",
+      "card1Title": "Referral Link",
+      "card1Desc": "Send your link and give the client full access to manage, filter, and enter their data. You receive the commission automatically.",
+      "card2Title": "Direct Input",
+      "card2Desc": "Full assistance. You fill in their data, filter, and can even enroll and process payment if the client prefers.",
+      "card3Title": "Partial Input",
+      "card3Desc": "Assist partially, and the client continues from their device with the sensitive information they prefer not to share.",
+      "card4Title": "Salesforce Integration",
+      "card4Desc": "GO AMS syncs with Salesforce. You can offer Epicare products to existing clients right from the platform."
     },
     "delegateUsers": {
       "overline": "Access Control",

@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e \"const m=require\\('./messages/en.json'\\); const lv=m.landingV2||{}; console.log\\(Object.keys\\(lv\\)\\); console.log\\('--- darkGradient ---'\\); console.log\\(JSON.stringify\\(lv.darkGradient,null,1\\).slice\\(0,600\\)\\);\")"
+    ]
+  }
+}
