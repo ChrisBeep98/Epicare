@@ -228,25 +228,24 @@ export default function QuoteEnroll() {
         </div>
 
         {/* CENTERED CONTENT (Title & Subtitle) */}
-        <div className="qw-center-content w-full px-gutter-sm md:px-gutter-md z-10 flex flex-col items-center text-center lg:absolute lg:top-1/2 lg:-translate-y-1/2 pointer-events-none">
+        <div className="qw-center-content w-full px-gutter-sm md:px-gutter-md z-10 flex flex-col items-center lg:absolute lg:top-1/2 lg:-translate-y-1/2 pointer-events-none">
           
-          <div className="overflow-hidden mb-6">
-            <div className="qw-reveal inline-flex items-center gap-3 px-4 py-1.5 rounded-full border border-[var(--color-brand-blue)]/20 bg-[var(--color-brand-blue)]/5 backdrop-blur-md">
-               <div className="w-2 h-2 rounded-full bg-[var(--color-brand-blue)] animate-pulse" />
-               <span className="text-body-sm font-bold tracking-widest uppercase text-[var(--color-brand-blue)]">
-                 Plataforma Unificada
-               </span>
+          <div className="w-full max-w-3xl mx-auto flex flex-col items-start text-left">
+            <div className="overflow-hidden mb-6">
+              <div className="qw-reveal inline-flex items-center gap-3 px-4 py-1.5 rounded-full border border-[var(--color-brand-blue)]/20 bg-[var(--color-brand-blue)]/5 backdrop-blur-md">
+                 <div className="w-2 h-2 rounded-full bg-[var(--color-brand-blue)] animate-pulse" />
+                 <span className="text-body-sm font-bold tracking-widest uppercase text-[var(--color-brand-blue)]">
+                   Plataforma Unificada
+                 </span>
+              </div>
             </div>
-          </div>
 
-          <div className="overflow-hidden mt-6">
-            <h2 className="qw-reveal text-h2 md:text-display lg:text-display-lg font-bold tracking-tight leading-[1.05] max-w-6xl mx-auto">
-              <span className="text-[var(--color-text-primary)]">{t('title1')}</span>
-              <span className="text-[var(--color-text-secondary)]">{t('title2')}</span>
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-[var(--color-brand-blue)] to-blue-400">
-                {t('title3')}
-              </span>
-            </h2>
+            <div className="overflow-hidden mt-2">
+              <h2 className="qw-reveal text-h2 md:text-display lg:text-display-lg font-bold tracking-tight leading-[1.05]">
+                <span className="text-[var(--color-text-primary)]">{t('title1')}</span>
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-[var(--color-brand-blue)] to-blue-400">{t('title2')}</span>
+              </h2>
+            </div>
           </div>
         </div>
 
