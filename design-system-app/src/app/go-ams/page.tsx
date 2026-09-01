@@ -35,7 +35,7 @@ export default function GoAmsPage() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-[var(--color-surface-BG-base)] transition-colors duration-500 overflow-x-hidden relative">
+    <main className="min-h-screen bg-[var(--color-surface-BG-base)] transition-colors duration-500 overflow-x-clip relative">
       
       {/* ======================= */}
       {/*   GLOBAL COMPONENTS     */}

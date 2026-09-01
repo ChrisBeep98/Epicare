@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useLayoutEffect } from "react";
+import React, { useRef, useLayoutEffect, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -320,13 +320,11 @@ const IllusProposals = () => (
   </>
 );
 
-export default function QuoteEnroll() {
+
+
+function useQuoteFeatures() {
   const t = useTranslations('goAms.quoteWays');
-  const sectionRef = useRef<HTMLElement>(null);
-  const pinWrapperRef = useRef<HTMLDivElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
-  
-  const features = [
+  return [
     { 
       id: "01", 
       title: t('card1Title'), 
@@ -364,6 +362,17 @@ export default function QuoteEnroll() {
       icon: <IllusProposals /> 
     }
   ];
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// DESKTOP: PINNED THEATER CURTAIN MASONRY (EXACT APPROVED IMPLEMENTATION)
+// ─────────────────────────────────────────────────────────────────────────────
+function QuoteEnrollDesktop() {
+  const t = useTranslations('goAms.quoteWays');
+  const sectionRef = useRef<HTMLElement>(null);
+  const pinWrapperRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const features = useQuoteFeatures();
 
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -375,8 +384,6 @@ export default function QuoteEnroll() {
     if (!el || !pinWrapper || !track) return;
 
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    gsap.registerPlugin(ScrollTrigger);
 
     let ctx = gsap.context(() => {
       // 1. Initial Reveal (Title text)
@@ -410,12 +417,8 @@ export default function QuoteEnroll() {
         }
       });
 
-      const mm = gsap.matchMedia(el);
-
-      // DESKTOP: PIN & VERTICAL SCROLL OVER CENTERED TEXT
-      mm.add("(min-width: 1024px)", () => {
-        if (prefersReducedMotion) return; // HARDWARE SYMPHONY: Accessibility First
-
+      // 3. Desktop Pin & Scrub Timeline
+      if (!prefersReducedMotion) {
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: pinWrapper,
@@ -428,7 +431,6 @@ export default function QuoteEnroll() {
               const progress = self.progress;
               const total = features.length;
 
-              // Parallax on the giant numbers inside cards for memorable detail
               gsap.utils.toArray('.card-bg-number').forEach((num: any, i) => {
                  const cardProgress = (progress * total) - i;
                  gsap.set(num, { y: cardProgress * -20 }); 
@@ -437,34 +439,11 @@ export default function QuoteEnroll() {
           }
         });
 
-        // The vertical move. Move the grid UP from below the screen.
         tl.to(track, {
           y: () => -(track.offsetHeight + window.innerHeight * 0.2), 
           ease: "none"
         });
-      });
-
-      // MOBILE: NATIVE SNAP SCROLL WITH GSAP REVEAL
-      mm.add("(max-width: 1023px)", () => {
-        if (prefersReducedMotion) return; // HARDWARE SYMPHONY: Accessibility First
-
-        gsap.fromTo(
-          ".qw-card",
-          { opacity: 0, y: 50 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: DUR.base,
-            stagger: 0.15,
-            ease: "power4.out",
-            scrollTrigger: {
-              trigger: track,
-              start: "top 80%",
-            }
-          }
-        );
-      });
-
+      }
     }, el);
 
     return () => ctx.revert();
@@ -472,13 +451,11 @@ export default function QuoteEnroll() {
 
   return (
     <section ref={sectionRef} className="relative w-full bg-[var(--color-surface-BG-base)]">
-      
       {/* PIN WRAPPER */}
       <div 
         ref={pinWrapperRef} 
         className="w-full h-screen flex flex-col items-center justify-center relative overflow-hidden"
       >
-        
         {/* LAYER 0: IMMERSIVE BACKGROUND */}
         <div className="absolute inset-0 z-0 pointer-events-none bg-[var(--color-surface-BG-base)]">
           <div className="qw-aura absolute inset-0 w-full h-full opacity-60 dark:opacity-40 mix-blend-screen dark:mix-blend-plus-lighter transform scale-110 origin-bottom">
@@ -624,5 +601,193 @@ export default function QuoteEnroll() {
 
       </div>
     </section>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// MOBILE: GOHUB-STYLE NATIVE CSS STICKY + GSAP 3D STACKING CARDS (< 1024px)
+// ─────────────────────────────────────────────────────────────────────────────
+function QuoteEnrollMobile() {
+  const t = useTranslations('goAms.quoteWays');
+  const containerRef = useRef<HTMLElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const features = useQuoteFeatures();
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    ScrollTrigger.config({ ignoreMobileResize: true });
+
+    const section = containerRef.current;
+    if (!section) return;
+
+    const mm = gsap.matchMedia();
+
+    mm.add("(max-width: 1023px) and (prefers-reduced-motion: no-preference)", () => {
+      // 1. Header Entrance
+      gsap.fromTo(
+        ".mobile-qw-reveal",
+        { y: 20, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: section,
+            start: "top 85%",
+          }
+        }
+      );
+
+      // 2. 3D Stacking Cards Effect (Exact GoHub Engine)
+      const stackCards = gsap.utils.toArray<HTMLElement>(".mobile-stack-card", section);
+
+      stackCards.forEach((card, i) => {
+        if (i < stackCards.length - 1) {
+          const nextCard = stackCards[i + 1];
+          gsap.timeline({
+            scrollTrigger: {
+              trigger: nextCard,
+              start: "top 55%",
+              end: "top top",      
+              scrub: true,
+              invalidateOnRefresh: true,
+              onLeave: () => gsap.set(card, { autoAlpha: 0 }),
+              onEnterBack: () => gsap.set(card, { autoAlpha: 1 })
+            }
+          }).to(card, {
+            y: -60,
+            scale: 0.96,
+            rotationX: -4, 
+            transformPerspective: 1500,
+            transformOrigin: "top center",
+            force3D: true, 
+            ease: "none"
+          }, 0);
+        }
+      });
+    });
+
+    return () => {
+      mm.revert();
+    };
+  }, []);
+
+  return (
+    <section 
+      ref={containerRef}
+      className="relative w-full h-auto overflow-x-clip bg-[var(--color-surface-BG-base)] z-20"
+      style={{ perspective: '2000px' }}
+    >
+      {/* IMMERSIVE BACKGROUND (Strictly Contained) */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden bg-[var(--color-surface-BG-base)]">
+        <div className="absolute inset-0 w-full h-full opacity-60 dark:opacity-40 mix-blend-screen dark:mix-blend-plus-lighter">
+          <img 
+            src={asset("/landing/go-ams/quote_enroll_aura.jpg")} 
+            alt="Abstract Aura Background" 
+            className="w-full h-full object-cover"
+          />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-surface-BG-base)] via-transparent to-[var(--color-surface-BG-base)]" />
+      </div>
+
+      {/* MOBILE TITLE (Normal relative flow, never sticky over previous sections) */}
+      <div className="w-full min-h-fit pb-8 pt-section-sm flex flex-col justify-start items-start px-gutter-sm relative z-10">
+        <div className="overflow-hidden mb-4">
+          <div className="mobile-qw-reveal inline-flex items-center gap-2.5 px-3.5 py-1 rounded-full border border-[var(--color-brand-blue)]/20 bg-[var(--color-brand-blue)]/5 backdrop-blur-md">
+             <div className="w-2 h-2 rounded-full bg-[var(--color-brand-blue)] animate-pulse" />
+             <span className="text-body-xs font-bold tracking-widest uppercase text-[var(--color-brand-blue)]">
+               Plataforma Unificada
+             </span>
+          </div>
+        </div>
+
+        <h2 className="mobile-qw-reveal text-display text-left leading-[1.1]">
+          <span className="text-[var(--color-text-primary)]">
+            {t('title1_1')} 
+            <InlineGraphic type="unify" rotate="-rotate-3" /> 
+            {t('title1_2')} {t('title1_3')}
+          </span>
+          
+          <span> </span>
+
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-[var(--color-brand-blue)] to-blue-400">
+            {t('title2_1')}
+          </span>
+          
+          <InlineGraphic type="clients" rotate="-rotate-1" /> 
+          
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-[var(--color-brand-blue)] to-blue-400">
+            {t('title2_2')} {t('title2_3')}
+          </span>
+        </h2>
+      </div>
+
+      {/* CARDS 1 - 4: STICKY STACKED 3D */}
+      <div ref={trackRef} className="relative flex flex-col items-center justify-start w-full z-10 pb-section-md">
+        {features.map((feature, idx) => {
+          const isLastCard = idx === features.length - 1;
+          return (
+            <div 
+              key={feature.id}
+              className={`mobile-stack-card w-full h-[72dvh] max-h-[560px] px-gutter-sm flex flex-col justify-center items-center origin-top transform-gpu will-change-transform [backface-visibility:hidden] mt-static-sm mb-static-md ${!isLastCard ? 'sticky top-5' : 'relative pb-static-xl'}`}
+              style={{ zIndex: 11 + idx }}
+            >
+              <div className="relative w-full h-full rounded-[24px] sm:rounded-[28px] overflow-hidden shadow-elevation-3 border border-[var(--color-brand-blue)]/30 flex flex-col justify-between p-6 sm:p-8 bg-[var(--color-surface-BG-white)] dark:bg-[#0D0D0E] [transform:translateZ(0)]">
+                {/* GLASS BACKGROUND LAYER */}
+                <div className="absolute inset-0 -z-10 bg-gradient-to-b from-white/90 to-white dark:from-[#151718] dark:to-[#0D0D0E] backdrop-blur-[24px] transform-gpu" />
+                <div className="absolute inset-0 -z-10 rounded-[24px] sm:rounded-[28px] bg-gradient-to-b from-white/40 to-transparent dark:from-white/10 opacity-70 pointer-events-none transform-gpu" />
+
+                {/* GIANT NUMBER */}
+                <div className="absolute -bottom-2 right-2 text-[25vw] sm:text-[20vw] leading-none font-display font-bold text-[var(--color-text-primary)] opacity-[0.03] dark:opacity-[0.05] pointer-events-none select-none z-0">
+                  {feature.id}
+                </div>
+
+                {/* TOP: ICON + STATUS INDICATOR */}
+                <div className="relative z-10 flex flex-col">
+                  <div className="flex justify-between items-start mb-6">
+                    {feature.icon}
+                    <div className="flex gap-1.5 mt-2">
+                      <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-border-Strokes-strong)]/40" />
+                      <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-brand-blue)]/70" />
+                      <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-brand-blue)]" />
+                    </div>
+                  </div>
+
+                  {/* MIDDLE: TITLE */}
+                  <h3 className="text-h2 text-[var(--color-text-primary)] mb-4 font-bold leading-tight">
+                    {feature.title}
+                  </h3>
+
+                  {/* BOTTOM: DESCRIPTION */}
+                  <p className="text-body-md sm:text-body-lg text-[var(--color-text-secondary)] relative pl-4 pr-2">
+                    <span className="absolute left-0 top-1 bottom-1 w-[2px] bg-[var(--color-brand-blue)] rounded-full" />
+                    {feature.desc}
+                  </p>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+
+      </div>
+    </section>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// EXPORT DEFAULT (DESKTOP / MOBILE SWITCH)
+// ─────────────────────────────────────────────────────────────────────────────
+export default function QuoteEnroll() {
+  return (
+    <>
+      <div className="hidden lg:block">
+        <QuoteEnrollDesktop />
+      </div>
+      <div className="block lg:hidden">
+        <QuoteEnrollMobile />
+      </div>
+    </>
   );
 }
