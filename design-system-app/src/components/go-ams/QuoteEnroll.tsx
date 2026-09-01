@@ -107,10 +107,42 @@ export default function QuoteEnroll() {
   const trackRef = useRef<HTMLDivElement>(null);
   
   const features = [
-    { id: "01", title: t('card1Title'), desc: t('card1Desc'), icon: <IllusLink /> },
-    { id: "02", title: t('card2Title'), desc: t('card2Desc'), icon: <IllusDesktop /> },
-    { id: "03", title: t('card3Title'), desc: t('card3Desc'), icon: <IllusMobile /> },
-    { id: "04", title: t('card4Title'), desc: t('card4Desc'), icon: <IllusSalesforce /> }
+    { 
+      id: "01", 
+      title: t('card1Title'), 
+      desc: t.rich('card1Desc', { 
+        bold: (chunks) => <strong className="font-semibold text-[var(--color-text-primary)]">{chunks}</strong>,
+        blue: (chunks) => <strong className="font-semibold text-[var(--color-brand-blue)]">{chunks}</strong>
+      }), 
+      icon: <IllusLink /> 
+    },
+    { 
+      id: "02", 
+      title: t('card2Title'), 
+      desc: t.rich('card2Desc', { 
+        bold: (chunks) => <strong className="font-semibold text-[var(--color-text-primary)]">{chunks}</strong>,
+        blue: (chunks) => <strong className="font-semibold text-[var(--color-brand-blue)]">{chunks}</strong>
+      }), 
+      icon: <IllusDesktop /> 
+    },
+    { 
+      id: "03", 
+      title: t('card3Title'), 
+      desc: t.rich('card3Desc', { 
+        bold: (chunks) => <strong className="font-semibold text-[var(--color-text-primary)]">{chunks}</strong>,
+        blue: (chunks) => <strong className="font-semibold text-[var(--color-brand-blue)]">{chunks}</strong>
+      }), 
+      icon: <IllusMobile /> 
+    },
+    { 
+      id: "04", 
+      title: t('card4Title'), 
+      desc: t.rich('card4Desc', { 
+        bold: (chunks) => <strong className="font-semibold text-[var(--color-text-primary)]">{chunks}</strong>,
+        blue: (chunks) => <strong className="font-semibold text-[var(--color-brand-blue)]">{chunks}</strong>
+      }), 
+      icon: <IllusSalesforce /> 
+    }
   ];
 
   useLayoutEffect(() => {
@@ -287,7 +319,7 @@ export default function QuoteEnroll() {
               {features.filter((_, i) => i % 2 === 0).map((feature) => (
                 <div 
                   key={feature.id}
-                  className="qw-card relative w-full rounded-[2.5rem] border border-[var(--color-border-Strokes-strong)]/20 overflow-hidden group transition-transform duration-700 hover:-translate-y-4 will-change-transform"
+                  className="qw-card relative w-full rounded-[2.5rem] border border-[var(--color-brand-blue)]/30 overflow-hidden group transition-transform duration-700 hover:-translate-y-4 will-change-transform"
                 >
                   {/* SMOOTH HARDWARE-ACCELERATED SHADOWS */}
                   <div className="absolute inset-0 -z-30 rounded-[2.5rem] shadow-elevation-3 pointer-events-none" />
@@ -298,27 +330,27 @@ export default function QuoteEnroll() {
                   <div className="absolute inset-0 -z-10 bg-white/30 dark:bg-white/5 backdrop-blur-[16px] saturate-[1.5] transform-gpu" />
                   <div className="absolute inset-0 -z-10 rounded-[2.5rem] bg-gradient-to-b from-white/40 to-transparent dark:from-white/10 opacity-70 pointer-events-none transform-gpu" />
 
-                  <div className="card-bg-number absolute -bottom-4 -right-4 text-[25vw] lg:text-[12vw] leading-none font-display font-bold text-[var(--color-text-primary)] opacity-[0.03] dark:opacity-[0.05] pointer-events-none select-none z-0 transition-colors duration-500 group-hover:text-[var(--color-brand-blue)]">
+                  <div className="card-bg-number absolute -bottom-4 right-0 lg:right-4 text-[25vw] lg:text-[12vw] leading-none font-display font-bold text-[var(--color-text-primary)] opacity-[0.03] dark:opacity-[0.05] pointer-events-none select-none z-0 transition-colors duration-500 group-hover:text-[var(--color-brand-blue)]">
                     {feature.id}
                   </div>
 
                   <div className="absolute bottom-0 right-0 w-64 h-64 bg-[var(--color-brand-blue)]/15 blur-[50px] rounded-full translate-x-1/2 translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
-                  <div className="relative z-10 flex flex-col h-full justify-between p-8 lg:p-12 min-h-[520px] lg:min-h-[640px]">
-                    <div>
-                      <div className="flex justify-between items-start mb-8 lg:mb-10">
-                        {feature.icon}
-                        <div className="flex gap-1.5 mt-2">
-                          <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-border-Strokes-strong)]/40 group-hover:bg-[var(--color-brand-blue)]/40 transition-colors duration-500 delay-100" />
-                          <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-border-Strokes-strong)]/40 group-hover:bg-[var(--color-brand-blue)]/70 transition-colors duration-500 delay-200" />
-                          <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-border-Strokes-strong)]/40 group-hover:bg-[var(--color-brand-blue)] transition-colors duration-500 delay-300" />
-                        </div>
+                  <div className="relative z-10 flex flex-col h-full justify-start p-8 lg:p-12 min-h-[520px] lg:min-h-[640px]">
+                    <div className="flex justify-between items-start mb-8 lg:mb-10">
+                      {feature.icon}
+                      <div className="flex gap-1.5 mt-2">
+                        <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-border-Strokes-strong)]/40 group-hover:bg-[var(--color-brand-blue)]/40 transition-colors duration-500 delay-100" />
+                        <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-border-Strokes-strong)]/40 group-hover:bg-[var(--color-brand-blue)]/70 transition-colors duration-500 delay-200" />
+                        <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-border-Strokes-strong)]/40 group-hover:bg-[var(--color-brand-blue)] transition-colors duration-500 delay-300" />
                       </div>
-                      <h3 className="text-h2 text-[var(--color-text-primary)] mb-4">
-                        {feature.title}
-                      </h3>
                     </div>
-                    <p className="text-body-lg text-[var(--color-text-secondary)] relative">
+                    
+                    <h3 className="text-h1 text-[var(--color-text-primary)] mb-6">
+                      {feature.title}
+                    </h3>
+                    
+                    <p className="text-body-lg text-[var(--color-text-secondary)] relative pr-4">
                       <span className="absolute -left-4 lg:-left-6 top-1 bottom-1 w-[2px] bg-[var(--color-border-Strokes-strong)]/20 rounded-full overflow-hidden">
                          <span className="absolute inset-0 bg-[var(--color-brand-blue)] origin-top scale-y-0 group-hover:scale-y-100 transition-transform duration-700 ease-out" />
                       </span>
@@ -334,7 +366,7 @@ export default function QuoteEnroll() {
               {features.filter((_, i) => i % 2 !== 0).map((feature) => (
                 <div 
                   key={feature.id}
-                  className="qw-card relative w-full rounded-[2.5rem] border border-[var(--color-border-Strokes-strong)]/20 overflow-hidden group transition-transform duration-700 hover:-translate-y-4 will-change-transform"
+                  className="qw-card relative w-full rounded-[2.5rem] border border-[var(--color-brand-blue)]/30 overflow-hidden group transition-transform duration-700 hover:-translate-y-4 will-change-transform"
                 >
                   {/* SMOOTH HARDWARE-ACCELERATED SHADOWS */}
                   <div className="absolute inset-0 -z-30 rounded-[2.5rem] shadow-elevation-3 pointer-events-none" />
@@ -345,27 +377,27 @@ export default function QuoteEnroll() {
                   <div className="absolute inset-0 -z-10 bg-white/30 dark:bg-white/5 backdrop-blur-[16px] saturate-[1.5] transform-gpu" />
                   <div className="absolute inset-0 -z-10 rounded-[2.5rem] bg-gradient-to-b from-white/40 to-transparent dark:from-white/10 opacity-70 pointer-events-none transform-gpu" />
 
-                  <div className="card-bg-number absolute -bottom-4 -right-4 text-[25vw] lg:text-[12vw] leading-none font-display font-bold text-[var(--color-text-primary)] opacity-[0.03] dark:opacity-[0.05] pointer-events-none select-none z-0 transition-colors duration-500 group-hover:text-[var(--color-brand-blue)]">
+                  <div className="card-bg-number absolute -bottom-4 right-0 lg:right-4 text-[25vw] lg:text-[12vw] leading-none font-display font-bold text-[var(--color-text-primary)] opacity-[0.03] dark:opacity-[0.05] pointer-events-none select-none z-0 transition-colors duration-500 group-hover:text-[var(--color-brand-blue)]">
                     {feature.id}
                   </div>
 
                   <div className="absolute bottom-0 right-0 w-64 h-64 bg-[var(--color-brand-blue)]/15 blur-[50px] rounded-full translate-x-1/2 translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
-                  <div className="relative z-10 flex flex-col h-full justify-between p-8 lg:p-12 min-h-[520px] lg:min-h-[640px]">
-                    <div>
-                      <div className="flex justify-between items-start mb-8 lg:mb-10">
-                        {feature.icon}
-                        <div className="flex gap-1.5 mt-2">
-                          <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-border-Strokes-strong)]/40 group-hover:bg-[var(--color-brand-blue)]/40 transition-colors duration-500 delay-100" />
-                          <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-border-Strokes-strong)]/40 group-hover:bg-[var(--color-brand-blue)]/70 transition-colors duration-500 delay-200" />
-                          <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-border-Strokes-strong)]/40 group-hover:bg-[var(--color-brand-blue)] transition-colors duration-500 delay-300" />
-                        </div>
+                  <div className="relative z-10 flex flex-col h-full justify-start p-8 lg:p-12 min-h-[520px] lg:min-h-[640px]">
+                    <div className="flex justify-between items-start mb-8 lg:mb-10">
+                      {feature.icon}
+                      <div className="flex gap-1.5 mt-2">
+                        <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-border-Strokes-strong)]/40 group-hover:bg-[var(--color-brand-blue)]/40 transition-colors duration-500 delay-100" />
+                        <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-border-Strokes-strong)]/40 group-hover:bg-[var(--color-brand-blue)]/70 transition-colors duration-500 delay-200" />
+                        <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-border-Strokes-strong)]/40 group-hover:bg-[var(--color-brand-blue)] transition-colors duration-500 delay-300" />
                       </div>
-                      <h3 className="text-h2 text-[var(--color-text-primary)] mb-4">
-                        {feature.title}
-                      </h3>
                     </div>
-                    <p className="text-body-lg text-[var(--color-text-secondary)] relative">
+                    
+                    <h3 className="text-h1 text-[var(--color-text-primary)] mb-6">
+                      {feature.title}
+                    </h3>
+                    
+                    <p className="text-body-lg text-[var(--color-text-secondary)] relative pr-4">
                       <span className="absolute -left-4 lg:-left-6 top-1 bottom-1 w-[2px] bg-[var(--color-border-Strokes-strong)]/20 rounded-full overflow-hidden">
                          <span className="absolute inset-0 bg-[var(--color-brand-blue)] origin-top scale-y-0 group-hover:scale-y-100 transition-transform duration-700 ease-out" />
                       </span>
