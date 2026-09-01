@@ -136,7 +136,7 @@ export default function QuoteEnroll() {
           opacity: 1,
           clipPath: "inset(-20% 0 -20% 0)",
           duration: DUR.base,
-          stagger: STAGGER.words,
+          stagger: STAGGER.base,
           ease: EASE.out,
           scrollTrigger: {
             trigger: pinWrapper,
@@ -162,13 +162,11 @@ export default function QuoteEnroll() {
 
       // DESKTOP: PIN & VERTICAL SCROLL OVER CENTERED TEXT
       mm.add("(min-width: 1024px)", () => {
-        const scrollDistance = track.offsetHeight;
-        
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: pinWrapper,
             start: "top top",
-            end: () => `+=${scrollDistance}`, 
+            end: () => `+=${track.offsetHeight + window.innerHeight * 0.5}`, 
             pin: true,
             scrub: 1,
             invalidateOnRefresh: true,
@@ -187,7 +185,7 @@ export default function QuoteEnroll() {
 
         // The vertical move. Move the grid UP from below the screen.
         tl.to(track, {
-          y: () => -(scrollDistance + window.innerHeight * 0.2), 
+          y: () => -(track.offsetHeight + window.innerHeight * 0.2), 
           ease: "none"
         });
       });
@@ -250,7 +248,7 @@ export default function QuoteEnroll() {
             </div>
 
             <div className="overflow-hidden mt-2">
-              <h2 className="qw-reveal text-h2 md:text-display lg:text-display-lg font-bold tracking-tight leading-[1.1]">
+              <h2 className="qw-reveal text-h2 md:text-display lg:text-display-lg">
                 <span className="text-[var(--color-text-primary)]">
                   {t('title1_1')} 
                   <InlineGraphic type="unify" rotate="-rotate-3" /> 
@@ -291,13 +289,13 @@ export default function QuoteEnroll() {
                   <div className="absolute inset-0 -z-10 bg-white/30 dark:bg-white/5 backdrop-blur-[16px] saturate-[1.5]" />
                   <div className="absolute inset-0 -z-10 rounded-[2.5rem] bg-gradient-to-b from-white/40 to-transparent dark:from-white/10 opacity-70 pointer-events-none" />
 
-                  <div className="card-bg-number absolute -bottom-4 -right-4 text-[12rem] lg:text-[16rem] leading-none font-display font-bold text-[var(--color-text-primary)] opacity-[0.03] dark:opacity-[0.05] pointer-events-none select-none z-0 transition-colors duration-500 group-hover:text-[var(--color-brand-blue)]">
+                  <div className="card-bg-number absolute -bottom-4 -right-4 text-[25vw] lg:text-[12vw] leading-none font-display font-bold text-[var(--color-text-primary)] opacity-[0.03] dark:opacity-[0.05] pointer-events-none select-none z-0 transition-colors duration-500 group-hover:text-[var(--color-brand-blue)]">
                     {feature.id}
                   </div>
 
                   <div className="absolute bottom-0 right-0 w-64 h-64 bg-[var(--color-brand-blue)]/15 blur-[50px] rounded-full translate-x-1/2 translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
-                  <div className="relative z-10 flex flex-col h-full justify-between p-8 lg:p-12 min-h-[470px] lg:min-h-[570px]">
+                  <div className="relative z-10 flex flex-col h-full justify-between p-8 lg:p-12 min-h-[520px] lg:min-h-[640px]">
                     <div>
                       <div className="flex justify-between items-start mb-8 lg:mb-10">
                         {feature.icon}
@@ -307,11 +305,11 @@ export default function QuoteEnroll() {
                           <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-border-Strokes-strong)]/40 group-hover:bg-[var(--color-brand-blue)] transition-colors duration-500 delay-300" />
                         </div>
                       </div>
-                      <h3 className="text-h2 text-[var(--color-text-primary)] mb-4 font-semibold tracking-tight leading-tight">
+                      <h3 className="text-h2 text-[var(--color-text-primary)] mb-4">
                         {feature.title}
                       </h3>
                     </div>
-                    <p className="text-body-md text-[var(--color-text-secondary)] leading-relaxed relative">
+                    <p className="text-body-lg text-[var(--color-text-secondary)] relative">
                       <span className="absolute -left-4 lg:-left-6 top-1 bottom-1 w-[2px] bg-[var(--color-border-Strokes-strong)]/20 rounded-full overflow-hidden">
                          <span className="absolute inset-0 bg-[var(--color-brand-blue)] origin-top scale-y-0 group-hover:scale-y-100 transition-transform duration-700 ease-out" />
                       </span>
@@ -333,13 +331,13 @@ export default function QuoteEnroll() {
                   <div className="absolute inset-0 -z-10 bg-white/30 dark:bg-white/5 backdrop-blur-[16px] saturate-[1.5]" />
                   <div className="absolute inset-0 -z-10 rounded-[2.5rem] bg-gradient-to-b from-white/40 to-transparent dark:from-white/10 opacity-70 pointer-events-none" />
 
-                  <div className="card-bg-number absolute -bottom-4 -right-4 text-[12rem] lg:text-[16rem] leading-none font-display font-bold text-[var(--color-text-primary)] opacity-[0.03] dark:opacity-[0.05] pointer-events-none select-none z-0 transition-colors duration-500 group-hover:text-[var(--color-brand-blue)]">
+                  <div className="card-bg-number absolute -bottom-4 -right-4 text-[25vw] lg:text-[12vw] leading-none font-display font-bold text-[var(--color-text-primary)] opacity-[0.03] dark:opacity-[0.05] pointer-events-none select-none z-0 transition-colors duration-500 group-hover:text-[var(--color-brand-blue)]">
                     {feature.id}
                   </div>
 
                   <div className="absolute bottom-0 right-0 w-64 h-64 bg-[var(--color-brand-blue)]/15 blur-[50px] rounded-full translate-x-1/2 translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
-                  <div className="relative z-10 flex flex-col h-full justify-between p-8 lg:p-12 min-h-[470px] lg:min-h-[570px]">
+                  <div className="relative z-10 flex flex-col h-full justify-between p-8 lg:p-12 min-h-[520px] lg:min-h-[640px]">
                     <div>
                       <div className="flex justify-between items-start mb-8 lg:mb-10">
                         {feature.icon}
@@ -349,11 +347,11 @@ export default function QuoteEnroll() {
                           <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-border-Strokes-strong)]/40 group-hover:bg-[var(--color-brand-blue)] transition-colors duration-500 delay-300" />
                         </div>
                       </div>
-                      <h3 className="text-h2 text-[var(--color-text-primary)] mb-4 font-semibold tracking-tight leading-tight">
+                      <h3 className="text-h2 text-[var(--color-text-primary)] mb-4">
                         {feature.title}
                       </h3>
                     </div>
-                    <p className="text-body-md text-[var(--color-text-secondary)] leading-relaxed relative">
+                    <p className="text-body-lg text-[var(--color-text-secondary)] relative">
                       <span className="absolute -left-4 lg:-left-6 top-1 bottom-1 w-[2px] bg-[var(--color-border-Strokes-strong)]/20 rounded-full overflow-hidden">
                          <span className="absolute inset-0 bg-[var(--color-brand-blue)] origin-top scale-y-0 group-hover:scale-y-100 transition-transform duration-700 ease-out" />
                       </span>
