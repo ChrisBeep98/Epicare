@@ -539,12 +539,8 @@ export default function QuoteEnroll() {
               {features.filter((_, i) => i % 2 === 0).map((feature) => (
                 <div 
                   key={feature.id}
-                  className="qw-card relative w-full rounded-[2.5rem] border border-[var(--color-brand-blue)]/30 overflow-hidden group transition-transform duration-700 hover:-translate-y-4 will-change-transform"
+                  className="qw-card relative w-full rounded-[2.5rem] border border-[var(--color-brand-blue)]/30 shadow-elevation-3 hover:shadow-elevation-5 overflow-hidden group transition-all duration-700 hover:-translate-y-4 will-change-transform"
                 >
-                  {/* SMOOTH HARDWARE-ACCELERATED SHADOWS */}
-                  <div className="absolute inset-0 -z-30 rounded-[2.5rem] shadow-elevation-3 pointer-events-none" />
-                  <div className="absolute inset-0 -z-30 rounded-[2.5rem] shadow-elevation-5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 will-change-[opacity] pointer-events-none" />
-
                   {/* GLASS BACKGROUND LAYER (Hardware Accelerated) */}
                   <div className="absolute inset-0 -z-10 bg-[var(--color-surface-BG-1)]/50 dark:bg-black/40 backdrop-blur-[24px] transform-gpu" />
                   <div className="absolute inset-0 -z-10 bg-white/30 dark:bg-white/5 backdrop-blur-[16px] saturate-[1.5] transform-gpu" />
@@ -586,12 +582,8 @@ export default function QuoteEnroll() {
               {features.filter((_, i) => i % 2 !== 0).map((feature) => (
                 <div 
                   key={feature.id}
-                  className="qw-card relative w-full rounded-[2.5rem] border border-[var(--color-brand-blue)]/30 overflow-hidden group transition-transform duration-700 hover:-translate-y-4 will-change-transform"
+                  className="qw-card relative w-full rounded-[2.5rem] border border-[var(--color-brand-blue)]/30 shadow-elevation-3 hover:shadow-elevation-5 overflow-hidden group transition-all duration-700 hover:-translate-y-4 will-change-transform"
                 >
-                  {/* SMOOTH HARDWARE-ACCELERATED SHADOWS */}
-                  <div className="absolute inset-0 -z-30 rounded-[2.5rem] shadow-elevation-3 pointer-events-none" />
-                  <div className="absolute inset-0 -z-30 rounded-[2.5rem] shadow-elevation-5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 will-change-[opacity] pointer-events-none" />
-
                   {/* GLASS BACKGROUND LAYER (Hardware Accelerated) */}
                   <div className="absolute inset-0 -z-10 bg-[var(--color-surface-BG-1)]/50 dark:bg-black/40 backdrop-blur-[24px] transform-gpu" />
                   <div className="absolute inset-0 -z-10 bg-white/30 dark:bg-white/5 backdrop-blur-[16px] saturate-[1.5] transform-gpu" />
