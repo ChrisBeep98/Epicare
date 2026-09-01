@@ -1,11 +1,53 @@
 "use client";
 
-import React, { useRef, useLayoutEffect, useState } from "react";
+import React, { useRef, useLayoutEffect } from "react";
 import { useTranslations } from "next-intl";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { EASE, DUR, STAGGER, TRIGGER } from "@/lib/motion";
 import { asset } from "@/lib/asset";
+
+// --- CONTEXTUAL MICRO-UI BADGES (Premium Image Pills) ---
+const InlineGraphic = ({ type, rotate = "0" }: { type: 'clients' | 'unify', rotate?: string }) => (
+  <>
+    <style suppressHydrationWarning>{`
+      @keyframes float-s {
+        0%, 100% { transform: translateY(0) rotate(var(--rot)); }
+        50% { transform: translateY(-8%) rotate(var(--rot)); }
+      }
+      @keyframes wave {
+        0% { transform: scale(0.1); opacity: 1; }
+        100% { transform: scale(1.1); opacity: 0; }
+      }
+    `}</style>
+    <span 
+      className={`inline-flex items-center justify-center align-middle mx-[0.15em] -translate-y-[0.1em] transition-transform duration-700 hover:scale-110`}
+      style={{ '--rot': rotate.replace('rotate-', '').replace('-', '-').includes('rotate') ? rotate : '0deg', animation: 'float-s 6s ease-in-out infinite' } as React.CSSProperties}
+    >
+      <span className={rotate}>
+        
+        {type === 'unify' && (
+          <span className="inline-flex items-center justify-center align-middle mx-[0.1em] text-[var(--color-brand-blue)] group">
+             <svg viewBox="0 0 24 24" fill="none" className="w-[1.2em] h-[1.2em] drop-shadow-[0_0_12px_rgba(53,187,253,0.6)] transition-transform duration-700 group-hover:scale-110" stroke="currentColor">
+                <circle cx="12" cy="12" r="10" strokeWidth="1.5" vectorEffect="non-scaling-stroke" className="origin-center" style={{ animation: 'wave 3s cubic-bezier(0,0,0.2,1) infinite', willChange: 'transform, opacity' }} />
+                <circle cx="12" cy="12" r="10" strokeWidth="1.5" vectorEffect="non-scaling-stroke" className="origin-center" style={{ animation: 'wave 3s cubic-bezier(0,0,0.2,1) infinite -1s', willChange: 'transform, opacity' }} />
+                <circle cx="12" cy="12" r="10" strokeWidth="1.5" vectorEffect="non-scaling-stroke" className="origin-center" style={{ animation: 'wave 3s cubic-bezier(0,0,0.2,1) infinite -2s', willChange: 'transform, opacity' }} />
+                <circle cx="12" cy="12" r="1.5" fill="currentColor" />
+             </svg>
+          </span>
+        )}
+
+        {type === 'clients' && (
+          <span className="w-max h-[0.7em] rounded-full bg-white/5 border-[0.05em] border-[var(--color-border-Strokes-strong)]/30 backdrop-blur-md flex items-center justify-center px-[0.06em] shadow-elevation-1 group">
+             <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Client" className="w-[0.55em] h-[0.55em] rounded-full object-cover border-[0.05em] border-[var(--color-surface-BG-base)] z-30 transition-transform duration-500 group-hover:scale-110" />
+             <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Client" className="w-[0.55em] h-[0.55em] rounded-full object-cover border-[0.05em] border-[var(--color-surface-BG-base)] -ml-[0.2em] z-20 transition-transform duration-500 group-hover:scale-110" style={{ transitionDelay: '50ms' }} />
+             <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Client" className="w-[0.55em] h-[0.55em] rounded-full object-cover border-[0.05em] border-[var(--color-surface-BG-base)] -ml-[0.2em] z-10 transition-transform duration-500 group-hover:scale-110" style={{ transitionDelay: '100ms' }} />
+          </span>
+        )}
+      </span>
+    </span>
+  </>
+);
 
 // --- ANIMATED SCENE ARCHITECT: Ultra Minimalist Illustrations ---
 const IllusLink = () => (
@@ -241,9 +283,24 @@ export default function QuoteEnroll() {
             </div>
 
             <div className="overflow-hidden mt-2">
-              <h2 className="qw-reveal text-h2 md:text-display lg:text-display-lg font-bold tracking-tight leading-[1.05]">
-                <span className="text-[var(--color-text-primary)]">{t('title1')}</span>
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-[var(--color-brand-blue)] to-blue-400">{t('title2')}</span>
+              <h2 className="qw-reveal text-h2 md:text-display lg:text-display-lg font-bold tracking-tight leading-[1.1]">
+                <span className="text-[var(--color-text-primary)]">
+                  {t('title1_1')} 
+                  <InlineGraphic type="unify" rotate="-rotate-3" /> 
+                  {t('title1_2')} {t('title1_3')}
+                </span>
+                
+                <span> </span>
+
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-[var(--color-brand-blue)] to-blue-400">
+                  {t('title2_1')}
+                </span>
+                
+                <InlineGraphic type="clients" rotate="-rotate-1" /> 
+                
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-[var(--color-brand-blue)] to-blue-400">
+                  {t('title2_2')} {t('title2_3')}
+                </span>
               </h2>
             </div>
           </div>
