@@ -124,26 +124,23 @@ export default function QuoteEnroll() {
 
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    const ctx = gsap.context(() => {
-      if (prefersReducedMotion) {
-        gsap.set(".qw-reveal, .qw-card, .qw-aura", { opacity: 1, y: 0, yPercent: 0, scale: 1 });
-        return;
-      }
+    gsap.registerPlugin(ScrollTrigger);
 
-      // 1. Initial Reveal of Centered Text Content
+    let ctx = gsap.context(() => {
+      // 1. Initial Reveal (Title text)
       gsap.fromTo(
         ".qw-reveal",
-        { yPercent: 60, opacity: 0 },
+        { y: 50, opacity: 0, clipPath: "inset(100% 0 0 0)" },
         {
-          yPercent: 0,
+          y: 0,
           opacity: 1,
+          clipPath: "inset(-20% 0 -20% 0)",
           duration: DUR.base,
-          stagger: STAGGER.base,
+          stagger: STAGGER.words,
           ease: EASE.out,
           scrollTrigger: {
             trigger: pinWrapper,
-            start: TRIGGER.standard,
-            toggleActions: "play none none reverse"
+            start: "top 75%",
           }
         }
       );
@@ -154,7 +151,7 @@ export default function QuoteEnroll() {
         scale: 1.05,
         ease: "none",
         scrollTrigger: {
-          trigger: el,
+          trigger: pinWrapper,
           start: "top bottom",
           end: "bottom top",
           scrub: 1.5,
@@ -163,81 +160,52 @@ export default function QuoteEnroll() {
 
       const mm = gsap.matchMedia(el);
 
-      // DESKTOP: PIN & HORIZONTAL SCROLL OVER CENTERED TEXT
+      // DESKTOP: PIN & VERTICAL SCROLL OVER CENTERED TEXT
       mm.add("(min-width: 1024px)", () => {
-        // Track width relative to viewport
-        const scrollWidth = track.scrollWidth;
+        const scrollDistance = track.offsetHeight;
         
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: pinWrapper,
-            start: "center center",
-            end: () => `+=${scrollWidth}`, 
+            start: "top top",
+            end: () => `+=${scrollDistance}`, 
             pin: true,
             scrub: 1,
             invalidateOnRefresh: true,
             onUpdate: (self) => {
               const progress = self.progress;
               const total = features.length;
-              
+
               // Parallax on the giant numbers inside cards for memorable detail
               gsap.utils.toArray('.card-bg-number').forEach((num: any, i) => {
                  const cardProgress = (progress * total) - i;
-                 gsap.set(num, { x: cardProgress * -30 }); 
-              });
-              
-              // Fade out the title slightly as the cards cover it
-              gsap.to(".qw-center-content", {
-                 opacity: 1 - (progress * 1.5),
-                 scale: 1 - (progress * 0.05),
-                 ease: "none",
-                 duration: 0.1
+                 gsap.set(num, { y: cardProgress * -20 }); 
               });
             }
           }
         });
 
-        // The horizontal move. Move from left: 85vw all the way to off-screen left.
-        // We move exactly the track's scrollWidth + 20vw to ensure it clears the screen.
+        // The vertical move. Move the grid UP from below the screen.
         tl.to(track, {
-          x: () => -(scrollWidth + window.innerWidth * 0.2), 
+          y: () => -(scrollDistance + window.innerHeight * 0.2), 
           ease: "none"
         });
-
-        // Cards entrance animation
-        gsap.fromTo(
-          ".qw-card",
-          { opacity: 0, x: 50, scale: 0.95 },
-          {
-            opacity: 1,
-            x: 0,
-            scale: 1,
-            duration: 0.8,
-            stagger: 0.15,
-            ease: EASE.out,
-            scrollTrigger: {
-              trigger: pinWrapper,
-              start: "top 60%",
-            }
-          }
-        );
       });
 
-      // MOBILE: NATIVE SNAP SCROLL
+      // MOBILE: NATIVE SNAP SCROLL WITH GSAP REVEAL
       mm.add("(max-width: 1023px)", () => {
         gsap.fromTo(
           ".qw-card",
-          { opacity: 0, y: 30 },
+          { opacity: 0, y: 50 },
           {
             opacity: 1,
             y: 0,
             duration: DUR.base,
-            stagger: STAGGER.wave,
-            ease: EASE.out,
+            stagger: 0.15,
+            ease: "power4.out",
             scrollTrigger: {
               trigger: track,
               start: "top 80%",
-              toggleActions: "play none none reverse"
             }
           }
         );
@@ -246,7 +214,7 @@ export default function QuoteEnroll() {
     }, el);
 
     return () => ctx.revert();
-  }, [features.length]);
+  }, []);
 
   return (
     <section ref={sectionRef} className="relative w-full bg-[var(--color-surface-BG-base)]">
@@ -254,7 +222,7 @@ export default function QuoteEnroll() {
       {/* PIN WRAPPER */}
       <div 
         ref={pinWrapperRef} 
-        className="w-full flex flex-col items-center justify-center relative overflow-hidden lg:h-screen lg:py-0 py-section-md"
+        className="w-full h-screen flex flex-col items-center justify-center relative overflow-hidden"
       >
         
         {/* LAYER 0: IMMERSIVE BACKGROUND */}
@@ -269,9 +237,8 @@ export default function QuoteEnroll() {
           <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-surface-BG-base)] via-transparent to-[var(--color-surface-BG-base)]" />
         </div>
 
-        {/* CENTERED CONTENT (Title & Subtitle) */}
-        <div className="qw-center-content w-full px-gutter-sm md:px-gutter-md z-10 flex flex-col items-center lg:absolute lg:top-1/2 lg:-translate-y-1/2 pointer-events-none">
-          
+        {/* CENTERED CONTENT (Title) */}
+        <div className="qw-center-content absolute inset-0 flex flex-col items-center justify-center z-10 px-gutter-sm md:px-gutter-md pointer-events-none">
           <div className="w-full max-w-3xl mx-auto flex flex-col items-start text-left">
             <div className="overflow-hidden mb-6">
               <div className="qw-reveal inline-flex items-center gap-3 px-4 py-1.5 rounded-full border border-[var(--color-brand-blue)]/20 bg-[var(--color-brand-blue)]/5 backdrop-blur-md">
@@ -306,56 +273,96 @@ export default function QuoteEnroll() {
           </div>
         </div>
 
-        {/* SCROLLING TRACK (Cards) */}
-        {/* On Desktop: Positioned absolute starting at 80vw so only the tip of card 1 is visible initially */}
-        <div className="w-full lg:w-max h-auto lg:h-[70vh] relative lg:absolute lg:left-[80vw] flex items-center mt-10 lg:mt-0 z-20">
-          
-          <div 
-            ref={trackRef} 
-            className="flex gap-4 md:gap-fluid-sm lg:gap-fluid-md items-stretch lg:items-center w-full lg:w-max px-gutter-sm md:px-gutter-md lg:px-0 overflow-x-auto lg:overflow-visible snap-x snap-mandatory lg:snap-none scrollbar-none py-6 lg:py-0"
-          >
-            {features.map((feature, idx) => (
-              <div 
-                key={feature.id}
-                className="qw-card relative w-[85vw] max-w-[360px] lg:w-[420px] shrink-0 snap-center rounded-[2.5rem] border border-[var(--color-border-Strokes-strong)]/20 shadow-elevation-3 hover:shadow-elevation-5 overflow-hidden group select-none transition-transform duration-700 hover:-translate-y-4"
-              >
-                {/* GLASS BACKGROUND LAYER */}
-                <div className="absolute inset-0 -z-10 bg-[var(--color-surface-BG-1)]/50 dark:bg-black/40 backdrop-blur-[24px]" />
-                <div className="absolute inset-0 -z-10 bg-white/30 dark:bg-white/5 backdrop-blur-[16px] saturate-[1.5]" />
-                <div className="absolute inset-0 -z-10 rounded-[2.5rem] bg-gradient-to-b from-white/40 to-transparent dark:from-white/10 opacity-70 pointer-events-none" />
+        {/* CARDS GRID (GSAP scrubs this up from below) */}
+        <div 
+          ref={trackRef}
+          className="absolute top-[100vh] left-0 w-full z-20 flex justify-center px-gutter-sm md:px-gutter-md pb-[20vh]"
+        >
+          <div className="flex flex-col md:flex-row gap-6 md:gap-12 lg:gap-20 w-full max-w-6xl mx-auto">
+            
+            {/* LEFT COLUMN */}
+            <div className="flex flex-col gap-6 md:gap-12 lg:gap-20 w-full md:w-1/2">
+              {features.filter((_, i) => i % 2 === 0).map((feature) => (
+                <div 
+                  key={feature.id}
+                  className="qw-card relative w-full rounded-[2.5rem] border border-[var(--color-border-Strokes-strong)]/20 shadow-elevation-3 hover:shadow-elevation-5 overflow-hidden group transition-transform duration-700 hover:-translate-y-4"
+                >
+                  <div className="absolute inset-0 -z-10 bg-[var(--color-surface-BG-1)]/50 dark:bg-black/40 backdrop-blur-[24px]" />
+                  <div className="absolute inset-0 -z-10 bg-white/30 dark:bg-white/5 backdrop-blur-[16px] saturate-[1.5]" />
+                  <div className="absolute inset-0 -z-10 rounded-[2.5rem] bg-gradient-to-b from-white/40 to-transparent dark:from-white/10 opacity-70 pointer-events-none" />
 
-                {/* HUGE NUMBER */}
-                <div className="card-bg-number absolute -bottom-10 -right-8 text-[14rem] leading-none font-display font-bold text-[var(--color-text-primary)] opacity-[0.03] dark:opacity-[0.05] pointer-events-none select-none z-0 transition-colors duration-500 group-hover:text-[var(--color-brand-blue)]">
-                  {feature.id}
-                </div>
-
-                {/* HOVER AURA */}
-                <div className="absolute bottom-0 right-0 w-64 h-64 bg-[var(--color-brand-blue)]/15 blur-[50px] rounded-full translate-x-1/2 translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
-
-                {/* CONTENT */}
-                <div className="relative z-10 flex flex-col h-full justify-between p-8 lg:p-12 min-h-[400px] lg:min-h-[500px]">
-                  <div>
-                    <div className="flex justify-between items-start mb-10">
-                      {feature.icon}
-                      <div className="flex gap-1.5 mt-2">
-                        <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-border-Strokes-strong)]/40 group-hover:bg-[var(--color-brand-blue)]/40 transition-colors duration-500 delay-100" />
-                        <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-border-Strokes-strong)]/40 group-hover:bg-[var(--color-brand-blue)]/70 transition-colors duration-500 delay-200" />
-                        <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-border-Strokes-strong)]/40 group-hover:bg-[var(--color-brand-blue)] transition-colors duration-500 delay-300" />
-                      </div>
-                    </div>
-                    <h3 className="text-h2 text-[var(--color-text-primary)] mb-4 font-semibold tracking-tight leading-tight">
-                      {feature.title}
-                    </h3>
+                  <div className="card-bg-number absolute -bottom-4 -right-4 text-[12rem] lg:text-[16rem] leading-none font-display font-bold text-[var(--color-text-primary)] opacity-[0.03] dark:opacity-[0.05] pointer-events-none select-none z-0 transition-colors duration-500 group-hover:text-[var(--color-brand-blue)]">
+                    {feature.id}
                   </div>
-                  <p className="text-body-md text-[var(--color-text-secondary)] leading-relaxed relative">
-                    <span className="absolute -left-4 lg:-left-6 top-1 bottom-1 w-[2px] bg-[var(--color-border-Strokes-strong)]/20 rounded-full overflow-hidden">
-                       <span className="absolute inset-0 bg-[var(--color-brand-blue)] origin-top scale-y-0 group-hover:scale-y-100 transition-transform duration-700 ease-out" />
-                    </span>
-                    {feature.desc}
-                  </p>
+
+                  <div className="absolute bottom-0 right-0 w-64 h-64 bg-[var(--color-brand-blue)]/15 blur-[50px] rounded-full translate-x-1/2 translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+
+                  <div className="relative z-10 flex flex-col h-full justify-between p-8 lg:p-12 min-h-[470px] lg:min-h-[570px]">
+                    <div>
+                      <div className="flex justify-between items-start mb-8 lg:mb-10">
+                        {feature.icon}
+                        <div className="flex gap-1.5 mt-2">
+                          <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-border-Strokes-strong)]/40 group-hover:bg-[var(--color-brand-blue)]/40 transition-colors duration-500 delay-100" />
+                          <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-border-Strokes-strong)]/40 group-hover:bg-[var(--color-brand-blue)]/70 transition-colors duration-500 delay-200" />
+                          <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-border-Strokes-strong)]/40 group-hover:bg-[var(--color-brand-blue)] transition-colors duration-500 delay-300" />
+                        </div>
+                      </div>
+                      <h3 className="text-h2 text-[var(--color-text-primary)] mb-4 font-semibold tracking-tight leading-tight">
+                        {feature.title}
+                      </h3>
+                    </div>
+                    <p className="text-body-md text-[var(--color-text-secondary)] leading-relaxed relative">
+                      <span className="absolute -left-4 lg:-left-6 top-1 bottom-1 w-[2px] bg-[var(--color-border-Strokes-strong)]/20 rounded-full overflow-hidden">
+                         <span className="absolute inset-0 bg-[var(--color-brand-blue)] origin-top scale-y-0 group-hover:scale-y-100 transition-transform duration-700 ease-out" />
+                      </span>
+                      {feature.desc}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+
+            {/* RIGHT COLUMN */}
+            <div className="flex flex-col gap-6 md:gap-12 lg:gap-20 w-full md:w-1/2 md:mt-48 lg:mt-96">
+              {features.filter((_, i) => i % 2 !== 0).map((feature) => (
+                <div 
+                  key={feature.id}
+                  className="qw-card relative w-full rounded-[2.5rem] border border-[var(--color-border-Strokes-strong)]/20 shadow-elevation-3 hover:shadow-elevation-5 overflow-hidden group transition-transform duration-700 hover:-translate-y-4"
+                >
+                  <div className="absolute inset-0 -z-10 bg-[var(--color-surface-BG-1)]/50 dark:bg-black/40 backdrop-blur-[24px]" />
+                  <div className="absolute inset-0 -z-10 bg-white/30 dark:bg-white/5 backdrop-blur-[16px] saturate-[1.5]" />
+                  <div className="absolute inset-0 -z-10 rounded-[2.5rem] bg-gradient-to-b from-white/40 to-transparent dark:from-white/10 opacity-70 pointer-events-none" />
+
+                  <div className="card-bg-number absolute -bottom-4 -right-4 text-[12rem] lg:text-[16rem] leading-none font-display font-bold text-[var(--color-text-primary)] opacity-[0.03] dark:opacity-[0.05] pointer-events-none select-none z-0 transition-colors duration-500 group-hover:text-[var(--color-brand-blue)]">
+                    {feature.id}
+                  </div>
+
+                  <div className="absolute bottom-0 right-0 w-64 h-64 bg-[var(--color-brand-blue)]/15 blur-[50px] rounded-full translate-x-1/2 translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+
+                  <div className="relative z-10 flex flex-col h-full justify-between p-8 lg:p-12 min-h-[470px] lg:min-h-[570px]">
+                    <div>
+                      <div className="flex justify-between items-start mb-8 lg:mb-10">
+                        {feature.icon}
+                        <div className="flex gap-1.5 mt-2">
+                          <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-border-Strokes-strong)]/40 group-hover:bg-[var(--color-brand-blue)]/40 transition-colors duration-500 delay-100" />
+                          <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-border-Strokes-strong)]/40 group-hover:bg-[var(--color-brand-blue)]/70 transition-colors duration-500 delay-200" />
+                          <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-border-Strokes-strong)]/40 group-hover:bg-[var(--color-brand-blue)] transition-colors duration-500 delay-300" />
+                        </div>
+                      </div>
+                      <h3 className="text-h2 text-[var(--color-text-primary)] mb-4 font-semibold tracking-tight leading-tight">
+                        {feature.title}
+                      </h3>
+                    </div>
+                    <p className="text-body-md text-[var(--color-text-secondary)] leading-relaxed relative">
+                      <span className="absolute -left-4 lg:-left-6 top-1 bottom-1 w-[2px] bg-[var(--color-border-Strokes-strong)]/20 rounded-full overflow-hidden">
+                         <span className="absolute inset-0 bg-[var(--color-brand-blue)] origin-top scale-y-0 group-hover:scale-y-100 transition-transform duration-700 ease-out" />
+                      </span>
+                      {feature.desc}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
