@@ -173,30 +173,151 @@ const IllusPartialEnrollment = () => (
 );
 
 
-const IllusMobile = () => (
-  <div className="relative w-16 h-16 rounded-2xl bg-[var(--color-surface-BG-3)]/60 border border-[var(--color-border-Strokes-base)]/30 flex flex-col items-center justify-center overflow-hidden transition-all duration-500 shadow-elevation-1 group-hover:border-[var(--color-brand-blue)]/40">
-    <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-brand-blue)]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-    <div className="relative w-7 h-10 border-[1.5px] border-[var(--color-text-primary)]/30 rounded-md flex flex-col items-center justify-between py-[4px] transition-transform duration-700 group-hover:-translate-y-1">
-      <div className="w-3 h-[1px] bg-[var(--color-text-primary)]/30 rounded-full" />
-      <div className="flex items-end gap-[2px] mb-px">
-        {[5, 9, 4, 7, 5].map((h, i) => (
-          <div key={i} className="w-[1.5px] bg-[var(--color-brand-blue)]/80 rounded-full animate-pulse" style={{ height: `${h}px`, animationDelay: `${i * 0.15}s` }} />
-        ))}
-      </div>
-    </div>
-  </div>
+const IllusReferralLink = () => (
+  <>
+    <style>{`
+      @keyframes beam-travel {
+        0% { stroke-dashoffset: 24; opacity: 0; }
+        30% { opacity: 1; }
+        70% { stroke-dashoffset: 0; opacity: 1; }
+        100% { stroke-dashoffset: -24; opacity: 0; }
+      }
+    `}</style>
+    <svg viewBox="0 0 64 64" fill="none" className="w-16 h-16 lg:w-20 lg:h-20 overflow-visible">
+      {/* Main Link Window */}
+      <g className="origin-center transition-transform duration-700 ease-out group-hover:scale-105">
+        <rect 
+          x="6" y="16" width="32" height="32" rx="7" 
+          fill="var(--color-surface-BG-1)" fillOpacity="0.8"
+          stroke="var(--color-text-secondary)" strokeWidth="1.5" strokeOpacity="0.3"
+          className="backdrop-blur-sm group-hover:stroke-[var(--color-brand-blue)] group-hover:shadow-[0_0_15px_rgba(53,187,253,0.2)] transition-all duration-700"
+        />
+        {/* Crisp Central Link Icon with generous internal padding */}
+        <g 
+          transform="translate(22, 32) scale(0.8) translate(-22, -32)"
+          stroke="var(--color-text-primary)" 
+          strokeWidth="1.8" 
+          strokeLinecap="round" 
+          strokeLinejoin="round" 
+          className="group-hover:stroke-[var(--color-brand-blue)] transition-colors duration-500"
+        >
+          <path d="M20 33a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+          <path d="M24 31a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+        </g>
+      </g>
+
+      {/* Referral Link Beam */}
+      <path 
+        d="M38 22 L 46 14" 
+        stroke="var(--color-brand-blue)" strokeWidth="1.5" strokeDasharray="3 3"
+        className="opacity-30 group-hover:opacity-100 transition-opacity duration-700" 
+      />
+      {/* Animated Pulse on Hover */}
+      <path 
+        d="M38 22 L 46 14" 
+        stroke="var(--color-brand-blue)" strokeWidth="2" strokeDasharray="6 18"
+        className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        style={{ animation: 'beam-travel 1.8s infinite linear' }}
+      />
+
+      {/* Commission Badge ($) */}
+      <g className="origin-center transition-all duration-700 ease-out group-hover:scale-110" style={{ transformOrigin: '49px 11px' }}>
+        <circle 
+          cx="49" cy="11" r="8" 
+          fill="var(--color-surface-BG-1)" 
+          stroke="var(--color-text-secondary)" strokeWidth="1.5" strokeOpacity="0.3"
+          className="group-hover:stroke-[var(--color-brand-blue)] group-hover:fill-[var(--color-brand-blue)]/10 transition-colors duration-700"
+        />
+        <text 
+          x="49" y="13.8" 
+          fill="var(--color-brand-blue)" 
+          fontSize="8" 
+          fontWeight="bold" 
+          textAnchor="middle" 
+          style={{ fontFamily: 'sans-serif' }}
+        >
+          $
+        </text>
+      </g>
+    </svg>
+  </>
 );
 
-const IllusSalesforce = () => (
-  <div className="relative w-16 h-16 rounded-2xl bg-[var(--color-surface-BG-3)]/60 border border-[var(--color-border-Strokes-base)]/30 flex items-center justify-center overflow-hidden transition-all duration-500 shadow-elevation-1 group-hover:border-[var(--color-brand-blue)]/40">
-    <div className="absolute inset-0 bg-gradient-to-tr from-[var(--color-brand-blue)]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-    <div className="relative w-8 h-8 flex items-center justify-center transition-transform duration-700 group-hover:scale-110">
-        <svg viewBox="0 0 24 24" fill="none" className="w-full h-full text-[var(--color-text-primary)]/40 group-hover:text-[var(--color-brand-blue)] transition-colors duration-500">
-            <path d="M7 16a4 4 0 0 1-.88-7.9c.41-4.04 4.54-5.95 7.6-3.8 2.37-1.63 5.42-.51 5.92 2.7A4 4 0 0 1 17 16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="currentColor" fillOpacity="0.1"/>
-            <path d="M12 12v9m0 0l-3-3m3 3l3-3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
-    </div>
-  </div>
+const IllusProposals = () => (
+  <>
+    <style>{`
+      @keyframes slider-filter {
+        0%, 15% { transform: translateX(0); }
+        45%, 85% { transform: translateX(8px); }
+        100% { transform: translateX(0); }
+      }
+      @keyframes tier-highlight {
+        0%, 15% { opacity: 0.3; stroke: var(--color-text-secondary); }
+        45%, 85% { opacity: 1; stroke: var(--color-brand-blue); }
+        100% { opacity: 0.3; stroke: var(--color-text-secondary); }
+      }
+      @keyframes badge-pop {
+        0%, 40% { transform: scale(0); opacity: 0; }
+        50%, 85% { transform: scale(1); opacity: 1; }
+        95%, 100% { transform: scale(0); opacity: 0; }
+      }
+    `}</style>
+    <svg viewBox="0 0 64 64" fill="none" className="w-16 h-16 lg:w-20 lg:h-20 overflow-visible">
+      {/* Main Proposal Document Container */}
+      <g className="origin-center transition-transform duration-700 ease-out group-hover:scale-105">
+        <rect 
+          x="12" y="10" width="40" height="44" rx="7" 
+          fill="var(--color-surface-BG-1)" fillOpacity="0.8"
+          stroke="var(--color-text-secondary)" strokeWidth="1.5" strokeOpacity="0.3"
+          className="backdrop-blur-sm group-hover:stroke-[var(--color-brand-blue)] group-hover:shadow-[0_0_15px_rgba(53,187,253,0.2)] transition-all duration-700"
+        />
+
+        {/* Document Header / Filter Bar */}
+        <line x1="18" y1="18" x2="30" y2="18" stroke="var(--color-brand-blue)" strokeWidth="1.5" strokeLinecap="round" />
+        
+        {/* Filter Slider Track (Top right of document) */}
+        <line x1="36" y1="18" x2="46" y2="18" stroke="var(--color-text-secondary)" strokeWidth="1.5" strokeLinecap="round" strokeOpacity="0.3" />
+        {/* Slider Knob (animates on hover) */}
+        <circle 
+          cx="38" cy="18" r="2.5" 
+          fill="var(--color-brand-blue)" 
+          className="origin-center"
+          style={{ animation: 'slider-filter 3s infinite ease-in-out' }}
+        />
+
+        {/* Proposal Options / Comparison Rows */}
+        {/* Option Row 1 (Standard) */}
+        <rect x="18" y="24" width="28" height="6" rx="2" fill="var(--color-surface-BG-3)" fillOpacity="0.4" stroke="var(--color-text-secondary)" strokeWidth="1" strokeOpacity="0.2" />
+        <line x1="22" y1="27" x2="30" y2="27" stroke="var(--color-text-secondary)" strokeWidth="1.2" strokeLinecap="round" strokeOpacity="0.5" />
+        <circle cx="41" cy="27" r="1.5" stroke="var(--color-text-secondary)" strokeWidth="1" strokeOpacity="0.4" />
+
+        {/* Option Row 2 (Highlighted / Tailored Match on Filter) */}
+        <rect 
+          x="18" y="33" width="28" height="7" rx="2.5" 
+          fill="var(--color-surface-BG-3)" fillOpacity="0.6" 
+          stroke="var(--color-brand-blue)" strokeWidth="1.2"
+          className="transition-all duration-500"
+          style={{ animation: 'tier-highlight 3s infinite ease-in-out' }}
+        />
+        <line x1="22" y1="36.5" x2="34" y2="36.5" stroke="var(--color-brand-blue)" strokeWidth="1.4" strokeLinecap="round" />
+        <circle cx="41" cy="36.5" r="1.5" fill="var(--color-brand-blue)" />
+
+        {/* Option Row 3 (Basic) */}
+        <rect x="18" y="43" width="28" height="6" rx="2" fill="var(--color-surface-BG-3)" fillOpacity="0.4" stroke="var(--color-text-secondary)" strokeWidth="1" strokeOpacity="0.2" />
+        <line x1="22" y1="46" x2="28" y2="46" stroke="var(--color-text-secondary)" strokeWidth="1.2" strokeLinecap="round" strokeOpacity="0.5" />
+        <circle cx="41" cy="46" r="1.5" stroke="var(--color-text-secondary)" strokeWidth="1" strokeOpacity="0.4" />
+      </g>
+
+      {/* Proposal Ready Checkmark Badge (Pops up at bottom-right on hover) */}
+      <g 
+        className="origin-center opacity-0 group-hover:opacity-100 transition-opacity duration-500" 
+        style={{ animation: 'badge-pop 3s infinite ease-out', transformOrigin: '48px 48px' }}
+      >
+        <circle cx="48" cy="48" r="7" fill="var(--color-brand-blue)" className="shadow-lg" />
+        <path d="M45 48 l 2 2 l 4 -4" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      </g>
+    </svg>
+  </>
 );
 
 export default function QuoteEnroll() {
@@ -231,7 +352,7 @@ export default function QuoteEnroll() {
         bold: (chunks) => <strong className="font-semibold text-[var(--color-text-primary)]">{chunks}</strong>,
         blue: (chunks) => <strong className="font-semibold text-[var(--color-brand-blue)]">{chunks}</strong>
       }), 
-      icon: <IllusMobile /> 
+      icon: <IllusReferralLink /> 
     },
     { 
       id: "04", 
@@ -240,7 +361,7 @@ export default function QuoteEnroll() {
         bold: (chunks) => <strong className="font-semibold text-[var(--color-text-primary)]">{chunks}</strong>,
         blue: (chunks) => <strong className="font-semibold text-[var(--color-brand-blue)]">{chunks}</strong>
       }), 
-      icon: <IllusSalesforce /> 
+      icon: <IllusProposals /> 
     }
   ];
 

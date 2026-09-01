@@ -378,12 +378,12 @@
       "pill4": "Cifrado",
       "card1Title": "Direct Enrollment",
       "card1Desc": "Cotiza e inscribe al cliente de <bold>principio a fin sin salir de GO AMS</bold>. Tienes acceso a <blue>todos los carriers en una sola pantalla</blue>, eliminando la necesidad de visitar múltiples portales para cerrar una venta.",
-      "card2Title": "Direct Input",
-      "card2Desc": "Asistencia total. Llenas sus datos, filtras, e incluso puedes inscribirle y realizar el pago si el cliente así lo desea.",
-      "card3Title": "Partial Input",
-      "card3Desc": "Asistes parcialmente, y el cliente continúa desde su dispositivo con la información delicada que prefiera no compartir.",
-      "card4Title": "Integración Salesforce",
-      "card4Desc": "GO AMS sincroniza con Salesforce. Puedes ofrecerle productos de Epicare a clientes existentes porque ya están en tu plataforma."
+      "card2Title": "Partial Enrollment",
+      "card2Desc": "Asiste al cliente completando el proceso inicial, y <blue>envíale un enlace seguro</blue> para que él mismo ingrese su <bold>información sensible</bold> (como tarjeta de crédito) desde su dispositivo.",
+      "card3Title": "Referral Link",
+      "card3Desc": "Envía un enlace único al cliente para redirigirlo a nuestra plataforma <bold>eppigo</bold>. Cualquier compra que realice el usuario se traduce automáticamente en una <blue>comisión porcentual</blue> para ti.",
+      "card4Title": "Proposals",
+      "card4Desc": "Genera cotizaciones personalizadas y dinámicas según el perfil del cliente. <bold>Filtra y ajusta las mejores opciones</bold> para enviarle una <blue>propuesta lista para comparar y elegir</blue> con total claridad."
     },
     "delegateUsers": {
       "overline": "Control de Acceso",

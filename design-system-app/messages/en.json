@@ -378,12 +378,12 @@
       "pill4": "Encrypted",
       "card1Title": "Direct Enrollment",
       "card1Desc": "Quote and enroll clients <bold>end-to-end without leaving GO AMS</bold>. Access <blue>all carriers from a single screen</blue>, eliminating the need to log into multiple portals to close a sale.",
-      "card2Title": "Direct Input",
-      "card2Desc": "Full assistance. You fill in their data, filter, and can even enroll and process payment if the client prefers.",
-      "card3Title": "Partial Input",
-      "card3Desc": "Assist partially, and the client continues from their device with the sensitive information they prefer not to share.",
-      "card4Title": "Salesforce Integration",
-      "card4Desc": "GO AMS syncs with Salesforce. You can offer Epicare products to existing clients right from the platform."
+      "card2Title": "Partial Enrollment",
+      "card2Desc": "Assist the client by completing the initial process, and <blue>send them a secure link</blue> so they can enter their <bold>sensitive information</bold> (like a credit card) directly from their own device.",
+      "card3Title": "Referral Link",
+      "card3Desc": "Send a unique link to the client redirecting them to our <bold>eppigo</bold> platform. Any purchase they make automatically translates into a <blue>percentage commission</blue> for you.",
+      "card4Title": "Proposals",
+      "card4Desc": "Generate dynamic, personalized quotes based on client data. <bold>Filter and tailor the best options</bold> to send a <blue>ready-to-choose proposal</blue> with total clarity."
     },
     "delegateUsers": {
       "overline": "Access Control",
