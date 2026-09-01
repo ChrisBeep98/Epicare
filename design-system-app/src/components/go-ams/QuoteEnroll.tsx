@@ -50,29 +50,128 @@ const InlineGraphic = ({ type, rotate = "0" }: { type: 'clients' | 'unify', rota
 );
 
 // --- ANIMATED SCENE ARCHITECT: Ultra Minimalist Illustrations ---
-const IllusLink = () => (
-  <div className="relative w-16 h-16 rounded-2xl bg-[var(--color-surface-BG-3)]/60 border border-[var(--color-border-Strokes-base)]/30 flex items-center justify-center overflow-hidden transition-all duration-500 shadow-elevation-1 group-hover:border-[var(--color-brand-blue)]/40">
-    <div className="absolute inset-0 bg-gradient-to-tl from-[var(--color-brand-blue)]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-    <div className="relative flex items-center justify-center rotate-45 transition-transform duration-700 group-hover:scale-110">
-      <div className="w-6 h-3.5 border-[1.5px] border-[var(--color-text-primary)]/30 rounded-full -mr-2 transition-all duration-500 group-hover:-translate-x-1 group-hover:border-[var(--color-text-primary)]/50" />
-      <div className="w-6 h-3.5 border-[1.5px] border-[var(--color-brand-blue)]/80 rounded-full -ml-2 transition-all duration-500 group-hover:translate-x-1" />
-    </div>
-  </div>
+const IllusDirectEnrollment = () => (
+  <svg viewBox="0 0 64 64" fill="none" className="w-16 h-16 lg:w-20 lg:h-20 overflow-visible">
+    {/* Background Window 1 (Left Carrier) */}
+    <rect 
+      x="6" y="16" width="22" height="28" rx="4" 
+      stroke="var(--color-text-secondary)" strokeWidth="1.5" strokeOpacity="0.3"
+      className="origin-center transition-all duration-700 group-hover:translate-x-[14px] group-hover:opacity-0" 
+    />
+    {/* Background Window 2 (Right Carrier) */}
+    <rect 
+      x="36" y="16" width="22" height="28" rx="4" 
+      stroke="var(--color-text-secondary)" strokeWidth="1.5" strokeOpacity="0.3"
+      className="origin-center transition-all duration-700 group-hover:-translate-x-[14px] group-hover:opacity-0" 
+    />
+    
+    {/* Main Front Window (GO AMS) */}
+    <g className="origin-center transition-transform duration-700 ease-out group-hover:scale-110">
+      <rect 
+        x="20" y="18" width="24" height="32" rx="5" 
+        fill="var(--color-surface-BG-1)" fillOpacity="0.8"
+        stroke="var(--color-brand-blue)" strokeWidth="1.5"
+        className="backdrop-blur-sm shadow-[0_0_15px_rgba(53,187,253,0)] group-hover:shadow-[0_0_20px_rgba(53,187,253,0.3)] transition-shadow duration-700"
+      />
+      
+      {/* UI lines inside main window */}
+      <line x1="25" y1="25" x2="31" y2="25" stroke="var(--color-brand-blue)" strokeWidth="1.5" strokeLinecap="round" />
+      <line x1="25" y1="31" x2="39" y2="31" stroke="var(--color-brand-blue)" strokeWidth="1.5" strokeLinecap="round" className="opacity-50" />
+      <line x1="25" y1="36" x2="35" y2="36" stroke="var(--color-brand-blue)" strokeWidth="1.5" strokeLinecap="round" className="opacity-50" />
+      
+      {/* Check/Success Badge */}
+      <g className="opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-300">
+        <circle cx="44" cy="46" r="6" fill="var(--color-brand-blue)" />
+        <path d="M42 46l1.5 1.5 2.5-3" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      </g>
+    </g>
+  </svg>
 );
 
-const IllusDesktop = () => (
-  <div className="relative w-16 h-16 rounded-2xl bg-[var(--color-surface-BG-3)]/60 border border-[var(--color-border-Strokes-base)]/30 flex items-center justify-center overflow-hidden transition-all duration-500 shadow-elevation-1 group-hover:border-[var(--color-brand-blue)]/40">
-    <div className="absolute inset-0 bg-gradient-to-bl from-[var(--color-brand-blue)]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-    <div className="relative w-10 h-10 flex items-center justify-center">
-      <div className="absolute inset-0 grid grid-cols-3 grid-rows-3 gap-[2px] opacity-10">
-         {[...Array(9)].map((_, i) => <div key={i} className="bg-[var(--color-text-primary)] rounded-[1px]" />)}
-      </div>
-      <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6 text-[var(--color-text-primary)]/40 group-hover:text-[var(--color-text-primary)] transition-all duration-700 -translate-x-1 translate-y-1 group-hover:translate-x-0 group-hover:translate-y-0 relative z-10">
-        <path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" fill="var(--color-brand-blue)" fillOpacity="0.2"/>
-      </svg>
-    </div>
-  </div>
+const IllusPartialEnrollment = () => (
+  <>
+    <style>{`
+      @keyframes packet-fly {
+        0% { transform: translateX(0); opacity: 0; }
+        15% { opacity: 1; }
+        50% { transform: translateX(12px); opacity: 1; }
+        55% { transform: translateX(12px); opacity: 0; }
+        100% { transform: translateX(0); opacity: 0; }
+      }
+      @keyframes lock-seq {
+        0%, 45% { opacity: 0; transform: scale(0.7) translateY(2px); }
+        50%, 70% { opacity: 1; transform: scale(1) translateY(0); }
+        75%, 100% { opacity: 0; transform: scale(0.7) translateY(-2px); }
+      }
+      @keyframes check-seq {
+        0%, 72% { stroke-dashoffset: 12; opacity: 0; }
+        77%, 90% { stroke-dashoffset: 0; opacity: 1; }
+        95%, 100% { stroke-dashoffset: 0; opacity: 0; }
+      }
+    `}</style>
+    <svg viewBox="0 0 64 64" fill="none" className="w-16 h-16 lg:w-20 lg:h-20 overflow-visible">
+      {/* Agent Screen (GO AMS) */}
+      <rect 
+        x="8" y="20" width="22" height="28" rx="4" 
+        fill="var(--color-surface-BG-1)" fillOpacity="0.8"
+        stroke="var(--color-text-secondary)" strokeWidth="1.5" strokeOpacity="0.3"
+        className="origin-left transition-transform duration-700 ease-out group-hover:translate-x-[-4px]"
+      />
+      <line x1="13" y1="26" x2="20" y2="26" stroke="var(--color-text-secondary)" strokeWidth="1.5" strokeLinecap="round" strokeOpacity="0.4" />
+      <line x1="13" y1="32" x2="25" y2="32" stroke="var(--color-text-secondary)" strokeWidth="1.5" strokeLinecap="round" strokeOpacity="0.3" />
+      <line x1="13" y1="38" x2="22" y2="38" stroke="var(--color-text-secondary)" strokeWidth="1.5" strokeLinecap="round" strokeOpacity="0.3" />
+
+      {/* Connection Path */}
+      <path 
+        d="M30 34 L 42 34" 
+        stroke="var(--color-brand-blue)" strokeWidth="1.5" strokeDasharray="3 3"
+        className="opacity-40 group-hover:opacity-100 transition-opacity duration-700" 
+      />
+      
+      {/* Flying data packet (Secure link) - Animated via keyframes on hover wrapper */}
+      <g className="opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+        <circle cx="30" cy="34" r="2" fill="var(--color-brand-blue)" style={{ animation: 'packet-fly 3.5s infinite ease-in-out' }} />
+      </g>
+
+      {/* Client Device (Mobile) */}
+      <g className="origin-right transition-transform duration-700 ease-out group-hover:translate-x-[4px] group-hover:scale-105">
+        <rect 
+          x="42" y="16" width="16" height="32" rx="4" 
+          fill="var(--color-surface-BG-1)" fillOpacity="0.8"
+          stroke="var(--color-brand-blue)" strokeWidth="1.5"
+          className="backdrop-blur-sm shadow-[0_0_15px_rgba(53,187,253,0)] group-hover:shadow-[0_0_20px_rgba(53,187,253,0.3)] transition-shadow duration-700"
+        />
+        {/* Mobile Notch */}
+        <line x1="48" y1="20" x2="52" y2="20" stroke="var(--color-brand-blue)" strokeWidth="1.5" strokeLinecap="round" />
+        
+        {/* Sequence Wrapper (Only visible on hover) */}
+        <g className="opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+          
+          {/* Secure Lock */}
+          <g style={{ animation: 'lock-seq 3.5s infinite ease-out', transformOrigin: '50px 32px' }}>
+            <rect x="46" y="31" width="8" height="6" rx="1.5" stroke="var(--color-brand-blue)" strokeWidth="1.2" />
+            <path d="M47.5 31 V 29 A 2.5 2.5 0 0 1 52.5 29 V 31" stroke="var(--color-brand-blue)" strokeWidth="1.2" />
+            <circle cx="50" cy="34" r="0.8" fill="var(--color-brand-blue)" />
+          </g>
+
+          {/* Success Checkmark */}
+          <g style={{ animation: 'check-seq 3.5s infinite ease-out', transformOrigin: '50px 34px' }}>
+            <path 
+              d="M46 34 l 2.5 2.5 l 5 -5" 
+              stroke="var(--color-brand-blue)" 
+              strokeWidth="1.5" 
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+              strokeDasharray="12" 
+            />
+          </g>
+          
+        </g>
+      </g>
+    </svg>
+  </>
 );
+
 
 const IllusMobile = () => (
   <div className="relative w-16 h-16 rounded-2xl bg-[var(--color-surface-BG-3)]/60 border border-[var(--color-border-Strokes-base)]/30 flex flex-col items-center justify-center overflow-hidden transition-all duration-500 shadow-elevation-1 group-hover:border-[var(--color-brand-blue)]/40">
@@ -114,7 +213,7 @@ export default function QuoteEnroll() {
         bold: (chunks) => <strong className="font-semibold text-[var(--color-text-primary)]">{chunks}</strong>,
         blue: (chunks) => <strong className="font-semibold text-[var(--color-brand-blue)]">{chunks}</strong>
       }), 
-      icon: <IllusLink /> 
+      icon: <IllusDirectEnrollment /> 
     },
     { 
       id: "02", 
@@ -123,7 +222,7 @@ export default function QuoteEnroll() {
         bold: (chunks) => <strong className="font-semibold text-[var(--color-text-primary)]">{chunks}</strong>,
         blue: (chunks) => <strong className="font-semibold text-[var(--color-brand-blue)]">{chunks}</strong>
       }), 
-      icon: <IllusDesktop /> 
+      icon: <IllusPartialEnrollment /> 
     },
     { 
       id: "03", 
