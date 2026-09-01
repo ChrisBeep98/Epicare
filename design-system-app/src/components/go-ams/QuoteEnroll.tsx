@@ -162,6 +162,8 @@ export default function QuoteEnroll() {
 
       // DESKTOP: PIN & VERTICAL SCROLL OVER CENTERED TEXT
       mm.add("(min-width: 1024px)", () => {
+        if (prefersReducedMotion) return; // HARDWARE SYMPHONY: Accessibility First
+
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: pinWrapper,
@@ -192,6 +194,8 @@ export default function QuoteEnroll() {
 
       // MOBILE: NATIVE SNAP SCROLL WITH GSAP REVEAL
       mm.add("(max-width: 1023px)", () => {
+        if (prefersReducedMotion) return; // HARDWARE SYMPHONY: Accessibility First
+
         gsap.fromTo(
           ".qw-card",
           { opacity: 0, y: 50 },
@@ -274,7 +278,7 @@ export default function QuoteEnroll() {
         {/* CARDS GRID (GSAP scrubs this up from below) */}
         <div 
           ref={trackRef}
-          className="absolute top-[100vh] left-0 w-full z-20 flex justify-center px-gutter-sm md:px-gutter-md pb-[20vh]"
+          className="absolute top-[100vh] left-0 w-full z-20 flex justify-center px-gutter-sm md:px-gutter-md pb-[20vh] will-change-transform"
         >
           <div className="flex flex-col md:flex-row gap-6 md:gap-12 lg:gap-20 w-full max-w-6xl mx-auto">
             
@@ -283,11 +287,16 @@ export default function QuoteEnroll() {
               {features.filter((_, i) => i % 2 === 0).map((feature) => (
                 <div 
                   key={feature.id}
-                  className="qw-card relative w-full rounded-[2.5rem] border border-[var(--color-border-Strokes-strong)]/20 shadow-elevation-3 hover:shadow-elevation-5 overflow-hidden group transition-transform duration-700 hover:-translate-y-4"
+                  className="qw-card relative w-full rounded-[2.5rem] border border-[var(--color-border-Strokes-strong)]/20 overflow-hidden group transition-transform duration-700 hover:-translate-y-4 will-change-transform"
                 >
-                  <div className="absolute inset-0 -z-10 bg-[var(--color-surface-BG-1)]/50 dark:bg-black/40 backdrop-blur-[24px]" />
-                  <div className="absolute inset-0 -z-10 bg-white/30 dark:bg-white/5 backdrop-blur-[16px] saturate-[1.5]" />
-                  <div className="absolute inset-0 -z-10 rounded-[2.5rem] bg-gradient-to-b from-white/40 to-transparent dark:from-white/10 opacity-70 pointer-events-none" />
+                  {/* SMOOTH HARDWARE-ACCELERATED SHADOWS */}
+                  <div className="absolute inset-0 -z-30 rounded-[2.5rem] shadow-elevation-3 pointer-events-none" />
+                  <div className="absolute inset-0 -z-30 rounded-[2.5rem] shadow-elevation-5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 will-change-[opacity] pointer-events-none" />
+
+                  {/* GLASS BACKGROUND LAYER (Hardware Accelerated) */}
+                  <div className="absolute inset-0 -z-10 bg-[var(--color-surface-BG-1)]/50 dark:bg-black/40 backdrop-blur-[24px] transform-gpu" />
+                  <div className="absolute inset-0 -z-10 bg-white/30 dark:bg-white/5 backdrop-blur-[16px] saturate-[1.5] transform-gpu" />
+                  <div className="absolute inset-0 -z-10 rounded-[2.5rem] bg-gradient-to-b from-white/40 to-transparent dark:from-white/10 opacity-70 pointer-events-none transform-gpu" />
 
                   <div className="card-bg-number absolute -bottom-4 -right-4 text-[25vw] lg:text-[12vw] leading-none font-display font-bold text-[var(--color-text-primary)] opacity-[0.03] dark:opacity-[0.05] pointer-events-none select-none z-0 transition-colors duration-500 group-hover:text-[var(--color-brand-blue)]">
                     {feature.id}
@@ -325,11 +334,16 @@ export default function QuoteEnroll() {
               {features.filter((_, i) => i % 2 !== 0).map((feature) => (
                 <div 
                   key={feature.id}
-                  className="qw-card relative w-full rounded-[2.5rem] border border-[var(--color-border-Strokes-strong)]/20 shadow-elevation-3 hover:shadow-elevation-5 overflow-hidden group transition-transform duration-700 hover:-translate-y-4"
+                  className="qw-card relative w-full rounded-[2.5rem] border border-[var(--color-border-Strokes-strong)]/20 overflow-hidden group transition-transform duration-700 hover:-translate-y-4 will-change-transform"
                 >
-                  <div className="absolute inset-0 -z-10 bg-[var(--color-surface-BG-1)]/50 dark:bg-black/40 backdrop-blur-[24px]" />
-                  <div className="absolute inset-0 -z-10 bg-white/30 dark:bg-white/5 backdrop-blur-[16px] saturate-[1.5]" />
-                  <div className="absolute inset-0 -z-10 rounded-[2.5rem] bg-gradient-to-b from-white/40 to-transparent dark:from-white/10 opacity-70 pointer-events-none" />
+                  {/* SMOOTH HARDWARE-ACCELERATED SHADOWS */}
+                  <div className="absolute inset-0 -z-30 rounded-[2.5rem] shadow-elevation-3 pointer-events-none" />
+                  <div className="absolute inset-0 -z-30 rounded-[2.5rem] shadow-elevation-5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 will-change-[opacity] pointer-events-none" />
+
+                  {/* GLASS BACKGROUND LAYER (Hardware Accelerated) */}
+                  <div className="absolute inset-0 -z-10 bg-[var(--color-surface-BG-1)]/50 dark:bg-black/40 backdrop-blur-[24px] transform-gpu" />
+                  <div className="absolute inset-0 -z-10 bg-white/30 dark:bg-white/5 backdrop-blur-[16px] saturate-[1.5] transform-gpu" />
+                  <div className="absolute inset-0 -z-10 rounded-[2.5rem] bg-gradient-to-b from-white/40 to-transparent dark:from-white/10 opacity-70 pointer-events-none transform-gpu" />
 
                   <div className="card-bg-number absolute -bottom-4 -right-4 text-[25vw] lg:text-[12vw] leading-none font-display font-bold text-[var(--color-text-primary)] opacity-[0.03] dark:opacity-[0.05] pointer-events-none select-none z-0 transition-colors duration-500 group-hover:text-[var(--color-brand-blue)]">
                     {feature.id}
