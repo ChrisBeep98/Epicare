@@ -106,21 +106,34 @@ export default function SalesLayerGoCrm() {
         </div>
 
         {/* Right Noria (Ferris Wheel) Deck */}
-        <div className="w-full lg:w-6/12 h-[600px] relative perspective-[1500px]">
+        <div className="w-full lg:w-6/12 h-[700px] relative perspective-[1500px]">
+          
+          {/* LAYER 0: IMMERSIVE BACKGROUND AURA BLOB */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[var(--color-brand-blue)] opacity-20 rounded-full blur-[100px] -z-10 pointer-events-none mix-blend-multiply" />
+
           {[1, 2, 3, 4].map((num, i) => (
             <div 
               key={i} 
-              className="noria-card absolute top-1/2 left-0 lg:left-12 -translate-y-1/2 w-full max-w-[460px] bg-white border border-[var(--color-border-Strokes-default)] rounded-[32px] p-10 shadow-elevation-4 flex flex-col justify-center h-auto min-h-[340px] transform-style-3d will-change-transform"
+              className="noria-card absolute top-1/2 left-0 lg:left-8 -translate-y-1/2 w-full max-w-[500px] rounded-[2.5rem] border border-white/60 shadow-[0_40px_80px_rgba(53,187,253,0.15)] overflow-hidden transform-style-3d will-change-transform"
             >
-              <div className="w-16 h-16 rounded-2xl bg-[var(--color-surface-BG-2)] flex items-center justify-center mb-6">
-                {icons[i]}
+              {/* STATIC GLASSMORPHIC BACKGROUND LAYER */}
+              <div className="absolute inset-0 -z-10 rounded-[2.5rem]">
+                <div className="absolute inset-0 bg-white/60 backdrop-blur-[24px]" />
+                <div className="absolute inset-0 bg-white/40 backdrop-blur-[30px] saturate-[1.5]" />
               </div>
-              <h3 className="text-h2 font-semibold text-[var(--color-text-primary)] leading-tight mb-4">
-                {t(`feature${num}Title`)}
-              </h3>
-              <p className="text-body-md text-[var(--color-text-secondary)] leading-relaxed">
-                {t(`feature${num}Desc`)}
-              </p>
+
+              {/* CONTENT LAYER */}
+              <div className="relative z-10 flex flex-col justify-center h-[400px] p-12">
+                <div className="w-16 h-16 rounded-2xl bg-[var(--color-brand-blue)]/10 text-[var(--color-brand-blue)] flex items-center justify-center mb-8 border border-[var(--color-brand-blue)]/20 shadow-inner">
+                  {icons[i]}
+                </div>
+                <h3 className="text-display-sm lg:text-h2 font-semibold text-[var(--color-text-primary)] leading-tight mb-4 tracking-tight">
+                  {t(`feature${num}Title`)}
+                </h3>
+                <p className="text-body-lg text-[var(--color-text-secondary)] leading-relaxed">
+                  {t(`feature${num}Desc`)}
+                </p>
+              </div>
             </div>
           ))}
         </div>
