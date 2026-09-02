@@ -479,5 +479,15 @@
       "btnPrimary": "Apply Now",
       "btnSecondary": "Contact Us"
     }
+  },
+  "goCrm": {
+    "hero": {
+      "overline": "GO CRM",
+      "title": "Your book of business, <blue>one control center.</blue>",
+      "subhead": "The sales layer of <bold>GO Hub</bold>. Everything that happens before a prospect becomes a policy, in one place.",
+      "cta": "Notify me when available",
+      "microcopy": "Under construction. Launching on go.epicare.com"
+    }
   }
 }
+

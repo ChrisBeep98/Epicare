@@ -479,5 +479,15 @@
       "btnPrimary": "Aplicar Ya",
       "btnSecondary": "Contactar"
     }
+  },
+  "goCrm": {
+    "hero": {
+      "overline": "GO CRM",
+      "title": "Tu libro de negocios, <blue>un centro de control.</blue>",
+      "subhead": "La capa de venta de <bold>GO Hub</bold>. Todo lo que pasa antes de que un prospecto se vuelva póliza, en un solo lugar.",
+      "cta": "Avísame cuando esté disponible",
+      "microcopy": "En construcción. Se libera en go.epicare.com"
+    }
   }
 }
+
