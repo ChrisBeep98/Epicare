@@ -496,6 +496,23 @@
       "p3": "Dijo que lo pensaba, que le escribieras en dos semanas. Eso <b>quedó en tu cabeza</b>.",
       "p4": "<b>Te acordaste tarde.</b> Ya compró.",
       "cierre": "Con 10 clientes, la memoria basta. <b>Con 100, no.</b>"
+    },
+    "salesLayer": {
+      "overline": "La capa de venta",
+      "title": "Cada prospecto es una comisión que todavía no cobras.",
+      "p1": "Cada uno tiene un valor y todos se te pueden caer por la misma razón: <b>nadie volvió a llamar.</b>",
+      "p2": "Eso es lo que hace un CRM. Cada persona con su ficha, en qué etapa está y qué sigue con ella. Deja de estar en tu memoria y pasa a estar en un sistema.",
+      "cierre": "GO CRM administra el ingreso que todavía no cobras.",
+      "disclaimer": "No cotiza, no emite pólizas y no administra comisiones. Para eso ya tienes otras herramientas.",
+      "featuresTitle": "Cuatro cosas, bien hechas.",
+      "feature1Title": "Prospectos",
+      "feature1Desc": "Una ficha por cada persona que todavía no compró: sus datos, qué necesita y en qué etapa está. Contactado, cotizado, solicitud enviada, esperando documentos, cerrado. Cuando los ves agrupados por etapa, ves dónde se te está atascando el negocio.",
+      "feature2Title": "Tareas",
+      "feature2Desc": "Algo que le debes a alguien, con fecha. Llamar a María el jueves. Pedirle el ID a Carlos. Es lo que convierte una agenda de contactos en un plan de trabajo.",
+      "feature3Title": "Automatizaciones",
+      "feature3Desc": "Reglas que el sistema ejecuta por ti. Entra un prospecto, sale el correo de bienvenida. Pasan tres días sin respuesta, aparece una tarea de volver a llamar. Las reglas las configuras tú.",
+      "feature4Title": "Seguimiento",
+      "feature4Desc": "Todo lo que pasó con esa persona, registrado. Y ningún prospecto sin siguiente paso definido."
     }
   }
 }

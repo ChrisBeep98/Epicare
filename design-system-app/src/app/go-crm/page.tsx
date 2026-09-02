@@ -6,6 +6,7 @@ import HeaderEpicare from "@/components/epicare/HeaderEpicare";
 import FooterEpicare from "@/components/epicare/FooterEpicare";
 import HeroGoCrm from "@/components/go-crm/HeroGoCrm";
 import ProblemGoCrm from "@/components/go-crm/ProblemGoCrm";
+import SalesLayerGoCrm from "@/components/go-crm/SalesLayerGoCrm";
 
 export default function GoCrmPage() {
   const [isHeaderPill, setIsHeaderPill] = useState(false);
@@ -34,6 +35,7 @@ export default function GoCrmPage() {
       {/* ── GO CRM SECTIONS ── */}
       <HeroGoCrm />
       <ProblemGoCrm />
+      <SalesLayerGoCrm />
 
       {/* ── GLOBAL FOOTER ── */}
       <FooterEpicare />

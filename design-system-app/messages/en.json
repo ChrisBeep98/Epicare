@@ -496,6 +496,23 @@
       "p3": "They said they'd think about it, to check back in two weeks. That <b>stayed in your head</b>.",
       "p4": "<b>You remembered too late.</b> They already bought.",
       "cierre": "With 10 clients, memory works. <b>With 100, it doesn't.</b>"
+    },
+    "salesLayer": {
+      "overline": "The sales layer",
+      "title": "Every prospect is a commission you haven't collected yet.",
+      "p1": "Each one has a value and they can all fall through for the same reason: <b>nobody called back.</b>",
+      "p2": "That's what a CRM does. Each person gets a file, their stage is tracked, and the next step is planned. It moves out of your memory and into a system.",
+      "cierre": "GO CRM manages the income you haven't collected yet.",
+      "disclaimer": "It doesn't quote, issue policies, or manage commissions. You already have other tools for that.",
+      "featuresTitle": "Four things, done right.",
+      "feature1Title": "Prospects",
+      "feature1Desc": "A file for every person who hasn't bought yet: their details, what they need, and their current stage. Contacted, quoted, application sent, waiting for docs, closed. Grouping them by stage shows you exactly where your business is stalling.",
+      "feature2Title": "Tasks",
+      "feature2Desc": "Something you owe someone, with a deadline. Call Maria on Thursday. Ask Carlos for his ID. This is what turns a contact book into a work plan.",
+      "feature3Title": "Automations",
+      "feature3Desc": "Rules the system executes for you. A prospect comes in, the welcome email goes out. Three days pass with no response, a callback task appears. You set the rules.",
+      "feature4Title": "Tracking",
+      "feature4Desc": "Everything that happened with that person, recorded. And no prospect is left without a defined next step."
     }
   }
 }
