@@ -31,6 +31,7 @@ El sistema tipográfico usa **tres familias**, cada una atada a un rol semántic
 | `.text-display-lg` | clamp(3rem, 5vw, 4.5rem), weight: 600 | Headers principales |
 | `.text-display` | clamp(2.5rem, 4vw, 3.5rem) | Headers secundarios |
 | `.text-display-sm` | clamp(2rem, 3vw, 2.5rem) | Headers tarjetas gigantes |
+| `.text-display-xs` | clamp(1.375rem, 2vw, 1.75rem) | Textos de lectura premium |
 | `.text-h1` | clamp(1.75rem, 2.5vw, 2.25rem) | Títulos de sección |
 | `.text-h2` | clamp(1.5rem, 2vw, 1.875rem) | Subtítulos de sección |
 | `.text-h3` | clamp(1.25rem, 1.5vw, 1.5rem) | Títulos de tarjetas |

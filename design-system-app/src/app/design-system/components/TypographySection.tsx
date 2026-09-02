@@ -65,6 +65,7 @@ export default function TypographySection() {
             { token: ".text-display-lg", name: "Display LG", text: "Agent Dashboard", details: `Size: clamp(3rem, 5vw, 4.5rem)\nWeight: 700(Mob)/600(Desk)\nLine-height: 1.1` },
             { token: ".text-display", name: "Display", text: "Sales Performance", details: `Size: clamp(2.5rem, 4vw, 3.5rem)\nWeight: 700(Mob)/600(Desk)\nLine-height: 1.15` },
             { token: ".text-display-sm", name: "Display SM", text: "Client Portfolio", details: `Size: clamp(2rem, 3vw, 2.5rem)\nWeight: 700(Mob)/600(Desk)\nLine-height: 1.2` },
+            { token: ".text-display-xs", name: "Display XS", text: "Premium Reading", details: `Size: clamp(1.375rem, 2vw, 1.75rem)\nWeight: 700(Mob)/600(Desk)\nLine-height: 1.2` },
             { token: ".text-h1", name: "H1 Section", text: "Commission Tracking", details: `Size: clamp(1.75rem, 2.5vw, 2.25rem)\nWeight: 700(Mob)/600(Desk)\nLine-height: 1.2` },
             { token: ".text-h2", name: "H2 Sub-section", text: "Active Policies", details: `Size: clamp(1.5rem, 2vw, 1.875rem)\nWeight: 700(Mob)/600(Desk)\nLine-height: 1.3` },
             { token: ".text-h3", name: "H3 Card", text: "Lead Generation", details: `Size: clamp(1.25rem, 1.5vw, 1.5rem)\nWeight: 700(Mob)/600(Desk)\nLine-height: 1.3` },

@@ -487,6 +487,15 @@
       "subhead": "The sales layer of <bold>GO Hub</bold>. Everything that happens before a prospect becomes a policy, in one place.",
       "cta": "Notify me when available",
       "microcopy": "Under construction. Launching on go.epicare.com"
+    },
+    "problem": {
+      "overline": "The problem",
+      "h2": "You don't lose sales over price. You lose them because you forgot to call back.",
+      "p1": "Someone called on Tuesday asking for a plan. They stayed in your <b>call history</b>.",
+      "p2": "You sent them a quote via email. It's <b>still sitting there</b>.",
+      "p3": "They said they'd think about it, to check back in two weeks. That <b>stayed in your head</b>.",
+      "p4": "<b>You remembered too late.</b> They already bought.",
+      "cierre": "With 10 clients, memory works. <b>With 100, it doesn't.</b>"
     }
   }
 }

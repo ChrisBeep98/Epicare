@@ -487,6 +487,15 @@
       "subhead": "La capa de venta de <bold>GO Hub</bold>. Todo lo que pasa antes de que un prospecto se vuelva póliza, en un solo lugar.",
       "cta": "Avísame cuando esté disponible",
       "microcopy": "En construcción. Se libera en go.epicare.com"
+    },
+    "problem": {
+      "overline": "El problema",
+      "h2": "No pierdes ventas por precio. Las pierdes por no haber vuelto a llamar.",
+      "p1": "Alguien llamó el martes preguntando por un plan. Quedó en el <b>historial del teléfono</b>.",
+      "p2": "Le mandaste la cotización por correo. <b>Ahí sigue</b>.",
+      "p3": "Dijo que lo pensaba, que le escribieras en dos semanas. Eso <b>quedó en tu cabeza</b>.",
+      "p4": "<b>Te acordaste tarde.</b> Ya compró.",
+      "cierre": "Con 10 clientes, la memoria basta. <b>Con 100, no.</b>"
     }
   }
 }
