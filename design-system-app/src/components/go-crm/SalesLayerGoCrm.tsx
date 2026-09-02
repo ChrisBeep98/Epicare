@@ -97,19 +97,12 @@ export default function SalesLayerGoCrm() {
           <div className="inline-block px-4 py-1.5 rounded-full bg-[var(--color-surface-BG-3)] text-[var(--color-text-primary)] font-mono text-ui-label mb-6 border border-[var(--color-border-Strokes-default)]">
             {t("overline")}
           </div>
-          <h2 className="text-display lg:text-display-lg font-bold leading-[1.1] text-[var(--color-text-primary)] mb-8">
+          <h2 className="text-display lg:text-display-lg font-bold leading-[1.1] text-[var(--color-text-primary)] mb-2">
             {t("featuresTitle")}
           </h2>
-          <p className="text-body-lg text-[var(--color-text-secondary)] mb-6 max-w-md">
-            {t.rich("p1", { b: (c:any) => <strong className="text-[var(--color-text-primary)] font-semibold">{c}</strong> })}
-          </p>
-          <p className="text-body-md text-[var(--color-text-muted)] mb-12 max-w-md">
-            {t("p2")}
-          </p>
-          <div className="pt-6 border-t border-[var(--color-border-Strokes-default)] max-w-md">
-            <p className="text-h4 font-semibold text-[var(--color-brand-blue)] mb-2">{t("cierre")}</p>
-            <p className="text-caption text-[var(--color-text-muted)]">{t("disclaimer")}</p>
-          </div>
+          <h2 className="text-display lg:text-display-lg font-bold leading-[1.1] text-[var(--color-brand-blue)]">
+            {t("cierre")}
+          </h2>
         </div>
 
         {/* Right Noria (Ferris Wheel) Deck */}
