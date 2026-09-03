@@ -1,144 +1,135 @@
 "use client";
 
 import React, { useRef, useLayoutEffect } from "react";
+import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useTranslations } from "next-intl";
-import { 
-  UsersThree, 
-  CheckSquareOffset, 
-  Lightning, 
-  ChartLineUp 
-} from "@phosphor-icons/react";
-
-gsap.registerPlugin(ScrollTrigger);
 
 export default function SalesLayerGoCrm() {
   const t = useTranslations("goCrm.salesLayer");
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const container = useRef<HTMLDivElement>(null);
+  const pinWrapper = useRef<HTMLDivElement>(null);
 
-  // ── NORIA PHYSICS ENGINE SETTINGS ──
-  // Calibrated via Debug Panel
-  const params = {
-    rX: 265,        // Curvatura (Arco X 1)
-    rX2: 520,       // Curvatura Extrema (Arco X 2)
-    rY: 270,        // Separación Vertical (Radio Y)
-    angle: 28,      // Inclinación 3D (Z Angle)
-    scaleOff: 0.60, // Escala fondo
-    opacOff: 0.30,  // Opacidad fondo
-  };
+  const items = [
+    { 
+      num: "01", titleKey: "feature1Title", descKey: "feature1Desc", 
+      image: "https://images.unsplash.com/photo-1600132806370-bf17e65e942f?q=80&w=1000&auto=format&fit=crop"
+    },
+    { 
+      num: "02", titleKey: "feature2Title", descKey: "feature2Desc", 
+      image: "https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1000&auto=format&fit=crop"
+    },
+    { 
+      num: "03", titleKey: "feature3Title", descKey: "feature3Desc", 
+      image: "https://images.unsplash.com/photo-1501621667575-af81f1f0bacc?q=80&w=1000&auto=format&fit=crop"
+    },
+    { 
+      num: "04", titleKey: "feature4Title", descKey: "feature4Desc", 
+      image: "https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?q=80&w=1000&auto=format&fit=crop"
+    },
+  ];
 
   useLayoutEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    
     const ctx = gsap.context(() => {
-      const cards = gsap.utils.toArray<HTMLElement>(".noria-card");
+      const panels = gsap.utils.toArray<HTMLElement>(".spread-panel");
       
-      // INITIAL SETUP (4 CARDS)
-      gsap.set(cards[0], { y: 0, x: 0, rotateZ: 0, scale: 1, opacity: 1, zIndex: 40 });
-      gsap.set(cards[1], { y: params.rY, x: params.rX, rotateZ: -params.angle, scale: params.scaleOff, opacity: params.opacOff, zIndex: 30 });
-      gsap.set(cards[2], { y: params.rY * 2, x: params.rX2, rotateZ: -(params.angle * 2), scale: params.scaleOff - 0.15, opacity: 0, zIndex: 20 });
-      gsap.set(cards[3], { y: params.rY * 3, x: params.rX2, rotateZ: -(params.angle * 3), scale: params.scaleOff - 0.3, opacity: 0, zIndex: 10 });
+      panels.forEach((panel) => {
+        const left = panel.querySelector(".half-left");
+        const right = panel.querySelector(".half-right");
+        gsap.set([left, right], { yPercent: 100 });
+      });
 
       const tl = gsap.timeline({
         scrollTrigger: {
-          trigger: sectionRef.current,
+          trigger: pinWrapper.current,
           start: "top top",
-          end: "+=300%",
-          scrub: 1,
+          end: () => "+=" + (window.innerHeight * 4), 
           pin: true,
+          scrub: 1,
         }
       });
 
-      // TRANSITION 1 (Scroll step 1)
-      tl.to(cards[0], { y: -params.rY, x: params.rX, rotateZ: params.angle, scale: params.scaleOff, opacity: params.opacOff, ease: "power1.inOut" }, 0);
-      tl.to(cards[1], { y: 0, x: 0, rotateZ: 0, scale: 1, opacity: 1, ease: "power1.inOut" }, 0);
-      tl.to(cards[2], { y: params.rY, x: params.rX, rotateZ: -params.angle, scale: params.scaleOff, opacity: params.opacOff, ease: "power1.inOut" }, 0);
-      tl.to(cards[3], { y: params.rY * 2, x: params.rX2, rotateZ: -(params.angle * 2), scale: params.scaleOff - 0.15, opacity: 0, ease: "power1.inOut" }, 0);
-      
-      tl.set(cards[0], { zIndex: 30 }, 0.5);
-      tl.set(cards[1], { zIndex: 40 }, 0.5);
+      panels.forEach((panel, i) => {
+        const left = panel.querySelector(".half-left");
+        const right = panel.querySelector(".half-right");
+        const isRightFirst = (i % 2 === 0); 
 
-      // TRANSITION 2 (Scroll step 2)
-      tl.to(cards[0], { y: -(params.rY * 2), x: params.rX2, rotateZ: params.angle * 2, scale: params.scaleOff - 0.15, opacity: 0, ease: "power1.inOut" }, 1);
-      tl.to(cards[1], { y: -params.rY, x: params.rX, rotateZ: params.angle, scale: params.scaleOff, opacity: params.opacOff, ease: "power1.inOut" }, 1);
-      tl.to(cards[2], { y: 0, x: 0, rotateZ: 0, scale: 1, opacity: 1, ease: "power1.inOut" }, 1);
-      tl.to(cards[3], { y: params.rY, x: params.rX, rotateZ: -params.angle, scale: params.scaleOff, opacity: params.opacOff, ease: "power1.inOut" }, 1);
-      
-      tl.set(cards[1], { zIndex: 30 }, 1.5);
-      tl.set(cards[2], { zIndex: 40 }, 1.5);
+        if (isRightFirst) {
+          tl.to(right, { yPercent: 0, ease: "none", duration: 1 })
+            .to(left, { yPercent: 0, ease: "none", duration: 1 }, "-=0.6");
+        } else {
+          tl.to(left, { yPercent: 0, ease: "none", duration: 1 })
+            .to(right, { yPercent: 0, ease: "none", duration: 1 }, "-=0.6");
+        }
+      });
 
-      // TRANSITION 3 (Scroll step 3)
-      tl.to(cards[0], { y: -(params.rY * 3), x: params.rX2, rotateZ: params.angle * 3, scale: params.scaleOff - 0.3, opacity: 0, ease: "power1.inOut" }, 2);
-      tl.to(cards[1], { y: -(params.rY * 2), x: params.rX2, rotateZ: params.angle * 2, scale: params.scaleOff - 0.15, opacity: 0, ease: "power1.inOut" }, 2);
-      tl.to(cards[2], { y: -params.rY, x: params.rX, rotateZ: params.angle, scale: params.scaleOff, opacity: params.opacOff, ease: "power1.inOut" }, 2);
-      tl.to(cards[3], { y: 0, x: 0, rotateZ: 0, scale: 1, opacity: 1, ease: "power1.inOut" }, 2);
-      
-      tl.set(cards[2], { zIndex: 30 }, 2.5);
-      tl.set(cards[3], { zIndex: 40 }, 2.5);
+    }, container);
 
-    }, sectionRef);
     return () => ctx.revert();
   }, []);
 
-  const icons = [
-    <UsersThree key="1" weight="duotone" className="w-8 h-8 text-[#F26023]" />,
-    <CheckSquareOffset key="2" weight="duotone" className="w-8 h-8 text-[#35BBFD]" />,
-    <Lightning key="3" weight="duotone" className="w-8 h-8 text-yellow-500" />,
-    <ChartLineUp key="4" weight="duotone" className="w-8 h-8 text-emerald-500" />
-  ];
+  const renderImage = (item: typeof items[0]) => (
+    <div className="relative w-full h-full min-h-[40vh]">
+      <Image 
+        src={item.image} 
+        alt="Editorial visual"
+        fill
+        className="object-cover sepia-[0.2]"
+      />
+    </div>
+  );
 
-  return (
-    <div ref={sectionRef} className="relative w-full h-screen bg-[var(--color-surface-BG-1)] flex items-center overflow-hidden">
-      
-      {/* ── LAYOUT ── */}
-      <div className="w-full max-w-section-lg mx-auto px-gutter-sm md:px-gutter-md flex flex-col lg:flex-row items-center justify-between gap-12">
-        
-        {/* Left Copy */}
-        <div className="w-full lg:w-5/12 z-20 relative">
-          <div className="inline-block px-4 py-1.5 rounded-full bg-[var(--color-surface-BG-3)] text-[var(--color-text-primary)] font-mono text-ui-label mb-6 border border-[var(--color-border-Strokes-default)]">
-            {t("overline")}
-          </div>
-          <h2 className="text-display lg:text-display-lg font-bold leading-[1.1] text-[var(--color-text-primary)] mb-2">
-            {t("featuresTitle")}
-          </h2>
-          <h2 className="text-display lg:text-display-lg font-bold leading-[1.1] text-[var(--color-brand-blue)]">
-            {t("cierre")}
-          </h2>
-        </div>
-
-        {/* Right Noria (Ferris Wheel) Deck */}
-        <div className="w-full lg:w-6/12 h-[700px] relative perspective-[1500px]">
-          
-          {/* LAYER 0: IMMERSIVE BACKGROUND AURA BLOB */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[var(--color-brand-blue)] opacity-20 rounded-full blur-[100px] -z-10 pointer-events-none mix-blend-multiply" />
-
-          {[1, 2, 3, 4].map((num, i) => (
-            <div 
-              key={i} 
-              className="noria-card absolute top-1/2 left-0 lg:left-8 -translate-y-1/2 w-full max-w-[500px] rounded-[2.5rem] border border-white/60 shadow-[0_40px_80px_rgba(53,187,253,0.15)] overflow-hidden transform-style-3d will-change-transform"
-            >
-              {/* STATIC GLASSMORPHIC BACKGROUND LAYER */}
-              <div className="absolute inset-0 -z-10 rounded-[2.5rem]">
-                <div className="absolute inset-0 bg-white/60 backdrop-blur-[24px]" />
-                <div className="absolute inset-0 bg-white/40 backdrop-blur-[30px] saturate-[1.5]" />
-              </div>
-
-              {/* CONTENT LAYER */}
-              <div className="relative z-10 flex flex-col justify-center h-[400px] p-12">
-                <div className="w-16 h-16 rounded-2xl bg-[var(--color-brand-blue)]/10 text-[var(--color-brand-blue)] flex items-center justify-center mb-8 border border-[var(--color-brand-blue)]/20 shadow-inner">
-                  {icons[i]}
-                </div>
-                <h3 className="text-display-sm lg:text-h2 font-semibold text-[var(--color-text-primary)] leading-tight mb-4 tracking-tight">
-                  {t(`feature${num}Title`)}
-                </h3>
-                <p className="text-body-lg text-[var(--color-text-secondary)] leading-relaxed">
-                  {t(`feature${num}Desc`)}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-
+  const renderText = (item: typeof items[0]) => (
+    <div className="max-w-xl text-left w-full">
+      <h3 className="text-display font-bold tracking-tight mb-12 leading-tight uppercase break-words xl:break-normal">
+        {t(item.titleKey)}
+      </h3>
+      <div className="columns-1 md:columns-2 gap-fluid-md">
+        <p className="text-body-lg leading-relaxed text-[var(--color-text-secondary)] text-justify">
+          {t(item.descKey)}
+        </p>
       </div>
     </div>
+  );
+
+  return (
+    <section ref={container} className="w-full bg-[var(--color-surface-BG-base)] text-[var(--color-text-primary)] relative">
+      
+      <div ref={pinWrapper} className="w-full h-screen relative overflow-hidden bg-[var(--color-surface-BG-base)]">
+        
+        {/* Base Layer: Intro Header stays pinned in the background */}
+        <div className="absolute inset-0 flex flex-col justify-center max-w-section-xl mx-auto px-gutter-md md:px-gutter-xl z-0">
+          <h2 className="text-h5 uppercase tracking-widest text-[var(--color-text-muted)] mb-6 md:mb-12">
+            {t("overline")}
+          </h2>
+          <p className="text-display-lg md:text-display-xl font-medium tracking-tight leading-tight max-w-5xl">
+            {t("title")}
+          </p>
+        </div>
+
+        {/* The panels slide OVER the intro text */}
+        {items.map((item, i) => (
+          <div 
+            key={i} 
+            className="spread-panel absolute inset-0 w-full h-full flex flex-col md:flex-row"
+            style={{ zIndex: i + 10 }}
+          >
+            {/* Physical Left Page (Text aligns right/center towards spine) */}
+            <div className={`half-left w-full md:w-1/2 h-1/2 md:h-full bg-[var(--color-surface-BG-base)] flex items-center justify-center ${i % 2 !== 0 ? 'px-gutter-md py-section-sm md:justify-end md:pr-12 lg:pr-24' : ''} border-b border-[var(--color-border-Strokes-default)] md:border-b-0 shadow-[0_-20px_40px_-15px_rgba(0,0,0,0.1)]`}>
+              {i % 2 === 0 ? renderImage(item) : renderText(item)}
+            </div>
+
+            {/* Physical Right Page (Text aligns left/center towards spine) */}
+            <div className={`half-right w-full md:w-1/2 h-1/2 md:h-full bg-[var(--color-surface-BG-base)] flex items-center justify-center ${i % 2 === 0 ? 'px-gutter-md py-section-sm md:justify-start md:pl-12 lg:pl-24' : ''} shadow-[0_-20px_40px_-15px_rgba(0,0,0,0.1)]`}>
+              {i % 2 === 0 ? renderText(item) : renderImage(item)}
+            </div>
+          </div>
+        ))}
+      </div>
+
+    </section>
   );
 }
