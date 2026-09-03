@@ -226,23 +226,25 @@ export default function CalendarConcept() {
       <div className="absolute top-[8%] left-[15%] w-[45vw] aspect-square bg-[var(--color-brand-blue)]/10 dark:bg-[var(--color-brand-blue)]/[0.06] rounded-full blur-[140px] pointer-events-none -z-10 mix-blend-multiply dark:mix-blend-screen transition-opacity" />
       <div className="absolute top-[25%] right-[15%] w-[35vw] aspect-square bg-[var(--color-brand-orange)]/10 dark:bg-[var(--color-brand-orange)]/[0.05] rounded-full blur-[130px] pointer-events-none -z-10 mix-blend-multiply dark:mix-blend-screen transition-opacity" />
 
-      {/* ── HEADER EDITORIAL (Zero Px Policy & 3 Familias) ── */}
-      <div className="max-w-4xl mx-auto px-6 text-center mb-16 md:mb-20 relative z-20">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[var(--color-brand-blue)]/25 bg-[var(--color-brand-blue)]/10 text-[var(--color-brand-blue)] mb-6 shadow-elevation-1">
-          <CalendarBlank size={14} weight="bold" />
-          <span className="font-mono text-meta font-bold tracking-[0.15em] uppercase">
-            La Diferencia
-          </span>
+      {/* ── HEADER EDITORIAL SPLIT: Título a la izquierda, Subtítulo a la derecha ── */}
+      <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8 mb-20 md:mb-24 lg:mb-28 relative z-20">
+        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 lg:gap-12 xl:gap-16">
+          
+          {/* Columna Izquierda: Título continuo con máxima amplitud */}
+          <div className="max-w-4xl xl:max-w-5xl flex-1">
+            <h2 className="text-display md:text-display-xl font-semibold tracking-tight leading-[1.12] text-[var(--color-text-primary)]">
+              La mayoría te da una lista. <span className="text-[var(--color-brand-blue)]">GO CRM te arma el día.</span>
+            </h2>
+          </div>
+
+          {/* Columna Derecha: Subtítulo Editorial Reducido */}
+          <div className="max-w-xs lg:max-w-[320px] shrink-0 lg:pb-1">
+            <p className="text-body-sm md:text-body-md text-[var(--color-text-secondary)] leading-relaxed font-normal">
+              Cualquier sistema te muestra a quién tienes. Nosotros organizamos a quién llamar primero. Entras y tu día ya está resuelto y en movimiento.
+            </p>
+          </div>
+
         </div>
-
-        <h2 className="text-display md:text-display-xl font-semibold tracking-tight leading-[1.08] mb-6 text-[var(--color-text-primary)]">
-          La mayoría te da una lista.<br />
-          <span className="text-[var(--color-brand-blue)]">GO CRM te arma el día.</span>
-        </h2>
-
-        <p className="text-subtitle md:text-body-xl text-[var(--color-text-secondary)] leading-relaxed max-w-2xl mx-auto font-normal">
-          Cualquier sistema te muestra a quién tienes. Nosotros organizamos a quién llamar primero. Entras y tu día ya está resuelto y en movimiento.
-        </p>
       </div>
 
       {/* ── UI WINDOW: GLASSMORPHIC ARCHITECTURE (Skill) ── */}
