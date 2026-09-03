@@ -8,6 +8,7 @@ import HeroGoCrm from "@/components/go-crm/HeroGoCrm";
 import ProblemGoCrm from "@/components/go-crm/ProblemGoCrm";
 import SalesLayerGoCrm from "@/components/go-crm/SalesLayerGoCrm";
 import DayVsListContainer from "@/components/go-crm/day-vs-list";
+import CierreGoCrm from "@/components/go-crm/CierreGoCrm";
 
 export default function GoCrmPage() {
   const [isHeaderPill, setIsHeaderPill] = useState(false);
@@ -38,6 +39,7 @@ export default function GoCrmPage() {
       <ProblemGoCrm />
       <SalesLayerGoCrm />
       <DayVsListContainer />
+      <CierreGoCrm />
 
       {/* ── GLOBAL FOOTER ── */}
       <FooterEpicare />
