@@ -499,7 +499,7 @@
     },
     "salesLayer": {
       "overline": "The sales layer",
-      "title": "Every prospect is a commission you haven't collected yet.",
+      "title": "With a <blue>CRM</blue> you turn loose opportunities into <blue>predictable sales</blue>.",
       "p1": "Each one has a value and they can all fall through for the same reason: <b>nobody called back.</b>",
       "p2": "That's what a CRM does. Each person gets a file, their stage is tracked, and the next step is planned. It moves out of your memory and into a system.",
       "cierre": "GO CRM manages the income you haven't collected yet.",
@@ -513,6 +513,19 @@
       "feature3Desc": "Rules the system executes for you. A prospect comes in, the welcome email goes out. Three days pass with no response, a callback task appears. You set the rules.",
       "feature4Title": "Tracking",
       "feature4Desc": "Everything that happened with that person, recorded. And no prospect is left without a defined next step."
+    },
+    "dayVsList": {
+      "overline": "The difference",
+      "h2": "Most systems give you a list. <blue>GO CRM gives you a day.</blue>",
+      "p1": "A CRM shows you who you have. Deciding every morning who to call first is still your job, and with eighty prospects, planning that day takes more time than making the calls.",
+      "p2": "Every task has a date. Every prospect has a next step. When you log in, your day is already planned.",
+      "step1Title": "What's due today.",
+      "step1Desc": "Tasks with today's date, at the top and in order.",
+      "step2Title": "What's overdue.",
+      "step2Desc": "What you promised and didn't do, separated and visible. It doesn't disappear.",
+      "step3Title": "What has no next step.",
+      "step3Desc": "Prospects left with nothing scheduled. These are the ones that slip through the cracks.",
+      "cierre": "You define the rules. The system keeps the order."
     }
   }
 }

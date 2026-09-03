@@ -106,7 +106,9 @@ export default function SalesLayerGoCrm() {
             {t("overline")}
           </h2>
           <p className="text-display-lg md:text-display-xl font-medium tracking-tight leading-tight max-w-5xl">
-            {t("title")}
+            {t.rich("title", {
+              blue: (chunks) => <span className="text-[var(--color-brand-blue)]">{chunks}</span>
+            })}
           </p>
         </div>
 

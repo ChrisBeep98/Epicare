@@ -499,7 +499,7 @@
     },
     "salesLayer": {
       "overline": "La capa de venta",
-      "title": "Cada prospecto es una comisión que todavía no cobras.",
+      "title": "Con <blue>CRM</blue> conviertes oportunidades sueltas en <blue>ventas predecibles</blue>.",
       "p1": "Cada uno tiene un valor y todos se te pueden caer por la misma razón: <b>nadie volvió a llamar.</b>",
       "p2": "Eso es lo que hace un CRM. Cada persona con su ficha, en qué etapa está y qué sigue con ella. Deja de estar en tu memoria y pasa a estar en un sistema.",
       "cierre": "GO CRM administra el ingreso que todavía no cobras.",
@@ -513,7 +513,19 @@
       "feature3Desc": "Reglas que el sistema ejecuta por ti. Entra un prospecto, sale el correo de bienvenida. Pasan tres días sin respuesta, aparece una tarea de volver a llamar. Las reglas las configuras tú.",
       "feature4Title": "Seguimiento",
       "feature4Desc": "Todo lo que pasó con esa persona, registrado. Y ningún prospecto sin siguiente paso definido."
+    },
+    "dayVsList": {
+      "overline": "La diferencia",
+      "h2": "La mayoría de estos sistemas te da una lista. <blue>GO CRM te da un día.</blue>",
+      "p1": "Un CRM te muestra a quién tienes. Decidir cada mañana a quién llamar primero sigue siendo tu trabajo, y con ochenta prospectos armar ese día toma más tiempo que hacer las llamadas.",
+      "p2": "Cada tarea tiene fecha. Cada prospecto tiene un siguiente paso. Al entrar, ese día ya está armado.",
+      "step1Title": "Lo que vence hoy.",
+      "step1Desc": "Las tareas con fecha de hoy, arriba y en orden.",
+      "step2Title": "Lo que se pasó de fecha.",
+      "step2Desc": "Lo que prometiste y no hiciste, separado y visible. No desaparece.",
+      "step3Title": "Lo que no tiene siguiente paso.",
+      "step3Desc": "Los prospectos que quedaron sin nada agendado. Son los que se caen.",
+      "cierre": "Las reglas las defines tú. El orden lo mantiene el sistema."
     }
   }
 }
-
