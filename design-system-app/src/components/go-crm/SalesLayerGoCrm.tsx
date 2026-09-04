@@ -14,7 +14,7 @@ export default function SalesLayerGoCrm() {
   const items = [
     { 
       num: "01", titleKey: "feature1Title", descKey: "feature1Desc", 
-      image: "https://images.unsplash.com/photo-1600132806370-bf17e65e942f?q=80&w=1000&auto=format&fit=crop"
+      image: "/Files/Go_CRM/capa de venta/Prospects.jpeg"
     },
     { 
       num: "02", titleKey: "feature2Title", descKey: "feature2Desc", 
