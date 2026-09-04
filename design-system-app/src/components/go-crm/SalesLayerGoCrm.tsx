@@ -92,18 +92,28 @@ export default function SalesLayerGoCrm() {
     );
   };
 
-  const renderText = (item: typeof items[0]) => (
-    <div className="max-w-xl text-left w-full">
-      <h3 className="text-display font-bold tracking-tight mb-12 leading-tight uppercase break-words xl:break-normal">
-        {t(item.titleKey)}
-      </h3>
-      <div className="columns-1 md:columns-2 gap-fluid-md">
-        <p className="text-body-lg leading-relaxed text-[var(--color-text-secondary)] text-justify">
-          {t(item.descKey)}
-        </p>
+  const renderText = (item: typeof items[0]) => {
+    const rawText = t(item.descKey);
+    const bullets = rawText.split('. ').filter(b => b.trim().length > 0);
+    
+    return (
+      <div className="max-w-xl text-left w-full">
+        <h3 className="text-display font-bold tracking-tight mb-8 md:mb-12 leading-tight uppercase break-words xl:break-normal">
+          {t(item.titleKey)}
+        </h3>
+        <ul className="flex flex-col gap-4">
+          {bullets.map((bullet, i) => (
+            <li key={i} className="flex items-start gap-4">
+              <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-brand-blue)] mt-2.5 shrink-0" />
+              <p className="text-body-lg leading-relaxed text-[var(--color-text-secondary)]">
+                {bullet}{!bullet.endsWith('.') && !bullet.endsWith('?') && !bullet.endsWith('!') ? '.' : ''}
+              </p>
+            </li>
+          ))}
+        </ul>
       </div>
-    </div>
-  );
+    );
+  };
 
   return (
     <section ref={container} className="w-full bg-[var(--color-surface-BG-base)] text-[var(--color-text-primary)] relative">

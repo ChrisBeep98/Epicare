@@ -8,7 +8,6 @@ import { EASE, DUR, REVEAL, STAGGER } from "@/lib/motion";
 export default function CierreGoCrm() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
-  const cardRef = useRef<HTMLDivElement>(null);
 
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "error" | "success">("idle");
@@ -18,42 +17,50 @@ export default function CierreGoCrm() {
     gsap.registerPlugin(ScrollTrigger);
 
     const ctx = gsap.context(() => {
-      // Background Image Parallax
-      gsap.fromTo(
-        ".cierre-bg-aura",
-        { scale: 1.1, yPercent: -5 },
-        {
-          scale: 1,
-          yPercent: 5,
-          ease: "none",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true,
-          },
-        }
-      );
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-      // Glass Card Reveal
+      if (prefersReducedMotion) {
+        gsap.set(".cierre-monolith, .cierre-bg-img, .cierre-item", {
+          opacity: 1, y: 0, scale: 1
+        });
+        return;
+      }
+
+      // 1. Contenedor Monolito (Scale up + Fade)
       gsap.fromTo(
-        cardRef.current,
-        { opacity: 0, y: REVEAL.lg },
+        ".cierre-monolith",
+        { opacity: 0, y: REVEAL.lg, scale: 0.96 },
         {
           opacity: 1,
           y: 0,
+          scale: 1,
           duration: DUR.slow,
-          ease: EASE.out,
+          ease: EASE.dramatic,
           scrollTrigger: {
             trigger: sectionRef.current,
             start: "top 75%",
-          },
+          }
         }
       );
 
-      // Text Elements Stagger Reveal
+      // 2. Fondo Parallax sutil / Zoom
       gsap.fromTo(
-        ".cierre-content-item",
+        ".cierre-bg-img",
+        { scale: 1.1 },
+        {
+          scale: 1,
+          duration: DUR.slow,
+          ease: EASE.dramatic,
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 75%",
+          }
+        }
+      );
+
+      // 3. Stagger del contenido
+      gsap.fromTo(
+        ".cierre-item",
         { opacity: 0, y: REVEAL.md },
         {
           opacity: 1,
@@ -61,29 +68,30 @@ export default function CierreGoCrm() {
           duration: DUR.base,
           ease: EASE.out,
           stagger: STAGGER.base,
-          delay: 0.2,
+          delay: 0.1,
           scrollTrigger: {
             trigger: sectionRef.current,
             start: "top 75%",
-          },
+          }
         }
       );
 
       // H2: Text-Birth
       gsap.fromTo(
         ".cierre-title-line",
-        { yPercent: REVEAL.birthPercent },
+        { yPercent: 120, opacity: 0 },
         {
           yPercent: 0,
-          duration: DUR.birth,
+          opacity: 1,
+          duration: DUR.base,
           ease: EASE.dramatic,
-          delay: 0.1,
           scrollTrigger: {
             trigger: sectionRef.current,
             start: "top 75%",
-          },
+          }
         }
       );
+
     }, sectionRef);
 
     return () => ctx.revert();
@@ -120,50 +128,39 @@ export default function CierreGoCrm() {
   };
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative w-full min-h-[90dvh] flex items-center justify-center overflow-hidden z-10 px-4 py-16 md:p-8 bg-[var(--color-surface-BG-base)]"
+    <section 
+      ref={sectionRef} 
+      className="relative w-full min-h-[90dvh] flex items-center justify-center overflow-hidden z-10 px-3.5 sm:px-4 md:px-8 bg-[var(--color-surface-BG-base)] py-16"
     >
-      {/* LAYER 1: GLASS CARD WRAPPER */}
-      <div className="relative z-20 w-full max-w-4xl flex flex-col items-center">
-        
-        {/* THE GLASS CARD (Parent owns border to prevent Webkit clipping) */}
-        <div 
-          ref={cardRef}
-          className="relative z-10 w-full rounded-[2.5rem] border border-white/10 shadow-2xl overflow-hidden transform hover:-translate-y-1 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
-        >
+      <div className="w-full max-w-4xl mx-auto">
+        <div className="cierre-monolith relative w-full rounded-[2rem] sm:rounded-[2.5rem] overflow-hidden shadow-elevation-4 border border-white/10">
           
-          {/* THE CLIPPED BACKGROUND (Liquid Glass perfectly clipped to card bounds) */}
-          <div className="absolute inset-0 -z-20 flex items-center justify-center bg-[var(--color-surface-BG-base)]">
+          {/* Fondo de Imagen igual que GO AMS */}
+          <div className="absolute inset-0 z-0 overflow-hidden bg-[#060B12]">
             <img 
-              src="/Files/Backgrounds/cierre_white_blue_blobs.jpg" 
-              alt="White and Blue Blobs Background" 
-              className="cierre-bg-aura absolute w-[100vw] h-[100dvh] max-w-none object-cover opacity-90" 
+              src="/Files/S14_cta_swiss_blue.jpg"
+              alt="GO CRM Background"
+              className="cierre-bg-img absolute inset-0 w-full h-full object-cover opacity-90"
             />
+            {/* Oscurecimiento para contraste óptimo */}
+            <div className="absolute inset-0 bg-black/30" />
           </div>
 
-          {/* STATIC BACKGROUND LAYER (Separated for blur performance) */}
-          <div className="absolute inset-0 -z-10 rounded-[2.5rem]">
-            {/* Brighten the glass and boost saturation so the liquid colors pop powerfully */}
-            <div className="absolute inset-0 bg-white/5 dark:bg-[#0A0D14]/20 backdrop-blur-[32px] saturate-[1.5]" />
-          </div>
-
-          {/* CONTENT LAYER */}
           <div className="relative z-10 p-8 md:p-16 lg:px-24 flex flex-col items-center text-center">
             
-            <div className="cierre-content-item mb-4">
-              <span className="text-body-sm tracking-widest uppercase text-[var(--color-text-dimmed)] font-medium">
+            <div className="cierre-item mb-4">
+              <span className="text-meta font-mono tracking-widest text-white/60 mb-4 uppercase border-b border-white/20 pb-1">
                 Disponibilidad
               </span>
             </div>
 
-            <div className="overflow-hidden mb-6">
-              <h2 className="text-display-lg text-[var(--color-text-base)] m-0 pb-2 cierre-title-line origin-bottom leading-tight">
+            <div className="overflow-hidden mb-6 mt-4">
+              <h2 className="text-display-lg font-display font-bold text-white m-0 pb-2 cierre-title-line origin-bottom leading-tight drop-shadow-sm">
                 GO CRM está en construcción.
               </h2>
             </div>
 
-            <p className="cierre-content-item text-body-lg text-[var(--color-text-muted)] max-w-lg text-balance mb-12">
+            <p className="cierre-item text-body-lg text-white/90 max-w-lg text-balance mb-12">
               Se libera en go.epicare.com. Déjanos tu correo y te avisamos el día que abra.
             </p>
 
@@ -171,7 +168,7 @@ export default function CierreGoCrm() {
             <form 
               ref={formRef} 
               onSubmit={handleSubmit}
-              className="cierre-content-item relative w-full max-w-md group"
+              className="cierre-item relative w-full max-w-md group"
             >
               <div className={`cierre-form-elements relative flex flex-col w-full ${status === 'success' ? 'pointer-events-none' : ''}`}>
                 
@@ -186,7 +183,7 @@ export default function CierreGoCrm() {
                     onFocus={() => setIsFocused(true)}
                     onBlur={() => setIsFocused(false)}
                     placeholder="Tu correo"
-                    className="w-full bg-transparent outline-none text-h3 text-[var(--color-text-base)] placeholder:text-[var(--color-text-dimmed)] py-4 pl-0 pr-32 transition-colors duration-300"
+                    className="w-full bg-transparent outline-none text-h3 text-white placeholder:text-white/40 py-4 pl-0 pr-32 transition-colors duration-300"
                     disabled={status === "success"}
                   />
                   
@@ -194,10 +191,10 @@ export default function CierreGoCrm() {
                   <button
                     type="submit"
                     disabled={status === "success"}
-                    className="absolute right-0 top-1/2 -translate-y-1/2 flex items-center gap-3 text-body-lg font-medium text-[var(--color-text-base)] hover:text-epicare-orange transition-colors duration-300 group/btn"
+                    className="absolute right-0 top-1/2 -translate-y-1/2 flex items-center gap-3 text-body-lg font-medium text-white hover:text-epicare-cyan transition-colors duration-300 group/btn"
                   >
                     Avísame
-                    <span className={`flex items-center justify-center w-10 h-10 rounded-full border border-[var(--color-border-base)] transition-all duration-300 ${isFocused ? 'bg-[var(--color-text-base)] text-[var(--color-surface-BG-base)] border-transparent' : 'bg-transparent text-[var(--color-text-base)] group-hover/btn:border-[var(--color-text-base)]'}`}>
+                    <span className={`flex items-center justify-center w-10 h-10 rounded-full border border-white/20 transition-all duration-300 ${isFocused ? 'bg-white text-[#0A0D14] border-transparent' : 'bg-transparent text-white group-hover/btn:border-white'}`}>
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
                         <path d="M5 12h14" />
                         <path d="m12 5 7 7-7 7" />
@@ -207,9 +204,9 @@ export default function CierreGoCrm() {
                 </div>
 
                 {/* Animated underline */}
-                <div className="relative h-[1px] w-full bg-[var(--color-border-base)] mt-1 overflow-hidden">
+                <div className="relative h-[2px] w-full bg-white/20 mt-1 overflow-hidden">
                   <div 
-                    className={`absolute inset-0 bg-[var(--color-text-base)] origin-left transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${isFocused ? 'scale-x-100' : 'scale-x-0'}`}
+                    className={`absolute inset-0 bg-white origin-left transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${isFocused ? 'scale-x-100' : 'scale-x-0'}`}
                   />
                 </div>
 
@@ -227,15 +224,15 @@ export default function CierreGoCrm() {
               <div className="cierre-success-msg absolute inset-0 flex flex-col items-center justify-center pointer-events-none opacity-0">
                 <div className="flex items-center gap-4">
                   <div className="w-3 h-3 rounded-full bg-[#10B981] shadow-[0_0_12px_rgba(16,185,129,0.6)] animate-pulse" />
-                  <p className="text-h4 md:text-h3 text-[var(--color-text-base)] m-0 font-medium">
-                    Listo. Te escribimos el día que GO CRM abra.
+                  <p className="text-h4 md:text-h3 text-white m-0 font-medium">
+                    Listo. Te escribimos el día que abra.
                   </p>
                 </div>
               </div>
 
             </form>
 
-            <div className="cierre-content-item mt-12 opacity-50 text-body-sm text-[var(--color-text-muted)]">
+            <div className="cierre-item mt-12 opacity-50 text-body-sm text-white">
             </div>
 
           </div>

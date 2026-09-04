@@ -88,7 +88,7 @@ export default function HeaderEpicare({
       key: "gohub",
       label: t("gohub"),
       items: [
-        { title: t("gohubCrm"), desc: t("gohubCrmDesc"), href: "#" },
+        { title: t("gohubCrm"), desc: t("gohubCrmDesc"), href: "/go-crm" },
         { title: t("gohubAms"), desc: t("gohubAmsDesc"), href: "/go-ams" },
         { title: t("gohubCalls"), desc: t("gohubCallsDesc"), href: "#" },
         { title: t("gohubAcademy"), desc: t("gohubAcademyDesc"), href: "#" },
