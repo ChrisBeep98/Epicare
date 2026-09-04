@@ -6,7 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useTranslations } from "next-intl";
 import { EASE, DUR, STAGGER, REVEAL, TRIGGER } from "@/lib/motion";
 import { RoleMode, FeaturePill } from "./types";
-import { COMPARISON_IMAGES } from "./data";
+import { AGENT_IMAGES, AGENCY_IMAGES } from "./data";
 import { AgentAgencyHeader } from "./AgentAgencyHeader";
 import { AgentAgencyImageShowcase } from "./AgentAgencyImageShowcase";
 import { AgentAgencyFeatureCards } from "./AgentAgencyFeatureCards";
@@ -176,11 +176,14 @@ export function AgentAgencySection({
     if (isPaused || !isInViewport) return;
 
     const timer = setInterval(() => {
-      setActiveSlide((prev) => (prev + 1) % COMPARISON_IMAGES.length);
+      setActiveSlide((prev) => {
+        const currentImages = activeRole === "agent" ? AGENT_IMAGES : AGENCY_IMAGES;
+        return (prev + 1) % currentImages.length;
+      });
     }, 4500);
 
     return () => clearInterval(timer);
-  }, [isPaused, isInViewport, activeSlide]);
+  }, [isPaused, isInViewport, activeRole, activeSlide]);
 
   // 3. Transición visual suave entre imágenes con GPU Compositor
   useEffect(() => {
@@ -198,6 +201,7 @@ export function AgentAgencySection({
   const handleRoleSwitch = (newRole: RoleMode) => {
     if (newRole === activeRole) return;
     setActiveRole(newRole);
+    setActiveSlide(0);
 
     // Micro-animación de transición al cambiar de pestaña (Headline + Cards)
     if (interactivePanelRef.current) {
@@ -267,7 +271,7 @@ export function AgentAgencySection({
         >
           {/* Columna Izquierda: Imagen Bleed-Left (Cols 1-6) */}
           <AgentAgencyImageShowcase
-            images={COMPARISON_IMAGES}
+            images={isAgent ? AGENT_IMAGES : AGENCY_IMAGES}
             activeSlide={activeSlide}
             imageContainerRef={imageContainerRef}
             onMouseEnter={() => setIsPaused(true)}

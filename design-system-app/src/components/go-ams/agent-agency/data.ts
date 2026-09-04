@@ -1,7 +1,7 @@
 import { asset } from "@/lib/asset";
 import { ComparisonImage, FeaturePill } from "./types";
 
-export const COMPARISON_IMAGES: ComparisonImage[] = [
+export const AGENT_IMAGES: ComparisonImage[] = [
   {
     id: "policies",
     src: asset("/Files/Go_AMS/comparison Agent_Agency/Agent_Policies.png"),
@@ -16,6 +16,24 @@ export const COMPARISON_IMAGES: ComparisonImage[] = [
     id: "quote",
     src: asset("/Files/Go_AMS/comparison Agent_Agency/quote and enroll.png"),
     alt: "GO AMS - Quote and Enroll"
+  }
+];
+
+export const AGENCY_IMAGES: ComparisonImage[] = [
+  {
+    id: "agency_policies",
+    src: asset("/Files/Go_AMS/comparison Agent_Agency/Agency_Downline.png"),
+    alt: "GO AMS - Pólizas de Agencia"
+  },
+  {
+    id: "agency_details",
+    src: asset("/Files/Go_AMS/comparison Agent_Agency/Agency_Broker suport.png"),
+    alt: "GO AMS - Detalle de Agencia"
+  },
+  {
+    id: "agency_quote",
+    src: asset("/Files/Go_AMS/comparison Agent_Agency/Agency_Quote.png"),
+    alt: "GO AMS - Agency Quote"
   }
 ];
 
