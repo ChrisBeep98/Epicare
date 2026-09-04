@@ -5,6 +5,7 @@ import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useTranslations } from "next-intl";
+import ProspectsComposition from "./sales-layer/ProspectsComposition";
 
 export default function SalesLayerGoCrm() {
   const t = useTranslations("goCrm.salesLayer");
@@ -71,16 +72,25 @@ export default function SalesLayerGoCrm() {
     return () => ctx.revert();
   }, []);
 
-  const renderImage = (item: typeof items[0]) => (
-    <div className="relative w-full h-full min-h-[40vh]">
-      <Image 
-        src={item.image} 
-        alt="Editorial visual"
-        fill
-        className="object-cover sepia-[0.2]"
-      />
-    </div>
-  );
+  const renderImage = (item: typeof items[0]) => {
+    if (item.num === "01") {
+      return (
+        <div className="relative w-full h-full min-h-[50vh] md:min-h-full">
+          <ProspectsComposition />
+        </div>
+      );
+    }
+    return (
+      <div className="relative w-full h-full min-h-[40vh]">
+        <Image 
+          src={item.image} 
+          alt="Editorial visual"
+          fill
+          className="object-cover sepia-[0.2]"
+        />
+      </div>
+    );
+  };
 
   const renderText = (item: typeof items[0]) => (
     <div className="max-w-xl text-left w-full">
@@ -120,12 +130,12 @@ export default function SalesLayerGoCrm() {
             style={{ zIndex: i + 10 }}
           >
             {/* Physical Left Page (Text aligns right/center towards spine) */}
-            <div className={`half-left w-full md:w-1/2 h-1/2 md:h-full bg-[var(--color-surface-BG-base)] flex items-center justify-center ${i % 2 !== 0 ? 'px-gutter-md py-section-sm md:justify-end md:pr-12 lg:pr-24' : ''} border-b border-[var(--color-border-Strokes-default)] md:border-b-0 shadow-[0_-20px_40px_-15px_rgba(0,0,0,0.1)]`}>
+            <div className={`half-left w-full md:w-1/2 h-1/2 md:h-full bg-[var(--color-surface-BG-base)] flex items-center justify-center ${i % 2 !== 0 ? 'px-gutter-md py-section-sm md:justify-end md:pr-12 lg:pr-24' : ''} border-b border-[var(--color-border-Strokes-default)] md:border-b-0 shadow-[0_-20px_40px_-15px_rgba(0,0,0,0.1)] overflow-hidden`}>
               {i % 2 === 0 ? renderImage(item) : renderText(item)}
             </div>
 
             {/* Physical Right Page (Text aligns left/center towards spine) */}
-            <div className={`half-right w-full md:w-1/2 h-1/2 md:h-full bg-[var(--color-surface-BG-base)] flex items-center justify-center ${i % 2 === 0 ? 'px-gutter-md py-section-sm md:justify-start md:pl-12 lg:pl-24' : ''} shadow-[0_-20px_40px_-15px_rgba(0,0,0,0.1)]`}>
+            <div className={`half-right w-full md:w-1/2 h-1/2 md:h-full bg-[var(--color-surface-BG-base)] flex items-center justify-center ${i % 2 === 0 ? 'px-gutter-md py-section-sm md:justify-start md:pl-12 lg:pl-24' : ''} shadow-[0_-20px_40px_-15px_rgba(0,0,0,0.1)] overflow-hidden`}>
               {i % 2 === 0 ? renderText(item) : renderImage(item)}
             </div>
           </div>

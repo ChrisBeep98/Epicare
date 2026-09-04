@@ -122,19 +122,8 @@ export default function CierreGoCrm() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full min-h-[90dvh] flex items-center justify-center overflow-hidden z-10 px-4 py-16 md:p-8 bg-[#060B12]"
+      className="relative w-full min-h-[90dvh] flex items-center justify-center overflow-hidden z-10 px-4 py-16 md:p-8 bg-[var(--color-surface-BG-base)]"
     >
-      {/* LAYER 0: IMMERSIVE BACKGROUND */}
-      <div className="absolute inset-0 z-0">
-        <img 
-          src="/Files/Backgrounds/epicare_bg_liquid_glass.jpg" 
-          alt="Liquid Glass Background" 
-          className="cierre-bg-aura w-full h-full object-cover opacity-80" 
-        />
-        {/* Dark gradient overlay to ensure text contrast at the bottom */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#060B12] via-transparent to-transparent opacity-80" />
-      </div>
-
       {/* LAYER 1: GLASS CARD WRAPPER */}
       <div className="relative z-20 w-full max-w-4xl flex flex-col items-center">
         
@@ -144,28 +133,37 @@ export default function CierreGoCrm() {
           className="relative z-10 w-full rounded-[2.5rem] border border-white/10 shadow-2xl overflow-hidden transform hover:-translate-y-1 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
         >
           
+          {/* THE CLIPPED BACKGROUND (Liquid Glass perfectly clipped to card bounds) */}
+          <div className="absolute inset-0 -z-20 flex items-center justify-center bg-[var(--color-surface-BG-base)]">
+            <img 
+              src="/Files/Backgrounds/cierre_white_blue_blobs.jpg" 
+              alt="White and Blue Blobs Background" 
+              className="cierre-bg-aura absolute w-[100vw] h-[100dvh] max-w-none object-cover opacity-90" 
+            />
+          </div>
+
           {/* STATIC BACKGROUND LAYER (Separated for blur performance) */}
           <div className="absolute inset-0 -z-10 rounded-[2.5rem]">
-            <div className="absolute inset-0 bg-white/5 dark:bg-[#0A0D14]/40 backdrop-blur-[32px]" />
-            <div className="absolute inset-0 bg-white/5 dark:bg-black/20 backdrop-blur-[20px] saturate-[1.2]" />
+            {/* Brighten the glass and boost saturation so the liquid colors pop powerfully */}
+            <div className="absolute inset-0 bg-white/5 dark:bg-[#0A0D14]/20 backdrop-blur-[32px] saturate-[1.5]" />
           </div>
 
           {/* CONTENT LAYER */}
           <div className="relative z-10 p-8 md:p-16 lg:px-24 flex flex-col items-center text-center">
             
             <div className="cierre-content-item mb-4">
-              <span className="text-body-sm tracking-widest uppercase text-white/60 font-medium">
+              <span className="text-body-sm tracking-widest uppercase text-[var(--color-text-dimmed)] font-medium">
                 Disponibilidad
               </span>
             </div>
 
             <div className="overflow-hidden mb-6">
-              <h2 className="text-display-lg text-white m-0 pb-2 cierre-title-line origin-bottom leading-tight">
+              <h2 className="text-display-lg text-[var(--color-text-base)] m-0 pb-2 cierre-title-line origin-bottom leading-tight">
                 GO CRM está en construcción.
               </h2>
             </div>
 
-            <p className="cierre-content-item text-body-lg text-white/70 max-w-lg text-balance mb-12">
+            <p className="cierre-content-item text-body-lg text-[var(--color-text-muted)] max-w-lg text-balance mb-12">
               Se libera en go.epicare.com. Déjanos tu correo y te avisamos el día que abra.
             </p>
 
@@ -188,7 +186,7 @@ export default function CierreGoCrm() {
                     onFocus={() => setIsFocused(true)}
                     onBlur={() => setIsFocused(false)}
                     placeholder="Tu correo"
-                    className="w-full bg-transparent outline-none text-h3 text-white placeholder:text-white/30 py-4 pl-0 pr-32 transition-colors duration-300"
+                    className="w-full bg-transparent outline-none text-h3 text-[var(--color-text-base)] placeholder:text-[var(--color-text-dimmed)] py-4 pl-0 pr-32 transition-colors duration-300"
                     disabled={status === "success"}
                   />
                   
@@ -196,10 +194,10 @@ export default function CierreGoCrm() {
                   <button
                     type="submit"
                     disabled={status === "success"}
-                    className="absolute right-0 top-1/2 -translate-y-1/2 flex items-center gap-3 text-body-lg font-medium text-white hover:text-epicare-orange transition-colors duration-300 group/btn"
+                    className="absolute right-0 top-1/2 -translate-y-1/2 flex items-center gap-3 text-body-lg font-medium text-[var(--color-text-base)] hover:text-epicare-orange transition-colors duration-300 group/btn"
                   >
                     Avísame
-                    <span className={`flex items-center justify-center w-10 h-10 rounded-full border border-white/20 transition-all duration-300 ${isFocused ? 'bg-white text-[#0A0D14] border-transparent' : 'bg-transparent text-white group-hover/btn:border-white'}`}>
+                    <span className={`flex items-center justify-center w-10 h-10 rounded-full border border-[var(--color-border-base)] transition-all duration-300 ${isFocused ? 'bg-[var(--color-text-base)] text-[var(--color-surface-BG-base)] border-transparent' : 'bg-transparent text-[var(--color-text-base)] group-hover/btn:border-[var(--color-text-base)]'}`}>
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
                         <path d="M5 12h14" />
                         <path d="m12 5 7 7-7 7" />
@@ -209,9 +207,9 @@ export default function CierreGoCrm() {
                 </div>
 
                 {/* Animated underline */}
-                <div className="relative h-[1px] w-full bg-white/20 mt-1 overflow-hidden">
+                <div className="relative h-[1px] w-full bg-[var(--color-border-base)] mt-1 overflow-hidden">
                   <div 
-                    className={`absolute inset-0 bg-white origin-left transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${isFocused ? 'scale-x-100' : 'scale-x-0'}`}
+                    className={`absolute inset-0 bg-[var(--color-text-base)] origin-left transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${isFocused ? 'scale-x-100' : 'scale-x-0'}`}
                   />
                 </div>
 
@@ -229,7 +227,7 @@ export default function CierreGoCrm() {
               <div className="cierre-success-msg absolute inset-0 flex flex-col items-center justify-center pointer-events-none opacity-0">
                 <div className="flex items-center gap-4">
                   <div className="w-3 h-3 rounded-full bg-[#10B981] shadow-[0_0_12px_rgba(16,185,129,0.6)] animate-pulse" />
-                  <p className="text-h4 md:text-h3 text-white m-0 font-medium">
+                  <p className="text-h4 md:text-h3 text-[var(--color-text-base)] m-0 font-medium">
                     Listo. Te escribimos el día que GO CRM abra.
                   </p>
                 </div>
@@ -237,7 +235,7 @@ export default function CierreGoCrm() {
 
             </form>
 
-            <div className="cierre-content-item mt-12 opacity-50 text-body-sm text-white">
+            <div className="cierre-content-item mt-12 opacity-50 text-body-sm text-[var(--color-text-muted)]">
             </div>
 
           </div>
