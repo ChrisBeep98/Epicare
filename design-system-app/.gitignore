@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Production Sweep Protocol - cuarentena de assets originales
+_quarantine/
+scripts/reports/
