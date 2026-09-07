@@ -32,6 +32,18 @@ export const SITE_URL = "https://chrisbeep98.github.io/Epicare";
 const DESCRIPTION =
   "We're not the middleman. We're the operation. 130+ carrier appointments, an agency management system, CRM and licensing support — all under one producer contract, across all 52 US jurisdictions.";
 
+/**
+ * Tarjeta social compartida por todas las rutas. Sin ella, `summary_large_image`
+ * se renderiza sin miniatura en todos los canales. La ruta es relativa a propósito:
+ * `metadataBase` conserva el `/Epicare` del project site de GitHub Pages.
+ */
+export const OG_IMAGE = {
+  url: "/og-image.jpg",
+  width: 1200,
+  height: 630,
+  alt: "Epicare — The agency that works for you",
+} as const;
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
@@ -55,11 +67,13 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
     url: "/",
     locale: "en_US",
+    images: [OG_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
     title: "Epicare — The agency that works for you",
     description: DESCRIPTION,
+    images: [OG_IMAGE.url],
   },
   robots: {
     index: true,
