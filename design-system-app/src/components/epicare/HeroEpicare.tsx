@@ -264,11 +264,13 @@ export default function HeroEpicare() {
             className="relative w-[calc(100vw-64px)] md:w-[85vw] lg:w-[1100px] max-w-[100%] h-[85vh] md:h-[70vh] rounded-t-[2rem] rounded-b-none overflow-hidden shadow-elevation-2 bg-[var(--color-surface-BG-black)] will-change-transform z-0"
             style={{ transformStyle: 'preserve-3d', transformOrigin: 'bottom center' }}
           >
-            <video 
-              autoPlay 
-              loop 
-              muted 
-              playsInline 
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              poster={asset("/Files/Epicare_Landing/Hero/posters/Hero_02.webp")}
+              aria-hidden="true"
               className="absolute inset-0 w-full h-full object-cover md:mix-blend-screen scale-[1.05]"
             >
               <source src={asset("/Files/Epicare_Landing/Hero/Hero_02.mp4")} type="video/mp4" />

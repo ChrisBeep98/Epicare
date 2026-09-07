@@ -10,6 +10,26 @@ import SmartVideo from "./SmartVideo";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const FEATURES_DIR = '/Files/Epicare_Landing/Features';
+
+/**
+ * @description Resuelve el asset de una card. Acepta tanto una ruta absoluta
+ * (`/Files/...`) como un nombre suelto relativo a la carpeta de features.
+ */
+const cardAsset = (name: string) =>
+  asset(name.startsWith('/') ? name : `${FEATURES_DIR}/${name}`);
+
+/**
+ * @description Poster derivado del vídeo: mismo nombre bajo `posters/` en `.webp`.
+ * Sin poster, `SmartVideo` (preload="none") deja el hueco vacío hasta decodificar
+ * el primer frame.
+ */
+const cardPoster = (name: string) => {
+  const full = name.startsWith('/') ? name : `${FEATURES_DIR}/${name}`;
+  const slash = full.lastIndexOf('/');
+  return asset(`${full.slice(0, slash)}/posters/${full.slice(slash + 1).replace(/\.mp4$/, '.webp')}`);
+};
+
 const FlipCard = ({ card, t }: { card: any, t: any }) => {
   const [isFlipped, setIsFlipped] = useState(false);
 
@@ -50,12 +70,13 @@ const FlipCard = ({ card, t }: { card: any, t: any }) => {
             {card.isVideo || card.isVideoLight ? (
               <SmartVideo
                 disablePictureInPicture
-                src={asset((card.imgLight || card.img).startsWith('/') ? (card.imgLight || card.img) : `/Files/Epicare_Landing/Features/${card.imgLight || card.img}`)}
+                src={cardAsset(card.imgLight || card.img)}
+                poster={cardPoster(card.imgLight || card.img)}
                 className={`absolute inset-0 w-full h-full block dark:hidden ${card.imgClassLight || card.imgClass || "object-cover"}`}
               />
             ) : (
-              <img 
-                src={asset((card.imgLight || card.img).startsWith('/') ? (card.imgLight || card.img) : `/Files/Epicare_Landing/Features/${card.imgLight || card.img}`)}
+              <img
+                src={cardAsset(card.imgLight || card.img)}
                 alt={card.title}
                 loading="lazy"
                 decoding="async"
@@ -67,12 +88,13 @@ const FlipCard = ({ card, t }: { card: any, t: any }) => {
             {card.isVideo || card.isVideoDark ? (
               <SmartVideo
                 disablePictureInPicture
-                src={asset(card.img.startsWith('/') ? card.img : `/Files/Epicare_Landing/Features/${card.img}`)}
+                src={cardAsset(card.img)}
+                poster={cardPoster(card.img)}
                 className={`absolute inset-0 w-full h-full hidden dark:block ${card.imgClassDark || card.imgClass || "object-cover"}`}
               />
             ) : (
-              <img 
-                src={asset(card.img.startsWith('/') ? card.img : `/Files/Epicare_Landing/Features/${card.img}`)}
+              <img
+                src={cardAsset(card.img)}
                 alt={card.title}
                 loading="lazy"
                 decoding="async"

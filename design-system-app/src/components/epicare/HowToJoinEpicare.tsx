@@ -10,15 +10,15 @@ import { EASE, DUR, STAGGER, REVEAL, TRIGGER } from "@/lib/motion";
 gsap.registerPlugin(ScrollTrigger);
 
 const ZONE1_IMAGES = [
-  asset('/Files/how-to-join/zone1-step1.jpeg'),
-  asset('/Files/how-to-join/zone1-step2.jpeg'),
-  asset('/Files/how-to-join/zone1-step3.jpeg'),
+  asset('/Files/how-to-join/zone1-step1.webp'),
+  asset('/Files/how-to-join/zone1-step2.webp'),
+  asset('/Files/how-to-join/zone1-step3.webp'),
 ];
 
 const ZONE2_IMAGES = [
-  asset('/Files/how-to-join/zone2-step1.jpeg'),
-  asset('/Files/how-to-join/zone2-step2.jpeg'),
-  asset('/Files/how-to-join/zone2-step3.jpeg'),
+  asset('/Files/how-to-join/zone2-step1.webp'),
+  asset('/Files/how-to-join/zone2-step2.webp'),
+  asset('/Files/how-to-join/zone2-step3.webp'),
 ];
 
 function StatusCarousel({ images, id, accentClass }: { images: string[], id: string, accentClass: string }) {

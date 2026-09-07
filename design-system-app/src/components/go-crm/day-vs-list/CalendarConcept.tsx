@@ -31,7 +31,7 @@ function CardGlassBackground() {
   return (
     <div className="absolute inset-0 -z-10 rounded-2xl overflow-hidden pointer-events-none">
       <img 
-        src={asset('/Files/Backgrounds/epicare_bg_aura_blue.jpg')} 
+        src={asset('/Files/Backgrounds/epicare_bg_aura_blue.webp')} 
         alt="" 
         className="absolute inset-0 w-full h-full object-cover opacity-20 dark:opacity-15 rounded-2xl pointer-events-none" 
       />

@@ -149,8 +149,11 @@ export default function CtaFinalSection() {
           {/* Fondo de Imagen con Parallax / Zoom Cinemático */}
           <div className="absolute inset-0 z-0 overflow-hidden">
             <img 
-              src={asset("/Files/S14_cta_swiss_blue.jpg")}
-              alt="GO AMS Background"
+              src={asset("/Files/S14_cta_swiss_blue.webp")}
+              alt=""
+              aria-hidden="true"
+              loading="lazy"
+              decoding="async"
               className="cta-bg-img absolute inset-0 w-full h-full object-cover"
             />
             {/* Oscurecimiento para contraste óptimo */}

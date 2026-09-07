@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useLayoutEffect, useState } from 'react';
+import React, { useRef, useLayoutEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useTranslations } from 'next-intl';
@@ -47,20 +47,15 @@ const ArrowUR = ({ className = '' }: { className?: string }) => (
 
 const SPEC_KEYS = ['f1', 'f2', 'f3'] as const;
 
-const DEBUG_BGS = [
-  '/Files/Backgrounds/epicare_light_mesh_glass.jpg',
-  '/Files/Backgrounds/epicare_minimal_mesh_brand_blue.jpg',
-  '/Files/Backgrounds/epicare_bg_fluid_blue.jpg',
-  '/Files/Backgrounds/epicare_bg_geometric_blue.jpg',
-  '/Files/Backgrounds/epicare_bg_aura_blue.jpg',
-  '/Files/Backgrounds/epicare_bg_aura_multi.jpg',
-  '/Files/Backgrounds/epicare_bg_aura_wave.jpg',
-  '/Files/Backgrounds/epicare_bg_aura_edges.jpg',
-  '/Files/Backgrounds/epicare_bg_blue_multi.jpg',
-  '/Files/Backgrounds/epicare_bg_blue_wave.jpg',
-  '/Files/Backgrounds/epicare_bg_blue_edges.jpg',
-  '/Files/Backgrounds/epicare_bg_liquid_glass.jpg',
-];
+// ── COMPOSICIÓN DEL FONDO (valores congelados del panel de pruebas) ──
+// Antes vivían en useState alimentados por un debug panel que nunca llegó a
+// renderizarse (`{false && …}`). Se fijan aquí como constantes: mismo output,
+// sin estado muerto ni los 11 fondos alternativos que nadie consumía.
+const SPOTLIGHT_BG = '/Files/Backgrounds/epicare_bg_aura_blue.webp';
+const BG_OPACITY = 0.45;
+const BG_HUE_ROTATE = 31;
+const BG_SCALE = 2;
+const VIDEO_WIDTH_PCT = 65;
 
 export default function ProductSpotlightEpicare({ variant }: { variant: SpotlightVariant }) {
   const t = useTranslations(`landingV2.spotlight.${variant}`);
@@ -68,13 +63,6 @@ export default function ProductSpotlightEpicare({ variant }: { variant: Spotligh
     
   const isEppigo = variant === 'eppigo';
   
-  // Debug State
-  const [bgIndex, setBgIndex] = useState(4);
-  const [hueRotate, setHueRotate] = useState(31);
-  const [bgScale, setBgScale] = useState(2);
-  const [bgOpacity, setBgOpacity] = useState(0.45);
-  const [videoWidth, setVideoWidth] = useState(65);
-
   const sectionRef = useRef<HTMLElement>(null);
   const textColRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -172,13 +160,16 @@ export default function ProductSpotlightEpicare({ variant }: { variant: Spotligh
             <div className="absolute inset-0 rounded-[1.5rem] sm:rounded-[2rem] lg:rounded-[2.5rem] -z-10">
             {/* Pure Background Mesh (Brand Blue) */}
             <img 
-              src={asset(DEBUG_BGS[bgIndex])} 
-              alt="" 
+              src={asset(SPOTLIGHT_BG)}
+              alt=""
+              aria-hidden="true"
+              loading="lazy"
+              decoding="async"
               className="absolute inset-0 w-full h-full object-cover pointer-events-none transition-all duration-300"
-              style={{ 
-                opacity: bgOpacity,
-                filter: `hue-rotate(${hueRotate}deg)`,
-                transform: `scale(${bgScale})`
+              style={{
+                opacity: BG_OPACITY,
+                filter: `hue-rotate(${BG_HUE_ROTATE}deg)`,
+                transform: `scale(${BG_SCALE})`
               }}
             />
             
@@ -284,7 +275,7 @@ export default function ProductSpotlightEpicare({ variant }: { variant: Spotligh
         <div 
           ref={videoColRef} 
           className={`relative z-0 lg:z-10 w-full lg:absolute lg:top-1/2 lg:-translate-y-1/2 ${isEppigo ? 'lg:right-[var(--space-gutter-md)] justify-end px-2 sm:px-4 lg:px-0' : 'lg:left-[var(--space-gutter-md)] justify-start px-2 sm:px-4 lg:px-0'} lg:w-[var(--video-w)] flex -mt-28 sm:-mt-36 lg:mt-0`}
-          style={{ '--video-w': `${videoWidth}%` } as React.CSSProperties}
+          style={{ '--video-w': `${VIDEO_WIDTH_PCT}%` } as React.CSSProperties}
         >
           {/* Main Container (No shadow) */}
           <div className={`relative w-full h-[50vh] sm:h-[60vh] lg:h-[75vh] max-h-[1000px] rounded-none transform-gpu`}>
@@ -296,89 +287,13 @@ export default function ProductSpotlightEpicare({ variant }: { variant: Spotligh
                   <SmartVideo src={videoDark} poster={posterDark} className="absolute inset-0 w-full h-full object-cover object-center hidden dark:block" />
                 </>
               ) : (
-                <img src={asset('/Files/Frame 96.png')} alt="EpiCare Solutions" className="absolute inset-0 w-full h-full object-cover object-center" />
+                <img src={asset('/Files/Frame 96.webp')} alt="EpiCare Solutions" loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover object-center" />
               )}
             </div>
           </div>
         </div>
 
       </div>
-
-      {/* DEBUG PANEL (Hidden but kept in memory for quick restoration) */}
-      {false && isEppigo && (
-        <div className="fixed bottom-6 right-6 z-[9999] bg-gray-900/90 backdrop-blur-xl p-5 rounded-2xl border border-white/10 shadow-2xl flex flex-col gap-4 text-white w-[320px]">
-          <div className="text-xs font-bold uppercase tracking-wider text-gray-400">🔍 Testing Panel</div>
-          
-          {/* Video Width Slider */}
-          <div className="flex flex-col gap-2 pb-2 border-b border-white/10">
-             <div className="flex justify-between text-xs items-center">
-                <span className="text-[#35BBFD] font-bold">Ancho del Video (Desktop)</span>
-                <button onClick={() => setVideoWidth(47)} className="text-[#35BBFD] hover:text-white transition-colors bg-[#35BBFD]/10 px-2 py-0.5 rounded">Reset</button>
-             </div>
-             <div className="flex items-center gap-3">
-               <input type="range" min="30" max="75" step="1" value={videoWidth} onChange={(e) => setVideoWidth(Number(e.target.value))} className="w-full accent-[#35BBFD]" />
-               <span className="text-xs font-mono w-10 text-right">{videoWidth}%</span>
-             </div>
-          </div>
-          
-          {/* Background cycler */}
-          <div className="flex items-center justify-between gap-3">
-             <button onClick={() => setBgIndex(p => p > 0 ? p - 1 : DEBUG_BGS.length - 1)} className="px-3 py-1.5 bg-white/10 rounded-lg hover:bg-white/20 transition-colors font-bold">&larr;</button>
-             <div className="text-xs text-center flex-1 overflow-hidden text-ellipsis whitespace-nowrap font-mono" title={DEBUG_BGS[bgIndex]}>
-                {DEBUG_BGS[bgIndex].split('/').pop()}
-             </div>
-             <button onClick={() => setBgIndex(p => p < DEBUG_BGS.length - 1 ? p + 1 : 0)} className="px-3 py-1.5 bg-white/10 rounded-lg hover:bg-white/20 transition-colors font-bold">&rarr;</button>
-          </div>
-
-          {/* Hue Slider */}
-          <div className="flex flex-col gap-2">
-             <div className="flex justify-between text-xs items-center">
-                <span className="text-gray-300">Modificador de Tono (Hue)</span>
-                <button onClick={() => setHueRotate(0)} className="text-[#35BBFD] hover:text-white transition-colors bg-[#35BBFD]/10 px-2 py-0.5 rounded">Reset</button>
-             </div>
-             <div className="flex items-center gap-3">
-               <input type="range" min="-180" max="180" value={hueRotate} onChange={(e) => setHueRotate(Number(e.target.value))} className="w-full accent-[#35BBFD]" />
-               <span className="text-xs font-mono w-10 text-right">{hueRotate}°</span>
-             </div>
-          </div>
-
-          {/* Zoom Slider */}
-          <div className="flex flex-col gap-2">
-             <div className="flex justify-between text-xs items-center">
-                <span className="text-gray-300">Zoom (Escala)</span>
-                <button onClick={() => setBgScale(1)} className="text-[#35BBFD] hover:text-white transition-colors bg-[#35BBFD]/10 px-2 py-0.5 rounded">Reset</button>
-             </div>
-             <div className="flex items-center gap-3">
-               <input type="range" min="1" max="3" step="0.1" value={bgScale} onChange={(e) => setBgScale(Number(e.target.value))} className="w-full accent-[#35BBFD]" />
-               <span className="text-xs font-mono w-10 text-right">{bgScale.toFixed(1)}x</span>
-             </div>
-          </div>
-
-          {/* Opacity Slider */}
-          <div className="flex flex-col gap-2">
-             <div className="flex justify-between text-xs items-center">
-                <span className="text-gray-300">Opacidad</span>
-                <button onClick={() => setBgOpacity(0.9)} className="text-[#35BBFD] hover:text-white transition-colors bg-[#35BBFD]/10 px-2 py-0.5 rounded">Reset</button>
-             </div>
-             <div className="flex items-center gap-3">
-               <input type="range" min="0.1" max="1" step="0.05" value={bgOpacity} onChange={(e) => setBgOpacity(Number(e.target.value))} className="w-full accent-[#35BBFD]" />
-               <span className="text-xs font-mono w-10 text-right">{(bgOpacity * 100).toFixed(0)}%</span>
-             </div>
-          </div>
-
-          {/* Copy Button */}
-          <button 
-            onClick={() => {
-              const cfg = `Imagen: ${DEBUG_BGS[bgIndex].split('/').pop()}\nHue: ${hueRotate}deg\nZoom: ${bgScale}x\nOpacidad: ${bgOpacity}\nAncho de Video: ${videoWidth}%`;
-              navigator.clipboard.writeText(cfg);
-              alert("¡Configuración copiada al portapapeles!\n\n" + cfg);
-            }}
-            className="mt-2 w-full py-2.5 bg-[#35BBFD] hover:bg-[#2da3de] text-gray-900 font-bold rounded-lg transition-colors text-sm shadow-[0_0_15px_rgba(53,187,253,0.3)]"
-          >
-            Copiar Configuración
-          </button>
-        </div>
-      )}
 
     </section>
   );

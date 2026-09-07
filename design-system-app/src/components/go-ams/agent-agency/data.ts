@@ -4,17 +4,17 @@ import { ComparisonImage, FeaturePill } from "./types";
 export const AGENT_IMAGES: ComparisonImage[] = [
   {
     id: "policies",
-    src: asset("/Files/Go_AMS/comparison Agent_Agency/Agent_Policies.png"),
+    src: asset("/Files/Go_AMS/comparison Agent_Agency/Agent_Policies.webp"),
     alt: "GO AMS - Pólizas de Agente"
   },
   {
     id: "details",
-    src: asset("/Files/Go_AMS/comparison Agent_Agency/Customer_Details.png"),
+    src: asset("/Files/Go_AMS/comparison Agent_Agency/Customer_Details.webp"),
     alt: "GO AMS - Detalle de Clientes"
   },
   {
     id: "quote",
-    src: asset("/Files/Go_AMS/comparison Agent_Agency/quote and enroll.png"),
+    src: asset("/Files/Go_AMS/comparison Agent_Agency/quote and enroll.webp"),
     alt: "GO AMS - Quote and Enroll"
   }
 ];
@@ -22,17 +22,17 @@ export const AGENT_IMAGES: ComparisonImage[] = [
 export const AGENCY_IMAGES: ComparisonImage[] = [
   {
     id: "agency_policies",
-    src: asset("/Files/Go_AMS/comparison Agent_Agency/Agency_Downline.png"),
+    src: asset("/Files/Go_AMS/comparison Agent_Agency/Agency_Downline.webp"),
     alt: "GO AMS - Pólizas de Agencia"
   },
   {
     id: "agency_details",
-    src: asset("/Files/Go_AMS/comparison Agent_Agency/Agency_Broker suport.png"),
+    src: asset("/Files/Go_AMS/comparison Agent_Agency/Agency_Broker suport.webp"),
     alt: "GO AMS - Detalle de Agencia"
   },
   {
     id: "agency_quote",
-    src: asset("/Files/Go_AMS/comparison Agent_Agency/Agency_Quote.png"),
+    src: asset("/Files/Go_AMS/comparison Agent_Agency/Agency_Quote.webp"),
     alt: "GO AMS - Agency Quote"
   }
 ];

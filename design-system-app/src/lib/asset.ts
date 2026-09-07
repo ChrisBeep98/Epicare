@@ -15,3 +15,21 @@ export function asset(path: string): string {
   const p = path.startsWith("/") ? path : `/${path}`;
   return `${BASE_PATH}${p}`;
 }
+
+/**
+ * @description Derives the poster URL of a video: same basename under a sibling
+ * `posters/` folder, as .webp. Takes a URL that ALREADY went through asset(),
+ * so it must not re-apply the base path.
+ *
+ * Videos render through <SmartVideo>, which sets preload="none" — without a
+ * poster the slot stays empty until the first frame decodes.
+ *
+ * @example posterFor('/Epicare/Files/Features/CRM_Light_Final.mp4')
+ *          // -> '/Epicare/Files/Features/posters/CRM_Light_Final.webp'
+ */
+export function posterFor(videoUrl: string): string {
+  const slash = videoUrl.lastIndexOf("/");
+  const dir = videoUrl.slice(0, slash);
+  const file = videoUrl.slice(slash + 1).replace(/\.(mp4|webm|mov|m4v)$/i, ".webp");
+  return `${dir}/posters/${file}`;
+}

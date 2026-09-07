@@ -5,7 +5,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
-import { asset } from "@/lib/asset";
+import { asset, posterFor } from "@/lib/asset";
 import GoHubLogo from "./GoHubLogo";
 import SmartVideo from "./SmartVideo";
 
@@ -171,11 +171,13 @@ function CinematicPanel({
         {isAms ? (
           <div className="relative w-full h-[78%] rounded-l-xl md:rounded-l-[18px] border-l border-y border-black/10 dark:border-white/15 overflow-hidden shadow-elevation-3 bg-[var(--color-surface-BG-1)]">
             <SmartVideo 
-              src={videoLight} 
+              src={videoLight}
+              poster={posterFor(videoLight)}
               className="w-full h-full object-cover object-left dark:hidden rounded-l-xl md:rounded-l-[18px]" 
             />
             <SmartVideo 
-              src={videoDark} 
+              src={videoDark}
+              poster={posterFor(videoDark)}
               className="w-full h-full object-cover object-left hidden dark:block rounded-l-xl md:rounded-l-[18px]" 
             />
           </div>
@@ -183,12 +185,14 @@ function CinematicPanel({
           <>
             {/* Light Video - mix-blend-multiply makes white backgrounds completely transparent! */}
             <SmartVideo 
-              src={videoLight} 
+              src={videoLight}
+              poster={posterFor(videoLight)}
               className={`absolute inset-0 w-full h-full transition-transform duration-[2s] ease-out mix-blend-multiply dark:hidden ${isAcademy ? 'object-contain scale-[0.85] group-hover:scale-95' : 'object-cover group-hover:scale-105'}`}
             />
             {/* Dark Video - mix-blend-screen makes black backgrounds completely transparent! */}
             <SmartVideo 
-              src={videoDark} 
+              src={videoDark}
+              poster={posterFor(videoDark)}
               className={`absolute inset-0 w-full h-full transition-transform duration-[2s] ease-out mix-blend-screen hidden dark:block ${isAcademy ? 'object-contain scale-[0.85] group-hover:scale-95' : 'object-cover group-hover:scale-105'}`}
             />
           </>

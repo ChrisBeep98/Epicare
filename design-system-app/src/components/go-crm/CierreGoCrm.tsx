@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { EASE, DUR, REVEAL, STAGGER } from "@/lib/motion";
+import { asset } from "@/lib/asset";
 
 export default function CierreGoCrm() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -138,8 +139,11 @@ export default function CierreGoCrm() {
           {/* Fondo de Imagen igual que GO AMS */}
           <div className="absolute inset-0 z-0 overflow-hidden bg-[#060B12]">
             <img 
-              src="/Files/S14_cta_swiss_blue.jpg"
-              alt="GO CRM Background"
+              src={asset("/Files/S14_cta_swiss_blue.webp")}
+              alt=""
+              aria-hidden="true"
+              loading="lazy"
+              decoding="async"
               className="cierre-bg-img absolute inset-0 w-full h-full object-cover opacity-90"
             />
             {/* Oscurecimiento para contraste óptimo */}

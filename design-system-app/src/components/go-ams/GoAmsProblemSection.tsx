@@ -146,7 +146,7 @@ export function GoAmsProblemSection() {
             <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
               {/* Pure Background Mesh (Brand Blue) */}
               <img 
-                src={asset('/Files/Backgrounds/epicare_bg_aura_blue.jpg')} 
+                src={asset('/Files/Backgrounds/epicare_bg_aura_blue.webp')} 
                 alt="" 
                 className="absolute inset-0 w-full h-full object-cover pointer-events-none transition-all duration-300"
                 style={{ 

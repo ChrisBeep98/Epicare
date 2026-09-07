@@ -5,7 +5,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
-import { asset } from "@/lib/asset";
+import { asset, posterFor } from "@/lib/asset";
 import { EASE, DUR } from "@/lib/motion";
 import GoHubLogo from "./GoHubLogo";
 import { AcademyIcon } from "./EcosystemIcons";
@@ -234,7 +234,7 @@ export default function BentoGridMobile() {
     {
       title: t('card8Title'),
       desc: t('card8Desc'),
-      image: asset("/Files/Features/Wireframe_monitor_with_headset.jpeg"),
+      image: asset("/Files/Features/Wireframe_monitor_with_headset.webp"),
       videoLight: asset("/Files/Features/Academy_V2_Light.mp4"),
       videoLightContain: true,
       videoDark: asset("/Files/Features/Academy_Dark_Final.mp4"),
@@ -336,6 +336,7 @@ export default function BentoGridMobile() {
                   {(card as any).videoDark && (card as any).videoDarkFullBackground && (
                     <SmartVideo
                       src={(card as any).videoDark}
+                      poster={posterFor((card as any).videoDark)}
                       className="absolute inset-0 w-full h-full object-contain object-center z-0 hidden dark:block transition-transform duration-[800ms] group-hover:scale-[1.05]"
                     />
                   )}
@@ -361,7 +362,8 @@ export default function BentoGridMobile() {
                       if ((card as any).isAms) {
                         return (
                           <SmartVideo 
-                            src={(card as any).videoLight} 
+                            src={(card as any).videoLight}
+                            poster={posterFor((card as any).videoLight)}
                             className="absolute bottom-0 left-3.5 w-[132%] max-w-none h-[88%] object-cover object-left rounded-l-2xl shadow-elevation-3 transition-transform duration-[800ms] ease-out"
                           />
                         );
@@ -376,7 +378,8 @@ export default function BentoGridMobile() {
                           {/* LIGHT MODE MEDIA */}
                           {hasLightVideo ? (
                             <SmartVideo 
-                              src={(card as any).videoLight} 
+                              src={(card as any).videoLight}
+                              poster={posterFor((card as any).videoLight)}
                               className={`absolute inset-0 w-full h-full transition-transform duration-[800ms] ease-out object-contain object-center group-hover:scale-[1.05] ${hasDarkVideo || hasImage ? 'dark:hidden' : ''}`}
                             />
                           ) : hasImage ? (
@@ -386,7 +389,8 @@ export default function BentoGridMobile() {
                           {/* DARK MODE MEDIA */}
                           {hasDarkVideo ? (
                             <SmartVideo 
-                              src={(card as any).videoDark} 
+                              src={(card as any).videoDark}
+                              poster={posterFor((card as any).videoDark)}
                               className={`absolute inset-0 w-full h-full transition-transform duration-[800ms] ease-out object-contain object-center group-hover:scale-[1.05] ${(card as any).videoDarkClassName || ''} ${hasLightVideo || hasImage ? 'hidden dark:block' : ''}`}
                             />
                           ) : (hasImage && hasLightVideo) ? (
