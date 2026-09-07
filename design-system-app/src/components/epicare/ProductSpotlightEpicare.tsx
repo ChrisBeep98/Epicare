@@ -202,7 +202,7 @@ export default function ProductSpotlightEpicare({ variant }: { variant: Spotligh
               <div className="flex flex-col items-start gap-4">
                 <div className="flex items-center gap-4">
                   <img src={asset('/epigo.svg')} alt="EpiGo" className="h-12 lg:h-16 w-auto object-contain" />
-                  <span className="text-display leading-none tracking-tight" style={{ color: `var(${accentVar})` }}>EPPIGO</span>
+                  <span className="text-display leading-none tracking-tight" style={{ color: `var(${accentVar})` }}>Eppigo™</span>
                 </div>
                 <h2 className="text-display text-[var(--color-text-primary)] leading-[1.05] tracking-tight">
                   {t('title')}

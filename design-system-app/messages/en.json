@@ -54,7 +54,7 @@
     },
     "spotlight": {
       "eppigo": {
-        "name": "Eppigo",
+        "name": "Eppigo™",
         "cta": "Join Epicare",
         "title": "Insurance that finally makes sense.",
         "desc": "Quote, build the proposal, and enroll the client without leaving the portal.",
@@ -89,7 +89,7 @@
       "feature2_step": "02 · System",
       "feature2_title": "GO AMS, included in your contract",
       "feature2_subtitle": "No platform cost.",
-      "feature2_body": "The AMS, the CRM, the Eppigo quoting engine, and Academy come with your producer contract. <b>No additional platform costs</b>.",
+      "feature2_body": "The AMS, the CRM, the Eppigo™ quoting engine, and Academy come with your producer contract. <b>No additional platform costs</b>.",
       "feature3_step": "03 · Visibility",
       "feature3_title": "Your production, in real time",
       "feature3_subtitle": "No waiting for the monthly report.",
@@ -243,7 +243,7 @@
       "q2": "Do you own my book of business?",
       "a2": "No. You keep 100% ownership of your book from day one. Epicare is your operating infrastructure, not the owner of your work.",
       "q3": "How much does the platform cost?",
-      "a3": "GO AMS, GO CRM, Eppigo and Academy are included in your producer contract, with no platform fee. The only thing agreed at contracting is your commission split.",
+      "a3": "GO AMS, GO CRM, Eppigo™ and Academy are included in your producer contract, with no platform fee. The only thing agreed at contracting is your commission split.",
       "q4": "Do I need to be in Florida?",
       "a4": "No. We are headquartered in Miami, but we operate across all 52 jurisdictions: the 50 states, Washington DC and Puerto Rico. You sell wherever you are licensed.",
       "q5": "Is Epicare a startup or an established company?",
@@ -381,7 +381,7 @@
       "card2Title": "Partial Enrollment",
       "card2Desc": "Assist the client by completing the initial process, and <blue>send them a secure link</blue> so they can enter their <bold>sensitive information</bold> (like a credit card) directly from their own device.",
       "card3Title": "Referral Link",
-      "card3Desc": "Send a unique link to the client redirecting them to our <bold>eppigo</bold> platform. Any purchase they make automatically translates into a <blue>percentage commission</blue> for you.",
+      "card3Desc": "Send a unique link to the client redirecting them to our <bold>Eppigo™</bold> platform. Any purchase they make automatically translates into a <blue>percentage commission</blue> for you.",
       "card4Title": "Proposals",
       "card4Desc": "Generate dynamic, personalized quotes based on client data. <bold>Filter and tailor the best options</bold> to send a <blue>ready-to-choose proposal</blue> with total clarity."
     },
