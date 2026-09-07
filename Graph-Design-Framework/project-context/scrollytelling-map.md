@@ -6,8 +6,17 @@
 
 **Motor global:** Lenis vía `SmoothScrollProvider` (`duration: 1.1`, easeOutExpo, sincronizado con ticker GSAP, respeta reduced-motion). **NUNCA re-inicializar Lenis en componentes.**
 
-**Orden de render** (`src/app/page.tsx`):
-`Loader → Hero → BrandsCarousel → Metrics → DarkGradient → BentoGrid → ProblemSection → PeopleReveal → ProductLines → ForWho → WhyEpicare`
+**Orden de render** (`src/app/page.tsx`, verificado contra el HTML generado el 2026-09-07):
+`Loader → Hero → BrandsCarousel → DarkGradient → Metrics → BentoGrid → Eppigo → Solutions → AgentAgency → ProductLines → HowToJoin → FAQ → CTABanner → Footer`
+
+> ⚠️ **El orden lo manda la clase `order-N`, no el JSX.** `<main>` es `flex flex-col` y cada sección lleva un
+> `order-N` explícito, así que **mover el bloque en `page.tsx` no cambia nada**: hay que cambiar el número.
+> (2026-09-07: **DarkGradient y Metrics intercambiados** por petición de César — la plataforma ahora precede
+> a las cifras.)
+>
+> ⚠️ **Este mapa arrastra deriva.** `ProblemSection`, `ForWho` y `WhyEpicare` ya no están en `page.tsx`;
+> `PeopleReveal` y `Coverage52` están comentados. Las filas de abajo describen secciones que en parte ya no se
+> renderizan — pendiente de reconciliar con el `narrative-arc-protocol`.
 
 ---
 
@@ -18,8 +27,8 @@
 | 0 | **Loader** | Cortina de marca | Cascada logo con blur reveal (`power4.out`, stagger 0.045) | — | Desmontaje al terminar; dispara `epicareLoaderComplete` |
 | 1 | **Hero** | Apertura cinemática | **Pin theater 3 actos** (`end:+=250%`, scrub 1): video expande a fullscreen → titular revela → acto vacío para el solape. Mouse-tilt 3D ±3°. Controla el header (umbrales 0.35/0.95) | ✅ | — |
 | 2 | **BrandsCarousel** | Prueba social | Marquee infinito (45s desktop / 2 filas opuestas móvil) + parallax x (`-8vw`, scrub 2). Hover: `timeScale 0.2` | — | **SOLAPE `mt-[-100vh]`** — se desliza SOBRE el Hero pineado |
-| 3 | **Metrics** | Números (count-up 2.5s `power4.out`) | Bento blur reveal (`blur(20px)`, stagger 0.15) + offset escalonado CSS | — | `pt-0` |
-| 4 | **DarkGradient** | Primer bloque de valor (4 features + video) | "Premium 3D Blur Reveal": `y:60, rotationX:15, blur(8px)`, stagger 0.08, `power3.out`. Carrusel horizontal nativo con dots | — | `pt-0` corte suave |
+| 3 | **DarkGradient** *(antes de Metrics desde 2026-09-07)* | Primer bloque de valor (4 features + video) | "Premium 3D Blur Reveal": `y:60, rotationX:15, blur(8px)`, stagger 0.08, `power3.out`. Carrusel horizontal nativo con dots | — | `pt-0` corte suave |
+| 4 | **Metrics** *(tras DarkGradient desde 2026-09-07)* | Números (count-up 2.5s `power4.out`) | Bento blur reveal (`blur(20px)`, stagger 0.15) + offset escalonado CSS | — | `pt-0` |
 | 5 | **BentoGrid** | Ecosistema (5 productos: AMS→CRM→Academy→Eppigo→Solutions) | **Cover-flow 3D pineado con arco interno** (scrub 1.2 + `snap` por tarjeta): orbe ambiental (blur 120px) que **morphea al acento del producto activo** (`DUR.slow`/`EASE.inOut`); física por card `rotateY ±50°, z -500`; progress bar clicable (seek vía Lenis). **Móvil: libre, sin pin** — stack con reveal estándar (`REVEAL.md`, `EASE.out`). Reduced-motion cubierto | ✅ desktop | Corte por pin |
 | 6 | **ProblemSection** | Contraste / dolor eliminado | Header editorial masivo + lista interactiva de dolores (01-06) con reveal cinemático `start: top 92%` | — | `pt-0` |
 | 7 | **PeopleReveal** | Momento humano full-bleed | **Slat reveal** 9 lamas (CustomEase `proReveal`, stagger 0.07 from center, scrub 3) + parallax foto (scrub 2) + marquee scrubbed (`xPercent -12`, scrub 3) + **velocity skew** (±3.5°) | — | Flujo normal |
@@ -80,9 +89,9 @@ El scrollbar es la línea de tiempo de una película: la página alterna **valle
 |:--|:--|:--|:--|
 | 1 | Loader + Hero | HOOK · pin 1 | ✅ (copy swap) |
 | 2 | BrandsCarousel (+badges API, absorbe carriers-por-categoría) | valle credibilidad | ✅ |
-| 3 | Metrics **(se mueve antes de DarkGradient)** | valle prueba + mini-pico | ✅ ⚠️ números |
+| 3 | La Plataforma (DarkGradient) | solución (dark→light: la transición clave) | ✅ (copy swap) |
 | 4 | **El Problema** (dark forzado) | valle emocional | ✅ (text-birth + grid light-up) |
-| 5 | La Plataforma (DarkGradient reenfocada) | solución (dark→light: la transición clave) | ✅ (copy swap) |
+| 5 | Metrics **(movida DESPUÉS de DarkGradient, 2026-09-07)** | valle prueba + mini-pico | ✅ ⚠️ números |
 | 6 | Ecosistema GO (BentoGrid) | **PICO 2 · pin** | ✅ |
 | 7 | PeopleReveal | respiro humano | ✅ |
 | 8 | ProductLines | valle portafolio | ✅ (copy swap) |
