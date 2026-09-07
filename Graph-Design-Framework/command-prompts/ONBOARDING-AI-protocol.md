@@ -39,6 +39,7 @@ NO inventes medidas ni colores (`text-[15px]`, `p-[22px]`, `#333` = prohibido). 
 - **Diseño/refactor rápido sin hardcodear** → `tokenized-design-protocol.md`
 - **Tocar el DS** → `update-design-system-protocol.md` · **Ritmo vertical** → `vertical-spacing-protocol.md`
 - **Probar variaciones visuales** → `live-editing-protocol.md` / `Design-Agent-Skills/DEBUG-PANEL-ARCHITECT/` (carpeta)
+- **Limpiar/optimizar una página ya construida** → `production-sweep-protocol.md` (⛔ nunca optimices ni borres sin él: exige censo + reporte + stop, y cuarentena en vez de borrado)
 - **Calidad antes de entregar** → `Design-Agent-Skills/AWWWARDS-RUBRIC.md` (≥12/15 obligatorio en secciones)
 
 ## 4. Mantenimiento del contexto (tu responsabilidad)

@@ -23,12 +23,13 @@ Protocolos **invocables** del framework Epicare. Son `.md` planos: cualquier cha
 |:--|:--|
 | [`ONBOARDING-AI-protocol.md`](./ONBOARDING-AI-protocol.md) | **Primer documento a leer** al entrar al proyecto. |
 | [`codebase-architecture-protocol.md`](./codebase-architecture-protocol.md) | **OBLIGATORIO antes de tocar código en `design-system-app/`.** Mapa de dónde va cada cosa, restricciones del static export, la trampa `@utility` vs `@layer utilities`, disciplina de GSAP/cleanup, checklist de "limpio y pulido", verificación anti-regresión con `design-fingerprint` y la deuda técnica abierta. |
-| [`build-clean-protocol.md`](./build-clean-protocol.md) | **Build & Clean (Hardening & Purga).** Detección y purga de huérfanos, validación de tipos, auditoría i18n (cero `MISSING_MESSAGE`), pureza React 19 y build estático limpio. |
+| [`build-clean-protocol.md`](./build-clean-protocol.md) | **Build & Clean (Hardening & Purga).** Higiene *rápida* de fin de sesión sobre lo que acabas de tocar: tipos, i18n (cero `MISSING_MESSAGE`), huérfanos, pureza React 19 y build estático limpio. |
+| [`production-sweep-protocol.md`](./production-sweep-protocol.md) | **Production Sweep (Barrido de Producción).** El barrido *profundo* ruta-por-ruta y sección-por-sección sobre 5 ejes: assets (optimización real con `sharp` + `ffmpeg-static`), código muerto, hardcodeo, i18n y SEO/a11y. Censo → reporte → **STOP** → ejecución, con cuarentena en vez de borrado y `design-fingerprint` como prueba de que no se movió un píxel. |
 | [`update-context-prompt.md`](./update-context-prompt.md) | Actualizar el log de contexto tras un feature. |
 | [`session-close-prompt.md`](./session-close-prompt.md) | Cerrar sesión (notas de sesión). |
 | [`backup-brain-prompt.md`](./backup-brain-prompt.md) | Respaldo del framework a `_archive/`. |
 | [`git-deploy-workflow.md`](./git-deploy-workflow.md) | Flujo de git + deploy. |
-| [`optimize-images-prompt.md`](./optimize-images-prompt.md) · [`optimize-video-prompt.md`](./optimize-video-prompt.md) | Optimización de assets. |
+| ~~[`optimize-images-prompt.md`](./optimize-images-prompt.md)~~ · ~~[`optimize-video-prompt.md`](./optimize-video-prompt.md)~~ | ⚠️ **OBSOLETOS.** Asumen un `ffmpeg` global en `C:\Users\Grizzly\...` que no existe en esta máquina. Solo sirven como referencia de parámetros. Usa `production-sweep-protocol.md`. |
 | [`hardware-audit-prompt.md`](./hardware-audit-prompt.md) | Auditoría de rendimiento (60fps, leaks). |
 | [`validation-rules.md`](./validation-rules.md) | Auditoría de consistencia del framework. |
 

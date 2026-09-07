@@ -22,6 +22,7 @@
 | **Espaciado vertical entre secciones** | `command-prompts/vertical-spacing-protocol.md` |
 | **Probar variaciones visuales en vivo** | `command-prompts/live-editing-protocol.md` + `WorkFlow-Docs/Design-Agent-Skills/DEBUG-PANEL-ARCHITECT/` |
 | **Auditar calidad de una sección** | `WorkFlow-Docs/Design-Agent-Skills/AWWWARDS-RUBRIC.md` |
+| **Limpiar/optimizar una página ya construida** | `command-prompts/production-sweep-protocol.md` ← barrido sección a sección: assets, código muerto, hardcodeo, i18n, SEO. Exige censo + STOP |
 | **Auditar el framework mismo** | `command-prompts/validation-rules.md` |
 | **Cerrar sesión / actualizar contexto** | `command-prompts/session-close-prompt.md` · `update-context-prompt.md` |
 
