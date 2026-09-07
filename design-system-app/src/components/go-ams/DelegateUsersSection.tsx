@@ -5,6 +5,8 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useTranslations } from "next-intl";
 import { EASE, DUR, STAGGER, REVEAL } from "@/lib/motion";
+import { asset } from "@/lib/asset";
+import SmartVideo from "@/components/epicare/SmartVideo";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -140,12 +142,9 @@ export default function DelegateUsersSection() {
               
               {/* VIDEO PLAYER INSTEAD OF 3D SCENE */}
               <div className="w-[320px] sm:w-[360px] lg:w-full max-w-md relative overflow-hidden rounded-xl shadow-[0_30px_60px_rgba(0,0,0,0.1)] border border-white/60">
-                <video 
-                  src="/Files/Go_AMS/Delegate_Users.mp4" 
-                  autoPlay 
-                  muted 
-                  loop 
-                  playsInline
+                <SmartVideo
+                  src={asset("/Files/Go_AMS/Delegate_Users.mp4")}
+                  poster={asset("/Files/Go_AMS/posters/Delegate_Users.webp")}
                   className="w-full h-auto block"
                 />
               </div>

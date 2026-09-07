@@ -8,13 +8,13 @@ import { EASE, DUR, STAGGER, REVEAL, TRIGGER } from "@/lib/motion";
 import { asset } from "@/lib/asset";
 
 const PANELS = [
-  { id: 1, titleKey: "panel1Title", descKey: "panel1Desc", img: "/Files/Go_AMS/Tour/01.jpeg" },
-  { id: 2, titleKey: "panel2Title", descKey: "panel2Desc", img: "/Files/Go_AMS/Tour/02.jpeg" },
-  { id: 3, titleKey: "panel3Title", descKey: "panel3Desc", img: "/Files/Go_AMS/Tour/03.jpeg" },
-  { id: 4, titleKey: "panel4Title", descKey: "panel4Desc", img: "/Files/Go_AMS/Tour/04.jpeg" },
-  { id: 5, titleKey: "panel5Title", descKey: "panel5Desc", img: "/Files/Go_AMS/Tour/05.jpeg" },
-  { id: 6, titleKey: "panel6Title", descKey: "panel6Desc", img: "/Files/Go_AMS/Tour/06.jpeg" },
-  { id: 7, titleKey: "panel7Title", descKey: "panel7Desc", img: "/Files/Go_AMS/Tour/07.jpeg" },
+  { id: 1, titleKey: "panel1Title", descKey: "panel1Desc", img: "/Files/Go_AMS/Tour/01.webp" },
+  { id: 2, titleKey: "panel2Title", descKey: "panel2Desc", img: "/Files/Go_AMS/Tour/02.webp" },
+  { id: 3, titleKey: "panel3Title", descKey: "panel3Desc", img: "/Files/Go_AMS/Tour/03.webp" },
+  { id: 4, titleKey: "panel4Title", descKey: "panel4Desc", img: "/Files/Go_AMS/Tour/04.webp" },
+  { id: 5, titleKey: "panel5Title", descKey: "panel5Desc", img: "/Files/Go_AMS/Tour/05.webp" },
+  { id: 6, titleKey: "panel6Title", descKey: "panel6Desc", img: "/Files/Go_AMS/Tour/06.webp" },
+  { id: 7, titleKey: "panel7Title", descKey: "panel7Desc", img: "/Files/Go_AMS/Tour/07.webp" },
 ];
 
 export default function BackOfficeTour() {

@@ -460,8 +460,11 @@ function QuoteEnrollDesktop() {
         <div className="absolute inset-0 z-0 pointer-events-none bg-[var(--color-surface-BG-base)]">
           <div className="qw-aura absolute inset-0 w-full h-full opacity-60 dark:opacity-40 mix-blend-screen dark:mix-blend-plus-lighter transform scale-110 origin-bottom">
             <img 
-              src={asset("/landing/go-ams/quote_enroll_aura.jpg")} 
-              alt="Abstract Aura Background" 
+              src={asset("/landing/go-ams/quote_enroll_aura.webp")} 
+              alt=""
+              aria-hidden="true"
+              loading="lazy"
+              decoding="async"
               className="w-full h-full object-cover"
             />
           </div>
@@ -684,8 +687,11 @@ function QuoteEnrollMobile() {
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden bg-[var(--color-surface-BG-base)]">
         <div className="absolute inset-0 w-full h-full opacity-60 dark:opacity-40 mix-blend-screen dark:mix-blend-plus-lighter">
           <img 
-            src={asset("/landing/go-ams/quote_enroll_aura.jpg")} 
-            alt="Abstract Aura Background" 
+            src={asset("/landing/go-ams/quote_enroll_aura.webp")} 
+            alt=""
+              aria-hidden="true"
+              loading="lazy"
+              decoding="async"
             className="w-full h-full object-cover"
           />
         </div>

@@ -275,12 +275,14 @@ export default function HeroSection() {
                 
                 {/* Media Editor (Video) */}
                 <div id="hero-video" className="relative z-0 flex items-center justify-center w-full overflow-hidden rounded-2xl lg:rounded-l-[16px] lg:rounded-r-none h-auto">
-                  <video 
-                    autoPlay 
-                    muted 
-                    loop 
+                  <video
+                    autoPlay
+                    muted
+                    loop
                     playsInline
                     preload="auto"
+                    poster={asset("/Files/Go_AMS/Hero/posters/go_ams_hero.webp")}
+                    aria-hidden="true"
                     className="w-full h-auto block object-contain rounded-2xl lg:rounded-l-[16px] lg:rounded-r-none"
                   >
                     <source src={asset("/Files/Go_AMS/Hero/go_ams_hero.mp4")} type="video/mp4" />
