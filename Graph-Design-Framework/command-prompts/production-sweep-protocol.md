@@ -387,6 +387,26 @@ lo arregles.**
 **9.7 · Hero es LCP.** `Hero_02.mp4` mantiene `autoPlay` a propósito. Recodifícalo y dale `poster`, pero **no
 lo migres a `SmartVideo`**.
 
+**9.8 · El eje INLINE puede ser MEDIA disfrazado.** El fingerprint clasifica **por atributo, no por semántica**:
+un asset servido con `style={{ backgroundImage: url(...) }}` cae en INLINE, no en MEDIA. En el barrido de
+`/go-ams` los `-11/+11` de INLINE resultaron ser los `background-image:url()` de `BackOfficeTour` y
+`PlatformRevealSection` cambiando `.jpeg` → `.webp`. **Inspecciona siempre el diff de INLINE línea por línea
+antes de concluir que movió el diseño — y también antes de concluir que no.** Un `padding` cambiado se ve
+exactamente igual de inocente en el resumen.
+
+**9.9 · Convertir un asset compartido rompe otras rutas.** `epicare_bg_aura_blue.jpg` lo usaban
+`ProductSpotlight` (landing), `GoAmsProblemSection` y `CalendarConcept` (go-crm); `S14_cta_swiss_blue.jpg`,
+tres CTA distintos. **Antes de renombrar, `grep` el basename en TODO `src/`, no solo en la sección que barres**,
+y verifica al final que cada referencia del HTML generado resuelve a un archivo real:
+
+```bash
+for p in out/index.html out/go-crm/index.html out/go-ams/index.html out/licensing/index.html; do
+  grep -oE '(src|poster)="/[^"]*"' "$p" | sed 's/.*="//;s/"$//' | sort -u | while read -r a; do
+    [ -f "out$a" ] || echo "FALTA $a ($p)"
+  done
+done
+```
+
 ---
 
 ## PROMPT PARA EJECUTAR

@@ -88,3 +88,50 @@ es política deliberada del static export). Verificado archivo por archivo que e
 3. `Hero_02.mp4`: 5.14 MB a CRF 24. Hay 4.34 MB a CRF 26 o 3.51 MB a CRF 28.
 4. Eje C (70 px, 38 hex, 37 `as any` en el landing) — requiere revisión visual.
 5. Los 4 `alt` en español de `go-ams/agent-agency/data.ts`.
+
+---
+
+# Anexo: Barrido de `/go-ams` (mismo día)
+
+> Rama: `prod-sweep-go-ams` (apilada sobre `prod-sweep-landing`) · `public/` **25 MB → 18 MB**
+
+## Cifras
+
+| | Antes | Después |
+|:--|--:|--:|
+| BackOfficeTour (7 JPEG 1024×1024) | 3.96 MB | 530 KB |
+| PlatformReveal (`go-ams-quote` venía a 2752×1536) | 2.72 MB | 203 KB |
+| Downline (3 PNG de UI) | 463 KB | 133 KB |
+| QuoteEnroll (aura de fondo) | 315 KB | 6 KB |
+| Delegate_Users.mp4 (el último con pista AAC) | 647 KB | 225 KB |
+| **Primera pantalla de `/go-ams`** | — | **0.38 MB** |
+
+## Dos bugs de producción corregidos
+
+- **`DelegateUsersSection` usaba `src="/Files/..."` sin `asset()`** → 404 garantizado bajo el `basePath`
+  `/Epicare`. Era el segundo de los dos casos del censo inicial (el primero, `CierreGoCrm`, cayó en el
+  barrido del landing). **Ya no queda ninguno.**
+- El mismo `<video>` era `autoPlay` crudo bajo el fold → descargaba entero aunque nadie lo viera.
+  Migrado a `<SmartVideo>` con poster.
+
+## Deuda del framework que resultó estar obsoleta
+
+La tabla de `codebase-architecture-protocol.md` §7 y el To-Do del contexto afirmaban que `/go-ams` tenía
+*"cuerpo aún en español bajo `lang="en"`"* y *"un usuario ficticio en producción (`Manuel Depool`,
+`HeroSection.tsx:86-87`)"*. **Ambos ya estaban resueltos:** cero coincidencias de `Depool` en `src/`,
+`messages/` y el HTML generado, y cero frases en español en `out/go-ams/index.html`. Corregido en el contexto.
+
+## Nota sobre el fingerprint: INLINE puede ser MEDIA disfrazado
+
+`/go-ams` dio **INLINE -11/+11**, que la ley 4 marca como sospechoso. La inspección mostró que los 11 son
+`background-image:url()` del Tour y de PlatformReveal cambiando de extensión `.jpeg` → `.webp`: ni una
+posición, medida ni color se movió. **El fingerprint clasifica por atributo, no por semántica**, así que un
+cambio de asset servido por `style` cae en INLINE en vez de en MEDIA. Conviene inspeccionar siempre el diff
+de INLINE antes de asumir que movió el diseño — y también antes de asumir que no.
+
+## Hallazgos NO corregidos
+
+- 🔴 **`QuoteEnroll.tsx:42-44` carga 3 avatares desde `randomuser.me`** en producción: dependencia externa
+  sin control, y son personas ficticias presentadas como clientes reales. Requiere decisión (assets propios,
+  o quitar los avatares).
+- Los 4 `alt` en español de `agent-agency/data.ts` siguen pendientes (afectan a `/` y a `/go-ams`).
