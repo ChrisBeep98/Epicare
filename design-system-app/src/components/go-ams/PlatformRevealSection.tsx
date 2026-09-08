@@ -346,8 +346,8 @@ export default function PlatformRevealSection() {
               >
                 {/* Imagen con parallax interno */}
                 <div 
-                  className="bg-parallax-inner absolute top-[-10%] left-0 w-full h-[120%] bg-cover bg-center opacity-100" 
-                  style={{ backgroundImage: `url('${asset('/Files/Go_AMS/go-ams-quote.webp')}')` }}
+                  className="bg-parallax-inner absolute top-[-10%] left-0 w-full h-[120%] bg-center opacity-100" 
+                  style={{ backgroundImage: `url('${asset('/Files/Go_AMS/go-ams-quote.webp')}')`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }}
                 />
                 
                 {/* Pestaña flotante sobre la imagen */}
