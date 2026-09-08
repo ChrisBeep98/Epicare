@@ -302,8 +302,8 @@ export default function BentoGridDesktop() {
               title="GO AMS" 
               desc={t('card1Desc')} 
               Logo={AmsLogo} 
-              videoLight={asset("/Files/Go_AMS/Hero/go_ams_hero.mp4")}
-              videoDark={asset("/Files/Go_AMS/Hero/go_ams_hero.mp4")} 
+              videoLight={asset("/Files/Go_AMS/hero/go-ams-hero.mp4")}
+              videoDark={asset("/Files/Go_AMS/hero/go-ams-hero.mp4")} 
               ctaText={t('cardCta')} 
               href="/go-ams"
               isAms

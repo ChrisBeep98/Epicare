@@ -18,21 +18,21 @@ const CARDS_DATA = [
     id: 1,
     titleKey: "card1Title",
     altKey: "card1Alt",
-    image: "/Files/Go_AMS/downline_and ecosystem/downline 1.webp",
+    image: "/Files/Go_AMS/downline/go-ams-downline-overview.webp",
     icon: <TreeStructure weight="duotone" className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
   },
   {
     id: 2,
     titleKey: "card2Title",
     altKey: "card2Alt",
-    image: "/Files/Go_AMS/downline_and ecosystem/locense_details.webp",
+    image: "/Files/Go_AMS/downline/go-ams-downline-license-details.webp",
     icon: <Certificate weight="duotone" className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
   },
   {
     id: 3,
     titleKey: "card3Title",
     altKey: "card3Alt",
-    image: "/Files/Go_AMS/downline_and ecosystem/Invite to downline.webp",
+    image: "/Files/Go_AMS/downline/go-ams-downline-invite.webp",
     icon: <UserPlus weight="duotone" className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
   }
 ];

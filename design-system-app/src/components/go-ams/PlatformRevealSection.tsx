@@ -185,7 +185,7 @@ export default function PlatformRevealSection() {
                 {/* Imagen con parallax interno */}
                 <div 
                   className="bg-parallax-inner absolute top-[-10%] left-0 w-full h-[120%] bg-cover bg-center opacity-100" 
-                  style={{ backgroundImage: `url('${asset('/Files/Go_AMS/go-ams-backoffice.webp')}')` }}
+                  style={{ backgroundImage: `url('${asset('/Files/Go_AMS/platform/go-ams-backoffice.webp')}')` }}
                 />
                 
                 {/* Pestaña flotante sobre la imagen */}
@@ -273,7 +273,7 @@ export default function PlatformRevealSection() {
                   {/* Blurred screenshot in background for authentic depth */}
                   <div 
                     className="absolute inset-0 bg-cover bg-center blur-xl scale-125 opacity-45" 
-                    style={{ backgroundImage: `url('${asset('/Files/Go_AMS/go-ams-backoffice.webp')}')` }}
+                    style={{ backgroundImage: `url('${asset('/Files/Go_AMS/platform/go-ams-backoffice.webp')}')` }}
                   />
                   <div className="absolute inset-0 bg-[var(--color-surface-BG-1)]/60 backdrop-blur-2xl" />
                   <div className="absolute inset-0 bg-noise opacity-20 mix-blend-overlay" />
@@ -347,7 +347,7 @@ export default function PlatformRevealSection() {
                 {/* Imagen con parallax interno */}
                 <div 
                   className="bg-parallax-inner absolute top-[-10%] left-0 w-full h-[120%] bg-center opacity-100" 
-                  style={{ backgroundImage: `url('${asset('/Files/Go_AMS/go-ams-quote.webp')}')`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }}
+                  style={{ backgroundImage: `url('${asset('/Files/Go_AMS/platform/go-ams-quote-enroll.webp')}')`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }}
                 />
                 
                 {/* Pestaña flotante sobre la imagen */}
@@ -435,7 +435,7 @@ export default function PlatformRevealSection() {
                   {/* Blurred screenshot in background for authentic depth */}
                   <div 
                     className="absolute inset-0 bg-cover bg-center blur-xl scale-125 opacity-45" 
-                    style={{ backgroundImage: `url('${asset('/Files/Go_AMS/go-ams-quote.webp')}')` }}
+                    style={{ backgroundImage: `url('${asset('/Files/Go_AMS/platform/go-ams-quote-enroll.webp')}')` }}
                   />
                   <div className="absolute inset-0 bg-[var(--color-surface-BG-1)]/60 backdrop-blur-2xl" />
                   <div className="absolute inset-0 bg-noise opacity-20 mix-blend-overlay" />

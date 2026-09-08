@@ -281,11 +281,11 @@ export default function HeroSection() {
                     loop
                     playsInline
                     preload="auto"
-                    poster={asset("/Files/Go_AMS/Hero/posters/go_ams_hero.webp")}
+                    poster={asset("/Files/Go_AMS/hero/posters/go-ams-hero-poster.webp")}
                     aria-hidden="true"
                     className="w-full h-auto block object-contain rounded-2xl lg:rounded-l-[16px] lg:rounded-r-none"
                   >
-                    <source src={asset("/Files/Go_AMS/Hero/go_ams_hero.mp4")} type="video/mp4" />
+                    <source src={asset("/Files/Go_AMS/hero/go-ams-hero.mp4")} type="video/mp4" />
                   </video>
                   {/* Textura de ruido optimizada */}
                   <div className="absolute inset-0 bg-noise pointer-events-none z-10 mix-blend-overlay opacity-80 rounded-2xl lg:rounded-l-[16px] lg:rounded-r-none" />

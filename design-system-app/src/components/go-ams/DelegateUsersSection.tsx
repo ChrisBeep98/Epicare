@@ -143,8 +143,8 @@ export default function DelegateUsersSection() {
               {/* VIDEO PLAYER INSTEAD OF 3D SCENE */}
               <div className="w-[320px] sm:w-[360px] lg:w-full max-w-md relative overflow-hidden rounded-xl shadow-[0_30px_60px_rgba(0,0,0,0.1)] border border-white/60">
                 <SmartVideo
-                  src={asset("/Files/Go_AMS/Delegate_Users.mp4")}
-                  poster={asset("/Files/Go_AMS/posters/Delegate_Users.webp")}
+                  src={asset("/Files/Go_AMS/delegate/go-ams-delegate-users.mp4")}
+                  poster={asset("/Files/Go_AMS/delegate/posters/go-ams-delegate-users-poster.webp")}
                   className="w-full h-auto block"
                 />
               </div>
