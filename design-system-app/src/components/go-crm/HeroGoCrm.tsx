@@ -212,15 +212,6 @@ export default function HeroGoCrm() {
       ref={containerRef}
       className="w-full flex flex-col bg-[var(--color-surface-BG-base)] text-[var(--color-text-primary)] relative overflow-x-clip pt-[calc(var(--space-section-md)+20px)] lg:pt-section-md pb-section-lg"
     >
-      {/* ── BACKGROUND AMBIENT GLOWS ── */}
-      <div
-        className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[min(95vw,900px)] h-[min(95vw,600px)] rounded-full pointer-events-none opacity-25 dark:opacity-35 blur-[140px] bg-[radial-gradient(ellipse_at_center,var(--color-brand-blue)_0%,transparent_70%)]"
-        aria-hidden="true"
-      />
-      <div
-        className="absolute top-2/3 right-[-10%] w-[min(60vw,500px)] h-[min(60vw,500px)] rounded-full pointer-events-none opacity-15 dark:opacity-20 blur-[120px] bg-[radial-gradient(circle,var(--color-brand-orange)_0%,transparent_70%)]"
-        aria-hidden="true"
-      />
 
       {/* ── 12-COLUMN UNIFIED HERO GRID ── */}
       <section className="relative w-full flex-1 px-gutter-sm lg:px-gutter-md">
