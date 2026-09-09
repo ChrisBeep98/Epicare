@@ -70,7 +70,7 @@ function BleedRight({ children, className = "" }: { children: React.ReactNode; c
     <div
       ref={ref}
       style={{ right: offset > 0 ? `-${offset}px` : undefined }}
-      className={`${className} min-w-[100%] w-full lg:w-full`}
+      className={`${className} min-w-[150%] w-[150%] -mr-[50%] lg:min-w-0 lg:w-full lg:mr-0`}
     >
       {children}
     </div>
@@ -224,7 +224,7 @@ export default function HeroGoCrm() {
 
       {/* ── 12-COLUMN UNIFIED HERO GRID ── */}
       <section className="relative w-full flex-1 px-gutter-sm lg:px-gutter-md">
-        <div className="mx-auto max-w-section-xl w-full grid-layout gap-y-static-lg lg:gap-y-static-xl">
+        <div className="mx-auto max-w-section-xl w-full grid-layout gap-y-static-md lg:gap-y-static-xl">
           
           {/* ── TOP EDITORIAL ROW ── */}
           
@@ -287,12 +287,12 @@ export default function HeroGoCrm() {
               })}
             </p>
 
-            {/* Primary CTA */}
-            <div className="crm-hero-cta flex flex-col items-start gap-static-xs w-full sm:w-auto">
+            {/* Primary CTA & Mobile Scroll Bubble */}
+            <div className="crm-hero-cta flex flex-row items-center gap-3 w-full lg:w-auto mt-2 lg:mt-0">
               <button
                 type="button"
                 onClick={handleCtaClick}
-                className="group w-fit h-12 pl-6 pr-2 rounded-full flex items-center gap-3 bg-[var(--color-brand-blue)] text-white shadow-elevation-2 transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-elevation-4 active:scale-[0.96] active:opacity-80 active:duration-150 cursor-pointer"
+                className="group w-fit min-w-[220px] md:min-w-0 h-12 pl-6 pr-2 rounded-full flex justify-between md:justify-start items-center gap-3 bg-[var(--color-brand-blue)] text-white shadow-elevation-2 transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-elevation-4 active:scale-[0.96] active:opacity-80 active:duration-150 cursor-pointer"
               >
                 <span className="text-body-sm font-medium">
                   {copied ? "✓ Registrado" : t("cta")}
@@ -301,6 +301,21 @@ export default function HeroGoCrm() {
                   <ArrowUR className="absolute w-4 h-4 transition-transform duration-300 ease-out group-hover:translate-x-5 group-hover:-translate-y-5" />
                   <ArrowUR className="absolute w-4 h-4 -translate-x-5 translate-y-5 transition-transform duration-300 ease-out group-hover:translate-x-0 group-hover:translate-y-0" />
                 </span>
+              </button>
+              
+              {/* Mobile Scroll Bubble */}
+              <button 
+                onClick={() => {
+                  const nextSection = document.getElementById("hero-wrapper")?.nextElementSibling;
+                  if (nextSection) {
+                    const top = nextSection.getBoundingClientRect().top + window.scrollY;
+                    window.scrollTo({ top, behavior: 'smooth' });
+                  }
+                }}
+                className="lg:hidden shrink-0 w-12 h-12 rounded-full flex items-center justify-center bg-[var(--color-brand-blue)] text-white shadow-elevation-2 active:scale-95 transition-transform cursor-pointer"
+                aria-label="Scroll down"
+              >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5"><path d="M12 5v14M5 12l7 7 7-7" /></svg>
               </button>
             </div>
           </div>
