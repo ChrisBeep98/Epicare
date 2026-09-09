@@ -4,7 +4,7 @@
  * @file HeroGoCrm.tsx
  * @description Master Hero component for the GO CRM product page.
  * Implements a 12-column editorial grid, masked line-by-line text reveal,
- * clean BleedRight SaaS UI mockup container with ambient lighting, and strict Zero Px Policy.
+ * BleedRight container for the video showcase, and strict Zero Px Policy.
  */
 
 import React, { useRef, useLayoutEffect, useState, useEffect } from "react";
@@ -30,7 +30,10 @@ const ArrowUR = ({ className = "" }: { className?: string }) => (
   </svg>
 );
 
-/** Helper to make a container break out of the right side of the grid and touch the viewport edge */
+/** 
+ * Helper to make a container break out of the right side 
+ * of the grid and touch the viewport edge 
+ */
 function BleedRight({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const [offset, setOffset] = useState(0);
@@ -87,7 +90,6 @@ export default function HeroGoCrm() {
     if (!el) return;
 
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
     let tl: gsap.core.Timeline;
 
     const ctx = gsap.context(() => {
@@ -113,7 +115,6 @@ export default function HeroGoCrm() {
       gsap.set(".crm-hero-microcopy", { opacity: 0, y: 10 });
       gsap.set(".crm-hero-showcase", { opacity: 0, y: 40, scale: 0.98 });
 
-      // Entrance timeline
       tl = gsap.timeline({ paused: true });
 
       tl.to(".crm-hero-eyebrow", {
@@ -179,7 +180,6 @@ export default function HeroGoCrm() {
         );
     }, el);
 
-    // Synchronize with Epicare Loader
     const playHeroEntrance = () => {
       requestAnimationFrame(() => {
         if (tl && tl.paused()) tl.play();
@@ -210,7 +210,7 @@ export default function HeroGoCrm() {
     <div
       id="hero-wrapper"
       ref={containerRef}
-      className="w-full flex flex-col bg-[var(--color-surface-BG-base)] text-[var(--color-text-primary)] relative overflow-x-hidden pt-[calc(var(--space-section-md)+20px)] lg:pt-section-md pb-section-lg"
+      className="w-full flex flex-col bg-[var(--color-surface-BG-base)] text-[var(--color-text-primary)] relative overflow-x-clip pt-[calc(var(--space-section-md)+20px)] lg:pt-section-md pb-section-lg"
     >
       {/* ── BACKGROUND AMBIENT GLOWS ── */}
       <div
@@ -228,10 +228,10 @@ export default function HeroGoCrm() {
           
           {/* ── TOP EDITORIAL ROW ── */}
           
-          {/* Col 1-8: Eyebrow + Headline + Microcopy (Directly Underneath Title) */}
-          <div className="col-span-12 lg:col-span-8 flex flex-col items-start justify-start gap-static-xs lg:pr-4">
+          {/* Col 1-7: Eyebrow + Headline */}
+          <div className="col-span-12 lg:col-start-1 lg:col-span-7 flex flex-col items-start justify-start gap-static-xs lg:pr-4 z-10">
             {/* Eyebrow */}
-            <div className="crm-hero-eyebrow inline-flex items-center gap-static-sm px-static-md py-static-xs rounded-full border border-[var(--color-border-Strokes-default)] bg-[var(--color-surface-BG-1)]/80 backdrop-blur-md mb-static-xs shadow-elevation-1">
+            <div className="crm-hero-eyebrow inline-flex items-center gap-static-xs mb-static-xs">
               <span className="w-2 h-2 rounded-full bg-[var(--color-brand-blue)] animate-pulse" />
               <span className="text-overline text-[var(--color-text-accent-blue)]">
                 {t("overline")}
@@ -239,12 +239,12 @@ export default function HeroGoCrm() {
             </div>
 
             {/* H1 Headline */}
-            <h1 className="text-display-xl font-bold tracking-tight text-[var(--color-text-primary)] w-full">
+            <h1 className="text-display-xl text-[var(--color-text-primary)] w-full">
               <span className="block overflow-hidden pb-1">
                 <span className="crm-hero-title-line block">
                   {t.rich("title", {
                     blue: (chunks) => (
-                      <span className="text-[var(--color-text-accent-blue)]">
+                      <span className="text-[var(--color-brand-blue)]">
                         {chunks}
                       </span>
                     ),
@@ -252,22 +252,31 @@ export default function HeroGoCrm() {
                 </span>
               </span>
             </h1>
-
-            {/* Microcopy with Status Pulse (Directly Under Title) */}
-            <div className="crm-hero-microcopy flex items-center gap-static-xs pt-static-xs">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--color-brand-orange)] opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--color-brand-orange)]"></span>
-              </span>
-              <p className="text-caption text-[var(--color-text-muted)]">
-                {t("microcopy")}
-              </p>
-            </div>
           </div>
 
-          {/* Col 9-12: Subhead + CTA (Right Side) */}
-          <div className="col-span-12 lg:col-start-9 lg:col-span-4 flex flex-col items-start justify-end gap-static-md">
-            {/* Subtitle: 1 Token Down (text-body-lg) + Expanded Width (max-w-[400px]) + Bold */}
+          {/* Col 9-12: Subhead + CTA + Microcopy (Right Side) */}
+          <div className="col-span-12 lg:col-start-9 lg:col-span-4 flex flex-col items-start justify-end gap-static-md z-10">
+            
+            {/* Construction Announcement Badge */}
+            <div className="crm-hero-microcopy inline-flex items-center gap-2.5 px-4 py-2 mt-2 rounded-full border border-[var(--color-border-Strokes-default)] bg-transparent">
+              <span className="w-2 h-2 rounded-full bg-[var(--color-text-secondary)] animate-pulse shrink-0" />
+              <span className="text-body-sm text-[var(--color-text-secondary)] font-medium">
+                {t.rich("microcopy", {
+                  muted: (chunks) => <span className="text-[var(--color-text-muted)] font-normal">{chunks}</span>
+                })}
+                {" "}
+                <a
+                  href="https://go.epicare.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[var(--color-brand-blue)] hover:underline font-semibold transition-colors"
+                >
+                  go.epicare.com
+                </a>
+              </span>
+            </div>
+
+            {/* Subtitle */}
             <p className="crm-hero-subtitle text-body-lg text-[var(--color-text-secondary)] max-w-[400px] leading-relaxed">
               {t.rich("subhead", {
                 bold: (chunks) => (
@@ -299,13 +308,55 @@ export default function HeroGoCrm() {
           {/* ── LOWER PART: UI SHOWCASE PANEL (BLEED-RIGHT TO VIEWPORT EDGE) ── */}
           <div className="col-span-12 lg:col-start-2 lg:col-span-11 w-full mt-static-md lg:mt-static-lg">
             <BleedRight className="relative w-full h-auto">
-              <div className="crm-hero-showcase relative w-full rounded-l-2xl lg:rounded-l-[24px] rounded-r-none border border-[var(--color-border-Strokes-default)] border-r-0 bg-[var(--color-surface-BG-1)] shadow-elevation-3 overflow-hidden p-0">
-                <img
-                  src={asset("/Files/Go_CRM/CRM_Hero.png")}
-                  alt="GO CRM Interface Pipeline Preview"
-                  loading="eager"
-                  className="w-full h-auto block rounded-l-2xl lg:rounded-l-[24px] rounded-r-none"
-                />
+              
+              {/* Scroll Down Button (Desktop Only) */}
+              <div className="absolute top-[140px] left-[-24px] -translate-x-full z-20 hidden lg:flex">
+                <button 
+                  onClick={() => {
+                    const nextSection = document.getElementById("hero-wrapper")?.nextElementSibling;
+                    if (nextSection) {
+                      const top = nextSection.getBoundingClientRect().top + window.scrollY;
+                      window.scrollTo({ top, behavior: 'smooth' });
+                    }
+                  }}
+                  className="group relative w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center bg-[var(--color-brand-blue)] text-white shadow-elevation-2 transition-all duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:shadow-elevation-4 active:scale-95 cursor-pointer"
+                  aria-label="Scroll down"
+                >
+                  <div className="absolute inset-0 rounded-full border border-white/20 scale-100 group-hover:scale-[1.15] opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out"></div>
+                  <span className="relative w-full h-full flex items-center justify-center overflow-hidden rounded-full">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" className="absolute w-5 h-5 transition-transform duration-[600ms] ease-[cubic-bezier(0.68,-0.6,0.32,1.6)] group-hover:translate-y-10" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7" /></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" className="absolute w-5 h-5 -translate-y-10 transition-transform duration-[600ms] ease-[cubic-bezier(0.68,-0.6,0.32,1.6)] group-hover:translate-y-0" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7" /></svg>
+                  </span>
+                </button>
+              </div>
+
+              <div className="crm-hero-showcase relative w-full rounded-l-2xl lg:rounded-l-[24px] rounded-r-none border border-[var(--color-border-Strokes-default)] border-r-0 bg-[#0A0A0A] shadow-elevation-3 overflow-hidden p-0 flex flex-col">
+                
+                {/* ── APPLE WINDOW HEADER ── */}
+                <div className="w-full h-[26px] lg:h-[34px] bg-[var(--color-surface-BG-1)] border-b border-[var(--color-border-Strokes-default)] flex items-center px-3 lg:px-4 shrink-0 z-10">
+                  <div className="flex gap-1.5">
+                    <div className="w-1.5 h-1.5 lg:w-2 lg:h-2 rounded-full bg-[#FF5F56]" />
+                    <div className="w-1.5 h-1.5 lg:w-2 lg:h-2 rounded-full bg-[#FFBD2E]" />
+                    <div className="w-1.5 h-1.5 lg:w-2 lg:h-2 rounded-full bg-[#27C93F]" />
+                  </div>
+                  {/* Subtle url bar / drag handle */}
+                  <div className="flex-1 flex justify-center ml-[-60px]">
+                    <div className="h-3 lg:h-4 w-1/3 max-w-[240px] bg-white/5 rounded-md border border-white/5" />
+                  </div>
+                </div>
+
+                {/* ── VIDEO CONTAINER (NATURAL ASPECT RATIO) ── */}
+                <div className="relative w-full overflow-hidden bg-[#0A0A0A] flex justify-center items-center">
+                  <video
+                    src={asset("/Files/Go_CRM/Hero/crm_UI_Hero_video.mp4")}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="w-full h-auto block origin-center"
+                  />
+                </div>
+
               </div>
             </BleedRight>
           </div>

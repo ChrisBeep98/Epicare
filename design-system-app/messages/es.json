@@ -483,10 +483,10 @@
   "goCrm": {
     "hero": {
       "overline": "GO CRM",
-      "title": "Tu libro de negocios, <blue>un centro de control.</blue>",
+      "title": "Tu Libro de Negocios, <blue>Un Centro de Control.</blue>",
       "subhead": "La capa de venta de <bold>GO Hub</bold>. Todo lo que pasa antes de que un prospecto se vuelva póliza, en un solo lugar.",
       "cta": "Avísame cuando esté disponible",
-      "microcopy": "En construcción. Se libera en go.epicare.com"
+      "microcopy": "En construcción. <muted>Se libera en</muted>"
     },
     "problem": {
       "overline": "El problema",
