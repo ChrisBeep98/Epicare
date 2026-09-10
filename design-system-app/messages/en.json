@@ -489,13 +489,29 @@
       "microcopy": "Under construction. Launching on go.epicare.com"
     },
     "problem": {
-      "overline": "The problem",
-      "h2": "You don't lose sales over price. You lose them because you forgot to call back.",
-      "p1": "Someone called on Tuesday asking for a plan. They stayed in your <b>call history</b>.",
-      "p2": "You sent them a quote via email. It's <b>still sitting there</b>.",
-      "p3": "They said they'd think about it, to check back in two weeks. That <b>stayed in your head</b>.",
-      "p4": "<b>You remembered too late.</b> They already bought.",
-      "cierre": "With 10 clients, memory works. <b>With 100, it doesn't.</b>"
+      "overline": "THE SALES JOURNEY",
+      "h2": "A sale doesn't happen in one step.",
+      "p1": "CONTACT",
+      "p1_sub": "A prospect enters the system.",
+      "p2": "OPPORTUNITY",
+      "p2_sub": "A real sales process begins.",
+      "p3": "PIPELINE",
+      "p3_sub": "The opportunity moves through stages.",
+      "p4": "TASK",
+      "p4_sub": "An action assigned with a deadline.",
+      "p5": "FOLLOW-UP",
+      "p5_sub": "Consistent contact until a decision.",
+      "p6": "APPOINTMENT",
+      "p6_sub": "The decisive meeting is scheduled.",
+      "p7": "OUTCOME",
+      "p7_sub": "Policy closed won or lost.",
+      "p1_desc": "The first touchpoint. Whether through a web form, a social media lead, or an inbound call, the prospect is instantly captured along with all their source data without manual entry.",
+      "p2_desc": "The signal turns into genuine interest. The agent qualifies the prospect, understands their coverage needs, and associates them with an active campaign. Real sales work begins here.",
+      "p3_desc": "Total visibility. The prospect enters a structured workflow where every stage is clear. You know exactly how many potential policies are in negotiation and the projected value for your agency.",
+      "p4_desc": "The engine that prevents lost sales. Every opportunity requires specific actions: 'call on Tuesday', 'send quote', 'request ID'. Tasks tied to firm deadlines that structure your entire workday.",
+      "p5_desc": "Where most fail, you persist. Relentless follow-up and constant reminders. The CRM keeps the communication cadence front and center until the client is ready to make an informed decision.",
+      "p6_desc": "The decisive moment. The formal meeting to review the final proposal, resolve objections, and compare carrier options. Everything scheduled and linked to the system's calendar.",
+      "p7_desc": "The cycle closes. The policy is sold and the client moves to your GO AMS book of business, or it is marked as a loss with a statistical rejection reason. Critical data to measure performance."
     },
     "salesLayer": {
       "overline": "The sales layer",
@@ -514,6 +530,45 @@
       "feature4Title": "Tracking",
       "feature4Desc": "Everything that happened with that person, recorded. And no prospect is left without a defined next step."
     },
+    "sources": {
+      "overline": "03 — Inbound Streams",
+      "headline": "Every opportunity starts somewhere.",
+      "description": "<normal>Whether a prospect finds you through</normal> <blue>Facebook,</blue> <normal>fills out a</normal> <blue>Web Form,</blue> <normal>sends a</normal> <blue>WhatsApp,</blue> <normal>or makes an</normal> <blue>Inbound Call...</blue> <normal>it all becomes one structured timeline.</normal>",
+      "outcomeUnified": "Unified Output",
+      "outcomeContact": "One Contact Profile",
+      "outcomeProcess": "Sales Process",
+      "outcomeOpportunity": "One Structured Pipeline",
+      "active": "Active"
+    },
+    "contactVsOpp": {
+      "overline": "04 — Contact ≠ Opportunity",
+      "headline": "One person can mean more than one opportunity.",
+      "contactLabel": "Contact Record",
+      "contactName": "Carlos Martínez",
+      "opp1": "Dental Opportunity",
+      "opp1Desc": "Independent workflow, timeline, and next steps for the Dental process.",
+      "opp2": "Auto Opportunity",
+      "opp2Desc": "Completely separate quoting engine and tracking for the Auto process.",
+      "opp3": "Life Opportunity",
+      "opp3Desc": "Long-term nurture pipeline specifically configured for Life coverage.",
+      "statusActive": "Active Client",
+      "openOpps": "Open Opportunities",
+      "tasksTitle": "Pending Tasks & Notes",
+      "task1Title": "Follow-up call — Dental",
+      "task1Time": "Today, 3:00 PM",
+      "task2Title": "Send quote — Auto Insurance",
+      "task2Time": "Pending review",
+      "taskNote": "Note: Prefers WhatsApp communication during mornings.",
+      "metricsTitle": "Relationship Metrics",
+      "metricLtv": "Projected LTV",
+      "metricLtvValue": "$12,450",
+      "metricFirstTouch": "First Touch",
+      "metricFirstTouchValue": "3 weeks ago (Web Form)",
+      "metricResponse": "Avg. Response Time",
+      "metricResponseValue": "4 minutes",
+      "metricTouchpoints": "Touchpoints Logged",
+      "metricTouchpointsValue": "14 interactions"
+    },
     "dayVsList": {
       "overline": "The difference",
       "h2": "Most systems give you a list. <blue>GO CRM gives you a day.</blue>",
@@ -529,4 +584,3 @@
     }
   }
 }
-

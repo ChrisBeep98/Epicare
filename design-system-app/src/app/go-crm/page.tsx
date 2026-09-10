@@ -5,10 +5,13 @@ import LoaderEpicare from "@/components/epicare/LoaderEpicare";
 import HeaderEpicare from "@/components/epicare/HeaderEpicare";
 import FooterEpicare from "@/components/epicare/FooterEpicare";
 import HeroGoCrm from "@/components/go-crm/HeroGoCrm";
+import SourcesGoCrmNew from "@/components/go-crm/SourcesGoCrmNew";
 import ProblemGoCrm from "@/components/go-crm/ProblemGoCrm";
 import SalesLayerGoCrm from "@/components/go-crm/SalesLayerGoCrm";
 import DayVsListContainer from "@/components/go-crm/day-vs-list";
 import CierreGoCrm from "@/components/go-crm/CierreGoCrm";
+import OpportunitySources from "@/components/go-crm/OpportunitySources";
+import ContactVsOpportunity from "@/components/go-crm/ContactVsOpportunity";
 
 export default function GoCrmPage() {
   const [isHeaderPill, setIsHeaderPill] = useState(false);
@@ -36,6 +39,8 @@ export default function GoCrmPage() {
 
       {/* ── GO CRM SECTIONS ── */}
       <HeroGoCrm />
+      <OpportunitySources />
+      <ContactVsOpportunity />
       <ProblemGoCrm />
       <SalesLayerGoCrm />
       <DayVsListContainer />
