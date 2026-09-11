@@ -581,6 +581,11 @@
       "step3Title": "Lo que no tiene siguiente paso.",
       "step3Desc": "Los prospectos que quedaron sin nada agendado. Son los que se caen.",
       "cierre": "Las reglas las defines tú. El orden lo mantiene el sistema."
+    },
+    "pipeline": {
+      "overline": "PIPELINE",
+      "headline": "Visualiza el avance real de cada oportunidad.",
+      "description": "Una vista clara del proceso comercial, desde los nuevos prospectos hasta las oportunidades que avanzan."
     }
   }
 }

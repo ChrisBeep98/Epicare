@@ -581,6 +581,11 @@
       "step3Title": "What has no next step.",
       "step3Desc": "Prospects left with nothing scheduled. These are the ones that slip through the cracks.",
       "cierre": "You define the rules. The system keeps the order."
+    },
+    "pipeline": {
+      "overline": "PIPELINE",
+      "headline": "See where every opportunity stands.",
+      "description": "A clear view of the sales process, from new prospects to opportunities that are moving forward."
     }
   }
 }
