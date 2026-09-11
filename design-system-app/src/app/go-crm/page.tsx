@@ -12,6 +12,8 @@ import DayVsListContainer from "@/components/go-crm/day-vs-list";
 import CierreGoCrm from "@/components/go-crm/CierreGoCrm";
 import OpportunitySources from "@/components/go-crm/OpportunitySources";
 import ContactVsOpportunity from "@/components/go-crm/ContactVsOpportunity";
+import ThePipeline from "@/components/go-crm/ThePipeline";
+import TheWorkBehindASale from "@/components/go-crm/TheWorkBehindASale";
 
 export default function GoCrmPage() {
   const [isHeaderPill, setIsHeaderPill] = useState(false);
@@ -41,6 +43,8 @@ export default function GoCrmPage() {
       <HeroGoCrm />
       <OpportunitySources />
       <ContactVsOpportunity />
+      <ThePipeline />
+      <TheWorkBehindASale />
       <ProblemGoCrm />
       <SalesLayerGoCrm />
       <DayVsListContainer />
