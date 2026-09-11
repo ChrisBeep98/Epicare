@@ -586,6 +586,14 @@
       "overline": "PIPELINE",
       "headline": "See where every opportunity stands.",
       "description": "A clear view of the sales process, from new prospects to opportunities that are moving forward."
+    },
+    "conversations": {
+      "overline": "CONVERSATIONS",
+      "headline": "Every conversation stays connected to the sale.",
+      "description": "WhatsApp, Email, and SMS don't happen in a vacuum. They belong inside the opportunity."
+    },
+    "automation": {
+      "headline": "Keep the follow-up moving automatically."
     }
   }
 }

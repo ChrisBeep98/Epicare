@@ -586,6 +586,14 @@
       "overline": "PIPELINE",
       "headline": "Visualiza el avance real de cada oportunidad.",
       "description": "Una vista clara del proceso comercial, desde los nuevos prospectos hasta las oportunidades que avanzan."
+    },
+    "conversations": {
+      "overline": "CONVERSACIONES",
+      "headline": "Cada conversación se mantiene conectada a la venta.",
+      "description": "WhatsApp, correos y SMS no ocurren en el vacío. Pertenecen dentro de la oportunidad."
+    },
+    "automation": {
+      "headline": "Keep the follow-up moving automatically."
     }
   }
 }

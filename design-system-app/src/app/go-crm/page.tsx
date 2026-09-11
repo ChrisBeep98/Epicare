@@ -5,15 +5,15 @@ import LoaderEpicare from "@/components/epicare/LoaderEpicare";
 import HeaderEpicare from "@/components/epicare/HeaderEpicare";
 import FooterEpicare from "@/components/epicare/FooterEpicare";
 import HeroGoCrm from "@/components/go-crm/HeroGoCrm";
-import SourcesGoCrmNew from "@/components/go-crm/SourcesGoCrmNew";
 import ProblemGoCrm from "@/components/go-crm/ProblemGoCrm";
-import SalesLayerGoCrm from "@/components/go-crm/SalesLayerGoCrm";
-import DayVsListContainer from "@/components/go-crm/day-vs-list";
-import CierreGoCrm from "@/components/go-crm/CierreGoCrm";
 import OpportunitySources from "@/components/go-crm/OpportunitySources";
 import ContactVsOpportunity from "@/components/go-crm/ContactVsOpportunity";
 import ThePipeline from "@/components/go-crm/ThePipeline";
 import TheWorkBehindASale from "@/components/go-crm/TheWorkBehindASale";
+import DayVsListContainer from "@/components/go-crm/day-vs-list";
+import ConversationsGoCrm from "@/components/go-crm/ConversationsGoCrm";
+import AutomationGoCrm from "@/components/go-crm/AutomationGoCrm";
+import CierreGoCrm from "@/components/go-crm/CierreGoCrm";
 
 export default function GoCrmPage() {
   const [isHeaderPill, setIsHeaderPill] = useState(false);
@@ -41,13 +41,14 @@ export default function GoCrmPage() {
 
       {/* ── GO CRM SECTIONS ── */}
       <HeroGoCrm />
+      <ProblemGoCrm />
       <OpportunitySources />
       <ContactVsOpportunity />
       <ThePipeline />
       <TheWorkBehindASale />
-      <ProblemGoCrm />
-      <SalesLayerGoCrm />
       <DayVsListContainer />
+      <ConversationsGoCrm />
+      <AutomationGoCrm />
       <CierreGoCrm />
 
       {/* ── GLOBAL FOOTER ── */}
