@@ -11,7 +11,9 @@ export default function ContactVsOpportunity() {
 
 
   useLayoutEffect(() => {
-    let ctx = gsap.context(() => {
+    let mm = gsap.matchMedia();
+    
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: comp.current,
@@ -29,43 +31,94 @@ export default function ContactVsOpportunity() {
 
       // The headline fades in
       tl.to(".slice-headline", { opacity: 1, y: 0, duration: 0.5 }, 1);
+      
+      // The cards stagger in completely asymmetrically: Left (1), then Right (3), then Center (2)
+      tl.to(".opp-card:nth-child(1)", { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 1.2);
+      tl.to(".opp-card:nth-child(3)", { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 1.35);
+      tl.to(".opp-card:nth-child(2)", { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 1.5);
+    });
 
-    }, comp);
-    return () => ctx.revert();
+    return () => mm.revert();
   }, []);
 
   return (
     <section ref={comp} className="w-full h-screen relative bg-slate-900 overflow-hidden font-sans">
       
-      {/* Background Layer: The 3 Opportunities revealed */}
-      <div className="absolute inset-0 flex flex-col md:flex-row">
-        <div className="flex-1 border-r border-slate-800 flex flex-col justify-center px-gutter-md bg-slate-900">
-          <div className="w-12 h-12 rounded-full bg-blue-500/20 mb-6 border border-blue-500/30 flex items-center justify-center">
-             <div className="w-3 h-3 rounded-full bg-blue-400"></div>
+      {/* Background Layer: The Unified Opportunity revealed */}
+      <div className="absolute inset-0 bg-[#35BBFD] flex flex-col items-center justify-between pt-14 pb-3 px-gutter-md overflow-hidden">
+        {/* Subtle radial gradient for depth */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-white/20 via-transparent to-black/10" />
+        
+        {/* Title Container (Pushed to top) */}
+        <div className="relative z-10 w-full max-w-6xl mt-4">
+          <div className="slice-headline opacity-0 translate-y-8 w-full">
+            <h2 className="text-display-md md:text-display-lg text-white font-semibold tracking-tight text-left max-w-4xl mx-auto leading-[1.05] drop-shadow-md">
+              {t("headline")}
+            </h2>
           </div>
-          <h3 className="text-h3 text-white font-medium mb-4">{t("opp1")}</h3>
-          <p className="text-body-sm text-slate-400">{t("opp1Desc")}</p>
         </div>
-        <div className="flex-1 border-r border-slate-800 flex flex-col justify-center px-gutter-md bg-slate-800">
-          <div className="w-12 h-12 rounded-full bg-orange-500/20 mb-6 border border-orange-500/30 flex items-center justify-center">
-             <div className="w-3 h-3 rounded-full bg-orange-400"></div>
-          </div>
-          <h3 className="text-h3 text-white font-medium mb-4">{t("opp2")}</h3>
-          <p className="text-body-sm text-slate-400">{t("opp2Desc")}</p>
-        </div>
-        <div className="flex-1 flex flex-col justify-center px-gutter-md bg-slate-950">
-          <div className="w-12 h-12 rounded-full bg-emerald-500/20 mb-6 border border-emerald-500/30 flex items-center justify-center">
-             <div className="w-3 h-3 rounded-full bg-emerald-400"></div>
-          </div>
-          <h3 className="text-h3 text-white font-medium mb-4">{t("opp3")}</h3>
-          <p className="text-body-sm text-slate-400">{t("opp3Desc")}</p>
-        </div>
-      </div>
+          
+        {/* The 3 Opportunities Cards (At the bottom, 12px away from edge due to pb-3 on parent) */}
+        <div className="relative z-10 flex flex-col md:flex-row justify-center gap-3 w-full max-w-6xl mt-auto">
+            
+            {/* Opp 1: Dental */}
+            <div className="opp-card opacity-0 translate-y-24 relative w-full md:w-[320px] shrink-0 h-[50vh] max-h-[420px] min-h-[300px] flex flex-col p-8 md:p-10 rounded-xl border border-white/40 shadow-elevation-4 overflow-hidden group">
+              {/* STATIC BACKGROUND LAYER */}
+              <div className="absolute inset-0 -z-10 rounded-xl transition-transform duration-700 group-hover:scale-[1.02]">
+                <div className="absolute inset-0 bg-white/60 backdrop-blur-[40px] saturate-[1.5]" />
+                <div className="absolute inset-0 bg-gradient-to-br from-white/90 via-white/50 to-white/10" />
+                <div className="absolute inset-0 rounded-xl shadow-[inset_0_1px_1px_rgba(255,255,255,1)]" />
+              </div>
+              
+              {/* CONTENT LAYER */}
+              <div className="relative z-10 flex flex-col h-full">
+                <div className="w-16 h-16 rounded-2xl bg-white mb-8 flex items-center justify-center text-[#35BBFD] shadow-[inset_0_1px_1px_rgba(255,255,255,1),0_8px_20px_rgba(0,0,0,0.08)] shrink-0 transition-transform duration-500 group-hover:-translate-y-1">
+                   <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 21c-2 0-4-1.5-4.5-3.5-.5-1.5-.2-3 .5-4l1-1.5c.5-1 .8-2 .5-3-.3-1.5-1-2.5-2-3.5A5.5 5.5 0 0 1 7 2a5.5 5.5 0 0 1 5 4 5.5 5.5 0 0 1 5-4 5.5 5.5 0 0 1 5 3.5c-1 1-1.7 2-2 3.5-.3 1 0 2 .5 3l1 1.5c.7 1 .9 2.5.5 4C20 19.5 18 21 16 21c-2.5 0-3.5-1.5-4-3l-.5-1.5-.5 1.5c-.5 1.5-1.5 3-4 3z" /></svg>
+                </div>
+                <h3 className="text-h3 font-medium mb-4 tracking-tight text-slate-900">{t("opp1")}</h3>
+                <p className="text-body-md text-slate-700 leading-relaxed mt-auto">{t("opp1Desc")}</p>
+              </div>
+            </div>
 
-      <div className="slice-headline absolute top-12 w-full text-center z-40 opacity-0 translate-y-4 px-gutter-md">
-        <h2 className="text-h3 md:text-h2 text-white font-medium tracking-tight bg-slate-900/50 inline-block px-8 py-4 rounded-full backdrop-blur-md border border-slate-700">
-          {t("headline")}
-        </h2>
+            {/* Opp 2: Auto */}
+            <div className="opp-card opacity-0 translate-y-24 relative w-full md:w-[320px] shrink-0 h-[50vh] max-h-[420px] min-h-[300px] flex flex-col p-8 md:p-10 rounded-xl border border-white/40 shadow-elevation-4 overflow-hidden group">
+              {/* STATIC BACKGROUND LAYER */}
+              <div className="absolute inset-0 -z-10 rounded-xl transition-transform duration-700 group-hover:scale-[1.02]">
+                <div className="absolute inset-0 bg-white/60 backdrop-blur-[40px] saturate-[1.5]" />
+                <div className="absolute inset-0 bg-gradient-to-br from-white/90 via-white/50 to-white/10" />
+                <div className="absolute inset-0 rounded-xl shadow-[inset_0_1px_1px_rgba(255,255,255,1)]" />
+              </div>
+              
+              {/* CONTENT LAYER */}
+              <div className="relative z-10 flex flex-col h-full">
+                <div className="w-16 h-16 rounded-2xl bg-white mb-8 flex items-center justify-center text-[#35BBFD] shadow-[inset_0_1px_1px_rgba(255,255,255,1),0_8px_20px_rgba(0,0,0,0.08)] shrink-0 transition-transform duration-500 group-hover:-translate-y-1">
+                   <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>
+                </div>
+                <h3 className="text-h3 font-medium mb-4 tracking-tight text-slate-900">{t("opp2")}</h3>
+                <p className="text-body-md text-slate-700 leading-relaxed mt-auto">{t("opp2Desc")}</p>
+              </div>
+            </div>
+
+            {/* Opp 3: Vida */}
+            <div className="opp-card opacity-0 translate-y-24 relative w-full md:w-[320px] shrink-0 h-[50vh] max-h-[420px] min-h-[300px] flex flex-col p-8 md:p-10 rounded-xl border border-white/40 shadow-elevation-4 overflow-hidden group">
+              {/* STATIC BACKGROUND LAYER */}
+              <div className="absolute inset-0 -z-10 rounded-xl transition-transform duration-700 group-hover:scale-[1.02]">
+                <div className="absolute inset-0 bg-white/60 backdrop-blur-[40px] saturate-[1.5]" />
+                <div className="absolute inset-0 bg-gradient-to-br from-white/90 via-white/50 to-white/10" />
+                <div className="absolute inset-0 rounded-xl shadow-[inset_0_1px_1px_rgba(255,255,255,1)]" />
+              </div>
+              
+              {/* CONTENT LAYER */}
+              <div className="relative z-10 flex flex-col h-full">
+                <div className="w-16 h-16 rounded-2xl bg-white mb-8 flex items-center justify-center text-[#35BBFD] shadow-[inset_0_1px_1px_rgba(255,255,255,1),0_8px_20px_rgba(0,0,0,0.08)] shrink-0 transition-transform duration-500 group-hover:-translate-y-1">
+                   <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                </div>
+                <h3 className="text-h3 font-medium mb-4 tracking-tight text-slate-900">{t("opp3")}</h3>
+                <p className="text-body-md text-slate-700 leading-relaxed mt-auto">{t("opp3Desc")}</p>
+              </div>
+            </div>
+
+        </div>
       </div>
 
       {/* Foreground Layer: The Contact (Sliced via clip-path) */}
